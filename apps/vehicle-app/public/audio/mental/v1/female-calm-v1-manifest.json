@@ -3832,7 +3832,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B06/B06-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4000,
+      "sampleRate": 24000,
+      "bytes": 192044,
+      "sha256": "23425a1228af9c216bbd3e427aae1a5d6ec14c4a0a271fe202111089624b98d1",
+      "recipeSha256": "896f50a7773a2c36d310c04e0a945688cf7cbe2e3309475922913201255b386f",
+      "recipe": {
+        "text": "Bu duygunun tekrar etme sıklığıyla ilgili ne fark ettiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2738122195,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4000,
+        "sampleRate": 24000,
+        "bytes": 192044,
+        "peak": 0.71429443359375,
+        "rms": 0.09169381723519476,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 94.888,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B06/B06-V08",
@@ -3845,7 +3878,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B06/B06-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3320,
+      "sampleRate": 24000,
+      "bytes": 159404,
+      "sha256": "2222ce3ca5260469d706dd6fce970afb501a94767307235d9a1404354dfbcf48",
+      "recipeSha256": "6a7413d592db42b505f498771232e31d1ef0ddd25763170492744c2d35cef6ec",
+      "recipe": {
+        "text": "Yakın zamanda bu duygu ne kadar sıktı?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1271770819,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3320,
+        "sampleRate": 24000,
+        "bytes": 159404,
+        "peak": 0.74981689453125,
+        "rms": 0.0829667972186708,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 77.729,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B06/B06-V09",
@@ -3858,7 +3924,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B06/B06-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3800,
+      "sampleRate": 24000,
+      "bytes": 182444,
+      "sha256": "de3b93ea4231ff525347c1ce5db9620d627d578bf555e17d98bfafd7e45b955b",
+      "recipeSha256": "ccf29f1bbcb83d08199c0eacb45050d54f82035ee941af293134717bad66981d",
+      "recipe": {
+        "text": "Son dönemde bu duyguyu ne sıklıkla yaşadınız?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3781453988,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3800,
+        "sampleRate": 24000,
+        "bytes": 182444,
+        "peak": 0.564056396484375,
+        "rms": 0.07632179693049006,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 76.142,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B06/B06-V10",
@@ -3871,7 +3970,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B06/B06-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4960,
+      "sampleRate": 24000,
+      "bytes": 238124,
+      "sha256": "a6fa119ec0a19e6e3a44313da880b662bcec5c1bf24603f9fa1f32b8c371cbfc",
+      "recipeSha256": "7d09562f69ffc8246dc3de9734afc1c64d3d13fc56959e9f871f7152b8fc7862",
+      "recipe": {
+        "text": "Son zamanlarda böyle hissettiğiniz anlar ne kadar sık oluyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3671369317,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4960,
+        "sampleRate": 24000,
+        "bytes": 238124,
+        "peak": 0.689422607421875,
+        "rms": 0.08303313401242654,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 87.183,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V01",
@@ -3884,7 +4016,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2960,
+      "sampleRate": 24000,
+      "bytes": 142124,
+      "sha256": "20f3bf704e1f9fa17c3a9da9f1a69632c5100d80b2616778dd4608d38ff226ec",
+      "recipeSha256": "8a0fd6dd6a6a7be45742ec5799b78d89f1f29189416675568c0205f6b2f0e825",
+      "recipe": {
+        "text": "Bu günlük yaşamınızı nasıl etkiliyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1692214561,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2960,
+        "sampleRate": 24000,
+        "bytes": 142124,
+        "peak": 0.577117919921875,
+        "rms": 0.08270556618865214,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 52.349,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V02",
@@ -3897,7 +4062,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3920,
+      "sampleRate": 24000,
+      "bytes": 188204,
+      "sha256": "2c20d4f6788ffa1ba9c03fc3b56973b3c9d96d032d71a5d86c65224ede4af824",
+      "recipeSha256": "80f7efab56f7a109a1cd3f0d9a7b8b6db63873dac398dfaf909838363a6c932f",
+      "recipe": {
+        "text": "Bunun gündelik hayatınızda nasıl bir etkisi var?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3686775686,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3920,
+        "sampleRate": 24000,
+        "bytes": 188204,
+        "peak": 0.65875244140625,
+        "rms": 0.0928541754416065,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.391,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V03",
@@ -3910,7 +4108,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3080,
+      "sampleRate": 24000,
+      "bytes": 147884,
+      "sha256": "2ebbcb40c32fdb5c26ffff309126222f669e99e7bbd22f258365fe89d2c67075",
+      "recipeSha256": "95b90b2218acb5790a986ca65609933a4fd2e618c8e60e193ecb52ae4fcef550",
+      "recipe": {
+        "text": "Bu günlük hayatınıza nasıl yansıyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3819056525,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3080,
+        "sampleRate": 24000,
+        "bytes": 147884,
+        "peak": 0.66204833984375,
+        "rms": 0.08018297467382748,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 55.926,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V04",
@@ -3923,7 +4154,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3360,
+      "sampleRate": 24000,
+      "bytes": 161324,
+      "sha256": "19dbadbe62270e471995f4e85fc9392e5a87797a498289200dba14eee4dc684d",
+      "recipeSha256": "8b03a733a1b7ed0b345e231b718fbbd6fad16f384bbde4954937db69cfb6e422",
+      "recipe": {
+        "text": "Bu günlük düzeninizde neyi değiştiriyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 654988420,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3360,
+        "sampleRate": 24000,
+        "bytes": 161324,
+        "peak": 0.573272705078125,
+        "rms": 0.0802297276431567,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 61.232,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V05",
@@ -3936,7 +4200,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3480,
+      "sampleRate": 24000,
+      "bytes": 167084,
+      "sha256": "c49f43361494182d2cc63b0e5a6af8d20cd4664937d72fb685cc20ba85a1c726",
+      "recipeSha256": "9a2b649424faf50a542687b020b856b167a52e01216c8f16d0ceee2d9c4999ea",
+      "recipe": {
+        "text": "Gündelik hayatınız bundan nasıl etkilendi?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1749707302,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3480,
+        "sampleRate": 24000,
+        "bytes": 167084,
+        "peak": 0.808013916015625,
+        "rms": 0.08723278889868297,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 61.963,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V06",
@@ -3949,7 +4246,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4120,
+      "sampleRate": 24000,
+      "bytes": 197804,
+      "sha256": "cce5ddf1c56c46c21aacda66ab40dbc2fde5db911a0a4ca0b0a8b2d7161d0700",
+      "recipeSha256": "3f15f08bb99d6bd4dfd80b5d12fbb87d517984dacf6e06d890b429ec5facf55d",
+      "recipe": {
+        "text": "Sıradan bir gününüzde nasıl bir etki fark ediyorsunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 785876712,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4120,
+        "sampleRate": 24000,
+        "bytes": 197804,
+        "peak": 0.755615234375,
+        "rms": 0.0834976721167019,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 67.052,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V07",
@@ -3962,7 +4292,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3160,
+      "sampleRate": 24000,
+      "bytes": 151724,
+      "sha256": "4bb31bb194055e8bbbd28d0f4024bd8499489724434d52168067ef87e82567f9",
+      "recipeSha256": "3e87c866b86ed267ee2252da44cea1df600908b6bab5de11f2794f326774095f",
+      "recipe": {
+        "text": "Bu günlük işlerinizi nasıl etkiliyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 856248682,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3160,
+        "sampleRate": 24000,
+        "bytes": 151724,
+        "peak": 0.3951416015625,
+        "rms": 0.0665230438156522,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.375,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V08",
@@ -3975,7 +4338,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3760,
+      "sampleRate": 24000,
+      "bytes": 180524,
+      "sha256": "78bf5182a5a393da7a145953fc5d5eddbd69dfdee028b1bb3cc7a60837b109b8",
+      "recipeSha256": "dc027ea6ad84b0b6bf73dc511fcdf4ca7732017b4dafdea08f596b180b800c7d",
+      "recipe": {
+        "text": "Bu gündelik yaşamınızda neleri değiştiriyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2515505275,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3760,
+        "sampleRate": 24000,
+        "bytes": 180524,
+        "peak": 0.609649658203125,
+        "rms": 0.08658659195806849,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 62.35,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V09",
@@ -3988,7 +4384,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4000,
+      "sampleRate": 24000,
+      "bytes": 192044,
+      "sha256": "b89caa2d1db1920e56c98ab9a8b731b50fa6925c5da8b293c6c441d77dc8369c",
+      "recipeSha256": "3d13fa3ebce746d7d1a61d164b02a19bfaa34b5e58c2894750dbf9bcb15323dd",
+      "recipe": {
+        "text": "Bu sıradan bir günü geçirmenizi nasıl etkiliyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1865804947,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4000,
+        "sampleRate": 24000,
+        "bytes": 192044,
+        "peak": 0.64520263671875,
+        "rms": 0.0904453496306377,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 65.536,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B07/B07-V10",
@@ -4001,7 +4430,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B07/B07-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3640,
+      "sampleRate": 24000,
+      "bytes": 174764,
+      "sha256": "9543fc0e09794f1c50c856c5b6cafe4b8f720ef29532ff00247f4c1259acc058",
+      "recipeSha256": "6bea4a6171dab97070d076e4c3132adb5c4f4b028d320f868425d855dff1d0b5",
+      "recipe": {
+        "text": "Günlük yaşamınızın hangi kısmı bundan etkileniyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3563757195,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3640,
+        "sampleRate": 24000,
+        "bytes": 174764,
+        "peak": 0.5877685546875,
+        "rms": 0.0691845420408632,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.225,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V01",
@@ -4014,7 +4476,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3680,
+      "sampleRate": 24000,
+      "bytes": 176684,
+      "sha256": "bf953c3da0042bbce7be4c9c63649441f79416635f7750f62c6e7dc2aaf699fa",
+      "recipeSha256": "71a3df21a92cec8227dce2c3b830e5de0df06474b7476e64403c8a161cd94f07",
+      "recipe": {
+        "text": "Bu duygu geldiğinde genellikle ne yaparsınız?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3274560311,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3680,
+        "sampleRate": 24000,
+        "bytes": 176684,
+        "peak": 0.714569091796875,
+        "rms": 0.09740832168690619,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.182,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V02",
@@ -4027,7 +4522,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3800,
+      "sampleRate": 24000,
+      "bytes": 182444,
+      "sha256": "c55cb9bea5e4d87b683f0ff0bbba85c52f2b017ccd798d4ab560f73ab1fcfeba",
+      "recipeSha256": "9d7c6500b82cbecd207381f437f2df120ce3481b170b83e62aff42d7c2df8f2f",
+      "recipe": {
+        "text": "Böyle hissettiğinizde nasıl tepki verirsiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2247379270,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3800,
+        "sampleRate": 24000,
+        "bytes": 182444,
+        "peak": 0.58502197265625,
+        "rms": 0.08093340099391542,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 61.278,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V03",
@@ -4040,7 +4568,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3120,
+      "sampleRate": 24000,
+      "bytes": 149804,
+      "sha256": "9b8ec1be58dd838de307e270da93c281bb61b68a0a5b7a3ab0071f16f8ff101c",
+      "recipeSha256": "ce75c0d8f1db74db6a0d320fde4dfe4c0446525949cd5016c8a47cc1212776da",
+      "recipe": {
+        "text": "Bu duyguya alışılmış tepkiniz ne olur?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2384754740,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3120,
+        "sampleRate": 24000,
+        "bytes": 149804,
+        "peak": 0.563140869140625,
+        "rms": 0.0795410297303493,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 55.975,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V04",
@@ -4053,7 +4614,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3880,
+      "sampleRate": 24000,
+      "bytes": 186284,
+      "sha256": "18fa5bdce9d552ab60b434a37af79e59efc6d2e1ab217707e0cb8037fcf4a509",
+      "recipeSha256": "896740125715f59e3c1d11460b31c09a100eb4b647cc907033e275dc9a75071f",
+      "recipe": {
+        "text": "Bu olduğunda kendinizi ne yaparken bulursunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3779847255,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3880,
+        "sampleRate": 24000,
+        "bytes": 186284,
+        "peak": 0.961578369140625,
+        "rms": 0.08386995233286583,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 65.732,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V05",
@@ -4066,7 +4660,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3880,
+      "sampleRate": 24000,
+      "bytes": 186284,
+      "sha256": "c1a793ce93a6288f075ad739c3cd7bc0b7ff29bbf41bb215f516111b1947716c",
+      "recipeSha256": "4836731da1222739b9613912c2f7529673f6defc15b799b716349c74afe68db2",
+      "recipe": {
+        "text": "Bu duygu ortaya çıktığında nasıl davranırsınız?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2065010919,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3880,
+        "sampleRate": 24000,
+        "bytes": 186284,
+        "peak": 0.772979736328125,
+        "rms": 0.10742844459981499,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.843,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V06",
@@ -4079,7 +4706,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2920,
+      "sampleRate": 24000,
+      "bytes": 140204,
+      "sha256": "dfe2df38ade73b0d74aad52405a5b422780fa012a9f08f0e1eba994f44205fb3",
+      "recipeSha256": "7f0570d520822cc74e3c9b8b91ed033a785006109ee8776f25382090e9f9270e",
+      "recipe": {
+        "text": "Bu anlarda genellikle tepkiniz ne olur?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2211836464,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2920,
+        "sampleRate": 24000,
+        "bytes": 140204,
+        "peak": 0.87652587890625,
+        "rms": 0.09316023447738611,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 53.671,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V07",
@@ -4092,7 +4752,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3520,
+      "sampleRate": 24000,
+      "bytes": 169004,
+      "sha256": "432d95d9da4659231588b56f1261ec41716866768e74b38f6a364417c50ca89a",
+      "recipeSha256": "f5439d1a4125f0246bcd28a8f24384b061b8dab4a35d2082c6d72aa0169584ca",
+      "recipe": {
+        "text": "Bu duyguya karşılık genelde ne yaparsınız?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1027060244,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3520,
+        "sampleRate": 24000,
+        "bytes": 169004,
+        "peak": 0.899505615234375,
+        "rms": 0.09919504442791005,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 60.205,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V08",
@@ -4105,7 +4798,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3360,
+      "sampleRate": 24000,
+      "bytes": 161324,
+      "sha256": "1ae42dd4d579255c9a3910e17428470eb6914c08e48ef924e64d1f9489115640",
+      "recipeSha256": "8cc8331ec40035d655ecee0b09762281a6cc1122fbf77820597c28fe1d964887",
+      "recipe": {
+        "text": "Bu anlarda alışık olduğunuz tepki nedir?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3648031491,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3360,
+        "sampleRate": 24000,
+        "bytes": 161324,
+        "peak": 0.66351318359375,
+        "rms": 0.09479287096713843,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 59.043,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V09",
@@ -4118,7 +4844,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3840,
+      "sampleRate": 24000,
+      "bytes": 184364,
+      "sha256": "cfc4d4f4b50b23df371d02ea9143f30c4eb70af35cc3ae9f0bc301a1e1e05c2d",
+      "recipeSha256": "953889e218ccfeef7365fbbc79062afda19b722a5f237c56433fea1ee6932275",
+      "recipe": {
+        "text": "O sırada hangi davranışlarınızı fark ediyorsunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1523289648,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3840,
+        "sampleRate": 24000,
+        "bytes": 184364,
+        "peak": 0.691436767578125,
+        "rms": 0.08190427853266406,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.383,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B08/B08-V10",
@@ -4131,7 +4890,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B08/B08-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3760,
+      "sampleRate": 24000,
+      "bytes": 180524,
+      "sha256": "203353f4bd2446cfd2dfa46715b5fe238854345d778d16d309b00bfd74ccc09c",
+      "recipeSha256": "936a7b4b74924f457d027e451b3e5634fb566e7c43d12f7ea371a667e1755d16",
+      "recipe": {
+        "text": "Böyle hissettiğinizde davranışlarınızda ne oluyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 628687318,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3760,
+        "sampleRate": 24000,
+        "bytes": 180524,
+        "peak": 0.616973876953125,
+        "rms": 0.08926186223195694,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 61.576,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V01",
@@ -4144,7 +4936,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3760,
+      "sampleRate": 24000,
+      "bytes": 180524,
+      "sha256": "40106f4bed9a3f3fdeea463dc2a87648c7f980fbc5ff3238ad5c578b11bfbc6d",
+      "recipeSha256": "b3b421e92a539bb1f36d0e7200ff4fd834e90bd3af0efa417ebf4d01febcd8a5",
+      "recipe": {
+        "text": "Benzer durumlarda daha önce ne yardımcı oldu?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 161752970,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3760,
+        "sampleRate": 24000,
+        "bytes": 180524,
+        "peak": 0.888641357421875,
+        "rms": 0.12562681077153165,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.349,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V02",
@@ -4157,7 +4982,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 5120,
+      "sampleRate": 24000,
+      "bytes": 245804,
+      "sha256": "595faa426b62120a2e13a05d3b6e6e6507d96f9cedb9d903abe1f7a9543fb8d1",
+      "recipeSha256": "ca04cb4744e4c0b134f5e2128d6488400e8c9a7d1c1f32bcd9f72787cf360fe2",
+      "recipe": {
+        "text": "Buna benzer bir durumda size daha önce yardımcı olan bir şey var mı?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2565877664,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 5120,
+        "sampleRate": 24000,
+        "bytes": 245804,
+        "peak": 0.755157470703125,
+        "rms": 0.11256872427199688,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 79.023,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V03",
@@ -4170,7 +5028,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3760,
+      "sampleRate": 24000,
+      "bytes": 180524,
+      "sha256": "08662e9afbd420b269a77c27cb3600d90433dc6a6db15eef2bb6c3f2c5b93a0e",
+      "recipeSha256": "c325e4e4342fd66eefe8019bca24d92082e190a17896edb7be796968dec84139",
+      "recipe": {
+        "text": "Geçmişte benzer anlarda neyi yararlı buldunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 78665127,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3760,
+        "sampleRate": 24000,
+        "bytes": 180524,
+        "peak": 0.741546630859375,
+        "rms": 0.09980062418319663,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 62.108,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V04",
@@ -4183,7 +5074,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3920,
+      "sampleRate": 24000,
+      "bytes": 188204,
+      "sha256": "1bb9d18b8978ff7a30fde2dcf66182159eb2545c474cc1f7f43d5fbe82a97c4b",
+      "recipeSha256": "932a0c49d00a4988013ef3cb25e89643ddf673605c125f32fe6acecd55440dcf",
+      "recipe": {
+        "text": "Böyle durumlarda eskiden ne yardımcı olurdu?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3349334979,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3920,
+        "sampleRate": 24000,
+        "bytes": 188204,
+        "peak": 0.76483154296875,
+        "rms": 0.09065004265874452,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.232,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V05",
@@ -4196,7 +5120,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3880,
+      "sampleRate": 24000,
+      "bytes": 186284,
+      "sha256": "3e79cdb93424c6ee04135fe85b685f9062fc445671f606301dae18859f3ffaf6",
+      "recipeSha256": "fe062c1c73a219c9252edf493a409ebdf032018c968817f9fe2e9a318cc6bb78",
+      "recipe": {
+        "text": "Benzer durumları daha önce ne kolaylaştırdı?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2759106118,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3880,
+        "sampleRate": 24000,
+        "bytes": 186284,
+        "peak": 0.871856689453125,
+        "rms": 0.10445703767289227,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.261,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V06",
@@ -4209,7 +5166,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3400,
+      "sampleRate": 24000,
+      "bytes": 163244,
+      "sha256": "960a474d5201b44fa621d3e1719fd9aae7e22519cb1eefee962dddbb5a2bc6a2",
+      "recipeSha256": "dced56c92d470e29fde371dff300b5679de1036a2ace3f300c4e0fc6672c4d63",
+      "recipe": {
+        "text": "Benzer deneyimlerde hangi destek yardımcı oldu?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1676211774,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3400,
+        "sampleRate": 24000,
+        "bytes": 163244,
+        "peak": 0.726715087890625,
+        "rms": 0.0977970443045065,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.636,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V07",
@@ -4222,7 +5212,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3120,
+      "sampleRate": 24000,
+      "bytes": 149804,
+      "sha256": "d6896b3726c72241a5b1321a9c2fe286cbf1c743f71dfd581b0832c7c357a0f1",
+      "recipeSha256": "08f8aea175082df972f0371f48faf2320c3a91cd42830c19a262febe98c642a3",
+      "recipe": {
+        "text": "Benzer koşullarda neyi faydalı buldunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3088950312,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3120,
+        "sampleRate": 24000,
+        "bytes": 149804,
+        "peak": 0.62939453125,
+        "rms": 0.0835164724029455,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 53.229,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V08",
@@ -4235,7 +5258,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4480,
+      "sampleRate": 24000,
+      "bytes": 215084,
+      "sha256": "b7ddb558c618fc11b6abe4c2575d862673392716196f3df23f71d1593a833e7d",
+      "recipeSha256": "648e912bea21bd88d522df89d8b24a72db7b2d010e09ce2799f88eca20b939e2",
+      "recipe": {
+        "text": "Geçmişte böyle bir anı atlatmanıza ne yardımcı oldu?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 216028163,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4480,
+        "sampleRate": 24000,
+        "bytes": 215084,
+        "peak": 0.7861328125,
+        "rms": 0.09467102278377557,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 77.196,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V09",
@@ -4248,7 +5304,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4080,
+      "sampleRate": 24000,
+      "bytes": 195884,
+      "sha256": "c9edce252f940b0027506051940da3151861be68306994b19528697407bdfcff",
+      "recipeSha256": "4c1ebead4fec18485b535dbfe8344a0741d3cb5e8410d3ef9b99d995e086839c",
+      "recipe": {
+        "text": "Geçmişte benzer bir durumda sizin için ne işe yaradı?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 325217106,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4080,
+        "sampleRate": 24000,
+        "bytes": 195884,
+        "peak": 0.842681884765625,
+        "rms": 0.09148049911010245,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 70.996,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B09/B09-V10",
@@ -4261,7 +5350,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B09/B09-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3960,
+      "sampleRate": 24000,
+      "bytes": 190124,
+      "sha256": "e0407a5da47f4ea9c18b3731a4af733245bc0732ac7961f7650bff72b40ddf76",
+      "recipeSha256": "74cc70636d1f3a03af07cad8071a173f70843817242efb15e6b325f98e9c09c5",
+      "recipe": {
+        "text": "Bu daha önce olduğunda yardımcı olan bir şey oldu mu?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2573476318,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3960,
+        "sampleRate": 24000,
+        "bytes": 190124,
+        "peak": 0.744873046875,
+        "rms": 0.09974470187291833,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 65.243,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V01",
@@ -4274,7 +5396,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4560,
+      "sampleRate": 24000,
+      "bytes": 218924,
+      "sha256": "1e03ebfa6baeb38c15f303567e1f3743614c52203e18cdb4c74eb9d6719ff615",
+      "recipeSha256": "9746167be1e4f9c8e13e5a832e2e5af6a0398f2b85436771155554b5b63e2a1f",
+      "recipe": {
+        "text": "Şu anda en çok neye ihtiyacınız olduğunu hissediyorsunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1673268882,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4560,
+        "sampleRate": 24000,
+        "bytes": 218924,
+        "peak": 0.62005615234375,
+        "rms": 0.07611944414070597,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 73.664,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V02",
@@ -4287,7 +5442,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3400,
+      "sampleRate": 24000,
+      "bytes": 163244,
+      "sha256": "9db58c634174da44de496a9c023ec68b6201ec8c23e973739ce8320ca3909b15",
+      "recipeSha256": "937ebcefd14310d0e4588a3fe2066d084e75b86076d587ec9ff25b4b68a73592",
+      "recipe": {
+        "text": "Şu an en çok neye ihtiyaç var gibi geliyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3898766196,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3400,
+        "sampleRate": 24000,
+        "bytes": 163244,
+        "peak": 0.6983642578125,
+        "rms": 0.08476945865031868,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 60.371,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V03",
@@ -4300,7 +5488,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2920,
+      "sampleRate": 24000,
+      "bytes": 140204,
+      "sha256": "a7df217e5d1bcf59dfb17037d01ea7dcdf8af3728334d22e71fb4afd31eb3616",
+      "recipeSha256": "757f33247c835e3ef68a0a7bb528a5288cf2d0141f2d972f0cfc248f69349841",
+      "recipe": {
+        "text": "Şu anda ihtiyacınızı ne karşılar?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 142210756,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2920,
+        "sampleRate": 24000,
+        "bytes": 140204,
+        "peak": 0.709442138671875,
+        "rms": 0.09595234415654673,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 54.119,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V04",
@@ -4313,7 +5534,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3400,
+      "sampleRate": 24000,
+      "bytes": 163244,
+      "sha256": "bdc4314c3c8f46e576c33597d82db0381a88177cfeced7ebc7197610faa626d1",
+      "recipeSha256": "249ea1f703dbad34bea85b1a8ee5f15ef832c7cea69a33751646afc6803c26f3",
+      "recipe": {
+        "text": "Şu anda nasıl bir destek istiyorsunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2311126214,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3400,
+        "sampleRate": 24000,
+        "bytes": 163244,
+        "peak": 0.534820556640625,
+        "rms": 0.07767026232021519,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 60.964,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V05",
@@ -4326,7 +5580,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3920,
+      "sampleRate": 24000,
+      "bytes": 188204,
+      "sha256": "41c32ff3d8245c13abc540f2d55cb986b2ec0d3fdc25f377f6c2a4fdaa721d66",
+      "recipeSha256": "01037165adff3ed8a19e1636e37175aa65b0a5932d76b5b9b415d13403d06b10",
+      "recipe": {
+        "text": "Bu noktada kendiniz için en çok ne istiyorsunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 753327834,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3920,
+        "sampleRate": 24000,
+        "bytes": 188204,
+        "peak": 0.55029296875,
+        "rms": 0.06411585912696252,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 66.642,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V06",
@@ -4339,7 +5626,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3880,
+      "sampleRate": 24000,
+      "bytes": 186284,
+      "sha256": "82f4186bf4ecf099c0f1a1282881062e747df43a11046ef43dde5dbde6539df8",
+      "recipeSha256": "5c274d035d0d6e7fb7a87f2d0f313b218af9e563d44ea68f51b776150339c175",
+      "recipe": {
+        "text": "Şu an elinizde olması sizin için önemli olan ne?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 4049432917,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3880,
+        "sampleRate": 24000,
+        "bytes": 186284,
+        "peak": 0.72015380859375,
+        "rms": 0.0871801329539865,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.835,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V07",
@@ -4352,7 +5672,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4320,
+      "sampleRate": 24000,
+      "bytes": 207404,
+      "sha256": "07c469fff1142bf8b4b99e8ad787d50f36ab7986a97c016e230cc63ed2144f55",
+      "recipeSha256": "4d730855437221fb5d6ec7d23bab6353e8737c0c9c49334fc8d9c85b37aca29f",
+      "recipe": {
+        "text": "Şu anda hangi ihtiyacınız öne çıkıyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3338735075,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4320,
+        "sampleRate": 24000,
+        "bytes": 207404,
+        "peak": 0.71429443359375,
+        "rms": 0.0896070981223954,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 68.43,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V08",
@@ -4365,7 +5718,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 5040,
+      "sampleRate": 24000,
+      "bytes": 241964,
+      "sha256": "4158d83eb33dc53efd0247e990521955cb86e282e6f69baf89b543d24b6683f3",
+      "recipeSha256": "4e04cf35a79b08642a7cd9261303a10328741c0b6ba0a86cd0c72ca5549a39d6",
+      "recipe": {
+        "text": "Şu anda hayatınızda neyin daha çok olmasını istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 12052117,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 5040,
+        "sampleRate": 24000,
+        "bytes": 241964,
+        "peak": 0.7913818359375,
+        "rms": 0.11312193237557529,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 80.83,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V09",
@@ -4378,7 +5764,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3080,
+      "sampleRate": 24000,
+      "bytes": 147884,
+      "sha256": "5d544a882a19c8c276154b9053cc115fdb019713d95c29f19f23cff7a262f62b",
+      "recipeSha256": "b069610c865462730bb4ae142f292cdb0f9dce9f0003112e68e52eb00a39ccee",
+      "recipe": {
+        "text": "Şu anda en çok neyin olmasını istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1728637308,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3080,
+        "sampleRate": 24000,
+        "bytes": 147884,
+        "peak": 0.698455810546875,
+        "rms": 0.0866806113745119,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 59.805,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B10/B10-V10",
@@ -4391,7 +5810,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B10/B10-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2480,
+      "sampleRate": 24000,
+      "bytes": 119084,
+      "sha256": "81678313f7db26c05b023c6a4253834c27f6d94b65a49c82bd2ab164e7be05cc",
+      "recipeSha256": "88f9e89fadba8ef130f434efb0c04787474cc310c6cd8b317c5ed34e42212ea2",
+      "recipe": {
+        "text": "Bu anda ne size destek gibi gelir?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 126190616,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2480,
+        "sampleRate": 24000,
+        "bytes": 119084,
+        "peak": 0.660675048828125,
+        "rms": 0.08525336298080959,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 48.326,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V01",
@@ -4404,7 +5856,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4360,
+      "sampleRate": 24000,
+      "bytes": 209324,
+      "sha256": "3a4d9f922e1bcddd774f91c24b8666b027d459c9cfadc83f970241ab2f4d0ac8",
+      "recipeSha256": "33a36395282cf1ec8fe5c43f249dc175d9888b035e5667cec3c60859c1d89577",
+      "recipe": {
+        "text": "Kendiniz için hangi küçük sonraki adımı seçersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 474524874,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4360,
+        "sampleRate": 24000,
+        "bytes": 209324,
+        "peak": 0.5782470703125,
+        "rms": 0.07504384289442856,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 68.457,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V02",
@@ -4417,7 +5902,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4360,
+      "sampleRate": 24000,
+      "bytes": 209324,
+      "sha256": "b476c84fd14608f1faf807ae81c3c03b3a0727672810ab24829e32cd3216dbd3",
+      "recipeSha256": "f021d66bd8a9dc1d32ace2db9b3c3b6cdc9c1968a55e26f0c45a93c071ad5e8f",
+      "recipe": {
+        "text": "Sonraki adım olarak hangi küçük şeyi denemek istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1010448813,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4360,
+        "sampleRate": 24000,
+        "bytes": 209324,
+        "peak": 0.720245361328125,
+        "rms": 0.08216882758802056,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 68.638,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V03",
@@ -4430,7 +5948,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3920,
+      "sampleRate": 24000,
+      "bytes": 188204,
+      "sha256": "015b98d17690d2b49dd2c0afc3a6958f19d1ca0beaf988b1862460b4bf9bea9f",
+      "recipeSha256": "6f3e3ea4cc46e569bc1452bab47ef3366af35bf0387a665c6ad831a3777bd914",
+      "recipe": {
+        "text": "Hangi küçük ve yapılabilir adım size uygun geliyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2488645393,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3920,
+        "sampleRate": 24000,
+        "bytes": 188204,
+        "peak": 0.621795654296875,
+        "rms": 0.08401554513220996,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.893,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V04",
@@ -4443,7 +5994,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3720,
+      "sampleRate": 24000,
+      "bytes": 178604,
+      "sha256": "49ab6ba9a37a4c63c4d44e2f1a4006b1c1c46d7ec730dded9298e876da714793",
+      "recipeSha256": "5fdfea04e49e4e8830b14dd4d91b76700f174be8a2ca0cc4526567b707b44da1",
+      "recipe": {
+        "text": "Sırada yapmayı seçeceğiniz küçük bir şey ne olur?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3781097748,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3720,
+        "sampleRate": 24000,
+        "bytes": 178604,
+        "peak": 0.75201416015625,
+        "rms": 0.09029589385135033,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 67.463,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V05",
@@ -4456,7 +6040,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4040,
+      "sampleRate": 24000,
+      "bytes": 193964,
+      "sha256": "d3b94f0d3c67d65e37bcc6d33949d325420f8bdeac9ed8af31504c65e7e4c0d4",
+      "recipeSha256": "cc6c99e5f93927589e3d2818e47c76e8a18992c0f20702279c2b6dfa737852f2",
+      "recipe": {
+        "text": "Hangi küçük eylem bir sonraki adım olarak size uygun gelir?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1696033431,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4040,
+        "sampleRate": 24000,
+        "bytes": 193964,
+        "peak": 0.540435791015625,
+        "rms": 0.08050903741687429,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 68.619,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V06",
@@ -4469,7 +6086,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3400,
+      "sampleRate": 24000,
+      "bytes": 163244,
+      "sha256": "1cc1643669b2f517c248ebce4824bec68c9aa478a045cb7712c6ad2d029e78ed",
+      "recipeSha256": "247288291046367fe8628f3953f03da85a01f48c261f7851a3caced78a28b824",
+      "recipe": {
+        "text": "Atmak isteyeceğiniz küçük sonraki adım ne?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1468432125,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3400,
+        "sampleRate": 24000,
+        "bytes": 163244,
+        "peak": 0.548614501953125,
+        "rms": 0.0736509480455232,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 60.366,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V07",
@@ -4482,7 +6132,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3200,
+      "sampleRate": 24000,
+      "bytes": 153644,
+      "sha256": "7d3ae35c2e290b789ef34885ec788c0aaeb8ca91023617afa4487939a459fe38",
+      "recipeSha256": "56fe97c76dda26bc82b24cb19e517153b2a28784b4dbc68cee0f2b251b3b4a35",
+      "recipe": {
+        "text": "Hangi küçük eylemle başlamak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1370375169,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3200,
+        "sampleRate": 24000,
+        "bytes": 153644,
+        "peak": 0.4912109375,
+        "rms": 0.07300391782159485,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.824,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V08",
@@ -4495,7 +6178,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3480,
+      "sampleRate": 24000,
+      "bytes": 167084,
+      "sha256": "c9d42d6803a37653f2f8d5f811ef915b7ddff3bd9be7e73fa005541943d983f4",
+      "recipeSha256": "2642c3f0f287858a4ee439c7f1a1c94f3c3db3b33ff782ece8e5054a2350ca24",
+      "recipe": {
+        "text": "Bundan sonra istediğinize hangi küçük adım uyar?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 756526933,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3480,
+        "sampleRate": 24000,
+        "bytes": 167084,
+        "peak": 0.81695556640625,
+        "rms": 0.0847178115457478,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.325,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V09",
@@ -4508,7 +6224,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4840,
+      "sampleRate": 24000,
+      "bytes": 232364,
+      "sha256": "886c1261e7cd077a548c2de8b37ac5a63119fbdbb475873b4bf044b12e9c10fc",
+      "recipeSha256": "572369bc7723160590846e8065a316f184597a71c197ea73e1d0b3cf7861cbd8",
+      "recipe": {
+        "text": "Seçmekte rahat hissedeceğiniz küçük bir sonraki adım ne olur?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 226055522,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4840,
+        "sampleRate": 24000,
+        "bytes": 232364,
+        "peak": 0.639251708984375,
+        "rms": 0.08380543782851461,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 71.985,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B11/B11-V10",
@@ -4521,7 +6270,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B11/B11-V10",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3480,
+      "sampleRate": 24000,
+      "bytes": 167084,
+      "sha256": "216a57750a1f0bfed6621d0ecc73ba302c38fbe1af60ecb545487cf72a6adf81",
+      "recipeSha256": "357e89eeb87e28864fb7ca7aed6e4e643815c9499b7534af71e8da197be3e69a",
+      "recipe": {
+        "text": "Başlangıç için hangi küçük eylemi seçersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3755073045,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3480,
+        "sampleRate": 24000,
+        "bytes": 167084,
+        "peak": 0.71087646484375,
+        "rms": 0.0654359109461233,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 57.629,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V01",
@@ -4534,7 +6316,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V01",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3760,
+      "sampleRate": 24000,
+      "bytes": 180524,
+      "sha256": "7d1d2a39b976e2383ed0230115f10cab87d25817e02726b5483a5350f5837c8d",
+      "recipeSha256": "78fe3db3b12d55a0584d51ea9d6000920cabb80db2a2545a89d8542c812da7f0",
+      "recipe": {
+        "text": "Bu görüşmeden yanınıza ne almak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1569920938,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3760,
+        "sampleRate": 24000,
+        "bytes": 180524,
+        "peak": 0.63812255859375,
+        "rms": 0.07596538402942549,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 64.538,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V02",
@@ -4547,7 +6362,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V02",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3880,
+      "sampleRate": 24000,
+      "bytes": 186284,
+      "sha256": "bed92810fdd9a6971ac196af6b1827a7c66b31ee68ddd38a7aeab754847378c9",
+      "recipeSha256": "7315be8ac13fa070c4d22d6d32a6bf3b2214ac3d967fe59ed8ed5af9db9fecef",
+      "recipe": {
+        "text": "Konuşmamızdan sizin için en önemli kalan ne?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 747824528,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3880,
+        "sampleRate": 24000,
+        "bytes": 186284,
+        "peak": 0.583587646484375,
+        "rms": 0.07642623804470221,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 65.246,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V03",
@@ -4560,7 +6408,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V03",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3920,
+      "sampleRate": 24000,
+      "bytes": 188204,
+      "sha256": "3119bbb304c37da1edfbdae5b0a09d8f1b23158b2ef4efc765fc84a9331ddb13",
+      "recipeSha256": "e50fa897d791d38fed801618db292d9311f7a2155ea5748ebd44b06f456fae7c",
+      "recipe": {
+        "text": "Konuştuklarımızdan neyi hatırlamak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2975767545,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3920,
+        "sampleRate": 24000,
+        "bytes": 188204,
+        "peak": 0.803863525390625,
+        "rms": 0.09048519697646036,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.704,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V04",
@@ -4573,7 +6454,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V04",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3320,
+      "sampleRate": 24000,
+      "bytes": 159404,
+      "sha256": "444cfb5adb0064161d25411a9a5e868e51b9e0af1184158281d3c93314eecf6c",
+      "recipeSha256": "a140c326b4b15316821efec970409b1ea0536dc8fa6f88bc2f80a94058223420",
+      "recipe": {
+        "text": "Bu görüşmede sizin için ne öne çıkıyor?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3590122636,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3320,
+        "sampleRate": 24000,
+        "bytes": 159404,
+        "peak": 0.722259521484375,
+        "rms": 0.09324457638683244,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 57.522,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V05",
@@ -4586,7 +6500,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V05",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3520,
+      "sampleRate": 24000,
+      "bytes": 169004,
+      "sha256": "38aaadc64f76a2883f88bc3edab5a7c0f7ba11cfbef2b1b8b2d1026151fb39a3",
+      "recipeSha256": "63cb572078fcdb629d1c9fb61d74fe80c4351b4a809c8b59e436650d49be18d5",
+      "recipe": {
+        "text": "Bu görüşmeden neyi yanınızda taşımak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2846943189,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3520,
+        "sampleRate": 24000,
+        "bytes": 169004,
+        "peak": 0.749603271484375,
+        "rms": 0.08124605045696953,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 58.803,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V06",
@@ -4599,7 +6546,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V06",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3680,
+      "sampleRate": 24000,
+      "bytes": 176684,
+      "sha256": "abdce4c1892bade0e1966524b1cbff5fa70fe569453bd3919d66b4cb523434cc",
+      "recipeSha256": "e793a675c30c2470989503b6815dca312527b864c63b49d0d3748e8433076974",
+      "recipe": {
+        "text": "Konuştuklarımızdan neyi korumaya değer buluyorsunuz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 385748819,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3680,
+        "sampleRate": 24000,
+        "bytes": 176684,
+        "peak": 0.744659423828125,
+        "rms": 0.0999038185904355,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 61.422,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V07",
@@ -4612,7 +6592,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V07",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 4000,
+      "sampleRate": 24000,
+      "bytes": 192044,
+      "sha256": "8c8dc079932b61f6d00384e898836ffd8b1802c13795cb7ce7acf156f8c45775",
+      "recipeSha256": "1a7736aa13595e1f755db6f4f0e204f6e724eae4496acdbb4c2ac3c4363a9f27",
+      "recipe": {
+        "text": "Konuşmamızın hangi kısmı sizin için en önemli?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1858188409,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 4000,
+        "sampleRate": 24000,
+        "bytes": 192044,
+        "peak": 0.582305908203125,
+        "rms": 0.07296105839472629,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 63.38,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V08",
@@ -4625,7 +6638,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V08",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 2880,
+      "sampleRate": 24000,
+      "bytes": 138284,
+      "sha256": "919f07a332957ed9409ec66385d88afc0feeae254a6ffe490e5d415bc969d4f3",
+      "recipeSha256": "305c9aea821ccb9a60f39a03c774507504a387e6d8b4cc77626ebeb7ef07d542",
+      "recipe": {
+        "text": "Bu görüşmeden neye tutunmak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3874689873,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2880,
+        "sampleRate": 24000,
+        "bytes": 138284,
+        "peak": 0.61224365234375,
+        "rms": 0.08074075135434958,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 52.865,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V09",
@@ -4638,7 +6684,40 @@
       "codec": "pcm_s16le",
       "contentVersion": "v1",
       "sourceAssetId": "v1/tr/official-default/B12/B12-V09",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-validation",
+      "durationMs": 3800,
+      "sampleRate": 24000,
+      "bytes": 182444,
+      "sha256": "687b190d55ea5c19838ee8a26662cc0f82d749061f3857ecba6d6fe2c100e27f",
+      "recipeSha256": "749ed604f26bb28575fdc0f23c3d0969fbd8c7cebdc5dd734a6e7e89ee8c8139",
+      "recipe": {
+        "text": "Konuşmamızdan kendi çıkardığınız temel nokta ne?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3609448410,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        },
+        "workerMode": "resident-model-v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 3800,
+        "sampleRate": 24000,
+        "bytes": 182444,
+        "peak": 0.61395263671875,
+        "rms": 0.07957738429139656,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 62.758,
+        "workerPhases": []
+      }
     },
     {
       "assetId": "v1/tr/female-calm-v1/B12/B12-V10",

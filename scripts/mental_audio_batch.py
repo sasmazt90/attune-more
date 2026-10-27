@@ -178,7 +178,7 @@ def main():
                           'configExists':Path(args.config).is_file(),'auditoryApproval':'pending'},indent=2));return
     try:produce(manifest,selected,args.config,args.python,manifest_path,args.resident_workers)
     except (OSError,ValueError,KeyError,subprocess.SubprocessError):
-        raise SystemExit('AUDIO_PRODUCTION_UNAVAILABLE_OR_INVALID: verify pinned runtime, model bundle, conditioning, and existing asset hashes; no approval was granted.') from None
+        raise SystemExit('AUDIO_PRODUCTION_UNAVAILABLE_OR_INVALID: verify pinned runtime, model bundle, conditioning, and existing asset hashes. Existing recordings were not replaced.') from None
 
 
 if __name__=='__main__':main()

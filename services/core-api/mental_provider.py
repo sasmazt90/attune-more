@@ -347,6 +347,8 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
             if structured:
                 prompt += ('\nAlso return recommendations (array of short strings), relatedSessionIds (array), '
                            'recurringThemes (stable theme keys), spokenSummary (concise supportive spoken text). '
+                           'Keep spokenSummary to one or two short sentences, at most 25 words and 240 characters; keep full detail in summaryText. '
+                           'Use formal address in Turkish (siz) and German (Sie), including spokenSummary. '
                            'No diagnosis, medication advice, invented quotations, history or feelings. '
                            'Never force a professional referral. Ground suggestions in the actual user statements. '
                            'Distinguish user reports from assistant inference. Later corrections take precedence. '

@@ -46,8 +46,10 @@ def main():
             if path.exists() and path.read_bytes()!=raw:raise ValueError('EXISTING_REVIEW_PREVIEW_MUST_NOT_BE_OVERWRITTEN')
             if not path.exists():path.write_bytes(raw)
     index={'speakerProfile':manifest['speakerProfile'],'conditioningSha256':manifest['conditioningSha256'],
-           'sampleApproval':'pending-owner-listening','generatedSpeechClips':9,'losslessJoinPreviews':6,
+           'sampleApproval':'owner-approved' if manifest.get('sampleApproval',{}).get('ownerApprovedAt') else 'pending-owner-listening','generatedSpeechClips':9,'losslessJoinPreviews':6,
            'joinSilenceMs':manifest['joinSilenceMs'],'samples':rows}
+    if manifest.get('sampleApproval',{}).get('ownerApprovedAt'):
+        index.update(ownerApprovedAt=manifest['sampleApproval']['ownerApprovedAt'],joinApprovalStatus=manifest['joinApprovalStatus'])
     (out/'index.json').write_text(json.dumps(index,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'samples':9,'joinedPreviews':6,'approval':'pending-owner-listening'}))
 

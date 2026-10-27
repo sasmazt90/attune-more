@@ -47,7 +47,7 @@ def main():
         return value / np.linalg.norm(value)
     ref = embed(reference)
     rows, vectors = [], {}
-    for entry in female['entries']:
+    for entry in (e for e in female['entries'] if (e['questionNodeId'],e['variantId']) in {('A','A-V01'),('B01','B01-V01'),('B02','B02-V01')}):
         path = public / entry['audioPath'].lstrip('/')
         if digest(path) != entry['sha256']: raise ValueError('GENERATED_SAMPLE_HASH_MISMATCH')
         vector = embed(path); vectors[(entry['language'], entry['variantId'])] = vector

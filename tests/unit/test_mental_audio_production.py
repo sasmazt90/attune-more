@@ -74,3 +74,37 @@ def test_resident_worker_protocol_is_bounded_and_closes_actual_child(monkeypatch
             assert raw==out.getvalue()
     finally:resident.close()
     assert resident.process.poll() is not None
+
+
+def test_backup_restore_verifies_every_file_before_writes_and_never_overwrites(tmp_path):
+    restore=module('restore_mental_audio')
+    backup=tmp_path/'drive';backup.mkdir();repo=tmp_path/'repo';repo.mkdir()
+    data=b'EXPLICIT NONPERSONAL BACKUP FIXTURE';path=backup/'A.wav';path.write_bytes(data)
+    import hashlib
+    item={'backupPath':'A.wav','repositoryPath':'public/A.wav','bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+    inventory={'complete':False,'files':[item]}
+    with pytest.raises(ValueError,match='COMPLETE_INVENTORY'):restore.restore(inventory,backup,repo,apply=True)
+    inventory['complete']=True
+    assert restore.restore(inventory,backup,repo,apply=True)['filesVerified']==1
+    assert (repo/'public/A.wav').read_bytes()==data
+    (repo/'public/A.wav').write_bytes(b'existing different bytes')
+    with pytest.raises(ValueError,match='NO_OVERWRITE'):restore.restore(inventory,backup,repo,apply=True)
+    assert (repo/'public/A.wav').read_bytes()==b'existing different bytes'
+    item['backupPath']='../outside.wav'
+    with pytest.raises(ValueError,match='OUTSIDE_ROOT'):restore.restore(inventory,backup,repo)
+
+
+def test_model_part_restore_checks_all_hashes_before_reassembly(tmp_path):
+    restore=module('reassemble_mental_runtime')
+    import hashlib
+    chunks=[b'NON-MODEL TEST PART ONE',b'NON-MODEL TEST PART TWO'];rows=[]
+    for i,data in enumerate(chunks):
+        name=f'part-{i}';(tmp_path/name).write_bytes(data)
+        rows.append({'index':i,'filename':name,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()})
+    complete=b''.join(chunks)
+    manifest={'parts':rows,'part_count':2,'original_zip_bytes':len(complete),'original_zip_sha256':hashlib.sha256(complete).hexdigest()}
+    target=tmp_path/'restored.zip';restore.reassemble(manifest,tmp_path,target)
+    assert target.read_bytes()==complete
+    (tmp_path/'part-0').write_bytes(b'corrupt')
+    with pytest.raises(ValueError,match='PART_INTEGRITY'):restore.reassemble(manifest,tmp_path,tmp_path/'never-created.zip')
+    assert not (tmp_path/'never-created.zip').exists()

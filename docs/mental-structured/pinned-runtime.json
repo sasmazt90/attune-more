@@ -1,0 +1,72 @@
+{
+  "schema": "attune-pinned-voice-runtime-v1",
+  "voiceProfile": "female-calm-v1",
+  "archive": {
+    "driveFileId": "1rc2zoLLhozG_SD9S7GI-3YwciqpyeNHx",
+    "driveURL": "https://drive.google.com/file/d/1rc2zoLLhozG_SD9S7GI-3YwciqpyeNHx/view",
+    "bytes": 3283572066,
+    "sha256": "5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc",
+    "verification": "Previously downloaded as 98 owner-provided parts; every part, assembled archive and all 117 extracted members verified. Existing permanent Drive file metadata rechecked during this backup."
+  },
+  "permanentBundleFolder": "https://drive.google.com/drive/folders/12EiAhr73iiH_p2yTTNmhrS7fKLuMj-of",
+  "partsManifestDriveFileId": "1POEIhojVmAriX8oO0-Ym4P8McS3xZxlX",
+  "model": {
+    "repository": "ResembleAI/chatterbox",
+    "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+    "revision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+    "file": "t3_mtl23ls_v3.safetensors",
+    "license": "MIT",
+    "licenseEvidenceKind": "hf-repository-metadata",
+    "licenseURL": "https://huggingface.co/ResembleAI/chatterbox",
+    "licenseEvidence": {
+      "path": "official-model-metadata.txt",
+      "sha256": "88c617d2fc97e895cb942e98fa361f4d39f39d5a177d736a0e6cd43e73e82d43"
+    },
+    "directory": "bundle/models",
+    "files": {
+      "Cangjie5_TC.json": {
+        "path": "bundle/models/Cangjie5_TC.json",
+        "sha256": "7073fd9de919443ae88e0bd2449917a65fe54898a4413ed1edcc4b67f28bce8c"
+      },
+      "conds.pt": {
+        "path": "bundle/models/conds.pt",
+        "sha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e"
+      },
+      "grapheme_mtl_merged_expanded_v1.json": {
+        "path": "bundle/models/grapheme_mtl_merged_expanded_v1.json",
+        "sha256": "69632f47220a788a52ce2661d096453c5655e9bf25289d89a8d832c46ee07dbf"
+      },
+      "s3gen.pt": {
+        "path": "bundle/models/s3gen.pt",
+        "sha256": "9b9ff07e60b20c136e2b1b3d7563a24604e8d2c4c267888d1ee929dd0151d2a3"
+      },
+      "t3_mtl23ls_v3.safetensors": {
+        "path": "bundle/models/t3_mtl23ls_v3.safetensors",
+        "sha256": "5abca8321ede76f8e61f1cc0d19aea6c946b28871017ce8726f8a69203f05953"
+      },
+      "ve.pt": {
+        "path": "bundle/models/ve.pt",
+        "sha256": "4b16d836bc598509860f6fa068165a8bb5e9ac84f05582dfcf278a5a372879f1"
+      }
+    }
+  },
+  "runtime": {
+    "chatterbox-tts": "0.1.7",
+    "torch": "2.6.0+cpu",
+    "torchaudio": "2.6.0+cpu",
+    "transformers": "5.2.0",
+    "safetensors": "0.5.3",
+    "threadsPerWorker": 2,
+    "batchWorkers": 2
+  },
+  "generation": {
+    "exaggeration": 0.35,
+    "cfg_weight": 0.0,
+    "temperature": 0.8
+  },
+  "referenceSHA256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+  "bundleMemberCount": 117,
+  "licenseEvidenceSHA256": "88c617d2fc97e895cb942e98fa361f4d39f39d5a177d736a0e6cd43e73e82d43",
+  "backupPolicy": "Reference the existing verified permanent bundle; do not duplicate multi-gigabyte model data.",
+  "partsManifestSHA256": "a48b181c04754331dfdc78e79995ccf45f51bcbe36345e4d7e3105480e7d6f51"
+}

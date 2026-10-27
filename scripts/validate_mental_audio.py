@@ -76,8 +76,8 @@ def inspect_wave(path):
 
 
 class Recognizer:
-    def __init__(self,root):
-        self.root=Path(root);self.provenance=json.loads((self.root/'provenance.json').read_text())
+    def __init__(self,root,provenance='provenance.json',threads=1):
+        self.root=Path(root);self.provenance=json.loads((self.root/provenance).read_text());self.threads=threads
         self.model=(self.root/self.provenance['modelDirectory']).resolve()
         if not self.model.is_relative_to(self.root.resolve()):raise ValueError('ASR_MODEL_OUTSIDE_ROOT')
         for name,sha in self.provenance['files'].items():
@@ -93,8 +93,8 @@ class Recognizer:
         if self.language!=language:
             self.recognizer=None
             self.recognizer=self.sherpa.OfflineRecognizer.from_whisper(
-                encoder=str(self.model/'small-encoder.int8.onnx'),decoder=str(self.model/'small-decoder.int8.onnx'),
-                tokens=str(self.model/'small-tokens.txt'),language=language,num_threads=1)
+                encoder=str(self.model/self.provenance.get('encoderFile','small-encoder.int8.onnx')),decoder=str(self.model/self.provenance.get('decoderFile','small-decoder.int8.onnx')),
+                tokens=str(self.model/self.provenance.get('tokensFile','small-tokens.txt')),language=language,num_threads=self.threads)
             self.language=language
         samples,rate=sf.read(path,dtype='float32')
         if rate!=16000:samples=soxr.resample(samples,rate,16000,quality='HQ')
@@ -108,7 +108,7 @@ def atomic_json(path,value):
     temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');temporary.replace(path)
 
 
-def scan(cache,recognizer):
+def scan(cache,recognizer,secondary=False):
     manifest=json.loads(MANIFEST.read_text());rows=json.loads((ROOT/'shared/mental/v1/content.json').read_text())['rows']
     expected={r['audioAssetId']:r for r in rows}
     if len(expected)!=414 or {e['assetId'] for e in manifest['entries']}!=set(expected):raise ValueError('CATALOG_INCOMPLETE')
@@ -120,6 +120,16 @@ def scan(cache,recognizer):
             if not path.resolve().is_relative_to((PUBLIC/'audio/mental/v1').resolve()) or fingerprint(path)!=entry['sha256']:raise ValueError('AUDIO_HASH_MISMATCH')
             script_sha=hashlib.sha256(entry['exactScript'].encode()).hexdigest()
             old=cache['assets'].get(entry['assetId'],{})
+            if secondary:
+                if not old or old['pronunciationScreen']['status']!='review-required' or old.get('secondaryPronunciationScreen'):continue
+                if old.get('sha256')!=entry['sha256']:raise ValueError('PRIMARY_SCREEN_HASH_CHANGED')
+                screen=pronunciation(entry['exactScript'],recognizer.transcribe(path,language),language)
+                old['secondaryPronunciationScreen']=screen
+                if screen['status']!='review-required':
+                    old['issues']=[issue for issue in old['issues'] if issue!='pronunciation-screen-review']
+                    old['resolution']='secondary-independent-ASR-screen'
+                yield entry['assetId']
+                continue
             if old.get('sha256')==entry['sha256'] and old.get('scriptSHA256')==script_sha:continue
             metrics,issues=inspect_wave(path)
             recognized=recognizer.transcribe(path,language)
@@ -134,11 +144,14 @@ def scan(cache,recognizer):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--asr-root',type=Path,required=True)
     parser.add_argument('--cache',type=Path,required=True);parser.add_argument('--watch',action='store_true')
-    args=parser.parse_args();recognizer=Recognizer(args.asr_root)
+    parser.add_argument('--provenance',default='provenance.json');parser.add_argument('--threads',type=int,choices=(1,2,4),default=1)
+    parser.add_argument('--secondary',action='store_true',help='Recheck only uncertain primary readings; run after the primary watcher finishes.')
+    args=parser.parse_args();recognizer=Recognizer(args.asr_root,args.provenance,args.threads)
     cache=json.loads(args.cache.read_text()) if args.cache.exists() else {'schema':'mental-audio-screen-v1','assets':{},'verifier':recognizer.provenance,
         'limitations':['Independent ASR screening does not certify native pronunciation or natural prosody.','Near matches remain distinguishable from exact recognition.','Owner approval of the nine representative clips is preserved.']}
+    if args.secondary:cache['secondaryVerifier']=recognizer.provenance
     while True:
-        for asset in scan(cache,recognizer):
+        for asset in scan(cache,recognizer,args.secondary):
             atomic_json(args.cache,cache)
             if len(cache['assets'])%5==0:print(json.dumps({'screened':len(cache['assets']),'reviewRequired':sum(bool(a['issues']) for a in cache['assets'].values()),'lastAsset':asset}),flush=True)
         if len(cache['assets'])==414 or not args.watch:break

@@ -1,98 +1,28 @@
 {
-  "baseCommit": "84ccea4a83ca4eafb751b66dcf5bd2963a8f0fb4",
-  "unitSuite": {
-    "tests": "1742",
-    "failures": "0",
-    "errors": "0",
-    "skipped": "44",
-    "time": "148.285"
+  "schema": "structured-mental-validation-v2",
+  "selectedStructuredProfile": "female-calm-v1",
+  "defaultExperience": "legacy-unmodified",
+  "ownerApprovedRepresentativeClips": 9,
+  "ownerApprovedJoinedPreviews": 6,
+  "catalogExpected": 414,
+  "catalogGeneratedAtCheckpoint": 93,
+  "productionInProgress": true,
+  "all414ScriptsUnchangedFromCommit": "17e0921720018dfee9bfac2fb272b50b1f1535c0",
+  "classifierDecision": "Retain existing rule-based classifier; separate-task decision closed by owner; no further benchmarking or integration.",
+  "targetedTests": {
+    "passed": 173,
+    "failed": 0
   },
-  "frontend": {
-    "typecheck": "passed",
-    "lint": "passed",
-    "productionBuild": "passed"
+  "frontendTypecheck": "passed",
+  "finalFullTestsAndGitHubCI": "pending-complete-production-and-validation",
+  "durableBackup": {
+    "parentFolderURL": "https://drive.google.com/drive/folders/1FrN4RQz_j6QBmuXJe4RIpJGcQcSUB4sS",
+    "versionFolderURL": "https://drive.google.com/drive/folders/16nXYqOOXPPA5GTtmHtPE6QLLsG2q9mGy",
+    "complete": false,
+    "verification": "per-file independent Drive retrieval and SHA-256; final inventory pending"
   },
-  "browserGate": {
-    "realLocalAPI": true,
-    "syntheticASR": true,
-    "physicalAudioTested": false,
-    "results": [
-      {
-        "scenario": "unapproved-library",
-        "passed": true,
-        "generationRequests": 0
-      },
-      {
-        "scenario": "crisis",
-        "passed": true,
-        "generationRequests": 0
-      }
-    ]
-  },
-  "audio": {
-    "plannedScripts": 414,
-    "plannedRepresentativeClips": 9,
-    "generatedClips": 9,
-    "approvedClips": 0,
-    "joinedReviewPreviews": 6,
-    "verifiedArchiveSHA256": "5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc",
-    "verifiedArchiveMembers": 117,
-    "productionWallSeconds": 440.297,
-    "maxWorkerPeakRSSKiB": 6945188,
-    "auditoryApproval": "pending-owner-listening",
-    "massProduction": false
-  },
-  "paidCalls": 0,
-  "defaultEnabled": false,
-  "semanticBenchmark": {
-    "corpusUtterances": 180,
-    "testUtterances": 108,
-    "ruleObjectiveF1": 0.7778,
-    "ruleIntentAccuracy": 0.6111,
-    "ruleJointRoutingAccuracy": 0.5741,
-    "officialModels": [
-      "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
-      "intfloat/multilingual-e5-small"
-    ],
-    "status": "blocked-old-cloud-policy",
-    "observedPolicyRevision": "1",
-    "observedCustomHosts": [],
-    "blockedHostname": "huggingface.co",
-    "paidServices": false
-  },
-  "femaleVoiceReview": {
-    "profile": "female-calm-v1",
-    "generatedClips": 9,
-    "losslessJoinedPreviews": 6,
-    "approvedClips": 0,
-    "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
-    "generation": {
-      "exaggeration": 0.35,
-      "cfg_weight": 0.0,
-      "temperature": 0.8
-    },
-    "productionWallSeconds": 532.934,
-    "maxWorkerPeakRSSKiB": 6906356,
-    "clippedSamples": 0,
-    "originalComparisonFilesUnchanged": 18,
-    "perceptualSpeakerConsistency": "unverified-awaiting-owner/native-listening",
-    "dynamicClosingAudioGenerated": false,
-    "activeFrontendProfile": "official-default",
-    "massProduction": false,
-    "targetedTests": {
-      "passed": 142,
-      "failed": 0
-    },
-    "broaderSuite": {
-      "passed": 1744,
-      "skipped": 44,
-      "failed": 0,
-      "note": "Collected before six additional reference-path tests; all later targeted tests passed."
-    },
-    "frontend": {
-      "typecheck": "passed",
-      "lint": "passed",
-      "build": "passed"
-    }
-  }
+  "modelRuntimeReference": "pinned-runtime.json",
+  "physicalAudioAcceptance": "not-performed-in-Cloud",
+  "merged": false,
+  "deployed": false
 }
