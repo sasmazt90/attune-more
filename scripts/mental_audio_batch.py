@@ -15,10 +15,11 @@ import sys
 import tempfile
 import wave
 from array import array
+from time import perf_counter
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'services/core-api'))
-from mental_neural_tts import load_configuration, validate_wave, digest, SOURCE_REVISION, LIMITS
+from mental_neural_tts import load_configuration, validate_wave, digest, SOURCE_REVISION, LIMITS, worker_progress
 
 MANIFEST=ROOT/'apps/vehicle-app/public/audio/mental/v1/manifest.json'
 PUBLIC=ROOT/'apps/vehicle-app/public'
@@ -70,14 +71,19 @@ def produce(manifest,selected,config,python):
             continue
         if entry['approvalStatus']=='approved':raise ValueError('APPROVED_ASSET_MISSING_NO_REGENERATION')
         payload={'config':str(Path(config).resolve()),'language':entry['language'],'text':entry['exactScript'],'seed':settings['seed']}
-        result=subprocess.run([python,str(ROOT/'services/core-api/mental_neural_worker.py')],input=json.dumps(payload,ensure_ascii=False).encode(),
-                              stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,env=env,timeout=LIMITS['workerSeconds'],check=True)
+        started=perf_counter()
+        with tempfile.TemporaryDirectory(prefix='mental-audio-production-') as diagnostic:
+            progress=Path(diagnostic)/'progress.json'
+            result=subprocess.run([python,str(ROOT/'services/core-api/mental_neural_worker.py')],input=json.dumps(payload,ensure_ascii=False).encode(),
+                                  stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,env={**env,'ATTUNE_MENTAL_TTS_PROGRESS':str(progress)},timeout=LIMITS['workerSeconds'],check=True)
+            phases=worker_progress(progress)
+        telemetry={'elapsedSeconds':round(perf_counter()-started,3),'workerPhases':phases}
         metrics=inspect_pcm(result.stdout)
         target.parent.mkdir(parents=True,exist_ok=True)
         # Exclusive creation protects previously generated or approved bytes.
         with target.open('xb') as stream:stream.write(result.stdout)
         entry.update({k:metrics[k] for k in ('durationMs','sampleRate','bytes')})
-        entry.update(sha256=digest(target),recipeSha256=fingerprint,recipe=settings,qualityMetrics=metrics,approvalStatus='synthesized-awaiting-listening-review')
+        entry.update(sha256=digest(target),recipeSha256=fingerprint,recipe=settings,qualityMetrics=metrics,productionTelemetry=telemetry,approvalStatus='synthesized-awaiting-listening-review')
         # Checkpoint after every clip; recoverable without regeneration.
         with tempfile.NamedTemporaryFile('w',dir=MANIFEST.parent,delete=False,encoding='utf-8') as stream:
             json.dump(manifest,stream,ensure_ascii=False,indent=2);stream.write('\n');temporary=stream.name

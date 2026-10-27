@@ -1,22 +1,82 @@
 {
   "id": "wellbeing-v1",
   "purpose": "non-diagnostic wellbeing conversation; no clinical assessment or treatment",
-  "defaultOrder": ["B01", "B03", "B02", "B07", "B06", "B04", "B05", "B08", "B09", "B10", "B11", "B12"],
-  "positiveOrder": ["B10", "B12"],
-  "precedence": ["existing-crisis-screen", "vehicle-controls", "existing-explicit-conversation-controls", "local-classification", "objective-fulfillment", "next-unasked-objective"],
+  "defaultOrder": [
+    "B01",
+    "B03",
+    "B02",
+    "B07",
+    "B06",
+    "B04",
+    "B05",
+    "B08",
+    "B09",
+    "B10",
+    "B11",
+    "B12"
+  ],
+  "positiveOrder": [
+    "B10",
+    "B12"
+  ],
+  "precedence": [
+    "existing-crisis-screen",
+    "vehicle-controls",
+    "existing-explicit-conversation-controls",
+    "local-classification",
+    "objective-fulfillment",
+    "next-unasked-objective"
+  ],
   "nodes": {
-    "B01": {"objective": "user-selected conversation focus", "subtype": "focus"},
-    "B02": {"objective": "user-reported emotion at the described event", "subtype": "emotion-at-event"},
-    "B03": {"objective": "description of the situation", "subtype": "situation"},
-    "B04": {"objective": "user-reported antecedents of a feeling", "subtype": "triggers"},
-    "B05": {"objective": "user-reported thoughts at the described event", "subtype": "thoughts-at-event"},
-    "B06": {"objective": "recent frequency, without a severity score", "subtype": "frequency"},
-    "B07": {"objective": "user-reported impact on everyday life", "subtype": "daily-impact"},
-    "B08": {"objective": "usual behavioral response", "subtype": "behavior"},
-    "B09": {"objective": "previously helpful resources", "subtype": "previous-coping"},
-    "B10": {"objective": "current needs or desired support", "subtype": "current-needs"},
-    "B11": {"objective": "optional self-chosen next step", "subtype": "self-chosen-step", "requires": "explicit interest in steps or advice"},
-    "B12": {"objective": "optional user-defined takeaway", "subtype": "takeaway"}
+    "B01": {
+      "objective": "user-selected conversation focus",
+      "subtype": "focus"
+    },
+    "B02": {
+      "objective": "user-reported emotion at the described event",
+      "subtype": "emotion-at-event"
+    },
+    "B03": {
+      "objective": "description of the situation",
+      "subtype": "situation"
+    },
+    "B04": {
+      "objective": "user-reported antecedents of a feeling",
+      "subtype": "triggers"
+    },
+    "B05": {
+      "objective": "user-reported thoughts at the described event",
+      "subtype": "thoughts-at-event"
+    },
+    "B06": {
+      "objective": "recent frequency, without a severity score",
+      "subtype": "frequency"
+    },
+    "B07": {
+      "objective": "user-reported impact on everyday life",
+      "subtype": "daily-impact"
+    },
+    "B08": {
+      "objective": "usual behavioral response",
+      "subtype": "behavior"
+    },
+    "B09": {
+      "objective": "previously helpful resources",
+      "subtype": "previous-coping"
+    },
+    "B10": {
+      "objective": "current needs or desired support",
+      "subtype": "current-needs"
+    },
+    "B11": {
+      "objective": "optional self-chosen next step",
+      "subtype": "self-chosen-step",
+      "requires": "explicit interest in steps or advice"
+    },
+    "B12": {
+      "objective": "optional user-defined takeaway",
+      "subtype": "takeaway"
+    }
   },
   "transitions": {
     "suppliedInformation": "Mark all confidently supplied objectives fulfilled, including negated emotional reports without assigning opposite sentiment.",
@@ -28,8 +88,34 @@
     "pause": "P01 and existing pause lifecycle, preserving the interrupted objective.",
     "finish": "F01 and existing completion lifecycle. No mandatory reflection.",
     "positive": "B10 then optional B12, skipping problem exploration already unnecessary for a positive focus.",
-    "takeawayAnsweredOrExhausted": "F01, then one analysis and one closing narration when consent and audio permit."
+    "takeawayAnsweredOrExhausted": "F01, then one analysis and one closing narration when consent and audio permit.",
+    "boundary": "At turn 39, or finishAfterReply, choose F01 rather than another question. Crisis and explicit pause retain precedence. The browser preserves a crossing utterance in analysis and never silently drops it.",
+    "unexpressedEmotion": "Do not select B04/B06/B08 referring to a feeling unless emotional information B02 is fulfilled; event thoughts B05 require situation B03."
   },
-  "limits": {"turns": 40, "browserOrdinaryTurns": 39, "browserTranscriptCharacters": 100000, "analysisCharacters": 120000},
-  "confidence": {"topicCosineMinimum": 0.30, "topicMarginMinimum": 0.06, "objectiveMinimum": 0.75, "note": "Routing scores are development heuristics, not calibrated probabilities."}
+  "limits": {
+    "turns": 40,
+    "browserOrdinaryTurns": 39,
+    "browserTranscriptCharacters": 100000,
+    "analysisCharacters": 120000
+  },
+  "confidence": {
+    "topicCosineMinimum": 0.3,
+    "topicMarginMinimum": 0.06,
+    "objectiveMinimum": 0.75,
+    "note": "Routing scores are development heuristics, not calibrated probabilities."
+  },
+  "uncertaintyOrder": [
+    "B01",
+    "B03",
+    "B05",
+    "B10",
+    "B11",
+    "B12"
+  ],
+  "prerequisites": {
+    "B04": "B02",
+    "B06": "B02",
+    "B08": "B02",
+    "B05": "B03"
+  }
 }

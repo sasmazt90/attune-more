@@ -225,13 +225,14 @@ export function useMentalConversation(parked: boolean) {
     const r = runtime.current, epoch = r.epoch, text = value.trim();
     if (!text || !valid(epoch) || r.paused || r.busy || r.voiceWaiting || r.failed) return;
     const crisis = checkCrisisTrigger(text, !settings.current.parked);
-    if(r.structured&&!pending&&!crisis.isCrisis&&(r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)+text.length>100000)){void finish();return;}
+    const finishAtBoundary=r.structured&&!pending&&!crisis.isCrisis&&(r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)+text.length>100000);
     r.busy = true; abortRecognition();
     const timestamp = new Date().toISOString();
     const turn = pending?pending.user.turn:++r.turn, time = pending?pending.user.time:new Date(timestamp).toLocaleTimeString(getLocale(), { hour: '2-digit', minute: '2-digit' });
     timing('send');
     let prior = pending?pending.prior:r.transcript.filter(m => m.completed).slice(r.memoryThrough).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text }));
     const user: ConversationMessage = pending?pending.user:{ id: `${r.id}-${turn}-user`, turn, sender: 'USER', text, time, timestamp, completed: false };
+    if(finishAtBoundary){append({...user,completed:true});r.pendingTurn=null;r.busy=false;await finish();return;}
     r.pendingTurn={user,prior};if(!pending)append(user); setPhase('preparing'); setNotice(null);
     const controller = new AbortController(); r.controller = controller;
     let deadline:ReturnType<typeof setTimeout>|undefined;
@@ -247,7 +248,7 @@ export function useMentalConversation(parked: boolean) {
       if (crisis.isCrisis) data = { reply: t(crisis.emergencyResponseTr||''), isCrisis: true, providerType: 'CRISIS_SAFETY_GUARD' };
       else {
         const response = await fetch(API + '/converse', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userMessage: text, history: r.structured?[]:prior, memory:r.structured?[]:r.memory, sessionId: r.id, cloudConsent: settings.current.cloudConsent,...(r.structured?{engine:'structured-v1',structuredState:r.structuredState}:{}) }), signal: controller.signal });
+          body: JSON.stringify({ userMessage: text, history: r.structured?[]:prior, memory:r.structured?[]:r.memory, sessionId: r.id, cloudConsent: settings.current.cloudConsent,...(r.structured?{engine:'structured-v1',structuredState:r.structuredState,finishAfterReply:r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)>=94000}:{}) }), signal: controller.signal });
         if (!response.ok){const error=await response.json().catch(()=>({}));throw new Error(r.structured&&String(error.detail).startsWith('STRUCTURED_')?'STRUCTURED_UNAVAILABLE':'Conversation service');}
         data = await response.json();
       }

@@ -150,3 +150,16 @@ services/core-api/models/skin-type-local-v1/*.onnx
 # Versioned derivatives of the owner-approved Andrew/Stefan digit recordings.
 !apps/vehicle-app/public/audio/hearing-approved-derived-20261021-v1/en/*.wav
 !apps/vehicle-app/public/audio/hearing-approved-derived-20261021-v1/de/*.wav
+
+# Generated official Mental Health review samples; no user audio recordings.
+!apps/vehicle-app/public/audio/mental/v1/tr/official-default/A/A-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/tr/official-default/B01/B01-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/tr/official-default/B02/B02-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/en/official-default/A/A-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/en/official-default/B01/B01-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/en/official-default/B02/B02-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/de/official-default/A/A-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/de/official-default/B01/B01-V01.wav
+!apps/vehicle-app/public/audio/mental/v1/de/official-default/B02/B02-V01.wav
+!docs/mental-structured/listening/??-A-V01-B01-V01.wav
+!docs/mental-structured/listening/??-A-V01-B02-V01.wav

@@ -13,13 +13,79 @@
       "questionNodeId": "A",
       "variantId": "A-V01",
       "audioPath": "/audio/mental/v1/tr/official-default/A/A-V01.wav",
-      "durationMs": null,
+      "durationMs": 880,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "0b09c907c4d6913db033609b84a7c5f632ee46acd2167cf4bc43584b795f23b2",
+      "bytes": 42284,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "a9a2fb8f1bd10dc17e6ace0591b4ca47282c4f8382ec6a12207ea2ac58934932",
+      "recipe": {
+        "text": "Peki.",
+        "language": "tr",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1353566913,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 880,
+        "sampleRate": 24000,
+        "bytes": 42284,
+        "peak": 0.507171630859375,
+        "rms": 0.056119825487410194,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 62.355,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.21,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.181,
+            "cpuSeconds": 2.39,
+            "peakRSSKiB": 39096
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.19,
+            "cpuSeconds": 2.4,
+            "peakRSSKiB": 39096
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 11.053,
+            "cpuSeconds": 11.42,
+            "peakRSSKiB": 623812
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 24.341,
+            "cpuSeconds": 25.29,
+            "peakRSSKiB": 6945188
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 60.138,
+            "cpuSeconds": 84.83,
+            "peakRSSKiB": 6945188
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 60.138,
+            "cpuSeconds": 84.83,
+            "peakRSSKiB": 6945188
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/tr/official-default/A/A-V02",
@@ -121,7 +187,7 @@
       "assetId": "v1/tr/official-default/A/A-V08",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Size alan açalım.",
+      "exactScript": "Söz sizde.",
       "questionNodeId": "A",
       "variantId": "A-V08",
       "audioPath": "/audio/mental/v1/tr/official-default/A/A-V08.wav",
@@ -205,13 +271,79 @@
       "questionNodeId": "B01",
       "variantId": "B01-V01",
       "audioPath": "/audio/mental/v1/tr/official-default/B01/B01-V01.wav",
-      "durationMs": null,
+      "durationMs": 2560,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "a7d42c5d0da8b6f0bb6919eaabba11947a925cc05fd30e1879b5d94a65dc8aeb",
+      "bytes": 122924,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "698d7a8374ff8e9caa0397e201c49eeb94dcd72c210e62b03d9667941fe83bb7",
+      "recipe": {
+        "text": "Bugün ne hakkında konuşmak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 614602813,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2560,
+        "sampleRate": 24000,
+        "bytes": 122924,
+        "peak": 0.760162353515625,
+        "rms": 0.12053311830962751,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 56.301,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.28,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.22,
+            "cpuSeconds": 2.5,
+            "peakRSSKiB": 39096
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.227,
+            "cpuSeconds": 2.5,
+            "peakRSSKiB": 39096
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.076,
+            "cpuSeconds": 7.52,
+            "peakRSSKiB": 584464
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 16.286,
+            "cpuSeconds": 17.37,
+            "peakRSSKiB": 6905932
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 54.193,
+            "cpuSeconds": 92.46,
+            "peakRSSKiB": 6905932
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 54.193,
+            "cpuSeconds": 92.46,
+            "peakRSSKiB": 6905932
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/tr/official-default/B01/B01-V02",
@@ -265,7 +397,7 @@
       "assetId": "v1/tr/official-default/B01/B01-V05",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Bugün konuşmak sizin için en çok hangi konuda önemli?",
+      "exactScript": "Bugün hangi konu hakkında konuşmak sizin için en önemli?",
       "questionNodeId": "B01",
       "variantId": "B01-V05",
       "audioPath": "/audio/mental/v1/tr/official-default/B01/B01-V05.wav",
@@ -365,13 +497,79 @@
       "questionNodeId": "B02",
       "variantId": "B02-V01",
       "audioPath": "/audio/mental/v1/tr/official-default/B02/B02-V01.wav",
-      "durationMs": null,
+      "durationMs": 1800,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "a7919bc33fb19f64131506345765a970379482fca60a24df487ed400eece47bd",
+      "bytes": 86444,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "6d6f1673545abb05a36137e4e7b4d3f93be795a3034ff992530350ad62879384",
+      "recipe": {
+        "text": "O anda nasıl hissettiniz?",
+        "language": "tr",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3835617788,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 1800,
+        "sampleRate": 24000,
+        "bytes": 86444,
+        "peak": 0.549407958984375,
+        "rms": 0.10739454853586719,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 47.409,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.26,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.257,
+            "cpuSeconds": 2.53,
+            "peakRSSKiB": 39000
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.266,
+            "cpuSeconds": 2.53,
+            "peakRSSKiB": 39000
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.461,
+            "cpuSeconds": 7.92,
+            "peakRSSKiB": 574048
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 16.42,
+            "cpuSeconds": 17.55,
+            "peakRSSKiB": 6895704
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 45.49,
+            "cpuSeconds": 75.13,
+            "peakRSSKiB": 6895704
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 45.49,
+            "cpuSeconds": 75.13,
+            "peakRSSKiB": 6895704
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/tr/official-default/B02/B02-V02",
@@ -505,7 +703,7 @@
       "assetId": "v1/tr/official-default/B02/B02-V10",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "O anki duygunuz sizin için nasıldı?",
+      "exactScript": "O anda yaşadığınız duyguyu nasıl anlatırsınız?",
       "questionNodeId": "B02",
       "variantId": "B02-V10",
       "audioPath": "/audio/mental/v1/tr/official-default/B02/B02-V10.wav",
@@ -665,7 +863,7 @@
       "assetId": "v1/tr/official-default/B03/B03-V10",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Olanları takip edebilmem için ne anlatmak istersiniz?",
+      "exactScript": "O durumda yaşananları nasıl anlatmak istersiniz?",
       "questionNodeId": "B03",
       "variantId": "B03-V10",
       "audioPath": "/audio/mental/v1/tr/official-default/B03/B03-V10.wav",
@@ -1001,7 +1199,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V01",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son zamanlarda bu ne sıklıkla oluyor?",
+      "exactScript": "Son zamanlarda bu duyguyu ne sıklıkla yaşıyorsunuz?",
       "questionNodeId": "B06",
       "variantId": "B06-V01",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V01.wav",
@@ -1017,7 +1215,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V02",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Yakın zamanda bunu ne sıklıkla fark ettiniz?",
+      "exactScript": "Yakın zamanda bu duyguyu ne sıklıkla fark ettiniz?",
       "questionNodeId": "B06",
       "variantId": "B06-V02",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V02.wav",
@@ -1033,7 +1231,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V03",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son zamanlarda bunu ne kadar sık yaşadınız?",
+      "exactScript": "Son zamanlarda bu duyguyu ne kadar sık hissettiniz?",
       "questionNodeId": "B06",
       "variantId": "B06-V03",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V03.wav",
@@ -1049,7 +1247,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V04",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son dönemde bunun sıklığı nasıl oldu?",
+      "exactScript": "Son dönemde bu duygunun sıklığı nasıldı?",
       "questionNodeId": "B06",
       "variantId": "B06-V04",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V04.wav",
@@ -1065,7 +1263,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V05",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Bu son zamanlarda ne kadar düzenli tekrarlanıyor?",
+      "exactScript": "Bu duygu son zamanlarda ne kadar düzenli ortaya çıkıyor?",
       "questionNodeId": "B06",
       "variantId": "B06-V05",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V05.wav",
@@ -1081,7 +1279,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V06",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son günlerde bu ne sıklıkla ortaya çıktı?",
+      "exactScript": "Son günlerde bu duygu ne sıklıkla ortaya çıktı?",
       "questionNodeId": "B06",
       "variantId": "B06-V06",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V06.wav",
@@ -1097,7 +1295,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V07",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son zamanlarda tekrarlanma sıklığıyla ilgili ne fark ettiniz?",
+      "exactScript": "Bu duygunun tekrar etme sıklığıyla ilgili ne fark ettiniz?",
       "questionNodeId": "B06",
       "variantId": "B06-V07",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V07.wav",
@@ -1113,7 +1311,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V08",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Yakın zamanda bu deneyim ne kadar sıktı?",
+      "exactScript": "Yakın zamanda bu duygu ne kadar sıktı?",
       "questionNodeId": "B06",
       "variantId": "B06-V08",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V08.wav",
@@ -1129,7 +1327,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V09",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son dönemde böyle anlar ne sıklıkla yaşandı?",
+      "exactScript": "Son dönemde bu duyguyu ne sıklıkla yaşadınız?",
       "questionNodeId": "B06",
       "variantId": "B06-V09",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V09.wav",
@@ -1145,7 +1343,7 @@
       "assetId": "v1/tr/official-default/B06/B06-V10",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Son zamanlarda bunun ne kadar sık olduğunu söylersiniz?",
+      "exactScript": "Son zamanlarda böyle hissettiğiniz anlar ne kadar sık oluyor?",
       "questionNodeId": "B06",
       "variantId": "B06-V10",
       "audioPath": "/audio/mental/v1/tr/official-default/B06/B06-V10.wav",
@@ -1769,7 +1967,7 @@
       "assetId": "v1/tr/official-default/B10/B10-V09",
       "language": "tr",
       "speakerProfile": "official-default",
-      "exactScript": "Şu anda sizin için eksik olan ne gibi geliyor?",
+      "exactScript": "Şu anda en çok neyin olmasını istersiniz?",
       "questionNodeId": "B10",
       "variantId": "B10-V09",
       "audioPath": "/audio/mental/v1/tr/official-default/B10/B10-V09.wav",
@@ -2221,13 +2419,79 @@
       "questionNodeId": "A",
       "variantId": "A-V01",
       "audioPath": "/audio/mental/v1/en/official-default/A/A-V01.wav",
-      "durationMs": null,
+      "durationMs": 1080,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "671e848459f8da0f173ad574416d94922b9c5f6566544d8a94d2a6b3813fd161",
+      "bytes": 51884,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "09977eb7363fd843b294bbb163e328c0a692f1ca5a302dd01d6f6128d433a8f5",
+      "recipe": {
+        "text": "Okay.",
+        "language": "en",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1061759033,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 1080,
+        "sampleRate": 24000,
+        "bytes": 51884,
+        "peak": 0.51708984375,
+        "rms": 0.10620029024801875,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 40.878,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.22,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.114,
+            "cpuSeconds": 2.33,
+            "peakRSSKiB": 38936
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.121,
+            "cpuSeconds": 2.34,
+            "peakRSSKiB": 38936
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.583,
+            "cpuSeconds": 7.0,
+            "peakRSSKiB": 584308
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 16.523,
+            "cpuSeconds": 17.49,
+            "peakRSSKiB": 6905984
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 38.797,
+            "cpuSeconds": 60.67,
+            "peakRSSKiB": 6905984
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 38.798,
+            "cpuSeconds": 60.67,
+            "peakRSSKiB": 6905984
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/en/official-default/A/A-V02",
@@ -2329,7 +2593,7 @@
       "assetId": "v1/en/official-default/A/A-V08",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "Let us make space for you.",
+      "exactScript": "There is room to share.",
       "questionNodeId": "A",
       "variantId": "A-V08",
       "audioPath": "/audio/mental/v1/en/official-default/A/A-V08.wav",
@@ -2413,13 +2677,79 @@
       "questionNodeId": "B01",
       "variantId": "B01-V01",
       "audioPath": "/audio/mental/v1/en/official-default/B01/B01-V01.wav",
-      "durationMs": null,
+      "durationMs": 1600,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "f3546548b604d05aba70322e9eb134e1363736504aac893aa85365fbc9463934",
+      "bytes": 76844,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "9607a2d6577f8ad57b08c9a2f8c216d332bbe6a9b54bf1cbf4dc38c644bafb4c",
+      "recipe": {
+        "text": "What would you like to talk about today?",
+        "language": "en",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1746049016,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 1600,
+        "sampleRate": 24000,
+        "bytes": 76844,
+        "peak": 0.6376953125,
+        "rms": 0.0928954807979897,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 47.219,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.3,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.168,
+            "cpuSeconds": 2.46,
+            "peakRSSKiB": 38928
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.179,
+            "cpuSeconds": 2.47,
+            "peakRSSKiB": 38928
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.9,
+            "cpuSeconds": 7.3,
+            "peakRSSKiB": 584032
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 17.642,
+            "cpuSeconds": 18.76,
+            "peakRSSKiB": 6905684
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 45.435,
+            "cpuSeconds": 72.9,
+            "peakRSSKiB": 6905684
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 45.435,
+            "cpuSeconds": 72.9,
+            "peakRSSKiB": 6905684
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/en/official-default/B01/B01-V02",
@@ -2573,13 +2903,79 @@
       "questionNodeId": "B02",
       "variantId": "B02-V01",
       "audioPath": "/audio/mental/v1/en/official-default/B02/B02-V01.wav",
-      "durationMs": null,
+      "durationMs": 1600,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "04499b200e78de4b031af6004b6a7710644505d442ddde63eaddf589ae55b837",
+      "bytes": 76844,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "b812b1ecf2513957566c778277399fcf3aee90aaa50646aa1df5dab5dbd00df5",
+      "recipe": {
+        "text": "How did you feel at that moment?",
+        "language": "en",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 160407096,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 1600,
+        "sampleRate": 24000,
+        "bytes": 76844,
+        "peak": 0.6966552734375,
+        "rms": 0.08369768902706505,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 48.134,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.23,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.122,
+            "cpuSeconds": 2.35,
+            "peakRSSKiB": 38900
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.129,
+            "cpuSeconds": 2.36,
+            "peakRSSKiB": 38900
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.047,
+            "cpuSeconds": 7.43,
+            "peakRSSKiB": 583404
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 17.095,
+            "cpuSeconds": 18.08,
+            "peakRSSKiB": 6904872
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 46.306,
+            "cpuSeconds": 74.47,
+            "peakRSSKiB": 6904872
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 46.306,
+            "cpuSeconds": 74.47,
+            "peakRSSKiB": 6904872
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/en/official-default/B02/B02-V02",
@@ -2873,7 +3269,7 @@
       "assetId": "v1/en/official-default/B03/B03-V10",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "What would help me follow what happened?",
+      "exactScript": "How would you tell the story of what happened?",
       "questionNodeId": "B03",
       "variantId": "B03-V10",
       "audioPath": "/audio/mental/v1/en/official-default/B03/B03-V10.wav",
@@ -3209,7 +3605,7 @@
       "assetId": "v1/en/official-default/B06/B06-V01",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How often has this been happening lately?",
+      "exactScript": "How often has that feeling come up lately?",
       "questionNodeId": "B06",
       "variantId": "B06-V01",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V01.wav",
@@ -3225,7 +3621,7 @@
       "assetId": "v1/en/official-default/B06/B06-V02",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How frequently have you noticed this recently?",
+      "exactScript": "How frequently have you noticed that feeling recently?",
       "questionNodeId": "B06",
       "variantId": "B06-V02",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V02.wav",
@@ -3241,7 +3637,7 @@
       "assetId": "v1/en/official-default/B06/B06-V03",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How often have you experienced this lately?",
+      "exactScript": "How often have you experienced that feeling lately?",
       "questionNodeId": "B06",
       "variantId": "B06-V03",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V03.wav",
@@ -3257,7 +3653,7 @@
       "assetId": "v1/en/official-default/B06/B06-V04",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "What has the frequency been like recently?",
+      "exactScript": "What has the frequency of that feeling been like recently?",
       "questionNodeId": "B06",
       "variantId": "B06-V04",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V04.wav",
@@ -3273,7 +3669,7 @@
       "assetId": "v1/en/official-default/B06/B06-V05",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How regularly has this come up lately?",
+      "exactScript": "How regularly has that feeling come up lately?",
       "questionNodeId": "B06",
       "variantId": "B06-V05",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V05.wav",
@@ -3289,7 +3685,7 @@
       "assetId": "v1/en/official-default/B06/B06-V06",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How often has this shown up in recent days?",
+      "exactScript": "How often has that feeling shown up in recent days?",
       "questionNodeId": "B06",
       "variantId": "B06-V06",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V06.wav",
@@ -3305,7 +3701,7 @@
       "assetId": "v1/en/official-default/B06/B06-V07",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "What pattern of frequency have you noticed lately?",
+      "exactScript": "What have you noticed about how often that feeling comes up?",
       "questionNodeId": "B06",
       "variantId": "B06-V07",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V07.wav",
@@ -3321,7 +3717,7 @@
       "assetId": "v1/en/official-default/B06/B06-V08",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How frequent has this experience been recently?",
+      "exactScript": "How frequent has that feeling been recently?",
       "questionNodeId": "B06",
       "variantId": "B06-V08",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V08.wav",
@@ -3337,7 +3733,7 @@
       "assetId": "v1/en/official-default/B06/B06-V09",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How often have moments like this occurred lately?",
+      "exactScript": "How often have you had that feeling lately?",
       "questionNodeId": "B06",
       "variantId": "B06-V09",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V09.wav",
@@ -3353,7 +3749,7 @@
       "assetId": "v1/en/official-default/B06/B06-V10",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "How often would you say this has happened recently?",
+      "exactScript": "How often would you say you have felt that way recently?",
       "questionNodeId": "B06",
       "variantId": "B06-V10",
       "audioPath": "/audio/mental/v1/en/official-default/B06/B06-V10.wav",
@@ -3977,7 +4373,7 @@
       "assetId": "v1/en/official-default/B10/B10-V09",
       "language": "en",
       "speakerProfile": "official-default",
-      "exactScript": "What do you feel is missing for you right now?",
+      "exactScript": "What would you most like to have right now?",
       "questionNodeId": "B10",
       "variantId": "B10-V09",
       "audioPath": "/audio/mental/v1/en/official-default/B10/B10-V09.wav",
@@ -4429,13 +4825,79 @@
       "questionNodeId": "A",
       "variantId": "A-V01",
       "audioPath": "/audio/mental/v1/de/official-default/A/A-V01.wav",
-      "durationMs": null,
+      "durationMs": 1080,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "6ad392b07e25045b910ddc32b19e19979f8296324b9a3e3575a3783212bff840",
+      "bytes": 51884,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "bb5266203f1f9aae4c9f59585b10cd109b5c1b5c50147a66c0479a99f8134c25",
+      "recipe": {
+        "text": "In Ordnung.",
+        "language": "de",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3893006708,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 1080,
+        "sampleRate": 24000,
+        "bytes": 51884,
+        "peak": 0.50250244140625,
+        "rms": 0.08358662593520765,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 39.985,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.22,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.04,
+            "cpuSeconds": 2.25,
+            "peakRSSKiB": 38392
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.051,
+            "cpuSeconds": 2.26,
+            "peakRSSKiB": 38392
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.223,
+            "cpuSeconds": 7.46,
+            "peakRSSKiB": 583068
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 16.866,
+            "cpuSeconds": 17.62,
+            "peakRSSKiB": 6904596
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 38.187,
+            "cpuSeconds": 59.14,
+            "peakRSSKiB": 6904596
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 38.188,
+            "cpuSeconds": 59.14,
+            "peakRSSKiB": 6904596
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/de/official-default/A/A-V02",
@@ -4537,7 +4999,7 @@
       "assetId": "v1/de/official-default/A/A-V08",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Geben wir Ihnen Raum.",
+      "exactScript": "Dafür ist hier Raum.",
       "questionNodeId": "A",
       "variantId": "A-V08",
       "audioPath": "/audio/mental/v1/de/official-default/A/A-V08.wav",
@@ -4621,13 +5083,79 @@
       "questionNodeId": "B01",
       "variantId": "B01-V01",
       "audioPath": "/audio/mental/v1/de/official-default/B01/B01-V01.wav",
-      "durationMs": null,
+      "durationMs": 2160,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "121b020da8b95702b64fe2c1e93cf95ccdd59b8a53b290682f22907ad764a296",
+      "bytes": 103724,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "54a06a5bc7a504eb85e8b7cda5ab03304ddfd56862243e2c3c036e48ff930d01",
+      "recipe": {
+        "text": "Worüber möchten Sie heute sprechen?",
+        "language": "de",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2215954955,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2160,
+        "sampleRate": 24000,
+        "bytes": 103724,
+        "peak": 0.520538330078125,
+        "rms": 0.10385017971873363,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 48.405,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.17,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.144,
+            "cpuSeconds": 2.32,
+            "peakRSSKiB": 39032
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.153,
+            "cpuSeconds": 2.33,
+            "peakRSSKiB": 39032
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.744,
+            "cpuSeconds": 7.11,
+            "peakRSSKiB": 584824
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 15.762,
+            "cpuSeconds": 16.85,
+            "peakRSSKiB": 6906352
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 46.802,
+            "cpuSeconds": 78.41,
+            "peakRSSKiB": 6906352
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 46.803,
+            "cpuSeconds": 78.41,
+            "peakRSSKiB": 6906352
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/de/official-default/B01/B01-V02",
@@ -4781,13 +5309,79 @@
       "questionNodeId": "B02",
       "variantId": "B02-V01",
       "audioPath": "/audio/mental/v1/de/official-default/B02/B02-V01.wav",
-      "durationMs": null,
+      "durationMs": 2240,
       "sampleRate": 24000,
       "codec": "pcm_s16le",
-      "sha256": null,
-      "bytes": null,
+      "sha256": "88b03dbeaa441721fac7780201ba35d1cb41f40079cdafef96fe943bb5c892ce",
+      "bytes": 107564,
       "contentVersion": "v1",
-      "approvalStatus": "pending-generation"
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "recipeSha256": "e03145dd4b7e624d64249f7ced68c9c803e0886ca9ad6b4ac5d284ace9fefa38",
+      "recipe": {
+        "text": "Wie haben Sie sich in dem Moment gefühlt?",
+        "language": "de",
+        "speakerProfile": "official-default",
+        "conditioningSha256": "6552d70568833628ba019c6b03459e77fe71ca197d5c560cef9411bee9d87f4e",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2951686933,
+        "contentVersion": "v1"
+      },
+      "qualityMetrics": {
+        "durationMs": 2240,
+        "sampleRate": 24000,
+        "bytes": 107564,
+        "peak": 0.64984130859375,
+        "rms": 0.12961425603371388,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 49.611,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.18,
+            "peakRSSKiB": 37788
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.078,
+            "cpuSeconds": 2.26,
+            "peakRSSKiB": 39032
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.085,
+            "cpuSeconds": 2.26,
+            "peakRSSKiB": 39032
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.639,
+            "cpuSeconds": 7.02,
+            "peakRSSKiB": 583512
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 15.511,
+            "cpuSeconds": 16.51,
+            "peakRSSKiB": 6905028
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 47.982,
+            "cpuSeconds": 80.88,
+            "peakRSSKiB": 6905028
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 47.983,
+            "cpuSeconds": 80.88,
+            "peakRSSKiB": 6905028
+          }
+        ]
+      }
     },
     {
       "assetId": "v1/de/official-default/B02/B02-V02",
@@ -5081,7 +5675,7 @@
       "assetId": "v1/de/official-default/B03/B03-V10",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Was möchten Sie erzählen, damit ich dem Geschehen folgen kann?",
+      "exactScript": "Wie möchten Sie beschreiben, was in der Situation passiert ist?",
       "questionNodeId": "B03",
       "variantId": "B03-V10",
       "audioPath": "/audio/mental/v1/de/official-default/B03/B03-V10.wav",
@@ -5417,7 +6011,7 @@
       "assetId": "v1/de/official-default/B06/B06-V01",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie oft ist das in letzter Zeit passiert?",
+      "exactScript": "Wie oft ist dieses Gefühl in letzter Zeit aufgetreten?",
       "questionNodeId": "B06",
       "variantId": "B06-V01",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V01.wav",
@@ -5433,7 +6027,7 @@
       "assetId": "v1/de/official-default/B06/B06-V02",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie häufig haben Sie das zuletzt bemerkt?",
+      "exactScript": "Wie häufig haben Sie dieses Gefühl zuletzt bemerkt?",
       "questionNodeId": "B06",
       "variantId": "B06-V02",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V02.wav",
@@ -5449,7 +6043,7 @@
       "assetId": "v1/de/official-default/B06/B06-V03",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie oft haben Sie das in letzter Zeit erlebt?",
+      "exactScript": "Wie oft haben Sie dieses Gefühl in letzter Zeit erlebt?",
       "questionNodeId": "B06",
       "variantId": "B06-V03",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V03.wav",
@@ -5465,7 +6059,7 @@
       "assetId": "v1/de/official-default/B06/B06-V04",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie war die Häufigkeit in letzter Zeit?",
+      "exactScript": "Wie war die Häufigkeit dieses Gefühls in letzter Zeit?",
       "questionNodeId": "B06",
       "variantId": "B06-V04",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V04.wav",
@@ -5481,7 +6075,7 @@
       "assetId": "v1/de/official-default/B06/B06-V05",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie regelmäßig kam das zuletzt vor?",
+      "exactScript": "Wie regelmäßig kam dieses Gefühl zuletzt auf?",
       "questionNodeId": "B06",
       "variantId": "B06-V05",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V05.wav",
@@ -5497,7 +6091,7 @@
       "assetId": "v1/de/official-default/B06/B06-V06",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie oft zeigte sich das in den letzten Tagen?",
+      "exactScript": "Wie oft zeigte sich dieses Gefühl in den letzten Tagen?",
       "questionNodeId": "B06",
       "variantId": "B06-V06",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V06.wav",
@@ -5513,7 +6107,7 @@
       "assetId": "v1/de/official-default/B06/B06-V07",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Welches Häufigkeitsmuster ist Ihnen zuletzt aufgefallen?",
+      "exactScript": "Was ist Ihnen daran aufgefallen, wie oft dieses Gefühl aufkommt?",
       "questionNodeId": "B06",
       "variantId": "B06-V07",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V07.wav",
@@ -5529,7 +6123,7 @@
       "assetId": "v1/de/official-default/B06/B06-V08",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie häufig war diese Erfahrung zuletzt?",
+      "exactScript": "Wie häufig war dieses Gefühl zuletzt?",
       "questionNodeId": "B06",
       "variantId": "B06-V08",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V08.wav",
@@ -5545,7 +6139,7 @@
       "assetId": "v1/de/official-default/B06/B06-V09",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie oft gab es solche Momente in letzter Zeit?",
+      "exactScript": "Wie oft hatten Sie in letzter Zeit dieses Gefühl?",
       "questionNodeId": "B06",
       "variantId": "B06-V09",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V09.wav",
@@ -5561,7 +6155,7 @@
       "assetId": "v1/de/official-default/B06/B06-V10",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Wie häufig würden Sie sagen, ist das zuletzt passiert?",
+      "exactScript": "Wie häufig haben Sie sich Ihrer Einschätzung nach zuletzt so gefühlt?",
       "questionNodeId": "B06",
       "variantId": "B06-V10",
       "audioPath": "/audio/mental/v1/de/official-default/B06/B06-V10.wav",
@@ -6185,7 +6779,7 @@
       "assetId": "v1/de/official-default/B10/B10-V09",
       "language": "de",
       "speakerProfile": "official-default",
-      "exactScript": "Was fehlt Ihnen Ihrem Gefühl nach gerade?",
+      "exactScript": "Was würden Sie sich gerade besonders wünschen?",
       "questionNodeId": "B10",
       "variantId": "B10-V09",
       "audioPath": "/audio/mental/v1/de/official-default/B10/B10-V09.wav",

@@ -1,11 +1,11 @@
 {
   "baseCommit": "84ccea4a83ca4eafb751b66dcf5bd2963a8f0fb4",
   "unitSuite": {
-    "tests": "1733",
+    "tests": "1742",
     "failures": "0",
     "errors": "0",
     "skipped": "44",
-    "time": "142.803"
+    "time": "148.285"
   },
   "frontend": {
     "typecheck": "passed",
@@ -32,10 +32,32 @@
   "audio": {
     "plannedScripts": 414,
     "plannedRepresentativeClips": 9,
-    "generatedClips": 0,
+    "generatedClips": 9,
     "approvedClips": 0,
-    "reason": "verified Chatterbox model bundle unavailable"
+    "joinedReviewPreviews": 6,
+    "verifiedArchiveSHA256": "5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc",
+    "verifiedArchiveMembers": 117,
+    "productionWallSeconds": 440.297,
+    "maxWorkerPeakRSSKiB": 6945188,
+    "auditoryApproval": "pending-owner-listening",
+    "massProduction": false
   },
   "paidCalls": 0,
-  "defaultEnabled": false
+  "defaultEnabled": false,
+  "semanticBenchmark": {
+    "corpusUtterances": 180,
+    "testUtterances": 108,
+    "ruleObjectiveF1": 0.7778,
+    "ruleIntentAccuracy": 0.6111,
+    "ruleJointRoutingAccuracy": 0.5741,
+    "officialModels": [
+      "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "intfloat/multilingual-e5-small"
+    ],
+    "status": "blocked-old-cloud-policy",
+    "observedPolicyRevision": "1",
+    "observedCustomHosts": [],
+    "blockedHostname": "huggingface.co",
+    "paidServices": false
+  }
 }

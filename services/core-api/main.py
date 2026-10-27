@@ -214,6 +214,7 @@ class ConversePayload(MemoryPayload):
     cloudConsent: StrictBool = False
     engine: Literal['legacy','structured-v1'] = 'legacy'
     structuredState: Optional[FlowState] = None
+    finishAfterReply: StrictBool = False
 
     @field_validator('userMessage')
     @classmethod
@@ -414,7 +415,7 @@ def converse_mental_assistant(payload: ConversePayload):
         if os.getenv('ATTUNE_MENTAL_STRUCTURED_ENABLED') != '1':
             raise HTTPException(409,'STRUCTURED_ENGINE_DISABLED')
         require_approved_library(current_language())
-        return route(user_msg,current_language(),payload.structuredState,control,is_driving)
+        return route(user_msg,current_language(),payload.structuredState,control,is_driving,payload.finishAfterReply)
     if control:
         return control
 

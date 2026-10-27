@@ -132,12 +132,13 @@ def classify(text, state):
 
 
 def select(node,state):
-    rows=[r for r in content()['rows'] if r['language']==state.language and r['questionNodeId']==node]
+    listening_ack=node=='L01' and state.lastNode=='L01'
+    rows=[r for r in content()['rows'] if r['language']==state.language and r['questionNodeId']==('A' if listening_ack else node)]
     rng=random.Random(state.seed+state.turn*104729)
     choices=[]
     for b in rows:
-        for aid in b['compatibleAPhrases'] or [None]:
-            response_id=f"{state.language}-{aid or 'none'}-{b['variantId']}"
+        for aid in ([b['variantId']] if listening_ack else b['compatibleAPhrases'] or [None]):
+            response_id=f"{state.language}-{aid or 'none'}-{'L01' if listening_ack else b['variantId']}"
             score=(response_id in state.selections, aid== (state.aHistory[-1] if state.aHistory else None) if aid else False,state.aHistory.count(aid) if aid else 0)
             choices.append((score,rng.random(),b,aid,response_id))
     _,_,b,aid,response_id=min(choices,key=lambda c:(c[0],c[1]))
@@ -145,14 +146,14 @@ def select(node,state):
     state.selections.append(response_id)
     if aid:state.aHistory.append(aid)
     state.asked.append(node);state.lastNode=node
-    selected=([a] if a else [])+[b]
+    selected=[b] if listening_ack else ([a] if a else [])+[b]
     return dict(reply=' '.join(r['exactText'] for r in selected),providerType='STRUCTURED_LOCAL',isCrisis=False,
                 structuredState=state.model_dump(),audioAssetIds=[r['audioAssetId'] for r in selected],
                 responseId=response_id,speakerProfile=state.speakerProfile,
                 metrics={'conversationalOpenAICalls':0,'dynamicTTSCalls':0})
 
 
-def route(text,language,state=None,control=None,is_driving=False):
+def route(text,language,state=None,control=None,is_driving=False,finish_after_reply=False):
     state=FlowState(language=language) if state is None else state.model_copy(deep=True)
     if state.language != language:raise HTTPException(409,'STRUCTURED_LANGUAGE_CHANGED_RESTART_REQUIRED')
     if state.turn>=40:raise HTTPException(409,'STRUCTURED_SESSION_LIMIT')
@@ -160,7 +161,7 @@ def route(text,language,state=None,control=None,is_driving=False):
     state.turn+=1
     if is_driving:node='D01'
     elif control:
-        if control.get('sessionAction')=='pause':state.clarifyFor=state.lastNode
+        if control.get('sessionAction')=='pause':state.clarifyFor=state.clarifyFor or state.lastNode
         node={'finish':'F01','pause':'P01'}.get(control.get('sessionAction'),'C02')
     else:
         result=classify(text,state)
@@ -182,18 +183,24 @@ def route(text,language,state=None,control=None,is_driving=False):
             node='B01'
         elif result['confidence']<OBJECTIVE_CONFIDENCE_THRESHOLD and not result['skip']:
             state.uncertainTurns+=1
-            if state.lastNode not in ('C01','C02'):
+            if state.uncertainTurns>=3 and state.lastNode in ('C01','C02','L01'):
+                node='L01'
+            elif state.lastNode not in ('C01','C02'):
                 state.clarifyFor=state.lastNode;node='C01'
             else:
                 if state.clarifyFor in NODES:state.skipped=sorted(set(state.skipped)|{state.clarifyFor})
                 state.clarifyFor=None;node='C02' if state.lastNode=='C01' else 'L01'
         else:
+            state.uncertainTurns=0
             state.clarifyFor=None
             excluded=set(state.fulfilled+state.skipped+state.asked)
             # Positive wellbeing does not require a problem exploration. Action
             # questions require the user's explicit interest, even in this mode.
-            order=flow_spec()['positiveOrder'] if state.topic=='positive' else flow_spec()['defaultOrder']
-            node=next((n for n in order if n not in excluded and (n!='B11' or state.wantsSteps)),'F01')
+            order=flow_spec()['positiveOrder'] if state.topic=='positive' else flow_spec().get('uncertaintyOrder',flow_spec()['defaultOrder']) if state.topic=='uncertainty' else flow_spec()['defaultOrder']
+            prerequisites=flow_spec().get('prerequisites',{})
+            node=next((n for n in order if n not in excluded and (n!='B11' or state.wantsSteps)
+                       and (n not in prerequisites or prerequisites[n] in state.fulfilled)),'F01')
+    if not is_driving and not control and (finish_after_reply or state.turn>=39):node='F01'
     output=select(node,state)
     output['decision']={'node':node,'classifier':'char-ngram-dialogue-grammar-v1','objectiveThreshold':OBJECTIVE_CONFIDENCE_THRESHOLD,'turn':state.turn}
     if node in ('F01','P01','D01'):output['sessionAction']='finish' if node=='F01' else 'pause'

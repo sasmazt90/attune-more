@@ -95,6 +95,58 @@ def test_topic_change_preserves_completed_nodes_and_no_advice_can_be_reversed():
     assert result['structuredState']['wantsSteps'] and not result['structuredState']['listenOnly']
 
 
+def test_unreported_feelings_are_not_presupposed_and_pause_preserves_clarification():
+    state=FlowState(language='en',lastNode='B07',asked=['B02','B07'],skipped=['B02'],fulfilled=['B01','B03'])
+    result=route('It takes longer to get through my day','en',state)
+    assert result['structuredState']['lastNode'] not in ('B04','B06','B08')
+    state=FlowState(language='en',lastNode='C01',clarifyFor='B05',asked=['B05','C01'])
+    paused=route('pause','en',state,control={'sessionAction':'pause'})
+    assert paused['structuredState']['clarifyFor']=='B05'
+
+
+@pytest.mark.parametrize('language',['tr','en','de'])
+def test_limit_closes_after_current_turn_without_another_question(language):
+    state=FlowState(language=language,turn=38)
+    result=route('A synthetic statement',language,state)
+    assert result['structuredState']['lastNode']=='F01' and result['sessionAction']=='finish'
+    result=route('A synthetic statement',language,finish_after_reply=True)
+    assert result['structuredState']['lastNode']=='F01'
+    # Explicit pause and the driving restriction keep their precedence.
+    assert route('pause',language,state,control={'sessionAction':'pause'})['structuredState']['lastNode']=='P01'
+    assert route('hello',language,state,is_driving=True)['structuredState']['lastNode']=='D01'
+
+
+def test_question_scope_compatibility_and_grouped_benchmark_corpus():
+    rows=content()['rows']
+    for row in rows:
+        if row['questionNodeId'] in NODES:
+            assert row['exactText'].count('?')==1
+            assert row['compatibleAPhrases']
+        if row['questionNodeId'] in ('B01','B12'):
+            assert not {'A-V04','A-V07','A-V11'}&set(row['compatibleAPhrases'])
+    corpus=json.loads((ROOT/'tests/fixtures/mental-routing-v2.json').read_text())
+    assert len(corpus['rows'])==180
+    groups={split:{r['scenarioId'] for r in corpus['rows'] if r['split']==split} for split in ('train','dev','test')}
+    assert not groups['train']&groups['dev'] and not groups['train']&groups['test'] and not groups['dev']&groups['test']
+    assert all(sum(r['language']==language for r in corpus['rows'])==60 for language in ('tr','en','de'))
+
+
+def test_listening_varies_global_acknowledgments_and_uncertainty_cannot_loop():
+    state=FlowState(language='en',listenOnly=True,lastNode='L01')
+    previous=None
+    for _ in range(15):
+        result=route('I just want to talk, no advice','en',state)
+        assert len(result['audioAssetIds'])==1 and '/A/' in result['audioAssetIds'][0]
+        assert result['audioAssetIds'][0]!=previous
+        assert '?' not in result['reply']
+        previous=result['audioAssetIds'][0];state=FlowState(**result['structuredState'])
+    state=FlowState(language='en',lastNode='B05',asked=['B05'])
+    nodes=[]
+    for _ in range(7):
+        result=route("I don't know",'en',state);state=FlowState(**result['structuredState']);nodes.append(state.lastNode)
+    assert nodes==['C01','C02','L01','L01','L01','L01','L01']
+
+
 def test_variations_are_seeded_compatible_and_balanced():
     for lang in ('tr','en','de'):
         a,b=FlowState(language=lang,seed=45),FlowState(language=lang,seed=45)
@@ -123,7 +175,13 @@ def test_catalog_semantic_parity_and_truthful_pending_manifest():
     for row in rows:
         entry=entries[row['audioAssetId']]
         assert row['exactText']==entry['exactScript']
-        assert entry['approvalStatus']=='pending-generation' and entry['sha256'] is None
+        assert entry['approvalStatus'] in ('pending-generation','synthesized-awaiting-listening-review')
+        if entry['approvalStatus']=='pending-generation':assert entry['sha256'] is None
+        else:
+            import hashlib
+            path=ROOT/'apps/vehicle-app/public'/entry['audioPath'].lstrip('/')
+            assert hashlib.sha256(path.read_bytes()).hexdigest()==entry['sha256']
+            assert entry['durationMs']>0 and entry['sampleRate']==24000
     with pytest.raises(Exception) as caught:require_approved_library('tr')
     assert caught.value.status_code==503
 
@@ -218,7 +276,7 @@ def test_offline_audio_plan_wave_metrics_and_recipe(tmp_path):
     metrics=module.inspect_pcm(buf.getvalue());assert metrics['durationMs']==100 and metrics['clippedSamples']==0
     bad=tmp_path/'bad.json';bad.write_text('{}')
     with pytest.raises((KeyError,ValueError)):module.produce(manifest,samples,str(bad),sys.executable)
-    assert all(e['approvalStatus']=='pending-generation' for e in samples)
+    assert all(e['approvalStatus'] in ('pending-generation','synthesized-awaiting-listening-review') for e in samples)
 
 
 def test_speaker_contract_blocks_missing_conditioning_before_generation(monkeypatch):
@@ -235,7 +293,7 @@ def test_speaker_contract_blocks_missing_conditioning_before_generation(monkeypa
     assert client.post('/api/mental/neural-speech?language=en',json={**payload,'speakerProfile':'other'},headers=headers).status_code==422
 
 
-@pytest.mark.parametrize('script',['mental_structured_runtime.cjs','mental_prepared_audio_runtime.cjs'])
+@pytest.mark.parametrize('script',['mental_structured_runtime.cjs','mental_prepared_audio_runtime.cjs','mental_limits_runtime.cjs'])
 def test_actual_frontend_closures(script):
     result=subprocess.run(['node','tests/unit/'+script],cwd=ROOT,text=True,capture_output=True,timeout=30)
     assert result.returncode==0,result.stdout+result.stderr

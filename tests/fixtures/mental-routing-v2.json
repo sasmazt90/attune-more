@@ -1,0 +1,2185 @@
+{
+  "version": "mental-routing-benchmark-v2",
+  "provenance": "180 newly authored synthetic utterances in 60 scenario groups, with parallel TR/EN/DE versions; not private transcripts or real-user validation. Frozen before semantic comparison; held out from v1 prototypes. Native-language expert labels have not been independently verified.",
+  "splitPolicy": "Group by scenario, keeping all translations together. Train=36, dev=36, test=108. Confidence thresholds selected only on dev.",
+  "rows": [
+    {
+      "id": "B01-1-en",
+      "scenarioId": "B01-1",
+      "split": "train",
+      "language": "en",
+      "text": "I'd like to discuss the changes at home.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-1-tr",
+      "scenarioId": "B01-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Evdeki değişiklikler üzerine konuşmak istiyorum.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-1-de",
+      "scenarioId": "B01-1",
+      "split": "train",
+      "language": "de",
+      "text": "Ich möchte über die Veränderungen zu Hause sprechen.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-2-en",
+      "scenarioId": "B01-2",
+      "split": "dev",
+      "language": "en",
+      "text": "The thing on my mind is a decision about moving.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-2-tr",
+      "scenarioId": "B01-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Aklımı meşgul eden konu taşınma kararı.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-2-de",
+      "scenarioId": "B01-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Mich beschäftigt gerade die Entscheidung über einen Umzug.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-3-en",
+      "scenarioId": "B01-3",
+      "split": "test",
+      "language": "en",
+      "text": "Can we spend some time on how university is going?",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-3-tr",
+      "scenarioId": "B01-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Üniversitede işlerin nasıl gittiğini konuşabilir miyiz?",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B01-3-de",
+      "scenarioId": "B01-3",
+      "split": "test",
+      "language": "de",
+      "text": "Können wir uns kurz damit beschäftigen, wie es an der Uni läuft?",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-1-en",
+      "scenarioId": "B02-1",
+      "split": "train",
+      "language": "en",
+      "text": "In that instant I was embarrassed.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-1-tr",
+      "scenarioId": "B02-1",
+      "split": "train",
+      "language": "tr",
+      "text": "O an utandım.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-1-de",
+      "scenarioId": "B02-1",
+      "split": "train",
+      "language": "de",
+      "text": "In diesem Augenblick war mir das peinlich.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-2-en",
+      "scenarioId": "B02-2",
+      "split": "dev",
+      "language": "en",
+      "text": "I was relieved when I heard it.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-2-tr",
+      "scenarioId": "B02-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Bunu duyunca içim rahatladı.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-2-de",
+      "scenarioId": "B02-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Als ich das hörte, war ich erleichtert.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-3-en",
+      "scenarioId": "B02-3",
+      "split": "test",
+      "language": "en",
+      "text": "Honestly, it left me feeling numb.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-3-tr",
+      "scenarioId": "B02-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Açıkçası içimde bir donukluk kaldı.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B02-3-de",
+      "scenarioId": "B02-3",
+      "split": "test",
+      "language": "de",
+      "text": "Ehrlich gesagt war ich danach wie betäubt.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-1-en",
+      "scenarioId": "B03-1",
+      "split": "train",
+      "language": "en",
+      "text": "They changed my shift without telling me.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-1-tr",
+      "scenarioId": "B03-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Bana haber vermeden vardiyamı değiştirdiler.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-1-de",
+      "scenarioId": "B03-1",
+      "split": "train",
+      "language": "de",
+      "text": "Sie haben meine Schicht geändert, ohne mir Bescheid zu sagen.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-2-en",
+      "scenarioId": "B03-2",
+      "split": "dev",
+      "language": "en",
+      "text": "My flatmate moved out last weekend.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-2-tr",
+      "scenarioId": "B03-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Ev arkadaşım geçen hafta sonu taşındı.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-2-de",
+      "scenarioId": "B03-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Meine Mitbewohnerin ist letztes Wochenende ausgezogen.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-3-en",
+      "scenarioId": "B03-3",
+      "split": "test",
+      "language": "en",
+      "text": "The company let me go on Friday.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-3-tr",
+      "scenarioId": "B03-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Cuma günü işime son verdiler.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B03-3-de",
+      "scenarioId": "B03-3",
+      "split": "test",
+      "language": "de",
+      "text": "Die Firma hat mich am Freitag entlassen.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-1-en",
+      "scenarioId": "B04-1",
+      "split": "train",
+      "language": "en",
+      "text": "It starts when the message notification lights up.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-1-tr",
+      "scenarioId": "B04-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Mesaj bildirimi yanınca başlıyor.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-1-de",
+      "scenarioId": "B04-1",
+      "split": "train",
+      "language": "de",
+      "text": "Es fängt an, wenn die Nachrichtenanzeige aufleuchtet.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-2-en",
+      "scenarioId": "B04-2",
+      "split": "dev",
+      "language": "en",
+      "text": "The feeling comes back as soon as the room gets crowded.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-2-tr",
+      "scenarioId": "B04-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Oda kalabalıklaşır kalabalıklaşmaz o duygu geri geliyor.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-2-de",
+      "scenarioId": "B04-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Das Gefühl kommt zurück, sobald der Raum voll wird.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-3-en",
+      "scenarioId": "B04-3",
+      "split": "test",
+      "language": "en",
+      "text": "A raised voice is usually what sets it off.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-3-tr",
+      "scenarioId": "B04-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Genellikle birinin sesini yükseltmesi bunu başlatıyor.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B04-3-de",
+      "scenarioId": "B04-3",
+      "split": "test",
+      "language": "de",
+      "text": "Meist wird es durch eine laute Stimme ausgelöst.",
+      "contextNode": "B04",
+      "objectives": [
+        "B01",
+        "B04"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-1-en",
+      "scenarioId": "B05-1",
+      "split": "train",
+      "language": "en",
+      "text": "My mind kept saying that I would let everyone down.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-1-tr",
+      "scenarioId": "B05-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Aklımda herkesi hayal kırıklığına uğratacağım vardı.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-1-de",
+      "scenarioId": "B05-1",
+      "split": "train",
+      "language": "de",
+      "text": "Mir ging immer wieder durch den Kopf, dass ich alle enttäuschen würde.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-2-en",
+      "scenarioId": "B05-2",
+      "split": "dev",
+      "language": "en",
+      "text": "The sentence in my head was, nobody will believe me.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-2-tr",
+      "scenarioId": "B05-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Kafamdaki cümle, kimse bana inanmayacak, idi.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-2-de",
+      "scenarioId": "B05-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Der Satz in meinem Kopf war: Niemand wird mir glauben.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-3-en",
+      "scenarioId": "B05-3",
+      "split": "test",
+      "language": "en",
+      "text": "All I could think was that I had messed it up again.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-3-tr",
+      "scenarioId": "B05-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Kafamda yine her şeyi berbat ettiğim vardı.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B05-3-de",
+      "scenarioId": "B05-3",
+      "split": "test",
+      "language": "de",
+      "text": "Ich hatte nur im Kopf, dass ich es schon wieder vermasselt hatte.",
+      "contextNode": "B05",
+      "objectives": [
+        "B01",
+        "B05"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-1-en",
+      "scenarioId": "B06-1",
+      "split": "train",
+      "language": "en",
+      "text": "It has come up on three mornings this week.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-1-tr",
+      "scenarioId": "B06-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Bu hafta üç sabah oldu.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-1-de",
+      "scenarioId": "B06-1",
+      "split": "train",
+      "language": "de",
+      "text": "Diese Woche kam es an drei Morgen vor.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-2-en",
+      "scenarioId": "B06-2",
+      "split": "dev",
+      "language": "en",
+      "text": "About two or three times a month lately.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-2-tr",
+      "scenarioId": "B06-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Son zamanlarda ayda iki üç kez.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-2-de",
+      "scenarioId": "B06-2",
+      "split": "dev",
+      "language": "de",
+      "text": "In letzter Zeit etwa zwei- bis dreimal im Monat.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-3-en",
+      "scenarioId": "B06-3",
+      "split": "test",
+      "language": "en",
+      "text": "It used to be rare, but now it happens most evenings.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-3-tr",
+      "scenarioId": "B06-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Eskiden nadirdi, artık akşamların çoğunda oluyor.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B06-3-de",
+      "scenarioId": "B06-3",
+      "split": "test",
+      "language": "de",
+      "text": "Früher war es selten, inzwischen passiert es an den meisten Abenden.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-1-en",
+      "scenarioId": "B07-1",
+      "split": "train",
+      "language": "en",
+      "text": "I leave the washing up for days and miss my bus.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-1-tr",
+      "scenarioId": "B07-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Bulaşıkları günlerce bırakıyorum ve otobüsü kaçırıyorum.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-1-de",
+      "scenarioId": "B07-1",
+      "split": "train",
+      "language": "de",
+      "text": "Ich lasse tagelang den Abwasch stehen und verpasse meinen Bus.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-2-en",
+      "scenarioId": "B07-2",
+      "split": "dev",
+      "language": "en",
+      "text": "My meals are irregular because I cannot get organised.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-2-tr",
+      "scenarioId": "B07-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Düzen kuramadığım için öğünlerim aksıyor.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-2-de",
+      "scenarioId": "B07-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Meine Mahlzeiten sind unregelmäßig, weil ich mich nicht organisieren kann.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-3-en",
+      "scenarioId": "B07-3",
+      "split": "test",
+      "language": "en",
+      "text": "I've stopped replying to friends and my coursework is piling up.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-3-tr",
+      "scenarioId": "B07-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Arkadaşlarıma dönmeyi bıraktım, ders işlerim de birikiyor.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B07-3-de",
+      "scenarioId": "B07-3",
+      "split": "test",
+      "language": "de",
+      "text": "Ich antworte Freunden nicht mehr und meine Studienaufgaben stapeln sich.",
+      "contextNode": "B07",
+      "objectives": [
+        "B01",
+        "B07"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-1-en",
+      "scenarioId": "B08-1",
+      "split": "train",
+      "language": "en",
+      "text": "When it happens I go quiet and leave the room.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-1-tr",
+      "scenarioId": "B08-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Böyle olunca susup odadan çıkıyorum.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-1-de",
+      "scenarioId": "B08-1",
+      "split": "train",
+      "language": "de",
+      "text": "Wenn das passiert, werde ich still und verlasse den Raum.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-2-en",
+      "scenarioId": "B08-2",
+      "split": "dev",
+      "language": "en",
+      "text": "My usual response is to check the message again and again.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-2-tr",
+      "scenarioId": "B08-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "O durumlarda mesajı tekrar tekrar kontrol ediyorum.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-2-de",
+      "scenarioId": "B08-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Dann lese ich die Nachricht immer wieder nach.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-3-en",
+      "scenarioId": "B08-3",
+      "split": "test",
+      "language": "en",
+      "text": "I shut my laptop and put my phone away.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-3-tr",
+      "scenarioId": "B08-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Bilgisayarı kapatıp telefonu bir kenara koyuyorum.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B08-3-de",
+      "scenarioId": "B08-3",
+      "split": "test",
+      "language": "de",
+      "text": "Ich klappe den Laptop zu und lege das Handy weg.",
+      "contextNode": "B08",
+      "objectives": [
+        "B01",
+        "B08"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-1-en",
+      "scenarioId": "B09-1",
+      "split": "train",
+      "language": "en",
+      "text": "Last time, a short walk made it more manageable.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-1-tr",
+      "scenarioId": "B09-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Geçen sefer kısa bir yürüyüş durumu hafifletti.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-1-de",
+      "scenarioId": "B09-1",
+      "split": "train",
+      "language": "de",
+      "text": "Letztes Mal hat ein kurzer Spaziergang es leichter gemacht.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-2-en",
+      "scenarioId": "B09-2",
+      "split": "dev",
+      "language": "en",
+      "text": "Having my sister nearby made a difference before.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-2-tr",
+      "scenarioId": "B09-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Daha önce ablamın yanımda olması fark yaratmıştı.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-2-de",
+      "scenarioId": "B09-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Früher hat es einen Unterschied gemacht, meine Schwester in der Nähe zu haben.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-3-en",
+      "scenarioId": "B09-3",
+      "split": "test",
+      "language": "en",
+      "text": "Writing it down used to take some weight off.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-3-tr",
+      "scenarioId": "B09-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Eskiden yazıya dökmek yükümü biraz azaltırdı.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B09-3-de",
+      "scenarioId": "B09-3",
+      "split": "test",
+      "language": "de",
+      "text": "Es aufzuschreiben hat mich früher etwas entlastet.",
+      "contextNode": "B09",
+      "objectives": [
+        "B01",
+        "B09"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-1-en",
+      "scenarioId": "B10-1",
+      "split": "train",
+      "language": "en",
+      "text": "Right now I could do with someone sitting beside me.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-1-tr",
+      "scenarioId": "B10-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Şu an birinin yanımda oturması iyi olur.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-1-de",
+      "scenarioId": "B10-1",
+      "split": "train",
+      "language": "de",
+      "text": "Gerade wäre es gut, wenn jemand neben mir säße.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-2-en",
+      "scenarioId": "B10-2",
+      "split": "dev",
+      "language": "en",
+      "text": "What I am missing at the moment is a bit of privacy.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-2-tr",
+      "scenarioId": "B10-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Şu an eksikliğini duyduğum şey biraz mahremiyet.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-2-de",
+      "scenarioId": "B10-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Was mir gerade fehlt, ist etwas Privatsphäre.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-3-en",
+      "scenarioId": "B10-3",
+      "split": "test",
+      "language": "en",
+      "text": "A quiet hour to myself is what would matter most now.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-3-tr",
+      "scenarioId": "B10-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Şu an en çok tek başıma geçireceğim sakin bir saat önemli.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B10-3-de",
+      "scenarioId": "B10-3",
+      "split": "test",
+      "language": "de",
+      "text": "Eine ruhige Stunde für mich wäre mir jetzt am wichtigsten.",
+      "contextNode": "B10",
+      "objectives": [
+        "B01",
+        "B10"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-1-en",
+      "scenarioId": "B11-1",
+      "split": "train",
+      "language": "en",
+      "text": "Tomorrow I am going to ask for a shorter meeting.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-1-tr",
+      "scenarioId": "B11-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Yarın toplantının daha kısa tutulmasını isteyeceğim.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-1-de",
+      "scenarioId": "B11-1",
+      "split": "train",
+      "language": "de",
+      "text": "Morgen werde ich um ein kürzeres Treffen bitten.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-2-en",
+      "scenarioId": "B11-2",
+      "split": "dev",
+      "language": "en",
+      "text": "The small thing I have chosen is to message my cousin.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-2-tr",
+      "scenarioId": "B11-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Seçtiğim küçük şey kuzenime mesaj atmak.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-2-de",
+      "scenarioId": "B11-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Als kleinen Schritt habe ich mir vorgenommen, meiner Cousine zu schreiben.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-3-en",
+      "scenarioId": "B11-3",
+      "split": "test",
+      "language": "en",
+      "text": "I could start by putting a ten minute break in my diary.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-3-tr",
+      "scenarioId": "B11-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Takvimime on dakikalık bir mola ekleyerek başlayabilirim.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B11-3-de",
+      "scenarioId": "B11-3",
+      "split": "test",
+      "language": "de",
+      "text": "Ich könnte damit anfangen, eine zehnminütige Pause einzuplanen.",
+      "contextNode": "B11",
+      "objectives": [
+        "B01",
+        "B11"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-1-en",
+      "scenarioId": "B12-1",
+      "split": "train",
+      "language": "en",
+      "text": "What I want to remember is that I can take my time.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-1-tr",
+      "scenarioId": "B12-1",
+      "split": "train",
+      "language": "tr",
+      "text": "Hatırlamak istediğim şey kendime zaman tanıyabileceğim.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-1-de",
+      "scenarioId": "B12-1",
+      "split": "train",
+      "language": "de",
+      "text": "Ich möchte mir merken, dass ich mir Zeit lassen darf.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-2-en",
+      "scenarioId": "B12-2",
+      "split": "dev",
+      "language": "en",
+      "text": "The part I am taking away is that asking for space matters.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-2-tr",
+      "scenarioId": "B12-2",
+      "split": "dev",
+      "language": "tr",
+      "text": "Buradan çıkardığım nokta kendime alan istemenin önemi.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-2-de",
+      "scenarioId": "B12-2",
+      "split": "dev",
+      "language": "de",
+      "text": "Ich nehme mit, dass es wichtig ist, um Freiraum zu bitten.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-3-en",
+      "scenarioId": "B12-3",
+      "split": "test",
+      "language": "en",
+      "text": "For me, the important bit from this chat was naming what I need.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-3-tr",
+      "scenarioId": "B12-3",
+      "split": "test",
+      "language": "tr",
+      "text": "Bu sohbette benim için önemli olan ihtiyacımı adlandırmaktı.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "B12-3-de",
+      "scenarioId": "B12-3",
+      "split": "test",
+      "language": "de",
+      "text": "Für mich war an diesem Gespräch wichtig, mein Bedürfnis zu benennen.",
+      "contextNode": "B12",
+      "objectives": [
+        "B01",
+        "B12"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "unknown-en",
+      "scenarioId": "unknown",
+      "split": "test",
+      "language": "en",
+      "text": "I haven't got a clue how to answer that.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "unknown-tr",
+      "scenarioId": "unknown",
+      "split": "test",
+      "language": "tr",
+      "text": "Buna nasıl cevap vereceğimi hiç bilmiyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "unknown-de",
+      "scenarioId": "unknown",
+      "split": "test",
+      "language": "de",
+      "text": "Ich habe keine Ahnung, wie ich darauf antworten soll.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "maybe-en",
+      "scenarioId": "maybe",
+      "split": "test",
+      "language": "en",
+      "text": "Maybe.",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "maybe-tr",
+      "scenarioId": "maybe",
+      "split": "test",
+      "language": "tr",
+      "text": "Belki.",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "maybe-de",
+      "scenarioId": "maybe",
+      "split": "test",
+      "language": "de",
+      "text": "Vielleicht.",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "empty-answer-en",
+      "scenarioId": "empty-answer",
+      "split": "test",
+      "language": "en",
+      "text": "Yeah.",
+      "contextNode": "B02",
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "empty-answer-tr",
+      "scenarioId": "empty-answer",
+      "split": "test",
+      "language": "tr",
+      "text": "Evet.",
+      "contextNode": "B02",
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "empty-answer-de",
+      "scenarioId": "empty-answer",
+      "split": "test",
+      "language": "de",
+      "text": "Ja.",
+      "contextNode": "B02",
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "quote-en",
+      "scenarioId": "quote",
+      "split": "test",
+      "language": "en",
+      "text": "The line \"I feel sad\" was in a song, not about me.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "quote-tr",
+      "scenarioId": "quote",
+      "split": "test",
+      "language": "tr",
+      "text": "\"Üzgün hissediyorum\" sözü bir şarkıdaydı, benimle ilgili değildi.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "quote-de",
+      "scenarioId": "quote",
+      "split": "test",
+      "language": "de",
+      "text": "Der Satz \"Ich bin traurig\" war in einem Lied, er ging nicht um mich.",
+      "contextNode": null,
+      "objectives": [
+        "B01"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "negation-en",
+      "scenarioId": "negation",
+      "split": "test",
+      "language": "en",
+      "text": "I wasn't upset; I was relieved.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "negation-tr",
+      "scenarioId": "negation",
+      "split": "test",
+      "language": "tr",
+      "text": "Üzülmedim, içim rahatladı.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "negation-de",
+      "scenarioId": "negation",
+      "split": "test",
+      "language": "de",
+      "text": "Ich war nicht bedrückt, sondern erleichtert.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "mixed-en",
+      "scenarioId": "mixed",
+      "split": "test",
+      "language": "en",
+      "text": "Neither angry nor calm, somewhere between the two.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "mixed-tr",
+      "scenarioId": "mixed",
+      "split": "test",
+      "language": "tr",
+      "text": "Ne kızgın ne de sakin, ikisinin arasında bir yerde.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "mixed-de",
+      "scenarioId": "mixed",
+      "split": "test",
+      "language": "de",
+      "text": "Weder wütend noch ruhig, irgendwo dazwischen.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "finish-natural-en",
+      "scenarioId": "finish-natural",
+      "split": "test",
+      "language": "en",
+      "text": "I'd like to stop for today.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "finish"
+    },
+    {
+      "id": "finish-natural-tr",
+      "scenarioId": "finish-natural",
+      "split": "test",
+      "language": "tr",
+      "text": "Bugünlük burada bırakalım.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "finish"
+    },
+    {
+      "id": "finish-natural-de",
+      "scenarioId": "finish-natural",
+      "split": "test",
+      "language": "de",
+      "text": "Für heute möchte ich aufhören.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "finish"
+    },
+    {
+      "id": "finish-polite-en",
+      "scenarioId": "finish-polite",
+      "split": "test",
+      "language": "en",
+      "text": "Can we end our conversation now?",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "finish"
+    },
+    {
+      "id": "finish-polite-tr",
+      "scenarioId": "finish-polite",
+      "split": "test",
+      "language": "tr",
+      "text": "Görüşmeyi şimdi bitirebilir miyiz?",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "finish"
+    },
+    {
+      "id": "finish-polite-de",
+      "scenarioId": "finish-polite",
+      "split": "test",
+      "language": "de",
+      "text": "Können wir unser Gespräch jetzt beenden?",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "finish"
+    },
+    {
+      "id": "pause-natural-en",
+      "scenarioId": "pause-natural",
+      "split": "test",
+      "language": "en",
+      "text": "Could we pause for a moment?",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "pause"
+    },
+    {
+      "id": "pause-natural-tr",
+      "scenarioId": "pause-natural",
+      "split": "test",
+      "language": "tr",
+      "text": "Bir anlığına ara verebilir miyiz?",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "pause"
+    },
+    {
+      "id": "pause-natural-de",
+      "scenarioId": "pause-natural",
+      "split": "test",
+      "language": "de",
+      "text": "Können wir einen Moment Pause machen?",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "pause"
+    },
+    {
+      "id": "pause-existing-en",
+      "scenarioId": "pause-existing",
+      "split": "test",
+      "language": "en",
+      "text": "I would like to take a break.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "pause"
+    },
+    {
+      "id": "pause-existing-tr",
+      "scenarioId": "pause-existing",
+      "split": "test",
+      "language": "tr",
+      "text": "Biraz ara vermek istiyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "pause"
+    },
+    {
+      "id": "pause-existing-de",
+      "scenarioId": "pause-existing",
+      "split": "test",
+      "language": "de",
+      "text": "Ich möchte eine Pause machen.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "pause"
+    },
+    {
+      "id": "negated-end-en",
+      "scenarioId": "negated-end",
+      "split": "test",
+      "language": "en",
+      "text": "I don't want to stop talking.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "negated-end-tr",
+      "scenarioId": "negated-end",
+      "split": "test",
+      "language": "tr",
+      "text": "Konuşmayı bitirmek istemiyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "negated-end-de",
+      "scenarioId": "negated-end",
+      "split": "test",
+      "language": "de",
+      "text": "Ich möchte nicht aufhören zu reden.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "uncertain"
+    },
+    {
+      "id": "listen-only-en",
+      "scenarioId": "listen-only",
+      "split": "test",
+      "language": "en",
+      "text": "Please just hear me out; I'm not looking for solutions.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "listen-only-tr",
+      "scenarioId": "listen-only",
+      "split": "test",
+      "language": "tr",
+      "text": "Lütfen sadece dinleyin, çözüm aramıyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "listen-only-de",
+      "scenarioId": "listen-only",
+      "split": "test",
+      "language": "de",
+      "text": "Bitte hören Sie mir einfach zu, ich suche keine Lösungen.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "no-advice-en",
+      "scenarioId": "no-advice",
+      "split": "test",
+      "language": "en",
+      "text": "No advice, I just want to talk.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "no-advice-tr",
+      "scenarioId": "no-advice",
+      "split": "test",
+      "language": "tr",
+      "text": "Tavsiye istemiyorum, sadece konuşmak istiyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "no-advice-de",
+      "scenarioId": "no-advice",
+      "split": "test",
+      "language": "de",
+      "text": "Keine Ratschläge, ich möchte nur reden.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "no-questions-en",
+      "scenarioId": "no-questions",
+      "split": "test",
+      "language": "en",
+      "text": "Please do not ask me more questions right now.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "no-questions-tr",
+      "scenarioId": "no-questions",
+      "split": "test",
+      "language": "tr",
+      "text": "Şu an lütfen başka soru sormayın.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "no-questions-de",
+      "scenarioId": "no-questions",
+      "split": "test",
+      "language": "de",
+      "text": "Bitte stellen Sie mir gerade keine weiteren Fragen.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "skip-en",
+      "scenarioId": "skip",
+      "split": "test",
+      "language": "en",
+      "text": "Could we skip that one?",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "skip"
+    },
+    {
+      "id": "skip-tr",
+      "scenarioId": "skip",
+      "split": "test",
+      "language": "tr",
+      "text": "Bu soruyu geçebilir miyiz?",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "skip"
+    },
+    {
+      "id": "skip-de",
+      "scenarioId": "skip",
+      "split": "test",
+      "language": "de",
+      "text": "Können wir diese Frage überspringen?",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "skip"
+    },
+    {
+      "id": "skip-existing-en",
+      "scenarioId": "skip-existing",
+      "split": "test",
+      "language": "en",
+      "text": "Skip this.",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "skip"
+    },
+    {
+      "id": "skip-existing-tr",
+      "scenarioId": "skip-existing",
+      "split": "test",
+      "language": "tr",
+      "text": "Bunu geçelim.",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "skip"
+    },
+    {
+      "id": "skip-existing-de",
+      "scenarioId": "skip-existing",
+      "split": "test",
+      "language": "de",
+      "text": "Überspringen.",
+      "contextNode": "B05",
+      "objectives": [],
+      "intent": "skip"
+    },
+    {
+      "id": "topic-en",
+      "scenarioId": "topic",
+      "split": "test",
+      "language": "en",
+      "text": "There is something different I would rather talk about.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "topic-change"
+    },
+    {
+      "id": "topic-tr",
+      "scenarioId": "topic",
+      "split": "test",
+      "language": "tr",
+      "text": "Bunun yerine başka bir konuyu konuşmak istiyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "topic-change"
+    },
+    {
+      "id": "topic-de",
+      "scenarioId": "topic",
+      "split": "test",
+      "language": "de",
+      "text": "Ich würde lieber über ein anderes Thema sprechen.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "topic-change"
+    },
+    {
+      "id": "advice-request-en",
+      "scenarioId": "advice-request",
+      "split": "test",
+      "language": "en",
+      "text": "I would welcome an idea for a first step.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "steps"
+    },
+    {
+      "id": "advice-request-tr",
+      "scenarioId": "advice-request",
+      "split": "test",
+      "language": "tr",
+      "text": "İlk adım için bir fikir duymak isterim.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "steps"
+    },
+    {
+      "id": "advice-request-de",
+      "scenarioId": "advice-request",
+      "split": "test",
+      "language": "de",
+      "text": "Ich wäre für eine Idee für einen ersten Schritt offen.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "steps"
+    },
+    {
+      "id": "refuse-steps-en",
+      "scenarioId": "refuse-steps",
+      "split": "test",
+      "language": "en",
+      "text": "I don't want next steps or a plan.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "refuse-steps-tr",
+      "scenarioId": "refuse-steps",
+      "split": "test",
+      "language": "tr",
+      "text": "Sonraki adım ya da plan istemiyorum.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "refuse-steps-de",
+      "scenarioId": "refuse-steps",
+      "split": "test",
+      "language": "de",
+      "text": "Ich möchte keine nächsten Schritte und keinen Plan.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "listen"
+    },
+    {
+      "id": "crisis-priority-en",
+      "scenarioId": "crisis-priority",
+      "split": "test",
+      "language": "en",
+      "text": "I want to kill myself. Please finish the conversation.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "crisis"
+    },
+    {
+      "id": "crisis-priority-tr",
+      "scenarioId": "crisis-priority",
+      "split": "test",
+      "language": "tr",
+      "text": "Kendime zarar vermek istiyorum. Görüşmeyi bitirin.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "crisis"
+    },
+    {
+      "id": "crisis-priority-de",
+      "scenarioId": "crisis-priority",
+      "split": "test",
+      "language": "de",
+      "text": "Ich will mich umbringen. Bitte das Gespräch beenden.",
+      "contextNode": null,
+      "objectives": [],
+      "intent": "crisis"
+    },
+    {
+      "id": "short-emotion-en",
+      "scenarioId": "short-emotion",
+      "split": "test",
+      "language": "en",
+      "text": "Ashamed.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "short-emotion-tr",
+      "scenarioId": "short-emotion",
+      "split": "test",
+      "language": "tr",
+      "text": "Utandım.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "short-emotion-de",
+      "scenarioId": "short-emotion",
+      "split": "test",
+      "language": "de",
+      "text": "Beschämt.",
+      "contextNode": "B02",
+      "objectives": [
+        "B01",
+        "B02"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "short-frequency-en",
+      "scenarioId": "short-frequency",
+      "split": "test",
+      "language": "en",
+      "text": "Most nights.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "short-frequency-tr",
+      "scenarioId": "short-frequency",
+      "split": "test",
+      "language": "tr",
+      "text": "Çoğu gece.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "short-frequency-de",
+      "scenarioId": "short-frequency",
+      "split": "test",
+      "language": "de",
+      "text": "Fast jede Nacht.",
+      "contextNode": "B06",
+      "objectives": [
+        "B01",
+        "B06"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "correction-en",
+      "scenarioId": "correction",
+      "split": "test",
+      "language": "en",
+      "text": "I said Friday earlier, but it was Monday when they let me go.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "correction-tr",
+      "scenarioId": "correction",
+      "split": "test",
+      "language": "tr",
+      "text": "Az önce cuma dedim ama işime pazartesi son verdiler.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "correction-de",
+      "scenarioId": "correction",
+      "split": "test",
+      "language": "de",
+      "text": "Vorhin sagte ich Freitag, aber sie haben mich am Montag entlassen.",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "asr-context-en",
+      "scenarioId": "asr-context",
+      "split": "test",
+      "language": "en",
+      "text": "got laid off yesterdy, totally gutted",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "asr-context-tr",
+      "scenarioId": "asr-context",
+      "split": "test",
+      "language": "tr",
+      "text": "dün işten çıkarıldm moralim sıfır",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "intent": "answer"
+    },
+    {
+      "id": "asr-context-de",
+      "scenarioId": "asr-context",
+      "split": "test",
+      "language": "de",
+      "text": "gestern entlassn, bin völlig geknickt",
+      "contextNode": null,
+      "objectives": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "intent": "answer"
+    }
+  ]
+}

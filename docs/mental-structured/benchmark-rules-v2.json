@@ -1,0 +1,1210 @@
+{
+  "corpusSHA256": "a172b34ed42bd9788a7678503f527627a5556d85c6f6b015e699693824fb91f3",
+  "provenance": "180 newly authored synthetic utterances in 60 scenario groups, with parallel TR/EN/DE versions; not private transcripts or real-user validation. Frozen before semantic comparison; held out from v1 prototypes. Native-language expert labels have not been independently verified.",
+  "model": "rules",
+  "paidServices": false,
+  "testUtterances": 108,
+  "precision": 0.8851,
+  "recall": 0.6937,
+  "f1": 0.7778,
+  "exactMatch": 0.7778,
+  "falsePositiveObjectives": 10,
+  "missedObjectives": 34,
+  "intentAccuracy": 0.6111,
+  "jointRoutingAccuracy": 0.5741,
+  "latencyMs": {
+    "median": 0.643,
+    "p95": 0.972
+  },
+  "processPeakRSSKiB": 38896,
+  "results": [
+    {
+      "id": "B01-3-en",
+      "language": "en",
+      "expected": [
+        "B01"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "B01-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "B01-3-de",
+      "language": "de",
+      "expected": [
+        "B01"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "B02-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B02-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B02-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B03-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "B03-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "B03-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "B04-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B04"
+      ],
+      "predicted": [
+        "B01",
+        "B04"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B04-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B04"
+      ],
+      "predicted": [
+        "B01",
+        "B04"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B04-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B04"
+      ],
+      "predicted": [
+        "B01",
+        "B04"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B05-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B05"
+      ],
+      "predicted": [
+        "B01",
+        "B05"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B05-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B05"
+      ],
+      "predicted": [
+        "B01",
+        "B05"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B05-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B05"
+      ],
+      "predicted": [
+        "B01",
+        "B05"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B06-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B06"
+      ],
+      "predicted": [
+        "B01",
+        "B06"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B06-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B06"
+      ],
+      "predicted": [
+        "B01",
+        "B06"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B06-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B06"
+      ],
+      "predicted": [
+        "B01",
+        "B06"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B07-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B07"
+      ],
+      "predicted": [
+        "B01",
+        "B07"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B07-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B07"
+      ],
+      "predicted": [
+        "B01",
+        "B07"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B07-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B07"
+      ],
+      "predicted": [
+        "B01",
+        "B07"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B08-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B08"
+      ],
+      "predicted": [
+        "B01",
+        "B08"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B08-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B08"
+      ],
+      "predicted": [
+        "B01",
+        "B08"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B08-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B08"
+      ],
+      "predicted": [
+        "B01",
+        "B08"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B09-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B09"
+      ],
+      "predicted": [
+        "B01",
+        "B09"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B09-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B09"
+      ],
+      "predicted": [
+        "B01",
+        "B09"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B09-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B09"
+      ],
+      "predicted": [
+        "B01",
+        "B09"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B10-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B10"
+      ],
+      "predicted": [
+        "B01",
+        "B10"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B10-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B10"
+      ],
+      "predicted": [
+        "B01",
+        "B10"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B10-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B10"
+      ],
+      "predicted": [
+        "B01",
+        "B10"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B11-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B11"
+      ],
+      "predicted": [
+        "B01",
+        "B11"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B11-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B11"
+      ],
+      "predicted": [
+        "B01",
+        "B11"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B11-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B11"
+      ],
+      "predicted": [
+        "B01",
+        "B11"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B12-3-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B12"
+      ],
+      "predicted": [
+        "B01",
+        "B10",
+        "B12"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B12-3-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B12"
+      ],
+      "predicted": [
+        "B01",
+        "B12"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "B12-3-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B12"
+      ],
+      "predicted": [
+        "B01",
+        "B12"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "unknown-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "unknown-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "unknown-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "maybe-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "maybe-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "maybe-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "empty-answer-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "empty-answer-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "empty-answer-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "quote-en",
+      "language": "en",
+      "expected": [
+        "B01"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "quote-tr",
+      "language": "tr",
+      "expected": [
+        "B01"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "quote-de",
+      "language": "de",
+      "expected": [
+        "B01"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "negation-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "negation-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "negation-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "mixed-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "mixed-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "mixed-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [
+        "B01",
+        "B02"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "finish-natural-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "finish",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "finish-natural-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "finish",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "finish-natural-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "finish",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "finish-polite-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "finish",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "finish-polite-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "finish",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "finish-polite-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "finish",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "pause-natural-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "pause",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "pause-natural-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "pause",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "pause-natural-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "pause",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "pause-existing-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "pause",
+      "predictedIntent": "pause"
+    },
+    {
+      "id": "pause-existing-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "pause",
+      "predictedIntent": "pause"
+    },
+    {
+      "id": "pause-existing-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "pause",
+      "predictedIntent": "pause"
+    },
+    {
+      "id": "negated-end-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "negated-end-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "negated-end-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "uncertain",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "listen-only-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "listen-only-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "listen-only-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "no-advice-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "listen"
+    },
+    {
+      "id": "no-advice-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "listen"
+    },
+    {
+      "id": "no-advice-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "listen"
+    },
+    {
+      "id": "no-questions-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "no-questions-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "no-questions-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "skip-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [
+        "B01",
+        "B05"
+      ],
+      "expectedIntent": "skip",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "skip-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [
+        "B01",
+        "B05"
+      ],
+      "expectedIntent": "skip",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "skip-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [
+        "B01",
+        "B05"
+      ],
+      "expectedIntent": "skip",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "skip-existing-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "skip",
+      "predictedIntent": "skip"
+    },
+    {
+      "id": "skip-existing-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "skip",
+      "predictedIntent": "skip"
+    },
+    {
+      "id": "skip-existing-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "skip",
+      "predictedIntent": "skip"
+    },
+    {
+      "id": "topic-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "topic-change",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "topic-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "topic-change",
+      "predictedIntent": "topic-change"
+    },
+    {
+      "id": "topic-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "topic-change",
+      "predictedIntent": "topic-change"
+    },
+    {
+      "id": "advice-request-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "steps",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "advice-request-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "steps",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "advice-request-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "steps",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "refuse-steps-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "refuse-steps-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "refuse-steps-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "listen",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "crisis-priority-en",
+      "language": "en",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "crisis",
+      "predictedIntent": "crisis"
+    },
+    {
+      "id": "crisis-priority-tr",
+      "language": "tr",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "crisis",
+      "predictedIntent": "crisis"
+    },
+    {
+      "id": "crisis-priority-de",
+      "language": "de",
+      "expected": [],
+      "predicted": [],
+      "expectedIntent": "crisis",
+      "predictedIntent": "crisis"
+    },
+    {
+      "id": "short-emotion-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "short-emotion-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "short-emotion-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B02"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "short-frequency-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B06"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "short-frequency-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B06"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "short-frequency-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B06"
+      ],
+      "predicted": [
+        "B01",
+        "B06"
+      ],
+      "expectedIntent": "answer",
+      "predictedIntent": "answer"
+    },
+    {
+      "id": "correction-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "correction-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "correction-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "asr-context-en",
+      "language": "en",
+      "expected": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "asr-context-tr",
+      "language": "tr",
+      "expected": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    },
+    {
+      "id": "asr-context-de",
+      "language": "de",
+      "expected": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "predicted": [],
+      "expectedIntent": "answer",
+      "predictedIntent": "uncertain"
+    }
+  ],
+  "byLanguage": {
+    "tr": {
+      "precision": 0.8929,
+      "recall": 0.6757,
+      "f1": 0.7692,
+      "exactMatch": 0.7778,
+      "falsePositiveObjectives": 3,
+      "missedObjectives": 12
+    },
+    "en": {
+      "precision": 0.8621,
+      "recall": 0.6757,
+      "f1": 0.7576,
+      "exactMatch": 0.75,
+      "falsePositiveObjectives": 4,
+      "missedObjectives": 12
+    },
+    "de": {
+      "precision": 0.9,
+      "recall": 0.7297,
+      "f1": 0.806,
+      "exactMatch": 0.8056,
+      "falsePositiveObjectives": 3,
+      "missedObjectives": 10
+    }
+  }
+}
