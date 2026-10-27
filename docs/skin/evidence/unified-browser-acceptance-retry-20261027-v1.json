@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T03:48:58Z",
+  "observedAt": "2026-10-27T05:19:00Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -24,7 +24,8 @@
     "sixteenthRetryCandidateCommit": "cc474f13935d231ec761e9154d2d62dab21ecffb",
     "seventeenthRetryCandidateCommit": "7b9dd9682ff4309dfd2b58f465d78fac37e96873",
     "eighteenthRetryCandidateCommit": "cb05f3bbd242673bb58711540a79eb896ae58f83",
-    "nineteenthRetryCandidateCommit": "8b49a6137aef25cc24a097144c2d3d5e9be7d8da"
+    "nineteenthRetryCandidateCommit": "8b49a6137aef25cc24a097144c2d3d5e9be7d8da",
+    "twentiethRetryCandidateCommit": "a056341489f0a45f1b8da8677981b466c8a63c34"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -676,11 +677,53 @@
   "nineteenthRetry": {
     "browserRunId": 40446250693,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40446250693",
-    "statusAtCheckpoint": "pending",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
+    "jobId": 121998528874,
     "matchingRepositoryCiRunId": 40446250595,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40446250595",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "fixturePrepared": true,
+    "browserAndHistoryCommandsCompletedBeforePrivacy": true,
+    "privacyScenarioExecuted": true,
+    "failedStep": "Run source-bound browser API history and privacy acceptance",
+    "artifactId": 12709317094,
+    "artifactDigest": "sha256:abc50b0b23ce75b823de67b2a8343a86dac8fcd11f363c8fe2540e4ef2d3c1bd",
+    "rawLogsInspected": false,
+    "sanitizedEvidenceProduced": false,
+    "diagnosis": "The privacy scenario failed after the current-photo and history commands completed, but this run uploaded only raw logs. To preserve private proof boundaries, no raw log, screenshot, scan identifier or private proof was read. The exact completed privacy stage therefore remains unknown rather than guessed."
+  },
+  "twentiethTargetedFix": {
+    "sources": [
+      "tests/e2e/current_skin_photo_wipe_success.py",
+      ".github/workflows/e2e-audit.yml",
+      "scripts/skin-research/build_unified_browser_acceptance.py",
+      "scripts/skin-research/tests/test_build_unified_browser_acceptance.py"
+    ],
+    "change": "emit a compact controlled-fixture-only privacy stage receipt with no scan, source-photo, browser-profile, backend-record or user identity, upload only the sanitized directory even when the browser step fails, and repin the reviewed privacy harness blob",
+    "privacyFlowBypassed": false,
+    "productCodeChanged": false,
+    "modelOrThresholdChanged": false,
+    "rawPrivateEvidenceCommitted": false,
+    "pythonCompilePassed": true,
+    "focusedUnitTestsPassed": 8,
+    "stageContractPassed": true,
+    "artifactScopeContractPassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false
+  },
+  "twentiethRetry": {
+    "candidateCommit": "a056341489f0a45f1b8da8677981b466c8a63c34",
+    "browserRunId": 40454569315,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40454569315",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40454569183,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40454569183",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
-    "sanitizedEvidencePending": true
+    "sanitizedStageEvidencePending": true
   },
   "roboflowRefresh": {
     "accessibleProjects": 20,
