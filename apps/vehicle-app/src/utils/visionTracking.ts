@@ -1,6 +1,7 @@
 import type { NormalizedLandmark } from '@mediapipe/tasks-vision';
 import { SkinAnalyzer, type FaceAlignment } from './skinAnalyzer';
 import { visionFrameQuality } from './visionFrameQuality';
+import {occlusionKind} from './visionCoverage';
 import type { Eye, EyePixelEvidence, LetterConditions } from './spokenVision';
 export const VISION_TRACKING_RULES={baselineMs:1000,eyeHoldMs:600,distanceEnter:.15,distanceExit:.10,distanceHoldMs:600,recoveryMs:350,openLidRatio:.62} as const;
 /** Native geometry remains distinct from occlusion. The open candidate keeps
@@ -93,7 +94,7 @@ export class VisionTracker {
  private baselinePairs:number[]|null=null;private baselinePoseHeight=0;private baselineTempleWidth=0;private samples:{ears:number[];blinks:number[];narrow:Patch[];wide:Patch[];lengths:number[]}[]=[];private baselineSince=0;private lastFrame=0;
  private eyeHold={RIGHT:new SustainedEyeState(),LEFT:new SustainedEyeState()};
  private distance:'learning'|'stable'|'near'|'far'|'unknown'='learning';private distanceHold=new HeadDistanceHysteresis();
- private lastPoints:NormalizedLandmark[]|null=null;private trustedPatches:{id:number;image:Patch;box:Box}[]=[];private trackedScaleReliable=false;
+ private lastNativeAt=-Infinity;private lastPoints:NormalizedLandmark[]|null=null;private trustedPatches:{id:number;image:Patch;box:Box}[]=[];private trackedScaleReliable=false;
  private followPixels(ctx:CanvasRenderingContext2D,w:number,h:number):NormalizedLandmark[]|null{
   this.trackedScaleReliable=false;if(!this.lastPoints||this.trustedPatches.length<3)return null;
   const hits:{id:number;dx:number;dy:number;correlation:number}[]=[];
@@ -110,8 +111,8 @@ export class VisionTracker {
  }
  assess(ctx:CanvasRenderingContext2D,w:number,h:number,model:VisionModelFrame,now:number,eye:Eye|null):VisionEvidence{
   if(!this.baseline&&this.lastFrame&&now-this.lastFrame>300){this.samples=[];this.baselineSince=0;}this.lastFrame=now;
-  let p=model.landmarks.length===1?model.landmarks[0]:null;const native=!!p;let tracked=false;
-  if(!p&&model.landmarks.length===0){p=this.followPixels(ctx,w,h);tracked=!!p;}
+  let p=model.landmarks.length===1?model.landmarks[0]:null;const native=!!p;let tracked=false;if(native)this.lastNativeAt=now;
+  if(!p&&model.landmarks.length===0&&now-this.lastNativeAt<=1500){p=this.followPixels(ctx,w,h);tracked=!!p;}
   const absent:EyePixelEvidence={state:'uncertain',ear:null,darkFraction:null,contrast:null,method:'no-reliable-eye-pixels'};
   if(!p){this.eyeHold.RIGHT.update('uncertain',now);this.eyeHold.LEFT.update('uncertain',now);this.distanceHold.update(null,now);}
   if(!p){const a:FaceAlignment={faceDetected:false,isMediaPipeActive:true,faceCount:model.landmarks.length,box:undefined,yaw:0,pitch:0,roll:0,scaleRatio:0,isAligned:false,guidanceTextTr:'Yüzünüzü kamera görüntüsünde tutun.'};return {alignment:a,quality:SkinAnalyzer.checkQuality(ctx,w,h,false),conditions:{observedAt:now,cameraLive:true,modelActive:true,faceCount:model.landmarks.length,qualityValid:false,positionValid:false,relativeScaleChange:null,right:absent,left:absent,distancePolicy:'head-anchors-hysteresis-v1',distanceState:'unknown',blocker:'face'},distanceSamples:this.samples.length,distanceRatios:[],inferenceMs:model.inferenceMs,width:w,height:h};}
@@ -150,7 +151,7 @@ export class VisionTracker {
     else if(tracked&&cmp.correlation>.78&&wide.change<.25){candidate='open';method='trusted-eye-template-and-visible-head';}
    }
    const held=this.eyeHold[side].update(candidate,now);
-   return {...held,ear:native?v.ear:null,darkFraction:null,contrast:v.narrow?.gradient??null,method,baselineEar:base?.ear,blinkCoefficient:v.blink,appearanceChange:wide?.change,templateCorrelation:cmp?.correlation,palmCoverage:palm,wideTemplateCorrelation:wide?.correlation,candidateState:candidate} as EyePixelEvidence;
+   return {...held,ear:native?v.ear:null,darkFraction:null,contrast:v.narrow?.gradient??null,method,occlusionKind:occlusionKind(method),baselineEar:base?.ear,blinkCoefficient:v.blink,appearanceChange:wide?.change,templateCorrelation:cmp?.correlation,palmCoverage:palm,wideTemplateCorrelation:wide?.correlation,candidateState:candidate} as EyePixelEvidence;
   });
   // Refresh only visible independent patches, excluding palms and suspect eyes.
   if(native&&poseValid){this.lastPoints=p;this.trustedPatches=anchors.filter(id=>!model.hands.some(hand=>hand.some(v=>Math.hypot(v.x-p![id].x,v.y-p![id].y)<.08))).map(id=>{const box={x:p![id].x*w-9,y:p![id].y*h-9,width:18,height:18};return {id,box,image:patch(ctx,box)!};}).filter(v=>v.image&&v.image.gradient>5);}

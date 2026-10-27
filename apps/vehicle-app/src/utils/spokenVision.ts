@@ -1,6 +1,8 @@
 import prompts from '../../../../shared/localization/vision-prompts.json';
 import {t} from '../i18n/core';
-/** Target-independent parsing and a nonclinical letter task; TR protocol unchanged. */
+import {interpretVisionAnswer} from './visionLanguage';
+import {confirmationUsable,type CoverageConfirmation} from './visionCoverage';
+/** Target-independent interpretation and a nonclinical letter task. */
 export const LETTER_PROTOCOL='spoken-letter-v2';
 export const LETTER_METHOD='mirror-x-then-rotate-two-up-two-down-step50-min15-v4';
 export type Orientation='upright'|'right'|'down'|'left'|'mirror';
@@ -67,71 +69,8 @@ export function isLetterInstructionEcho(text:string,language:'tr'|'en'|'de'='tr'
  if(/söyleyin|söyler misiniz|okuyun|bakın|kullanabilirsiniz|beklemeniz gerekmez|yanıtınız alındı|test ediyoruz|kalsın|kapatın|örtün/.test(value))return true;
  return Object.values(LETTER_INSTRUCTIONS).map(normalizeSpeech).some(line=>value.split(' ').length>=3&&line.includes(value));
 }
-export function parseLetterAnswer(text:string,language:'tr'|'en'|'de'='tr'):ParsedAnswer {
- if(language!=='tr')return parseLetterAnswer(localizedAnswerTokens(text,language));
- let value=normalizeSpeech(text);
- if(/^(?:harfi )?(?:göremiyorum|ayırt edemiyorum)$/.test(value))return {command:'not-visible'};
- if(/^(?:bitir|sonlandır|testi bitir)$/.test(value))return {command:'finish'};
- if(/^(?:devam et|sürdür)$/.test(value))return {command:'resume'};
- if(/^(?:duraklat|bekle)$/.test(value))return {command:'pause'};
- if(/^(?:tekrar|yeniden söyle)$/.test(value))return {command:'repeat'};
- // Explicit correction has priority over the earlier rejected component.
- if(/\bdeğil\b/.test(value)){
-  const parts=value.split(/\bdeğil\b/),replacement=parseLetterAnswer(parts.at(-1)!.trim()),previous=parseLetterAnswer(parts.slice(0,-1).join(' '));
-  if(previous.letter&&replacement.letter)return mergeLetterAnswer(previous,replacement);
-  value=parts.at(-1)!.trim();
- }
- const tokens=value.split(' '),aliases:Record<Letter,string[]>={A:['a'],B:['b','be'],E:['e'],F:['f','fe','ef','efe'],P:['p','pe'],R:['r','re','er']};
- const explicit=(Object.keys(aliases) as Letter[]).filter(l=>aliases[l].some(alias=>tokens.includes(alias)));
- const rotations:Rotation[]=[];
- if(/\b(düz|dik|normal)\b/.test(value))rotations.push(0);
- if(/sağa|sağ yat|sağ yön/.test(value))rotations.push(90);
- if(/sola|sol yat|sol yön/.test(value))rotations.push(270);
- if(/baş aşağı|başaşağı|aşağı(?:ya)? dönük|tepetaklak/.test(value))rotations.push(180);
- const mirror=/aynalı|ayna görüntüsü|yansıtılmış|yansıma/.test(value);
- const rotation=rotations.length===1?rotations[0]:undefined;
- const fillers=new Set('düz dik normal baş aşağı aşağıya dönük yatmış sağa sola sağ sol yön yöne yönü yönünü ayna aynalı görüntüsü yansıtılmış yansıma tepetaklak başaşağı ters ve harf harfi harfin söylüyorum söylediğim olan bu şu bir kelime kelimesi kodluyorum si sı s i ı nin nın nun nün'.split(' '));
- const coding=[...new Set(tokens.filter(t=>t&&!fillers.has(t)))];
- let letter=explicit.length===1?explicit[0]:undefined;
- const ambiguousLetter=explicit.length>1||!explicit.length&&coding.length!==1&&coding.length>0;
- if(!explicit.length&&coding.length===1){const initial=coding[0][0].toLocaleUpperCase('tr-TR');if(initial in LETTER_PATHS)letter=initial as Letter;}
- const answer:ParsedAnswer={...(letter?{letter}:{}),...(rotation!==undefined?{rotation}:{}),...(mirror?{mirrored:true}:{}),...(ambiguousLetter||!explicit.length&&coding.length===1&&!letter?{ambiguous:'letter' as const}:rotations.length>1?{ambiguous:'rotation' as const}:{})};
- if(/\bters\b/.test(value)&&rotation===undefined&&!mirror)return {...answer,clarify:'reverse'};
- if(answer.ambiguous)return {...answer,clarify:answer.ambiguous==='letter'?'letter':'orientation'};
- if(!letter)answer.clarify='letter';else if(!answerTransform(answer))answer.clarify='orientation';
- return answer;
-}
-/** Language adaptation only: target, geometry, scoring and ambiguity policy are unchanged. */
-export function localizedAnswerTokens(text:string,language:'en'|'de'){
- let value=text.normalize('NFC').toLocaleLowerCase(language==='de'?'de-DE':'en-US').replace(/[’‘]/g,"'");
- // Translate controls only as complete utterances, never inside code-word
- // answers ("repeat right" must retain R, not become Turkish "tekrar").
- // Bare finish/fertig/beenden are valid F/F/B code words. Ending a session
- // requires an explicit test phrase; the original TR protocol is unchanged.
- const controls:Record<string,string>=language==='en'?{
-  "i can't see it":'göremiyorum','i cannot see it':'göremiyorum','not visible':'göremiyorum',
-  'repeat':'tekrar','pause':'duraklat','resume':'devam et','continue':'devam et',
-  'finish the test':'bitir','stop the test':'bitir'
- }:{'ich sehe es nicht':'göremiyorum','nicht erkennbar':'göremiyorum',
-  'wiederholen':'tekrar','pausieren':'duraklat','pause':'duraklat','fortsetzen':'devam et','weiter':'devam et',
-  'test beenden':'bitir','den test beenden':'bitir'};
- const utterance=value.replace(/[^\p{L}' ]/gu,' ').replace(/\s+/g,' ').trim();
- if(Object.hasOwn(controls,utterance))return controls[utterance];
- const phrases:Record<string,string>=language==='en'?{
-  'upside down':'baş aşağı','turned right':'sağa','turned left':'sola','mirrored':'aynalı','mirror':'aynalı',
-  'upright':'düz','right':'sağa','left':'sola','reverse':'ters',
-  'bee':'be','pee':'pe','eff':'ef','are':'re','ay':'a','ee':'e','no':'değil','and':'ve'
- }:{'auf dem kopf':'baş aşağı',
-  'kopfüber':'baş aşağı','nach rechts':'sağa','nach links':'sola','rechts':'sağa','links':'sola',
-  'aufrecht':'düz','gerade':'düz','gespiegelt':'aynalı','spiegelverkehrt':'aynalı','umgekehrt':'ters',
-  'beh':'be','peh':'pe','eff':'ef','und':'ve','nein':'değil'};
- for(const [source,target] of Object.entries(phrases).sort((a,b)=>b[0].length-a[0].length)){
-  const escaped=source.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');value=value.replace(new RegExp('(?<![\\p{L}])'+escaped+'(?![\\p{L}])','gu'),target);
- }
- // The unchanged TR tokenizer does not include ä/ß. Keep these as non-target
- // graphemes instead of deleting an initial (Äpfel must never become P-fel).
- if(language==='de')value=value.replace(/[äß]/g,'x');
- return value.replace(/\b(?:please|the|letter|is|bitte|der|die|das|buchstabe|ist)\b/gu,' ').replace(/\s+/g,' ').trim();
+export function parseLetterAnswer(text:string,language:'tr'|'en'|'de'='tr',context?:{letter:Letter}):ParsedAnswer {
+ return interpretVisionAnswer(text,language,context);
 }
 /** These are exact symmetries of the drawn A and E paths. Composition is
  * mirror in local x, then clockwise rotation, as in LetterStimulus. */
@@ -142,13 +81,14 @@ export function equivalentTransform(letter:Letter,a:LetterTransform,b:LetterTran
  return !!symmetry&&x.every((v,i)=>v===y[i]*symmetry[i%2]);
 }
 export function equivalentOrientation(letter:Letter,a:Orientation,b:Orientation){return equivalentTransform(letter,legacyTransform(a),legacyTransform(b));}
-export type EyePixelEvidence={state:'open'|'closed'|'covered'|'uncertain';ear:number|null;darkFraction:number|null;contrast:number|null;method:string;baselineEar?:number;blinkCoefficient?:number|null;heldMs?:number;appearanceChange?:number;templateCorrelation?:number;palmCoverage?:number;wideTemplateCorrelation?:number;candidateState?:'open'|'closed'|'covered'|'uncertain'};
-export type LetterConditions={observedAt:number;cameraLive:boolean;modelActive:boolean;faceCount:number;qualityValid:boolean;positionValid:boolean;relativeScaleChange:number|null;motionStable?:boolean;right:EyePixelEvidence;left:EyePixelEvidence;distancePolicy?:'head-anchors-hysteresis-v1';distanceState?:'learning'|'stable'|'near'|'far'|'unknown';blocker?:string|null;trackingMethod?:string};
+export type EyePixelEvidence={state:'open'|'closed'|'covered'|'uncertain';occlusionKind?:'hand'|'object';ear:number|null;darkFraction:number|null;contrast:number|null;method:string;baselineEar?:number;blinkCoefficient?:number|null;heldMs?:number;appearanceChange?:number;templateCorrelation?:number;palmCoverage?:number;wideTemplateCorrelation?:number;candidateState?:'open'|'closed'|'covered'|'uncertain'};
+export type LetterConditions={coverageConfirmation?:CoverageConfirmation;observedAt:number;cameraLive:boolean;modelActive:boolean;faceCount:number;qualityValid:boolean;positionValid:boolean;relativeScaleChange:number|null;motionStable?:boolean;right:EyePixelEvidence;left:EyePixelEvidence;distancePolicy?:'head-anchors-hysteresis-v1';distanceState?:'learning'|'stable'|'near'|'far'|'unknown';blocker?:string|null;trackingMethod?:string};
 export function letterConditionFailure(c:LetterConditions|null,eye:Eye|null,now:number):'camera'|'position'|'eye'|'uncertain'|null {
  if(!c||!Number.isFinite(now)||!Number.isFinite(c.observedAt)||now-c.observedAt>750||now<c.observedAt||!c.cameraLive||!c.modelActive||c.faceCount!==1||!c.qualityValid)return 'camera';
  if(!c.positionValid||c.relativeScaleChange===null||!Number.isFinite(c.relativeScaleChange)||(c.distancePolicy!=='head-anchors-hysteresis-v1'&&(c.motionStable===false||Math.abs(c.relativeScaleChange)>.08)))return 'position';
  if(!eye)return null;
  const opened=eye==='RIGHT'?c.right:c.left,closed=eye==='RIGHT'?c.left:c.right;
+ if(opened.state==='open'&&confirmationUsable(c,eye,c.coverageConfirmation||null,now))return null;
  if(opened.state==='uncertain'||closed.state==='uncertain')return 'uncertain';
  return opened.state==='open'&&(closed.state==='closed'||closed.state==='covered')?null:'eye';
 }
@@ -160,7 +100,7 @@ export interface LetterTrial {
  id:string;presentationId:string;sequence:number;protocolVersion:typeof LETTER_PROTOCOL|typeof LEGACY_LETTER_PROTOCOL;transform?:LetterTransform;methodVersion?:string;eye:Eye;letter:Letter;orientation:Orientation;sizePx:number;
  renderedGeometry:RenderedSymbolGeometry|null;parsedAnswer:ParsedAnswer;answer:({letter:Letter;orientation?:Orientation;transform?:LetterTransform})|null;
  letterCorrect:boolean|null;orientationCorrect:boolean|null;combinedCorrect:boolean|null;correct:boolean;notVisible:boolean;
- valid:boolean;invalidReason:string|null;conditions:LetterConditions|null;answeredAt:string;responseTimeMs:number;
+ inputMethod?:'speech'|'buttons';coverageVerification?:'camera'|'user-confirmed';valid:boolean;invalidReason:string|null;conditions:LetterConditions|null;answeredAt:string;responseTimeMs:number;
  distanceEvidence:{method:'relative-face-scale-only'|'relative-head-anchors';relativeScaleChange:number|null;absoluteDistanceCm:null;confidence:'unverified-absolute'};
 }
 export function scoreLetterTrial(t:Pick<LetterTrial,'valid'|'letter'|'orientation'|'answer'|'notVisible'> & {transform?:LetterTransform}){
@@ -203,7 +143,7 @@ export class SpokenLetterSession {
  private record(answer:ParsedAnswer,c:LetterConditions|null,now:number,geometry:RenderedSymbolGeometry|null,reason:string|null):LetterTrial {
   const notVisible=answer.command==='not-visible',transform=answerTransform(answer);const parsed=notVisible||!answer.letter||!transform?null:{letter:answer.letter,transform};
   const base={valid:reason===null,letter:this.letter,orientation:this.orientation,transform:structuredClone(this.transform),answer:parsed,notVisible};const scores=scoreLetterTrial(base);
-  return {id:this.trialId,presentationId:this.presentationId,sequence:++this.sequence,protocolVersion:LETTER_PROTOCOL,methodVersion:LETTER_METHOD,eye:this.eye,...base,sizePx:this.sizePx,renderedGeometry:geometry?structuredClone(geometry):null,parsedAnswer:structuredClone(answer),...scores,correct:scores.combinedCorrect===true,invalidReason:reason,conditions:c?structuredClone(c):null,answeredAt:new Date().toISOString(),responseTimeMs:this.elapsed+(this.timing?Math.max(0,now-this.presentedAt):0),distanceEvidence:{method:c?.distancePolicy==='head-anchors-hysteresis-v1'?'relative-head-anchors':'relative-face-scale-only',relativeScaleChange:c?.relativeScaleChange??null,absoluteDistanceCm:null,confidence:'unverified-absolute'}};
+  return {id:this.trialId,presentationId:this.presentationId,sequence:++this.sequence,protocolVersion:LETTER_PROTOCOL,methodVersion:LETTER_METHOD,eye:this.eye,...base,sizePx:this.sizePx,renderedGeometry:geometry?structuredClone(geometry):null,parsedAnswer:structuredClone(answer),...scores,correct:scores.combinedCorrect===true,coverageVerification:c?.coverageConfirmation?'user-confirmed':'camera',invalidReason:reason,conditions:c?structuredClone(c):null,answeredAt:new Date().toISOString(),responseTimeMs:this.elapsed+(this.timing?Math.max(0,now-this.presentedAt):0),distanceEvidence:{method:c?.distancePolicy==='head-anchors-hysteresis-v1'?'relative-head-anchors':'relative-face-scale-only',relativeScaleChange:c?.relativeScaleChange??null,absoluteDistanceCm:null,confidence:'unverified-absolute'}};
  }
  unscored(reason:string,c:LetterConditions|null,now:number,geometry:RenderedSymbolGeometry|null,parsed:ParsedAnswer={}){if(this.presentationId)this.invalidTrials.push(this.record(parsed,c,now,geometry,reason));}
  invalidate(reason:string,c:LetterConditions|null,now:number,geometry:RenderedSymbolGeometry|null){
