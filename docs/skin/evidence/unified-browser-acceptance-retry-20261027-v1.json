@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T02:26:31Z",
+  "observedAt": "2026-10-27T03:43:41Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -22,7 +22,8 @@
     "fourteenthRetryCandidateCommit": "839578267bef08bb559f57421cc350c74d511f23",
     "fifteenthRetryCandidateCommit": "3fb4bc0980da14b693b1096dd6454f68f7c8c0db",
     "sixteenthRetryCandidateCommit": "cc474f13935d231ec761e9154d2d62dab21ecffb",
-    "seventeenthRetryCandidateCommit": "7b9dd9682ff4309dfd2b58f465d78fac37e96873"
+    "seventeenthRetryCandidateCommit": "7b9dd9682ff4309dfd2b58f465d78fac37e96873",
+    "eighteenthRetryCandidateCommit": "cb05f3bbd242673bb58711540a79eb896ae58f83"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -611,10 +612,45 @@
   "seventeenthRetry": {
     "browserRunId": 40438401632,
     "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40438401632",
-    "statusAtCheckpoint": "in_progress",
+    "statusAtCheckpoint": "completed",
+    "conclusion": "failure",
     "jobId": 121972573365,
     "matchingRepositoryCiRunId": 40438401465,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40438401465",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "success",
+    "artifactId": 12706001989,
+    "artifactDigest": "sha256:45dd8b9a227c9eb8ac6c9d124c4e34852f7d384ca40739b6da5e48673f7f2446",
+    "completedRuntimeSetup": true,
+    "productionBuildPassed": true,
+    "serversHealthChecked": true,
+    "fixturePrepared": true,
+    "licensedDistinctPosesSelected": ["FRONT", "LEFT", "RIGHT"],
+    "realMediaPipeLandmarksPerPose": 478,
+    "browserApiCurrentPhotoPassed": true,
+    "historyThreeActualScansPersisted": true,
+    "historyReplayAndDeletePassed": true,
+    "privacyTestExecuted": false,
+    "sanitizedEvidenceProduced": false,
+    "rootCause": "the current-photo and three-scan history scenarios fully passed, then the privacy-lifecycle script attempted to read subprocess.CREATE_NO_WINDOW unconditionally while starting its isolated backend on Linux; the attribute does not exist outside Windows, so the privacy browser flow never started. This is a test-harness process-flag portability failure, not a product, model, threshold, persistence or physical-camera failure"
+  },
+  "eighteenthTargetedFix": {
+    "source": "tests/e2e/current_skin_photo_wipe_success.py",
+    "change": "use the Windows no-console process creation flag only when os.name is nt and pass zero on Linux, matching the repository's existing cross-platform process-launch pattern",
+    "privacyFlowBypassed": false,
+    "productCodeChanged": false,
+    "modelOrThresholdChanged": false,
+    "pythonCompilePassed": true,
+    "platformGuardContractPassed": true,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false
+  },
+  "eighteenthRetry": {
+    "browserRunId": 40445764859,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40445764859",
+    "statusAtCheckpoint": "in_progress",
+    "matchingRepositoryCiRunId": 40445764784,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40445764784",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },

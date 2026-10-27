@@ -2811,7 +2811,7 @@
     {
       "id": "13",
       "target": "unified-results-and-trends",
-      "status": "real_chromium_acceptance_seventeenth_retry_running_camera_class_acceptance_pending",
+      "status": "real_chromium_acceptance_eighteenth_retry_running_camera_class_acceptance_pending",
       "work": "Integrate accepted outputs incrementally into maps/cards/history; explicit unavailable reasons; method/version compatibility for trends; end-to-end camera/API/result/history tests and final acceptance report.",
       "evidence": [
         "docs/skin/regional-evidence-contract-20261023.md",
@@ -3953,7 +3953,7 @@
     }
   },
   "nextActions": [
-    "Poll seventeenth corrected GitHub Actions browser run 40438401632 and matching repository CI run 40438401465 for candidate commit 7b9dd9682ff4309dfd2b58f465d78fac37e96873. Sixteenth attempt 40434448416 kept real MediaPipe active with 478 landmarks and OPTIMAL quality, but the 15-second pose transport supplied only four of the unchanged 15 consecutive accepted-frame cycles before advancing to the next real pose; progress reset and the controlled scan stayed at FRONT. The corrected fixture holds each licensed admitted pose for 75 seconds, changes no product model/source pixel/pose/quality/eyewear/consecutive-frame gate, and remains controlled integration evidence only. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
+    "Poll eighteenth corrected GitHub Actions browser run 40445764859 and matching repository CI run 40445764784 for candidate commit cb05f3bbd242673bb58711540a79eb896ae58f83. Seventeenth attempt 40438401632 passed the current-photo production flow and persisted/replayed/deleted three actual controlled scans with six source-bound regions/maps, then failed before privacy browser execution because the Linux runner evaluated the Windows-only subprocess.CREATE_NO_WINDOW attribute while starting the isolated backend. The corrected harness guards that process flag by os.name, changes no product code, privacy flow, model, source pixel or threshold, and remains controlled integration evidence only. On success, ingest only the five privacy-safe sanitized browser evidence JSON objects, bind their exact commit/build/browser/history identities and replay scripts/skin-research/check_unified_skin_result_release.py v3. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
     "For consented physical-camera acceptance, populate the private input shape in docs/skin/evidence/physical-camera-benchmark-manifest-input-template-20261026-v1.json outside Git, then run scripts/skin-research/build_physical_camera_benchmark_manifest.py. The builder accepts only opaque subject/capture/consent/quality references, immutable SHA-256 hashes, exact FRONT/LEFT/RIGHT physical-camera triplets, a passed capture-quality gate and a locked camera_final split unused by training, validation or threshold selection. It rejects paths, names, contact fields, image bytes, generated inputs, predictions and expert labels. Keep expert per-class truth separate and human-authored; the manifest alone does not satisfy camera acceptance.",
@@ -3999,6 +3999,41 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb and history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a. The combined contract now has 88 executable checks across three source aspect ratios; no full-app, real-browser screenshot or real-camera acceptance yet."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T03:43:41Z",
+      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional remains 337 images, under-eye pilot v2 remains 399 images with no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Seventeenth browser run 40438401632 passed the current-photo production result and the three-scan history/persistence/replay/delete contract with real MediaPipe, 478 landmarks per admitted pose and six source-bound regions/maps. It then failed before privacy browser execution because the Linux runner evaluated Windows-only subprocess.CREATE_NO_WINDOW while starting the isolated backend; job 121972573365 produced artifact 12706001989 with digest sha256:45dd8b9a227c9eb8ac6c9d124c4e34852f7d384ca40739b6da5e48673f7f2446 and matching CI 40438401465 succeeded. The targeted fix adds only the existing os.name Windows guard pattern; product code, privacy flow, model and thresholds are unchanged. Python compile, platform-guard contract and diff checks passed. Eighteenth browser run 40445764859 and matching CI 40445764784 are in progress for candidate cb05f3bb.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "cb05f3bbd242673bb58711540a79eb896ae58f83"
+      ],
+      "runs": [
+        {
+          "runId": 40438401632,
+          "conclusion": "failure",
+          "jobId": 121972573365,
+          "artifactId": 12706001989,
+          "currentPhotoPassed": true,
+          "threeScanHistoryPassed": true,
+          "privacyFlowStarted": false
+        },
+        {
+          "runId": 40438401465,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40445764859,
+          "status": "in_progress",
+          "kind": "eighteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40445764784,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T02:26:31Z",
@@ -5318,6 +5353,41 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T03:43:41Z",
+      "action": "Read the remote checkpoint first and preserved the functioning concrete /api/local-health/skin baseline. Refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye versions/trainings and grouped upload task sLFwX7CYBVcnnD6iAW5o: acne and regional NAS/small runs remain finished, regional remains 337 images, under-eye pilot v2 remains 399 images with no training, grouped under-eye remains empty and its upload task remains created/no-progress. No duplicate training, version, upload, inference, model, threshold or activation mutation was started. Seventeenth browser run 40438401632 passed the current-photo production result and the three-scan history/persistence/replay/delete contract with real MediaPipe, 478 landmarks per admitted pose and six source-bound regions/maps. It then failed before privacy browser execution because the Linux runner evaluated Windows-only subprocess.CREATE_NO_WINDOW while starting the isolated backend; job 121972573365 produced artifact 12706001989 with digest sha256:45dd8b9a227c9eb8ac6c9d124c4e34852f7d384ca40739b6da5e48673f7f2446 and matching CI 40438401465 succeeded. The targeted fix adds only the existing os.name Windows guard pattern; product code, privacy flow, model and thresholds are unchanged. Python compile, platform-guard contract and diff checks passed. Eighteenth browser run 40445764859 and matching CI 40445764784 are in progress for candidate cb05f3bb.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "cb05f3bbd242673bb58711540a79eb896ae58f83"
+      ],
+      "runs": [
+        {
+          "runId": 40438401632,
+          "conclusion": "failure",
+          "jobId": 121972573365,
+          "artifactId": 12706001989,
+          "currentPhotoPassed": true,
+          "threeScanHistoryPassed": true,
+          "privacyFlowStarted": false
+        },
+        {
+          "runId": 40438401465,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40445764859,
+          "status": "in_progress",
+          "kind": "eighteenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40445764784,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T02:26:31Z",
