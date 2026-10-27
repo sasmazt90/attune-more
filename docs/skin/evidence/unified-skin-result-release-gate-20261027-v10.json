@@ -1,0 +1,117 @@
+{
+  "acceptedEndToEndCandidateIdentity": null,
+  "acceptedEndToEndCandidatePresent": false,
+  "allClassReleaseGatesAccepted": false,
+  "blockers": [
+    "task_01_release_gate_not_accepted",
+    "task_02_release_gate_not_accepted",
+    "task_03_release_gate_not_accepted",
+    "task_04_release_gate_not_accepted",
+    "task_05_release_gate_not_accepted",
+    "task_06_release_gate_not_accepted",
+    "task_07_release_gate_not_accepted",
+    "task_08_release_gate_not_accepted",
+    "task_09_release_gate_not_accepted",
+    "task_10_release_gate_not_accepted",
+    "task_11_release_gate_not_accepted",
+    "task_12_release_gate_not_accepted",
+    "physical_camera_benchmark_not_accepted",
+    "identity_bound_end_to_end_candidate_missing",
+    "all_class_release_gates_not_accepted"
+  ],
+  "classReleaseGates": {
+    "acneConcerns": {
+      "methodVersion": "acne-concerns-per-class-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "01",
+        "02",
+        "03"
+      ]
+    },
+    "dryness": {
+      "methodVersion": "regional-dryness-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "05"
+      ]
+    },
+    "oily": {
+      "methodVersion": "regional-oily-appearance-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "04"
+      ]
+    },
+    "redness": {
+      "methodVersion": "regional-redness-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "07"
+      ]
+    },
+    "sag": {
+      "methodVersion": "sag-appearance-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "12"
+      ]
+    },
+    "skinTypeCombination": {
+      "methodVersion": "skin-type-combination-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "06"
+      ]
+    },
+    "toneUnevenness": {
+      "methodVersion": "tone-unevenness-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "08"
+      ]
+    },
+    "underEye": {
+      "methodVersion": "under-eye-per-class-release-gate-v3",
+      "roadmapAccepted": false,
+      "tasks": [
+        "09",
+        "10"
+      ]
+    },
+    "wrinkles": {
+      "methodVersion": "wrinkle-per-class-release-gate-v2",
+      "roadmapAccepted": false,
+      "tasks": [
+        "11"
+      ]
+    }
+  },
+  "currentIntegratedPresentationAllowed": true,
+  "decision": "blocked",
+  "finalRoadmapAcceptanceAllowed": false,
+  "generatedReplayAccuracyEvidenceAllowed": false,
+  "generatedReplayIntegrationSmokeAllowed": true,
+  "methodVersion": "unified-skin-result-release-gate-v10",
+  "physicalCameraBenchmarkAccepted": false,
+  "repositoryCI": {
+    "backendJobId": 122031134701,
+    "browserAcceptanceArtifactDigest": "sha256:fa908e2462267e159c22b1883e3068abed28c21aeae29c9ae2f1422354f8e481",
+    "browserAcceptanceArtifactId": 12712804062,
+    "browserAcceptanceHeadSha": "94065c2031963fb984849f7be70aa7a4239dfa86",
+    "browserAcceptanceJobId": 122031134314,
+    "browserAcceptanceRunId": 40456553840,
+    "browserAcceptanceWorkflowId": 370615037,
+    "browserAcceptanceWorkflowPath": ".github/workflows/e2e-audit.yml",
+    "browserControlledFixture": true,
+    "conclusion": "success",
+    "frontendJobId": 122031134359,
+    "headSha": "94065c2031963fb984849f7be70aa7a4239dfa86",
+    "runId": 40456553849,
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml"
+  },
+  "roadmapAccepted": false,
+  "schemaVersion": 10,
+  "workingBaselinePreserved": true
+}

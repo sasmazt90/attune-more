@@ -21,7 +21,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
-EXPECTED_REPOSITORY_CI_SCHEMA = 2
+EXPECTED_REPOSITORY_CI_SCHEMA = 3
+EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
+EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
 EXPECTED_BROWSER_WORKFLOW_ID = 370615037
 EXPECTED_BROWSER_WORKFLOW_PATH = ".github/workflows/e2e-audit.yml"
 EXPECTED_CODE_BLOBS = {
@@ -151,6 +153,31 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
     _require(payload.get("schemaVersion"), EXPECTED_REPOSITORY_CI_SCHEMA, "repository CI schema changed")
     _require(payload.get("branch"), EXPECTED_BRANCH, "repository CI branch identity changed")
     actions = payload.get("githubActions", {})
+    repository_run_id = _require_positive_int(
+        actions.get("runId"), "repository CI run identity missing",
+    )
+    _require(
+        actions.get("url"),
+        f"https://github.com/sasmazt90/attune-more/actions/runs/{repository_run_id}",
+        "repository CI run URL identity changed",
+    )
+    _require(
+        actions.get("workflowId"), EXPECTED_REPOSITORY_CI_WORKFLOW_ID,
+        "repository CI workflow identity changed",
+    )
+    _require(
+        actions.get("workflowPath"), EXPECTED_REPOSITORY_CI_WORKFLOW_PATH,
+        "repository CI workflow path changed",
+    )
+    _require(actions.get("branch"), EXPECTED_BRANCH, "repository CI workflow branch identity changed")
+    frontend_job_id = _require_positive_int(
+        actions.get("frontendJobId"), "repository CI frontend job identity missing",
+    )
+    backend_job_id = _require_positive_int(
+        actions.get("backendJobId"), "repository CI backend job identity missing",
+    )
+    if frontend_job_id == backend_job_id:
+        raise GateInputError("repository CI job identities must be distinct")
     _require(
         payload.get("implementationCommit"), actions.get("headSha"),
         "repository CI implementation commit does not match workflow head",
@@ -200,7 +227,11 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
     _require(browser.get("expertGroundTruth"), False, "browser fixture cannot become expert ground truth")
     _require(browser.get("accuracyEvidence"), False, "browser fixture cannot become accuracy evidence")
     return {
-        "runId": actions.get("runId"),
+        "runId": repository_run_id,
+        "workflowId": actions.get("workflowId"),
+        "workflowPath": actions.get("workflowPath"),
+        "frontendJobId": frontend_job_id,
+        "backendJobId": backend_job_id,
         "headSha": actions.get("headSha"),
         "conclusion": "success",
         "browserAcceptanceRunId": browser.get("runId"),
@@ -359,8 +390,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 9,
-        "methodVersion": "unified-skin-result-release-gate-v9",
+        "schemaVersion": 10,
+        "methodVersion": "unified-skin-result-release-gate-v10",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v9.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v10.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -48,7 +48,12 @@ def _install_complete_evidence(receipt, root):
         "branch": module.EXPECTED_BRANCH,
         "implementationCommit": "d" * 40,
         "githubActions": {
-            "runId": 99, "headSha": "d" * 40, "conclusion": "success",
+            "runId": 99, "url": "https://github.com/sasmazt90/attune-more/actions/runs/99",
+            "workflowId": module.EXPECTED_REPOSITORY_CI_WORKFLOW_ID,
+            "workflowPath": module.EXPECTED_REPOSITORY_CI_WORKFLOW_PATH,
+            "branch": module.EXPECTED_BRANCH,
+            "frontendJobId": 101, "backendJobId": 102,
+            "headSha": "d" * 40, "conclusion": "success",
             "frontendProductionBuild": "success", "localizationContract": "success",
             "completeSkinResearchEvidenceSuite": {"result": "OK"},
         },
@@ -294,7 +299,12 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                     "branch": module.EXPECTED_BRANCH,
                     "implementationCommit": "e" * 40,
                     "githubActions": {
-                        "runId": 99, "headSha": "e" * 40, "conclusion": "success",
+                        "runId": 99, "url": "https://github.com/sasmazt90/attune-more/actions/runs/99",
+                        "workflowId": module.EXPECTED_REPOSITORY_CI_WORKFLOW_ID,
+                        "workflowPath": module.EXPECTED_REPOSITORY_CI_WORKFLOW_PATH,
+                        "branch": module.EXPECTED_BRANCH,
+                        "frontendJobId": 101, "backendJobId": 102,
+                        "headSha": "e" * 40, "conclusion": "success",
                         "frontendProductionBuild": "success", "localizationContract": "success",
                         "completeSkinResearchEvidenceSuite": {"result": "OK"},
                     },
@@ -327,6 +337,72 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 _install_complete_evidence(receipt, root)
                 _mutate_repository_ci(receipt, root, "branch", "main")
                 with self.assertRaisesRegex(module.GateInputError, "branch identity"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_must_use_pinned_workflow(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            for field, value in (
+                ("workflowId", module.EXPECTED_REPOSITORY_CI_WORKFLOW_ID + 1),
+                ("workflowPath", ".github/workflows/other.yml"),
+                ("branch", "main"),
+            ):
+                with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    receipt = _receipt()
+                    _install_complete_evidence(receipt, root)
+                    _mutate_repository_ci(receipt, root, field, value, "githubActions")
+                    with self.assertRaisesRegex(module.GateInputError, "workflow"):
+                        module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_requires_positive_distinct_job_ids(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            for field, value, message in (
+                ("frontendJobId", 0, "frontend job identity missing"),
+                ("backendJobId", False, "backend job identity missing"),
+                ("backendJobId", 101, "must be distinct"),
+            ):
+                with self.subTest(field=field, value=value), tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    receipt = _receipt()
+                    _install_complete_evidence(receipt, root)
+                    _mutate_repository_ci(receipt, root, field, value, "githubActions")
+                    with self.assertRaisesRegex(module.GateInputError, message):
+                        module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_requires_positive_run_id(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_repository_ci(receipt, root, "runId", 0, "githubActions")
+                with self.assertRaisesRegex(module.GateInputError, "run identity missing"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_ci_run_url_must_match_run_id(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_repository_ci(
+                    receipt, root, "url",
+                    "https://github.com/sasmazt90/attune-more/actions/runs/100",
+                    "githubActions",
+                )
+                with self.assertRaisesRegex(module.GateInputError, "run URL identity"):
                     module.evaluate_release(receipt, root)
         finally:
             module.EXPECTED_INPUT_EVIDENCE = original_inputs
