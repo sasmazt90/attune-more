@@ -15,8 +15,9 @@ PRODUCT_APPEARANCE_IDS=['tone','oil','redness','acne','sag','dry','lines','dark'
 UNAVAILABLE_LOCALIZED={'postAcne':'ACCEPTED_POST_ACNE_LOCAL_DETECTOR_NOT_AVAILABLE','pigmentation':'ACCEPTED_PIGMENTATION_LOCAL_DETECTOR_NOT_AVAILABLE'}
 profile=None;native200=None
 def capture(page,context,path,native=False):
- if not native:page.screenshot(path=str(path),full_page=True);return
- return capture_owned_window(page,profile.name,path)
+ if native and os.name=='nt':return capture_owned_window(page,profile.name,path)
+ page.screenshot(path=str(path),full_page=not native)
+ if native:return {'ownedWindow':False,'nativeWindowCapture':False,'browserCompositorCapture':True,'platform':os.name,'capture':'Playwright visible browser compositor; not OS-window or physical-camera evidence'}
 with sync_playwright() as pw:
  gpu=['--use-gl=angle','--use-angle=swiftshader'] if '--software-gpu' in sys.argv else []
  b=pw.chromium.launch(channel='chrome',headless=True,args=['--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(Path('audit-fixtures/three-angle.y4m').resolve()),'--enable-unsafe-swiftshader',*gpu])
