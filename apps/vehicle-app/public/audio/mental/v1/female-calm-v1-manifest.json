@@ -1,0 +1,810 @@
+{
+  "contentVersion": "v1",
+  "speakerProfile": "female-calm-v1",
+  "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+  "generation": {
+    "exaggeration": 0.35,
+    "cfg_weight": 0.0,
+    "temperature": 0.8
+  },
+  "joinSilenceMs": 120,
+  "joinApprovalStatus": "pending",
+  "sampleApproval": {
+    "ownerApprovedAt": null
+  },
+  "productionScope": "nine-representative-clips-only",
+  "entries": [
+    {
+      "assetId": "v1/tr/female-calm-v1/A/A-V01",
+      "language": "tr",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "Peki.",
+      "questionNodeId": "A",
+      "variantId": "A-V01",
+      "audioPath": "/audio/mental/v1/tr/female-calm-v1/A/A-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/tr/official-default/A/A-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 960,
+      "sampleRate": 24000,
+      "bytes": 46124,
+      "sha256": "642407f2dfded01cca24f7358dd40c8975e9a05984ff2259a227ab12225e241b",
+      "recipeSha256": "5712d3369ed409f3050cbde7c8fbe3573ded934c51d96aadb6c76967b7959dc9",
+      "recipe": {
+        "text": "Peki.",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2151580926,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 960,
+        "sampleRate": 24000,
+        "bytes": 46124,
+        "peak": 0.39666748046875,
+        "rms": 0.036451498770737056,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 56.147,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.2,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.08,
+            "cpuSeconds": 2.27,
+            "peakRSSKiB": 38796
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.087,
+            "cpuSeconds": 2.29,
+            "peakRSSKiB": 38796
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.752,
+            "cpuSeconds": 8.15,
+            "peakRSSKiB": 583688
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 19.365,
+            "cpuSeconds": 20.46,
+            "peakRSSKiB": 6905084
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 54.11,
+            "cpuSeconds": 85.05,
+            "peakRSSKiB": 6905084
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 54.11,
+            "cpuSeconds": 85.05,
+            "peakRSSKiB": 6905084
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/tr/female-calm-v1/B01/B01-V01",
+      "language": "tr",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "Bugün ne hakkında konuşmak istersiniz?",
+      "questionNodeId": "B01",
+      "variantId": "B01-V01",
+      "audioPath": "/audio/mental/v1/tr/female-calm-v1/B01/B01-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/tr/official-default/B01/B01-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 2760,
+      "sampleRate": 24000,
+      "bytes": 132524,
+      "sha256": "8ebb0172989f3925eb6936731e3f26d8fd4b52953aa77b4b2f1f680da611464f",
+      "recipeSha256": "d8064321e139f465c00379a84ff5dfb779f1c5689d411945d0428f395d020e14",
+      "recipe": {
+        "text": "Bugün ne hakkında konuşmak istersiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3911857160,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 2760,
+        "sampleRate": 24000,
+        "bytes": 132524,
+        "peak": 0.486419677734375,
+        "rms": 0.06253066777103104,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 65.543,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.19,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.086,
+            "cpuSeconds": 2.28,
+            "peakRSSKiB": 38796
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.093,
+            "cpuSeconds": 2.28,
+            "peakRSSKiB": 38796
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.425,
+            "cpuSeconds": 6.81,
+            "peakRSSKiB": 584956
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 15.245,
+            "cpuSeconds": 16.27,
+            "peakRSSKiB": 6906356
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 63.558,
+            "cpuSeconds": 111.71,
+            "peakRSSKiB": 6906356
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 63.559,
+            "cpuSeconds": 111.71,
+            "peakRSSKiB": 6906356
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/tr/female-calm-v1/B02/B02-V01",
+      "language": "tr",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "O anda nasıl hissettiniz?",
+      "questionNodeId": "B02",
+      "variantId": "B02-V01",
+      "audioPath": "/audio/mental/v1/tr/female-calm-v1/B02/B02-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/tr/official-default/B02/B02-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 2320,
+      "sampleRate": 24000,
+      "bytes": 111404,
+      "sha256": "12e330903a8c945ae5b370e400e54b747504a64970c760f149e194801b4ba0bd",
+      "recipeSha256": "d1fe521d2559da8cf708a8350da2d853139eff419f60a9874126d92947b8929c",
+      "recipe": {
+        "text": "O anda nasıl hissettiniz?",
+        "language": "tr",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 399887456,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 2320,
+        "sampleRate": 24000,
+        "bytes": 111404,
+        "peak": 0.4439697265625,
+        "rms": 0.07435108348349924,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 61.8,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.25,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.196,
+            "cpuSeconds": 2.44,
+            "peakRSSKiB": 38892
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.203,
+            "cpuSeconds": 2.45,
+            "peakRSSKiB": 38892
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.383,
+            "cpuSeconds": 7.67,
+            "peakRSSKiB": 583948
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 17.89,
+            "cpuSeconds": 18.84,
+            "peakRSSKiB": 6905668
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 59.665,
+            "cpuSeconds": 101.4,
+            "peakRSSKiB": 6905668
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 59.665,
+            "cpuSeconds": 101.4,
+            "peakRSSKiB": 6905668
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/en/female-calm-v1/A/A-V01",
+      "language": "en",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "Okay.",
+      "questionNodeId": "A",
+      "variantId": "A-V01",
+      "audioPath": "/audio/mental/v1/en/female-calm-v1/A/A-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/en/official-default/A/A-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 1040,
+      "sampleRate": 24000,
+      "bytes": 49964,
+      "sha256": "1bd90ffa1d3895d35f8fc2aac8d08471fe8a81c28b42b993e6f53e716ab41473",
+      "recipeSha256": "8b7cfc2fe3179763c46ddcf5c693904316022d4006b8e6901c5509db904d8adb",
+      "recipe": {
+        "text": "Okay.",
+        "language": "en",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2060051265,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 1040,
+        "sampleRate": 24000,
+        "bytes": 49964,
+        "peak": 0.412628173828125,
+        "rms": 0.059191379821750975,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 52.062,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.31,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.147,
+            "cpuSeconds": 2.45,
+            "peakRSSKiB": 38848
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.157,
+            "cpuSeconds": 2.46,
+            "peakRSSKiB": 38848
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.378,
+            "cpuSeconds": 7.84,
+            "peakRSSKiB": 574116
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 18.041,
+            "cpuSeconds": 19.11,
+            "peakRSSKiB": 6895508
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 49.683,
+            "cpuSeconds": 80.75,
+            "peakRSSKiB": 6895508
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 49.684,
+            "cpuSeconds": 80.75,
+            "peakRSSKiB": 6895508
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/en/female-calm-v1/B01/B01-V01",
+      "language": "en",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "What would you like to talk about today?",
+      "questionNodeId": "B01",
+      "variantId": "B01-V01",
+      "audioPath": "/audio/mental/v1/en/female-calm-v1/B01/B01-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/en/official-default/B01/B01-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 2320,
+      "sampleRate": 24000,
+      "bytes": 111404,
+      "sha256": "84747dd1f466909d7d8564a5a3b4c77a294ae7b9432c3e7975bc7d2888e3611a",
+      "recipeSha256": "8ab43a40f3ec070c021c8a81435446be87bfc519cecd9389ea9f41b0becaca35",
+      "recipe": {
+        "text": "What would you like to talk about today?",
+        "language": "en",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 3997971139,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 2320,
+        "sampleRate": 24000,
+        "bytes": 111404,
+        "peak": 0.581268310546875,
+        "rms": 0.08351491514919882,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 66.91,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.24,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.172,
+            "cpuSeconds": 2.41,
+            "peakRSSKiB": 38824
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.182,
+            "cpuSeconds": 2.43,
+            "peakRSSKiB": 38824
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.369,
+            "cpuSeconds": 7.78,
+            "peakRSSKiB": 583236
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 18.829,
+            "cpuSeconds": 19.79,
+            "peakRSSKiB": 6904448
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 64.687,
+            "cpuSeconds": 108.0,
+            "peakRSSKiB": 6904448
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 64.688,
+            "cpuSeconds": 108.0,
+            "peakRSSKiB": 6904448
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/en/female-calm-v1/B02/B02-V01",
+      "language": "en",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "How did you feel at that moment?",
+      "questionNodeId": "B02",
+      "variantId": "B02-V01",
+      "audioPath": "/audio/mental/v1/en/female-calm-v1/B02/B02-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/en/official-default/B02/B02-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 2000,
+      "sampleRate": 24000,
+      "bytes": 96044,
+      "sha256": "fc6700aad8cd4ec97ffdf55ee5601288dea3f39eb6f4a00ef8d6d80907ea0566",
+      "recipeSha256": "d480110259138defc32ce4747e65c0942a396c9e4e8a5e666d92d37b53d25031",
+      "recipe": {
+        "text": "How did you feel at that moment?",
+        "language": "en",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2116998052,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 2000,
+        "sampleRate": 24000,
+        "bytes": 96044,
+        "peak": 0.6854248046875,
+        "rms": 0.08834469744043379,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 59.21,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.19,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.111,
+            "cpuSeconds": 2.31,
+            "peakRSSKiB": 38572
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.118,
+            "cpuSeconds": 2.31,
+            "peakRSSKiB": 38572
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.295,
+            "cpuSeconds": 7.54,
+            "peakRSSKiB": 583248
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 17.272,
+            "cpuSeconds": 18.1,
+            "peakRSSKiB": 6904908
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 57.381,
+            "cpuSeconds": 95.21,
+            "peakRSSKiB": 6904908
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 57.382,
+            "cpuSeconds": 95.21,
+            "peakRSSKiB": 6904908
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/de/female-calm-v1/A/A-V01",
+      "language": "de",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "In Ordnung.",
+      "questionNodeId": "A",
+      "variantId": "A-V01",
+      "audioPath": "/audio/mental/v1/de/female-calm-v1/A/A-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/de/official-default/A/A-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 1320,
+      "sampleRate": 24000,
+      "bytes": 63404,
+      "sha256": "9bf072b7c38e72840c91487c22b7683752140a22f3b6c02dbaca9f17dccec6a7",
+      "recipeSha256": "878afc466341005b82b948e5443e173fc086961391ea988351e2c3141354591e",
+      "recipe": {
+        "text": "In Ordnung.",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 2976903446,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 1320,
+        "sampleRate": 24000,
+        "bytes": 63404,
+        "peak": 0.385650634765625,
+        "rms": 0.05404672638527903,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 50.718,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.21,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.385,
+            "cpuSeconds": 2.59,
+            "peakRSSKiB": 38660
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.392,
+            "cpuSeconds": 2.6,
+            "peakRSSKiB": 38660
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 7.404,
+            "cpuSeconds": 7.81,
+            "peakRSSKiB": 584632
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 16.566,
+            "cpuSeconds": 17.58,
+            "peakRSSKiB": 6905968
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 48.968,
+            "cpuSeconds": 81.64,
+            "peakRSSKiB": 6905968
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 48.969,
+            "cpuSeconds": 81.64,
+            "peakRSSKiB": 6905968
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/de/female-calm-v1/B01/B01-V01",
+      "language": "de",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "Worüber möchten Sie heute sprechen?",
+      "questionNodeId": "B01",
+      "variantId": "B01-V01",
+      "audioPath": "/audio/mental/v1/de/female-calm-v1/B01/B01-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/de/official-default/B01/B01-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 2360,
+      "sampleRate": 24000,
+      "bytes": 113324,
+      "sha256": "644b8059746584ad2c5ec476a60e05b2a2312ff9b2be745cc779e771bc3b7d6e",
+      "recipeSha256": "2a2059826b278427c0d19ff59fea4a6a8478a243e38fb756f1a092854d544758",
+      "recipe": {
+        "text": "Worüber möchten Sie heute sprechen?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 792650529,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 2360,
+        "sampleRate": 24000,
+        "bytes": 113324,
+        "peak": 0.581573486328125,
+        "rms": 0.07777773113830078,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 57.98,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.18,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.131,
+            "cpuSeconds": 2.32,
+            "peakRSSKiB": 38828
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.138,
+            "cpuSeconds": 2.32,
+            "peakRSSKiB": 38828
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.661,
+            "cpuSeconds": 7.05,
+            "peakRSSKiB": 584580
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 15.739,
+            "cpuSeconds": 16.81,
+            "peakRSSKiB": 6906028
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 56.283,
+            "cpuSeconds": 97.21,
+            "peakRSSKiB": 6906028
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 56.283,
+            "cpuSeconds": 97.22,
+            "peakRSSKiB": 6906028
+          }
+        ]
+      }
+    },
+    {
+      "assetId": "v1/de/female-calm-v1/B02/B02-V01",
+      "language": "de",
+      "speakerProfile": "female-calm-v1",
+      "exactScript": "Wie haben Sie sich in dem Moment gefühlt?",
+      "questionNodeId": "B02",
+      "variantId": "B02-V01",
+      "audioPath": "/audio/mental/v1/de/female-calm-v1/B02/B02-V01.wav",
+      "codec": "pcm_s16le",
+      "contentVersion": "v1",
+      "sourceAssetId": "v1/de/official-default/B02/B02-V01",
+      "approvalStatus": "synthesized-awaiting-listening-review",
+      "durationMs": 2760,
+      "sampleRate": 24000,
+      "bytes": 132524,
+      "sha256": "8fd6a846b1b6ccaa12a1bff8f2e58f7c085e26a757c5034dba2836194cf27bb8",
+      "recipeSha256": "b8b6e8b0200bc18ac71a054e9015722e04c033ddafd6f8e3310731c13d689400",
+      "recipe": {
+        "text": "Wie haben Sie sich in dem Moment gefühlt?",
+        "language": "de",
+        "speakerProfile": "female-calm-v1",
+        "conditioningSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+        "modelRevision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+        "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+        "seed": 1005547543,
+        "contentVersion": "v1",
+        "generation": {
+          "exaggeration": 0.35,
+          "cfg_weight": 0.0,
+          "temperature": 0.8
+        }
+      },
+      "qualityMetrics": {
+        "durationMs": 2760,
+        "sampleRate": 24000,
+        "bytes": 132524,
+        "peak": 0.71160888671875,
+        "rms": 0.085861777763011,
+        "clippedSamples": 0
+      },
+      "productionTelemetry": {
+        "elapsedSeconds": 62.564,
+        "workerPhases": [
+          {
+            "phase": "verify-assets",
+            "elapsedSeconds": 0.0,
+            "cpuSeconds": 0.2,
+            "peakRSSKiB": 37340
+          },
+          {
+            "phase": "verify-source",
+            "elapsedSeconds": 2.2,
+            "cpuSeconds": 2.4,
+            "peakRSSKiB": 38316
+          },
+          {
+            "phase": "import-runtime",
+            "elapsedSeconds": 2.209,
+            "cpuSeconds": 2.41,
+            "peakRSSKiB": 38316
+          },
+          {
+            "phase": "load-model",
+            "elapsedSeconds": 6.687,
+            "cpuSeconds": 7.08,
+            "peakRSSKiB": 583520
+          },
+          {
+            "phase": "inference",
+            "elapsedSeconds": 15.852,
+            "cpuSeconds": 16.91,
+            "peakRSSKiB": 6904856
+          },
+          {
+            "phase": "encode-wav",
+            "elapsedSeconds": 60.787,
+            "cpuSeconds": 105.98,
+            "peakRSSKiB": 6904856
+          },
+          {
+            "phase": "complete",
+            "elapsedSeconds": 60.788,
+            "cpuSeconds": 105.98,
+            "peakRSSKiB": 6904856
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -24,6 +24,7 @@ LIMITS = json.loads((Path(__file__).resolve().parents[2] / 'shared/localization/
 MAX_SECONDS = LIMITS['audioSeconds']
 _busy = False
 SOURCE_MANIFEST = Path(__file__).resolve().parents[2] / 'shared/localization/chatterbox-v3-source.json'
+VOICE_PROFILE = Path(__file__).resolve().parents[2] / 'shared/mental/voices/female-calm-v1.json'
 logger = logging.getLogger('uvicorn.error')
 WORKER_PHASES = ('verify-assets', 'verify-source', 'import-runtime', 'load-model', 'inference', 'encode-wav', 'complete')
 
@@ -146,6 +147,18 @@ def load_configuration(config_path, language, verify_models=True):
             actual = verified_file(root, item)
             if actual != directory / name:
                 raise ValueError('MODEL_FILE_PATH_MISMATCH')
+    if config.get('conditioning') == 'female-calm-v1':
+        profile = json.loads(VOICE_PROFILE.read_text('utf-8'))
+        reference = verified_file(root, config['referenceAudio'], 2 * 1024 * 1024)
+        if config['referenceAudio']['sha256'] != profile['referenceSha256']:
+            raise ValueError('REFERENCE_PROFILE_HASH_MISMATCH')
+        with wave.open(str(reference), 'rb') as wav:
+            if (wav.getnchannels(), wav.getsampwidth(), wav.getframerate(), wav.getcomptype()) != (1, 2, 22050, 'NONE') or not 5 <= wav.getnframes() / wav.getframerate() <= 15:
+                raise ValueError('INVALID_REFERENCE_AUDIO')
+            if len(wav.readframes(wav.getnframes())) != wav.getnframes() * 2:
+                raise ValueError('TRUNCATED_REFERENCE_AUDIO')
+        return config, directory, reference, {'id': profile['id'], 'language': language,
+            'generation': profile['generation'], 'referenceSha256': profile['referenceSha256']}
     if config.get('conditioning') != 'official-default':
         raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_REQUIRED')
     # from_local loads this internal tensor bundle. No external reference is used.
@@ -178,6 +191,21 @@ async def generate(text, language, permitted, disconnected):
     path = os.getenv('ATTUNE_MENTAL_TTS_CONFIG', '')
     if not path or not Path(path).is_file():
         raise HTTPException(503, 'NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE')
+    # A request omitting speakerProfile must not bypass the female review gate.
+    # Offline sample generation calls the worker directly and cannot activate it.
+    try:
+        with Path(path).open('rb') as stream:
+            raw_configuration = stream.read(65537)
+        if len(raw_configuration) > 65536:
+            raise ValueError('CONFIG_TOO_LARGE')
+        configuration = json.loads(raw_configuration)
+        if not isinstance(configuration, dict):
+            raise ValueError('INVALID_CONFIGURATION')
+        if configuration.get('conditioning') == 'female-calm-v1':
+            from mental_audio_identity import verify_speaker
+            verify_speaker(language, 'female-calm-v1')
+    except (OSError, ValueError, KeyError, TypeError):
+        raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE') from None
     _busy = True
     process = None
     task = None

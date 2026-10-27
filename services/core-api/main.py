@@ -276,7 +276,7 @@ class NeuralSpeechPayload(BaseModel):
     text: str = Field(min_length=1, max_length=4096)
     language: str
     speechConsent: StrictBool = False
-    speakerProfile: Optional[Literal['official-default']] = None
+    speakerProfile: Optional[Literal['official-default', 'female-calm-v1']] = None
 
     @field_validator('text')
     @classmethod
@@ -513,7 +513,7 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
         raise HTTPException(422, 'TTS_LANGUAGE_MISMATCH')
     if payload.speakerProfile:
         from mental_audio_identity import verify_speaker
-        verify_speaker(payload.language)
+        verify_speaker(payload.language, payload.speakerProfile)
     def permitted():
         return (vehicle_state.get('driverAuthenticated') is True
                 and vehicle_state.get('vehicleMoving') is False

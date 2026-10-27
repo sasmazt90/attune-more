@@ -33,4 +33,4 @@ These are technical assertions with fixtures, not proof that a live language mod
 | Successful session analysis | One analysis request | One extended analysis request, including spoken summary |
 | Personalized closing | No closing narration in the audited hook | One same-speaker generation, unless muted/cancelled/failing before generation |
 
-No actual token consumption, API billing, billed savings, live response latency, TTS latency, isolated classifier RAM, GPU utilization, speaker similarity or perceptual quality was measured. `actualAPICost` and `actualTTSTiming` are intentionally null. The new mode remains disabled and its approval gate remains closed.
+The original probe artifacts do not measure token consumption, billing, live response latency, isolated classifier RAM or perceptual quality. Later offline synthesis timing is recorded in the audio manifests; the separate [female voice review](listening-female-calm-v1/README.md) adds descriptive encoder similarities and comparison durations. These are not calibrated identity verification or listening approval. `actualAPICost` remains null. The new mode remains disabled and its approval gate remains closed.

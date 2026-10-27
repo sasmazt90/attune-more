@@ -24,7 +24,7 @@ export async function POST(request:NextRequest){
   backend=new URL(process.env.ATTUNE_MENTAL_TTS_BACKEND_URL||'http://127.0.0.1:8000');
   if(backend.protocol!=='http:'||!['127.0.0.1','localhost','[::1]'].includes(backend.hostname)||backend.username||backend.password||backend.pathname!=='/'||backend.search||backend.hash)throw Error();
  }catch{return fail(503,'NEURAL_TTS_LOOPBACK_BACKEND_REQUIRED');}
- let payload:{text:string;language:string;speechConsent:boolean;speakerProfile?:'official-default'};
+ let payload:{text:string;language:string;speechConsent:boolean;speakerProfile?:'official-default'|'female-calm-v1'};
  try{
   // Bound actual streamed bytes, including requests without Content-Length.
   const reader=request.body?.getReader();if(!reader)return fail(422,'INVALID_SPEECH');
@@ -33,7 +33,7 @@ export async function POST(request:NextRequest){
   const bytes=new Uint8Array(size);let at=0;for(const part of parts){bytes.set(part,at);at+=part.length;}
   const value=JSON.parse(new TextDecoder().decode(bytes));
   if(typeof value?.text!=='string'||!value.text.trim()||value.text.length>4096||!['tr','en','de'].includes(value.language)||value.speechConsent!==true)return fail(422,'INVALID_SPEECH');
-  if(value.speakerProfile!==undefined&&value.speakerProfile!=='official-default')return fail(422,'INVALID_SPEAKER');
+  if(value.speakerProfile!==undefined&&!['official-default','female-calm-v1'].includes(value.speakerProfile))return fail(422,'INVALID_SPEAKER');
   payload={text:value.text,language:value.language,speechConsent:true,...(value.speakerProfile?{speakerProfile:value.speakerProfile}:{})};
  }catch{return fail(422,'INVALID_SPEECH');}
  const controller=new AbortController(),cancel=()=>controller.abort();

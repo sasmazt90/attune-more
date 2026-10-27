@@ -17,7 +17,7 @@ export function setMentalSpeechEngine(engine:MentalSpeechEngine){
  window.dispatchEvent(new Event(VOICE_EVENT));window.dispatchEvent(new Event('attune-locale-media-cancel'));
 }
 /** Dynamic response text only. Authentication is handled by the same-origin server. */
-export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,options:{requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'}={}):Promise<boolean>{
+export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,options:{requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1'}={}):Promise<boolean>{
  const language=getLanguage(),locale=getLocale(),controller=new AbortController();
  const permitted=()=>{try{return !signal.aborted&&!controller.signal.aborted&&current()&&!speechMuted()&&!document.hidden&&getLanguage()===language&&mentalSpeechEngine()==='chatterbox-v3'&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
  const check=()=>{if(!permitted())controller.abort();},cancel=()=>controller.abort();

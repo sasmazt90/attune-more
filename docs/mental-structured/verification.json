@@ -59,5 +59,40 @@
     "observedCustomHosts": [],
     "blockedHostname": "huggingface.co",
     "paidServices": false
+  },
+  "femaleVoiceReview": {
+    "profile": "female-calm-v1",
+    "generatedClips": 9,
+    "losslessJoinedPreviews": 6,
+    "approvedClips": 0,
+    "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+    "generation": {
+      "exaggeration": 0.35,
+      "cfg_weight": 0.0,
+      "temperature": 0.8
+    },
+    "productionWallSeconds": 532.934,
+    "maxWorkerPeakRSSKiB": 6906356,
+    "clippedSamples": 0,
+    "originalComparisonFilesUnchanged": 18,
+    "perceptualSpeakerConsistency": "unverified-awaiting-owner/native-listening",
+    "dynamicClosingAudioGenerated": false,
+    "activeFrontendProfile": "official-default",
+    "massProduction": false,
+    "targetedTests": {
+      "passed": 142,
+      "failed": 0
+    },
+    "broaderSuite": {
+      "passed": 1744,
+      "skipped": 44,
+      "failed": 0,
+      "note": "Collected before six additional reference-path tests; all later targeted tests passed."
+    },
+    "frontend": {
+      "typecheck": "passed",
+      "lint": "passed",
+      "build": "passed"
+    }
   }
 }

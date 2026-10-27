@@ -10,6 +10,10 @@ The official source remains `5de7a54aa4e5e2baadb0182dde554908b48b85c2`, Chatterb
 
 The [listening sheet](listening/README.md) links all nine recordings and six lossless A+B previews, using the provisional 120 ms join. Previews reuse the same recorded PCM and perform no further synthesis. No source recording was overwritten. The remaining 405 scripts are ungenerated. Sample approval, join approval and full-library approval remain absent; `--all` stays blocked. Owner/native listening is required before any mass production.
 
+## Separate female voice comparison
+
+The [female profile listening sheet](listening-female-calm-v1/README.md) provides a second nine-clip/six-preview set from one hash-pinned public-domain reference, using the same official model and source. The original default files and manifest are byte-preserved by the comparison baseline. This profile is review-only and does not change the active application selection. Cross-language perceptual consistency, warmth, breathing and natural pacing await listening; a dynamic closing was not synthesized under the nine-clip cap. Its API contract requires the same profile/reference/settings and explicit sample approval, including when a request omits a profile. Female mass production remains blocked.
+
 ## Expanded classifier evaluation
 
 [`tests/fixtures/mental-routing-v2.json`](../../tests/fixtures/mental-routing-v2.json) contains 180 new synthetic utterances in 60 scenario groups, with parallel TR/EN/DE versions and explicit dialogue context. It includes colloquial language, ASR errors, quoted/negated/complex emotions, corrections, short answers, uncertainty, lifecycle controls, topic changes, advice preferences and crisis precedence. It is authored evaluation material, **not real-user transcripts or independent expert validation**. All translations of a scenario stay together: 36 training, 36 development and 108 test utterances. Its SHA-256 is `a172b34ed42bd9788a7678503f527627a5556d85c6f6b015e699693824fb91f3`; the corpus was fixed before semantic-model comparison. Production classification rules were not fitted to these test labels.

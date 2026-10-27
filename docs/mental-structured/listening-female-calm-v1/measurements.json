@@ -1,0 +1,176 @@
+{
+  "profile": "female-calm-v1",
+  "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+  "encoderSha256": "4b16d836bc598509860f6fa068165a8bb5e9ac84f05582dfcf278a5a372879f1",
+  "generation": {
+    "exaggeration": 0.35,
+    "cfg_weight": 0.0,
+    "temperature": 0.8
+  },
+  "generatedSpeechClips": 9,
+  "additionalSynthesis": 0,
+  "originalComparisonFilesUnchanged": 18,
+  "speakerConsistency": "Not verified. Native-language listening and owner approval pending.",
+  "limitations": [
+    "Same conditioning hash verifies configuration, not perceptual identity.",
+    "The upstream encoder is part of the generator, not an independent identity assessor.",
+    "Cosines have no calibrated cross-language acceptance threshold for these short samples.",
+    "Duration includes pauses; it does not alone establish a calm or slower delivery.",
+    "Each asset has a deterministic seed; these are not seed-matched controlled A/B recordings.",
+    "No dynamic closing was synthesized: the authorized cap is nine representative clips."
+  ],
+  "samples": [
+    {
+      "language": "tr",
+      "variantId": "A-V01",
+      "referenceCosine": 0.677759,
+      "officialDefaultReferenceCosine": 0.468914,
+      "durationMs": 960,
+      "officialDefaultDurationMs": 880,
+      "durationRatioToDefault": 1.0909,
+      "identityEvidence": "very-short-acknowledgment-inconclusive"
+    },
+    {
+      "language": "tr",
+      "variantId": "B01-V01",
+      "referenceCosine": 0.884122,
+      "officialDefaultReferenceCosine": 0.531721,
+      "durationMs": 2760,
+      "officialDefaultDurationMs": 2560,
+      "durationRatioToDefault": 1.0781,
+      "identityEvidence": "short-question-descriptive-only"
+    },
+    {
+      "language": "tr",
+      "variantId": "B02-V01",
+      "referenceCosine": 0.892256,
+      "officialDefaultReferenceCosine": 0.524648,
+      "durationMs": 2320,
+      "officialDefaultDurationMs": 1800,
+      "durationRatioToDefault": 1.2889,
+      "identityEvidence": "short-question-descriptive-only"
+    },
+    {
+      "language": "en",
+      "variantId": "A-V01",
+      "referenceCosine": 0.735726,
+      "officialDefaultReferenceCosine": 0.475807,
+      "durationMs": 1040,
+      "officialDefaultDurationMs": 1080,
+      "durationRatioToDefault": 0.963,
+      "identityEvidence": "very-short-acknowledgment-inconclusive"
+    },
+    {
+      "language": "en",
+      "variantId": "B01-V01",
+      "referenceCosine": 0.882486,
+      "officialDefaultReferenceCosine": 0.601463,
+      "durationMs": 2320,
+      "officialDefaultDurationMs": 1600,
+      "durationRatioToDefault": 1.45,
+      "identityEvidence": "short-question-descriptive-only"
+    },
+    {
+      "language": "en",
+      "variantId": "B02-V01",
+      "referenceCosine": 0.848193,
+      "officialDefaultReferenceCosine": 0.539376,
+      "durationMs": 2000,
+      "officialDefaultDurationMs": 1600,
+      "durationRatioToDefault": 1.25,
+      "identityEvidence": "short-question-descriptive-only"
+    },
+    {
+      "language": "de",
+      "variantId": "A-V01",
+      "referenceCosine": 0.741573,
+      "officialDefaultReferenceCosine": 0.425249,
+      "durationMs": 1320,
+      "officialDefaultDurationMs": 1080,
+      "durationRatioToDefault": 1.2222,
+      "identityEvidence": "very-short-acknowledgment-inconclusive"
+    },
+    {
+      "language": "de",
+      "variantId": "B01-V01",
+      "referenceCosine": 0.870836,
+      "officialDefaultReferenceCosine": 0.559503,
+      "durationMs": 2360,
+      "officialDefaultDurationMs": 2160,
+      "durationRatioToDefault": 1.0926,
+      "identityEvidence": "short-question-descriptive-only"
+    },
+    {
+      "language": "de",
+      "variantId": "B02-V01",
+      "referenceCosine": 0.876488,
+      "officialDefaultReferenceCosine": 0.507426,
+      "durationMs": 2760,
+      "officialDefaultDurationMs": 2240,
+      "durationRatioToDefault": 1.2321,
+      "identityEvidence": "short-question-descriptive-only"
+    }
+  ],
+  "crossLanguageQuestionPairs": [
+    {
+      "left": "tr/B01-V01",
+      "right": "en/B01-V01",
+      "cosine": 0.822858
+    },
+    {
+      "left": "tr/B01-V01",
+      "right": "en/B02-V01",
+      "cosine": 0.869095
+    },
+    {
+      "left": "tr/B02-V01",
+      "right": "en/B01-V01",
+      "cosine": 0.817691
+    },
+    {
+      "left": "tr/B02-V01",
+      "right": "en/B02-V01",
+      "cosine": 0.820566
+    },
+    {
+      "left": "tr/B01-V01",
+      "right": "de/B01-V01",
+      "cosine": 0.840451
+    },
+    {
+      "left": "tr/B01-V01",
+      "right": "de/B02-V01",
+      "cosine": 0.819838
+    },
+    {
+      "left": "tr/B02-V01",
+      "right": "de/B01-V01",
+      "cosine": 0.846496
+    },
+    {
+      "left": "tr/B02-V01",
+      "right": "de/B02-V01",
+      "cosine": 0.861046
+    },
+    {
+      "left": "en/B01-V01",
+      "right": "de/B01-V01",
+      "cosine": 0.817038
+    },
+    {
+      "left": "en/B01-V01",
+      "right": "de/B02-V01",
+      "cosine": 0.81234
+    },
+    {
+      "left": "en/B02-V01",
+      "right": "de/B01-V01",
+      "cosine": 0.8362
+    },
+    {
+      "left": "en/B02-V01",
+      "right": "de/B02-V01",
+      "cosine": 0.815757
+    }
+  ]
+}

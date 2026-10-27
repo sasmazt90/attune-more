@@ -15,10 +15,13 @@ import mental_neural_tts as boundary
 
 @pytest.mark.parametrize('language', ['tr', 'en', 'de'])
 @pytest.mark.parametrize('has_conditioning', [True, False])
-def test_explicit_v3_default_conditioning_without_external_reference(monkeypatch, tmp_path, language, has_conditioning):
+@pytest.mark.parametrize('reference_profile', [False, True])
+def test_explicit_v3_conditioning_uses_only_verified_configuration(monkeypatch, tmp_path, language, has_conditioning, reference_profile):
     progress = tmp_path / 'worker-timing.json'
     monkeypatch.setenv('ATTUNE_MENTAL_TTS_PROGRESS', str(progress))
-    monkeypatch.setattr(worker, 'load_configuration', lambda *a: ({'device': 'cpu'}, tmp_path, None, {}))
+    reference = tmp_path / 'authorized-fixture.wav' if reference_profile else None
+    generation = {'exaggeration': .35, 'cfg_weight': 0., 'temperature': .8}
+    monkeypatch.setattr(worker, 'load_configuration', lambda *a: ({'device': 'cpu'}, tmp_path, reference, {'generation': generation}))
     monkeypatch.setattr(worker, 'verify_runtime_source', lambda: {'fixture': 'explicit fake ML source'})
     versions = {'torch': '2.6.0+cpu', 'torchaudio': '2.6.0+cpu', 'transformers': '5.2.0', 'safetensors': '0.5.3'}
     monkeypatch.setattr(worker, 'version', versions.__getitem__)
@@ -55,7 +58,8 @@ def test_explicit_v3_default_conditioning_without_external_reference(monkeypatch
     payload = {'config': 'fixture', 'language': language, 'text': 'Explicit nonpersonal ML fixture'}
     if has_conditioning:
         boundary.validate_wave(worker.synthesize(payload))
-        assert calls[1] == ('generate', (payload['text'],), {'language_id': language})
+        options = {'audio_prompt_path': str(reference), **generation} if reference_profile else {}
+        assert calls[1] == ('generate', (payload['text'],), {'language_id': language, **options})
         rows = boundary.worker_progress(progress)
         assert [row['phase'] for row in rows] == list(boundary.WORKER_PHASES)
         assert payload['text'] not in progress.read_text()

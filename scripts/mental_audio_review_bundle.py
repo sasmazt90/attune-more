@@ -4,6 +4,7 @@
 Never edits source recordings, changes approval, or generates additional speech.
 """
 import hashlib
+import argparse
 import io
 import json
 from pathlib import Path
@@ -15,9 +16,14 @@ OUT=ROOT/'docs/mental-structured/listening'
 
 
 def main():
-    manifest=json.loads((PUBLIC/'audio/mental/v1/manifest.json').read_text())
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--profile',choices=('official-default','female-calm-v1'),default='official-default')
+    args=parser.parse_args()
+    name='manifest.json' if args.profile=='official-default' else 'female-calm-v1-manifest.json'
+    out=OUT if args.profile=='official-default' else OUT.with_name('listening-female-calm-v1')
+    manifest=json.loads((PUBLIC/'audio/mental/v1'/name).read_text())
     entries={(e['language'],e['variantId']):e for e in manifest['entries']}
-    OUT.mkdir(parents=True,exist_ok=True)
+    out.mkdir(parents=True,exist_ok=True)
     rows=[]
     for language in ('tr','en','de'):
         clips={}
@@ -31,7 +37,7 @@ def main():
             rows.append({'language':language,'variantId':variant,'text':entry['exactScript'],'path':str(path.relative_to(ROOT)),
                          'sha256':entry['sha256'],'approvalStatus':entry['approvalStatus'],'speakerProfile':entry['speakerProfile']})
         for question in ('B01-V01','B02-V01'):
-            path=OUT/f'{language}-A-V01-{question}.wav'
+            path=out/f'{language}-A-V01-{question}.wav'
             buf=io.BytesIO()
             with wave.open(buf,'wb') as wav:
                 wav.setnchannels(1);wav.setsampwidth(2);wav.setframerate(24000)
@@ -42,7 +48,7 @@ def main():
     index={'speakerProfile':manifest['speakerProfile'],'conditioningSha256':manifest['conditioningSha256'],
            'sampleApproval':'pending-owner-listening','generatedSpeechClips':9,'losslessJoinPreviews':6,
            'joinSilenceMs':manifest['joinSilenceMs'],'samples':rows}
-    (OUT/'index.json').write_text(json.dumps(index,ensure_ascii=False,indent=2)+'\n')
+    (out/'index.json').write_text(json.dumps(index,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'samples':9,'joinedPreviews':6,'approval':'pending-owner-listening'}))
 
 

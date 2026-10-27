@@ -1,0 +1,21 @@
+{
+  "id": "female-calm-v1",
+  "status": "review-only-awaiting-owner-listening",
+  "referenceDataset": "LJ Speech 1.1",
+  "referenceClip": "LJ001-0001",
+  "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+  "referenceSourceURL": "https://raw.githubusercontent.com/coqui-ai/TTS/dbf1a08a0d4e47fdad6172e433eeb34bc6b13b4e/tests/data/ljspeech/wavs/LJ001-0001.wav",
+  "referenceDurationSeconds": 9.65501133786848,
+  "referenceLicense": "Public Domain (LibriVox); dataset card: unlicense",
+  "licenseEvidenceURL": "https://huggingface.co/datasets/keithito/lj_speech/blob/main/README.md",
+  "licenseEvidencePath": "docs/mental-structured/female-reference-license.md",
+  "licenseEvidenceSha256": "4e15158a085becf0f4775ea03897400b5beeaa27ed4497825cbf0f22362b3728",
+  "generation": {
+    "exaggeration": 0.35,
+    "cfg_weight": 0.0,
+    "temperature": 0.8
+  },
+  "postProcessing": "PCM16 encoding only; upstream watermark retained; no pitch/rate shifting",
+  "speakerConsistency": "Not verified by listening. A common reference does not establish cross-language perceptual identity.",
+  "dynamicClosing": "Must use this same profile id, pinned reference hash, and generation settings when explicitly activated after approval."
+}

@@ -2,6 +2,8 @@
 
 This is an implemented, disabled-by-default development path. **It is not release-ready.** Nine representative recordings and six lossless joined previews are available on the [listening sheet](listening/README.md), awaiting explicit owner approval; 405 scripts remain ungenerated. The classifier needs a measured semantic-model comparison and broader evaluation, and the multilingual content needs owner/native-language review. No clinical validation is claimed. The existing conversational experience remains the default. See the [follow-up review](followup-review.md) for provisioning, expanded benchmarks, flow fixes and current blockers.
 
+A separate [female voice comparison](listening-female-calm-v1/README.md) now provides nine additional representative clips and six joined previews from one reference-conditioned profile. The original default recordings are preserved. Both sets await listening approval; the female profile is not selected in the application.
+
 ## Repository audit (27 October 2026)
 
 The remote repository metadata and `git ls-remote --symref origin HEAD` confirm `main` as the default branch. Work began from an older checkout and was rebased onto current `origin/main`, `84ccea4a83ca4eafb751b66dcf5bd2963a8f0fb4` (merged PR #11), before implementation. Merged PRs #9–#11 concern skin/dental work; those changes are preserved. The open PR search returned draft #6 (skin/localization research); active remote refs also include hearing, localization and automotive branches. Their historical descriptions were not treated as the current implementation. No unrelated branch was merged into this work.

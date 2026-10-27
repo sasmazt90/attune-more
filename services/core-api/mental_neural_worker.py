@@ -31,7 +31,7 @@ def synthesize(payload):
         Path(path).write_text(json.dumps(phases), encoding='utf-8')
 
     progress('verify-assets')
-    config, directory, _, _ = load_configuration(payload['config'], payload['language'])
+    config, directory, reference, profile = load_configuration(payload['config'], payload['language'])
     text = payload['text']
     if not isinstance(text, str) or not text.strip() or len(text) > 4096:
         raise ValueError('INVALID_TEXT')
@@ -67,12 +67,14 @@ def synthesize(payload):
         raise ValueError('UNSUPPORTED_DEVICE')
     progress('load-model')
     model = ChatterboxMultilingualTTS.from_local(str(directory), device, t3_model='v3')
-    # Keep the official internal default conditioning and upstream watermark.
+    # The review profile uses the upstream reference-audio API. Default calls
+    # retain the original internal conditioning; all calls retain the watermark.
     if model.conds is None:
         raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_MISSING')
     progress('inference')
+    options = {} if reference is None else {'audio_prompt_path': str(reference), **profile['generation']}
     with torch.inference_mode():
-        audio = model.generate(text, language_id=payload['language'])
+        audio = model.generate(text, language_id=payload['language'], **options)
     progress('encode-wav')
     samples = audio.detach().cpu().numpy().reshape(-1)
     if model.sr != 24000 or not 0 < len(samples) <= model.sr * MAX_SECONDS or not np.isfinite(samples).all():
