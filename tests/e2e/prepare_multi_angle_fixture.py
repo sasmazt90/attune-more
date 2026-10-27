@@ -29,8 +29,11 @@ if not ffmpeg:
     ffmpeg=imageio_ffmpeg.get_ffmpeg_exe()
 frames=FIX/'head-shake-frames';frames.mkdir(exist_ok=True)
 subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-i',str(video),'-vf','fps=10,crop=900:675:90:190,scale=640:480',str(frames/'frame-%03d.jpg')],check=True)
-compiler=r"""const fs=require('fs'),ts=require('typescript');for(const name of ['skinAnalyzer','skinMultiAngle']){let s=ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/'+name+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;s=s.replace("from '@mediapipe/tasks-vision'","from './tasks-vision.mjs'").replace('./skinAnalyzer','./skinAnalyzer.js');fs.writeFileSync('audit-fixtures/'+name+'.js',s);}"""
+compiler=r"""const fs=require('fs'),ts=require('typescript');for(const name of ['skinAnalyzer','skinMultiAngle','skinExpression']){let s=ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/utils/'+name+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;s=s.replace("from '@mediapipe/tasks-vision'","from './tasks-vision.mjs'").replace('./skinAnalyzer','./skinAnalyzer.js').replace('./skinExpression','./skinExpression.js');fs.writeFileSync('audit-fixtures/'+name+'.js',s);}"""
 subprocess.run(['node','-e',compiler],check=True)
+for module in FIX.glob('skin*.js'):
+    for dependency in re.findall(r"from\s+['\"](\./[^'\"]+)['\"]",module.read_text(encoding='utf-8')):
+        assert (FIX/dependency.removeprefix('./')).is_file(),f'{module.name}: missing generated dependency {dependency}'
 selected={};measurements=[]
 PUBLIC=Path('apps/vehicle-app/public').resolve()
 served=set()
@@ -40,7 +43,7 @@ class FixtureHandler(BaseHTTPRequestHandler):
         path=self.path.split('?',1)[0]
         if path=='/fixture-probe':
             content_type='text/html';body=b'<canvas id="frame" width="640" height="480"></canvas>'
-        elif path in ('/skinAnalyzer.js','/skinMultiAngle.js'):
+        elif path in ('/skinAnalyzer.js','/skinMultiAngle.js','/skinExpression.js'):
             name=path[1:];served.add(name);content_type='text/javascript';body=(FIX/name).read_bytes()
         elif path=='/tasks-vision.mjs':
             served.add('tasks-vision.mjs');content_type='text/javascript';body=Path('node_modules/@mediapipe/tasks-vision/vision_bundle.mjs').read_bytes()
@@ -61,7 +64,7 @@ try:
         base=f'http://127.0.0.1:{server.server_port}'
         p.goto(base+'/fixture-probe')
         p.evaluate("async()=>{window.A=(await import('./skinAnalyzer.js')).SkinAnalyzer;window.M=await import('./skinMultiAngle.js');if(!await A.getFaceLandmarker())throw Error('Actual model did not load');}")
-        assert served=={'skinAnalyzer.js','skinMultiAngle.js','tasks-vision.mjs'},served
+        assert served=={'skinAnalyzer.js','skinMultiAngle.js','skinExpression.js','tasks-vision.mjs'},served
         for index,file in enumerate(sorted(frames.glob('frame-*.jpg')),1):
             result=p.evaluate('''async(index)=>{const image=new Image();image.src='./probe-frame-'+String(index).padStart(3,'0');await image.decode();const c=document.querySelector('canvas'),ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0,640,480);const a=A.assessAlignment(ctx,640,480),q=A.checkQuality(ctx,640,480,a.faceDetected,a.box);return {pose:{yaw:a.yaw,pitch:a.pitch,roll:a.roll,scaleRatio:a.scaleRatio},quality:q,usedMediaPipe:a.isMediaPipeActive,landmarkCount:a.landmarks?.length||0,matches:M.SKIN_ANGLES.filter(angle=>M.matchesSkinAngle(a,angle))};}''',index)
             result.update(frame=index,seconds=(index-1)/10);measurements.append(result)
