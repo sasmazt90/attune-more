@@ -1,0 +1,4356 @@
+{
+ "camera": {
+  "scenario": "camera",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 50728,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:e3914080-8048-480e-b12e-eb8dacbafcef"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "e3914080-8048-480e-b12e-eb8dacbafcef"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df"
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e"
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45"
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history BITE shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "hrefMatchesCapture": true
+   }
+  ],
+  "stepTimeline": [
+   [
+    108,
+    "",
+    ""
+   ],
+   [
+    6308,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13000,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15124,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    21218,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    23017,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31600,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33739,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    43100,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    45820,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    48700,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    55101,
+    "4",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    55501,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "cancel": {
+  "scenario": "cancel",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": null,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "no analysis request after withdrawal",
+    true
+   ],
+   [
+    "camera stopped after withdrawal",
+    true
+   ],
+   [
+    "withdrawal status shown",
+    true
+   ],
+   [
+    "back to ready state",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [],
+  "responses": [],
+  "slides": [],
+  "stepTimeline": [
+   [
+    120,
+    "",
+    ""
+   ],
+   [
+    6321,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13228,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15155,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    15300,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "fault-block-photo-store": {
+  "scenario": "camera",
+  "fault": "block-photo-store",
+  "result": "FAIL",
+  "failures": [
+   "photos saved when permission is on :: \"Sayısal sonuç kaydedildi; fotoğraf saklanamadı. Önceki kayıtlar korundu.\"",
+   "stored photos belong to the record :: [\"IDB_ERROR\"]",
+   "history FRONT shows its own photo :: {\"pose\":\"FRONT\",\"status\":\"measured\",\"photo\":null}",
+   "history RIGHT shows its own photo :: {\"pose\":\"RIGHT\",\"status\":\"measured\",\"photo\":null}",
+   "history LEFT shows its own photo :: {\"pose\":\"LEFT\",\"status\":\"measured\",\"photo\":null}",
+   "history BITE shows its own photo :: {\"pose\":\"BITE\",\"status\":\"measured\",\"photo\":null}",
+   "delete removes record and its photos :: {\"records\":1,\"photoKeys\":[\"IDB_ERROR\"]}",
+   "no page errors :: [\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBD"
+  ],
+  "elapsedMs": 50941,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç kaydedildi; fotoğraf saklanamadı. Önceki kayıtlar korundu.",
+  "afterDelete": {
+   "records": 1,
+   "photoKeys": [
+    "IDB_ERROR"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "IDB_ERROR"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": null
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": null
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": null
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": null
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    false
+   ],
+   [
+    "stored photos belong to the record",
+    false
+   ],
+   [
+    "history FRONT shows its own photo",
+    false
+   ],
+   [
+    "history RIGHT shows its own photo",
+    false
+   ],
+   [
+    "history LEFT shows its own photo",
+    false
+   ],
+   [
+    "history BITE shows its own photo",
+    false
+   ],
+   [
+    "delete removes record and its photos",
+    false
+   ],
+   [
+    "no page errors",
+    false
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "hrefMatchesCapture": true
+   }
+  ],
+  "stepTimeline": [
+   [
+    115,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13000,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14961,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    19300,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    21021,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31200,
+    "2",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    31700,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33363,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    42900,
+    "3",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    43501,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    46633,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    49000,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    55000,
+    "4",
+    "Sayısal sonuç kaydedildi; fotoğraf saklanamadı. Önceki kayıtlar korundu."
+   ],
+   [
+    55628,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "fault-swap-photo-id": {
+  "scenario": "camera",
+  "fault": "swap-photo-id",
+  "result": "FAIL",
+  "failures": [
+   "response views match their own photos",
+   "result screen visible"
+  ],
+  "elapsedMs": 52092,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    false
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    false
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [],
+  "stepTimeline": [
+   [
+    103,
+    "",
+    ""
+   ],
+   [
+    6618,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12701,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14304,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    19816,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    21614,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31200,
+    "2",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    31809,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33985,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    43502,
+    "3",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    44101,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    46655,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    50001,
+    "",
+    "Diş sonucu ve kaynak geometrisi doğrulanamadı."
+   ]
+  ]
+ },
+ "natural-new": {
+  "scenario": "camera",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 58406,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "36fe4730f2891cdae2e10e1d69d3b0f851a6e91a2dcc88cb208b70d1b2ed8448",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "31cd5593fd41317f1f434c878a0c5b0828c384f1977598499d97c9b2c2c4b3d1",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "df21f435b882e25a5b1da3035d9adf57f72f4c55ab939f0dbba68766feadbfa7",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "aa1b0eb891e63a8369b1fdad9a0098a34acc4de499a49af46be53c2899060b44",
+    "hrefMatchesCapture": true
+   }
+  ],
+  "stepTimeline": [
+   [
+    118,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13101,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15114,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    22102,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    23681,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    37200,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    39101,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    52204,
+    "3",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    52701,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    54768,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    56700,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ]
+  ]
+ },
+ "natural-old": {
+  "scenario": "camera",
+  "fault": null,
+  "result": "FAIL",
+  "failures": [
+   "scenario completed without timeout/exception :: \"locator.waitFor: Timeout 150000ms exceeded.\""
+  ],
+  "elapsedMs": null,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "scenario completed without timeout/exception",
+    false
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [],
+  "responses": [],
+  "slides": [],
+  "stepTimeline": [
+   [
+    105,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12307,
+    "0",
+    "Ağzınızı rahatça açın."
+   ],
+   [
+    22413,
+    "0",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    23100,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün."
+   ],
+   [
+    52300,
+    "0",
+    "Ağzınızı rahatça açın."
+   ],
+   [
+    82600,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün."
+   ],
+   [
+    97102,
+    "0",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    97701,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün."
+   ],
+   [
+    112200,
+    "0",
+    "Ağzınızı rahatça açın."
+   ],
+   [
+    143000,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün."
+   ],
+   [
+    157703,
+    "0",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    158400,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün."
+   ]
+  ]
+ },
+ "no-photo-permission": {
+  "scenario": "no-photo-permission",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 43627,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Yalnız sayısal ölçüm ve aday koordinatları yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "photoKeysAfterSave": [],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": null
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": null
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": null
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": null
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "numeric-only save without photo permission",
+    true
+   ],
+   [
+    "no photo stored without permission",
+    true
+   ],
+   [
+    "history FRONT shows no photo",
+    true
+   ],
+   [
+    "history RIGHT shows no photo",
+    true
+   ],
+   [
+    "history LEFT shows no photo",
+    true
+   ],
+   [
+    "history BITE shows no photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "hrefMatchesCapture": true
+   }
+  ],
+  "stepTimeline": [
+   [
+    138,
+    "",
+    ""
+   ],
+   [
+    1100,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    8808,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    10962,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    14610,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    16461,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    26005,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    27856,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    38100,
+    "3",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    38701,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    41266,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    43500,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    47001,
+    "4",
+    "Yalnız sayısal ölçüm ve aday koordinatları yerel geçmişe kaydedildi."
+   ],
+   [
+    47106,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "old903-skip-race": {
+  "scenario": "skip-race",
+  "fault": null,
+  "result": "FAIL",
+  "failures": [
+   "exactly one analysis request :: [[\"FRONT\",\"RIGHT\",\"LEFT\"],[\"FRONT\",\"RIGHT\",\"LEFT\",\"BITE\"]]",
+   "analysis API 200 :: [[429,\"LOCAL_ANALYSIS_BUSY\"],[200,null]]",
+   "response views match their own photos",
+   "missingViews",
+   "result screen visible",
+   "no unexpected console errors :: [\"Failed to load resource: the server responded with a status of 429 (Too Many Requests)\"]"
+  ],
+  "elapsedMs": 91668,
+  "skipVisibleAfterMs": 47247,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    false
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    false
+   ],
+   [
+    "response views match their own photos",
+    false
+   ],
+   [
+    "missingViews",
+    false
+   ],
+   [
+    "result screen visible",
+    false
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    false
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT"
+   ],
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 429,
+    "detail": "LOCAL_ANALYSIS_BUSY",
+    "missingViews": null,
+    "views": []
+   },
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [
+     "BITE"
+    ],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [],
+  "stepTimeline": [
+   [
+    116,
+    "",
+    ""
+   ],
+   [
+    6419,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12700,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14469,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    19903,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    21746,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31100,
+    "2",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    31601,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33420,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    43301,
+    "3",
+    "Dişlerinizi hafifçe birleştirin; ön dişleriniz birbirine değsin."
+   ],
+   [
+    69200,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    71702,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    73283,
+    "",
+    "Yerel diş analizi tamamlanamadı."
+   ],
+   [
+    76701,
+    "",
+    "Diş sonucu ve kaynak geometrisi doğrulanamadı."
+   ]
+  ]
+ },
+ "park-change": {
+  "scenario": "park-change",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": null,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "no analysis request after withdrawal",
+    true
+   ],
+   [
+    "camera stopped after withdrawal",
+    true
+   ],
+   [
+    "withdrawal status shown",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [],
+  "responses": [],
+  "slides": [],
+  "stepTimeline": [
+   [
+    109,
+    "",
+    ""
+   ],
+   [
+    6405,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13602,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15535,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    16200,
+    "",
+    "Diş taraması yalnız PARK durumunda yapılır."
+   ]
+  ]
+ },
+ "partial-response": {
+  "scenario": "partial-response",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 52808,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:42fa57bb-cd1e-416d-90ed-d9e3e5507607"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "42fa57bb-cd1e-416d-90ed-d9e3e5507607"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df"
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e"
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45"
+   },
+   {
+    "pose": "BITE",
+    "status": "unmeasured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "BITE unmeasured view has no marks",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history BITE shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      false
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "unmeasured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "hrefMatchesCapture": true
+   }
+  ],
+  "stepTimeline": [
+   [
+    103,
+    "",
+    ""
+   ],
+   [
+    6642,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12318,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14396,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    20002,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    21858,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31300,
+    "2",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    31900,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33609,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    43712,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    46824,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    50700,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    57501,
+    "4",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    58037,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "revoke-camera": {
+  "scenario": "revoke-camera",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": null,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "no analysis request after withdrawal",
+    true
+   ],
+   [
+    "camera stopped after withdrawal",
+    true
+   ],
+   [
+    "withdrawal status shown",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [],
+  "responses": [],
+  "slides": [],
+  "stepTimeline": [
+   [
+    127,
+    "",
+    ""
+   ],
+   [
+    6307,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12701,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14947,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    15500,
+    "",
+    "Kamera izni geri çekildi."
+   ]
+  ]
+ },
+ "revoke-consent": {
+  "scenario": "revoke-consent",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": null,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "no analysis request after withdrawal",
+    true
+   ],
+   [
+    "camera stopped after withdrawal",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [],
+  "responses": [],
+  "slides": [],
+  "stepTimeline": [
+   [
+    114,
+    "",
+    ""
+   ],
+   [
+    6302,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12900,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14814,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    15202,
+    "",
+    ""
+   ]
+  ]
+ },
+ "skip-bite": {
+  "scenario": "skip-bite",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 55696,
+  "skipVisibleAfterMs": 42528,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:9d125f2e-6ec1-4aeb-bab2-f1da3b3563e2"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "9d125f2e-6ec1-4aeb-bab2-f1da3b3563e2"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df"
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e"
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45"
+   },
+   {
+    "pose": "BITE",
+    "status": "missing",
+    "photo": null
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE reported as not taken",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history keeps BITE as not taken",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [
+     "BITE"
+    ],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "missing",
+    "photo": null,
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    115,
+    "",
+    ""
+   ],
+   [
+    6343,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12700,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14764,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    19425,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    21388,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31300,
+    "2",
+    "Başınızı kısa süre sabit tutun."
+   ],
+   [
+    31801,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33534,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    43300,
+    "3",
+    "Dişlerinizi hafifçe birleştirin; ön dişleriniz birbirine değsin."
+   ],
+   [
+    49843,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    51700,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    59001,
+    "4",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    59107,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "skip-race": {
+  "scenario": "skip-race",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 90260,
+  "skipVisibleAfterMs": 42669,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:ba8f6769-6385-42a5-9644-84eddd96d5b6"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "ba8f6769-6385-42a5-9644-84eddd96d5b6"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df"
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e"
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45"
+   },
+   {
+    "pose": "BITE",
+    "status": "missing",
+    "photo": null
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE reported as not taken",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history keeps BITE as not taken",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [
+     "BITE"
+    ],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "RIGHT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "missing",
+    "photo": null,
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    103,
+    "",
+    ""
+   ],
+   [
+    6317,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13300,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15105,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    19901,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    21600,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    31213,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    33303,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    43200,
+    "3",
+    "Dişlerinizi hafifçe birleştirin; ön dişleriniz birbirine değsin."
+   ],
+   [
+    69200,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    71572,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    73200,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    93600,
+    "4",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    94003,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "skip-side": {
+  "scenario": "skip-side",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 58642,
+  "skipVisibleAfterMs": 23747,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:e43734bf-b44a-4e97-9d34-ab56bbcc5adc"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "e43734bf-b44a-4e97-9d34-ab56bbcc5adc"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df"
+   },
+   {
+    "pose": "RIGHT",
+    "status": "missing",
+    "photo": null
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45"
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT reported as not taken",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history BITE shows its own photo",
+    true
+   ],
+   [
+    "history keeps RIGHT as not taken",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": [
+     "RIGHT"
+    ],
+    "views": [
+     [
+      "FRONT",
+      true
+     ],
+     [
+      "LEFT",
+      true
+     ],
+     [
+      "BITE",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "missing",
+    "photo": null,
+    "hrefMatchesCapture": null
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "hrefMatchesCapture": true
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "hrefMatchesCapture": true
+   }
+  ],
+  "stepTimeline": [
+   [
+    124,
+    "",
+    ""
+   ],
+   [
+    6400,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12832,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14897,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    30219,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    39405,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre "
+   ],
+   [
+    41072,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    51710,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlama"
+   ],
+   [
+    54746,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    56500,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ],
+   [
+    61601,
+    "4",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    62107,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-2-native": {
+  "scenario": "upload:/home/claude/private-data/sources/2-native.png",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 12856,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "photoKeysAfterSave": [
+   "0b69d96b-ec6a-40df-81ec-49d6ca552830"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    133,
+    "",
+    ""
+   ],
+   [
+    6301,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6400,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10492,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    10806,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    12000,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    12205,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-9-native": {
+  "scenario": "upload:/home/claude/private-data/sources/9-native.png",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 13768,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "photoKeysAfterSave": [
+   "13c27ada-3204-4f94-ba23-b9e0a90dfd0a"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "662f360c11a96e79b3bbe0129554d9b8ea1d2671358d2bd87f063f44317866e0"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "662f360c11a96e79b3bbe0129554d9b8ea1d2671358d2bd87f063f44317866e0",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    113,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6400,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10794,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    11802,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    13600,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    13706,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-closeup-bite": {
+  "scenario": "upload:/home/claude/private-data/assets/dental_front_bite.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 13423,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "upload rejection reason",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "rejection shown to the user",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 422,
+    "detail": "TONGUE_OCCLUSION",
+    "missingViews": null,
+    "views": []
+   }
+  ],
+  "slides": [],
+  "stepTimeline": [
+   [
+    122,
+    "",
+    ""
+   ],
+   [
+    6402,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6600,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    11063,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    11600,
+    "",
+    "Dil dişleri örtüyor. Dişlerin göründüğü fotoğrafı seçin."
+   ]
+  ]
+ },
+ "upload-dental_front": {
+  "scenario": "upload:/home/claude/private-data/assets/dental_front.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 14778,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:d4188339-9fe5-4857-88ac-bdb7f75affed"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "d4188339-9fe5-4857-88ac-bdb7f75affed"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "74280724386f1b39f7f6c2cae4cf3cdf68886e8a69993cd228178db8d7424803"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "74280724386f1b39f7f6c2cae4cf3cdf68886e8a69993cd228178db8d7424803",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    109,
+    "",
+    ""
+   ],
+   [
+    6302,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6403,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10769,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    12780,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    15500,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    16203,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-dental_left": {
+  "scenario": "upload:/home/claude/private-data/assets/dental_left.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 14449,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:27adfe36-c0f4-4862-98b6-8dd0c7a0eabf"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "27adfe36-c0f4-4862-98b6-8dd0c7a0eabf"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "d1c0a5bd63b42b5a7bc37c5c64fa3cb0cbe3b3f425b7afcaba27baab7a894091"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "d1c0a5bd63b42b5a7bc37c5c64fa3cb0cbe3b3f425b7afcaba27baab7a894091",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    107,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6401,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10442,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    12505,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    15100,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    16012,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-dental_right": {
+  "scenario": "upload:/home/claude/private-data/assets/dental_right.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 14859,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": [
+    "delete-backup:fef2b3f0-2b5f-4fec-abb7-eb0310e5c37c"
+   ]
+  },
+  "photoKeysAfterSave": [
+   "fef2b3f0-2b5f-4fec-abb7-eb0310e5c37c"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "955821eee991ac1ab4f7a66827c4c52ce5b053ecb380cf17bf5bb455d7166b98"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "955821eee991ac1ab4f7a66827c4c52ce5b053ecb380cf17bf5bb455d7166b98",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    143,
+    "",
+    ""
+   ],
+   [
+    6400,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10777,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    12981,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    15591,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    16004,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-exif_exif-rotation-control": {
+  "scenario": "upload:/home/claude/private-data/inputs/exif_exif-rotation-control.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 12565,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "photoKeysAfterSave": [
+   "9d4c1bd5-a473-4f21-9046-6b189b00fc18"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "62c58d6314f6dab22ac689bb283fa6b74a3f765abad513ec8be712923b48689e"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "62c58d6314f6dab22ac689bb283fa6b74a3f765abad513ec8be712923b48689e",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    107,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10200,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    11116,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    12522,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    13200,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-negative": {
+  "scenario": "upload:/home/claude/private-data/inputs/negative_6.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 15283,
+  "skipVisibleAfterMs": null,
+  "saveStatus": null,
+  "afterDelete": null,
+  "photoKeysAfterSave": null,
+  "historySlides": null,
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "upload rejection reason",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "rejection shown to the user",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 422,
+    "detail": "TEETH_NOT_VISIBLE_OR_NON_COLOR_IMAGE",
+    "missingViews": null,
+    "views": []
+   }
+  ],
+  "slides": [],
+  "stepTimeline": [
+   [
+    121,
+    "",
+    ""
+   ],
+   [
+    6300,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    7016,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    11690,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    13100,
+    "",
+    "Dişlerin ve çevresindeki diş etinin göründüğü renkli ağız içi fotoğrafı seçin."
+   ]
+  ]
+ },
+ "upload-partial_anonymous_003-008-1389-01_1733825027941_Maxillary_Occlusal_View": {
+  "scenario": "upload:/home/claude/private-data/inputs/partial_anonymous_003-008-1389-01_1733825027941_Maxillary_Occlusal_View.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 13241,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "photoKeysAfterSave": [
+   "2419606e-dcfa-4706-8fb3-57291a27a03f"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "64cd18004a9448ec75ec1f16413d4c6463d4eebca8268763ac9ce76e9eda1d6b"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "64cd18004a9448ec75ec1f16413d4c6463d4eebca8268763ac9ce76e9eda1d6b",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    106,
+    "",
+    ""
+   ],
+   [
+    6302,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    6400,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10600,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    11631,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    12800,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    13608,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ },
+ "upload-portrait_2": {
+  "scenario": "upload:/home/claude/private-data/inputs/portrait_2.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "elapsedMs": 13211,
+  "skipVisibleAfterMs": null,
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "photoKeysAfterSave": [
+   "dc56c0f3-004d-4ea3-953c-9423a5c8bb8d"
+  ],
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380"
+   }
+  ],
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "delete removes record and its photos",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ],
+  "requestPoses": [
+   []
+  ],
+  "responses": [
+   {
+    "status": 200,
+    "detail": null,
+    "missingViews": null,
+    "views": [
+     [
+      "FRONT",
+      true
+     ]
+    ]
+   }
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380",
+    "hrefMatchesCapture": null
+   }
+  ],
+  "stepTimeline": [
+   [
+    109,
+    "",
+    ""
+   ],
+   [
+    6301,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10915,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    11400,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ],
+   [
+    12400,
+    "",
+    "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi."
+   ],
+   [
+    12515,
+    "",
+    "Geçici fotoğraf ve sonuçlar temizlendi."
+   ]
+  ]
+ }
+}

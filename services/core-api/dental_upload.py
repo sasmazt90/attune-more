@@ -44,7 +44,9 @@ def upload_roi(image,points=None):
         tooth,glare,gum,_,gray=dental_pixels(image,mouth,native_capture=True)
         # Accept an actual open mouth or visible natural bite from the photo;
         # no camera movement/liveness or user checkbox is used for uploads.
-        quality=dental_quality(image,points,bite=opening<=.32)
+        # Pose-specific aperture/contact rules are camera-step rules only
+        # (unchanged behaviour: uploads never had an opening-based rejection).
+        quality=dental_quality(image,points,pose_check=False)
         if not quality['valid']:raise UploadError(quality['reasons'][0])
         ys,xs=np.where(mouth)
         quality.update(geometrySource='detected-inner-mouth',sourceType='upload',motionGateApplied=False,fullFaceRequired=False,roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(xs.max()-xs.min()+1),height=int(ys.max()-ys.min()+1)),analysisScale=1)
@@ -103,7 +105,7 @@ def analyze_upload(payload,check=lambda:None):
         x1=min(w,int(inner[:,0].max())+margin+1);y1=min(h,int(inner[:,1].max())+margin+1)
         if x1<=x0 or y1<=y0:raise UploadError('TEETH_NOT_VISIBLE')
         analysis=image[y0:y1,x0:x1].copy();origin=(x0,y0)
-        points=[{**p,'x':(p['x']*w-x0)/(x1-x0),'y':(p['y']*h-y0)/(y1-y0)} for p in points]
+        points=[{**p,'x':(p['x']*w-x0)/(x1-x0),'y':(p['y']*h-y0)/(y1-y0),'z':p.get('z',0)*w/(x1-x0)} for p in points]
     mouth,tooth,gum,quality=upload_roi(analysis,points)
     check();candidates,model=model_candidates(analysis,mouth,check)
     model={**model,'methodVersion':'official-yolox-s-upload-'+quality['geometrySource']+'-v2'}

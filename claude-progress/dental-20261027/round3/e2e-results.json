@@ -1,0 +1,1295 @@
+{
+ "camera": {
+  "scenario": "camera",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "afterDelete": {
+   "notice": "Kayıt kalıcı olarak silindi.",
+   "rows": [
+    "c27695da-e29a-4435-a90e-945ee35a172a"
+   ],
+   "photoKeys": [
+    "c27695da-e29a-4435-a90e-945ee35a172a"
+   ],
+   "pending": null,
+   "journal": null,
+   "backupSeenDuringDelete": [
+    "delete-backup:a40d9907-74ab-461e-9e83-97c47589ad7d"
+   ]
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history BITE shows its own photo",
+    true
+   ],
+   [
+    "DENTAL_SECOND_UPLOAD provided for the preservation check",
+    true
+   ],
+   [
+    "second independent record saved",
+    true
+   ],
+   [
+    "second record photo stored",
+    true
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    true
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    true
+   ],
+   [
+    "numeric record deleted",
+    true
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    true
+   ],
+   [
+    "no delete backup left at all",
+    true
+   ],
+   [
+    "photo-delete journal cleared",
+    true
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "other record preserved",
+    true
+   ],
+   [
+    "other record photos preserved",
+    true
+   ],
+   [
+    "preserved record still shows its own photo (or none without permission)",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ },
+ "fault-block-photo-store": {
+  "scenario": "camera",
+  "fault": "block-photo-store",
+  "result": "FAIL",
+  "failures": [
+   "photos saved when permission is on :: \"Sayısal sonuç kaydedildi; fotoğraf saklanamadı. Önceki kayıtlar korundu.\"",
+   "stored photos belong to the record :: [\"IDB_ERROR\"]",
+   "history FRONT shows its own photo :: {\"pose\":\"FRONT\",\"status\":\"measured\",\"photo\":null}",
+   "history RIGHT shows its own photo :: {\"pose\":\"RIGHT\",\"status\":\"measured\",\"photo\":null}",
+   "history LEFT shows its own photo :: {\"pose\":\"LEFT\",\"status\":\"measured\",\"photo\":null}",
+   "history BITE shows its own photo :: {\"pose\":\"BITE\",\"status\":\"measured\",\"photo\":null}",
+   "second record photo stored :: [\"IDB_ERROR\"]",
+   "delete operation completed (record gone, journals cleared)",
+   "no deletion failure reported (transient in-progress notices allowed) :: \"Yerel kayıt silinemedi veya doğrulanamadı. Tekrar deneyebilirsiniz.\"",
+   "numeric record deleted :: [\"558b136c-00c5-4a93-bf70-cc4e6dd409ee\",\"e1ce3dd1-5835-4a44-87a5-a3216539d79f\"]",
+   "photo-delete journal cleared :: \"{\\\"id\\\":\\\"e1ce3dd1-5835-4a44-87a5-a3216539d79f\\\",\\\"phase\\\":\\\"prepared\\\"}\"",
+   "other record preserved :: [\"558b136c-00c5-4a93-bf70-cc4e6dd409ee\",\"e1ce3dd1-5835-4a44-87a5-a3216539d79f\"]",
+   "other record photos preserved :: [\"IDB_ERROR\"]",
+   "scenario completed without timeout/exception :: \"locator.click: Timeout 30000ms exceeded.\"",
+   "no page errors :: [\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBDatabase': The transaction has finished.\",\"Failed to execute 'createObjectStore' on 'IDBD"
+  ],
+  "afterDelete": {
+   "notice": "Yerel kayıt silinemedi veya doğrulanamadı. Tekrar deneyebilirsiniz.",
+   "rows": [
+    "558b136c-00c5-4a93-bf70-cc4e6dd409ee",
+    "e1ce3dd1-5835-4a44-87a5-a3216539d79f"
+   ],
+   "photoKeys": [
+    "IDB_ERROR"
+   ],
+   "pending": "{\"id\":\"e1ce3dd1-5835-4a44-87a5-a3216539d79f\",\"phase\":\"prepared\"}",
+   "journal": null,
+   "backupSeenDuringDelete": []
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    false
+   ],
+   [
+    "stored photos belong to the record",
+    false
+   ],
+   [
+    "history FRONT shows its own photo",
+    false
+   ],
+   [
+    "history RIGHT shows its own photo",
+    false
+   ],
+   [
+    "history LEFT shows its own photo",
+    false
+   ],
+   [
+    "history BITE shows its own photo",
+    false
+   ],
+   [
+    "DENTAL_SECOND_UPLOAD provided for the preservation check",
+    true
+   ],
+   [
+    "second independent record saved",
+    true
+   ],
+   [
+    "second record photo stored",
+    false
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    false
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    false
+   ],
+   [
+    "numeric record deleted",
+    false
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    true
+   ],
+   [
+    "no delete backup left at all",
+    true
+   ],
+   [
+    "photo-delete journal cleared",
+    false
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "other record preserved",
+    false
+   ],
+   [
+    "other record photos preserved",
+    false
+   ],
+   [
+    "scenario completed without timeout/exception",
+    false
+   ],
+   [
+    "no page errors",
+    false
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ },
+ "fault-keep-delete-backup": {
+  "scenario": "camera",
+  "fault": "keep-delete-backup",
+  "result": "FAIL",
+  "failures": [
+   "delete backup removed :: [\"delete-backup:2a8a5bb3-917d-4515-b2ee-c70eeee1c926\",\"f6e3298c-a277-4376-ba89-8a9637668f88\"]",
+   "no delete backup left at all :: [\"delete-backup:2a8a5bb3-917d-4515-b2ee-c70eeee1c926\",\"f6e3298c-a277-4376-ba89-8a9637668f88\"]"
+  ],
+  "afterDelete": {
+   "notice": "Kayıt kalıcı olarak silindi.",
+   "rows": [
+    "f6e3298c-a277-4376-ba89-8a9637668f88"
+   ],
+   "photoKeys": [
+    "delete-backup:2a8a5bb3-917d-4515-b2ee-c70eeee1c926",
+    "f6e3298c-a277-4376-ba89-8a9637668f88"
+   ],
+   "pending": null,
+   "journal": null,
+   "backupSeenDuringDelete": [
+    "delete-backup:2a8a5bb3-917d-4515-b2ee-c70eeee1c926"
+   ]
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history BITE shows its own photo",
+    true
+   ],
+   [
+    "DENTAL_SECOND_UPLOAD provided for the preservation check",
+    true
+   ],
+   [
+    "second independent record saved",
+    true
+   ],
+   [
+    "second record photo stored",
+    true
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    true
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    true
+   ],
+   [
+    "numeric record deleted",
+    true
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    false
+   ],
+   [
+    "no delete backup left at all",
+    false
+   ],
+   [
+    "photo-delete journal cleared",
+    true
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "other record preserved",
+    true
+   ],
+   [
+    "other record photos preserved",
+    true
+   ],
+   [
+    "preserved record still shows its own photo (or none without permission)",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ },
+ "no-photo-permission": {
+  "scenario": "no-photo-permission",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "afterDelete": {
+   "notice": "",
+   "rows": [
+    "24062f68-2337-40c6-a293-56b3824f1fc5"
+   ],
+   "photoKeys": [],
+   "pending": null,
+   "journal": null,
+   "backupSeenDuringDelete": []
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "numeric-only save without photo permission",
+    true
+   ],
+   [
+    "no photo stored without permission",
+    true
+   ],
+   [
+    "history FRONT shows no photo",
+    true
+   ],
+   [
+    "history RIGHT shows no photo",
+    true
+   ],
+   [
+    "history LEFT shows no photo",
+    true
+   ],
+   [
+    "history BITE shows no photo",
+    true
+   ],
+   [
+    "second independent record saved",
+    true
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    true
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    true
+   ],
+   [
+    "numeric record deleted",
+    true
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    true
+   ],
+   [
+    "no delete backup left at all",
+    true
+   ],
+   [
+    "photo-delete journal cleared",
+    true
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "other record preserved",
+    true
+   ],
+   [
+    "preserved record still shows its own photo (or none without permission)",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ },
+ "partial-response": {
+  "scenario": "partial-response",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "afterDelete": {
+   "notice": "Kayıt kalıcı olarak silindi.",
+   "rows": [],
+   "photoKeys": [],
+   "pending": null,
+   "journal": null,
+   "backupSeenDuringDelete": [
+    "delete-backup:bf3c312d-c4ce-4fee-aa8f-c61b67b1f221"
+   ]
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE slide shows its own photo",
+    true
+   ],
+   [
+    "BITE status",
+    true
+   ],
+   [
+    "BITE unmeasured view has no marks",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history BITE shows its own photo",
+    true
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    true
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    true
+   ],
+   [
+    "numeric record deleted",
+    true
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    true
+   ],
+   [
+    "no delete backup left at all",
+    true
+   ],
+   [
+    "photo-delete journal cleared",
+    true
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ },
+ "skip-bite": {
+  "scenario": "skip-bite",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "afterDelete": {
+   "notice": "Kayıt kalıcı olarak silindi.",
+   "rows": [
+    "fbbc83fc-cf92-4b51-ad97-42224235cda6"
+   ],
+   "photoKeys": [
+    "fbbc83fc-cf92-4b51-ad97-42224235cda6"
+   ],
+   "pending": null,
+   "journal": null,
+   "backupSeenDuringDelete": [
+    "delete-backup:3f872b36-9200-4a5f-bc8a-70276fcb1e1f"
+   ]
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one analysis request",
+    true
+   ],
+   [
+    "request poses",
+    true
+   ],
+   [
+    "one distinct photo per pose",
+    true
+   ],
+   [
+    "native frame + landmarks per capture",
+    true
+   ],
+   [
+    "analysis API 200",
+    true
+   ],
+   [
+    "response views match their own photos",
+    true
+   ],
+   [
+    "missingViews",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "FRONT slide shows its own photo",
+    true
+   ],
+   [
+    "FRONT status",
+    true
+   ],
+   [
+    "RIGHT slide shows its own photo",
+    true
+   ],
+   [
+    "RIGHT status",
+    true
+   ],
+   [
+    "LEFT slide shows its own photo",
+    true
+   ],
+   [
+    "LEFT status",
+    true
+   ],
+   [
+    "BITE reported as not taken",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "history RIGHT shows its own photo",
+    true
+   ],
+   [
+    "history LEFT shows its own photo",
+    true
+   ],
+   [
+    "history keeps BITE as not taken",
+    true
+   ],
+   [
+    "second independent record saved",
+    true
+   ],
+   [
+    "second record photo stored",
+    true
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    true
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    true
+   ],
+   [
+    "numeric record deleted",
+    true
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    true
+   ],
+   [
+    "no delete backup left at all",
+    true
+   ],
+   [
+    "photo-delete journal cleared",
+    true
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "other record preserved",
+    true
+   ],
+   [
+    "other record photos preserved",
+    true
+   ],
+   [
+    "preserved record still shows its own photo (or none without permission)",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ },
+ "upload-dental_left": {
+  "scenario": "upload:/home/claude/private-data/assets/dental_left.jpg",
+  "fault": null,
+  "result": "PASS",
+  "failures": [],
+  "afterDelete": {
+   "notice": "Kayıt kalıcı olarak silindi.",
+   "rows": [
+    "9304d170-2a66-4c07-84c5-e9d1345943cd"
+   ],
+   "photoKeys": [
+    "9304d170-2a66-4c07-84c5-e9d1345943cd"
+   ],
+   "pending": null,
+   "journal": null,
+   "backupSeenDuringDelete": [
+    "delete-backup:ed886946-a09b-4b73-a414-5673b4bdab93"
+   ]
+  },
+  "checks": [
+   [
+    "photo permission set as scenario requires",
+    true
+   ],
+   [
+    "exactly one upload request",
+    true
+   ],
+   [
+    "upload API status",
+    true
+   ],
+   [
+    "result screen only for a measured upload",
+    true
+   ],
+   [
+    "result screen visible",
+    true
+   ],
+   [
+    "measured view count on screen",
+    true
+   ],
+   [
+    "save disabled until the user opts in",
+    true
+   ],
+   [
+    "one record stored",
+    true
+   ],
+   [
+    "record keeps pose/photo identity",
+    true
+   ],
+   [
+    "record keeps missing views",
+    true
+   ],
+   [
+    "photos saved when permission is on",
+    true
+   ],
+   [
+    "stored photos belong to the record",
+    true
+   ],
+   [
+    "history FRONT shows its own photo",
+    true
+   ],
+   [
+    "second independent record saved",
+    true
+   ],
+   [
+    "second record photo stored",
+    true
+   ],
+   [
+    "delete operation completed (record gone, journals cleared)",
+    true
+   ],
+   [
+    "no deletion failure reported (transient in-progress notices allowed)",
+    true
+   ],
+   [
+    "numeric record deleted",
+    true
+   ],
+   [
+    "record photos deleted",
+    true
+   ],
+   [
+    "delete backup removed",
+    true
+   ],
+   [
+    "no delete backup left at all",
+    true
+   ],
+   [
+    "photo-delete journal cleared",
+    true
+   ],
+   [
+    "record transaction journal cleared",
+    true
+   ],
+   [
+    "other record preserved",
+    true
+   ],
+   [
+    "other record photos preserved",
+    true
+   ],
+   [
+    "preserved record still shows its own photo (or none without permission)",
+    true
+   ],
+   [
+    "no page errors",
+    true
+   ],
+   [
+    "no unexpected console errors",
+    true
+   ]
+  ]
+ }
+}

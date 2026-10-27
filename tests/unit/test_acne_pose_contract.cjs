@@ -1,4 +1,4 @@
-// Actual current product pose helper: skin (12°–45°) and dental (15°–45°) widened pose gates.
+// Actual current product pose helper: skin (12°–45°) and dental (12°–45°, vehicle-capture-v2) widened pose gates.
 require('./ts_loader.js');
 const assert = require('assert/strict');
 const {
@@ -18,7 +18,7 @@ const {
 
 assert.equal(SKIN_SIDE_MIN_YAW_DEG, 10.5);
 assert.equal(SKIN_SIDE_MAX_YAW_DEG, 45);
-assert.equal(DENTAL_SIDE_MIN_DEG, 15);
+assert.equal(DENTAL_SIDE_MIN_DEG, 12);
 assert.equal(DENTAL_SIDE_MAX_DEG, 45);
 
 const base = {
@@ -71,7 +71,9 @@ assert.equal(matchesSkinAngle({ ...base, yaw: 0.10, faceTransform: makeTransform
 assert.equal(matchesSkinAngle({ ...base, yaw: 1.25, faceTransform: makeTransform(48.0) }, 'LEFT'), false);
 assert(angleGuidance({ ...base, yaw: 1.25, faceTransform: makeTransform(48.0) }, 'LEFT').includes('12°–45°'));
 
-// 5. Dental side pose gate widened to 15°–45° (accepts 16°, 25°, 42°; rejects 10° and 48°) and preserves strict pitch (<=0.22) and roll (<=0.15):
+// 5. Dental side pose gate 12°–45° (no dead zone after FRONT <=12°; accepts 13°, 16°, 42°; rejects 10° and 48°);
+//    in-car pitch/roll limits are covered by tests/unit/dental_vehicle_gates.cjs:
+assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(13.0) }, 'LEFT'), true);
 assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(16.0) }, 'LEFT'), true);
 assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(42.0) }, 'LEFT'), true);
 assert.equal(matchesDentalAngle({ ...base, faceTransform: makeTransform(-42.0) }, 'RIGHT'), true);

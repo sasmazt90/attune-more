@@ -1,0 +1,138 @@
+{
+ "runId": "dental-20261027",
+ "timezone": "Europe/Berlin",
+ "updated": "2026-10-27T14:44:06+01:00",
+ "branch": "fix/dental-flow-ui-20261027",
+ "base": "def0bef883d869700d610cc8d5de17e543b7032d",
+ "acceptance": "NOT ACCEPTED — awaiting independent Codex review, physical camera and AAOS test",
+ "completed": [
+  "model chain verified (hash, BGR, letterbox 114, decoder, 0.35/0.45, source coordinates)",
+  "held-out 347 evaluation through product code (raw reproduces manifest; view-group and upload-path breakdown)",
+  "bugs 1-9 reproduced then fixed (see CODEX_DENTAL_HANDOFF.md section 2)",
+  "UI rebuilt in approved Hearing/Skin language: journey, tabs, per-view carousel, layer toggles, measurement note, TR/EN/DE",
+  "cloud E2E: camera 4-pose, skip-bite, partial view, save/reopen/delete, no photo permission, park change, camera and consent withdrawal, uploads incl. EXIF/negative",
+  "typecheck, lint, build, localization check, dental unit tests",
+  "round 2: Codex P2 skip race fixed (sealed immutable sources) + browser regression with delayed captureDental (903567a FAIL, branch PASS)",
+  "round 2: Codex P2 save failures always visible; permitted-but-unstored photos reported as failure",
+  "round 2: E2E harness asserts and exits non-zero; injected faults block-photo-store and swap-photo-id fail",
+  "round 2: in-car capture gates vehicle-capture-v2 (lip gap, pitch/roll, yaw dead zone, anatomical scale, backend parity), skip any pose",
+  "round 2: gate lab 49/102 -> 85/102 expected poses accepted, 0 open-mouth bites, backend agreement 85/85",
+  "round 3: E2E delete check waits for real completion and asserts record, photo, delete-backup, both journals cleared and other record+photo preserved; keep-delete-backup fault exits 1"
+ ],
+ "next": [
+  "Codex re-review of PR #10",
+  "physical camera + AAOS validation of vehicle-capture-v2 and incisal-contact-v1",
+  "user decision: model accuracy on frontal/lateral views (retraining not started)",
+  "user decision: accumulation label",
+  "follow-up: upload TONGUE_OCCLUSION/BLURRY false rejections, clipped-enamel glare"
+ ],
+ "blockers": [
+  "Model D precision 0.54 / recall 0.34 on frontal+lateral held-out views (n=31 images); retraining needs user approval",
+  "No physical camera / AAOS test possible in Cloud"
+ ],
+ "inputs": {
+  "model": {
+   "services/core-api/models/dental-yolox-s.onnx": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+   "services/core-api/models/dental-yolox-s.json": "caf99b66a2798e62233b72571023e47957be113c44140343807fb9eb2b8d5da5"
+  },
+  "syntheticAssets(7. TOGG/Assets)": {
+   "dental_front.jpg": "77107f5bafafd63e957043f0566bdffe035cbe85546f346d853ad9a6a4589b39",
+   "dental_front_bite.jpg": "c480385005bf3b2283599bff1dca44a12f0ec28e11720d8b9ed8465a6f1816c9",
+   "dental_front_bite_full.jpg": "d172a8d5646341fc2550841fd71154b61374e4486a94f7ac96a0b59c6bf59325",
+   "dental_front_full.jpg": "185cd347607d5cff46d3fe83f0c43393b264f151dc4ab535c429305ed27ac547",
+   "dental_left.jpg": "5a8e7c84ddcedceac88672d588dadbe4d519c7ce00dde588fb09e7838adeb727",
+   "dental_left_full.jpg": "176b1fdddc9b3d56678948d788479e5fbb6b53da7a48a74460462022fa67d4a5",
+   "dental_right.jpg": "576f62cdf844cd8b92f74a649ed18be27d7a048da86062385a3dc938aeb2df5c",
+   "dental_right_full.jpg": "6a8b9dbeaba79d775354d085f668b2c77f1955d20db9b889725edf984dfdd4fa"
+  },
+  "closeoutInputs(inputs.json)": {
+   "exif_exif-rotation-control.jpg": "63ea757c281ff8261cd490a2ea2ca398ffba82d46508dfabdbe61e529a18bec1",
+   "inputs.json": "9a5947f2b9481c254b45a34f422adb753fbbbe585408d37fe8904d6d07866ef6",
+   "negative_6.jpg": "2158bbc0203dfa960be04c9e4eb5c9613453393d7abe8f8d6a2cf2005cf505a5",
+   "partial_anonymous_003-008-1389-01_1733825027941_Maxillary_Occlusal_View.jpg": "641397e90e2265d59d9fe60b623be83b5dd96557ab8f9eb0c4df8932c569261f",
+   "portrait_2.jpg": "7f6deca55cc6df7c23252a207a2d0f71e9f5fd5d4f270b5681a5e775e904131f"
+  },
+  "training(dental-training)": {
+   "dataset-split.json": "2b599595c1661d62189c0cde9a75318ee65ebd504ab758df1a03d85549b6b784",
+   "frozen-model-diagnostics.json": "e776f4404a28e7ab94e4c64bb973cccdd80d7a4530f196f833df7d228dcf3366",
+   "heldout-predictions.json": "908bedf9caf95d5a25466240411f7e43398d985c3e616620a539f35c09177634",
+   "training-history.json": "67d3e2e458cc300a2036d936989ee19c5331d1905710e04e6dff8c2e549da649"
+  },
+  "testImages": {
+   "count": 347,
+   "note": "per-image SHA-256 in model/heldout-product-eval.json perImage[].sha256; all matched dataset-split.json"
+  },
+  "cameraFixtures(cloud-only, not in Git)": {
+   "dental-no-bite.y4m": "bb97289e8b7ee96ea11c6f896d4095f7cfec3775e84b293084f95fa6b9a19f3c",
+   "dental-no-right.y4m": "fcdd51e2bdade36cd633509734132442f6828dc3e35d01682b94549b9aebfb23",
+   "dental-ordered.y4m": "01852ab4534ff70ab5dcc7a8b9e8f5b269a671abd0f94f22e62a028202c88cd8",
+   "dental-skip-race.y4m": "2dbe00851c87476f262f07eb2233d5b6704f5c2f40672f50f46d8c8bdbc13bc2",
+   "dental-natural-public.y4m": "aa7f119e438671e9c8c09a62bdffdf4c56384b28881e2b0078e242606f287684"
+  },
+  "transferZip": {
+   "TOGG/cdc-progress/dental-cloud-transfer-20261027/dental-test-transfer.zip": "7ddebfcb0fb0ad08f271191f12288e3f251892e12fedf97baedb976aef2b1460"
+  },
+  "publicPortraits(followup-closure-20261010/dental-sources, Wikimedia Commons)": {
+   "0-native.png": "069ee3aed7f161225f3b3a01b739a29d9d524033ee204ea3471ebadda473baa9",
+   "1-native.png": "2657a3c533abb38ecd0211e16df64317d189cbe4d718fe10f9a8b15293b29322",
+   "2-native.png": "fc24f76e252b75317a5be40beff05e1642a10e57711ea2dae76da87d37a525c5",
+   "3-native.png": "b83c1b76122c2d2263017b81c2cb01d5a340b4f0dfdc8840fa6e2c348af9b11b",
+   "4-native.png": "9a442f778c714abba9080a0e16c3be2d5b1fdd3a75bcc1b3eac53a3f8fb7ab81",
+   "5-native.png": "98c7570ba4fb6cc7b81af24be24c46da5f7bd261b4d43f24e87cca4fcdf2f650",
+   "6-native.png": "8d6c3f9ee9664c85f9bbead49061060cc4b88f71a8af17a0b521c9a8b2565acc",
+   "7-native.png": "86058bbfa8e597edcd470ef319790b5e71532afa76681b490a14f46ea0756705",
+   "8-native.png": "62129ceeab14afb53fc0b4fbb5945c6c58f42af56a72db75f1d1dde8b5cb73df",
+   "9-native.png": "f3324e4834c89d9c9c45b5678a29e3eb5e030653f97858e2331b765ed782dee7"
+  }
+ },
+ "events": [
+  {
+   "time": "2026-10-27T09:24:00+01:00",
+   "stage": "1-kod-ve-model",
+   "done": "main def0bef klonlandı; ONNX SHA-256 eafaca81… manifest ve kullanıcı hash ile eşleşti; ön işleme/decoder/NMS/koordinat zinciri eğitim koduyla karşılaştırıldı"
+  },
+  {
+   "time": "2026-10-27T09:30:00+01:00",
+   "stage": "2-varlik-aktarimi",
+   "done": "347 test görüntüsü + etiket bölmesi + 8 sentetik asset + 4 closeout girdisi zip ile Cloud a aktarıldı; tüm hashler kayıtlarla eşleşti"
+  },
+  {
+   "time": "2026-10-27T09:40:00+01:00",
+   "stage": "3-model-dogrulugu",
+   "done": "ürün decoderı manifest sayılarını birebir üretti; ön/yan görünümlerde D P=.54 R=.34",
+   "blocker": "model doğruluğu ön/yan görünümlerde düşük; yeniden eğitim kullanıcı onayı ister"
+  },
+  {
+   "time": "2026-10-27T09:45:00+01:00",
+   "stage": "4-hata-yeniden-uretme",
+   "done": "birikim hesabı yavaşlığı, BITE dudak-oranı kapısı, kısmi görünüm reddi, aynı kare iki poz (422) yeniden üretildi; park/izin geri çekme doğru çalışıyor"
+  },
+  {
+   "time": "2026-10-27T10:30:00+01:00",
+   "stage": "5-duzeltme-ve-arayuz",
+   "done": "incisal-contact-v1 kapanış kapısı, tutma toleransı + en net kare, kısmi sonuçlar, BITE atlama, ağız kırpması, yeni Diş arayüzü (TR/EN/DE)"
+  },
+  {
+   "time": "2026-10-27T10:54:00+01:00",
+   "stage": "6-dogrulama",
+   "done": "typecheck/lint/build/l10n PASS; diş birim 46/46 + parity PASS; production build ile 15 E2E senaryosu PASS"
+  },
+  {
+   "time": "2026-10-27T10:54:21+01:00",
+   "stage": "evidence-refresh",
+   "done": "status/evidence regenerated from cloud runs"
+  },
+  {
+   "time": "2026-10-27T13:56:19+01:00",
+   "stage": "round2",
+   "done": "skip race, save errors, assertive E2E, vehicle capture gates, skip any pose; E2E matrix PASS, faults exit 1, natural-pose fixture old FAIL/new PASS",
+   "blocker": "physical camera/AAOS not tested; model frontal/lateral accuracy unchanged"
+  },
+  {
+   "time": "2026-10-27T14:44:06+01:00",
+   "stage": "round3",
+   "done": "delete test strengthened; matrix camera/no-photo-permission/skip-bite/partial/upload PASS, faults keep-delete-backup and block-photo-store exit 1"
+  }
+ ],
+ "round": 3
+}

@@ -77,5 +77,6 @@ export function useGuidance(owner:string,enabled=true){
 export function qualityGuidance(text:string):GuidanceId|undefined{
  if(/ayrıntı|yaklaş|detay/i.test(text))return 'quality-near';if(/uzak|kadraj|alın ve çene/i.test(text))return 'quality-far';
  if(/ışık|parla|yansı/i.test(text))return 'quality-light';if(/net|sabit|hareket/i.test(text))return 'quality-blur';if(/yüz.*algı|yüz.*gör/i.test(text))return 'quality-face';
+ if(/birleştir/i.test(text))return 'dental-bite';
  if(/dil|dudak|diş.*gör|ağzınızı/i.test(text))return 'dental-teeth';return undefined;
 }

@@ -1,0 +1,1606 @@
+{
+ "camera": {
+  "mode": "camera",
+  "elapsedMs": 49235,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "RIGHT",
+    "photoId": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "LEFT",
+    "photoId": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "BITE",
+    "photoId": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "valid": true,
+    "reasons": [],
+    "caries": 1,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "valid",
+    "alignmentLimit": null
+   }
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "831,597,306,191",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "markCounts": {}
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "crop": "751,605,269,168",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "markCounts": {}
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "crop": "1045,622,269,168",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "markCounts": {}
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "crop": "828,585,298,186",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "markCounts": {
+     "caries": 1,
+     "alignment": 12
+    }
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "empty": false
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "empty": false
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "empty": false
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    136,
+    "",
+    ""
+   ],
+   [
+    4416,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12400,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14714,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    18700,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    20845,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    30013,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    31769,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın."
+   ],
+   [
+    41701,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    44551,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "no-photo-permission": {
+  "mode": "no-photo-permission",
+  "elapsedMs": 44362,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "RIGHT",
+    "photoId": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "LEFT",
+    "photoId": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "BITE",
+    "photoId": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "valid": true,
+    "reasons": [],
+    "caries": 1,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "valid",
+    "alignmentLimit": null
+   }
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "831,597,306,191",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "markCounts": {}
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "crop": "751,605,269,168",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "markCounts": {}
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "crop": "1045,622,269,168",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "markCounts": {}
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "crop": "828,585,298,186",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "markCounts": {
+     "caries": 1,
+     "alignment": 12
+    }
+   }
+  ],
+  "saveStatus": "Yalnız sayısal ölçüm ve aday koordinatları yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": null,
+    "empty": true
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": null,
+    "empty": true
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": null,
+    "empty": true
+   },
+   {
+    "pose": "BITE",
+    "status": "measured",
+    "photo": null,
+    "empty": true
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    122,
+    "",
+    ""
+   ],
+   [
+    1503,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    10015,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    11868,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    15201,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    17456,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    26901,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    28706,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın."
+   ],
+   [
+    38814,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    41963,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "park-change": {
+  "mode": "park-change",
+  "elapsedMs": 71299,
+  "resultVisible": 0,
+  "apiStatus": null,
+  "apiDetail": null,
+  "views": [],
+  "requestPoses": [],
+  "slides": [],
+  "saveStatus": null,
+  "historySlides": null,
+  "historyPhotoCheck": null,
+  "afterDelete": null,
+  "afterWithdrawal": {
+   "requests": 0,
+   "status": "Diş taraması yalnız PARK durumunda yapılır.",
+   "video": false
+  },
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    128,
+    "",
+    ""
+   ],
+   [
+    4414,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13008,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14757,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    15200,
+    "",
+    "Diş taraması yalnız PARK durumunda yapılır."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "partial": {
+  "mode": "partial-response",
+  "elapsedMs": 52080,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "RIGHT",
+    "photoId": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "LEFT",
+    "photoId": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "BITE",
+    "photoId": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "valid": false,
+    "reasons": [
+     "BLURRY"
+    ],
+    "caries": null,
+    "cariesQuality": "insufficient",
+    "accumulationQuality": "insufficient",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "CAPTURE_QUALITY"
+   }
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "831,597,306,191",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "markCounts": {}
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "crop": "751,605,269,168",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "markCounts": {}
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "crop": "1045,622,269,168",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "markCounts": {}
+   },
+   {
+    "pose": "BITE",
+    "status": "unmeasured",
+    "crop": "828,585,298,186",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "markCounts": {}
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "empty": false
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "empty": false
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "empty": false
+   },
+   {
+    "pose": "BITE",
+    "status": "unmeasured",
+    "photo": "1350eb6e083960bc05094460c544dcb4475d9e0a0b9402539e1e3ff2a95cb1ba",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    101,
+    "",
+    ""
+   ],
+   [
+    4701,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13901,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15864,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    17918,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    20170,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    29601,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    31287,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın."
+   ],
+   [
+    42102,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    45066,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    49400,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "revoke-camera": {
+  "mode": "revoke-camera",
+  "elapsedMs": 72484,
+  "resultVisible": 0,
+  "apiStatus": null,
+  "apiDetail": null,
+  "views": [],
+  "requestPoses": [],
+  "slides": [],
+  "saveStatus": null,
+  "historySlides": null,
+  "historyPhotoCheck": null,
+  "afterDelete": null,
+  "afterWithdrawal": {
+   "requests": 0,
+   "status": "Kamera izni geri çekildi.",
+   "video": false
+  },
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    151,
+    "",
+    ""
+   ],
+   [
+    4446,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13109,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15519,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    16109,
+    "",
+    "Kamera izni geri çekildi."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "revoke-consent": {
+  "mode": "revoke-consent",
+  "elapsedMs": 72360,
+  "resultVisible": 0,
+  "apiStatus": null,
+  "apiDetail": null,
+  "views": [],
+  "requestPoses": [],
+  "slides": [],
+  "saveStatus": null,
+  "historySlides": null,
+  "historyPhotoCheck": null,
+  "afterDelete": null,
+  "afterWithdrawal": {
+   "requests": 0,
+   "video": false
+  },
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    131,
+    "",
+    ""
+   ],
+   [
+    4521,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13101,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15365,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    16046,
+    "",
+    ""
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "skip-bite": {
+  "mode": "skip-bite",
+  "elapsedMs": 61152,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "RIGHT",
+    "photoId": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   },
+   {
+    "pose": "LEFT",
+    "photoId": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_CAPTURE_REQUIRED"
+   }
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT"
+   ]
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "831,597,306,191",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "markCounts": {}
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "crop": "751,605,269,168",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "markCounts": {}
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "crop": "1045,622,269,168",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "markCounts": {}
+   },
+   {
+    "pose": "BITE",
+    "status": "missing",
+    "crop": null,
+    "photo": null,
+    "markCounts": {}
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "90f13683348b99dda2ea1b0329d6c1dcb2d16e420eb51bf8fe6279c9f3bc38df",
+    "empty": false
+   },
+   {
+    "pose": "RIGHT",
+    "status": "measured",
+    "photo": "a20a42a5b24973c0607085ab23666f2c10f1ea9710a86514f8698aa554ba025e",
+    "empty": false
+   },
+   {
+    "pose": "LEFT",
+    "status": "measured",
+    "photo": "0277f920fa691049f08b2ada044826c9a93758a08ab90198ac46925f31389e45",
+    "empty": false
+   },
+   {
+    "pose": "BITE",
+    "status": "missing",
+    "photo": null,
+    "empty": true
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": 47925,
+  "statusTimeline": [
+   [
+    125,
+    "",
+    ""
+   ],
+   [
+    4527,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13901,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15611,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    19441,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    21433,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    29808,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    32008,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın."
+   ],
+   [
+    41301,
+    "3",
+    "Dişlerinizi hafifçe birleştirin; ön dişleriniz birbirine değsin."
+   ],
+   [
+    53604,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    55300,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "upload-dental_front": {
+  "mode": "upload:/home/claude/private-data/assets/dental_front.jpg",
+  "elapsedMs": 17213,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "74280724386f1b39f7f6c2cae4cf3cdf68886e8a69993cd228178db8d7424803",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_NOT_CONFIRMED"
+   }
+  ],
+  "requestPoses": [
+   []
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "0,0,2752,1536",
+    "photo": "74280724386f1b39f7f6c2cae4cf3cdf68886e8a69993cd228178db8d7424803",
+    "markCounts": {}
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "74280724386f1b39f7f6c2cae4cf3cdf68886e8a69993cd228178db8d7424803",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    134,
+    "",
+    ""
+   ],
+   [
+    4400,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    11868,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    14775,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "upload-dental_front_bite": {
+  "mode": "upload:/home/claude/private-data/assets/dental_front_bite.jpg",
+  "elapsedMs": 16318,
+  "resultVisible": 0,
+  "apiStatus": 422,
+  "apiDetail": "TONGUE_OCCLUSION",
+  "views": [],
+  "requestPoses": [
+   []
+  ],
+  "slides": [],
+  "saveStatus": null,
+  "historySlides": null,
+  "historyPhotoCheck": null,
+  "afterDelete": null,
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    106,
+    "",
+    ""
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4600,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    12658,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    13501,
+    "",
+    "Dil dişleri örtüyor. Dişlerin göründüğü fotoğrafı seçin."
+   ]
+  ],
+  "consoleErrors": [
+   "console:Failed to load resource: the server responded with a status of 422 (Unprocessable Content)"
+  ]
+ },
+ "upload-dental_left": {
+  "mode": "upload:/home/claude/private-data/assets/dental_left.jpg",
+  "elapsedMs": 16505,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "d1c0a5bd63b42b5a7bc37c5c64fa3cb0cbe3b3f425b7afcaba27baab7a894091",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_NOT_CONFIRMED"
+   }
+  ],
+  "requestPoses": [
+   []
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "0,0,2752,1536",
+    "photo": "d1c0a5bd63b42b5a7bc37c5c64fa3cb0cbe3b3f425b7afcaba27baab7a894091",
+    "markCounts": {}
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "d1c0a5bd63b42b5a7bc37c5c64fa3cb0cbe3b3f425b7afcaba27baab7a894091",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    165,
+    "",
+    ""
+   ],
+   [
+    4400,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    11069,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    14052,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "upload-dental_right": {
+  "mode": "upload:/home/claude/private-data/assets/dental_right.jpg",
+  "elapsedMs": 17298,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "955821eee991ac1ab4f7a66827c4c52ce5b053ecb380cf17bf5bb455d7166b98",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_NOT_CONFIRMED"
+   }
+  ],
+  "requestPoses": [
+   []
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "0,0,2752,1536",
+    "photo": "955821eee991ac1ab4f7a66827c4c52ce5b053ecb380cf17bf5bb455d7166b98",
+    "markCounts": {}
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "955821eee991ac1ab4f7a66827c4c52ce5b053ecb380cf17bf5bb455d7166b98",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    117,
+    "",
+    ""
+   ],
+   [
+    4400,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    11740,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    14921,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "upload-exif_exif-rotation-control": {
+  "mode": "upload:/home/claude/private-data/inputs/exif_exif-rotation-control.jpg",
+  "elapsedMs": 14579,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "62c58d6314f6dab22ac689bb283fa6b74a3f765abad513ec8be712923b48689e",
+    "valid": true,
+    "reasons": [],
+    "caries": 8,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_NOT_CONFIRMED"
+   }
+  ],
+  "requestPoses": [
+   []
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "0,101,1617,1011",
+    "photo": "62c58d6314f6dab22ac689bb283fa6b74a3f765abad513ec8be712923b48689e",
+    "markCounts": {
+     "caries": 8
+    }
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "62c58d6314f6dab22ac689bb283fa6b74a3f765abad513ec8be712923b48689e",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    134,
+    "",
+    ""
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10715,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    12100,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "upload-negative_6": {
+  "mode": "upload:/home/claude/private-data/inputs/negative_6.jpg",
+  "elapsedMs": 15137,
+  "resultVisible": 0,
+  "apiStatus": 422,
+  "apiDetail": "TEETH_NOT_VISIBLE_OR_NON_COLOR_IMAGE",
+  "views": [],
+  "requestPoses": [
+   []
+  ],
+  "slides": [],
+  "saveStatus": null,
+  "historySlides": null,
+  "historyPhotoCheck": null,
+  "afterDelete": null,
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    110,
+    "",
+    ""
+   ],
+   [
+    4413,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4901,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10866,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    12401,
+    "",
+    "Dişlerin ve çevresindeki diş etinin göründüğü renkli ağız içi fotoğrafı seçin."
+   ]
+  ],
+  "consoleErrors": [
+   "console:Failed to load resource: the server responded with a status of 422 (Unprocessable Content)"
+  ]
+ },
+ "upload-partial_anonymous_003-008-1389-01_1733825027941_Maxillary_Occlusal_View": {
+  "mode": "upload:/home/claude/private-data/inputs/partial_anonymous_003-008-1389-01_1733825027941_Maxillary_Occlusal_View.jpg",
+  "elapsedMs": 14023,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "64cd18004a9448ec75ec1f16413d4c6463d4eebca8268763ac9ce76e9eda1d6b",
+    "valid": true,
+    "reasons": [],
+    "caries": 8,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_NOT_CONFIRMED"
+   }
+  ],
+  "requestPoses": [
+   []
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "0,101,1617,1011",
+    "photo": "64cd18004a9448ec75ec1f16413d4c6463d4eebca8268763ac9ce76e9eda1d6b",
+    "markCounts": {
+     "caries": 8
+    }
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "64cd18004a9448ec75ec1f16413d4c6463d4eebca8268763ac9ce76e9eda1d6b",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    151,
+    "",
+    ""
+   ],
+   [
+    4402,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10102,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    11700,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "upload-portrait_2": {
+  "mode": "upload:/home/claude/private-data/inputs/portrait_2.jpg",
+  "elapsedMs": 12995,
+  "resultVisible": 1,
+  "apiStatus": 200,
+  "apiDetail": null,
+  "views": [
+   {
+    "pose": "FRONT",
+    "photoId": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380",
+    "valid": true,
+    "reasons": [],
+    "caries": 0,
+    "cariesQuality": "valid",
+    "accumulationQuality": "valid",
+    "alignmentQuality": "insufficient",
+    "alignmentLimit": "NATURAL_BITE_NOT_CONFIRMED"
+   }
+  ],
+  "requestPoses": [
+   []
+  ],
+  "slides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "crop": "279,298,354,221",
+    "photo": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380",
+    "markCounts": {}
+   }
+  ],
+  "saveStatus": "Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.",
+  "historySlides": [
+   {
+    "pose": "FRONT",
+    "status": "measured",
+    "photo": "75b14ba6c3f60dad5bc194043f97a7b81566f93cec917c30beca37ea368d9380",
+    "empty": false
+   }
+  ],
+  "historyPhotoCheck": true,
+  "afterDelete": {
+   "records": 0,
+   "photoKeys": []
+  },
+  "afterWithdrawal": null,
+  "skipVisibleAfterMs": null,
+  "statusTimeline": [
+   [
+    104,
+    "",
+    ""
+   ],
+   [
+    4402,
+    "",
+    "Fotoğraf yerel olarak açılıyor ve yönü düzeltiliyor…"
+   ],
+   [
+    4500,
+    "",
+    "Fotoğraftaki ağız konumu cihazda hazırlanıyor…"
+   ],
+   [
+    10156,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    10616,
+    "",
+    "Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı."
+   ]
+  ],
+  "consoleErrors": []
+ },
+ "bite-gate-jitter-main": {
+  "statusTimeline": [
+   [
+    109,
+    "",
+    ""
+   ],
+   [
+    5342,
+    "",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    12805,
+    "",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    15017,
+    "",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    18801,
+    "",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    20401,
+    "",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    30010,
+    "",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    32298,
+    "",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın."
+   ],
+   [
+    42601,
+    "",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    44001,
+    "",
+    "Kamera netliğini kontrol edin."
+   ],
+   [
+    44601,
+    "",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    45201,
+    "",
+    "Kamera netliğini kontrol edin."
+   ],
+   [
+    46000,
+    "",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    46600,
+    "",
+    "Kamera netliğini kontrol edin."
+   ],
+   [
+    47301,
+    "",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    49973,
+    "",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    52743,
+    "",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ]
+ },
+ "bite-gate-jitter-branch": {
+  "statusTimeline": [
+   [
+    107,
+    "",
+    ""
+   ],
+   [
+    5755,
+    "0",
+    "Kamera ve cihazdaki yüz modeli hazırlanıyor…"
+   ],
+   [
+    13301,
+    "0",
+    "Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün. Kısa süre sabit tutun."
+   ],
+   [
+    14986,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    20142,
+    "1",
+    "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    21900,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun."
+   ],
+   [
+    30818,
+    "2",
+    "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun. Kısa süre sabit tutun."
+   ],
+   [
+    33044,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın."
+   ],
+   [
+    42400,
+    "3",
+    "Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın. Kısa süre sabit tutun."
+   ],
+   [
+    46586,
+    "3",
+    "Görünür diş yüzeyleri cihazda analiz ediliyor…"
+   ],
+   [
+    49400,
+    "4",
+    "Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir."
+   ]
+  ],
+  "requestPoses": [
+   [
+    "FRONT",
+    "RIGHT",
+    "LEFT",
+    "BITE"
+   ]
+  ]
+ },
+ "before-fix-duplicate-frame": {
+  "responses": [
+   {
+    "status": 422,
+    "detail": "INVALID_LOCAL_GEOMETRY_OR_PHOTO"
+   }
+  ],
+  "requestPoses": [
+   [
+    [
+     "FRONT",
+     "1350eb6e0839"
+    ],
+    [
+     "RIGHT",
+     "a20a42a5b249"
+    ],
+    [
+     "LEFT",
+     "0277f920fa69"
+    ],
+    [
+     "BITE",
+     "1350eb6e0839"
+    ]
+   ]
+  ]
+ }
+}
