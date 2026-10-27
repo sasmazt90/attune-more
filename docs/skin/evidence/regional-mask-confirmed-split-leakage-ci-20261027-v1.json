@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "regional-mask-confirmed-split-leakage-ci",
+  "observedAt": "2026-10-27T19:30:17Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "51e349cb29418bf3561bcf5141563a7abeb4d094",
+  "implementationTree": "effeef0b3f60837472f002714ae5894b2044528b",
+  "workflow": {
+    "id": 362950948,
+    "path": ".github/workflows/ci.yml",
+    "blobSHA": "8041e9040518f0abf500cd744b4ebb3a2d78d374",
+    "runId": 40569069009,
+    "runURL": "https://github.com/sasmazt90/attune-more/actions/runs/40569069009",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122418071721,
+    "frontendConclusion": "success",
+    "backendJobId": 122418072455,
+    "backendConclusion": "success"
+  },
+  "source": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "versionNumber": 1,
+    "images": 337,
+    "splits": {
+      "train": 244,
+      "valid": 63,
+      "test": 30
+    },
+    "classes": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a"
+  },
+  "implementation": {
+    "evaluator": {
+      "path": "scripts/skin-research/build_regional_mask_group_coverage_review.py",
+      "blobSHA": "23bbee6a74bc6a0ed01bf2409adf4c5c9c861347"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_regional_mask_group_coverage_review.py",
+      "blobSHA": "7419f1a55ec70639d2082092ccd5199ef062426a"
+    }
+  },
+  "artifacts": {
+    "candidateQueue": {
+      "path": "docs/skin/evidence/regional-mask-identity-candidate-queue-20261027-v1.json",
+      "blobSHA": "befe05d890b20ef3a84808327aa7adce94e1e30b",
+      "candidatesSHA256": "55b5e276b9822342824c6734a4ca9c33543336c59d1559b302f7fb818a846573"
+    },
+    "candidateDecisions": {
+      "path": "docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json",
+      "blobSHA": "d332d50f554aab573b1ae7e2546ae5a24e4c7bc9"
+    },
+    "candidateResult": {
+      "path": "docs/skin/evidence/regional-mask-identity-candidate-result-20261027-v1.json",
+      "blobSHA": "9f8b7b10da3afdb85f2f81312f8d2be581736da5"
+    },
+    "coverageQueue": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-queue-20261027-v1.json",
+      "blobSHA": "8e9ea943033c4ba3a546798f63f88bea90483aed",
+      "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5"
+    },
+    "coverageDecisions": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+      "blobSHA": "770aee7b2f4d32a87b934528e29f48aece162e67"
+    },
+    "coverageResult": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+      "blobSHA": "f0e342dfc33c2584a2a39aaa22b67f12c9b13d24"
+    }
+  },
+  "review": {
+    "crossSplitPairsRanked": 24582,
+    "candidatePairsSelected": 48,
+    "candidatePairsReviewed": 48,
+    "candidateReviewComplete": true,
+    "decisions": {
+      "samePersonOrSource": 10,
+      "differentPersonOrSource": 38,
+      "uncertain": 0
+    },
+    "reviewedCoverageRecords": 17,
+    "unreviewedCoverageRecords": 320,
+    "confirmedOpaqueGroups": 7,
+    "confirmedCrossSplitGroups": 7,
+    "personOrSourceCoverageComplete": false,
+    "currentSplitIndependent": false,
+    "replacementSplitRequired": true
+  },
+  "privacy": {
+    "committedImageBytes": false,
+    "committedFilenames": false,
+    "committedRawSourceNames": false,
+    "committedProviderImageIds": false,
+    "committedPrivateNotes": false,
+    "privateResolversCommitted": false,
+    "groupIdentifiersOpaque": true,
+    "candidateIdentifiersPseudonymousNotAnonymous": true
+  },
+  "tests": {
+    "localFocused": {
+      "passed": 9
+    },
+    "repositoryDeterministic": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearch": {
+      "passed": 336
+    }
+  },
+  "decision": {
+    "candidateReviewComplete": true,
+    "personOrSourceCoverageComplete": false,
+    "currentSplitIndependent": false,
+    "replacementSplitRequired": true,
+    "replacementSplitReady": false,
+    "trainingAuthorized": false,
+    "finalTestAuthorized": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  }
+}
