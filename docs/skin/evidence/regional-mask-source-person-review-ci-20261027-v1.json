@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "regional-mask-source-person-review-ci",
+  "observedAt": "2026-10-27T17:45:00Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "a3e2aba71d5a2fc289818eb65c4fc51e85ee105e",
+  "implementationTree": "ceaf05bd33a6f3879b352e2a482e1131e1dcffb1",
+  "workflow": {
+    "id": 362950948,
+    "path": ".github/workflows/ci.yml",
+    "blobSHA": "8041e9040518f0abf500cd744b4ebb3a2d78d374",
+    "runId": 40552744615,
+    "runURL": "https://github.com/sasmazt90/attune-more/actions/runs/40552744615",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122360575662,
+    "frontendConclusion": "success",
+    "backendJobId": 122360577338,
+    "backendConclusion": "success"
+  },
+  "source": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "versionNumber": 1,
+    "images": 337,
+    "splits": {
+      "train": 244,
+      "valid": 63,
+      "test": 30
+    },
+    "classes": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "sourceArchiveSHA256": "a24793ca3490a48088abf47ba89fc9ab94e1c3a12c488ce52915e19b5bdf6fd6",
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a"
+  },
+  "artifacts": {
+    "queue": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-queue-20261027-v1.json",
+      "blobSHA": "8e9ea943033c4ba3a546798f63f88bea90483aed",
+      "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5"
+    },
+    "decisionsTemplate": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+      "blobSHA": "91498b37dd70632f787fb36a8a8ecfaab3621ec2"
+    },
+    "result": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+      "blobSHA": "4c4ee2dde9ce77633e0feaacb3f301059bf8c672"
+    }
+  },
+  "privacy": {
+    "committedImageBytes": false,
+    "committedFilenames": false,
+    "committedRawSourceNames": false,
+    "committedProviderImageIds": false,
+    "privateResolverCommitted": false,
+    "identifiersPseudonymousNotAnonymous": true
+  },
+  "tests": {
+    "localFocused": {
+      "passed": 4
+    },
+    "repositoryDeterministic": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearch": {
+      "passed": 331
+    }
+  },
+  "decision": {
+    "recordsCovered": 337,
+    "reviewedRecords": 0,
+    "personOrSourceCoverageComplete": false,
+    "currentSplitIndependent": false,
+    "replacementSplitReady": false,
+    "trainingAuthorized": false,
+    "finalTestAuthorized": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  }
+}
