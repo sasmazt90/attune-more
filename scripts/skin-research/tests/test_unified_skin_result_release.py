@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261026-v2.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v4.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -134,6 +134,15 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
         receipt["classReleaseGates"]["acneConcerns"]["roadmapAccepted"] = True
         with self.assertRaisesRegex(module.GateInputError, "does not match evidence"):
             module.evaluate_release(receipt)
+
+    def test_stale_under_eye_gate_cannot_reenter_unified_registry(self):
+        receipt = _receipt()
+        receipt["classReleaseGates"]["underEye"]["methodVersion"] = "under-eye-per-class-release-gate-v2"
+        with self.assertRaisesRegex(module.GateInputError, "current expected method"):
+            module.evaluate_release(receipt)
+
+    def test_expected_gate_method_registry_covers_every_task_registry_entry(self):
+        self.assertEqual(set(module.EXPECTED_GATE_METHODS), set(module.EXPECTED_GATE_TASKS))
 
     def test_evidence_digest_mismatch_is_rejected(self):
         receipt = _receipt()

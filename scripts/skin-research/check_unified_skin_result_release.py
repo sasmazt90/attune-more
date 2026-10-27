@@ -54,6 +54,17 @@ EXPECTED_GATE_TASKS = {
     "wrinkles": ["11"],
     "sag": ["12"],
 }
+EXPECTED_GATE_METHODS = {
+    "acneConcerns": "acne-concerns-per-class-release-gate-v2",
+    "oily": "regional-oily-appearance-release-gate-v2",
+    "dryness": "regional-dryness-release-gate-v2",
+    "skinTypeCombination": "skin-type-combination-release-gate-v2",
+    "redness": "regional-redness-release-gate-v2",
+    "toneUnevenness": "tone-unevenness-release-gate-v2",
+    "underEye": "under-eye-per-class-release-gate-v3",
+    "wrinkles": "wrinkle-per-class-release-gate-v2",
+    "sag": "sag-appearance-release-gate-v2",
+}
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
     "Post acne", "Pigmentation", "skinType",
@@ -105,6 +116,10 @@ def _validate_gate_registry(receipt: dict[str, Any], evidence_root: Path) -> tup
         if not isinstance(entry, dict):
             raise GateInputError(f"{name} release gate entry missing")
         _require(entry.get("tasks"), expected_tasks, f"{name} task coverage changed")
+        _require(
+            entry.get("methodVersion"), EXPECTED_GATE_METHODS[name],
+            f"{name} release gate is not the current expected method",
+        )
         payload = _load_evidence(entry.get("evidence"), f"{name} release gate", evidence_root)
         _require(payload.get("methodVersion"), entry.get("methodVersion"), f"{name} gate method identity changed")
         accepted = payload.get("roadmapAccepted") is True
@@ -270,8 +285,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 3,
-        "methodVersion": "unified-skin-result-release-gate-v3",
+        "schemaVersion": 4,
+        "methodVersion": "unified-skin-result-release-gate-v4",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,
