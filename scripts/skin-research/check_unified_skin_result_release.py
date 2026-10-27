@@ -149,7 +149,22 @@ def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any
     _require(actions.get("frontendProductionBuild"), "success", "frontend production build is not green")
     _require(actions.get("localizationContract"), "success", "localization contract is not green")
     _require(actions.get("completeSkinResearchEvidenceSuite", {}).get("result"), "OK", "skin evidence suite is not green")
-    return {"runId": actions.get("runId"), "headSha": actions.get("headSha"), "conclusion": "success"}
+    browser = payload.get("browserAcceptance", {})
+    _require(browser.get("conclusion"), "success", "browser acceptance CI is not green")
+    _require(browser.get("sanitizedEvidenceOnly"), True, "browser acceptance artifact is not sanitized evidence")
+    _require(browser.get("realBrowser"), True, "browser acceptance did not use a real browser")
+    _require(browser.get("apiHistoryPrivacyPassed"), True, "browser API/history/privacy acceptance is not green")
+    _require(browser.get("controlledFixture"), True, "browser acceptance must remain a controlled fixture")
+    _require(browser.get("physicalCameraCapture"), False, "browser fixture cannot become physical-camera evidence")
+    _require(browser.get("expertGroundTruth"), False, "browser fixture cannot become expert ground truth")
+    _require(browser.get("accuracyEvidence"), False, "browser fixture cannot become accuracy evidence")
+    return {
+        "runId": actions.get("runId"),
+        "headSha": actions.get("headSha"),
+        "conclusion": "success",
+        "browserAcceptanceRunId": browser.get("runId"),
+        "browserControlledFixture": True,
+    }
 
 
 def _validate_candidate(
@@ -297,8 +312,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 6,
-        "methodVersion": "unified-skin-result-release-gate-v6",
+        "schemaVersion": 7,
+        "methodVersion": "unified-skin-result-release-gate-v7",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,

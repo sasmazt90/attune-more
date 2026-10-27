@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v6.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v7.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -51,7 +51,13 @@ def _install_complete_evidence(receipt, root):
             "runId": 99, "headSha": "d" * 40, "conclusion": "success",
             "frontendProductionBuild": "success", "localizationContract": "success",
             "completeSkinResearchEvidenceSuite": {"result": "OK"},
-        }
+        },
+        "browserAcceptance": {
+            "runId": 98, "conclusion": "success", "sanitizedEvidenceOnly": True,
+            "realBrowser": True, "apiHistoryPrivacyPassed": True,
+            "controlledFixture": True, "physicalCameraCapture": False,
+            "expertGroundTruth": False, "accuracyEvidence": False,
+        },
     })
     candidate = receipt["acceptanceCandidate"]
     candidate.update({
@@ -108,6 +114,15 @@ def _mutate_candidate_evidence(receipt, root, key, field, value):
     payload = json.loads(path.read_text(encoding="utf-8"))
     payload[field] = value
     receipt["acceptanceCandidate"]["evidence"][key] = _write(root, path.name, payload)
+
+
+def _mutate_repository_ci(receipt, root, field, value, section=None):
+    identity = receipt["repositoryCI"]
+    path = root / identity["path"]
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    target = payload if section is None else payload[section]
+    target[field] = value
+    receipt["repositoryCI"] = _write(root, path.name, payload)
 
 
 class UnifiedSkinResultReleaseTests(unittest.TestCase):
@@ -274,7 +289,13 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                         "runId": 99, "headSha": "e" * 40, "conclusion": "success",
                         "frontendProductionBuild": "success", "localizationContract": "success",
                         "completeSkinResearchEvidenceSuite": {"result": "OK"},
-                    }
+                    },
+                    "browserAcceptance": {
+                        "runId": 98, "conclusion": "success", "sanitizedEvidenceOnly": True,
+                        "realBrowser": True, "apiHistoryPrivacyPassed": True,
+                        "controlledFixture": True, "physicalCameraCapture": False,
+                        "expertGroundTruth": False, "accuracyEvidence": False,
+                    },
                 })
                 with self.assertRaisesRegex(module.GateInputError, "CI commit identity mismatch"):
                     module.evaluate_release(receipt, root)
@@ -288,16 +309,7 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 root = Path(directory)
                 receipt = _receipt()
                 _install_complete_evidence(receipt, root)
-                receipt["repositoryCI"] = _write(root, "repository-ci.json", {
-                    "schemaVersion": 1,
-                    "branch": "main",
-                    "implementationCommit": "d" * 40,
-                    "githubActions": {
-                        "runId": 99, "headSha": "d" * 40, "conclusion": "success",
-                        "frontendProductionBuild": "success", "localizationContract": "success",
-                        "completeSkinResearchEvidenceSuite": {"result": "OK"},
-                    }
-                })
+                _mutate_repository_ci(receipt, root, "branch", "main")
                 with self.assertRaisesRegex(module.GateInputError, "branch identity"):
                     module.evaluate_release(receipt, root)
         finally:
@@ -310,18 +322,56 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 root = Path(directory)
                 receipt = _receipt()
                 _install_complete_evidence(receipt, root)
-                receipt["repositoryCI"] = _write(root, "repository-ci.json", {
-                    "schemaVersion": 1,
-                    "branch": module.EXPECTED_BRANCH,
-                    "implementationCommit": "e" * 40,
-                    "githubActions": {
-                        "runId": 99, "headSha": "d" * 40, "conclusion": "success",
-                        "frontendProductionBuild": "success", "localizationContract": "success",
-                        "completeSkinResearchEvidenceSuite": {"result": "OK"},
-                    }
-                })
+                _mutate_repository_ci(receipt, root, "implementationCommit", "e" * 40)
                 with self.assertRaisesRegex(module.GateInputError, "does not match workflow head"):
                     module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_browser_acceptance_must_remain_controlled_fixture(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                receipt = _receipt()
+                _install_complete_evidence(receipt, root)
+                _mutate_repository_ci(receipt, root, "controlledFixture", False, "browserAcceptance")
+                with self.assertRaisesRegex(module.GateInputError, "controlled fixture"):
+                    module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_browser_fixture_cannot_be_promoted_to_acceptance_truth(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            for field in ("physicalCameraCapture", "expertGroundTruth", "accuracyEvidence"):
+                with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    receipt = _receipt()
+                    _install_complete_evidence(receipt, root)
+                    _mutate_repository_ci(receipt, root, field, True, "browserAcceptance")
+                    with self.assertRaises(module.GateInputError):
+                        module.evaluate_release(receipt, root)
+        finally:
+            module.EXPECTED_INPUT_EVIDENCE = original_inputs
+
+    def test_repository_browser_acceptance_requires_real_sanitized_green_replay(self):
+        original_inputs = copy.deepcopy(module.EXPECTED_INPUT_EVIDENCE)
+        try:
+            cases = (
+                ("conclusion", "failure"),
+                ("sanitizedEvidenceOnly", False),
+                ("realBrowser", False),
+                ("apiHistoryPrivacyPassed", False),
+            )
+            for field, value in cases:
+                with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    receipt = _receipt()
+                    _install_complete_evidence(receipt, root)
+                    _mutate_repository_ci(receipt, root, field, value, "browserAcceptance")
+                    with self.assertRaises(module.GateInputError):
+                        module.evaluate_release(receipt, root)
         finally:
             module.EXPECTED_INPUT_EVIDENCE = original_inputs
 
