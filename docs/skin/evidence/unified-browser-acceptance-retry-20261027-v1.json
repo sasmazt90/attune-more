@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "dateEuropeBerlin": "2026-10-27",
-  "observedAt": "2026-10-27T03:43:41Z",
+  "observedAt": "2026-10-27T03:48:58Z",
   "repository": {
     "fullName": "sasmazt90/attune-more",
     "branch": "work/skin-roadmap-20261023",
@@ -23,7 +23,8 @@
     "fifteenthRetryCandidateCommit": "3fb4bc0980da14b693b1096dd6454f68f7c8c0db",
     "sixteenthRetryCandidateCommit": "cc474f13935d231ec761e9154d2d62dab21ecffb",
     "seventeenthRetryCandidateCommit": "7b9dd9682ff4309dfd2b58f465d78fac37e96873",
-    "eighteenthRetryCandidateCommit": "cb05f3bbd242673bb58711540a79eb896ae58f83"
+    "eighteenthRetryCandidateCommit": "cb05f3bbd242673bb58711540a79eb896ae58f83",
+    "nineteenthRetryCandidateCommit": "8b49a6137aef25cc24a097144c2d3d5e9be7d8da"
   },
   "failedAttempt": {
     "browserRunId": 40406100671,
@@ -651,6 +652,31 @@
     "statusAtCheckpoint": "in_progress",
     "matchingRepositoryCiRunId": 40445764784,
     "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40445764784",
+    "matchingRepositoryCiStatusAtCheckpoint": "completed",
+    "matchingRepositoryCiConclusion": "failure",
+    "matchingCiDeterministicSuitePassed": true,
+    "matchingCiDeterministicPassed": 1627,
+    "matchingCiDeterministicSkipped": 44,
+    "matchingCiRootCause": "the source fix correctly changed the privacy harness Git blob, while the fail-closed evidence builder still pinned the prior blob identity; its single implementation-blob test rejected the mismatch after all 1627 deterministic unit tests passed",
+    "sanitizedEvidencePending": true
+  },
+  "nineteenthTargetedFix": {
+    "source": "scripts/skin-research/build_unified_browser_acceptance.py",
+    "change": "repin the fail-closed privacy harness implementation identity to Git blob 0f12e6811b004399cd2c9915288eb2a18df52255 after the reviewed one-line cross-platform process-flag fix",
+    "evidencePolicyWeakened": false,
+    "productCodeChanged": false,
+    "modelOrThresholdChanged": false,
+    "pythonCompilePassed": true,
+    "focusedUnitTestsPassed": 7,
+    "diffCheckPassed": true,
+    "roboflowTrainingChanged": false
+  },
+  "nineteenthRetry": {
+    "browserRunId": 40446250693,
+    "browserRunUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40446250693",
+    "statusAtCheckpoint": "pending",
+    "matchingRepositoryCiRunId": 40446250595,
+    "matchingRepositoryCiUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40446250595",
     "matchingRepositoryCiStatusAtCheckpoint": "in_progress",
     "sanitizedEvidencePending": true
   },
