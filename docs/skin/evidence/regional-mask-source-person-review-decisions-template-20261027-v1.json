@@ -1,7 +1,7 @@
 {
   "schemaVersion": "regional-mask-source-person-review-decisions-v1",
   "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
-  "reviewerRole": null,
+  "reviewerRole": "authorized_source_identity_reviewer",
   "items": [
     {
       "reviewItemId": "ri-00867244e4d7ceb1423e224b",
@@ -107,9 +107,9 @@
     },
     {
       "reviewItemId": "ri-0f2675ca7ef9b42ce9be2a35",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-9275fd27355c3bcb382a7995",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-0f2e65b37419252ded6e27eb",
@@ -173,9 +173,9 @@
     },
     {
       "reviewItemId": "ri-144d48b353320c4f2c4336de",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-4c1f5de87502c613f45a82ec",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-15e1f3a5a667aac919ed9ccf",
@@ -245,9 +245,9 @@
     },
     {
       "reviewItemId": "ri-1d8def44789ad9efe328e7fe",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-f3fc925fd8179d8c73dc1202",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-1dc1e67c7d5aeadb7712cdfa",
@@ -635,9 +635,9 @@
     },
     {
       "reviewItemId": "ri-581412956aa76e55401b2be0",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-ef549c411f1528d83fa94501",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-58bc71209b09a0a60e5412f7",
@@ -653,9 +653,9 @@
     },
     {
       "reviewItemId": "ri-5915e9ddb4553720012c7d5e",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-340e08c2f92d4e094f392b4b",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-591a5007bd16ebc4bbae75e5",
@@ -707,9 +707,9 @@
     },
     {
       "reviewItemId": "ri-5e3f0e5ab45dd6a5635aef67",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-f3fc925fd8179d8c73dc1202",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-5fc7b02958a532233a20f521",
@@ -767,9 +767,9 @@
     },
     {
       "reviewItemId": "ri-64b6b8b32616c29283ecbe3b",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-ef549c411f1528d83fa94501",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-64d5b698e4df45489c4c57cd",
@@ -905,9 +905,9 @@
     },
     {
       "reviewItemId": "ri-7938c52986795cb2471e3b2d",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-1aceb36afc5200997b2a503f",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-7a06da6ce59dc6814fcdff4c",
@@ -983,9 +983,9 @@
     },
     {
       "reviewItemId": "ri-82707bfcbdf13e0095270223",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-9275fd27355c3bcb382a7995",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-82ca026d47957fa4dd5ecef5",
@@ -1001,9 +1001,9 @@
     },
     {
       "reviewItemId": "ri-833fe30f42faa7b2b5658c30",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-340e08c2f92d4e094f392b4b",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-83f85158197afc93f85a450a",
@@ -1373,9 +1373,9 @@
     },
     {
       "reviewItemId": "ri-ad60f67b391d7555421c8805",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-1aceb36afc5200997b2a503f",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-aef860a2560b1e49604c5d22",
@@ -1427,15 +1427,15 @@
     },
     {
       "reviewItemId": "ri-b44401d8a8ff79f442f47893",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-f3fc925fd8179d8c73dc1202",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-b49a08bbef77668aa26b3267",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-1aceb36afc5200997b2a503f",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-b4f57ba8e9442b1bfd917c61",
@@ -1481,9 +1481,9 @@
     },
     {
       "reviewItemId": "ri-bc7780900d1e1a41373dee99",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-340e08c2f92d4e094f392b4b",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-bcb401ea88cfaa5682162fca",
@@ -1559,9 +1559,9 @@
     },
     {
       "reviewItemId": "ri-c50559c696e980180e7b4dcf",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-f4fea2f070a0fd93f83c9e2b",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-c88a4db33d64e26191049c80",
@@ -1913,9 +1913,9 @@
     },
     {
       "reviewItemId": "ri-f0a363d1d1fe641434caa964",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-f4fea2f070a0fd93f83c9e2b",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-f0bd03cbea643c569f01df6d",
@@ -1973,9 +1973,9 @@
     },
     {
       "reviewItemId": "ri-f509c6f9391bd242e80942c3",
-      "sourcePersonGroupId": null,
-      "reviewMethod": null,
-      "decision": "unreviewed"
+      "sourcePersonGroupId": "sg-4c1f5de87502c613f45a82ec",
+      "reviewMethod": "visual_same_person_review",
+      "decision": "reviewed_group"
     },
     {
       "reviewItemId": "ri-f57a637282d0634c0067c41f",
@@ -2028,8 +2028,8 @@
   ],
   "attestations": {
     "allRecordsVisuallyOrProvenanceReviewed": false,
-    "groupIdsAreOpaque": false,
-    "sourceAnnotationsNotUsedAsIdentityTruth": false,
-    "missingLabelsNotUsedAsNegativeOrNormal": false
+    "groupIdsAreOpaque": true,
+    "sourceAnnotationsNotUsedAsIdentityTruth": true,
+    "missingLabelsNotUsedAsNegativeOrNormal": true
   }
 }

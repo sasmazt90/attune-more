@@ -102,6 +102,32 @@ class RegionalMaskGroupCoverageReviewTests(unittest.TestCase):
             self.assertTrue(result["replacementSplitRequired"])
             self.assertFalse(result["currentSplitIndependent"])
 
+    def test_partial_review_requires_replacement_after_confirmed_crossing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._export(root)
+            queue, decisions, _ = build_review(root, SOURCE_SHA, EXPORT_SHA)
+            decisions["reviewerRole"] = "authorized_source_identity_reviewer"
+            by_split = {}
+            for row in queue["items"]:
+                by_split.setdefault(row["currentSplit"], row["reviewItemId"])
+            indexed = {row["reviewItemId"]: row for row in decisions["items"]}
+            for split in ("train", "test"):
+                indexed[by_split[split]].update({
+                    "sourcePersonGroupId": "sg-0123456789abcdef01234567",
+                    "reviewMethod": "visual_same_person_review",
+                    "decision": "reviewed_group",
+                })
+
+            result = evaluate_decisions(queue, decisions)
+
+            self.assertEqual(result["reviewedRecords"], 2)
+            self.assertFalse(result["personOrSourceCoverageComplete"])
+            self.assertEqual(result["crossSplitGroupCount"], 1)
+            self.assertTrue(result["replacementSplitRequired"])
+            self.assertFalse(result["currentSplitIndependent"])
+            self.assertFalse(result["trainingAuthorized"])
+
     def test_queue_binding_and_exact_coverage_are_required(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

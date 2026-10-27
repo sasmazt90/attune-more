@@ -244,7 +244,10 @@ def evaluate_decisions(queue: dict[str, Any], decisions: dict[str, Any]) -> dict
         "crossSplitGroupCount": len(crossings),
         "crossSplitGroupIds": crossings,
         "currentSplitIndependent": independent,
-        "replacementSplitRequired": complete and bool(crossings),
+        # A confirmed source/person group spanning nominal splits is already
+        # sufficient evidence that the frozen split is unsafe.  Do not defer
+        # the replacement requirement until every remaining record is reviewed.
+        "replacementSplitRequired": bool(crossings),
         "replacementSplitReady": False,
         "trainingAuthorized": False,
         "finalTestAuthorized": False,
