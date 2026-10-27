@@ -217,8 +217,18 @@ def test_backend_flag_audio_gate_controls_and_crisis_precedence(monkeypatch):
     crisis={**normal,'userMessage':'I want to kill myself'}
     assert client.post('/api/mental/converse',json=crisis).json()['isCrisis']
     monkeypatch.setenv('ATTUNE_MENTAL_STRUCTURED_ENABLED','1')
-    assert client.post('/api/mental/converse',json=normal).status_code==503
     import mental_structured
+    import copy
+    # Exercise the real API gate with an explicit unapproved fixture even after
+    # the checked-in production catalog has completed its authorized validation.
+    library=copy.deepcopy(mental_structured.audio_manifest())
+    for entry in library['entries']:entry['approvalStatus']='approved'
+    next(e for e in library['entries'] if e['language']=='tr')['approvalStatus']='synthesized-awaiting-validation'
+    reviewed={**mental_structured.content(),'reviewStatus':'approved'}
+    monkeypatch.setattr(mental_structured,'content',lambda:reviewed)
+    monkeypatch.setattr(mental_structured,'audio_manifest',lambda:library)
+    blocked=client.post('/api/mental/converse',json=normal)
+    assert blocked.status_code==503 and blocked.json()['detail']=='STRUCTURED_AUDIO_UNAPPROVED'
     monkeypatch.setattr(mental_structured,'require_approved_library',lambda language:None)
     assert client.post('/api/mental/converse?language=en',json=normal).json()['providerType']=='STRUCTURED_LOCAL'
     for word,action in [('finish','finish'),('pause','pause')]:

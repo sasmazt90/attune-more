@@ -169,3 +169,18 @@ def test_backup_receipt_requires_independent_matching_bytes_and_reuses_upload_id
     assert inventory.inventory['files'][0]['retrievalVerified']
     assert not inventory.inventory['complete']
     with pytest.raises(ValueError,match='DUPLICATE_UPLOAD_ID'):inventory.uploaded({**item,'driveFileId':'different-id'})
+
+
+def test_final_backup_reconciliation_requires_every_hash_receipt_and_current_presence():
+    verifier=module('verify_mental_audio_backup')
+    required=[dict(backupPath=f'catalog/en/{i}.wav',assetId=f'fixture-{i}',language='en',activeCatalog=True,
+                   bytes=10,sha256=f'{i:064x}') for i in range(414)]
+    rows=[dict(item,driveFileId=f'drive-{i}',retrievalVerified=True) for i,item in enumerate(required)]
+    presence={'checkedAt':'explicit-test-fixture','files':[dict(id=f'drive-{i}',bytes=10,parent_ids=['folder']) for i in range(414)]}
+    folders={'catalog/en':{'id':'folder'}}
+    assert verifier.audit({'files':rows},required,presence,folders)['complete']
+    presence['files'].pop()
+    assert not verifier.audit({'files':rows},required,presence,folders)['complete']
+    rows[0]['sha256']='f'*64
+    report=verifier.audit({'files':rows},required,presence,folders)
+    assert any(r['issue']=='source-receipt-mismatch' for r in report['issues'])
