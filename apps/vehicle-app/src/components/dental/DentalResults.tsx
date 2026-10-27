@@ -31,7 +31,7 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
  const pose=(p:string)=>t(sourceType==='upload'?'Yüklenen fotoğraf':DENTAL_POSE_LABELS[p]||p);
  const cariesText=(v:any)=>!v?t('Alınmadı'):!dentalViewMeasured(v)?t('Ölçülemedi'):t(`${v.caries.value} görünür aday`);
  const accText=(v:any)=>!v?t('Alınmadı'):!dentalViewMeasured(v)?t('Ölçülemedi'):v.accumulation?.quality!=='valid'||v.accumulation.value===null?t('Diş-dişeti sınırı görünmedi'):`${fmt(v.accumulation.value)}%`;
- const alignmentView=views.find(v=>v.alignment?.quality==='valid')||views.find(v=>v.pose==='BITE');
+ const alignmentView=views.find(v=>v.alignment?.quality==='valid')||views.find(v=>v.pose==='BITE')||(sourceType==='upload'?views[0]:undefined);
  const alignmentRows=(v:any)=>v?.alignment?.quality==='valid'&&v.alignment.rows?Object.entries(v.alignment.rows) as [string,any][]:[];
  const alignmentStatus=sourceType!=='upload'&&missingViews.includes('BITE')?t('Kapanış görünümü alınmadı'):!alignmentView?t('Kapanış görünümü alınmadı'):!dentalViewMeasured(alignmentView)?t('Ölçülemedi'):alignmentView.alignment?.quality!=='valid'?t(sourceType==='upload'?'Bu fotoğrafta iki diş sırası birlikte ayrılamadı.':'Diş konturları güvenilir ayrılamadı.'):'';
  const rowText=(row:any)=>row?.quality==='valid'&&Number.isFinite(row.value)?t(`${fmt(row.value)}° yön dağılımı · ${row.contourCount} kontur`):t('Konturlar güvenilir ayrılamadı.');
