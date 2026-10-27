@@ -731,8 +731,8 @@
         "polygonAnnotations": 1636,
         "nonPolygonAnnotations": 0,
         "invalidPolygonAnnotations": 0,
-        "completeReviewedPersonOrSourceGroups": 0,
-        "unreviewedSourceIds": 337,
+        "completeReviewedPersonOrSourceGroups": 302,
+        "unreviewedSourceIds": 0,
         "personIndependenceEstablished": false,
         "trainingAuthorized": false
       },
@@ -741,7 +741,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T19:30:17Z",
+      "lastCheckedAt": "2026-10-27T20:41:43Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -980,17 +980,17 @@
       },
       "lastCheckedDate": "2026-10-27",
       "sourcePersonCoverageReview": {
-        "observedAt": "2026-10-27T19:30:17Z",
+        "observedAt": "2026-10-27T20:41:43Z",
         "methodVersion": "regional-mask-source-person-review-v1",
         "queue": "docs/skin/evidence/regional-mask-source-person-review-queue-20261027-v1.json",
         "decisionsTemplate": "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
         "result": "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
         "ciEvidence": "docs/skin/evidence/regional-mask-source-person-review-ci-20261027-v1.json",
         "records": 337,
-        "reviewedRecords": 17,
-        "unreviewedRecords": 320,
+        "reviewedRecords": 337,
+        "unreviewedRecords": 0,
         "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
-        "personOrSourceCoverageComplete": false,
+        "personOrSourceCoverageComplete": true,
         "currentSplitIndependent": false,
         "replacementSplitReady": false,
         "trainingAuthorized": false,
@@ -1010,11 +1010,13 @@
         ],
         "replacementSplitRequired": true,
         "blockers": [
-          "source_person_review_incomplete",
           "current_split_not_person_source_independent",
           "group_locked_replacement_version_missing",
           "expert_semantic_mask_protocol_not_accepted"
-        ]
+        ],
+        "fullCoverageCiEvidence": "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+        "opaqueGroups": 302,
+        "confirmedCrossSplitGroups": 15
       },
       "identityCandidateReview": {
         "observedAt": "2026-10-27T19:30:17Z",
@@ -1044,6 +1046,75 @@
           "uncertain": 0
         },
         "confirmedSamePersonOrSourcePairs": 10
+      },
+      "groupLockedSplitPreparation": {
+        "observedAt": "2026-10-27T20:41:43Z",
+        "methodVersion": "regional-mask-group-locked-split-v1",
+        "builder": "scripts/skin-research/build_regional_mask_group_locked_split.py",
+        "tests": "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
+        "manifest": "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+        "ciEvidence": "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+        "records": {
+          "train": 236,
+          "valid": 50,
+          "finalTest": 51
+        },
+        "annotations": {
+          "train": {
+            "Oily": 719,
+            "Redness": 394
+          },
+          "valid": {
+            "Oily": 157,
+            "Redness": 110
+          },
+          "finalTest": {
+            "Oily": 189,
+            "Redness": 67
+          }
+        },
+        "groups": {
+          "train": 211,
+          "valid": 44,
+          "finalTest": 47
+        },
+        "crossSplitGroupCount": 0,
+        "allRecordsAssignedExactlyOnce": true,
+        "privateMaterializationCompleted": true,
+        "providerVersionCreated": false,
+        "trainingAuthorized": false,
+        "finalTestAuthorized": false,
+        "activationAllowed": false,
+        "blockers": [
+          "provider_version_2_not_created",
+          "expert_semantic_mask_protocol_not_accepted",
+          "independent_physical_camera_holdout_missing"
+        ]
+      },
+      "groupLockedUpload": {
+        "observedAt": "2026-10-27T20:41:43Z",
+        "taskId": "RzTdxfpBr9REzkke1mPp",
+        "status": "completed",
+        "total": 337,
+        "uploaded": 139,
+        "duplicates": 198,
+        "annotated": 337,
+        "errors": 0,
+        "warnings": 0,
+        "projectSummaryUnchanged": true,
+        "projectImages": 337,
+        "projectSplits": {
+          "train": 244,
+          "valid": 63,
+          "test": 30
+        },
+        "versions": [
+          1
+        ],
+        "batches": 0,
+        "confirmedSplitMutation": false,
+        "providerVersionCreated": false,
+        "trainingStarted": false
       }
     },
     "regionalSkinTypeBoxes": {
@@ -2246,7 +2317,13 @@
         "docs/skin/evidence/regional-mask-identity-candidate-queue-20261027-v1.json",
         "docs/skin/evidence/regional-mask-identity-candidate-decisions-template-20261027-v1.json",
         "docs/skin/evidence/regional-mask-identity-candidate-result-20261027-v1.json",
-        "docs/skin/evidence/regional-mask-identity-candidate-ci-20261027-v1.json"
+        "docs/skin/evidence/regional-mask-identity-candidate-ci-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+        "scripts/skin-research/build_regional_mask_group_locked_split.py",
+        "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -2575,7 +2652,13 @@
         "docs/skin/evidence/oily-release-gate-20261025-v1.json",
         "docs/skin/evidence/oily-release-receipt-20261026-v2.json",
         "docs/skin/evidence/oily-release-gate-20261026-v2.json",
-        "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json"
+        "docs/skin/evidence/oily-release-gate-v2-ci-20261026-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+        "scripts/skin-research/build_regional_mask_group_locked_split.py",
+        "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -2680,7 +2763,13 @@
         "docs/skin/evidence/skin-type-combination-release-gate-20261025-v1.json",
         "docs/skin/evidence/skin-type-combination-release-receipt-20261026-v2.json",
         "docs/skin/evidence/skin-type-combination-release-gate-20261026-v2.json",
-        "docs/skin/evidence/skin-type-combination-release-gate-v2-ci-20261026-v1.json"
+        "docs/skin/evidence/skin-type-combination-release-gate-v2-ci-20261026-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+        "scripts/skin-research/build_regional_mask_group_locked_split.py",
+        "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
       ],
       "blockers": [
         "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
@@ -2753,7 +2842,13 @@
         "docs/skin/evidence/redness-release-gate-20261025-v1.json",
         "docs/skin/evidence/redness-release-receipt-20261026-v2.json",
         "docs/skin/evidence/redness-release-gate-20261026-v2.json",
-        "docs/skin/evidence/redness-release-gate-v2-ci-20261026-v1.json"
+        "docs/skin/evidence/redness-release-gate-v2-ci-20261026-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+        "scripts/skin-research/build_regional_mask_group_locked_split.py",
+        "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -4551,8 +4646,8 @@
     }
   },
   "nextActions": [
-    "Complete the remaining 320 exact records in docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json through authorized private source/person review. The completed 48-pair candidate review confirmed 10 same-person/source pairs, forming seven opaque groups over 17 records; all seven groups cross the current train/valid/test boundary, so replacementSplitRequired is already true. Preserve the 38 different decisions and do not merge uncertain records. After all 337 records have reviewed opaque groups, build a group-locked version 2 or later with a new untouched final test before training; keep current training, final-test and activation gates false.",
-    "Complete the independent 81-item Oily/Redness expert semantic mask protocol without using source polygons, model predictions or missing labels as expert truth. Source/person review and semantic review are separate gates; confirmed split leakage does not authorize labels, training or activation.",
+    "Preserve the completed 337/337 opaque source/person review and the deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the provider project remains 337 images at 244/63/30 with version 1 only; do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact provider version 2 matching the zero-crossing manifest is confirmed. Keep the 51-image final test untouched for selection or thresholds.",
+    "Complete and accept the independent 81-item Oily/Redness expert semantic mask protocol before any regional training authorization. The completed source/person review establishes grouping only: source polygons, model predictions and missing labels remain ineligible as expert truth; independent consented physical-camera evidence is still required.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py v11 for every task-13 decision. Repository CI evidence must use schema v3 and bind exact workflow 362950948 at .github/workflows/ci.yml, its run URL/ID, distinct positive frontend/backend job IDs, branch and implementation commit. Real-browser evidence must separately bind workflow 370615037, positive job/artifact IDs and a sha256 artifact digest. Neither controlled fixture may satisfy physical-camera, expert-truth or accuracy acceptance. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false.",
     "Use scripts/skin-research/build_under_eye_expert_review.py with docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json and the private resolver to complete all 88 item-bound expert decisions for darkcircle and eyebag. The queue reads only the 284 train and 77 validation COCO payloads; the 38-image locked test annotations and pixels remain unread and unselected. Lock each class's positive, polygon-extent, hard-negative and ambiguity policies independently. Missing target annotations are candidates, not negatives; source polygons are selection geometry, not expert truth. Even a complete semantic protocol does not authorize training until full person/source identity coverage, rights, an authorized exact archive, a new untouched final test and consented camera reservation also pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
@@ -7917,6 +8012,42 @@
           "frontendJobId": 122418071721,
           "frontend": "success",
           "backendJobId": 122418072455,
+          "backend": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T20:41:43Z",
+      "action": "Read the remote checkpoint first, refreshed the accessible Roboflow state and avoided duplicate version, training and inference work. Completed private visual source/person review for all 337 regional records: 302 opaque groups cover every record, 15 groups cross the current 244/63/30 provider split, so version 1 is not independent. Added and tested a deterministic group-locked split builder; the privacy-safe manifest assigns all 337 records exactly once to 236 train, 50 validation and 51 untouched final-test records, preserves 1,636 Oily/Redness annotations and has zero groups crossing splits. Private COCO materialization completed and upload task RzTdxfpBr9REzkke1mPp finished with 337 annotated items, zero errors and zero failed chunks. The provider project summary nevertheless remained 337 images at 244/63/30 with only version 1, so no split mutation or provider version 2 is claimed and no training was started. Local focused tests passed 3 and the local skin-research suite passed 315 tests. GitHub Actions run 40579603755 completed successfully: frontend job 122455113625 and backend job 122455114167 passed; the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 339 tests. Expert semantic review, an exact confirmed provider v2, untouched final-test evaluation and consented physical-camera evidence remain pending; training, activation and roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+      "evidence": [
+        "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+        "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+        "scripts/skin-research/build_regional_mask_group_locked_split.py",
+        "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py"
+      ],
+      "tests": {
+        "focused": 3,
+        "localSkinResearch": 315,
+        "deterministic": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "skinResearch": 339,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40579603755,
+          "headSha": "95565638a7846c30b4c1f3d23b6f4989920ae96a",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122455113625,
+          "frontend": "success",
+          "backendJobId": 122455114167,
           "backend": "success"
         }
       ]

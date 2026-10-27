@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "evidenceType": "regional-mask-group-locked-split-ci",
+  "observedAt": "2026-10-27T20:41:43Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "95565638a7846c30b4c1f3d23b6f4989920ae96a",
+  "implementationTree": "dec9f09f8e9c7679c15878766448a675444fa79c",
+  "workflow": {
+    "id": 362950948,
+    "path": ".github/workflows/ci.yml",
+    "blobSHA": "8041e9040518f0abf500cd744b4ebb3a2d78d374",
+    "runId": 40579603755,
+    "runURL": "https://github.com/sasmazt90/attune-more/actions/runs/40579603755",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122455113625,
+    "frontendConclusion": "success",
+    "backendJobId": 122455114167,
+    "backendConclusion": "success"
+  },
+  "source": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "sourceVersionNumber": 1,
+    "projectImages": 337,
+    "projectSplits": {
+      "train": 244,
+      "valid": 63,
+      "test": 30
+    },
+    "classes": {
+      "Oily": 1065,
+      "Redness": 571
+    },
+    "providerExportSHA256": "ba7aa450ee2e98af35dcb1b60f3f9673fc7a6ef6b7709e7b94e1df1d32bdab3a",
+    "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5"
+  },
+  "implementation": {
+    "builder": {
+      "path": "scripts/skin-research/build_regional_mask_group_locked_split.py",
+      "blobSHA": "494fd3749e77621ddfc2b25f861ce03d5753e210"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
+      "blobSHA": "267dbd0af3a4d38ba7491c0fd391f0bbbe35bb4d"
+    },
+    "decisions": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-decisions-template-20261027-v1.json",
+      "blobSHA": "038ab3b963a86ee79e0a22bcec637aaf0724e73d"
+    },
+    "reviewResult": {
+      "path": "docs/skin/evidence/regional-mask-source-person-review-result-20261027-v1.json",
+      "blobSHA": "d10c0940df1829581ac488fc224a633d4f80fa14"
+    },
+    "splitManifest": {
+      "path": "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+      "blobSHA": "088c38a2e8802fedc14486cf0b873225774b82f4"
+    }
+  },
+  "review": {
+    "reviewedRecords": 337,
+    "unreviewedRecords": 0,
+    "opaqueGroups": 302,
+    "crossSplitGroupsInSourceVersion": 15,
+    "coverageComplete": true,
+    "sourceVersionIndependent": false,
+    "replacementSplitRequired": true
+  },
+  "replacementSplit": {
+    "records": {
+      "train": 236,
+      "valid": 50,
+      "finalTest": 51
+    },
+    "annotations": {
+      "train": {
+        "Oily": 719,
+        "Redness": 394
+      },
+      "valid": {
+        "Oily": 157,
+        "Redness": 110
+      },
+      "finalTest": {
+        "Oily": 189,
+        "Redness": 67
+      }
+    },
+    "groups": {
+      "train": 211,
+      "valid": 44,
+      "finalTest": 47
+    },
+    "crossSplitGroupCount": 0,
+    "allRecordsAssignedExactlyOnce": true,
+    "finalTestUsedForSelectionOrThresholds": false,
+    "privateMaterializationCompleted": true,
+    "privateMaterializationCommitted": false,
+    "archiveSHA256": "e59ff1c5c971e1918fb345f0d6ecab0dbf0bc0cdcc4bc647d1eae1fd5258dfe3",
+    "annotationSHA256": {
+      "train": "2213133b9b42806a904d47acdaa60fbb6da60cedff7574f370bf398c74b95233",
+      "valid": "232d3b963f73c6351066d4205d87dc8ca1925565edb14041ae16ceb71f04827f",
+      "finalTest": "11f8f1a558a9d7a6111451f8df07dc0346ff6111354d84644d95f90cc9ff8490"
+    }
+  },
+  "providerUpload": {
+    "taskId": "RzTdxfpBr9REzkke1mPp",
+    "status": "completed",
+    "total": 337,
+    "current": 337,
+    "uploaded": 139,
+    "duplicates": 198,
+    "annotated": 337,
+    "errors": 0,
+    "warnings": 0,
+    "chunks": 4,
+    "failedChunks": 0,
+    "projectSummaryAfterUpload": {
+      "images": 337,
+      "splits": {
+        "train": 244,
+        "valid": 63,
+        "test": 30
+      },
+      "classes": {
+        "Oily": 1065,
+        "Redness": 571
+      },
+      "versions": [
+        1
+      ],
+      "batches": 0
+    },
+    "confirmedSplitMutation": false,
+    "providerVersionCreated": false,
+    "trainingStarted": false
+  },
+  "privacy": {
+    "committedImageBytes": false,
+    "committedFilenamesOrPaths": false,
+    "committedRawIdentity": false,
+    "committedProviderImageIds": false,
+    "privateResolversCommitted": false,
+    "groupIdentifiersOpaque": true,
+    "identifiersArePseudonymousNotAnonymous": true
+  },
+  "tests": {
+    "localFocused": {
+      "passed": 3
+    },
+    "localSkinResearch": {
+      "passed": 315
+    },
+    "repositoryDeterministic": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearch": {
+      "passed": 339
+    },
+    "localizationContract": "passed"
+  },
+  "decision": {
+    "sourceReviewComplete": true,
+    "sourceVersionIndependent": false,
+    "replacementSplitPrepared": true,
+    "providerVersionCreated": false,
+    "expertSemanticMaskProtocolAccepted": false,
+    "independentPhysicalCameraHoldoutAccepted": false,
+    "trainingAuthorized": false,
+    "finalTestAuthorized": false,
+    "activationAllowed": false,
+    "roadmapComplete": false
+  }
+}
