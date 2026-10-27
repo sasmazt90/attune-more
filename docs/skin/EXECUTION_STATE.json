@@ -4001,6 +4001,96 @@
   "executionLog": [
     {
       "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:31:54Z",
+      "action": "Eighth browser run 40425460327 reached real Chromium acceptance with the licensed three-pose fixture and was superseded/cancelled by the integrity-corrected candidate, producing artifact 12699935729. Ninth browser run 40425625708 passed immutable runtime, production build, app/backend health, 478-landmark FRONT/LEFT/RIGHT fixture, consent and completed analysis, then exposed a stale meter-count assertion: the product correctly renders meters only for true supported-area ratios, while the check still counted neutral generic/color/line/fold indices as percentages. Matching CI 40425625684 passed. Updated the browser assertion to the established display-unit boundary, repinned its strict implementation blob and passed 7 focused integrity tests plus Python compile/diff checks. Tenth browser run 40426307814 is active for candidate 9b9c8880; matching CI 40426307799 passed. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "8df6e54331d3ca0f1b6fd72860830cf4dadd0142",
+        "9b9c8880591adcc63d64422319eac9f6335e213b"
+      ],
+      "runs": [
+        {
+          "runId": 40425460327,
+          "conclusion": "cancelled",
+          "artifactId": 12699935729
+        },
+        {
+          "runId": 40425460356,
+          "conclusion": "failure",
+          "kind": "matching_repository_ci_superseded_before_integrity_repin"
+        },
+        {
+          "runId": 40425625708,
+          "conclusion": "failure",
+          "artifactId": 12699209327,
+          "fixturePrepared": true,
+          "consentFlowCompleted": true,
+          "browserApiAnalysisCompleted": true
+        },
+        {
+          "runId": 40425625684,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40426307814,
+          "status": "in_progress",
+          "jobId": 121932817235,
+          "kind": "tenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40426307799,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:19:25Z",
+      "action": "Browser run 40424850826 passed immutable runtime installation, production build, app/backend health, the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose, the required consent flow and a completed product analysis, then exposed a stale browser assertion that a whole-face Redness grade must inherit a regional pixel map. This contradicted the existing provenance unit contract, so the browser check now explicitly rejects that inheritance. Matching CI 40424850811 ran 1627 deterministic tests successfully (44 skipped, 2 warnings) and failed only because the intentional browser-flow edits changed strict pinned implementation blobs. The unified evidence builder remains fail-closed and was repinned to the exact three updated Git blobs; its 7 focused tests, Python compile and diff checks passed. Eighth browser run 40425460327 / CI 40425460356 and corrected ninth browser run 40425625708 / CI 40425625684 are active for candidate 8df6e543. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "0ea4be18ee96106ef67505fdc3928876b1cbb10e",
+        "8df6e54331d3ca0f1b6fd72860830cf4dadd0142"
+      ],
+      "runs": [
+        {
+          "runId": 40424850826,
+          "conclusion": "failure",
+          "fixturePrepared": true,
+          "consentFlowCompleted": true,
+          "browserApiAnalysisCompleted": true
+        },
+        {
+          "runId": 40424850811,
+          "conclusion": "failure",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40425460327,
+          "status": "in_progress",
+          "kind": "eighth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40425460356,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40425625708,
+          "status": "pending",
+          "kind": "ninth_integrity_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40425625684,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
       "observedAt": "2026-10-27T00:12:08Z",
       "action": "Browser run 40424360084 passed immutable runtime installation, production build, app/backend health checks and the full licensed three-pose fixture. Real MediaPipe selected distinct FRONT/LEFT/RIGHT frames with 478 landmarks per pose and valid quality, then the actual browser/API acceptance test ran and failed before scan start because it had not completed the newly required local skin service-processing consent dialog. Job 121926318281 produced artifact 12699243624 with digest sha256:711b0b4c03bdb02b18770585a133b4fea35629a49c06b32e6e96d23c321fed12. Updated all three isolated browser acceptance scenarios to exercise the exact user-facing consent checkbox and continue action without bypassing the privacy flow. Python compile and diff checks passed. Seventh browser run 40424850826 and matching CI 40424850811 are in progress for candidate 64f3eb35. No Roboflow training, version, upload, inference, model or threshold state changed.",
       "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
@@ -5062,6 +5152,96 @@
     }
   ],
   "activityLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:31:54Z",
+      "action": "Eighth browser run 40425460327 reached real Chromium acceptance with the licensed three-pose fixture and was superseded/cancelled by the integrity-corrected candidate, producing artifact 12699935729. Ninth browser run 40425625708 passed immutable runtime, production build, app/backend health, 478-landmark FRONT/LEFT/RIGHT fixture, consent and completed analysis, then exposed a stale meter-count assertion: the product correctly renders meters only for true supported-area ratios, while the check still counted neutral generic/color/line/fold indices as percentages. Matching CI 40425625684 passed. Updated the browser assertion to the established display-unit boundary, repinned its strict implementation blob and passed 7 focused integrity tests plus Python compile/diff checks. Tenth browser run 40426307814 is active for candidate 9b9c8880; matching CI 40426307799 passed. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "8df6e54331d3ca0f1b6fd72860830cf4dadd0142",
+        "9b9c8880591adcc63d64422319eac9f6335e213b"
+      ],
+      "runs": [
+        {
+          "runId": 40425460327,
+          "conclusion": "cancelled",
+          "artifactId": 12699935729
+        },
+        {
+          "runId": 40425460356,
+          "conclusion": "failure",
+          "kind": "matching_repository_ci_superseded_before_integrity_repin"
+        },
+        {
+          "runId": 40425625708,
+          "conclusion": "failure",
+          "artifactId": 12699209327,
+          "fixturePrepared": true,
+          "consentFlowCompleted": true,
+          "browserApiAnalysisCompleted": true
+        },
+        {
+          "runId": 40425625684,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40426307814,
+          "status": "in_progress",
+          "jobId": 121932817235,
+          "kind": "tenth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40426307799,
+          "conclusion": "success",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T00:19:25Z",
+      "action": "Browser run 40424850826 passed immutable runtime installation, production build, app/backend health, the licensed FRONT/LEFT/RIGHT fixture with 478 real MediaPipe landmarks per pose, the required consent flow and a completed product analysis, then exposed a stale browser assertion that a whole-face Redness grade must inherit a regional pixel map. This contradicted the existing provenance unit contract, so the browser check now explicitly rejects that inheritance. Matching CI 40424850811 ran 1627 deterministic tests successfully (44 skipped, 2 warnings) and failed only because the intentional browser-flow edits changed strict pinned implementation blobs. The unified evidence builder remains fail-closed and was repinned to the exact three updated Git blobs; its 7 focused tests, Python compile and diff checks passed. Eighth browser run 40425460327 / CI 40425460356 and corrected ninth browser run 40425625708 / CI 40425625684 are active for candidate 8df6e543. No Roboflow training, version, upload, inference, model or threshold state changed.",
+      "report": "docs/skin/evidence/unified-browser-acceptance-retry-20261027-v1.json",
+      "commits": [
+        "0ea4be18ee96106ef67505fdc3928876b1cbb10e",
+        "8df6e54331d3ca0f1b6fd72860830cf4dadd0142"
+      ],
+      "runs": [
+        {
+          "runId": 40424850826,
+          "conclusion": "failure",
+          "fixturePrepared": true,
+          "consentFlowCompleted": true,
+          "browserApiAnalysisCompleted": true
+        },
+        {
+          "runId": 40424850811,
+          "conclusion": "failure",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40425460327,
+          "status": "in_progress",
+          "kind": "eighth_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40425460356,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        },
+        {
+          "runId": 40425625708,
+          "status": "pending",
+          "kind": "ninth_integrity_corrected_real_chromium_controlled_fixture"
+        },
+        {
+          "runId": 40425625684,
+          "status": "in_progress",
+          "kind": "matching_repository_ci"
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T00:12:08Z",
