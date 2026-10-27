@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 2,
+  "methodVersion": "physical-camera-benchmark-release-receipt-v2",
+  "createdAt": "2026-10-27T16:25:00Z",
+  "inputBlobs": {
+    "scripts/skin-research/prepare_camera_triplet_benchmark.py": "b6294409b8421bf0e3f503f9112f14c7c180a057",
+    "docs/skin/evidence/camera-triplet-generated-smoke-20261024-v1.json": "5b44b0b8c03096c8dab3afa01ae2f5235d65193c",
+    "docs/skin/evidence/generated-front-roboflow-20261024-v1.json": "15ea84ab4d755b8027020dd5e8d39b2036563bef",
+    "docs/skin/evidence/gate-pass-camera-package-audit-20261024-v1.json": "b4a8f279de93abb56bc8c5ebc589fd4a9e9a68b8",
+    "docs/skin/evidence/attune-v5-results-package-audit-20261024-v1.json": "c57fee8bb2cfc3fc9edda01f625818371b244580",
+    "docs/skin/evidence/original-photo-model-comparison-audit-20261024.json": "7308f5cc14d5c96fc0baaa4aa521cb2f3a990d03",
+    "docs/skin/evidence/current-product-skin-contract-recheck-20261025-v1.json": "bbbe61b13145284d675af7e3e66d25ce439a7ba4"
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "headings": ["tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags", "Post acne", "Pigmentation", "skinType"],
+    "regionalResults": true,
+    "overviewAndHistory": true
+  },
+  "generatedEvidence": {
+    "declaredGenerated": true,
+    "subjects": 6,
+    "images": 18,
+    "completeThreePoseTriplets": true,
+    "rawImagesCommitted": false,
+    "realCameraCapture": false,
+    "expertGroundTruth": false,
+    "precisionRecallF1Eligible": false,
+    "thresholdCalibrationEligible": false,
+    "integrationSmokeAllowed": true
+  },
+  "acceptanceContract": {
+    "generatedMaySatisfyPhysicalCamera": false,
+    "modelPredictionMayServeAsExpertTruth": false,
+    "sameSubjectMayCrossTrainingOrThresholdSets": false,
+    "thresholdsMayBeFitOnCameraFinal": false,
+    "missingClassTruthMeansNegative": false,
+    "unknownCountsAsNormal": false,
+    "rednessIsIndependentLayer": true
+  },
+  "physicalCameraCandidate": {
+    "benchmarkId": null,
+    "evaluatedMethodRef": null,
+    "evaluatedMethodVersion": null,
+    "thresholdLockRef": null,
+    "geometryLockRef": null,
+    "policyRef": null,
+    "replayRef": null,
+    "consentedPhysicalCaptures": false,
+    "immutableCaptureHashes": false,
+    "subjectIdentityIndependent": false,
+    "notUsedForTrainingValidationOrThresholdSelection": false,
+    "expertTruthPerActivatedClass": false,
+    "evaluatedNegativeAndUnknownPolicy": false,
+    "deviceLightingSkinTonePoseSlices": false,
+    "captureQualityGateRecorded": false,
+    "lockedThresholdsAndMethodIdentity": false,
+    "perClassMetricsAndFailuresRecorded": false,
+    "apiBrowserMapHistoryReplayPassed": false,
+    "privacyRetentionDeletionPassed": false,
+    "artifacts": {
+      "cameraManifest": null,
+      "expertTruth": null,
+      "captureEvaluation": null,
+      "localizationEvaluation": null,
+      "acceptancePolicy": null,
+      "productReplay": null,
+      "acceptanceGate": null
+    }
+  }
+}

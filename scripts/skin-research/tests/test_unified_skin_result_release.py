@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v10.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v11.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -139,6 +139,12 @@ def _mutate_repository_ci(receipt, root, field, value, section=None):
 
 
 class UnifiedSkinResultReleaseTests(unittest.TestCase):
+    def test_stale_receipt_schema_cannot_reenter(self):
+        receipt = _receipt()
+        receipt["schemaVersion"] = 10
+        with self.assertRaisesRegex(module.GateInputError, "receipt schema"):
+            module.evaluate_release(receipt)
+
     def test_working_baseline_remains_visible_but_final_acceptance_is_blocked(self):
         result = module.evaluate_release(_receipt())
         self.assertTrue(result["workingBaselinePreserved"])

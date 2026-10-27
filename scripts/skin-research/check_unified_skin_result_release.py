@@ -21,6 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
+EXPECTED_RECEIPT_SCHEMA = 11
 EXPECTED_REPOSITORY_CI_SCHEMA = 3
 EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
 EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -71,7 +72,7 @@ EXPECTED_GATE_METHODS = {
     "wrinkles": "wrinkle-per-class-release-gate-v2",
     "sag": "sag-appearance-release-gate-v2",
 }
-EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v1"
+EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v2"
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
     "Post acne", "Pigmentation", "skinType",
@@ -338,6 +339,7 @@ def _validate_candidate(
 
 
 def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dict[str, Any]:
+    _require(receipt.get("schemaVersion"), EXPECTED_RECEIPT_SCHEMA, "unified release receipt schema changed")
     _require(receipt.get("codeBlobs"), EXPECTED_CODE_BLOBS, "unified implementation blobs changed")
     _require(receipt.get("inputEvidence"), EXPECTED_INPUT_EVIDENCE, "unified input evidence identities changed")
     for name, identity in EXPECTED_INPUT_EVIDENCE.items():
@@ -390,8 +392,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = candidate_accepted and not blockers
     return {
-        "schemaVersion": 10,
-        "methodVersion": "unified-skin-result-release-gate-v10",
+        "schemaVersion": 11,
+        "methodVersion": "unified-skin-result-release-gate-v11",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,
