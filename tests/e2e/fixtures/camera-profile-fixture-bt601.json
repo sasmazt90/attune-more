@@ -1,0 +1,6 @@
+{
+ "schema": "attune-camera-profile-v1",
+ "profileId": "e2e-fixture-y4m-bt601-limited",
+ "note": "Test camera only: tests/e2e/make_skin_y4m.py writes BT.601 limited-range I420 (OpenCV). No colour correction (no chart was photographed by this camera). Never use as a vehicle profile.",
+ "yuv": {"matrix": "bt601", "fullRange": false}
+}

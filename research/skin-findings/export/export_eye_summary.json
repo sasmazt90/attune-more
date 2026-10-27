@@ -1,0 +1,129 @@
+{
+ "darkCircles": {
+  "sha256": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+  "threshold": 0.8566839398461173,
+  "npMaxAbsDiff": 2.220446049250313e-16,
+  "reproduced": {
+   "TP": 24.9,
+   "FP": 3.0,
+   "FN": 29.1,
+   "precision": 0.89,
+   "recall": 0.46,
+   "auc": 0.86,
+   "meanThreshold": 0.82,
+   "foldsWithoutThreshold": 0
+  },
+  "recorded": {
+   "TP": 24.9,
+   "FP": 3.0,
+   "FN": 29.1,
+   "precision": 0.89,
+   "recall": 0.46,
+   "auc": 0.86,
+   "meanThreshold": 0.82,
+   "foldsWithoutThreshold": 0
+  },
+  "training": {
+   "persons": 140,
+   "positives": 54,
+   "rows": 420,
+   "rowPoses": [
+    "front",
+    "side_1",
+    "side_2"
+   ],
+   "note": "as in eye_grid3.fit(): training rows are the front row and the two 20° side rows (one eye each) of every person; pose one-hot distinguishes them",
+   "sklearn": "1.9.1",
+   "outOfFoldAtThreshold": {
+    "TP": 21,
+    "FP": 2,
+    "FN": 33
+   },
+   "inSampleAtThreshold": {
+    "TP": 25,
+    "FP": 1,
+    "FN": 29
+   }
+  }
+ },
+ "hoodedEyelids": {
+  "sha256": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+  "threshold": 0.6384323587101438,
+  "npMaxAbsDiff": 2.1094237467877974e-15,
+  "reproduced": {
+   "TP": 24.5,
+   "FP": 5.0,
+   "FN": 6.5,
+   "precision": 0.83,
+   "recall": 0.79,
+   "auc": 0.97,
+   "meanThreshold": 0.65,
+   "foldsWithoutThreshold": 0
+  },
+  "recorded": {
+   "TP": 24.5,
+   "FP": 5.0,
+   "FN": 6.5,
+   "precision": 0.83,
+   "recall": 0.79,
+   "auc": 0.97,
+   "meanThreshold": 0.65,
+   "foldsWithoutThreshold": 0
+  },
+  "training": {
+   "persons": 140,
+   "positives": 31,
+   "sklearn": "1.9.1",
+   "outOfFoldAtThreshold": {
+    "TP": 26,
+    "FP": 6,
+    "FN": 5
+   },
+   "inSampleAtThreshold": {
+    "TP": 31,
+    "FP": 1,
+    "FN": 0
+   }
+  }
+ },
+ "downturnedCorners": {
+  "sha256": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+  "threshold": 0.6677519729231929,
+  "npMaxAbsDiff": 9.992007221626409e-16,
+  "reproduced": {
+   "TP": 16.4,
+   "FP": 3.7,
+   "FN": 15.9,
+   "precision": 0.82,
+   "recall": 0.51,
+   "auc": 0.92,
+   "meanThreshold": 0.82,
+   "foldsWithoutThreshold": 1
+  },
+  "recorded": {
+   "TP": 16.4,
+   "FP": 3.7,
+   "FN": 15.9,
+   "precision": 0.82,
+   "recall": 0.51,
+   "auc": 0.92,
+   "meanThreshold": 0.82,
+   "foldsWithoutThreshold": 1
+  },
+  "training": {
+   "persons": 140,
+   "positives": 33,
+   "sklearn": "1.9.1",
+   "outOfFoldAtThreshold": {
+    "TP": 24,
+    "FP": 6,
+    "FN": 9
+   },
+   "inSampleAtThreshold": {
+    "TP": 30,
+    "FP": 3,
+    "FN": 3
+   }
+  }
+ }
+}

@@ -38,7 +38,7 @@ $keys=@('ATTUNE_LOAD_LOCAL_ENV','ATTUNE_TRUSTED_ORIGINS','NEXT_PUBLIC_ATTUNE_LOC
 foreach($key in $keys){$saved[$key]=[Environment]::GetEnvironmentVariable($key,'Process')}
 $rows=@()
 try{
- $env:ATTUNE_LOAD_LOCAL_ENV='0';$env:ATTUNE_TRUSTED_ORIGINS='http://127.0.0.1:3311';$env:NEXT_PUBLIC_ATTUNE_LOCAL_API_PORT='8311';$env:NEXT_TELEMETRY_DISABLED='1';$env:NEXT_PUBLIC_ATTUNE_ACNE_V5='1';$env:NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8311'
+ $env:ATTUNE_LOAD_LOCAL_ENV='0';$env:ATTUNE_TRUSTED_ORIGINS='http://127.0.0.1:3311';$env:NEXT_PUBLIC_ATTUNE_LOCAL_API_PORT='8311';$env:NEXT_TELEMETRY_DISABLED='1';$env:NEXT_PUBLIC_ATTUNE_ACNE_V5='0';$env:NEXT_PUBLIC_ATTUNE_PREVIEW_API_PORT='8311'
  foreach($port in @(8311,3311)){
   if($port -eq 8311){$exe=$python;$args=@('-u',('"'+(Join-Path $root 'scripts\health-final-api.py')+'"'));$cwd=$root}
   else{$env:OPENAI_API_KEY=$null;$exe=$node;$args=@(('"'+(Join-Path $root 'node_modules\next\dist\bin\next')+'"'),$(if($Dev){'dev'}else{'start'}),'--hostname','127.0.0.1','-p','3311');$cwd=Join-Path $root 'apps\vehicle-app'}

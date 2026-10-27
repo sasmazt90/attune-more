@@ -1,0 +1,127 @@
+{
+ "generated": "2026-10-26",
+ "location": "model bundle (ATTUNE_REGIONAL_V3_DIR)/findings-v2 \u2014 not in Git; delivered as findings-v2.tar.gz",
+ "note": "Re-fitted with the exact research recipes on the existing cached features; see REPORT_*.md in this folder",
+ "files": {
+  "findings-v2/acne.json": {
+   "sha256": "21bf8c718e1642c07da29fc0490c2c7071a5e4dacb1247a12eb6f74b00e0e6d5",
+   "bytes": 17799,
+   "id": "acne",
+   "version": "skin-findings-v2-det-20261026"
+  },
+  "findings-v2/acneMarks.json": {
+   "sha256": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+   "bytes": 455097,
+   "id": "acneMarks",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/coldSore.json": {
+   "sha256": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+   "bytes": 455533,
+   "id": "coldSore",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/crowsFeet.json": {
+   "sha256": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+   "bytes": 455082,
+   "id": "crowsFeet",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/darkCircles.json": {
+   "sha256": "03a1e3eb584399791e578eae8ee35cc682901310aa63d5afa12cc0a1ea2b286c",
+   "bytes": 3081,
+   "id": "darkCircles",
+   "version": "skin-findings-v2-eye-20261026"
+  },
+  "findings-v2/downturnedCorners.json": {
+   "sha256": "dec94ef7cd89d6badce52cb59e496f168e66cc4c1ccdfbd5f3ad12be7a468360",
+   "bytes": 377257,
+   "id": "downturnedCorners",
+   "version": "skin-findings-v2-eye-20261026"
+  },
+  "findings-v2/eczema.json": {
+   "sha256": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+   "bytes": 227478,
+   "id": "eczema",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/eyeBags.json": {
+   "sha256": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+   "bytes": 455620,
+   "id": "eyeBags",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/flaking.json": {
+   "sha256": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+   "bytes": 227443,
+   "id": "flaking",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/foreheadLines.json": {
+   "sha256": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+   "bytes": 228471,
+   "id": "foreheadLines",
+   "version": "skin-findings-v2-dino-20261026"
+  },
+  "findings-v2/hoodedEyelids.json": {
+   "sha256": "647141640b5c2cb5cb68e5557e0c43af723b2659777087b2824978c568c3607f",
+   "bytes": 377413,
+   "id": "hoodedEyelids",
+   "version": "skin-findings-v2-eye-20261026"
+  },
+  "findings-v2/measures/flaking.json": {
+   "sha256": "04bcd877729994ba24cd56a5ed2e8d697bc5553b406123cb928473dd72739a14",
+   "bytes": 5098,
+   "id": "flaking",
+   "version": "skin-findings-v2-measure-20261026"
+  },
+  "findings-v2/redness.json": {
+   "sha256": "2b455387db17d89c62ca69926402dae3558c65662769fb7014c72b6dd2ef3fd9",
+   "bytes": 5333,
+   "id": "redness",
+   "version": "skin-findings-v2-det-20261026"
+  },
+  "findings-v2/severity/acneMarks.json": {
+   "sha256": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+   "bytes": 55514,
+   "id": "acneMarks",
+   "version": "skin-findings-v2-severity-20261026"
+  },
+  "findings-v2/severity/crowsFeet.json": {
+   "sha256": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+   "bytes": 56872,
+   "id": "crowsFeet",
+   "version": "skin-findings-v2-severity-20261026"
+  },
+  "findings-v2/severity/darkCircles.json": {
+   "sha256": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+   "bytes": 58766,
+   "id": "darkCircles",
+   "version": "skin-findings-v2-severity-20261026"
+  },
+  "findings-v2/severity/eyeBags.json": {
+   "sha256": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+   "bytes": 57394,
+   "id": "eyeBags",
+   "version": "skin-findings-v2-severity-20261026"
+  },
+  "findings-v2/severity/foreheadLines.json": {
+   "sha256": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+   "bytes": 54587,
+   "id": "foreheadLines",
+   "version": "skin-findings-v2-severity-20261026"
+  },
+  "findings-v2/severity/hoodedEyelids.json": {
+   "sha256": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+   "bytes": 54370,
+   "id": "hoodedEyelids",
+   "version": "skin-findings-v2-severity-20261026"
+  },
+  "findings-v2/severity_geo/downturnedCorners.json": {
+   "sha256": "50d0784310a69304360292cae474056e446fc7922abdb8a7ffac7091401e03b4",
+   "bytes": 1646,
+   "id": "downturnedCorners",
+   "version": "skin-findings-v2-eye-severity-geo-20261026"
+  }
+ }
+}

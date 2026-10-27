@@ -1,0 +1,277 @@
+{
+  "workspace": "tolgar-sasmaz",
+  "weightExportAudit": [
+    {
+      "projectId": "attune-comedones-boxes-grouped-r1",
+      "version": 1,
+      "modelType": "rfdetr-small",
+      "restVersionTrainKeys": [
+        "status",
+        "model",
+        "modelType",
+        "checkpoint",
+        "start",
+        "end",
+        "results"
+      ],
+      "restModelKeys": [
+        "id",
+        "endpoint",
+        "start",
+        "end",
+        "fromScratch",
+        "tfjs",
+        "oak",
+        "map",
+        "recall",
+        "precision"
+      ],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "modelCount": 1,
+        "firstModelAttrs": [
+          "download",
+          "metrics",
+          "model_id",
+          "model_type",
+          "poll_for_video_results",
+          "poll_until_video_results",
+          "predict",
+          "predict_video",
+          "project",
+          "workspace"
+        ],
+        "hasDownloadMethod": true,
+        "downloadResult": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\tmp_weights_attune-comedones-boxes-grouped-r1\\weights.pt"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4py"
+      },
+      "restEndpoint_rfdetr-small": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"rfdetr-small is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yol"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytor"
+      }
+    },
+    {
+      "projectId": "attune-comedones-clean-train-r2",
+      "version": 1,
+      "modelType": "rfdetr-nas",
+      "restVersionTrainKeys": [],
+      "restModelKeys": [],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "error": "RoboflowError: {\"error\":\"There was an error finding the pytorch weights for this model.\"}"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4py"
+      },
+      "restEndpoint_rfdetr-nas": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"rfdetr-nas is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytor"
+      }
+    },
+    {
+      "projectId": "attune-pores-masks-grouped-r1",
+      "version": 2,
+      "modelType": "yolov11s-seg",
+      "restVersionTrainKeys": [
+        "status",
+        "model",
+        "modelType",
+        "checkpoint",
+        "start",
+        "end",
+        "results"
+      ],
+      "restModelKeys": [
+        "id",
+        "endpoint",
+        "start",
+        "end",
+        "fromScratch",
+        "tfjs",
+        "oak",
+        "map"
+      ],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "modelCount": 1,
+        "firstModelAttrs": [
+          "download",
+          "metrics",
+          "model_id",
+          "model_type",
+          "poll_for_video_results",
+          "poll_until_video_results",
+          "predict",
+          "predict_video",
+          "project",
+          "workspace"
+        ],
+        "hasDownloadMethod": true,
+        "downloadResult": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\tmp_weights_attune-pores-masks-grouped-r1\\weights.pt"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type instance-segmentation. Please use one of: coco-segmentation, clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, "
+      },
+      "restEndpoint_yolov11s-seg": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"yolov11s-seg is an invalid format for project type instance-segmentation. Please use one of: coco-segmentation, clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrec"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type instance-segmentation. Please use one of: coco-segmentation, clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc"
+      }
+    },
+    {
+      "projectId": "attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "modelType": "rfdetr-nas",
+      "restVersionTrainKeys": [],
+      "restModelKeys": [],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "error": "RoboflowError: {\"error\":\"There was an error finding the pytorch weights for this model.\"}"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4py"
+      },
+      "restEndpoint_rfdetr-nas": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"rfdetr-nas is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytor"
+      }
+    },
+    {
+      "projectId": "attune-skin-findings-boxes-research",
+      "version": 1,
+      "modelType": "rfdetr-nas",
+      "restVersionTrainKeys": [],
+      "restModelKeys": [],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "error": "RoboflowError: {\"error\":\"There was an error finding the pytorch weights for this model.\"}"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4py"
+      },
+      "restEndpoint_rfdetr-nas": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"rfdetr-nas is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytor"
+      }
+    },
+    {
+      "projectId": "attune-skin-regional-skin-map",
+      "version": 1,
+      "modelType": "rfdetr-nas-seg",
+      "restVersionTrainKeys": [],
+      "restModelKeys": [],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "error": "RoboflowError: {\"error\":\"There was an error finding the pytorch weights for this model.\"}"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type instance-segmentation. Please use one of: coco-segmentation, clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, "
+      },
+      "restEndpoint_rfdetr-nas-seg": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"rfdetr-nas-seg is an invalid format for project type instance-segmentation. Please use one of: coco-segmentation, clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfr"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type instance-segmentation. Please use one of: coco-segmentation, clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc"
+      }
+    },
+    {
+      "projectId": "lesion-detection-ruc40-qzwqz",
+      "version": 1,
+      "modelType": "rfdetr-large",
+      "restVersionTrainKeys": [
+        "status",
+        "model",
+        "modelType",
+        "checkpoint",
+        "start",
+        "end",
+        "results"
+      ],
+      "restModelKeys": [
+        "id",
+        "endpoint",
+        "start",
+        "end",
+        "fromScratch",
+        "tfjs",
+        "oak",
+        "map",
+        "recall",
+        "precision"
+      ],
+      "weightsUrlInVersionJson": false,
+      "sdkModelsDownloadAttempt": {
+        "modelCount": 1,
+        "firstModelAttrs": [
+          "download",
+          "metrics",
+          "model_id",
+          "model_type",
+          "poll_for_video_results",
+          "poll_until_video_results",
+          "predict",
+          "predict_video",
+          "project",
+          "workspace"
+        ],
+        "hasDownloadMethod": true,
+        "downloadResult": "C:\\Users\\PC\\Desktop\\AI Workspace\\TOGG\\e2e-verification-20261024\\tmp_weights_lesion-detection-ruc40-qzwqz\\weights.pt"
+      },
+      "restWeightsEndpointAttempt": null,
+      "foundWeightKeys": [],
+      "restEndpoint_weights": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"weights is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4py"
+      },
+      "restEndpoint_rfdetr-large": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"rfdetr-large is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yol"
+      },
+      "restEndpoint_onnx": {
+        "httpStatus": 400,
+        "error": "{\"error\":\"onnx is an invalid format for project type object-detection. Please use one of: clip, coco, coco-mmdetection, createml, darknet, multiclass, tensorflow, tfrecord, voc, yolokeras, yolov4pytor"
+      }
+    }
+  ]
+}

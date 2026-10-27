@@ -4,6 +4,7 @@ Derived fixture is CC BY-SA 4.0, NMu11er, Head Shake (2022). Never use private u
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -17,12 +18,12 @@ PAGE='https://commons.wikimedia.org/wiki/File:Head_Shake.webm'
 SHA1='fb35a2ecbf0771ab818c2ca336142c30b515a414'
 FIX=Path('audit-fixtures');FIX.mkdir(exist_ok=True)
 OUT=Path('audit-results');OUT.mkdir(exist_ok=True)
-# Hosted runners can spend roughly four seconds per accepted camera frame once
-# the real MediaPipe inference and the real local eyewear-policy request are in
-# the loop.  Production deliberately requires 15 consecutive accepted frames.
-# Hold each licensed pose long enough for that unchanged gate even on the slow
-# runner; changing the fixture transport duration must never relax the model,
-# pose, quality, eyewear or consecutive-frame requirements.
+# The prior 15-second pose window expired before the second real-zoom capture
+# completed on the hosted runner. Its displayed percentage was stale after a
+# rejected frame, so it does not establish per-frame latency. The existing
+# 75-second retry completed capture and history before its separate Linux-only
+# privacy-harness failure. Preserve all production gates, including 15 genuinely
+# consecutive accepted frames; extend only the licensed fixture's pose window.
 POSE_HOLD_SECONDS=75
 FIXTURE_SECONDS=POSE_HOLD_SECONDS*3
 (OUT/'FIXTURE-LICENSE.md').write_text(Path('docs/test-fixture-provenance.md').read_text(encoding='utf-8-sig'),encoding='utf-8')
@@ -68,7 +69,8 @@ server=ThreadingHTTPServer(('127.0.0.1',0),FixtureHandler)
 thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
 try:
     with sync_playwright() as pw:
-        b=pw.chromium.launch(headless=True,args=['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+        browser={'executable_path':os.environ['ATTUNE_BROWSER_EXECUTABLE']} if os.getenv('ATTUNE_BROWSER_EXECUTABLE') else {}
+        b=pw.chromium.launch(headless=True,args=['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'],**browser)
         p=b.new_page();p.on('console',lambda message:print('MODEL_DIAGNOSTIC',message.text) if message.type in ('error','warning') else None)
         base=f'http://127.0.0.1:{server.server_port}'
         p.goto(base+'/fixture-probe')

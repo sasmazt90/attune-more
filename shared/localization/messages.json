@@ -2427,12 +2427,12 @@
   "a3592b427213f500": {
     "tr": "Göz çevresi",
     "en": "Eye area",
-    "de": "Augenbereich"
+    "de": "Augenpartie"
   },
   "d0b1923dac19a946": {
     "tr": "Göz Çevresi",
     "en": "Eye area",
-    "de": "Augenbereich"
+    "de": "Augenpartie"
   },
   "a19d283ab3a8fd9a": {
     "tr": "Göz çevresi dinlendirici mola",
@@ -7453,5 +7453,2105 @@
     "tr": "Yalnız kayıtlı ölçümler gösterilir. Bölgesel yağlılık, kuruluk ve kızarıklık geçmişi sayısal şiddet uydurmadan mevcut/yok olarak sunulur. Yöntem sürümü, normalizasyon, model ve doğrulama kanıtı aynı olmayan kayıtlar karşılaştırılmaz.",
     "en": "Only recorded measurements are shown. Regional oiliness, dryness and redness history is presented as present/absent without inventing numerical severity. Records are not compared unless method version, normalization, model and validation evidence are identical.",
     "de": "Es werden nur erfasste Messungen angezeigt. Der Verlauf regionaler Fettigkeit, Trockenheit und Rötung wird ohne erfundene numerische Schweregrade als vorhanden/nicht vorhanden dargestellt. Einträge werden nur verglichen, wenn Methodenversion, Normalisierung, Modell und Validierungsnachweis übereinstimmen."
+  },
+  "2d1455a2124f4e47": {
+    "tr": "Ölçülemedi",
+    "en": "Could not be measured",
+    "de": "Nicht messbar"
+  },
+  "ff9de0ac66922747": {
+    "tr": "Belirsiz (Yanak verisi eksik)",
+    "en": "Uncertain (Cheek data incomplete)",
+    "de": "Unbestimmt (Wangendaten unvollständig)"
+  },
+  "b8ff68524775f03c": {
+    "tr": "Belirsiz (T-bölgesi verisi eksik)",
+    "en": "Uncertain (T-zone data incomplete)",
+    "de": "Unbestimmt (T-Zonen-Daten unvollständig)"
+  },
+  "0e57d16a94ab3c0a": {
+    "tr": "T Bölgesi",
+    "en": "T-Zone",
+    "de": "T-Zone"
+  },
+  "f039c970a524d4e4": {
+    "tr": "Genel kızarıklık indeksi",
+    "en": "Overall redness index",
+    "de": "Allgemeiner Rötungsindex"
+  },
+  "8cd26186511dc7d4": {
+    "tr": "Bölgesel kızarıklık farkı",
+    "en": "Regional redness contrast",
+    "de": "Regionaler Rötungsunterschied"
+  },
+  "73ea73722ae9187f": {
+    "tr": "Değerlendirilmedi",
+    "en": "Unevaluated",
+    "de": "Nicht ausgewertet"
+  },
+  "1a27ddc18fdbf16a": {
+    "tr": "Karışık desen (Belirlenemedi)",
+    "en": "Mixed pattern (Undetermined)",
+    "de": "Gemischtes Muster (Unbestimmt)"
+  },
+  "b29aa4ce6e1197bc": {
+    "tr": "Belirlenemedi (Ara sinyal bandı)",
+    "en": "Undetermined (Intermediate signal band)",
+    "de": "Unbestimmt (Zwischensignalband)"
+  },
+  "19158714cb14ce0a": {
+    "tr": "Sol yanağınızı kameraya göstermek için başınızı hafifçe sağa çevirin (12°–45°).",
+    "en": "Turn your head slightly to the right (12°–45°) to show your left cheek to the camera.",
+    "de": "Drehen Sie Ihren Kopf leicht nach rechts (12°–45°), um Ihre linke Wange der Kamera zu zeigen."
+  },
+  "74ac7db7b8096d3b": {
+    "tr": "Sağ yanağınızı kameraya göstermek için başınızı hafifçe sola çevirin (12°–45°).",
+    "en": "Turn your head slightly to the left (12°–45°) to show your right cheek to the camera.",
+    "de": "Drehen Sie Ihren Kopf leicht nach links (12°–45°), um Ihre rechte Wange der Kamera zu zeigen."
+  },
+  "fa2ff352e387b45a": {
+    "tr": "Başınızı çok fazla çevirdiniz; kameraya biraz geri dönün (12°–45°).",
+    "en": "You turned your head too far; turn slightly back toward the camera (12°–45°).",
+    "de": "Sie haben Ihren Kopf zu weit gedreht; drehen Sie sich etwas zurück zur Kamera (12°–45°)."
+  },
+  "3c3d0e6c8a422cb5": {
+    "tr": "Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun.",
+    "en": "Turn your head slightly to your right (15°–45°); keep your mouth comfortably open.",
+    "de": "Drehen Sie Ihren Kopf leicht nach rechts (15°–45°); halten Sie den Mund entspannt geöffnet."
+  },
+  "d8d43c69c8d98b7c": {
+    "tr": "Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun.",
+    "en": "Turn your head slightly to your left (15°–45°); keep your mouth comfortably open.",
+    "de": "Drehen Sie Ihren Kopf leicht nach links (15°–45°); halten Sie den Mund entspannt geöffnet."
+  },
+  "a43491e7f7bd425c": {
+    "tr": "Başınızı çok fazla çevirdiniz; dişleriniz görünecek şekilde kameraya biraz geri dönün (15°–45°).",
+    "en": "You turned your head too far; turn slightly back toward the camera so your teeth remain visible (15°–45°).",
+    "de": "Sie haben Ihren Kopf zu weit gedreht; drehen Sie sich etwas zurück zur Kamera, damit Ihre Zähne sichtbar bleiben (15°–45°)."
+  },
+  "efd454d073101d5c": {
+    "tr": "Bölgesel Kural + Yerel ONNX (local-vit-dima806)",
+    "en": "Regional Rule + Local ONNX (local-vit-dima806)",
+    "de": "Regionale Regel + Lokales ONNX (local-vit-dima806)"
+  },
+  "9ca6d809c1f9e3aa": {
+    "tr": "Model/vekil tahmini · Klinik tanı değildir",
+    "en": "Model/proxy estimate · Not a clinical diagnosis",
+    "de": "Modell-/Proxy-Schätzung · Keine klinische Diagnose"
+  },
+  "893c03119ea6e4b7": {
+    "tr": "Yerel ONNX: acne-v5-step0-silu + logreg",
+    "en": "Local ONNX: acne-v5-step0-silu + logreg",
+    "de": "Lokales ONNX: acne-v5-step0-silu + logreg"
+  },
+  "45df6064efc03de2": {
+    "tr": "Yerel model: acne-v5 (devre dışı)",
+    "en": "Local model: acne-v5 (disabled)",
+    "de": "Lokales Modell: acne-v5 (deaktiviert)"
+  },
+  "798a34bfd6d101ed": {
+    "tr": "Yerel ONNX: dryness-calibrated-v3",
+    "en": "Local ONNX: dryness-calibrated-v3",
+    "de": "Lokales ONNX: dryness-calibrated-v3"
+  },
+  "c63e607419fadf5e": {
+    "tr": "Yerel Analitik: appearance-cv-6",
+    "en": "Local Analytic: appearance-cv-6",
+    "de": "Lokale Analytik: appearance-cv-6"
+  },
+  "791ece2b37f51d27": {
+    "tr": "Yerel ONNX: skin-focused-degrees + LAB a*",
+    "en": "Local ONNX: skin-focused-degrees + LAB a*",
+    "de": "Lokales ONNX: skin-focused-degrees + LAB a*"
+  },
+  "93cbee23b372f556": {
+    "tr": "Yerel Analitik: LAB a* (appearance-cv-6)",
+    "en": "Local Analytic: LAB a* (appearance-cv-6)",
+    "de": "Lokale Analytik: LAB a* (appearance-cv-6)"
+  },
+  "bb4117a8b3c086cb": {
+    "tr": "Yerel Analitik: parlama alanı (appearance-cv-6)",
+    "en": "Local Analytic: shine area (appearance-cv-6)",
+    "de": "Lokale Analytik: Glanzbereich (appearance-cv-6)"
+  },
+  "7d885a90c72f0148": {
+    "tr": "Yerel Analitik: sırt iskeleti (appearance-cv-6)",
+    "en": "Local Analytic: ridge skeleton (appearance-cv-6)",
+    "de": "Lokale Analytik: Linienskelett (appearance-cv-6)"
+  },
+  "b750b71971307224": {
+    "tr": "Yerel Analitik: alt kapak konturu (appearance-cv-6)",
+    "en": "Local Analytic: lower-lid contour (appearance-cv-6)",
+    "de": "Lokale Analytik: Unterlidkontur (appearance-cv-6)"
+  },
+  "3a08468ce177b3f1": {
+    "tr": "Yerel Analitik: periorbital renk (appearance-cv-6)",
+    "en": "Local Analytic: periorbital color (appearance-cv-6)",
+    "de": "Lokale Analytik: Periorbitalfarbe (appearance-cv-6)"
+  },
+  "8068bb29d7254ae5": {
+    "tr": "Yerel Analitik: 3B kontur oranı (appearance-cv-6)",
+    "en": "Local Analytic: 3D contour ratio (appearance-cv-6)",
+    "de": "Lokale Analytik: 3D-Konturverhältnis (appearance-cv-6)"
+  },
+  "44539fc676f427d7": {
+    "tr": "Yerel Analitik: kromatik dağılım (appearance-cv-6)",
+    "en": "Local Analytic: chromatic spread (appearance-cv-6)",
+    "de": "Lokale Analytik: Chromatische Streuung (appearance-cv-6)"
+  },
+  "04eb32d1dad72e32": {
+    "tr": "Dengeli",
+    "en": "Balanced",
+    "de": "Ausgeglichen"
+  },
+  "de2183d1913031d4": {
+    "tr": "Hassas",
+    "en": "Sensitive",
+    "de": "Empfindlich"
+  },
+  "bfb0ccd49962d1c9": {
+    "tr": "Kesinleştirilemedi",
+    "en": "Inconclusive",
+    "de": "Nicht eindeutig"
+  },
+  "8685efa310fd8366": {
+    "tr": "{0}: Kesinleştirilemedi",
+    "en": "{0}: Inconclusive",
+    "de": "{0}: Nicht eindeutig"
+  },
+  "2efbcf15d58cb8ea": {
+    "tr": "{0}: ayrıntılar",
+    "en": "{0}: details",
+    "de": "{0}: Details"
+  },
+  "75899c1069b7dcef": {
+    "tr": "{0} ve hassas",
+    "en": "{0} & sensitive",
+    "de": "{0}, empfindlich"
+  },
+  "ca39e8bace60458d": {
+    "tr": "Sağ profil",
+    "en": "Right profile",
+    "de": "Rechtes Profil"
+  },
+  "029bba15bfc39ab7": {
+    "tr": "Sol profil",
+    "en": "Left profile",
+    "de": "Linkes Profil"
+  },
+  "df82e8dacb9fa8ed": {
+    "tr": "Sağ Profil",
+    "en": "Right Profile",
+    "de": "Rechtes Profil"
+  },
+  "24b62cabf85deb4b": {
+    "tr": "Sol Profil",
+    "en": "Left Profile",
+    "de": "Linkes Profil"
+  },
+  "de7d1b721a1e0632": {
+    "tr": "i",
+    "en": "i",
+    "de": "i"
+  },
+  "66c6c2f57e750624": {
+    "tr": "Bölgesel cilt haritası (yerel model)",
+    "en": "Regional skin map (local model)",
+    "de": "Regionale Hautkarte (lokales Modell)"
+  },
+  "046912230255a78f": {
+    "tr": "Bu taramada bu bölge için kesin bir sonuca varılamadı. Olası nedenler:",
+    "en": "No conclusive result could be reached for this area in this scan. Possible reasons:",
+    "de": "Für diesen Bereich ließ sich in diesem Scan kein eindeutiges Ergebnis ermitteln. Mögliche Gründe:"
+  },
+  "cdf5a6c7ebfdf08a": {
+    "tr": "Bu bölgede ışık, gölge veya parlama kesin bir sonuç için yeterince dengeli değildi.",
+    "en": "Light, shadow or glare in this area was not even enough for a conclusive result.",
+    "de": "Licht, Schatten oder Spiegelungen waren in diesem Bereich für ein eindeutiges Ergebnis nicht gleichmäßig genug."
+  },
+  "7ee95e91764989a9": {
+    "tr": "Yüzün kameraya göre açısı bölgenin bir kısmını gizlemiş olabilir.",
+    "en": "The angle of the face to the camera may have hidden part of the area.",
+    "de": "Der Winkel des Gesichts zur Kamera hat möglicherweise einen Teil des Bereichs verdeckt."
+  },
+  "abed6dbb2c931f68": {
+    "tr": "Sakal veya kırışıklık çizgileri bölgenin büyük kısmını kaplıyor; değerlendirilebilecek açık cilt alanı yetersiz kaldı.",
+    "en": "Beard or wrinkle lines cover most of the area; too little bare skin was left to assess.",
+    "de": "Bart oder Falten bedecken den Großteil des Bereichs; es blieb zu wenig freie Haut für eine Bewertung."
+  },
+  "a40ab8bc3f997f65": {
+    "tr": "Bölge kadrajda yeterince görünmüyordu (açı, saç veya kadraj dışında kalma).",
+    "en": "The area was not visible enough in the frame (angle, hair or outside the frame).",
+    "de": "Der Bereich war im Bild nicht ausreichend sichtbar (Winkel, Haare oder außerhalb des Bildausschnitts)."
+  },
+  "671754ab6979fe61": {
+    "tr": "Bu bölge bu pozda görünmüyor; değerlendirme diğer pozdan yapılır.",
+    "en": "This area is not visible in this pose; it is assessed from the other pose.",
+    "de": "Dieser Bereich ist in dieser Pose nicht sichtbar; er wird anhand der anderen Pose bewertet."
+  },
+  "ab8e5f163f28b112": {
+    "tr": "Daha net bir sonuç için yeni bir taramayı aydınlık ve gölgesiz bir ortamda, yüzünüz kameraya dönük şekilde yapabilirsiniz.",
+    "en": "For a clearer result, you can run a new scan in bright, shadow-free light with your face turned toward the camera.",
+    "de": "Für ein klareres Ergebnis können Sie einen neuen Scan bei hellem, schattenfreiem Licht durchführen, mit dem Gesicht zur Kamera."
+  },
+  "eaa86323073b693f": {
+    "tr": "Taramada aşağıdaki olası neden(ler)den dolayı bölgesel sonuca varılamadı:",
+    "en": "The scan could not produce a result for this region due to the following possible reason(s):",
+    "de": "Beim Scan konnte für diesen Bereich aus folgendem möglichen Grund bzw. folgenden möglichen Gründen kein Ergebnis ermittelt werden:"
+  },
+  "3a4098178b5f2c6f": {
+    "tr": "Işık, gölge veya parlaklık yeterince dengeli olmamış olabilir.",
+    "en": "Lighting, shadows, or brightness may not have been sufficiently balanced.",
+    "de": "Beleuchtung, Schatten oder Helligkeit waren möglicherweise nicht ausreichend ausgeglichen."
+  },
+  "bd9872222a5df278": {
+    "tr": "Kamera açısı bölgenin tamamının görüntülenmesini engellemiş olabilir.",
+    "en": "The camera angle may have prevented the entire region from being captured.",
+    "de": "Der Kamerawinkel hat möglicherweise verhindert, dass der gesamte Bereich erfasst wurde."
+  },
+  "c861c7d68901db32": {
+    "tr": "Sakal veya kırışıklık çizgileri bölgenin büyük kısmını kaplamış olabilir.",
+    "en": "A beard or wrinkle lines may have covered most of the region.",
+    "de": "Bart oder Faltenlinien haben möglicherweise den Großteil des Bereichs bedeckt."
+  },
+  "d2ba0e8ded6e4878": {
+    "tr": "Taramayı tekrarlamadan önce yüzünüzün:",
+    "en": "Before repeating the scan, make sure your face is:",
+    "de": "Bevor Sie den Scan wiederholen, stellen Sie sicher, dass Ihr Gesicht:"
+  },
+  "92cdeaf91f109451": {
+    "tr": "Eşit şekilde aydınlatıldığından ve belirgin gölge veya parlaklık farkları oluşmadığından",
+    "en": "Evenly illuminated, without noticeable shadows or differences in brightness",
+    "de": "Gleichmäßig ausgeleuchtet ist, ohne deutliche Schatten oder Helligkeitsunterschiede"
+  },
+  "f808109d9f9a1f27": {
+    "tr": "Kameraya dönük ve doğru açıda konumlandırıldığından",
+    "en": "Facing the camera and positioned at the correct angle",
+    "de": "Der Kamera zugewandt und im richtigen Winkel positioniert ist"
+  },
+  "39ce3b3bb5544068": {
+    "tr": "emin olun.",
+    "en": "make sure.",
+    "de": "sicherstellen."
+  },
+  "288200894d202736": {
+    "tr": "Sivilce",
+    "en": "Pimples",
+    "de": "Pickel"
+  },
+  "1987bbda3f068159": {
+    "tr": "sivilce",
+    "en": "pimples",
+    "de": "Pickel"
+  },
+  "dcaa66fdc55b80a6": {
+    "tr": "Akne izi",
+    "en": "Acne marks",
+    "de": "Aknespuren"
+  },
+  "030d756286e59f22": {
+    "tr": "Ben",
+    "en": "Moles",
+    "de": "Muttermale"
+  },
+  "6700869c8ff7480e": {
+    "tr": "ben",
+    "en": "moles",
+    "de": "Muttermale"
+  },
+  "c5b1b1ce904606b3": {
+    "tr": "Türü belirlenemeyen leke",
+    "en": "Unclassified spots",
+    "de": "Nicht zuordenbare Flecken"
+  },
+  "72b597f8c2984c48": {
+    "tr": "leke",
+    "en": "spots",
+    "de": "Flecken"
+  },
+  "9f880b6515be6cfd": {
+    "tr": "Melazma",
+    "en": "Melasma",
+    "de": "Melasma"
+  },
+  "de292323c4f77933": {
+    "tr": "Kızarıklık",
+    "en": "Redness",
+    "de": "Rötung"
+  },
+  "3060b493e8865f67": {
+    "tr": "Rozasea benzeri kızarıklık",
+    "en": "Rosacea-like redness",
+    "de": "Rosazea-ähnliche Rötung"
+  },
+  "7dbb8e180e4187a9": {
+    "tr": "Alın çizgileri",
+    "en": "Forehead lines",
+    "de": "Stirnfalten"
+  },
+  "c8d61676b4fd33bd": {
+    "tr": "Göz altı torbası",
+    "en": "Under-eye bags",
+    "de": "Tränensäcke"
+  },
+  "ba68d1287e24e3f8": {
+    "tr": "Göz kapağı düşüklüğü",
+    "en": "Droopy eyelids",
+    "de": "Hängelider"
+  },
+  "02951a51f8a61d1e": {
+    "tr": "Göz kuyruğu düşüklüğü",
+    "en": "Downturned eyes",
+    "de": "Hängende Augenwinkel"
+  },
+  "95780ed4d03f6040": {
+    "tr": "Dudakta uçuk",
+    "en": "Cold sore",
+    "de": "Lippenherpes"
+  },
+  "1af123790a27bf87": {
+    "tr": "Ciltte kabarık, kırmızı veya iltihaplı görünen küçük noktalar.",
+    "en": "Small raised, red or inflamed-looking spots on the skin.",
+    "de": "Kleine erhabene, rote oder entzündet wirkende Stellen auf der Haut."
+  },
+  "c8ec80d576a7880c": {
+    "tr": "Sivilceleri sıkmayın. Yüzünüzü günde iki kez nazikçe temizleyin ve gözenek tıkamayan ürünler tercih edin.",
+    "en": "Don't squeeze pimples. Cleanse your face gently twice a day and choose non-comedogenic products.",
+    "de": "Drücken Sie Pickel nicht aus. Reinigen Sie Ihr Gesicht zweimal täglich sanft und wählen Sie nicht komedogene Produkte."
+  },
+  "ffc0c4d4b5ea5c25": {
+    "tr": "İyileşmiş sivilcelerden kalan düz, kahverengi veya kırmızımsı lekeler.",
+    "en": "Flat brown or reddish marks left by healed pimples.",
+    "de": "Flache braune oder rötliche Flecken, die von abgeheilten Pickeln zurückbleiben."
+  },
+  "7e2915277053a7e6": {
+    "tr": "Günlük güneş koruyucu izlerin koyulaşmasını önler. İzler zamanla açılabilir.",
+    "en": "Daily sunscreen keeps marks from darkening. Marks can fade over time.",
+    "de": "Täglicher Sonnenschutz verhindert, dass die Spuren nachdunkeln. Sie können mit der Zeit verblassen."
+  },
+  "9eb24e904df3cd71": {
+    "tr": "Ciltte koyu renkli, sınırları belirgin noktalar.",
+    "en": "Dark spots on the skin with clear borders.",
+    "de": "Dunkle Stellen auf der Haut mit deutlichen Rändern."
+  },
+  "14f35b78ec464b52": {
+    "tr": "Boyutu, rengi veya şekli değişen benleri bir uzmana kontrol ettirin.",
+    "en": "Have moles that change in size, colour or shape checked by a specialist.",
+    "de": "Lassen Sie Muttermale, die sich in Größe, Farbe oder Form verändern, von einer Fachperson untersuchen."
+  },
+  "527a36bad96f7141": {
+    "tr": "Ciltte görülen, türü bu taramada ayırt edilemeyen renk farklılıkları.",
+    "en": "Colour differences on the skin whose type could not be told apart in this scan.",
+    "de": "Farbunterschiede auf der Haut, deren Art in diesem Scan nicht unterschieden werden konnte."
+  },
+  "69d927e97c27412d": {
+    "tr": "Günlük güneş koruyucu kullanın. Değişen veya artan lekeler için bir uzmana danışın.",
+    "en": "Use sunscreen daily. See a specialist about spots that change or increase.",
+    "de": "Verwenden Sie täglich Sonnenschutz. Lassen Sie sich bei sich verändernden oder zunehmenden Flecken fachlich beraten."
+  },
+  "a8bd570dcedbcbcb": {
+    "tr": "Yanaklarda simetrik, kahverengi ve sınırları düzensiz renk değişimi görünümü.",
+    "en": "Symmetric brown discolouration with irregular borders on the cheeks.",
+    "de": "Symmetrische braune Verfärbung mit unregelmäßigen Rändern auf den Wangen."
+  },
+  "92da10d8f7a7c09d": {
+    "tr": "Güneş ışığı bu görünümü belirginleştirir. Yüksek korumalı güneş koruyucu kullanın.",
+    "en": "Sunlight makes this more visible. Use a high-protection sunscreen.",
+    "de": "Sonnenlicht verstärkt dieses Erscheinungsbild. Verwenden Sie Sonnenschutz mit hohem Schutzfaktor."
+  },
+  "5a37dc2c1b473963": {
+    "tr": "Ciltte yaygın veya bölgesel kızarıklık görünümü.",
+    "en": "Widespread or local redness on the skin.",
+    "de": "Ausgedehnte oder örtliche Rötung der Haut."
+  },
+  "e477a8c746e2ed42": {
+    "tr": "Sıcak su, alkollü ürünler ve sert peelingler kızarıklığı artırabilir. Yatıştırıcı ürünler tercih edin.",
+    "en": "Hot water, alcohol-based products and harsh scrubs can increase redness. Choose soothing products.",
+    "de": "Heißes Wasser, alkoholhaltige Produkte und scharfe Peelings können Rötungen verstärken. Wählen Sie beruhigende Produkte."
+  },
+  "a11ba0e3ba3c68c4": {
+    "tr": "Yanak ve burunda kalıcı kızarıklık ve ince damar görünümü.",
+    "en": "Persistent redness and fine visible vessels on the cheeks and nose.",
+    "de": "Anhaltende Rötung und feine sichtbare Äderchen auf Wangen und Nase."
+  },
+  "ae4345dd68f66a81": {
+    "tr": "Bu görünüm rozasea ile ilişkili olabilir. Kesin değerlendirme için bir dermatoloğa danışın.",
+    "en": "This may be related to rosacea. See a dermatologist for a definite assessment.",
+    "de": "Dies kann mit Rosazea zusammenhängen. Lassen Sie es dermatologisch abklären."
+  },
+  "95e6d39292f570b5": {
+    "tr": "Alında yatay ince çizgiler.",
+    "en": "Fine horizontal lines on the forehead.",
+    "de": "Feine waagerechte Linien auf der Stirn."
+  },
+  "83e11672affa9783": {
+    "tr": "Nemlendirme ve güneş koruması çizgilerin belirginleşmesini yavaşlatır.",
+    "en": "Moisturising and sun protection slow the deepening of lines.",
+    "de": "Feuchtigkeitspflege und Sonnenschutz verlangsamen die Vertiefung der Linien."
+  },
+  "a81293878d0d58f4": {
+    "tr": "Gözlerin dış köşesinde ince çizgiler.",
+    "en": "Fine lines at the outer corners of the eyes.",
+    "de": "Feine Linien an den äußeren Augenwinkeln."
+  },
+  "6c7b76ada563ee7b": {
+    "tr": "Güneş gözlüğü ve güneş koruyucu bu bölgeyi korumaya yardımcı olur.",
+    "en": "Sunglasses and sunscreen help protect this area.",
+    "de": "Sonnenbrille und Sonnenschutz helfen, diesen Bereich zu schützen."
+  },
+  "dea8c6f71ecba30b": {
+    "tr": "Alt göz kapağının altında şişkinlik görünümü.",
+    "en": "Puffiness below the lower eyelid.",
+    "de": "Schwellung unterhalb des Unterlids."
+  },
+  "8b27a63c213e3e1e": {
+    "tr": "Düzenli uyku ve tuz tüketimini azaltmak şişkinliği azaltabilir.",
+    "en": "Regular sleep and less salt can reduce puffiness.",
+    "de": "Regelmäßiger Schlaf und weniger Salz können Schwellungen verringern."
+  },
+  "0f9312601bad8a20": {
+    "tr": "Göz altında çevreye göre daha koyu renk görünümü.",
+    "en": "Skin under the eyes looks darker than the surrounding skin.",
+    "de": "Die Haut unter den Augen wirkt dunkler als die Umgebung."
+  },
+  "8aaed23d017b9325": {
+    "tr": "Yeterli uyku ve göz çevresine uygun nemlendirici görünümü iyileştirebilir.",
+    "en": "Enough sleep and an eye-area moisturiser can improve the appearance.",
+    "de": "Ausreichend Schlaf und eine Feuchtigkeitspflege für die Augenpartie können das Erscheinungsbild verbessern."
+  },
+  "c5015c7cd75626a0": {
+    "tr": "Üst göz kapağı derisinin kapak çizgisinin üzerine inmiş görünümü.",
+    "en": "The skin of the upper eyelid hangs over the lid crease.",
+    "de": "Die Haut des Oberlids hängt über die Lidfalte."
+  },
+  "ed6c3f092519998e": {
+    "tr": "Görüşünüzü etkiliyorsa bir göz doktoruna danışın.",
+    "en": "If it affects your vision, see an eye doctor.",
+    "de": "Wenn es Ihre Sicht beeinträchtigt, wenden Sie sich an eine Augenärztin oder einen Augenarzt."
+  },
+  "0310254a1f422b07": {
+    "tr": "Göz kuyruklarının (dış köşelerin) aşağı doğru eğimli görünümü.",
+    "en": "The outer corners of the eyes slope downwards.",
+    "de": "Die äußeren Augenwinkel neigen sich nach unten."
+  },
+  "4b24524da933ce8c": {
+    "tr": "Bu görünüm çoğunlukla yapısaldır; bilgi amaçlı gösterilir.",
+    "en": "This is mostly structural and is shown for information.",
+    "de": "Dies ist meist anlagebedingt und wird zur Information angezeigt."
+  },
+  "fc62e6b9e2f50879": {
+    "tr": "Dudak kenarında küçük kabarcık veya kabuklanma görünümü.",
+    "en": "Small blisters or crusting at the edge of the lip.",
+    "de": "Kleine Bläschen oder Krusten am Lippenrand."
+  },
+  "04b0a4372a0bbd42": {
+    "tr": "Bölgeye dokunmayın ve kişisel eşyalarınızı paylaşmayın. Sık tekrarlıyorsa bir doktora danışın.",
+    "en": "Don't touch the area and don't share personal items. If it recurs often, see a doctor.",
+    "de": "Berühren Sie die Stelle nicht und teilen Sie keine persönlichen Gegenstände. Bei häufigem Wiederauftreten ärztlichen Rat einholen."
+  },
+  "6d93b4dadf18e5d2": {
+    "tr": "Çene ve dudak",
+    "en": "Chin and lips",
+    "de": "Kinn und Lippen"
+  },
+  "a0fc843e280af879": {
+    "tr": "Genel bakış",
+    "en": "Overview",
+    "de": "Übersicht"
+  },
+  "f99f807e20f15319": {
+    "tr": "Bölgeler",
+    "en": "Regions",
+    "de": "Bereiche"
+  },
+  "e1b0af0c144d3e76": {
+    "tr": "Görünüm",
+    "en": "Appearance",
+    "de": "Erscheinungsbild"
+  },
+  "38a83bfbac677227": {
+    "tr": "Öneri",
+    "en": "Suggestion",
+    "de": "Empfehlung"
+  },
+  "6dbc149fc0269c14": {
+    "tr": "Bu sonuç fotoğraftaki görünüme dayanır ve tanı değildir.",
+    "en": "This result is based on how the skin looks in the photo and is not a diagnosis.",
+    "de": "Dieses Ergebnis beruht auf dem Erscheinungsbild im Foto und ist keine Diagnose."
+  },
+  "2448a6de4b9544fc": {
+    "tr": "Uzman seçeneklerini gör",
+    "en": "See specialist options",
+    "de": "Fachärztliche Optionen anzeigen"
+  },
+  "0a5a4fe526a3bb49": {
+    "tr": "Öneriler",
+    "en": "Suggestions",
+    "de": "Empfehlungen"
+  },
+  "c5766cda4018e587": {
+    "tr": "Gözlem notu",
+    "en": "Observation note",
+    "de": "Beobachtungsnotiz"
+  },
+  "fc94dbe1af7159d3": {
+    "tr": "bölge alanı",
+    "en": "of the area",
+    "de": "der Fläche"
+  },
+  "096c3e81b5020258": {
+    "tr": "%{0}",
+    "en": "{0}%",
+    "de": "{0} %"
+  },
+  "ad426fe11f3356b3": {
+    "tr": "Fotoğrafta gösteriliyor",
+    "en": "Shown on the photo",
+    "de": "Im Foto angezeigt"
+  },
+  "d3947d400193cf1c": {
+    "tr": "Fotoğrafta göster",
+    "en": "Show on the photo",
+    "de": "Im Foto anzeigen"
+  },
+  "fee984120cf401c9": {
+    "tr": "{0}: fotoğrafta göster",
+    "en": "{0}: show on the photo",
+    "de": "{0}: im Foto anzeigen"
+  },
+  "b99a34714c56fbca": {
+    "tr": "{0}: bilgi",
+    "en": "{0}: information",
+    "de": "{0}: Information"
+  },
+  "e00067ce3c4c9b08": {
+    "tr": "Bu bölgede {0} bulgu görüldü. Fotoğrafta görmek için bir bulguya dokunun.",
+    "en": "{0} findings were seen in this area. Tap a finding to see it on the photo.",
+    "de": "In diesem Bereich wurden {0} Befunde gesehen. Tippen Sie auf einen Befund, um ihn im Foto zu sehen."
+  },
+  "a665ab447f29a3b8": {
+    "tr": "Bu taramada bu bölgede bulgu görülmedi.",
+    "en": "No findings were seen in this area in this scan.",
+    "de": "In diesem Scan wurden in diesem Bereich keine Befunde gesehen."
+  },
+  "2a7622127f2f7636": {
+    "tr": "{0} bulgu kesinleştirilemedi",
+    "en": "{0} findings could not be confirmed",
+    "de": "{0} Befunde nicht eindeutig"
+  },
+  "5f16f6278aad2e46": {
+    "tr": "Nedenini gör",
+    "en": "See why",
+    "de": "Grund anzeigen"
+  },
+  "b18eeab5fd17323a": {
+    "tr": "Bu taramada görülmeyenler ({0})",
+    "en": "Not seen in this scan ({0})",
+    "de": "In diesem Scan nicht gesehen ({0})"
+  },
+  "4559819ab974d68e": {
+    "tr": "\"Görülmedi\", bulgunun kesin olarak olmadığı anlamına gelmez; bu taramadaki fotoğrafta belirgin değildir.",
+    "en": "\"Not seen\" does not mean the finding is definitely absent; it was not visible in the photo of this scan.",
+    "de": "„Nicht gesehen\" bedeutet nicht, dass der Befund sicher fehlt; er war im Foto dieses Scans nicht erkennbar."
+  },
+  "86b08e08a773f9de": {
+    "tr": "Bu taramada {0} bulgu görüldü. Ayrıntı için bir bölgeye dokunun.",
+    "en": "{0} findings were seen in this scan. Tap an area for details.",
+    "de": "In diesem Scan wurden {0} Befunde gesehen. Tippen Sie für Details auf einen Bereich."
+  },
+  "cfeda8deda872704": {
+    "tr": "Bu taramada bulgu görülmedi.",
+    "en": "No findings were seen in this scan.",
+    "de": "In diesem Scan wurden keine Befunde gesehen."
+  },
+  "a8c351d815220e23": {
+    "tr": "Bölgelere göre bulgular",
+    "en": "Findings by area",
+    "de": "Befunde nach Bereich"
+  },
+  "35e3aeaa5ac1f920": {
+    "tr": "Bulgu görülmedi",
+    "en": "No findings seen",
+    "de": "Keine Befunde gesehen"
+  },
+  "b1083218c97cac9b": {
+    "tr": "Cilt analizi",
+    "en": "Skin analysis",
+    "de": "Hautanalyse"
+  },
+  "a70801762a43379f": {
+    "tr": "Sonuçlar nasıl okunur?",
+    "en": "How to read the results",
+    "de": "So lesen Sie die Ergebnisse"
+  },
+  "57e695eba99f80c5": {
+    "tr": "Gösterilen bulgular, fotoğraftaki görünüme göre en az %80 doğrulukla doğrulanmış yöntemlerden gelir.",
+    "en": "The findings shown come from methods validated to be at least 80% accurate on how the skin looks in the photo.",
+    "de": "Die angezeigten Befunde stammen aus Verfahren, die anhand des Erscheinungsbilds im Foto mit mindestens 80 % Genauigkeit validiert wurden."
+  },
+  "12119e247a323c42": {
+    "tr": "Bir bulguya dokunduğunuzda fotoğrafta yalnızca o bulgu işaretlenir.",
+    "en": "When you tap a finding, only that finding is marked on the photo.",
+    "de": "Wenn Sie auf einen Befund tippen, wird nur dieser im Foto markiert."
+  },
+  "f4df4f61caab331c": {
+    "tr": "Işık, açı veya sakal nedeniyle okunamayan bölgeler \"Kesinleştirilemedi\" olarak gösterilir.",
+    "en": "Areas that could not be read because of light, angle or beard are shown as \"Inconclusive\".",
+    "de": "Bereiche, die wegen Licht, Winkel oder Bart nicht auswertbar waren, werden als „Nicht eindeutig\" angezeigt."
+  },
+  "b6dece0a303fa280": {
+    "tr": "Katmanı kapat",
+    "en": "Close layer",
+    "de": "Ebene schließen"
+  },
+  "bc6259e58b11fa13": {
+    "tr": "Önceki bulgu",
+    "en": "Previous finding",
+    "de": "Vorheriger Befund"
+  },
+  "a4b8969b3e9cbe23": {
+    "tr": "Sonraki bulgu",
+    "en": "Next finding",
+    "de": "Nächster Befund"
+  },
+  "1d15caf503503d75": {
+    "tr": "Belirginlik",
+    "en": "Visibility",
+    "de": "Ausprägung"
+  },
+  "8e42dc2f2a0a6934": {
+    "tr": "Hafif",
+    "en": "Mild",
+    "de": "Leicht"
+  },
+  "e8d77d452a3b5abf": {
+    "tr": "Orta",
+    "en": "Moderate",
+    "de": "Mittel"
+  },
+  "23cf1c35ddf5c78a": {
+    "tr": "Belirgin",
+    "en": "Pronounced",
+    "de": "Deutlich"
+  },
+  "8b946749ef429509": {
+    "tr": "Kapladığı alan",
+    "en": "Area covered",
+    "de": "Flächenanteil"
+  },
+  "d320a13654f8093e": {
+    "tr": "Geçmiş",
+    "en": "History",
+    "de": "Verlauf"
+  },
+  "72f426a4899b916f": {
+    "tr": "Geçmiş grafiği bir sonraki taramanızdan sonra burada görünür.",
+    "en": "The history chart appears here after your next scan.",
+    "de": "Der Verlauf erscheint hier nach Ihrem nächsten Scan."
+  },
+  "f0b4295648410753": {
+    "tr": "Seçilen tarih aralığında yeterli tarama yok.",
+    "en": "There are not enough scans in the selected date range.",
+    "de": "Im gewählten Zeitraum gibt es nicht genug Scans."
+  },
+  "11e2a48c15cb74b4": {
+    "tr": "Belirginlik geçmişi",
+    "en": "Visibility history",
+    "de": "Verlauf der Ausprägung"
+  },
+  "d58303d2bd91738d": {
+    "tr": "Son 3 ay",
+    "en": "Last 3 months",
+    "de": "Letzte 3 Monate"
+  },
+  "ca9710e475d44582": {
+    "tr": "Son 6 ay",
+    "en": "Last 6 months",
+    "de": "Letzte 6 Monate"
+  },
+  "140b6a85ed4fa136": {
+    "tr": "Önceki ay",
+    "en": "Previous month",
+    "de": "Vorheriger Monat"
+  },
+  "bc1d7478bad26e73": {
+    "tr": "Sonraki ay",
+    "en": "Next month",
+    "de": "Nächster Monat"
+  },
+  "adcae11e0b5dfcd7": {
+    "tr": "Tarama yapılan günler",
+    "en": "Days with a scan",
+    "de": "Tage mit Scan"
+  },
+  "08a24723d591db14": {
+    "tr": "Uygula",
+    "en": "Apply",
+    "de": "Anwenden"
+  },
+  "79cdfa507edfd79b": {
+    "tr": "Tercih edebileceğiniz içerikler",
+    "en": "Ingredients you can choose",
+    "de": "Wirkstoffe, die Sie wählen können"
+  },
+  "2af1051d06fab5a8": {
+    "tr": "Sabah",
+    "en": "Morning",
+    "de": "Morgens"
+  },
+  "6a7119d2216186ec": {
+    "tr": "Akşam",
+    "en": "Evening",
+    "de": "Abends"
+  },
+  "606aaa0be3664e84": {
+    "tr": "Kullanım",
+    "en": "How to use",
+    "de": "Anwendung"
+  },
+  "0bd2f08e9b303139": {
+    "tr": "Alışkanlık",
+    "en": "Habit",
+    "de": "Gewohnheit"
+  },
+  "f86f2240b99710b4": {
+    "tr": "Öneriler fotoğraftaki görünüme dayanır ve tanı değildir. Şikâyetiniz sürerse bir uzmana danışın.",
+    "en": "Suggestions are based on how your skin looks in the photo and are not a diagnosis. If your concern persists, consult a specialist.",
+    "de": "Die Empfehlungen beruhen auf dem Erscheinungsbild im Foto und sind keine Diagnose. Wenn Ihre Beschwerden anhalten, wenden Sie sich an eine Fachperson."
+  },
+  "94d190d707ed2f2e": {
+    "tr": "Tekrar taramadan önce",
+    "en": "Before you scan again",
+    "de": "Vor dem nächsten Scan"
+  },
+  "0d07f4380bd9b861": {
+    "tr": "Yüzünüzün eşit şekilde aydınlatıldığından emin olun.",
+    "en": "Make sure your face is evenly lit.",
+    "de": "Achten Sie darauf, dass Ihr Gesicht gleichmäßig beleuchtet ist."
+  },
+  "bb59cc5fc65b4aa4": {
+    "tr": "Yüzünüzün kameraya dönük olduğundan emin olun.",
+    "en": "Make sure your face is turned towards the camera.",
+    "de": "Achten Sie darauf, dass Ihr Gesicht der Kamera zugewandt ist."
+  },
+  "3d7467e191b6efa5": {
+    "tr": "Yüzünüzün eşit şekilde aydınlatıldığından ve kameraya dönük olduğundan emin olun.",
+    "en": "Make sure your face is evenly lit and turned towards the camera.",
+    "de": "Achten Sie darauf, dass Ihr Gesicht gleichmäßig beleuchtet und der Kamera zugewandt ist."
+  },
+  "25f890e39fd70684": {
+    "tr": "Tekrar tara",
+    "en": "Scan again",
+    "de": "Neu scannen"
+  },
+  "0c53d02890b3f68d": {
+    "tr": "Bu taramada bu bölgede öne çıkan bir bulgu yok.",
+    "en": "No notable finding in this area in this scan.",
+    "de": "In diesem Scan gibt es in diesem Bereich keinen auffälligen Befund."
+  },
+  "70aab7b9b7e313d2": {
+    "tr": "Ayrıntılar",
+    "en": "Details",
+    "de": "Details"
+  },
+  "2dc9ab5e988c95ab": {
+    "tr": "Bu taramada {0} bulgu görüldü",
+    "en": "{0} findings seen in this scan",
+    "de": "{0} Befunde in diesem Scan"
+  },
+  "46012ae610544c3a": {
+    "tr": "Bu taramada öne çıkan bir bulgu yok",
+    "en": "No notable findings in this scan",
+    "de": "Keine auffälligen Befunde in diesem Scan"
+  },
+  "f4abf0152be4cc3f": {
+    "tr": "Öne çıkan bulgu yok",
+    "en": "No notable findings",
+    "de": "Keine auffälligen Befunde"
+  },
+  "1492dd7b9ec24fda": {
+    "tr": "Ön değerlendirme · Tanı değildir",
+    "en": "Preliminary assessment · Not a diagnosis",
+    "de": "Vorabeinschätzung · Keine Diagnose"
+  },
+  "d8cd1b3ee908e105": {
+    "tr": "T-bölgesi",
+    "en": "T-zone",
+    "de": "T-Zone"
+  },
+  "b51dd42888cccdf6": {
+    "tr": "Dudak ve çevresi",
+    "en": "Lips and surroundings",
+    "de": "Lippen und Umgebung"
+  },
+  "845196bea39b1635": {
+    "tr": "Adapalen",
+    "en": "Adapalene",
+    "de": "Adapalen"
+  },
+  "d206e9e5043e30a0": {
+    "tr": "Adapalen (%0,1)",
+    "en": "Adapalene (0.1%)",
+    "de": "Adapalen (0,1 %)"
+  },
+  "7a3af2f6c4ab5487": {
+    "tr": "Adapalen ve benzoil peroksit",
+    "en": "Adapalene and benzoyl peroxide",
+    "de": "Adapalen und Benzoylperoxid"
+  },
+  "3d59ba31f03029b1": {
+    "tr": "Akşamları daha az tuz tüketin.",
+    "en": "Eat less salt in the evening.",
+    "de": "Essen Sie abends weniger Salz."
+  },
+  "20f0ab83dc655139": {
+    "tr": "Alerji mevsiminde gözlerinizi ovmaktan kaçının.",
+    "en": "Avoid rubbing your eyes during allergy season.",
+    "de": "Reiben Sie sich in der Allergiezeit nicht die Augen."
+  },
+  "e86023b428b16083": {
+    "tr": "Alerji veya kansızlık morluğu artırabilir; sürerse doktora danışın.",
+    "en": "Allergies or anaemia can deepen dark circles; see a doctor if they persist.",
+    "de": "Allergien oder Blutarmut können Augenringe verstärken; wenden Sie sich bei anhaltenden Augenringen an eine Ärztin oder einen Arzt."
+  },
+  "76466f4496b23441": {
+    "tr": "Alfa arbutin",
+    "en": "Alpha arbutin",
+    "de": "Alpha-Arbutin"
+  },
+  "efbecc973448ccc9": {
+    "tr": "Alkollü tonik ve tanecikli peelinglerden kaçının.",
+    "en": "Avoid alcohol-based toners and grainy scrubs.",
+    "de": "Verzichten Sie auf alkoholhaltige Gesichtswasser und Peelings mit Körnchen."
+  },
+  "fdd99e6abfaa1363": {
+    "tr": "Antioksidanlı göz kremi ve güneş koruyucu",
+    "en": "Antioxidant eye cream and sunscreen",
+    "de": "Augencreme mit Antioxidantien und Sonnenschutz"
+  },
+  "165ce52834df89b8": {
+    "tr": "Asiklovir veya dokosanol içeren uçuk kremi",
+    "en": "Cold sore cream with aciclovir or docosanol",
+    "de": "Lippenherpescreme mit Aciclovir oder Docosanol"
+  },
+  "930d40ad20f265ba": {
+    "tr": "Aynı nemlendirici",
+    "en": "The same moisturiser",
+    "de": "Dieselbe Feuchtigkeitspflege"
+  },
+  "427da274442a576b": {
+    "tr": "Azelaik asit",
+    "en": "Azelaic acid",
+    "de": "Azelainsäure"
+  },
+  "f0596b6f4e73be1a": {
+    "tr": "Azelaik asit (%10)",
+    "en": "Azelaic acid (10%)",
+    "de": "Azelainsäure (10 %)"
+  },
+  "4559c65c5ce86fa4": {
+    "tr": "Azelaik asit (%10–15)",
+    "en": "Azelaic acid (10–15%)",
+    "de": "Azelainsäure (10–15 %)"
+  },
+  "62f7d81cf7ec892c": {
+    "tr": "Azelaik asit (%15)",
+    "en": "Azelaic acid (15%)",
+    "de": "Azelainsäure (15 %)"
+  },
+  "dace0638911b3c60": {
+    "tr": "Başınız hafif yüksekte uyuyun.",
+    "en": "Sleep with your head slightly raised.",
+    "de": "Schlafen Sie mit leicht erhöhtem Kopf."
+  },
+  "48f0db550bee0ff3": {
+    "tr": "Benler için kozmetik içerik önerilmez; öneriler güneşten korunma ve düzenli kontrol üzerinedir.",
+    "en": "No cosmetic ingredients are suggested for moles; the advice covers sun protection and regular checks.",
+    "de": "Für Muttermale werden keine kosmetischen Wirkstoffe empfohlen; die Hinweise betreffen Sonnenschutz und regelmäßige Kontrolle."
+  },
+  "70cb4412bd05d9eb": {
+    "tr": "Benzoil peroksit",
+    "en": "Benzoyl peroxide",
+    "de": "Benzoylperoxid"
+  },
+  "8861605f4ea2c5d7": {
+    "tr": "Benzoil peroksit (%2,5–5)",
+    "en": "Benzoyl peroxide (2.5–5%)",
+    "de": "Benzoylperoxid (2,5–5 %)"
+  },
+  "797ab1e821a88c39": {
+    "tr": "Benzoil peroksitli temizleyici",
+    "en": "Benzoyl peroxide cleanser",
+    "de": "Reinigung mit Benzoylperoxid"
+  },
+  "90cddc6481a0a2e3": {
+    "tr": "Bilgi amaçlı izleyin.",
+    "en": "Keep an eye on it for your information.",
+    "de": "Zur Information beobachten."
+  },
+  "2181291f5a6e9920": {
+    "tr": "Botulinum toksini gibi işlemler için dermatologla görüşün.",
+    "en": "Talk to a dermatologist about treatments such as botulinum toxin.",
+    "de": "Sprechen Sie mit einer Hautärztin oder einem Hautarzt über Behandlungen wie Botulinumtoxin."
+  },
+  "8eaff690c901e430": {
+    "tr": "Botulinum toksini veya dolgu gibi işlemler için dermatologla görüşün.",
+    "en": "Talk to a dermatologist about treatments such as botulinum toxin or fillers.",
+    "de": "Sprechen Sie mit einer Hautärztin oder einem Hautarzt über Behandlungen wie Botulinumtoxin oder Filler."
+  },
+  "6fe860283c0885b6": {
+    "tr": "Bu görünüm çoğunlukla yapısaldır ve bilgi amaçlı gösterilir.",
+    "en": "This appearance is mostly structural and is shown for your information.",
+    "de": "Dieses Erscheinungsbild ist meist anlagebedingt und wird zur Information angezeigt."
+  },
+  "47df7526d595f28a": {
+    "tr": "Buzdolabında soğutulmuş kafeinli göz serumu",
+    "en": "Refrigerated caffeine eye serum",
+    "de": "Im Kühlschrank gekühltes Koffein-Augenserum"
+  },
+  "e955dddc57af4064": {
+    "tr": "Bölgeye dokunmayın; havlu, bardak ve dudak ürünü paylaşmayın. SPF içeren dudak koruyucu güneşin tetiklediği uçukları azaltır. Yaygın, ağrılı veya yılda birkaç kez tekrarlayan uçuklarda doktora başvurun.",
+    "en": "Do not touch the area; do not share towels, glasses or lip products. A lip balm with SPF reduces sun-triggered cold sores. See a doctor if cold sores are widespread, painful or return several times a year.",
+    "de": "Berühren Sie die Stelle nicht und teilen Sie keine Handtücher, Gläser oder Lippenprodukte. Ein Lippenpflegestift mit LSF verringert durch Sonne ausgelösten Lippenherpes. Bei ausgedehntem, schmerzhaftem oder mehrmals im Jahr wiederkehrendem Lippenherpes wenden Sie sich an eine Ärztin oder einen Arzt."
+  },
+  "4c8240b33e6c4f82": {
+    "tr": "C vitamini",
+    "en": "Vitamin C",
+    "de": "Vitamin C"
+  },
+  "97c51f8293926a27": {
+    "tr": "C vitamini (%10–15)",
+    "en": "Vitamin C (10–15%)",
+    "de": "Vitamin C (10–15 %)"
+  },
+  "24c6568daea0487a": {
+    "tr": "C vitamini serumu",
+    "en": "Vitamin C serum",
+    "de": "Vitamin-C-Serum"
+  },
+  "5b22ab4c2ef777bc": {
+    "tr": "C vitamini serumu ve SPF 30 veya üzeri",
+    "en": "Vitamin C serum and SPF 30 or higher",
+    "de": "Vitamin-C-Serum und LSF 30 oder höher"
+  },
+  "41224c3d3c208671": {
+    "tr": "C vitamini serumu ve SPF 50",
+    "en": "Vitamin C serum and SPF 50",
+    "de": "Vitamin-C-Serum und LSF 50"
+  },
+  "6d2a09975d5e314c": {
+    "tr": "C vitamini serumu ve güneş koruyucu",
+    "en": "Vitamin C serum and sunscreen",
+    "de": "Vitamin-C-Serum und Sonnenschutz"
+  },
+  "e5b679ee42fd563c": {
+    "tr": "C vitamini serumu ve renkli SPF 50",
+    "en": "Vitamin C serum and tinted SPF 50",
+    "de": "Vitamin-C-Serum und getönter LSF 50"
+  },
+  "8952c66d2aca2810": {
+    "tr": "C vitamini ve güneş koruyucu",
+    "en": "Vitamin C and sunscreen",
+    "de": "Vitamin C und Sonnenschutz"
+  },
+  "0ccca8825243aa9c": {
+    "tr": "C vitaminli göz serumu",
+    "en": "Vitamin C eye serum",
+    "de": "Augenserum mit Vitamin C"
+  },
+  "eccfb705d4102ba7": {
+    "tr": "Centella asiatica özü (cica)",
+    "en": "Centella asiatica extract (cica)",
+    "de": "Centella-asiatica-Extrakt (Cica)"
+  },
+  "7749e3d1f1bc5198": {
+    "tr": "Cica",
+    "en": "Cica",
+    "de": "Cica"
+  },
+  "06ed0bc6755919cb": {
+    "tr": "Cica içeren nemlendirici",
+    "en": "Moisturiser with cica",
+    "de": "Feuchtigkeitspflege mit Cica"
+  },
+  "33ba5cd230d71daf": {
+    "tr": "Cilt alıştıkça her gece retinoid",
+    "en": "A retinoid every night once your skin has adjusted",
+    "de": "Retinoid jede Nacht, sobald sich die Haut gewöhnt hat"
+  },
+  "0f39ad4ccd7264f7": {
+    "tr": "Cilt kurursa retinolden önce nemlendirici sürün.",
+    "en": "If your skin gets dry, apply moisturiser before the retinol.",
+    "de": "Wenn die Haut trocken wird, tragen Sie vor dem Retinol eine Feuchtigkeitspflege auf."
+  },
+  "6d4284fdbe633113": {
+    "tr": "Demir oksit içeren renkli güneş koruyucu görünür ışığa karşı da korur.",
+    "en": "A tinted sunscreen with iron oxides also protects against visible light.",
+    "de": "Ein getönter Sonnenschutz mit Eisenoxiden schützt auch vor sichtbarem Licht."
+  },
+  "bdd7681db629f197": {
+    "tr": "Derin, ağrılı veya iz bırakan sivilcelerde dermatoloğa danışın. Adapalen bazı ülkelerde reçetelidir.",
+    "en": "See a dermatologist for deep, painful or scarring spots. Adapalene is prescription-only in some countries.",
+    "de": "Bei tiefen, schmerzhaften oder narbenbildenden Pickeln wenden Sie sich an eine Hautärztin oder einen Hautarzt. Adapalen ist in manchen Ländern verschreibungspflichtig."
+  },
+  "54f0cba9bab02f9d": {
+    "tr": "Dermatoloğa başvurun.",
+    "en": "See a dermatologist.",
+    "de": "Wenden Sie sich an eine Hautärztin oder einen Hautarzt."
+  },
+  "e6ae900d4fb665c4": {
+    "tr": "Dermatoloğa danışın. Hamilelik ve hormon tedavisi melazmayı etkileyebilir; uzmana belirtin.",
+    "en": "Consult a dermatologist. Pregnancy and hormone therapy can affect melasma; mention them to the specialist.",
+    "de": "Wenden Sie sich an eine Hautärztin oder einen Hautarzt. Schwangerschaft und Hormontherapie können Melasma beeinflussen; erwähnen Sie dies bitte."
+  },
+  "93bcc7f7df2b3133": {
+    "tr": "Dermatoloğa danışın; reçeteli tedaviler uzman kararıyla kullanılır.",
+    "en": "Consult a dermatologist; prescription treatments are used only on a specialist's advice.",
+    "de": "Wenden Sie sich an eine Hautärztin oder einen Hautarzt; verschreibungspflichtige Behandlungen werden nur nach fachlicher Entscheidung angewendet."
+  },
+  "88ed14c45a68491a": {
+    "tr": "Dönüşümlü gecelerde retinol",
+    "en": "Retinol on alternate nights",
+    "de": "Retinol an abwechselnden Abenden"
+  },
+  "965ba4dd382e5f82": {
+    "tr": "Dışarıdayken güneş koruyucuyu 2 saatte bir yenileyin.",
+    "en": "Reapply sunscreen every 2 hours when outdoors.",
+    "de": "Erneuern Sie den Sonnenschutz im Freien alle 2 Stunden."
+  },
+  "0d3946ffc0e4b57c": {
+    "tr": "Ekran başında düzenli mola verin.",
+    "en": "Take regular breaks from screens.",
+    "de": "Machen Sie am Bildschirm regelmäßig Pausen."
+  },
+  "ee72f6cdf0a4a7f3": {
+    "tr": "Ekran parlaklığını ortama göre ayarlayın.",
+    "en": "Adjust screen brightness to your surroundings.",
+    "de": "Passen Sie die Bildschirmhelligkeit an die Umgebung an."
+  },
+  "19a310edb426ee19": {
+    "tr": "Estetik seçenekler için dermatolog veya plastik cerrahla görüşün.",
+    "en": "Talk to a dermatologist or plastic surgeon about cosmetic options.",
+    "de": "Sprechen Sie mit einer Hautärztin, einem Hautarzt oder einer plastischen Chirurgin bzw. einem plastischen Chirurgen über ästhetische Möglichkeiten."
+  },
+  "6cd40bc7c0056d86": {
+    "tr": "Geniş spektrumlu SPF 50",
+    "en": "Broad-spectrum SPF 50",
+    "de": "Breitband-LSF 50"
+  },
+  "c8d84fa684f0a955": {
+    "tr": "Glikolik asit (%8–10)",
+    "en": "Glycolic acid (8–10%)",
+    "de": "Glykolsäure (8–10 %)"
+  },
+  "7011c32cb5d1545c": {
+    "tr": "Görüş alanınızda daralma fark ederseniz göz doktoruna başvurun.",
+    "en": "If you notice your field of vision narrowing, see an eye doctor.",
+    "de": "Wenn Sie eine Einschränkung Ihres Sichtfelds bemerken, wenden Sie sich an eine Augenärztin oder einen Augenarzt."
+  },
+  "e66c660a2439683d": {
+    "tr": "Göz doktoru veya plastik cerrah değerlendirmesi önerilir.",
+    "en": "An assessment by an eye doctor or plastic surgeon is recommended.",
+    "de": "Eine Beurteilung durch eine Augenärztin, einen Augenarzt oder die plastische Chirurgie wird empfohlen."
+  },
+  "d4d093756976c162": {
+    "tr": "Göz makyajını ovmadan temizleyin.",
+    "en": "Remove eye make-up without rubbing.",
+    "de": "Entfernen Sie Augen-Make-up, ohne zu reiben."
+  },
+  "ee3f9e7fdab6b8db": {
+    "tr": "Göz nemlendiricisi",
+    "en": "Eye moisturiser",
+    "de": "Augenpflege"
+  },
+  "fbc645f5c9ccc635": {
+    "tr": "Göz çevresine güneş koruyucuyu da sürün.",
+    "en": "Apply sunscreen around the eyes too.",
+    "de": "Tragen Sie Sonnenschutz auch um die Augen auf."
+  },
+  "df504ebb2e67c889": {
+    "tr": "Göz çevresine uygun düşük oranlı retinol",
+    "en": "Low-strength retinol suitable for the eye area",
+    "de": "Niedrig dosiertes Retinol für die Augenpartie"
+  },
+  "e40a09abbb8a71c1": {
+    "tr": "Göz çevresine uygun düşük oranlı retinol (%0,1–0,25)",
+    "en": "Low-strength retinol suitable for the eye area (0.1–0.25%)",
+    "de": "Niedrig dosiertes Retinol für die Augenpartie (0,1–0,25 %)"
+  },
+  "25f79d94407f8cb9": {
+    "tr": "Göz çevresine uygun retinol",
+    "en": "Retinol suitable for the eye area",
+    "de": "Retinol für die Augenpartie"
+  },
+  "ee5f3719dac6bfae": {
+    "tr": "Göz çevresini güneşten koruyun.",
+    "en": "Protect the eye area from the sun.",
+    "de": "Schützen Sie die Augenpartie vor der Sonne."
+  },
+  "6db818b5139d7df6": {
+    "tr": "Gözenek tıkamayan (non-komedojenik) nemlendirici kullanın.",
+    "en": "Use a non-comedogenic moisturiser.",
+    "de": "Verwenden Sie eine nicht komedogene Feuchtigkeitspflege."
+  },
+  "b6ddd837dcaf0195": {
+    "tr": "Gözlerinizi ovmayın; makyajı nazikçe temizleyin.",
+    "en": "Do not rub your eyes; remove make-up gently.",
+    "de": "Reiben Sie sich nicht die Augen; entfernen Sie Make-up sanft."
+  },
+  "e1df8a2c6ce13705": {
+    "tr": "Gün aşırı retinol",
+    "en": "Retinol every other night",
+    "de": "Retinol jeden zweiten Abend"
+  },
+  "2a5c994bf76ae337": {
+    "tr": "Gün içinde yeterli su için.",
+    "en": "Drink enough water during the day.",
+    "de": "Trinken Sie tagsüber ausreichend Wasser."
+  },
+  "906e640e27c3f7c1": {
+    "tr": "Güneş gözlüğü gözünüzü kısmanızı azaltır.",
+    "en": "Sunglasses help you squint less.",
+    "de": "Eine Sonnenbrille verringert das Zusammenkneifen der Augen."
+  },
+  "c049669c2a4b909d": {
+    "tr": "Güneş gözlüğü kullanın.",
+    "en": "Wear sunglasses.",
+    "de": "Tragen Sie eine Sonnenbrille."
+  },
+  "173322d5cbaf4cbb": {
+    "tr": "Güneş gözlüğü ve göz çevresine uygun güneş koruyucu kullanın.",
+    "en": "Wear sunglasses and use a sunscreen suitable for the eye area.",
+    "de": "Tragen Sie eine Sonnenbrille und verwenden Sie einen Sonnenschutz für die Augenpartie."
+  },
+  "fc602cafd40ebc22": {
+    "tr": "Güneş koruması göz çevresi derisinin esnekliğini korur.",
+    "en": "Sun protection helps the skin around the eyes keep its elasticity.",
+    "de": "Sonnenschutz erhält die Elastizität der Haut um die Augen."
+  },
+  "84c2dd551dc5ef1b": {
+    "tr": "Günlük güneş koruyucu izlerin koyulaşmasını önler.",
+    "en": "Daily sunscreen keeps marks from darkening.",
+    "de": "Täglicher Sonnenschutz verhindert, dass Male nachdunkeln."
+  },
+  "35355650b9a47c42": {
+    "tr": "Günlük güneş koruyucu çizgilerin derinleşmesini yavaşlatır.",
+    "en": "Daily sunscreen slows the deepening of lines.",
+    "de": "Täglicher Sonnenschutz verlangsamt die Vertiefung von Linien."
+  },
+  "8c2ad966036b7fcb": {
+    "tr": "Hafif göz nemlendiricisi",
+    "en": "Light eye moisturiser",
+    "de": "Leichte Augenpflege"
+  },
+  "179118a767b2e355": {
+    "tr": "Hafif, jel kıvamlı göz nemlendiricisi",
+    "en": "Light gel eye moisturiser",
+    "de": "Leichte Augenpflege in Gelform"
+  },
+  "98dc515aefe258e3": {
+    "tr": "Haftada 2–3 gece göz çevresine uygun retinol, diğer geceler peptitli krem",
+    "en": "Eye-area retinol 2–3 nights a week, a peptide cream on other nights",
+    "de": "Retinol für die Augenpartie an 2–3 Abenden pro Woche, an den übrigen Abenden eine Peptidcreme"
+  },
+  "f67c8a535823e659": {
+    "tr": "Haftada 2–3 gece retinol",
+    "en": "Retinol 2–3 nights a week",
+    "de": "Retinol an 2–3 Abenden pro Woche"
+  },
+  "82b20d0b5026e72d": {
+    "tr": "Haftada 2–3 gece retinollü göz kremi",
+    "en": "Retinol eye cream 2–3 nights a week",
+    "de": "Retinol-Augencreme an 2–3 Abenden pro Woche"
+  },
+  "89549326c67393be": {
+    "tr": "Haftada 3 geceden başlayarak adapalen",
+    "en": "Adapalene, starting with 3 nights a week",
+    "de": "Adapalen, beginnend mit 3 Abenden pro Woche"
+  },
+  "838eafbcee2a4eb6": {
+    "tr": "Haftada 3–4 gece azelaik asit veya traneksamik asit",
+    "en": "Azelaic acid or tranexamic acid 3–4 nights a week",
+    "de": "Azelainsäure oder Tranexamsäure an 3–4 Abenden pro Woche"
+  },
+  "8021c7de649e64ab": {
+    "tr": "Her gün güneş koruyucu kullanın.",
+    "en": "Use sunscreen every day.",
+    "de": "Verwenden Sie täglich Sonnenschutz."
+  },
+  "c1cddadf6fe14ef2": {
+    "tr": "Hyalüronik asit",
+    "en": "Hyaluronic acid",
+    "de": "Hyaluronsäure"
+  },
+  "c21fad6d3c06aa95": {
+    "tr": "Hyalüronik asitli göz kremi",
+    "en": "Hyaluronic acid eye cream",
+    "de": "Augencreme mit Hyaluronsäure"
+  },
+  "361e065e62b7d2d0": {
+    "tr": "Hyalüronik asitli nemlendirici",
+    "en": "Hyaluronic acid moisturiser",
+    "de": "Feuchtigkeitspflege mit Hyaluronsäure"
+  },
+  "8bfd2223e4a928d5": {
+    "tr": "K vitamini",
+    "en": "Vitamin K",
+    "de": "Vitamin K"
+  },
+  "626837be1e5c120d": {
+    "tr": "K vitamini ve peptit içeren göz kremi",
+    "en": "Eye cream with vitamin K and peptides",
+    "de": "Augencreme mit Vitamin K und Peptiden"
+  },
+  "d5d3e7fba76ab88e": {
+    "tr": "Kafein",
+    "en": "Caffeine",
+    "de": "Koffein"
+  },
+  "8f13fd3412516183": {
+    "tr": "Kafeinli göz kremi",
+    "en": "Caffeine eye cream",
+    "de": "Koffein-Augencreme"
+  },
+  "750a33fb32f97d69": {
+    "tr": "Kafeinli göz serumu",
+    "en": "Caffeine eye serum",
+    "de": "Koffein-Augenserum"
+  },
+  "fcc166ed90625b26": {
+    "tr": "Kalıcı torbalarda kozmetik etkisi sınırlıdır; dermatolog veya plastik cerrah görüşü alın.",
+    "en": "Cosmetics have limited effect on lasting bags; get the opinion of a dermatologist or plastic surgeon.",
+    "de": "Bei dauerhaften Tränensäcken ist die Wirkung von Kosmetik begrenzt; holen Sie eine hautärztliche oder plastisch-chirurgische Meinung ein."
+  },
+  "f5a169ca448c600f": {
+    "tr": "Kaşlarınızı kaldırma alışkanlığınızı fark etmeye çalışın.",
+    "en": "Try to notice when you habitually raise your eyebrows.",
+    "de": "Achten Sie darauf, wann Sie gewohnheitsmäßig die Augenbrauen hochziehen."
+  },
+  "b8011375bb3d6263": {
+    "tr": "Kesin değerlendirme için dermatoloğa danışın.",
+    "en": "See a dermatologist for a definite assessment.",
+    "de": "Für eine sichere Beurteilung wenden Sie sich an eine Hautärztin oder einen Hautarzt."
+  },
+  "17c9d76e3ffbbbdb": {
+    "tr": "Kozmetik ürünlerin bu bulgu üzerindeki etkisi sınırlıdır; öneriler göz çevresi derisini desteklemeye yöneliktir.",
+    "en": "Cosmetics have limited effect on this finding; the suggestions aim to support the skin around the eyes.",
+    "de": "Kosmetik hat auf diesen Befund nur begrenzte Wirkung; die Hinweise sollen die Haut um die Augen unterstützen."
+  },
+  "5f6a7eb92d2a57ce": {
+    "tr": "Kızarıklık sürüyorsa dermatoloğa danışın.",
+    "en": "If the redness persists, see a dermatologist.",
+    "de": "Wenn die Rötung anhält, wenden Sie sich an eine Hautärztin oder einen Hautarzt."
+  },
+  "cbae84b80f9e0624": {
+    "tr": "Lekelerde artış olursa uzmana danışın.",
+    "en": "If the spots increase, consult a specialist.",
+    "de": "Wenn die Flecken zunehmen, wenden Sie sich an eine Fachperson."
+  },
+  "4f487b59aa974412": {
+    "tr": "Lekenin türünün belirlenmesi için dermatoloğa danışın.",
+    "en": "See a dermatologist to find out what kind of spot this is.",
+    "de": "Lassen Sie die Art des Flecks von einer Hautärztin oder einem Hautarzt bestimmen."
+  },
+  "7b6751e32389cb41": {
+    "tr": "Mineral güneş koruyucu",
+    "en": "Mineral sunscreen",
+    "de": "Mineralischer Sonnenschutz"
+  },
+  "b4f28705b4707cef": {
+    "tr": "Nemlendirici",
+    "en": "Moisturiser",
+    "de": "Feuchtigkeitspflege"
+  },
+  "400f0f8d5636eba1": {
+    "tr": "Nemlendirici ve güneş koruyucu",
+    "en": "Moisturiser and sunscreen",
+    "de": "Feuchtigkeitspflege und Sonnenschutz"
+  },
+  "c9ed8765a013f767": {
+    "tr": "Niasinamid",
+    "en": "Niacinamide",
+    "de": "Niacinamid"
+  },
+  "ce116ce8cfdd631a": {
+    "tr": "Niasinamid (%4–5)",
+    "en": "Niacinamide (4–5%)",
+    "de": "Niacinamid (4–5 %)"
+  },
+  "bd06abf131270d87": {
+    "tr": "Niasinamid serumu",
+    "en": "Niacinamide serum",
+    "de": "Niacinamid-Serum"
+  },
+  "22d8a0ffe1a7c230": {
+    "tr": "Niasinamidli göz kremi",
+    "en": "Niacinamide eye cream",
+    "de": "Augencreme mit Niacinamid"
+  },
+  "b540aab2057c0888": {
+    "tr": "Pantenol",
+    "en": "Panthenol",
+    "de": "Panthenol"
+  },
+  "fb0e1e6c7ad1850f": {
+    "tr": "Pantenollü bakım kremi",
+    "en": "Panthenol care cream",
+    "de": "Pflegecreme mit Panthenol"
+  },
+  "5c1185e77d66cfc8": {
+    "tr": "Pantenollü nemlendirici",
+    "en": "Panthenol moisturiser",
+    "de": "Feuchtigkeitspflege mit Panthenol"
+  },
+  "af91fd9983e2c523": {
+    "tr": "Peptitler",
+    "en": "Peptides",
+    "de": "Peptide"
+  },
+  "9b8cdf5d99a1b7db": {
+    "tr": "Peptitli göz kremi",
+    "en": "Peptide eye cream",
+    "de": "Peptid-Augencreme"
+  },
+  "2c0b1031b7bdb72f": {
+    "tr": "Peptitli göz kremi ve güneş koruyucu",
+    "en": "Peptide eye cream and sunscreen",
+    "de": "Peptid-Augencreme und Sonnenschutz"
+  },
+  "a32012d396cb15cc": {
+    "tr": "Peptitli serum ve güneş koruyucu",
+    "en": "Peptide serum and sunscreen",
+    "de": "Peptidserum und Sonnenschutz"
+  },
+  "60647b1bc5b0e471": {
+    "tr": "Renkli SPF 50",
+    "en": "Tinted SPF 50",
+    "de": "Getönter LSF 50"
+  },
+  "e45d3fd33e77fbc1": {
+    "tr": "Retinal veya retinol (%1)",
+    "en": "Retinal or retinol (1%)",
+    "de": "Retinal oder Retinol (1 %)"
+  },
+  "b189243292d9a3b3": {
+    "tr": "Retinol",
+    "en": "Retinol",
+    "de": "Retinol"
+  },
+  "2a89e850fa5e86c9": {
+    "tr": "Retinol (%0,25)",
+    "en": "Retinol (0.25%)",
+    "de": "Retinol (0,25 %)"
+  },
+  "5165d8f8ed910e86": {
+    "tr": "Retinol (%0,3–0,5)",
+    "en": "Retinol (0.3–0.5%)",
+    "de": "Retinol (0,3–0,5 %)"
+  },
+  "86b23e89175ffd1c": {
+    "tr": "Retinol (%0,5)",
+    "en": "Retinol (0.5%)",
+    "de": "Retinol (0,5 %)"
+  },
+  "c672f3130f042cd7": {
+    "tr": "Retinol kullanırken güneş korumasını aksatmayın.",
+    "en": "Do not skip sun protection while using retinol.",
+    "de": "Vernachlässigen Sie während der Retinol-Anwendung den Sonnenschutz nicht."
+  },
+  "25664174cb08310a": {
+    "tr": "Retinol ve glikolik asit dönüşümlü gecelerde; aynı gece kullanmayın",
+    "en": "Retinol and glycolic acid on alternate nights; never on the same night",
+    "de": "Retinol und Glykolsäure an abwechselnden Abenden; nicht am selben Abend"
+  },
+  "89ec15266e6d5740": {
+    "tr": "Retinol ve peptit içeren göz kremi",
+    "en": "Eye cream with retinol and peptides",
+    "de": "Augencreme mit Retinol und Peptiden"
+  },
+  "a76e78d1d6fefe71": {
+    "tr": "Retinol veya retinal içeren göz kremi",
+    "en": "Eye cream with retinol or retinal",
+    "de": "Augencreme mit Retinol oder Retinal"
+  },
+  "b12c2eb263ecf1d7": {
+    "tr": "Retinollü göz kremi",
+    "en": "Retinol eye cream",
+    "de": "Retinol-Augencreme"
+  },
+  "3d877f3b662ea200": {
+    "tr": "SPF 50 kullanın. Ayda bir aynada ABCDE kuralıyla kontrol edin: asimetri, sınır düzensizliği, renk farklılığı, 6 mm'den büyük çap, değişim.",
+    "en": "Use SPF 50. Check once a month in the mirror using the ABCDE rule: asymmetry, irregular border, colour variation, diameter over 6 mm, evolution.",
+    "de": "Verwenden Sie LSF 50. Kontrollieren Sie einmal im Monat im Spiegel nach der ABCDE-Regel: Asymmetrie, unregelmäßige Begrenzung, Farbunterschiede, Durchmesser über 6 mm, Entwicklung."
+  },
+  "3b02bfb4bcadeb00": {
+    "tr": "SPF 50 kullanın. Benlerinizi ayda bir kontrol edin ve fotoğraflarını düzenli kaydedin.",
+    "en": "Use SPF 50. Check your moles once a month and photograph them regularly.",
+    "de": "Verwenden Sie LSF 50. Kontrollieren Sie Ihre Muttermale einmal im Monat und fotografieren Sie sie regelmäßig."
+  },
+  "b64e062ffdaaee9b": {
+    "tr": "Salisilik asit",
+    "en": "Salicylic acid",
+    "de": "Salicylsäure"
+  },
+  "ba8ac1e45b433299": {
+    "tr": "Salisilik asit (%0,5–2)",
+    "en": "Salicylic acid (0.5–2%)",
+    "de": "Salicylsäure (0,5–2 %)"
+  },
+  "6189ccc338495dbd": {
+    "tr": "Salisilik asitli temizleyici",
+    "en": "Salicylic acid cleanser",
+    "de": "Reinigung mit Salicylsäure"
+  },
+  "810fbe53c77e086b": {
+    "tr": "Seramid",
+    "en": "Ceramides",
+    "de": "Ceramide"
+  },
+  "0a882a68b41b2e89": {
+    "tr": "Seramid içeren göz kremi",
+    "en": "Eye cream with ceramides",
+    "de": "Augencreme mit Ceramiden"
+  },
+  "af8708539a67d2d1": {
+    "tr": "Seramidli bakım kremi",
+    "en": "Ceramide care cream",
+    "de": "Pflegecreme mit Ceramiden"
+  },
+  "fbd1df080a64f93e": {
+    "tr": "Seramidli nemlendirici",
+    "en": "Ceramide moisturiser",
+    "de": "Feuchtigkeitspflege mit Ceramiden"
+  },
+  "7c8d483390401cf3": {
+    "tr": "Sivilceleri sıkmayın.",
+    "en": "Do not squeeze spots.",
+    "de": "Drücken Sie Pickel nicht aus."
+  },
+  "bdfb7faa4013c71c": {
+    "tr": "Sivilcelerin üzerine benzoil peroksit",
+    "en": "Benzoyl peroxide on the spots",
+    "de": "Benzoylperoxid auf die Pickel"
+  },
+  "2daef72529b1a226": {
+    "tr": "Sivilcenin üzerine noktasal salisilik asit",
+    "en": "Salicylic acid dabbed onto the spot",
+    "de": "Salicylsäure punktuell auf den Pickel"
+  },
+  "6f82c04d007b6f98": {
+    "tr": "Telefon ekranını ve sık dokunduğunuz yüzeyleri temizleyin.",
+    "en": "Clean your phone screen and surfaces you touch often.",
+    "de": "Reinigen Sie Ihr Handydisplay und häufig berührte Oberflächen."
+  },
+  "e709feb7a8467ef0": {
+    "tr": "Tetikleyicileri not edin: sıcak içecek, baharat, alkol, güneş.",
+    "en": "Note your triggers: hot drinks, spices, alcohol, sun.",
+    "de": "Notieren Sie Auslöser: heiße Getränke, Gewürze, Alkohol, Sonne."
+  },
+  "f73bd7ba34af8d50": {
+    "tr": "Traneksamik asit",
+    "en": "Tranexamic acid",
+    "de": "Tranexamsäure"
+  },
+  "aaf62236e4b21d5e": {
+    "tr": "Traneksamik asit veya alfa arbutin",
+    "en": "Tranexamic acid or alpha arbutin",
+    "de": "Tranexamsäure oder Alpha-Arbutin"
+  },
+  "ba9e099dcbf9b3b8": {
+    "tr": "Uyku düzeninizi koruyun.",
+    "en": "Keep a regular sleep routine.",
+    "de": "Halten Sie einen regelmäßigen Schlafrhythmus ein."
+  },
+  "228f4361a97b0422": {
+    "tr": "Uyku saatlerinizi düzenli tutun.",
+    "en": "Keep regular sleeping hours.",
+    "de": "Gehen Sie regelmäßig zur gleichen Zeit schlafen."
+  },
+  "68d7ad996eee5cbc": {
+    "tr": "Yastık kılıfınızı haftada iki kez değiştirin; benzoil peroksit kumaşları ağartabilir.",
+    "en": "Change your pillowcase twice a week; benzoyl peroxide can bleach fabrics.",
+    "de": "Wechseln Sie den Kissenbezug zweimal pro Woche; Benzoylperoxid kann Stoffe bleichen."
+  },
+  "633bf27d54b02a63": {
+    "tr": "Yeni iz oluşmaması için sivilceleri sıkmayın.",
+    "en": "Do not squeeze spots, so no new marks form.",
+    "de": "Drücken Sie Pickel nicht aus, damit keine neuen Male entstehen."
+  },
+  "8621f5b6c16be454": {
+    "tr": "Yeni ürünleri tek tek ve yama testiyle deneyin.",
+    "en": "Try new products one at a time, with a patch test.",
+    "de": "Testen Sie neue Produkte einzeln und mit einem Verträglichkeitstest."
+  },
+  "08ae871e3f339e10": {
+    "tr": "Yüzünüzü ovmadan, havluyla bastırarak kurulayın.",
+    "en": "Pat your face dry with a towel instead of rubbing.",
+    "de": "Tupfen Sie Ihr Gesicht mit dem Handtuch trocken, statt zu reiben."
+  },
+  "8aeeedca032e3505": {
+    "tr": "Yüzünüzü ılık suyla yıkayın.",
+    "en": "Wash your face with lukewarm water.",
+    "de": "Waschen Sie Ihr Gesicht mit lauwarmem Wasser."
+  },
+  "70a148c503fb3d4c": {
+    "tr": "Yılda bir dermatolog kontrolü yaptırın. Değişen her ben için beklemeden uzmana başvurun.",
+    "en": "Have a yearly check-up with a dermatologist. See a specialist promptly for any mole that changes.",
+    "de": "Lassen Sie sich einmal im Jahr hautärztlich untersuchen. Gehen Sie bei jedem sich verändernden Muttermal umgehend zur Fachperson."
+  },
+  "34d3d7c9e7d2085b": {
+    "tr": "Çinko oksit",
+    "en": "Zinc oxide",
+    "de": "Zinkoxid"
+  },
+  "9b3c24770db034db": {
+    "tr": "Çinko oksitli mineral güneş koruyucu",
+    "en": "Mineral sunscreen with zinc oxide",
+    "de": "Mineralischer Sonnenschutz mit Zinkoxid"
+  },
+  "f0fe13e6f8174371": {
+    "tr": "Çukur izlerde lazer veya mikroiğneleme gibi işlemler için dermatoloğa danışın.",
+    "en": "For pitted scars, ask a dermatologist about laser or microneedling.",
+    "de": "Bei eingesunkenen Narben wenden Sie sich wegen Laser oder Microneedling an eine Hautärztin oder einen Hautarzt."
+  },
+  "f6a7e47b1e477493": {
+    "tr": "Öğle saatlerinde doğrudan güneşten kaçının.",
+    "en": "Avoid direct sun around midday.",
+    "de": "Meiden Sie die direkte Mittagssonne."
+  },
+  "67454f4acdd23c15": {
+    "tr": "Ürünü kemik çizgisinin üzerine uygulayın, gözün içine kaçırmayın.",
+    "en": "Apply the product along the orbital bone and keep it out of the eye.",
+    "de": "Tragen Sie das Produkt am Knochenrand auf und lassen Sie es nicht ins Auge gelangen."
+  },
+  "039c324a57b0b9a8": {
+    "tr": "İlk karıncalanmada başlayın, prospektüsteki sıklıkla sürün",
+    "en": "Start at the first tingle and apply as often as the leaflet says",
+    "de": "Beim ersten Kribbeln beginnen und so oft auftragen wie in der Packungsbeilage angegeben"
+  },
+  "28c13f20a87e4e9a": {
+    "tr": "Şapka kullanın; sıcak ortam ve sauna lekeyi koyulaştırabilir.",
+    "en": "Wear a hat; heat and saunas can darken the patches.",
+    "de": "Tragen Sie einen Hut; Hitze und Sauna können die Flecken nachdunkeln lassen."
+  },
+  "d2600ef3d192e3b4": {
+    "tr": "Düşük oranlı niasinamid (%2–4)",
+    "en": "Low-strength niacinamide (2–4%)",
+    "de": "Niedrig dosiertes Niacinamid (2–4 %)"
+  },
+  "2e7d5bd4ac686304": {
+    "tr": "Düşük oranlı retinol",
+    "en": "Low-strength retinol",
+    "de": "Niedrig dosiertes Retinol"
+  },
+  "dc79510588191e40": {
+    "tr": "1 bulgu kesinleştirilemedi",
+    "en": "1 finding could not be confirmed",
+    "de": "1 Befund nicht eindeutig"
+  },
+  "fe25e835a1eb1ce7": {
+    "tr": "Bu taramada 1 bulgu görüldü",
+    "en": "1 finding seen in this scan",
+    "de": "1 Befund in diesem Scan"
+  },
+  "f1b7a9e2b9781cf0": {
+    "tr": "Bulgular",
+    "en": "Findings",
+    "de": "Befunde"
+  },
+  "bb4fb73f177482e3": {
+    "tr": "Önceki bulgular",
+    "en": "Previous findings",
+    "de": "Vorherige Befunde"
+  },
+  "5a21ce6682509820": {
+    "tr": "Sonraki bulgular",
+    "en": "Next findings",
+    "de": "Weitere Befunde"
+  },
+  "d3868c0d4cd288f4": {
+    "tr": "Görüldü",
+    "en": "Seen",
+    "de": "Gesehen"
+  },
+  "5b7439b3cea467c9": {
+    "tr": "Egzama veya sedef benzeri görünüm",
+    "en": "Eczema- or psoriasis-like appearance",
+    "de": "Ekzem- oder psoriasisähnliches Bild"
+  },
+  "954e78ac81c9a5a5": {
+    "tr": "Kızarık, kuru ve pullu görünen, sınırları belirgin yamalar.",
+    "en": "Red, dry, scaly patches with clear borders.",
+    "de": "Rote, trockene, schuppige Stellen mit deutlicher Begrenzung."
+  },
+  "f25e95b687b600a0": {
+    "tr": "Pullanma",
+    "en": "Flaking",
+    "de": "Schuppung"
+  },
+  "6e908116adf59dba": {
+    "tr": "Cilt yüzeyinde ince, kuru pulcuklar ve pürüzlü doku görünümü.",
+    "en": "Fine dry flakes and a rough texture on the skin surface.",
+    "de": "Feine trockene Schüppchen und raue Struktur auf der Hautoberfläche."
+  },
+  "575484788ec7f0f4": {
+    "tr": "Kolloidal yulaf",
+    "en": "Colloidal oatmeal",
+    "de": "Kolloidaler Hafer"
+  },
+  "399acb856d2a24ca": {
+    "tr": "Gliserin",
+    "en": "Glycerin",
+    "de": "Glycerin"
+  },
+  "56149b4936bce4d3": {
+    "tr": "Skualan",
+    "en": "Squalane",
+    "de": "Squalan"
+  },
+  "de965129666c1f9b": {
+    "tr": "Üre (%5)",
+    "en": "Urea (5%)",
+    "de": "Urea (5 %)"
+  },
+  "88a80ea05958d4a9": {
+    "tr": "Parfümsüz, seramidli nemlendirici",
+    "en": "Fragrance-free ceramide moisturiser",
+    "de": "Parfümfreie Feuchtigkeitspflege mit Ceramiden"
+  },
+  "f419ba949be6ed11": {
+    "tr": "Kolloidal yulaf içeren yatıştırıcı krem",
+    "en": "Soothing cream with colloidal oatmeal",
+    "de": "Beruhigende Creme mit kolloidalem Hafer"
+  },
+  "369ff36494191f3e": {
+    "tr": "Kaşımayın; yüzünüzü ılık suyla ve sabunsuz bir temizleyiciyle yıkayın. Kesin değerlendirme için dermatoloğa danışın.",
+    "en": "Do not scratch; wash your face with lukewarm water and a soap-free cleanser. See a dermatologist for a definite assessment.",
+    "de": "Nicht kratzen; waschen Sie Ihr Gesicht mit lauwarmem Wasser und einer seifenfreien Reinigung. Für eine sichere Beurteilung wenden Sie sich an eine Hautärztin oder einen Hautarzt."
+  },
+  "273b7917ce5da105": {
+    "tr": "Seramidli nemlendirici ve güneş koruyucu",
+    "en": "Ceramide moisturiser and sunscreen",
+    "de": "Feuchtigkeitspflege mit Ceramiden und Sonnenschutz"
+  },
+  "d6090f4520f6b6b8": {
+    "tr": "Üre veya gliserin içeren zengin nemlendirici",
+    "en": "Rich moisturiser with urea or glycerin",
+    "de": "Reichhaltige Feuchtigkeitspflege mit Urea oder Glycerin"
+  },
+  "f7df584cbedcb9f9": {
+    "tr": "Pulları ovarak veya peelingle gidermeye çalışmayın; kapalı ortamda havayı nemli tutun.",
+    "en": "Do not rub or scrub the flakes off; keep indoor air humid.",
+    "de": "Versuchen Sie nicht, die Schüppchen abzureiben oder wegzupeelen; halten Sie die Raumluft feucht."
+  },
+  "88992acf76a3139b": {
+    "tr": "Rozasea eğilimi",
+    "en": "Rosacea tendency",
+    "de": "Rosazea-Neigung"
+  },
+  "b26a0ab56e3caa38": {
+    "tr": "Egzama/sedef eğilimi",
+    "en": "Eczema/psoriasis tendency",
+    "de": "Ekzem-/Psoriasis-Neigung"
+  },
+  "b8f40e988d47e19a": {
+    "tr": "{0} bulgu ölçülemedi",
+    "en": "{0} findings could not be measured",
+    "de": "{0} Befunde konnten nicht gemessen werden"
+  },
+  "dbf0479c0474a225": {
+    "tr": "Bu bulgu bu taramada ölçülemedi.",
+    "en": "This finding could not be measured in this scan.",
+    "de": "Dieser Befund konnte bei diesem Scan nicht gemessen werden."
+  },
+  "6d3be4356c246844": {
+    "tr": "Bu bulgu için doğrulanmış model bu sürümde yok.",
+    "en": "There is no validated model for this finding in this version.",
+    "de": "Für diesen Befund gibt es in dieser Version kein validiertes Modell."
+  },
+  "aa57e6e5262ea44c": {
+    "tr": "Bu bulgu için ön ve iki yan poz gerekir; bu tarama bu pozları içermiyor.",
+    "en": "This finding needs the front and both side poses; this scan does not include them.",
+    "de": "Dieser Befund benötigt die Frontal- und beide Seitenaufnahmen; dieser Scan enthält sie nicht."
+  },
+  "ecd4319c60401776": {
+    "tr": "Bu bulgular bu taramada değerlendirilmedi; görülmedi anlamına gelmez.",
+    "en": "These findings were not assessed in this scan; this does not mean they were not seen.",
+    "de": "Diese Befunde wurden bei diesem Scan nicht bewertet; das bedeutet nicht, dass sie nicht gesehen wurden."
+  },
+  "98895a258aca7ae1": {
+    "tr": "Bu bulgunun ölçümü doğruluk sınırını geçemedi.",
+    "en": "The measurement of this finding did not reach the accuracy threshold.",
+    "de": "Die Messung dieses Befunds hat die Genauigkeitsschwelle nicht erreicht."
+  },
+  "7f8aa91eb42236ac": {
+    "tr": "Bu kayıtta bulgu analizi yok; bulgular ölçülmedi.",
+    "en": "This record has no findings analysis; findings were not measured.",
+    "de": "Dieser Eintrag enthält keine Befundanalyse; Befunde wurden nicht gemessen."
+  },
+  "30e75c7078b6e7fe": {
+    "tr": "Bu taramada belirginlik veya sayı ölçülmediği için düzeye göre öneri gösterilemiyor. Bulgu ile ilgili bir uzmana danışabilirsiniz.",
+    "en": "Level-based suggestions cannot be shown because visibility or count was not measured in this scan. You can consult a specialist about this finding.",
+    "de": "Stufenbezogene Empfehlungen können nicht angezeigt werden, da Ausprägung oder Anzahl bei diesem Scan nicht gemessen wurden. Sie können zu diesem Befund eine Fachperson konsultieren."
+  },
+  "62b9301c545f517e": {
+    "tr": "Bu taramada görüldü. Belirginlik, alan ve sayı bu sürümde ölçülmüyor.",
+    "en": "Seen in this scan. Visibility, area and count are not measured in this version.",
+    "de": "Bei diesem Scan gesehen. Ausprägung, Fläche und Anzahl werden in dieser Version nicht gemessen."
+  },
+  "c19bc0146e19a6a8": {
+    "tr": "Bulgu modelleri bu cihazda yüklü değil.",
+    "en": "The finding models are not installed on this device.",
+    "de": "Die Befundmodelle sind auf diesem Gerät nicht installiert."
+  },
+  "4326d122e24c482a": {
+    "tr": "Bulgular bu taramada ölçülemedi.",
+    "en": "Findings could not be measured in this scan.",
+    "de": "Befunde konnten bei diesem Scan nicht gemessen werden."
+  },
+  "a620ecff001e1516": {
+    "tr": "Ölçülen bulgular bu bölgede görülmedi.",
+    "en": "The measured findings were not seen in this region.",
+    "de": "Die gemessenen Befunde wurden in diesem Bereich nicht gesehen."
+  },
+  "c88b2648c4d0830a": {
+    "tr": "Ölçülen bulgular bu taramada görülmedi.",
+    "en": "The measured findings were not seen in this scan.",
+    "de": "Die gemessenen Befunde wurden bei diesem Scan nicht gesehen."
+  },
+  "e2f65c61128b5c6b": {
+    "tr": "Üç pozun birleştirilmesi tamamlanamadı.",
+    "en": "Combining the three poses could not be completed.",
+    "de": "Die Zusammenführung der drei Aufnahmen konnte nicht abgeschlossen werden."
+  },
+  "d344771b14df41ca": {
+    "tr": "Beyaz nokta (kapalı komedon)",
+    "en": "Whitehead (closed comedone)",
+    "de": "Weißköpfchen (geschlossener Komedo)"
+  },
+  "86a80614f6683a21": {
+    "tr": "Bu bulgunun değeri bu taramada hesaplanamadı.",
+    "en": "The value of this finding could not be calculated in this scan.",
+    "de": "Der Wert dieses Befunds konnte bei diesem Scan nicht berechnet werden."
+  },
+  "ec8b849ce7a2c711": {
+    "tr": "Cilt tonunuza göre kırmızılık farkı",
+    "en": "Redness difference from your skin tone",
+    "de": "Rötungsunterschied zu Ihrem Hautton"
+  },
+  "eb2755a6f06af1c7": {
+    "tr": "Papül",
+    "en": "Papule",
+    "de": "Papel"
+  },
+  "1cf7a789eb7d7e78": {
+    "tr": "Püstül",
+    "en": "Pustule",
+    "de": "Pustel"
+  },
+  "3f2375a95f1398db": {
+    "tr": "Siyah nokta (açık komedon)",
+    "en": "Blackhead (open comedone)",
+    "de": "Mitesser (offener Komedo)"
+  },
+  "6f590a37705253bb": {
+    "tr": "Tanımlanamayan akne türü",
+    "en": "Unidentified acne type",
+    "de": "Nicht bestimmter Aknetyp"
+  },
+  "1d170fd80bc52caf": {
+    "tr": "uçuk",
+    "en": "cold sores",
+    "de": "Lippenherpes"
+  },
+  "1c7066ce69e3b286": {
+    "tr": "Nodül",
+    "en": "Nodule",
+    "de": "Knoten"
+  },
+  "77e360466547d974": {
+    "tr": "Akne türleri",
+    "en": "Acne types",
+    "de": "Aknetypen"
+  },
+  "f4edff78091449c6": {
+    "tr": "Sayı geçmişi",
+    "en": "Count history",
+    "de": "Anzahlverlauf"
+  },
+  "b93f6d9ad0ee0fe2": {
+    "tr": "1 sivilce",
+    "en": "1 pimple",
+    "de": "1 Pickel"
+  },
+  "5fe002f9e24140f8": {
+    "tr": "1 ben",
+    "en": "1 mole",
+    "de": "1 Muttermal"
+  },
+  "3b5d146cea643a22": {
+    "tr": "1 leke",
+    "en": "1 spot",
+    "de": "1 Fleck"
+  },
+  "4bd1afa9034e68aa": {
+    "tr": "1 uçuk",
+    "en": "1 cold sore",
+    "de": "1 Lippenherpes"
+  },
+  "47c84a20dcd219a1": {
+    "tr": "1 bulgu ölçülemedi",
+    "en": "1 finding could not be measured",
+    "de": "1 Befund konnte nicht gemessen werden"
+  },
+  "06cc6d4197f55049": {
+    "tr": "Renk indeksi / 100",
+    "en": "Color index / 100",
+    "de": "Farbindex / 100"
+  },
+  "f77cd3968738027c": {
+    "tr": "aynı",
+    "en": "unchanged",
+    "de": "unverändert"
+  },
+  "a5f7ef68f9daccd6": {
+    "tr": "Bu taramada görülen bulgu yok.",
+    "en": "No findings were seen in this scan.",
+    "de": "In diesem Scan wurden keine Befunde gesehen."
+  },
+  "b9000043e44ce067": {
+    "tr": "Bu taramalarda bulgu görülmedi.",
+    "en": "No findings were seen in these scans.",
+    "de": "In diesen Scans wurden keine Befunde gesehen."
+  },
+  "86de64ec3d3cf8c3": {
+    "tr": "Görülmedi",
+    "en": "Not seen",
+    "de": "Nicht gesehen"
+  },
+  "366fd6983c862424": {
+    "tr": "İlk tarama: karşılaştırılacak önceki tarama yok.",
+    "en": "First scan: there is no earlier scan to compare with.",
+    "de": "Erster Scan: kein früherer Scan zum Vergleich."
+  },
+  "8b5d4cc5b586778b": {
+    "tr": "Karşılaştırma: bir önceki tarama ({0})",
+    "en": "Compared with: the previous scan ({0})",
+    "de": "Verglichen mit: dem vorherigen Scan ({0})"
+  },
+  "55ca721bfb8a7864": {
+    "tr": "Modül",
+    "en": "Module",
+    "de": "Modul"
+  },
+  "423d227f0222dd1a": {
+    "tr": "önceki {0}",
+    "en": "previous {0}",
+    "de": "vorher {0}"
+  },
+  "5ef8e88d833b80ad": {
+    "tr": "önceki taramada yoktu",
+    "en": "not in the previous scan",
+    "de": "im vorherigen Scan nicht vorhanden"
+  },
+  "e52c7acb851112f4": {
+    "tr": "Önceki taramaya göre",
+    "en": "vs. previous scan",
+    "de": "vs. vorheriger Scan"
+  },
+  "7eaf07f2802978f9": {
+    "tr": "önceki: {0}",
+    "en": "previous: {0}",
+    "de": "vorher: {0}"
+  },
+  "6bc5a901db48e4bc": {
+    "tr": "Saat",
+    "en": "Time",
+    "de": "Uhrzeit"
+  },
+  "fa51ec3c2452f4ca": {
+    "tr": "Son {0} taramanın ortalaması",
+    "en": "Average of the last {0} scans",
+    "de": "Durchschnitt der letzten {0} Scans"
+  },
+  "f5300c05cd5de1b9": {
+    "tr": "Sonuç ekranında aç",
+    "en": "Open in result screen",
+    "de": "Im Ergebnis öffnen"
+  },
+  "6ff8021ebc213315": {
+    "tr": "Tarih",
+    "en": "Date",
+    "de": "Datum"
+  },
+  "a7cc7ee365230ada": {
+    "tr": "{0} tarama · son {1}",
+    "en": "{0} scans · last {1}",
+    "de": "{0} Scans · zuletzt {1}"
+  },
+  "a2ae2906399fb278": {
+    "tr": "+{0} bulgu",
+    "en": "+{0} findings",
+    "de": "+{0} Befunde"
+  },
+  "d77a4ff7b529fc0b": {
+    "tr": "{0} puan",
+    "en": "{0} points",
+    "de": "{0} Punkte"
+  },
+  "e17ccb1e9466019c": {
+    "tr": "Yeni",
+    "en": "New",
+    "de": "Neu"
+  },
+  "293390c82a9fba1e": {
+    "tr": "Bulgu",
+    "en": "Finding",
+    "de": "Befund"
+  },
+  "92e825536b6df567": {
+    "tr": "Son tarama",
+    "en": "Last scan",
+    "de": "Letzter Scan"
+  },
+  "db42328112177c2d": {
+    "tr": "alan",
+    "en": "area",
+    "de": "Fläche"
+  },
+  "4cab8b849057b978": {
+    "tr": "Aynı bölgesel kızarıklık ölçümü: {0}",
+    "en": "Same regional redness measurement: {0}",
+    "de": "Gleiche regionale Rötungsmessung: {0}"
+  },
+  "79e6cf2e659df92f": {
+    "tr": "bölgelerin bir kısmı ölçülemedi",
+    "en": "some regions could not be measured",
+    "de": "einige Bereiche nicht messbar"
+  },
+  "261d8f90a8f7c2c1": {
+    "tr": "Bu bulgu için etkilenen cilt alanını piksel düzeyinde ayıran bir ölçüm yok.",
+    "en": "There is no pixel-level measurement of the affected skin for this finding.",
+    "de": "Für diesen Befund gibt es keine pixelgenaue Messung der betroffenen Haut."
+  },
+  "e3c976b8002722f4": {
+    "tr": "Bu taramada bulgular ölçülemedi.",
+    "en": "Findings could not be measured in this scan.",
+    "de": "In diesem Scan konnten keine Befunde gemessen werden."
+  },
+  "7ccb88294478c69d": {
+    "tr": "Bu taramalarda karşılaştırılabilir bulgu değeri yok.",
+    "en": "No comparable finding values in these scans.",
+    "de": "Keine vergleichbaren Befundwerte in diesen Scans."
+  },
+  "b18885fe93aadfe8": {
+    "tr": "Bu taramanın değeri önceki taramalarla karşılaştırılamıyor.",
+    "en": "This scan's value cannot be compared with earlier scans.",
+    "de": "Der Wert dieses Scans ist mit früheren Scans nicht vergleichbar."
+  },
+  "d09371574de8bccf": {
+    "tr": "Bulgular ölçülemedi",
+    "en": "Findings not measured",
+    "de": "Befunde nicht gemessen"
+  },
+  "6fca988390651ee1": {
+    "tr": "değer yok",
+    "en": "no value",
+    "de": "kein Wert"
+  },
+  "bd6e4ca882c1a875": {
+    "tr": "farklı ölçü türü",
+    "en": "different measure",
+    "de": "andere Messgröße"
+  },
+  "d837b827fdca374e": {
+    "tr": "farklı yöntem sürümü",
+    "en": "different method version",
+    "de": "andere Methodenversion"
+  },
+  "07b1690c4601c7db": {
+    "tr": "görünüm skoru",
+    "en": "appearance score",
+    "de": "Erscheinungswert"
+  },
+  "49a5289e63e23f72": {
+    "tr": "Görünüm skoru",
+    "en": "Appearance score",
+    "de": "Erscheinungswert"
+  },
+  "2c19f3729cf6b9bd": {
+    "tr": "Görünüm skoru {0} puan arttı.",
+    "en": "Appearance score up {0} points.",
+    "de": "Erscheinungswert um {0} Punkte gestiegen."
+  },
+  "8d0527290fc91aed": {
+    "tr": "Görünüm skoru {0} puan azaldı.",
+    "en": "Appearance score down {0} points.",
+    "de": "Erscheinungswert um {0} Punkte gesunken."
+  },
+  "5068fe6e0fe8a83a": {
+    "tr": "Görünüm skoru bu taramada hesaplanamadı.",
+    "en": "The appearance score could not be calculated in this scan.",
+    "de": "Der Erscheinungswert konnte in diesem Scan nicht berechnet werden."
+  },
+  "dbc245576e0fd292": {
+    "tr": "Görünüm skoru değişmedi.",
+    "en": "Appearance score unchanged.",
+    "de": "Erscheinungswert unverändert."
+  },
+  "9a821805c63371c9": {
+    "tr": "Görünüm skoru geçmişi",
+    "en": "Appearance score history",
+    "de": "Verlauf des Erscheinungswerts"
+  },
+  "9d67b59723384dd7": {
+    "tr": "Görünüm skoru hesaplanamadı",
+    "en": "Score not calculated",
+    "de": "Wert nicht berechnet"
+  },
+  "2e8b637e9319c297": {
+    "tr": "İşaretli leke kutularının kapladığı alan",
+    "en": "Area of the marked spot boxes",
+    "de": "Fläche der markierten Fleckenrahmen"
+  },
+  "6836134d9169efe1": {
+    "tr": "karşılaştırılamaz",
+    "en": "not comparable",
+    "de": "nicht vergleichbar"
+  },
+  "84c8a1e255797e5e": {
+    "tr": "kesin sayı yok",
+    "en": "no exact count",
+    "de": "keine genaue Anzahl"
+  },
+  "597abaef89dcb0e8": {
+    "tr": "Ölçülemeyen bölge: {0}",
+    "en": "Region not measured: {0}",
+    "de": "Nicht gemessener Bereich: {0}"
+  },
+  "8e6ea5a06f368fea": {
+    "tr": "önceki taramada görülmedi",
+    "en": "not seen in the previous scan",
+    "de": "im vorherigen Scan nicht gesehen"
+  },
+  "74d9452816ab9faa": {
+    "tr": "önceki taramada ölçülemedi",
+    "en": "not measured in the previous scan",
+    "de": "im vorherigen Scan nicht gemessen"
+  },
+  "2d4b61dd9598424c": {
+    "tr": "Renk yoğunluğu",
+    "en": "Colour intensity",
+    "de": "Farbintensität"
+  },
+  "3361ad42a33944c9": {
+    "tr": "Etkilenen alan",
+    "en": "Affected area",
+    "de": "Betroffene Fläche"
+  },
+  "98625e7c10e24d26": {
+    "tr": "({0} tarama)",
+    "en": "({0} scans)",
+    "de": "({0} Scans)"
   }
 }

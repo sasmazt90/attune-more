@@ -29,10 +29,14 @@ UNAVAILABLE = {
 CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
-    "apps/vehicle-app/src/utils/skinOverview.ts": "4d31010f82bfd5c42a49b46c20880630d57079dd",
-    "tests/e2e/current_skin_contract.py": "cb005eb82e67edc96fdb37998829c0b7b303a6c0",
-    "tests/e2e/current_skin_photo_history.py": "565fee1a15f72f10cbf82911147ea2c6ee4ffd8e",
-    "tests/e2e/current_skin_photo_wipe_success.py": "bfff1ce02f70ba9caa959dcbb0c4cfe9b3ad7b3f",
+    "apps/vehicle-app/src/utils/skinOverview.ts": "3c269aeec588886b38906b0db59f4934df752e8b",
+    "tests/e2e/current_skin_contract.py": "e829bbe5576b87add48cceffe1e835a5e3ed99db",
+    "tests/e2e/current_skin_photo_history.py": "54d282c448a0ddc9ccf2d1bed6960af4ebfe714c",
+    "tests/e2e/current_skin_photo_wipe_success.py": "4a3aeed45492658abe18df330b5c7d6dcafff3cc",
+    "tests/e2e/skin_browser_support.py": "3b71d6da50b26be336912adcbb8bd0b1973fb98b",
+    "tests/e2e/skin_bundle_preflight.py": "b2509a76122c82c91215059ec1fdce234844376f",
+    "apps/vehicle-app/src/app/skin/page.tsx": "0e2a0c2190eadbedf4d5487c1567ff436ca8b94d",
+    "tests/e2e/prepare_multi_angle_fixture.py": "5a0aef702ee10003fad9ed828c3b6f25b43f493c"
 }
 SHA40 = re.compile(r"^[0-9a-f]{40}$")
 
@@ -79,7 +83,29 @@ def common(proof: dict[str, Any], method: str, label: str) -> str:
     return build
 
 
+def validate_findings_browser(proof: dict[str, Any]) -> str:
+    build_id = common(proof, 'skin-findings-browser-api-v2', 'findings browser/API proof')
+    for key in ('realModelInference', 'approvedFindingsUI', 'apiE2EPassed', 'findingsMatchServer', 'sourceBoundNumericRows'):
+        require(proof.get(key), True, f'findings browser proof missing {key}')
+    require(proof.get('poseMock'), False, 'findings proof used a pose mock')
+    require(proof.get('qualityOverride'), False, 'findings proof used a quality override')
+    require(proof.get('pageErrors'), [], 'findings proof has page errors')
+    api=proof.get('api', {})
+    require(api.get('sourcePhotoCount'), 3, 'findings proof requires three distinct photos')
+    require(api.get('poses'), ['FRONT','LEFT','RIGHT'], 'findings capture poses missing')
+    require(api.get('allRequestsHaveSuccessfulResponse'), True, 'findings API failed')
+    zoom=proof.get('nativeZoom')
+    if not isinstance(zoom,dict) or zoom.get('dpr',0)<2 or zoom.get('cssZoom')!='1' or not 0<zoom.get('innerWidth',0)<zoom.get('outerWidth',0)*.65 or zoom.get('scroll',float('inf'))>zoom['innerWidth']:
+        raise EvidenceError('actual browser 200% zoom evidence missing')
+    models=json.loads((ROOT/'research/skin-findings/MODEL_MANIFEST.json').read_text())['models']
+    expected={m['runtimeName']:m['sha256'] for m in models if m.get('runtimeName') in ('acnes.pt','findings.pt','regional.pt','skinmap.pt','wrinkles.pt')}
+    for pose in ('FRONT','LEFT','RIGHT'):
+        actual=proof.get('runtimeModels',{}).get(pose,{})
+        for name,digest in expected.items():require(actual.get(name),digest,f'{pose}: model identity mismatch: {name}')
+    return build_id
+
 def validate_browser(proof: dict[str, Any]) -> str:
+    if proof.get('methodVersion')=='skin-findings-browser-api-v2':return validate_findings_browser(proof)
     build = common(proof, "skin-browser-api-replay-v1", "browser/API proof")
     require(proof.get("endpoint"), "/api/local-health/skin", "skin endpoint changed")
     for key in ("apiE2EPassed", "sixRegionalViewsPassed", "mapCardsHistoryPassed", "twelveProductHeadingsPassed", "unsupportedHeadingsUnavailable"):
@@ -113,6 +139,20 @@ def validate_browser(proof: dict[str, Any]) -> str:
 
 
 def validate_history(proof: dict[str, Any]) -> str:
+    if proof.get('methodVersion')=='skin-findings-indexeddb-v2':
+        build_id=common(proof,'skin-findings-indexeddb-v2','findings history proof')
+        for key in ('indexedDbWriteReadPassed','relaunchThreeRecords','selectedRecordBinding','sourceBoundSixRegions','approvedFindingsUI','deleteOne','revokePhotosKeepsNumeric','retentionPassed','deletionPassed'):
+            require(proof.get(key),True,f'findings history missing {key}')
+        require(proof.get('pageErrors'),[],'findings history has page errors')
+        require(proof.get('poseMock'),False,'findings history used a pose mock')
+        require(proof.get('qualityOverride'),False,'findings history used a quality override')
+        scans=proof.get('scans',[])
+        if len(scans)!=3 or len({x.get('id') for x in scans})!=3:raise EvidenceError('three distinct history scans required')
+        for scan in scans:
+            for key in ('sourceByRegion','shaByRegion','poseByRegion'):
+                value=scan.get(key,{})
+                if set(value)!=set(REGIONS) or any(not isinstance(x,str) or not x for x in value.values()):raise EvidenceError('history source identities missing')
+        return build_id
     build = common(proof, "skin-indexeddb-history-replay-v1", "IndexedDB history proof")
     for key in ("indexedDbWriteReadPassed", "relaunchThreeRecords", "allSixRegionsAndSelectedMaps", "twelveProductHeadingsPassed", "unsupportedHeadingsUnavailable", "deleteOne", "revokePhotosKeepsNumeric", "retentionPassed", "deletionPassed"):
         require(proof.get(key), True, f"IndexedDB proof missing {key}")
@@ -161,6 +201,7 @@ def build(args: argparse.Namespace) -> dict[str, dict[str, Any]]:
     if not args.history_policy_id:
         raise EvidenceError("history policy identity missing")
     actions = ci.get("githubActions", {})
+    require(actions.get("headSha"), args.repository_commit, "CI head does not match tested source")
     require(actions.get("conclusion"), "success", "repository CI is not green")
     require(actions.get("frontendProductionBuild"), "success", "frontend build is not green")
     require(actions.get("completeSkinResearchEvidenceSuite", {}).get("result"), "OK", "skin evidence suite is not green")
@@ -184,12 +225,13 @@ def build(args: argparse.Namespace) -> dict[str, dict[str, Any]]:
         "expertGroundTruth": False,
         "accuracyEvidence": False,
     }
+    legacy = browser.get("methodVersion") == "skin-browser-api-replay-v1"
     return {
-        "browser-api-replay.json": {**identity, "methodVersion": "unified-browser-api-replay-v1", "realBrowser": True, "apiE2EPassed": True, "sixRegionalViewsPassed": True},
+        "browser-api-replay.json": {**identity, "methodVersion": "unified-browser-api-replay-v1", "realBrowser": True, "apiE2EPassed": True, "sixRegionalViewsPassed": legacy, "approvedFindingsUI": not legacy},
         "indexeddb-history-replay.json": {**identity, "methodVersion": "unified-indexeddb-history-replay-v1", "indexedDbWriteReadPassed": True, "methodCompatibleHistoryPassed": True, "crossMethodBridgeAllowed": False, "malformedRecordFallbackAllowed": False, "evidenceBasis": "real IndexedDB replay plus pinned method-bound implementation and green deterministic CI"},
         "privacy-lifecycle.json": {**identity, "methodVersion": "unified-privacy-lifecycle-v1", "consentPassed": True, "retentionPassed": True, "deletionPassed": True},
-        "unavailable-overlap-controls.json": {**identity, "methodVersion": "unified-map-controls-v1", "unknownCountsAsNormal": False, "rednessIndependentLayer": True, "rednessSensitivityAliasAllowed": False, "dryOilyRednessOverlapPassed": True, "unsupportedHeadingsUnavailable": True, "evidenceBasis": "real unavailable-heading replay plus pinned regional-map implementation and green deterministic CI"},
-        "working-product-replay.json": {**identity, "methodVersion": "unified-working-product-replay-v1", "endpoint": "/api/local-health/skin", "concreteResultsPassed": True, "mapCardsHistoryPassed": True, "twelveProductHeadingsPassed": True},
+        "unavailable-overlap-controls.json": {**identity, "methodVersion": "unified-map-controls-v1", "unknownCountsAsNormal": False, "rednessIndependentLayer": True, "rednessSensitivityAliasAllowed": False, "dryOilyRednessOverlapPassed": legacy, "unsupportedHeadingsUnavailable": legacy, "findingsUnavailableExplicit": not legacy, "evidenceBasis": "real unavailable-heading replay plus pinned regional-map implementation and green deterministic CI"},
+        "working-product-replay.json": {**identity, "methodVersion": "unified-working-product-replay-v1", "endpoint": "/api/local-health/skin", "concreteResultsPassed": True, "mapCardsHistoryPassed": legacy, "twelveProductHeadingsPassed": legacy, "approvedFindingsUI": not legacy},
     }
 
 

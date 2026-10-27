@@ -1,0 +1,12 @@
+# 2026-10-26T11:46:46+01:00 1f033329abdb38cab3b57837e7949a81d8588fa9 :: npm run typecheck
+
+> attune-more@0.1.0 typecheck
+> npm --workspace=apps/vehicle-app run typecheck
+
+
+> vehicle-app@0.1.0 typecheck
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Route types generated successfully
+EXIT 0

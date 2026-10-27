@@ -1,0 +1,68 @@
+{
+ "eyeBags": {
+  "sha256": "90e8d9455c127987b45cc4dfa1fcd4338af9dc0876341203cbab72157712baa5",
+  "protocol": "research/skin-findings/scripts/fa4.py, Ön + 20°",
+  "heldOut": "80 test persons (pilot32 ∪ val28; also used for method selection)",
+  "threshold": 0.943,
+  "TP": 8,
+  "FP": 1,
+  "FN": 10,
+  "precision": 0.89,
+  "recall": 0.44,
+  "auc": 0.92
+ },
+ "coldSore": {
+  "sha256": "a271536005a1a481586d307ebd3d5991ee87b71a60af4ffd17bf653a716b847b",
+  "protocol": "research/skin-findings/scripts/fa4.py, Ön + 20°",
+  "heldOut": "80 test persons (pilot32 ∪ val28; also used for method selection)",
+  "threshold": 0.7988,
+  "TP": 7,
+  "FP": 0,
+  "FN": 6,
+  "precision": 1.0,
+  "recall": 0.54,
+  "auc": 0.95
+ },
+ "crowsFeet": {
+  "sha256": "04a54cafe125a00ec8a37c7c84134714d249312c31d5a892ee82b7992e8117ea",
+  "protocol": "research/skin-findings/scripts/fa4.py, Ön + 20°",
+  "heldOut": "80 test persons (pilot32 ∪ val28; also used for method selection)",
+  "threshold": 0.9361,
+  "TP": 17,
+  "FP": 1,
+  "FN": 4,
+  "precision": 0.94,
+  "recall": 0.81,
+  "auc": 0.98
+ },
+ "acneMarks": {
+  "sha256": "beb5ad94d93dced59ddbcb31cb6e6d701923d8fa2adcf5fe2646116b6ce79e20",
+  "protocol": "research/skin-findings/scripts/fa4.py, Ön + 20°",
+  "heldOut": "22 test persons (pilot32 ∪ val28; also used for method selection)",
+  "threshold": 0.9689,
+  "TP": 5,
+  "FP": 1,
+  "FN": 1,
+  "precision": 0.83,
+  "recall": 0.83,
+  "auc": 0.99
+ },
+ "foreheadLines": {
+  "sha256": "db0705de20fc604c5f94f1b44ece292f7895b89a2d220068639f89b19b6bce36",
+  "protocol": "research/skin-findings/results/alin_repro.md (Ön + 20°): person P 0.86 R 0.85 AUC 0.96; region P 0.99 R 0.66; 190 persons, 3x5 nested CV",
+  "deployedOn": "all 190 valid persons (front + 20°)",
+  "threshold": 0.5917
+ },
+ "eczema": {
+  "sha256": "f4c54d2e68867d15afdfea67d1618bc5fce602819da41f851d332dace409ee9b",
+  "protocol": "research/skin-findings/results/ecz_flake2.md (Ön + 20°): person P 0.85 R 0.69 AUC 0.96; region P 0.90 R 0.42; 340 persons, 3x5 nested CV",
+  "deployedOn": "all 340 valid persons (front + 20°)",
+  "threshold": 0.9067
+ },
+ "flaking": {
+  "sha256": "6affd88f675776d11224894f87961e353f80d2b34913991ca5a19e4d6c1d736e",
+  "protocol": "research/skin-findings/results/ecz_flake2.md (Ön + 20°): person P 0.92 R 0.78 AUC 0.95; region P 0.96 R 0.37; 290 persons, 3x5 nested CV",
+  "deployedOn": "all 290 valid persons (front + 20°)",
+  "threshold": 0.9287
+ }
+}

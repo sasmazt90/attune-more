@@ -15,13 +15,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         # The preserved-layout regression reads its actual historical baseline.
         fetch-depth: 0
 
     - name: Set up pinned Node.js 22.20.0
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: "22.20.0"
         cache: "npm"
@@ -33,13 +33,13 @@ jobs:
       run: npm run test:skin-presentation
 
     - name: Set up Python 3.11
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: "3.11"
         cache: "pip"
 
     - name: Checkout pinned YOLOX graph-test source (no weights)
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: Megvii-BaseDetection/YOLOX
         ref: 6ddff4824372906469a7fae2dc3206c7aa4bbaee
@@ -49,7 +49,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r services/core-api/requirements.txt
+        pip install -r services/core-api/requirements.txt -r tests/requirements-skin.txt
         # Import-only research/math regressions; no training or model export.
         pip install psutil==7.2.2 safetensors==0.7.0 pycocotools==2.0.10
         pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
@@ -79,10 +79,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Set up pinned Node.js 22.20.0
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: "22.20.0"
 

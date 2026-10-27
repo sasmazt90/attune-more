@@ -22,14 +22,29 @@ export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boole
  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),45000);
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
-  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({experimentalAcneV5:ACNE_V5_PREVIEW,requestId:crypto.randomUUID(),capturePreflight:{engine:'browser-mediapipe',faceCount:snapshot.captureFaceCount,quality:{isValid:qualityValid,avgLuminance:conditions.avgLuminance,blurScore:conditions.blurScore}},processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({experimentalAcneV5:ACNE_V5_PREVIEW,requestId:crypto.randomUUID(),capturePreflight:{engine:'browser-mediapipe',faceCount:snapshot.captureFaceCount,quality:{isValid:qualityValid,avgLuminance:conditions.avgLuminance,blurScore:conditions.blurScore}},processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,rawFrame:snapshot.rawFrame,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});
   if(!response.ok){
    const detail=await response.json().catch(()=>({}));
    throw Error(detail.detail==='SKIN_EYEWEAR_PRESENT'?'Cilt analizi için gözlüğünüzü çıkarın.':detail.detail==='SKIN_EYEWEAR_CHECK_UNCERTAIN'?'Göz çevresi yeterince doğrulanamadı; yeniden çekin.':'Yerel görünüm analizi tamamlanamadı.');
   }
   const result:AppearanceResponse=await response.json();
   if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
-  if(ACNE_V5_PREVIEW)validateAcneV5Response(result);
+  if((ACNE_V5_PREVIEW&&result.acneRuntime)||process.env.NEXT_PUBLIC_ATTUNE_ACNE_V5==='1')validateAcneV5Response(result);
+  return result;
+ } finally {clearTimeout(timer);clearInterval(stale);}
+}
+export type RegionalFuseResponse={regionalSkinMap:Record<string,any>|null;regionalSkinMapStatus:string;findings:unknown};
+/** Three-angle regional map + findings: the per-photo regionalSkinMap numbers go to the server, which runs the
+ * fusion and the finding decisions (thresholds live only on the server). No photo is sent. */
+export async function fuseRegionalOnServer(maps:Record<string,unknown>,current:()=>boolean):Promise<RegionalFuseResponse>{
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
+ const stale=setInterval(()=>{if(!current())controller.abort();},100);
+ try {
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/regional-fuse`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,maps})});
+  if(!response.ok)throw Error('REGIONAL_FUSE_FAILED');
+  const result=await response.json();
+  if(!current())throw Error('STALE_SOURCE');
+  if(!result||typeof result!=='object'||typeof result.regionalSkinMapStatus!=='string')throw Error('INVALID_REGIONAL_FUSE_RESPONSE');
   return result;
  } finally {clearTimeout(timer);clearInterval(stale);}
 }

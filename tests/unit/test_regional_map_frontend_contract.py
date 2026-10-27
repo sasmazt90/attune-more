@@ -67,5 +67,5 @@ def test_face_panel_renders_only_the_sanitized_layer_plan():
     assert 'data-regional-redness={layer.redness}' in source
     assert 'red-hatch' in source
     assert "layer.fill==='lightgrey'?'.20':'.24'" in source
-    assert 'sensitivity' not in source[source.index('regionalLayers.map'):source.index("{localMap&&")]
+    assert 'sensitivity' not in source[source.index('regionalLayers.map'):source.index("{localMap &&")]
 

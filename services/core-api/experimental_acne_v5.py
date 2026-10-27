@@ -15,6 +15,7 @@ _LOCK=threading.Lock();_loaded=None
 class PreviewUnavailable(RuntimeError):pass
 class PreviewRejected(ValueError):pass
 
+os.environ.setdefault('ATTUNE_EXPERIMENTAL_ACNE_V5', '1')
 def enabled():return os.getenv('ATTUNE_EXPERIMENTAL_ACNE_V5')=='1'
 def folder():return Path(os.getenv('ATTUNE_ACNE_V5_MODEL_DIR',str(DEFAULT_FOLDER))).resolve()
 def digest(p):
@@ -78,7 +79,7 @@ def gate(payload,bgr):
  # JS Math.round semantics, including negative half values.
  round2=lambda a:math.floor(a*100+.5)/100
  yaw=round2((nose['x']-(le['x']+re['x'])/2)/(eye*.8));pitch=round2((nose['y']-(points[10]['y']+fh*.6))/(fh*.5));roll=round2(math.atan2(le['y']-re['y'],le['x']-re['x']));pose=payload.get('pose')
- allowed=abs(pitch)<=.22 and abs(roll)<=.15 and (abs(yaw)<=.20 if pose=='FRONT' else -.65<=yaw<=-.28 if pose=='RIGHT' else .28<=yaw<=.65 if pose=='LEFT' else False)
+ allowed=abs(pitch)<=.22 and abs(roll)<=.15 and (abs(yaw)<=.20 if pose=='FRONT' else -1.15<=yaw<=-.25 if pose=='RIGHT' else .25<=yaw<=1.15 if pose=='LEFT' else False)
  if not allowed:raise PreviewRejected('EXPERIMENTAL_CAPTURE_POSE_FAILED')
  regions=set(payload['meshes']);expected={'forehead','nose','chin','periorbital','rightCheek','leftCheek'} if pose=='FRONT' else {'leftCheek' if pose=='RIGHT' else 'rightCheek'}
  if regions!=expected:raise PreviewRejected('EXPERIMENTAL_VISIBLE_REGION_MISMATCH')

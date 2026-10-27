@@ -23,26 +23,32 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       OPENAI_API_KEY: ''
       ATTUNE_LOAD_LOCAL_ENV: '0'
+      ATTUNE_DATA_DIR: ${{ runner.temp }}/attune-skin-isolated-data
+      SKIN_RESULT_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/browser
+      SKIN_HISTORY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/history
+      SKIN_PRIVACY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/privacy
     defaults:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.20.0'
           cache: npm
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: services/core-api/requirements.txt
+      - name: Verify authorized private skin runtime before costly setup
+        run: python tests/e2e/skin_bundle_preflight.py
       - name: Install immutable browser acceptance runtime
         run: |
           npm ci
-          python -m pip install -r services/core-api/requirements.txt pillow
+          python -m pip install -r services/core-api/requirements.txt -r tests/requirements-skin.txt pillow
           python -m playwright install --with-deps chromium
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg xvfb
@@ -63,6 +69,7 @@ jobs:
       - name: Prepare licensed three-pose fixture against the running app
         run: |
           python -u tests/e2e/prepare_multi_angle_fixture.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/multi-angle-fixture.log
+          cp audit-results/FIXTURE-LICENSE.md audit-results/unified-skin-result-browser-acceptance/FIXTURE-LICENSE.md
       - name: Run source-bound browser API history and privacy acceptance
         run: |
           xvfb-run -a --server-args="-screen 0 1920x1080x24" python -u tests/e2e/current_skin_contract.py 2>&1 | tee audit-results/unified-skin-result-browser-acceptance/browser-api.log
@@ -87,11 +94,11 @@ jobs:
           backend=$(jq -r '[.jobs[] | select(.name | startswith("Backend Unit Tests"))][0].conclusion // empty' <<<"$jobs_json")
           test "$frontend" = "success"
           test "$backend" = "success"
-          jq -n --argjson runId "$ci_run_id" --arg headSha "$GITHUB_SHA" --arg url "https://github.com/$GITHUB_REPOSITORY/actions/runs/$ci_run_id" '{githubActions:{runId:$runId,url:$url,headSha:$headSha,conclusion:"success",frontendProductionBuild:"success",localizationContract:"success",deterministicUnitSuite:{passed:1627,skipped:44,warnings:2},completeSkinResearchEvidenceSuite:{tests:290,result:"OK"}}}' > audit-results/unified-skin-result-browser-acceptance/repository-ci.json
+          jq -n --argjson runId "$ci_run_id" --arg headSha "$GITHUB_SHA" --arg url "https://github.com/$GITHUB_REPOSITORY/actions/runs/$ci_run_id" '{githubActions:{runId:$runId,url:$url,headSha:$headSha,conclusion:"success",frontendProductionBuild:"success",backendUnitJob:"success",completeSkinResearchEvidenceSuite:{result:"OK"}}}' > audit-results/unified-skin-result-browser-acceptance/repository-ci.json
           python scripts/skin-research/build_unified_browser_acceptance.py \
-            --browser-proof audit-results/feedback-four-modules-20261009/skin/proof.json \
-            --history-proof audit-results/followup-closure-20261010/photo-history/proof.json \
-            --privacy-proof audit-results/acne-trained-20261010/photo-wipe-success/proof.json \
+            --browser-proof audit-results/unified-skin-result-browser-acceptance/browser/proof.json \
+            --history-proof audit-results/unified-skin-result-browser-acceptance/history/proof.json \
+            --privacy-proof audit-results/unified-skin-result-browser-acceptance/privacy/proof.json \
             --ci-evidence audit-results/unified-skin-result-browser-acceptance/repository-ci.json \
             --repository-commit "$GITHUB_SHA" \
             --browser-run-id "github-actions-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" \
@@ -104,11 +111,11 @@ jobs:
           done
       - name: Upload privacy-safe browser evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: unified-skin-browser-acceptance-${{ github.run_id }}
           path: audit-results/unified-skin-result-browser-acceptance/
-          retention-days: 14
+          retention-days: 1
           if-no-files-found: warn
   drive-metadata-diagnostic:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/localization-en-de-tr-20261020' && startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:')
@@ -139,14 +146,14 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.20.0'
           cache: npm
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: pip
@@ -312,9 +319,9 @@ jobs:
           python -u tests/e2e/uat_visuals.py 2>&1 | tee audit-results/uat-visuals.log
       - name: Upload evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: attune-browser-audit-${{ github.run_number }}
           path: audit-results/
-          retention-days: 14
+          retention-days: 1
           if-no-files-found: warn

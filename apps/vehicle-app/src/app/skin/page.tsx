@@ -9,6 +9,7 @@ import { lowerFaceExpressionReason } from '../../utils/skinExpression';
 import {SkinEyewearCheck,SkinEyewearGate,SKIN_CAPTURE_POLICY,type EyewearStatus} from '../../utils/skinEyewear';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { validFindings, unavailableFindings, type SkinFindingsResult } from '../../utils/skinFindings';
 import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import {
@@ -16,7 +17,8 @@ import {
   FaceAlignment,
   ImageQuality,
   RegionMetrics,
-  SkinAnalysisResult
+  SkinAnalysisResult,
+  detectCameraMirrored
 } from '../../utils/skinAnalyzer';
 import {
   SkinRegionId,
@@ -28,7 +30,7 @@ import {
 } from '../../data/skinDemoFixture';
 import { isDemoMode, STORAGE_KEYS, isCameraAllowed,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
 import { appendHealthRecord,withRecordsLock } from '../../utils/healthRecords';
-import {saveSkinPhotos} from '../../utils/skinPhotoHistory';
+import {loadSkinPhotos,saveSkinPhotos} from '../../utils/skinPhotoHistory';
 import { rememberSkinSnapshots } from '../../utils/skinVolatileHistory';
 import { InformationButton } from '../../components/InformationButton';
 import { SkinInference } from '../../utils/skinInference';
@@ -36,8 +38,8 @@ import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference
 import { SkinSnapshot, snapshotRawSkinFrame as snapshotSkinFrame, snapshotAngleForRegion, assertCompleteFace } from '../../utils/skinSnapshot';
 import { measureSkinIndicators, SKIN_SIGN_CONTRACT, validSkinIndicators } from '../../utils/skinIndicators';
 import {skinTemporalSupport} from '../../utils/skinTemporalSupport';
-import { analyzeAppearance,attachAppearance } from '../../utils/appearanceMeasurements';
-import { buildSkinViewModel, skinViewOrder, overviewFromResponse, validSkinOverview, type SkinViewId } from '../../utils/skinOverview';
+import { analyzeAppearance,attachAppearance,fuseRegionalOnServer } from '../../utils/appearanceMeasurements';
+import { buildSkinViewModel, skinViewOrder, overviewFromResponse, validSkinOverview, effectiveSkinType, type SkinViewId } from '../../utils/skinOverview';
 import { SkinLocalAnalysis } from '../../utils/skinLocalMaps';
 import { SkinStartView } from '../../components/skin/SkinStartView';
 import { SkinActiveScan } from '../../components/skin/SkinActiveScan';
@@ -47,6 +49,7 @@ import { SkinTrendModal } from '../../components/skin/SkinTrendModal';
 import { SkinObservationModal } from '../../components/skin/SkinObservationModal';
 import { SkinActionsModal } from '../../components/skin/SkinActionsModal';
 import { AlertTriangle, RefreshCw, ShieldAlert } from 'lucide-react';
+import { LatestVideoFrame, rawFrameOf } from '../../utils/skinRawFrame';
 
 export default function SkinPage() {
  const {text:i18nText,node:i18nNode}=useTranslations();
@@ -60,7 +63,7 @@ export default function SkinPage() {
     if(indicators&&conditions&&snapshot.landmarks){
       if(!snapshot.photoId){const digest=await crypto.subtle.digest('SHA-256',ctx.getImageData(0,0,snapshot.width,snapshot.height).data);snapshot.photoId=Array.from(new Uint8Array(digest)).map(v=>v.toString(16).padStart(2,'0')).join('');}
       const result=await analyzeAppearance(snapshot,valid,conditions,temporalSupport.current,current);
-      if(current()){attachAppearance(indicators,result);snapshot.experimentalAcneV5=result.acneRuntime?.status==='measured';snapshot.general=overviewFromResponse(result);snapshot.localMaps=result.maps;snapshot.contoursMeasured=result.contours;snapshot.acneCandidates=Object.fromEntries(Object.entries(result.measurements).map(([region,rows])=>[region,rows.find(v=>v.id==='acne'&&v.value!==null)?.components.bounds||[]]));
+      if(current()){attachAppearance(indicators,result);snapshot.experimentalAcneV5=result.acneRuntime?.status==='measured';snapshot.general=overviewFromResponse(result);snapshot.regionalSkinMap=(result as any).regionalSkinMap&&typeof (result as any).regionalSkinMap==='object'?(result as any).regionalSkinMap:undefined;snapshot.localMaps=result.maps;snapshot.contoursMeasured=result.contours;snapshot.acneCandidates=Object.fromEntries(Object.entries(result.measurements).map(([region,rows])=>[region,rows.find(v=>v.id==='acne'&&v.value!==null)?.components.bounds||[]]));
         snapshot.acneCandidates.overview=[...new Map(Object.values(snapshot.acneCandidates).flat().map((box:any)=>[box.candidateId||`${box.x}:${box.y}:${box.width}:${box.height}`,box])).values()];}
     }
   };
@@ -269,6 +272,40 @@ export default function SkinPage() {
     window.addEventListener('storage', refresh); window.addEventListener('attune-records', refresh);
     return () => { window.removeEventListener('storage', refresh); window.removeEventListener('attune-records', refresh); };
   }, [scanState]);
+
+  useEffect(() => {
+    // view=latest: the newest record; view=record&id=…: one record of the history (opened from Sağlık Geçmişim)
+    const query = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const recordId = query?.get('view') === 'record' ? query.get('id') : null;
+    if (isParked && typeof window !== 'undefined' && (window.location.search.includes('view=latest') || recordId)) {
+      try {
+        const latest = localStorage.getItem(STORAGE_KEYS.LATEST_SKIN);
+        const fromHistory = recordId ? (JSON.parse(localStorage.getItem(STORAGE_KEYS.SKIN_HISTORY) || '[]') as any[]).find(r => r && r.id === recordId) : null;
+        const stored = recordId ? (fromHistory ? JSON.stringify(fromHistory) : latest && JSON.parse(latest)?.id === recordId ? latest : null) : latest;
+        const frames = (window as any).__attuneInitialSnapshots;
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && parsed.regions) {
+            // in-memory photos belong to the newest scan only; other records use the photos kept on this device
+            // (only with the separate photo-storage consent; loadSkinPhotos returns nothing otherwise)
+            if (frames && (!recordId || JSON.parse(latest || 'null')?.id === recordId)) {
+              snapshotFrames.current = frames;
+              snapshotRecord.current = parsed.id;
+              setSnapshots(frames);
+            } else {
+              void loadSkinPhotos(parsed.id).then(saved => {
+                if (!saved || snapshotRecord.current) return;
+                snapshotFrames.current = saved as any; snapshotRecord.current = parsed.id; setSnapshots(saved as any);
+              }).catch(() => {});
+            }
+            setSelectedRegionId(parsed.general ? 'overview' : 'forehead');
+            setAnalysisResult(parsed);
+            setScanState('COMPLETED');
+          }
+        }
+      } catch {}
+    }
+  }, [isParked]);
 
   // Real modda COMPLETED durumu doğrulaması: Kayıtlı gerçek analiz yoksa COMPLETED state'e izin verilmez
   useEffect(() => {
@@ -513,8 +550,28 @@ export default function SkinPage() {
         clinicalNoteTr: 'Mevcut taramanın bölgesel renk ve görünüm vekilleri. Hastalık tanısı veya kalibre edilmiş klinik şiddet değildir; eski ölçümler yeni yönteme dönüştürülmez.'
       };
       finalResult.analysisId=finalResult.id;
-      finalResult.general=snapshotFrames.current.FRONT?.general ? {...snapshotFrames.current.FRONT.general,analysisId:finalResult.id} : undefined;
       finalResult.captures=Object.fromEntries(Object.entries(snapshotFrames.current).map(([pose,frame])=>[pose,{captureId:frame.photoId!,pose,sourceWidth:frame.width,sourceHeight:frame.height}]));
+      // Regional map, skin type and findings of a three-angle scan come from the server fusion of the three photos'
+      // regional maps (models + thresholds run only on the server). A failed fusion paints nothing and names no type;
+      // its findings say 'unavailable' (never "nothing found").
+      const front=snapshotFrames.current.FRONT?.general;
+      const poseMaps=Object.fromEntries((['FRONT','LEFT','RIGHT'] as const).map(p=>[p,snapshotFrames.current[p]?.regionalSkinMap]).filter(([,m])=>m&&typeof m==='object'));
+      let fused:Awaited<ReturnType<typeof fuseRegionalOnServer>>|null=null;
+      if(front&&poseMaps.FRONT){try{fused=await fuseRegionalOnServer(poseMaps,validCapture);}catch{fused=null;}}
+      if(!validCapture())return;
+      const map=fused?.regionalSkinMap||undefined;
+      const findings:SkinFindingsResult=validFindings(fused?.findings)?fused!.findings as SkinFindingsResult:unavailableFindings(poseMaps.FRONT?'FUSION_FAILED':'MODEL_BUNDLE_UNAVAILABLE');
+      const fusedGeneral=front?{...front,findingsRegionalMap:map,findings,
+        skinType:map?.skinType?.quality==='valid'?effectiveSkinType({skinType:front.skinType,regionalSkinMap:map})
+          :{...front.skinType,value:null,sensitive:false,quality:'insufficient' as const,confidence:null,limitationCode:map?.skinType?.limitationCode||'REGIONAL_FUSION_UNAVAILABLE'}}:undefined;
+      finalResult.general=fusedGeneral ? {...fusedGeneral,analysisId:finalResult.id} : undefined;
+      // The overview's source is the FRONT photo only (captureId/pose/size of that photo). Side photos never
+      // carry it: a LEFT/RIGHT frame with the FRONT overview is rejected by the photo store (INVALID_OVERVIEW_SOURCE).
+      for (const [pose, frame] of Object.entries(snapshotFrames.current)) {
+        if (!frame) continue;
+        if (pose !== 'FRONT') delete frame.general;
+        else if (finalResult.general) frame.general = finalResult.general;
+      }
       if (!validSkinIndicators(indicators) || !validSkinOverview(finalResult.general,finalResult.id) || !SkinAnalyzer.canPersistResult(finalResult)) throw new Error('Invalid metrics');
       // Numeric history never contains pixels; photo retention has separate consent.
       resultPersisted.current=storageAllowed();
@@ -557,7 +614,7 @@ export default function SkinPage() {
     // Match the working 640-wide acquisition scale without degrading the
     // accepted native photo or using any display crop/zoom in measurement.
     const analysisCanvas=document.createElement('canvas');
-    const eyewearCheck=new SkinEyewearCheck(),eyewearGate=new SkinEyewearGate();
+    const eyewearCheck=new SkinEyewearCheck(),eyewearGate=new SkinEyewearGate(),latestFrame=new LatestVideoFrame();
     setEyewearStatus('PENDING');
     const loop = async () => {
       if (cancelled) return;
@@ -594,6 +651,7 @@ export default function SkinPage() {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (ctx) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          latestFrame.replace(video); // the same frame as raw YUV planes (server converts with the camera profile)
 
           // Gerçek hizalama ve kalite değerlendirmesi
           if (!isMediaPipeLoadedRef.current || !inferenceRef.current) {
@@ -610,6 +668,7 @@ export default function SkinPage() {
             if(!analysisCtx)throw Error('CAMERA_ANALYSIS_CANVAS');
             analysisCtx.drawImage(canvas,0,0,w,h);
             curAlign = await inferenceRef.current.assessAlignment(analysisCanvas);
+            curAlign.cameraMirrored = detectCameraMirrored(video, ctx, curAlign.faceTransform);
           } catch {
             if (!cancelled) {
               setErrorMessage('Cilt analiz motoru yanıt vermiyor. Lütfen yeniden deneyin.');
@@ -669,9 +728,16 @@ export default function SkinPage() {
               !expressionIssue &&
               curQual.isValid;
 
+            // Content-free diagnostics expose the actual gates without overriding them.
+            canvas.dataset.skinCaptureTarget=target;
+            canvas.dataset.skinCaptureAligned=String(aligned);
+            canvas.dataset.skinCaptureQualityValid=String(curQual.isValid);
+            canvas.dataset.skinCaptureExpressionIssue=expressionIssue||'';
+            canvas.dataset.skinCaptureRequiredFrames='15';
             if (isValid) {
               if(curAlign.landmarks){temporalSupport.current.push(skinTemporalSupport(ctx,curAlign.landmarks));temporalSupport.current=temporalSupport.current.slice(-6);}
               consecutiveValidFramesRef.current += 1;
+              canvas.dataset.skinCaptureConsecutiveFrames=String(consecutiveValidFramesRef.current);
               const progress = Math.min(100, Math.round((consecutiveValidFramesRef.current / 15) * 100));
               setScanProgress(captureState.enabled ? Math.round((captureState.index * 100 + progress) / 3) : progress);
               setGuidanceText('Hizalama uygun. Lütfen sabit durun...');
@@ -687,7 +753,9 @@ export default function SkinPage() {
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     const snapshot = snapshotSkinFrame(canvas, curAlign, target);
                     capture.indicators=measureSkinIndicators(ctx,snapshot,curQual);
-                    await addLocalMaps(snapshot,ctx,curQual.isValid,()=>!cancelled&&parkedRef.current&&isCameraAllowed(),capture.frameToken,capture.indicators,{...capture.pose,avgLuminance:curQual.avgLuminance,blurScore:curQual.blurScore});
+                    snapshot.rawFrame=await rawFrameOf(latestFrame.current(),canvas.width,canvas.height);
+                    if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
+                    try { await addLocalMaps(snapshot,ctx,curQual.isValid,()=>!cancelled&&parkedRef.current&&isCameraAllowed(),capture.frameToken,capture.indicators,{...capture.pose,avgLuminance:curQual.avgLuminance,blurScore:curQual.blurScore}); } finally { delete snapshot.rawFrame; }
                     if(cancelled||!parkedRef.current||!isCameraAllowed())return;
                     if(target==='FRONT'){delete capture.indicators.rightCheek;delete capture.indicators.leftCheek;}
                     if (target === 'FRONT') snapshot.rois = snapshot.rois.filter(r => !['rightCheek','leftCheek'].includes(r.id));
@@ -711,6 +779,7 @@ export default function SkinPage() {
             } else {
               // Koşullar bozulursa ilerlemeyi durdur veya geriye al
               consecutiveValidFramesRef.current = captureState.enabled || expressionIssue || curQual.status.startsWith('EYEWEAR') ? 0 : Math.max(0, consecutiveValidFramesRef.current - 1);
+              canvas.dataset.skinCaptureConsecutiveFrames=String(consecutiveValidFramesRef.current);
               if (curQual.status.startsWith('EYEWEAR')) {
                 setGuidanceText(curQual.warningMessageTr || 'Göz çevrenizi net gösterin.');
               } else if (!curAlign.faceDetected) {
@@ -730,7 +799,7 @@ export default function SkinPage() {
 
     schedule();
     return () => {
-      eyewearCheck.cancel();eyewearGate.reset();
+      eyewearCheck.cancel();eyewearGate.reset();latestFrame.close();
       cancelled = true; localAnalysis.current?.cancel();
       if (frameId !== null) cancelAnimationFrame(frameId);
       video.srcObject = null;
@@ -808,14 +877,24 @@ export default function SkinPage() {
 
   const getDefaultEngineRegions = (): Record<string, RegionMetrics> => ({
     forehead: { id: 'forehead', nameTr: 'Alın', rednessScore: 32, luminanceScore: 68, textureVariance: 22, changeFromBaselinePct: 4 },
-    rightCheek: { id: 'rightCheek', nameTr: 'Sağ Yanak', rednessScore: 64, luminanceScore: 52, textureVariance: 48, changeFromBaselinePct: 22 },
-    leftCheek: { id: 'leftCheek', nameTr: 'Sol Yanak', rednessScore: 35, luminanceScore: 64, textureVariance: 22, changeFromBaselinePct: -3 },
+    rightCheek: { id: 'rightCheek', nameTr: 'Sağ Profil', rednessScore: 64, luminanceScore: 52, textureVariance: 48, changeFromBaselinePct: 22 },
+    leftCheek: { id: 'leftCheek', nameTr: 'Sol Profil', rednessScore: 35, luminanceScore: 64, textureVariance: 22, changeFromBaselinePct: -3 },
     nose: { id: 'nose', nameTr: 'Burun', rednessScore: 40, luminanceScore: 60, textureVariance: 26, changeFromBaselinePct: 6 },
     chin: { id: 'chin', nameTr: 'Çene', rednessScore: 28, luminanceScore: 65, textureVariance: 16, changeFromBaselinePct: 2 },
     periorbital: { id: 'periorbital', nameTr: 'Göz Çevresi', rednessScore: 30, luminanceScore: 54, textureVariance: 34, changeFromBaselinePct: 8 }
   });
 
   // Care modülüne yönlendirme (Dermatoloji el sıkışması)
+  // Earlier scans with validated findings (numeric only, no photos) for the history chart of each finding.
+  const findingsHistory = React.useMemo(() => {
+    if (isDemoMode() || typeof window === 'undefined') return [];
+    try {
+      const rows = JSON.parse(localStorage.getItem(STORAGE_KEYS.SKIN_HISTORY) || '[]');
+      return (Array.isArray(rows) ? rows : []).filter((r: any) => r?.id !== analysisResult?.id && typeof r?.timestamp === 'string' && validFindings(r?.general?.findings))
+        .map((r: any) => ({ at: r.timestamp, findings: r.general.findings.findings, version: r.general.findings.version, status: r.general.findings.status, unavailable: r.general.findings.unavailable }));
+    } catch { return []; }
+  }, [analysisResult?.id]);
+
   const handleNavigateToCare = () => {
     const isDemo = isDemoMode();
     const currentRegion = buildSkinViewModel(selectedRegionId, analysisResult, isDemo);
@@ -944,6 +1023,12 @@ export default function SkinPage() {
         <SkinResultView
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}
+          findings={validFindings((analysisResult as any)?.general?.findings) ? (analysisResult as any).general.findings.findings : undefined}
+          findingsResult={(analysisResult as any)?.general?.findings}
+          findingsHistory={findingsHistory}
+          scanAt={(analysisResult as any)?.timestamp}
+          onRescan={() => { setMediaStream(null); setIsLiveVideo(false); setScanState('READY'); }}
+          onSelectView={(view) => setSelectedRegionId(view as SkinViewId)}
           onPrev={handlePrevRegion}
           onNext={handleNextRegion}
           onOpenModal={(modal) => setActiveModal(modal)}

@@ -121,17 +121,23 @@ async def skin(request: Request):
         skin_geometry(value)
         async with _busy:
             from native_material_budget import NativeRequestBudget,NativeRequestStopped
+            from camera_color import CameraProfileUnavailable
             from product_dryness import analyze_product,DrynessModelUnavailable
             scope=NativeRequestBudget()
             def work():
-                scope.check();eyewear=skin_capture_preflight(value);scope.check()
-                result=analyze_product(value,analyze_skin,scope.check)
-                if value.get('experimentalAcneV5') is True:
+                # camera-correct pixels: raw YUV frame converted with the vehicle camera profile (+ colour correction)
+                from camera_color import load_profile,prepare,restore
+                source,color,client_id,analyzed_id=prepare(value,load_profile())
+                scope.check();eyewear=skin_capture_preflight(source);scope.check()
+                result=analyze_product(source,analyze_skin,scope.check)
+                if source.get('experimentalAcneV5', True) is not False:
                     from acne_v5_product import replace_acne
-                    result=replace_acne(result,value,scope.check)
+                    result=replace_acne(result,source,scope.check)
                 from local_skin_type import finalize_product_type
                 result=finalize_product_type(result)
-                return eyewear,result
+                from regional_attach import attach as attach_regional_map
+                result=attach_regional_map(result,source,scope.check)
+                return eyewear,restore(result,color,client_id,analyzed_id)
             worker=asyncio.create_task(run_in_threadpool(work))
             try:
                 while not worker.done():
@@ -151,6 +157,8 @@ async def skin(request: Request):
                 raise HTTPException(422,str(error)) from None
             except DrynessModelUnavailable:
                 raise HTTPException(503,'LOCAL_MODEL_OR_RESOURCE_UNAVAILABLE') from None
+            except CameraProfileUnavailable:
+                raise HTTPException(503,'CAMERA_PROFILE_UNAVAILABLE') from None
         result['captureScopeVersion']=eyewear['version']
         for rows in [*result.get('measurements',{}).values(),result.get('general',{}).get('measurements',[])]:
             for row in rows:
@@ -161,6 +169,72 @@ async def skin(request: Request):
         return result
     except (KeyError, ValueError, TypeError, IndexError, OverflowError):
         raise HTTPException(422, 'INVALID_LOCAL_GEOMETRY_OR_PHOTO')
+
+
+@router.post('/skin/camera-calibration')
+async def skin_camera_calibration(request: Request):
+    """Service mode only (ATTUNE_CAMERA_CALIBRATION=1): one photo of the printed Attune chart from the cabin camera ->
+    vehicle camera profile (YUV matrix/range + colour correction) written to ATTUNE_CAMERA_PROFILE when the quality
+    gates pass. Body: {processingConsent, profileId, yuv:{matrix, fullRange}, photo (PNG data URL) | rawFrame}."""
+    import os
+    if os.environ.get('ATTUNE_CAMERA_CALIBRATION')!='1' or not os.environ.get('ATTUNE_CAMERA_PROFILE'):
+        raise HTTPException(403,'CAMERA_CALIBRATION_DISABLED')
+    value=await payload(request)
+    try:
+        import hashlib
+        from camera_color import raw_frame_bgr
+        from camera_calibration import measure_chart,fit_profile,write_profile
+        from appearance_analysis import decode_photo
+        yuv=value.get('yuv');profile_id=value.get('profileId')
+        if not isinstance(profile_id,str) or not 3<=len(profile_id)<=80 or not isinstance(yuv,dict):raise ValueError()
+        if value.get('rawFrame') is not None:bgr,_=raw_frame_bgr(value['rawFrame'],{'yuv':{'matrix':yuv.get('matrix'),'fullRange':yuv.get('fullRange')}} if yuv.get('matrix') else None)
+        else:bgr,_=decode_photo(value.get('photo'))
+        source=hashlib.sha256(bgr.tobytes()).hexdigest()
+        async with _busy:measured=await run_in_threadpool(measure_chart,bgr)
+        profile,report=fit_profile([measured],profile_id,yuv={'matrix':yuv.get('matrix'),'fullRange':yuv.get('fullRange')},sources=[source])
+    except (KeyError,ValueError,TypeError,IndexError):
+        raise HTTPException(422,'INVALID_CALIBRATION_REQUEST')
+    if profile is None:return {'status':'REJECTED','report':report}
+    digest=write_profile(profile,os.environ['ATTUNE_CAMERA_PROFILE'])
+    return {'status':'ACCEPTED','profileId':profile_id,'profileSHA256':digest,'report':report}
+
+
+@router.post('/skin/regional-fuse')
+async def skin_regional_fuse(request: Request):
+    """Three-angle regional skin map + findings from the per-photo regionalSkinMap objects returned by /skin.
+    Only numbers travel here (no photo); the decision models run on the server, never in the client."""
+    value = await payload(request)
+    from regional_attach import fuse_regional
+    try:
+        maps = value.get('maps')
+        if not isinstance(maps, dict):
+            raise ValueError('MAPS_REQUIRED')
+        out = await run_in_threadpool(fuse_regional, maps)
+        if not parked() or await request.is_disconnected():
+            raise HTTPException(409, 'CANCELLED')
+        return out
+    except (KeyError, ValueError, TypeError):
+        raise HTTPException(422, 'INVALID_REGIONAL_FUSE_PAYLOAD') from None
+
+
+@router.post('/skin/fuse-multi-angle')
+async def skin_fuse_multi_angle(request: Request):
+    value = await payload(request)
+    from local_skin_type import fuse_multi_angle_skin
+    try:
+        front_res = value.get('front')
+        left_res = value.get('left')
+        right_res = value.get('right')
+        if not isinstance(front_res, dict):
+            raise ValueError('FRONT_REQUIRED')
+        fused = await run_in_threadpool(fuse_multi_angle_skin, front_res, left_res, right_res)
+        from regional_attach import fuse as fuse_regional_map
+        fused = await run_in_threadpool(fuse_regional_map, fused, front_res, left_res, right_res)
+        if not parked() or await request.is_disconnected():
+            raise HTTPException(409, 'CANCELLED')
+        return fused
+    except (KeyError, ValueError, TypeError):
+        raise HTTPException(422, 'INVALID_MULTI_ANGLE_PAYLOAD') from None
 
 
 async def dental_work(request,work,value):

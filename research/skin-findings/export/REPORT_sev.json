@@ -1,0 +1,308 @@
+{
+ "eyeBags": {
+  "finding": "torba",
+  "id": "eyeBags",
+  "n": 48,
+  "ratingCounts": [
+   20,
+   20,
+   8
+  ],
+  "alpha": 1000,
+  "w": 0,
+  "extraColumns": [
+   "DINOv2",
+   "profil ham",
+   "profil düz.",
+   "oluk eğimi"
+  ],
+  "embRowsPerPerson": [
+   4
+  ],
+  "selected_bands": {
+   "rho": 0.6245,
+   "recorded": 0.62,
+   "diff": 0.0045,
+   "meanScoreByRating": [
+    31.2,
+    56.3,
+    81.2
+   ],
+   "far2bands": 0.0417
+  },
+  "nested": {
+   "arm": "emb",
+   "rho": 0.5757,
+   "p10": 0.5195,
+   "p90": 0.6191,
+   "recorded": 0.5757,
+   "diff": 0.0
+  },
+  "refCheck_rho": 0.6293,
+  "insampleVsOOF_sd": [
+   0.4634,
+   0.4191
+  ],
+  "jsonPredictMaxAbsDiff": 1.1920928955078125e-07,
+  "sha256": "b140e5a91eeb185d8febb71328d03a2c9e43148cce29d2f8f36b02bd2ba4b692",
+  "bytes": 57394
+ },
+ "darkCircles": {
+  "finding": "morluk",
+  "id": "darkCircles",
+  "n": 54,
+  "ratingCounts": [
+   17,
+   26,
+   11
+  ],
+  "alpha": 1000,
+  "w": 1,
+  "extraColumns": [
+   "DINOv2",
+   "dL düz.",
+   "da",
+   "db",
+   "dE düz.",
+   "dL ham"
+  ],
+  "embRowsPerPerson": [
+   4
+  ],
+  "selected_bands": {
+   "rho": 0.7162,
+   "recorded": 0.72,
+   "diff": -0.0038,
+   "meanScoreByRating": [
+    22.8,
+    55.8,
+    78.2
+   ],
+   "far2bands": 0.0185
+  },
+  "nested": {
+   "arm": "combo",
+   "rho": 0.7466,
+   "p10": 0.724,
+   "p90": 0.7758,
+   "recorded": 0.7466,
+   "diff": 0.0
+  },
+  "blockedReason": "extra column 'DINOv2' (rf/dino_logit_index.json) has no recorded generating recipe",
+  "fallback_bands": {
+   "model": "embedding-only Ridge, alpha=1000 (CFG alpha of darkCircles)",
+   "rho": 0.6987,
+   "meanScoreByRating": [
+    23.1,
+    56.0,
+    77.4
+   ],
+   "far2bands": 0.0185
+  },
+  "fallback_nested": {
+   "rho": 0.655,
+   "p10": 0.6094,
+   "p90": 0.7086,
+   "recorded": 0.655,
+   "diff": 0.0
+  },
+  "info_combo_without_logit_bands": 0.7066,
+  "refCheck_rho": 0.6974,
+  "insampleVsOOF_sd": [
+   0.4805,
+   0.4405
+  ],
+  "jsonPredictMaxAbsDiff": 2.384185791015625e-07,
+  "sha256": "144531cf334f751e8a1c548552cdfb71c96c332bd513af44ca28c259ddf08b23",
+  "bytes": 58766
+ },
+ "hoodedEyelids": {
+  "finding": "kapak",
+  "id": "hoodedEyelids",
+  "n": 31,
+  "ratingCounts": [
+   11,
+   17,
+   3
+  ],
+  "alpha": 300,
+  "w": 0,
+  "extraColumns": [
+   "DINOv2",
+   "aperture",
+   "brow_lid",
+   "crease_lid"
+  ],
+  "embRowsPerPerson": [
+   4
+  ],
+  "selected_bands": {
+   "rho": 0.7312,
+   "recorded": 0.73,
+   "diff": 0.0012,
+   "meanScoreByRating": [
+    25.0,
+    59.2,
+    89.5
+   ],
+   "far2bands": 0.0
+  },
+  "nested": {
+   "arm": "emb",
+   "rho": 0.6946,
+   "p10": 0.6529,
+   "p90": 0.7322,
+   "recorded": 0.6946,
+   "diff": 0.0
+  },
+  "refCheck_rho": 0.7248,
+  "insampleVsOOF_sd": [
+   0.489,
+   0.3993
+  ],
+  "jsonPredictMaxAbsDiff": 2.384185791015625e-07,
+  "sha256": "346cc675ea0c910d760ef71a5acc8464521b11402b3a74195880f417140ef603",
+  "bytes": 54370
+ },
+ "crowsFeet": {
+  "finding": "kaz",
+  "id": "crowsFeet",
+  "n": 45,
+  "ratingCounts": [
+   24,
+   14,
+   7
+  ],
+  "alpha": 1000,
+  "w": 0,
+  "extraColumns": [
+   "DINOv2",
+   "çizgi gücü"
+  ],
+  "embRowsPerPerson": [
+   4
+  ],
+  "selected_bands": {
+   "rho": 0.7048,
+   "recorded": 0.7,
+   "diff": 0.0048,
+   "meanScoreByRating": [
+    32.3,
+    63.7,
+    83.4
+   ],
+   "far2bands": 0.0444
+  },
+  "nested": {
+   "arm": "emb",
+   "rho": 0.6734,
+   "p10": 0.6141,
+   "p90": 0.7199,
+   "recorded": 0.6734,
+   "diff": 0.0
+  },
+  "refCheck_rho": 0.7048,
+  "insampleVsOOF_sd": [
+   0.5099,
+   0.4474
+  ],
+  "jsonPredictMaxAbsDiff": 2.384185791015625e-07,
+  "sha256": "bb44af67b2db8b2490694ed10fda6911888e588f6de556ca6899a6121cc126de",
+  "bytes": 56872
+ },
+ "foreheadLines": {
+  "finding": "alin",
+  "id": "foreheadLines",
+  "n": 34,
+  "ratingCounts": [
+   12,
+   14,
+   8
+  ],
+  "alpha": 300,
+  "w": 0,
+  "extraColumns": [
+   "DINOv2",
+   "fore_h",
+   "fore_h_p90",
+   "fore_any"
+  ],
+  "embRowsPerPerson": [
+   3
+  ],
+  "selected_bands": {
+   "rho": 0.6038,
+   "recorded": 0.6,
+   "diff": 0.0038,
+   "meanScoreByRating": [
+    29.4,
+    52.8,
+    75.8
+   ],
+   "far2bands": 0.0588
+  },
+  "nested": {
+   "arm": "emb",
+   "rho": 0.5979,
+   "p10": 0.5457,
+   "p90": 0.6558,
+   "recorded": 0.5979,
+   "diff": 0.0
+  },
+  "refCheck_rho": 0.6044,
+  "insampleVsOOF_sd": [
+   0.5795,
+   0.4876
+  ],
+  "jsonPredictMaxAbsDiff": 2.384185791015625e-07,
+  "sha256": "239300f8168979be8c16b5bdbf4e63a28c1686a9095f3861d68fa161fa1676ec",
+  "bytes": 54587
+ },
+ "acneMarks": {
+  "finding": "akneizi",
+  "id": "acneMarks",
+  "n": 38,
+  "ratingCounts": [
+   10,
+   20,
+   8
+  ],
+  "alpha": 300,
+  "w": 0,
+  "extraColumns": [
+   "DINOv2",
+   "pigment alanı",
+   "leke sayısı"
+  ],
+  "embRowsPerPerson": [
+   7
+  ],
+  "selected_bands": {
+   "rho": 0.4196,
+   "recorded": 0.42,
+   "diff": -0.0004,
+   "meanScoreByRating": [
+    39.8,
+    44.3,
+    77.1
+   ],
+   "far2bands": 0.0526
+  },
+  "nested": {
+   "arm": "emb",
+   "rho": 0.4063,
+   "p10": 0.331,
+   "p90": 0.5012,
+   "recorded": 0.4063,
+   "diff": 0.0
+  },
+  "refCheck_rho": 0.4127,
+  "insampleVsOOF_sd": [
+   0.4788,
+   0.3981
+  ],
+  "jsonPredictMaxAbsDiff": 2.384185791015625e-07,
+  "sha256": "c6a9088c5f0dfa85eae5daa5087c0393fe63abf56718732244757150e9b5a4da",
+  "bytes": 55514
+ }
+}

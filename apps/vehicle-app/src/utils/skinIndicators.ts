@@ -7,7 +7,14 @@ export type SkinIndicator={appearance?:import('./appearanceMeasurements').Appear
 export type SkinIndicators=Record<string,SkinIndicator[]>;
 export const SIGN_LABELS:Record<string,string>={tone:'Ton eşitsizliği',oil:'Yağlı görünüm',redness:'Kızarıklık eğilimi',acne:'Sivilce görünümü',sag:'Sarkma',dry:'Cilt kuruluğu',dark:'Göz altı morluğu',bags:'Göz altı torbaları',lines:'Kaz ayakları',postAcne:'Sivilce izi görünümü',pigmentation:'Pigmentasyon görünümü'};
 export function skinCriterionLabel(id:string,scope:'regional'|'whole-face'='regional') {
+ if(id==='redness')return scope==='whole-face'?'Genel kızarıklık indeksi':'Bölgesel kızarıklık farkı';
  return scope==='whole-face'&&id==='sag'?'Sarkma görünümü':scope==='whole-face'&&id==='dry'?'Cilt kuruluğu görünümü':SIGN_LABELS[id]||id;
+}
+export function isCriterionApplicableToRegion(id:string,region:string):boolean {
+ if(region==='periorbital')return ['dark','bags','lines','dry'].includes(id);
+ if(region==='forehead'||region==='nose'||region==='tZone')return ['tone','oil','redness','acne','dry'].includes(id);
+ if(region==='rightCheek'||region==='leftCheek'||region==='chin')return ['tone','oil','redness','acne','sag','dry'].includes(id);
+ return true;
 }
 export function indicatorIds(region:string){return region==='periorbital'?['dark','bags','lines','dry']:region==='nose'?['tone','oil','redness','acne','dry']:['tone','oil','redness','acne','sag','dry'];}
 /** Overview carries the real regional components inside sourceComponents. */

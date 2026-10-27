@@ -1,0 +1,26 @@
+{
+  "invalidatedCropFileNames": [
+    "tolgar_docx_screen1_crop_42_132_512_718.png",
+    "tolgar_docx_screen1_face_crop.png",
+    "tolgar_docx_screen5_face_crop.png"
+  ],
+  "invalidatedCoordinatesXYXY": [
+    42,
+    132,
+    512,
+    718
+  ],
+  "reasonForInvalidation": "In the 1549x913 full-window screenshot (word/media/image1.png), x=42..262 is the left navigation sidebar (Genel Bakış, Kırışıklık, Gözenekler, Sivilce, Kızarıklık, Yağlılık, Kuruluk, Göz Altı). The face portrait card starts at x=265, y=268, and the un-annotated face crop free of the top Normal Cilt Tipi badge and bottom 99% Kalite badge is [286, 297, 670, 693] (384x396 px).",
+  "replacementCropFileName": "tolgar_docx_screen1_true_face_286_297_670_693.png",
+  "replacementPadded1to1FileName": "tolgar_docx_screen1_true_face_padded_640x480_1to1.png",
+  "replacementCoordinatesXYXY": [
+    286,
+    297,
+    670,
+    693
+  ],
+  "replacementPixelSize": {
+    "width": 384,
+    "height": 396
+  }
+}

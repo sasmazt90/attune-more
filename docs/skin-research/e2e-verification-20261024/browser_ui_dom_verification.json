@@ -1,0 +1,211 @@
+{
+  "germany3AngleOverview": {
+    "skinTypeText": "Cilt tipiBelirlenemedi (Ara sinyal bandı)Bölgesel Kural + Yerel ONNX (local-vit-dima806)Model/vekil tahmini · Klinik tanı değildir",
+    "skinTypeModelBadge": "Bölgesel Kural + Yerel ONNX (local-vit-dima806)Model/vekil tahmini · Klinik tanı değildir",
+    "criterionModelBadges": [
+      {
+        "criterion": "tone",
+        "modelVersion": "local-cv-tone",
+        "label": null,
+        "text": "Ton eşitsizliğiYerel Analitik: kromatik dağılım (appearance-cv-6)4%"
+      },
+      {
+        "criterion": "oil",
+        "modelVersion": "local-cv-oil",
+        "label": null,
+        "text": "Yağlı görünümYerel Analitik: parlama alanı (appearance-cv-6)0%"
+      },
+      {
+        "criterion": "redness",
+        "modelVersion": "local-onnx-degrees-redness",
+        "label": null,
+        "text": "Genel kızarıklık indeksiYerel ONNX: skin-focused-degrees + LAB a*48%"
+      },
+      {
+        "criterion": "acne",
+        "modelVersion": "local-onnx-acne-v5",
+        "label": null,
+        "text": "Sivilce görünümüYerel ONNX: acne-v5-step0-silu + logreg1%"
+      },
+      {
+        "criterion": "sag",
+        "modelVersion": "local-cv-sag",
+        "label": null,
+        "text": "Sarkma görünümüYerel Analitik: 3B kontur oranı (appearance-cv-6)1%"
+      },
+      {
+        "criterion": "dry",
+        "modelVersion": "local-onnx-dryness-v3",
+        "label": null,
+        "text": "Cilt kuruluğu görünümüYerel ONNX: dryness-calibrated-v31%"
+      },
+      {
+        "criterion": "lines",
+        "modelVersion": "local-cv-lines",
+        "label": null,
+        "text": "Kaz ayaklarıYerel Analitik: sırt iskeleti (appearance-cv-6)0%"
+      },
+      {
+        "criterion": "dark",
+        "modelVersion": "local-cv-dark",
+        "label": null,
+        "text": "Göz altı morluğuYerel Analitik: periorbital renk (appearance-cv-6)3%"
+      },
+      {
+        "criterion": "bags",
+        "modelVersion": "local-cv-bags",
+        "label": null,
+        "text": "Göz altı torbalarıYerel Analitik: alt kapak konturu (appearance-cv-6)0%"
+      }
+    ],
+    "regionalPolygonsRenderedOnFront": [
+      {
+        "region": "chin",
+        "state": "dry",
+        "sourcePose": "FRONT",
+        "sourcePhotoId": "8cc2eb89919701a5a83ed102a5ebeadd621fb661920e05869cb44cf396d7f73b",
+        "fill": "#3b82f6"
+      },
+      {
+        "region": "rightCheek",
+        "state": "unknown",
+        "sourcePose": "LEFT",
+        "sourcePhotoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+        "fill": "#94a3b8"
+      }
+    ]
+  },
+  "germanyAcneV5Candidates": {
+    "candidateCountRendered": 7,
+    "candidates": [
+      {
+        "id": "0",
+        "pointSource": null,
+        "cx": "1023.6808929443359",
+        "cy": "801.6889343261719"
+      },
+      {
+        "id": "1",
+        "pointSource": null,
+        "cx": "1018.8492889404297",
+        "cy": "483.69153594970703"
+      },
+      {
+        "id": "2",
+        "pointSource": null,
+        "cx": "1169.5430603027344",
+        "cy": "1018.2011413574219"
+      },
+      {
+        "id": "3",
+        "pointSource": null,
+        "cx": "1180.4731760025024",
+        "cy": "1020.7592849731445"
+      },
+      {
+        "id": "4",
+        "pointSource": null,
+        "cx": "1162.885009765625",
+        "cy": "1016.5968475341797"
+      },
+      {
+        "id": "5",
+        "pointSource": null,
+        "cx": "847.2208480834961",
+        "cy": "936.9277648925781"
+      },
+      {
+        "id": "6",
+        "pointSource": null,
+        "cx": "857.529239654541",
+        "cy": "918.7898712158203"
+      }
+    ]
+  },
+  "germanySidePoseCheekZoom": {
+    "snapshotPhotoId": "b74521eb53752e8675e5eea350c1af6a6e85ef2351f5837bf8d24d595b4f23a2",
+    "preserveAspectRatio": null,
+    "viewBox": "685.7 589.9 511.7 573.6"
+  },
+  "germanyPeriorbitalWrinkleLines": {
+    "linePathCountRendered": 0,
+    "samplePaths": []
+  },
+  "tolgarOwnPhotoOverview": {
+    "snapshotPhotoId": "6d24d2d2d88ccd79cb24fa8ec3e057b33e300baf392eaaed2f9f701e853db3d6",
+    "skinTypeText": "Cilt tipiNormalBölgesel Kural + Yerel ONNX (local-vit-dima806)Model/vekil tahmini · Klinik tanı değildir",
+    "skinTypeModelBadge": "Bölgesel Kural + Yerel ONNX (local-vit-dima806)Model/vekil tahmini · Klinik tanı değildir",
+    "criterionModelBadges": [
+      {
+        "criterion": "tone",
+        "modelVersion": "local-cv-tone",
+        "label": null,
+        "text": "Ton eşitsizliğiYerel Analitik: kromatik dağılım (appearance-cv-6)8%"
+      },
+      {
+        "criterion": "oil",
+        "modelVersion": "local-cv-oil",
+        "label": null,
+        "text": "Yağlı görünümYerel Analitik: parlama alanı (appearance-cv-6)0%"
+      },
+      {
+        "criterion": "redness",
+        "modelVersion": "local-onnx-degrees-redness",
+        "label": null,
+        "text": "Genel kızarıklık indeksiYerel ONNX: skin-focused-degrees + LAB a*18%"
+      },
+      {
+        "criterion": "acne",
+        "modelVersion": "local-onnx-acne-v5",
+        "label": null,
+        "text": "Sivilce görünümüYerel ONNX: acne-v5-step0-silu + logreg0%"
+      },
+      {
+        "criterion": "sag",
+        "modelVersion": "local-cv-sag",
+        "label": null,
+        "text": "Sarkma görünümüYerel Analitik: 3B kontur oranı (appearance-cv-6)0%"
+      },
+      {
+        "criterion": "dry",
+        "modelVersion": "local-onnx-dryness-v3",
+        "label": null,
+        "text": "Cilt kuruluğu görünümüYerel ONNX: dryness-calibrated-v30%"
+      },
+      {
+        "criterion": "lines",
+        "modelVersion": "local-cv-lines",
+        "label": null,
+        "text": "Kaz ayaklarıYerel Analitik: sırt iskeleti (appearance-cv-6)1%"
+      },
+      {
+        "criterion": "dark",
+        "modelVersion": "local-cv-dark",
+        "label": null,
+        "text": "Göz altı morluğuYerel Analitik: periorbital renk (appearance-cv-6)8%"
+      },
+      {
+        "criterion": "bags",
+        "modelVersion": "local-cv-bags",
+        "label": null,
+        "text": "Göz altı torbalarıYerel Analitik: alt kapak konturu (appearance-cv-6)0%"
+      }
+    ],
+    "regionalPolygons": []
+  },
+  "tolgarPeriorbitalWrinkleLines": {
+    "regionHeading": "Göz Çevresi",
+    "linePathCountRendered": 1,
+    "samplePaths": [
+      {
+        "index": "line-1",
+        "source": null,
+        "d": "M229 221 L233 214"
+      }
+    ]
+  },
+  "dentalPageLoaded": {
+    "url": "http://127.0.0.1:3000/dental",
+    "titleText": "Diş Sağlığı"
+  }
+}
