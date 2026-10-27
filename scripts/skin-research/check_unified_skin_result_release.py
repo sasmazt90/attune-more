@@ -21,7 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
-EXPECTED_RECEIPT_SCHEMA = 11
+EXPECTED_RECEIPT_SCHEMA = 12
 EXPECTED_REPOSITORY_CI_SCHEMA = 3
 EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
 EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -73,6 +73,7 @@ EXPECTED_GATE_METHODS = {
     "sag": "sag-appearance-release-gate-v2",
 }
 EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v2"
+EXPECTED_REGIONAL_PROVIDER_DATASET_GATE_METHOD = "regional-provider-dataset-release-gate-v1"
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
     "Post acne", "Pigmentation", "skinType",
@@ -147,6 +148,55 @@ def _validate_gate_registry(receipt: dict[str, Any], evidence_root: Path) -> tup
         if not accepted:
             blockers.extend(f"task_{task}_release_gate_not_accepted" for task in expected_tasks)
     return not blockers, blockers, summary
+
+
+def _validate_regional_provider_dataset_gate(
+    receipt: dict[str, Any], evidence_root: Path,
+) -> tuple[bool, list[str], dict[str, Any]]:
+    entry = receipt.get("regionalProviderDatasetGate")
+    if not isinstance(entry, dict):
+        raise GateInputError("regional provider dataset gate entry missing")
+    _require(
+        entry.get("methodVersion"), EXPECTED_REGIONAL_PROVIDER_DATASET_GATE_METHOD,
+        "regional provider dataset gate is not the current expected method",
+    )
+    payload = _load_evidence(
+        entry.get("evidence"), "regional provider dataset gate", evidence_root,
+    )
+    _require(
+        payload.get("methodVersion"), entry.get("methodVersion"),
+        "regional provider dataset gate method identity changed",
+    )
+    _require(
+        payload.get("project"), "tolgar-sasmaz/attune-skin-regional-skin-map",
+        "regional provider project identity changed",
+    )
+    provider_version_ready = payload.get("providerVersionReady") is True
+    training_authorized = payload.get("trainingAuthorized") is True
+    manifest_verified = payload.get("groupLockedManifestVerified") is True
+    _require(
+        entry.get("providerVersionReady"), provider_version_ready,
+        "regional provider version readiness does not match evidence",
+    )
+    _require(
+        entry.get("trainingAuthorized"), training_authorized,
+        "regional provider training authorization does not match evidence",
+    )
+    ready = provider_version_ready and training_authorized and manifest_verified
+    blockers: list[str] = []
+    if not provider_version_ready:
+        blockers.append("regional_provider_version_not_ready")
+    if not training_authorized:
+        blockers.append("regional_provider_training_not_authorized")
+    if not manifest_verified:
+        blockers.append("regional_group_locked_manifest_not_verified")
+    return ready, blockers, {
+        "methodVersion": payload.get("methodVersion"),
+        "project": payload.get("project"),
+        "groupLockedManifestVerified": manifest_verified,
+        "providerVersionReady": provider_version_ready,
+        "trainingAuthorized": training_authorized,
+    }
 
 
 def _validate_repository_ci(identity: Any, evidence_root: Path) -> dict[str, Any]:
@@ -375,6 +425,9 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     _require(smoke.get("integrationSmokeAllowed"), True, "generated integration smoke changed")
 
     repository_ci = _validate_repository_ci(receipt.get("repositoryCI"), evidence_root)
+    regional_provider_ready, regional_provider_blockers, regional_provider_summary = (
+        _validate_regional_provider_dataset_gate(receipt, evidence_root)
+    )
     all_class_gates, class_blockers, gate_summary = _validate_gate_registry(receipt, evidence_root)
     camera_entry = receipt.get("physicalCameraGate", {})
     _require(
@@ -388,17 +441,24 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     candidate_accepted, candidate_blockers, identity = _validate_candidate(
         receipt.get("acceptanceCandidate", {}), evidence_root, all_class_gates, camera_accepted, repository_ci
     )
-    blockers = class_blockers + ([] if camera_accepted else ["physical_camera_benchmark_not_accepted"]) + candidate_blockers
+    blockers = (
+        regional_provider_blockers
+        + class_blockers
+        + ([] if camera_accepted else ["physical_camera_benchmark_not_accepted"])
+        + candidate_blockers
+    )
     blockers = list(dict.fromkeys(blockers))
-    accepted = candidate_accepted and not blockers
+    accepted = regional_provider_ready and candidate_accepted and not blockers
     return {
-        "schemaVersion": 11,
-        "methodVersion": "unified-skin-result-release-gate-v11",
+        "schemaVersion": 12,
+        "methodVersion": "unified-skin-result-release-gate-v12",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,
         "generatedReplayAccuracyEvidenceAllowed": False,
         "repositoryCI": repository_ci,
+        "regionalProviderDatasetGate": regional_provider_summary,
+        "regionalProviderDatasetReady": regional_provider_ready,
         "classReleaseGates": gate_summary,
         "allClassReleaseGatesAccepted": all_class_gates,
         "physicalCameraBenchmarkAccepted": camera_accepted,

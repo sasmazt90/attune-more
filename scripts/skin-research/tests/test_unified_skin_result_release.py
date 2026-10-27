@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v11.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261027-v12.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -43,6 +43,18 @@ def _install_complete_evidence(receipt, root):
     }
     receipt["physicalCameraGate"]["evidence"] = _write(root, "camera-gate-accepted.json", camera)
     receipt["physicalCameraGate"]["accepted"] = True
+    provider = {
+        "methodVersion": receipt["regionalProviderDatasetGate"]["methodVersion"],
+        "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+        "groupLockedManifestVerified": True,
+        "providerVersionReady": True,
+        "trainingAuthorized": True,
+    }
+    receipt["regionalProviderDatasetGate"]["evidence"] = _write(
+        root, "regional-provider-dataset-gate-ready.json", provider,
+    )
+    receipt["regionalProviderDatasetGate"]["providerVersionReady"] = True
+    receipt["regionalProviderDatasetGate"]["trainingAuthorized"] = True
     receipt["repositoryCI"] = _write(root, "repository-ci.json", {
         "schemaVersion": module.EXPECTED_REPOSITORY_CI_SCHEMA,
         "branch": module.EXPECTED_BRANCH,
@@ -151,7 +163,24 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
         self.assertTrue(result["currentIntegratedPresentationAllowed"])
         self.assertFalse(result["allClassReleaseGatesAccepted"])
         self.assertFalse(result["physicalCameraBenchmarkAccepted"])
+        self.assertFalse(result["regionalProviderDatasetReady"])
+        self.assertIn("regional_provider_version_not_ready", result["blockers"])
+        self.assertIn("regional_provider_training_not_authorized", result["blockers"])
         self.assertFalse(result["roadmapAccepted"])
+
+    def test_regional_provider_boolean_cannot_disagree_with_bound_evidence(self):
+        receipt = _receipt()
+        receipt["regionalProviderDatasetGate"]["providerVersionReady"] = True
+        with self.assertRaisesRegex(module.GateInputError, "readiness does not match evidence"):
+            module.evaluate_release(receipt)
+
+    def test_stale_regional_provider_gate_cannot_reenter(self):
+        receipt = _receipt()
+        receipt["regionalProviderDatasetGate"]["methodVersion"] = (
+            "regional-provider-dataset-release-gate-v0"
+        )
+        with self.assertRaisesRegex(module.GateInputError, "current expected method"):
+            module.evaluate_release(receipt)
 
     def test_current_gate_registry_is_bound_to_real_rejected_evidence(self):
         result = module.evaluate_release(_receipt())
@@ -629,6 +658,7 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
                 self.assertEqual(result["decision"], "ready")
                 self.assertTrue(result["allClassReleaseGatesAccepted"])
                 self.assertTrue(result["physicalCameraBenchmarkAccepted"])
+                self.assertTrue(result["regionalProviderDatasetReady"])
                 self.assertTrue(result["acceptedEndToEndCandidatePresent"])
                 self.assertTrue(result["finalRoadmapAcceptanceAllowed"])
                 self.assertTrue(result["roadmapAccepted"])
