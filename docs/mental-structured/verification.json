@@ -12,9 +12,93 @@
   "durableBackup": {
     "parentFolderURL": "https://drive.google.com/drive/folders/1FrN4RQz_j6QBmuXJe4RIpJGcQcSUB4sS",
     "versionFolderURL": "https://drive.google.com/drive/folders/16nXYqOOXPPA5GTtmHtPE6QLLsG2q9mGy",
-    "complete": false,
-    "verification": "per-file independent Drive retrieval and SHA-256; final inventory pending",
-    "verifiedFilesAtResume": 100
+    "complete": true,
+    "verification": "All526 payloads and all5rootcontrols independently retrieved and SHA256/size matched; fresh leaf/root listings fully reconciled; zero missing or untracked files.",
+    "verifiedFilesAtResume": 100,
+    "payloadFiles": 526,
+    "rootControlFiles": 5,
+    "totalDriveFiles": 531,
+    "payloadBytes": 84059161,
+    "totalBytesIncludingControls": 84865530,
+    "payloadWAVs": 458,
+    "sourceImplementationCommit": "c2b94a1fee326d6c04e21a965e13d2bba637d4a9",
+    "inventory": {
+      "fileName": "backup-inventory.json",
+      "bytes": 467443,
+      "sha256": "c0397ed3bfd2cdeb4208810a07c0a8c135c240edad420a1c35b848db037eef9e",
+      "driveFileId": "1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h",
+      "driveURL": "https://drive.google.com/file/d/1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h/view?usp=drivesdk",
+      "retrievalVerified": true,
+      "verifiedAt": "2026-10-27T22:43:48.049200+00:00",
+      "verifiedBy": "independent-Drive-download-SHA256"
+    },
+    "verificationReceipt": {
+      "fileName": "backup-verification.json",
+      "bytes": 6380,
+      "sha256": "ed5193041a4916b6f56b7d2a1849c3c2efa9114279d3b16a0c6515b9649924ca",
+      "driveFileId": "1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy",
+      "driveURL": "https://drive.google.com/file/d/1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy/view?usp=drivesdk",
+      "retrievalVerified": true,
+      "verifiedAt": "2026-10-27T22:45:09.944536+00:00",
+      "verifiedBy": "independent-Drive-download-SHA256"
+    },
+    "controlFiles": [
+      {
+        "fileName": "backup-inventory.json",
+        "bytes": 467443,
+        "sha256": "c0397ed3bfd2cdeb4208810a07c0a8c135c240edad420a1c35b848db037eef9e",
+        "driveFileId": "1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h",
+        "driveURL": "https://drive.google.com/file/d/1wp2Hu6Oez_kB97q9Siox411d-a1BU_6h/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:43:48.049200+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "backup-inventory.json"
+      },
+      {
+        "fileName": "backup-reconciliation.json",
+        "bytes": 551,
+        "sha256": "13b10b0bf2aaccbaefa562e7f7e9cab5971627d85a59e1a39cfcbbf278abeb27",
+        "driveFileId": "1mtNN1M5ouT2Ix8Rn6vD4diOsPLvjTQza",
+        "driveURL": "https://drive.google.com/file/d/1mtNN1M5ouT2Ix8Rn6vD4diOsPLvjTQza/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:41:52.441535+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "backup-reconciliation.json"
+      },
+      {
+        "fileName": "backup-verification.json",
+        "bytes": 6380,
+        "sha256": "ed5193041a4916b6f56b7d2a1849c3c2efa9114279d3b16a0c6515b9649924ca",
+        "driveFileId": "1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy",
+        "driveURL": "https://drive.google.com/file/d/1NMLhq0IzxD0OfpMiqAB6ovXYS4wcaHXy/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:45:09.944536+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "backup-verification.json"
+      },
+      {
+        "fileName": "drive-presence.json",
+        "bytes": 207593,
+        "sha256": "3cafc2daf91374b292cd94c70e56767adfb725de0a891a6d9526247a7a5829de",
+        "driveFileId": "14jT_XvKLI7Zfa8j-pT6Rv8ifw5CW5i1A",
+        "driveURL": "https://drive.google.com/file/d/14jT_XvKLI7Zfa8j-pT6Rv8ifw5CW5i1A/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:41:41.649905+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "drive-presence.json"
+      },
+      {
+        "fileName": "required-files.json",
+        "bytes": 124402,
+        "sha256": "85db289d1092cee8f2f39131e3650ec512f7dcac34ddb473849142efc3876521",
+        "driveFileId": "1LPVIodnmVjX3nqktCl6fs0v3bzAEYrcN",
+        "driveURL": "https://drive.google.com/file/d/1LPVIodnmVjX3nqktCl6fs0v3bzAEYrcN/view?usp=drivesdk",
+        "retrievalVerified": true,
+        "verifiedAt": "2026-10-27T22:41:30.905090+00:00",
+        "verifiedBy": "independent-Drive-download-SHA256",
+        "backupPath": "required-files.json"
+      }
+    ]
   },
   "modelRuntimeReference": "pinned-runtime.json",
   "physicalAudioAcceptance": "not-performed-in-Cloud",
