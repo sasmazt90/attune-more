@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T19:30:17Z",
+      "lastCheckedAt": "2026-10-27T21:47:59Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -468,7 +468,8 @@
         "ciSkinResearchTests": 228,
         "ciRunId": 40312602038,
         "implementationCommit": "a7a4117c1c36ced28c8ddae08166d2344437bf6f"
-      }
+      },
+      "providerModelsTotal": 90
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
     "underEye": {
@@ -487,7 +488,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T19:30:17Z",
+      "lastCheckedAt": "2026-10-27T21:47:59Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -591,7 +592,7 @@
         "uploadProgress": null,
         "bytesSent": false,
         "trainingStarted": false,
-        "lastObservedAt": "2026-10-27T07:43:33Z",
+        "lastObservedAt": "2026-10-27T21:47:59Z",
         "evidence": "docs/skin/evidence/under-eye-grouped-project-20261023-v1.json"
       },
       "groupedReleaseGate": {
@@ -681,15 +682,15 @@
     },
     "regionalMap": {
       "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
-      "images": 337,
-      "status": "NAS segmentation finished; pinned candidate mask evaluation complete, no product acceptance",
-      "projectSummaryImages": 337,
+      "images": 476,
+      "status": "mutable provider project drift detected after replacement upload; immutable version 1 unchanged; no provider v2 or training",
+      "projectSummaryImages": 476,
       "uploadTaskId": "jr8FWunZL1rM1mIowmxS",
       "uploadStatus": "completed",
-      "annotations": 1636,
+      "annotations": 2271,
       "classes": {
-        "Oily": 1065,
-        "Redness": 571
+        "Oily": 1373,
+        "Redness": 898
       },
       "sourceSplits": {
         "test": {
@@ -740,8 +741,8 @@
       "version": 1,
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
-      "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T20:41:43Z",
+      "lastObservedStatus": "finished_existing_trainings_only",
+      "lastCheckedAt": "2026-10-27T21:47:59Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -861,9 +862,11 @@
       "fullBoxGeometryUnchanged": false,
       "changedBoxGeometryImages": 316,
       "annotationBoard": {
-        "datasetImages": 337,
+        "datasetImages": 476,
         "annotated": 337,
-        "expertApproved": 0
+        "expertApproved": 0,
+        "searchVerifiedAnnotatedImages": 476,
+        "providerUnannotatedCounter": 139
       },
       "versionReceipt": "docs/skin/evidence/regional-mask-comparison-20261023-v1.json",
       "trainingReceipt": "docs/skin/evidence/regional-training-20261023-v1.json",
@@ -1092,7 +1095,7 @@
         ]
       },
       "groupLockedUpload": {
-        "observedAt": "2026-10-27T20:41:43Z",
+        "observedAt": "2026-10-27T21:47:59Z",
         "taskId": "RzTdxfpBr9REzkke1mPp",
         "status": "completed",
         "total": 337,
@@ -1101,12 +1104,12 @@
         "annotated": 337,
         "errors": 0,
         "warnings": 0,
-        "projectSummaryUnchanged": true,
-        "projectImages": 337,
+        "projectSummaryUnchanged": false,
+        "projectImages": 476,
         "projectSplits": {
-          "train": 244,
-          "valid": 63,
-          "test": 30
+          "train": 334,
+          "valid": 85,
+          "test": 57
         },
         "versions": [
           1
@@ -1114,7 +1117,63 @@
         "batches": 0,
         "confirmedSplitMutation": false,
         "providerVersionCreated": false,
-        "trainingStarted": false
+        "trainingStarted": false,
+        "confirmedMutableProjectMutation": true,
+        "confirmedMutableProjectSplitMutation": true,
+        "projectClasses": {
+          "Oily": 1373,
+          "Redness": 898
+        },
+        "confirmedImmutableVersionCreated": false,
+        "quarantineTag": "provider-drift-rztdxfpbr9rezkke1mpp",
+        "quarantineTaskId": "z1JPrbxrIKsktjFBLigp",
+        "quarantinedRecords": 139
+      },
+      "projectUnannotatedCounter": 139,
+      "projectSplits": {
+        "train": 334,
+        "valid": 85,
+        "test": 57
+      },
+      "versionOneImages": 337,
+      "versionOneSplits": {
+        "train": 244,
+        "valid": 63,
+        "test": 30
+      },
+      "providerModelsTotal": 76,
+      "providerDatasetReleaseGate": {
+        "observedAt": "2026-10-27T21:47:59Z",
+        "methodVersion": "regional-provider-dataset-release-gate-v1",
+        "receipt": "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "gate": "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "ciEvidence": "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json",
+        "mutableProjectDriftDetected": true,
+        "postUploadRecords": 139,
+        "postUploadSplits": {
+          "train": 90,
+          "valid": 22,
+          "test": 27
+        },
+        "postUploadAnnotations": {
+          "Oily": 308,
+          "Redness": 327
+        },
+        "quarantineTag": "provider-drift-rztdxfpbr9rezkke1mpp",
+        "quarantineTaskId": "z1JPrbxrIKsktjFBLigp",
+        "quarantineCompleted": true,
+        "providerVersionReady": false,
+        "trainingAuthorized": false,
+        "finalTestAuthorized": false,
+        "activationAllowed": false,
+        "blockers": [
+          "provider_version_2_missing",
+          "mutable_provider_project_drifted_from_group_locked_candidate",
+          "post_upload_records_require_quarantine_or_verified_version_exclusion",
+          "rights_review_missing",
+          "expert_semantic_mask_protocol_not_accepted",
+          "independent_physical_camera_holdout_missing"
+        ]
       }
     },
     "regionalSkinTypeBoxes": {
@@ -2323,7 +2382,12 @@
         "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
         "scripts/skin-research/build_regional_mask_group_locked_split.py",
         "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
-        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py",
+        "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json"
       ],
       "blockers": [
         "Final holdout independence is not established. The privacy-safe grouping proposal confirms 16 cross-split source/person groups covering 37 records, including test/train leakage, while 729 singleton records still lack reviewed provenance/person identity. Independent real-camera evidence is also pending.",
@@ -2658,7 +2722,12 @@
         "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
         "scripts/skin-research/build_regional_mask_group_locked_split.py",
         "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
-        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py",
+        "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -2769,7 +2838,12 @@
         "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
         "scripts/skin-research/build_regional_mask_group_locked_split.py",
         "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
-        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py",
+        "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json"
       ],
       "blockers": [
         "Validated regional method registry remains empty; unknown is grey, legacy tiny supports cannot force combination. Base three-class model retained. Need regional training/calibration, independent tests and camera evidence before enabling methods; synthetic fixture policies are not product calibration.",
@@ -2848,7 +2922,12 @@
         "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
         "scripts/skin-research/build_regional_mask_group_locked_split.py",
         "scripts/skin-research/tests/test_build_regional_mask_group_locked_split.py",
-        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json"
+        "docs/skin/evidence/regional-mask-group-locked-split-ci-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py",
+        "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json"
       ],
       "blockers": [
         "Research candidate 2c07ef evaluated on all 63 validation and 30 source-test images using actual instance masks and validation-locked thresholds 0.35. No accepted model, normal/dry truth or camera calibration. Source coverage, person independence and mask-instance granularity remain limitations.",
@@ -3162,7 +3241,12 @@
         "docs/skin/evidence/unified-skin-result-release-gate-20261027-v9.json",
         "docs/skin/evidence/unified-browser-acceptance-ci-20261027-v3.json",
         "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v10.json",
-        "docs/skin/evidence/unified-skin-result-release-gate-20261027-v10.json"
+        "docs/skin/evidence/unified-skin-result-release-gate-20261027-v10.json",
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py",
+        "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
@@ -4646,8 +4730,8 @@
     }
   },
   "nextActions": [
-    "Preserve the completed 337/337 opaque source/person review and the deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the provider project remains 337 images at 244/63/30 with version 1 only; do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact provider version 2 matching the zero-crossing manifest is confirmed. Keep the 51-image final test untouched for selection or thresholds.",
-    "Complete and accept the independent 81-item Oily/Redness expert semantic mask protocol before any regional training authorization. The completed source/person review establishes grouping only: source polygons, model predictions and missing labels remain ineligible as expert truth; independent consented physical-camera evidence is still required.",
+    "Keep all regional training and version generation blocked on the mutable 476-image project. The 139 records created by upload task RzTdxfpBr9REzkke1mPp are now reversibly isolated with tag provider-drift-rztdxfpbr9rezkke1mpp (90 train, 22 valid, 27 test; no images or annotations deleted). Do not use rebalance/shuffle or assume the tag alone reconstructs truth. Create a provider version 2 or later only when its frozen export exactly matches the reviewed 337-record group-locked manifest: 236 train, 50 validation, 51 untouched final test; Oily/Redness annotations 1065/571; zero groups crossing splits; every record assigned exactly once. Re-run regional-provider-dataset-release-gate-v1 before one preregistered training.",
+    "Complete rights review and the independent 81-item Oily/Redness expert semantic mask protocol before regional training. Source/person grouping and the provider drift tag are dataset-control evidence only: source polygons, model predictions and missing labels remain ineligible as expert truth, and the independent consented physical-camera holdout must be reserved.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py v11 for every task-13 decision. Repository CI evidence must use schema v3 and bind exact workflow 362950948 at .github/workflows/ci.yml, its run URL/ID, distinct positive frontend/backend job IDs, branch and implementation commit. Real-browser evidence must separately bind workflow 370615037, positive job/artifact IDs and a sha256 artifact digest. Neither controlled fixture may satisfy physical-camera, expert-truth or accuracy acceptance. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false.",
     "Use scripts/skin-research/build_under_eye_expert_review.py with docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json and the private resolver to complete all 88 item-bound expert decisions for darkcircle and eyebag. The queue reads only the 284 train and 77 validation COCO payloads; the 38-image locked test annotations and pixels remain unread and unselected. Lock each class's positive, polygon-extent, hard-negative and ambiguity policies independently. Missing target annotations are candidates, not negatives; source polygons are selection geometry, not expert truth. Even a complete semantic protocol does not authorize training until full person/source identity coverage, rights, an authorized exact archive, a new untouched final test and consented camera reservation also pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
@@ -8049,6 +8133,50 @@
           "frontend": "success",
           "backendJobId": 122455114167,
           "backend": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T21:47:59Z",
+      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions, trainings, model inventories and pending upload tasks. Acne version 1 still has only the finished NAS and small runs (90 models total); regional version 1 still has only the finished NAS and small runs (76 models total); under-eye pilot version 2 still has no training/model; grouped under-eye remains empty and its existing upload task remains created/no-progress. No duplicate version, training or inference work was started. The completed regional upload later mutated the mutable project: it now has 476 images at 334/85/57 and Oily/Redness counts 1373/898, while immutable version 1 remains the old 337-image 244/63/30 snapshot and no version 2 exists. All 139 post-upload records were independently identified from their creation window and verified as 90 train, 22 valid, 27 test with 308 Oily and 327 Redness annotations. Added reversible tag provider-drift-rztdxfpbr9rezkke1mpp to exactly those 139 records through task z1JPrbxrIKsktjFBLigp; 139 succeeded, zero failed, and no image, annotation or split was deleted. Added a fail-closed provider dataset gate that accepts only an immutable version 2 or later exactly matching the 337-record group-locked 236/50/51 manifest and never treats upload completion or mutable project totals as training authorization. Six focused tests and all 345 local skin-research tests passed. GitHub Actions run 40589137043 completed successfully: frontend job 122488463155 and backend job 122488463909 passed; the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 345 tests. Rights review, expert semantic masks, exact provider v2 and independent physical-camera evidence remain pending; training, final-test evaluation, activation and roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/regional-provider-dataset-release-ci-20261027-v1.json",
+      "evidence": [
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261027-v1.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261027-v1.json",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py"
+      ],
+      "tests": {
+        "focused": 6,
+        "localSkinResearch": 345,
+        "deterministic": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "skinResearch": 345,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40589137043,
+          "headSha": "1c320766e2692b9c0bdd785035ec0a2f442f2bfd",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122488463155,
+          "frontend": "success",
+          "backendJobId": 122488463909,
+          "backend": "success"
+        }
+      ],
+      "providerTasks": [
+        {
+          "taskId": "z1JPrbxrIKsktjFBLigp",
+          "status": "completed",
+          "total": 139,
+          "succeeded": 139,
+          "failed": 0
         }
       ]
     }

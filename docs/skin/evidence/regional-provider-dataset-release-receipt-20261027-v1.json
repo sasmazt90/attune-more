@@ -52,6 +52,21 @@
     "allCarryExistingQuarantineTags": true,
     "containsFilenamesOrProviderImageIds": false
   },
+  "quarantineTagging": {
+    "tag": "provider-drift-rztdxfpbr9rezkke1mpp",
+    "taskId": "z1JPrbxrIKsktjFBLigp",
+    "status": "completed",
+    "totalProcessed": 139,
+    "succeeded": 139,
+    "failed": 0,
+    "verifiedTaggedRecords": 139,
+    "verifiedSplits": {
+      "train": 90,
+      "valid": 22,
+      "test": 27
+    },
+    "imagesOrAnnotationsDeleted": false
+  },
   "groupLockedManifest": {
     "path": "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
     "blobSHA": "088c38a2e8802fedc14486cf0b873225774b82f4",
