@@ -68,17 +68,18 @@ def main():
         'encoderSha256': digest(directory / 've.pt'), 'generation': profile['generation'],
         'generatedSpeechClips': 9, 'additionalSynthesis': 0,
         'originalComparisonFilesUnchanged': len(baseline['sha256']),
-        'speakerConsistency': 'Not verified. Native-language listening and owner approval pending.',
+        'speakerConsistency': ('Owner accepted the representative recordings; independent biometric identity verification is not claimed.'
+            if female.get('sampleApproval',{}).get('ownerApprovedAt') else 'Not verified. Owner listening approval pending.'),
         'limitations': ['Same conditioning hash verifies configuration, not perceptual identity.',
             'The upstream encoder is part of the generator, not an independent identity assessor.',
             'Cosines have no calibrated cross-language acceptance threshold for these short samples.',
             'Duration includes pauses; it does not alone establish a calm or slower delivery.',
             'Each asset has a deterministic seed; these are not seed-matched controlled A/B recordings.',
-            'No dynamic closing was synthesized: the authorized cap is nine representative clips.'],
+            'This measurement command synthesizes no new speech; real dynamic-closing proofs are documented separately.'],
         'samples': rows, 'crossLanguageQuestionPairs': pairs}
     target = ROOT / 'docs/mental-structured/listening-female-calm-v1/measurements.json'
     target.write_text(json.dumps(output, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps({'measurementFile': str(target), 'samples': len(rows), 'crossLanguagePairs': len(pairs), 'speakerConsistency': 'unverified-listening-pending'}))
+    print(json.dumps({'measurementFile': str(target), 'samples': len(rows), 'crossLanguagePairs': len(pairs), 'speakerConsistency': output['speakerConsistency']}))
 
 
 if __name__ == '__main__': main()
