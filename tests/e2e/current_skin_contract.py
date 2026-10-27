@@ -81,7 +81,7 @@ with sync_playwright() as pw:
   overview_source=overview_svg.locator('image').first.get_attribute('href')
   p.screenshot(path=str(OUT/f'overview-{n}.png'),full_page=True)
   p.locator('[data-skin-indicator="redness"]').click()
-  assert p.locator('[data-skin-local-fill]').get_attribute('data-map-photo')==general['captureId']
+  assert p.locator('[data-skin-local-fill]').count()==0,'Whole-face score must not inherit a regional pixel map'
   assert p.locator('[data-skin-mesh]').count()==0 and overview_svg.locator('image').first.get_attribute('href')==overview_source
   capture(p,c,OUT/f'overview-map-{n}.png',n==1)
   p.get_by_role('button',name='Sonraki Bölge',exact=True).click()
