@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T15:34:05Z",
+      "lastCheckedAt": "2026-10-27T16:55:15Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T15:34:05Z",
+      "lastCheckedAt": "2026-10-27T16:55:15Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -741,7 +741,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T15:34:05Z",
+      "lastCheckedAt": "2026-10-27T16:55:15Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1561,12 +1561,12 @@
       }
     },
     "physicalCameraBenchmarkGate": {
-      "observedAt": "2026-10-26T01:02:00Z",
-      "methodVersion": "physical-camera-benchmark-release-gate-v1",
+      "observedAt": "2026-10-27T16:55:15Z",
+      "methodVersion": "physical-camera-benchmark-release-gate-v2",
       "script": "scripts/skin-research/check_physical_camera_benchmark_release.py",
       "tests": "scripts/skin-research/tests/test_check_physical_camera_benchmark_release.py",
-      "receipt": "docs/skin/evidence/physical-camera-benchmark-release-receipt-20261026-v1.json",
-      "evidence": "docs/skin/evidence/physical-camera-benchmark-release-gate-20261026-v1.json",
+      "receipt": "docs/skin/evidence/physical-camera-benchmark-release-receipt-20261027-v2.json",
+      "evidence": "docs/skin/evidence/physical-camera-benchmark-release-gate-20261027-v2.json",
       "workingBaselinePreserved": true,
       "generatedSubjects": 6,
       "generatedImages": 18,
@@ -1575,18 +1575,19 @@
       "generatedPhysicalCameraAcceptanceAllowed": false,
       "physicalCameraBenchmarkAccepted": false,
       "roadmapCameraAcceptanceAllowed": false,
-      "testCount": 58,
+      "testCount": 8,
       "commits": [
         "06062c67821d9e5ce31d33e57326f91793b2c866",
         "ea164f8e9f00c261ba0a6e52f19f45ef97bb3e51",
         "3e955df3a95e51516edeffb865b0fb1d928a2865",
-        "13ec64d26b91006475bd927ffd49ec76e68d9808"
+        "13ec64d26b91006475bd927ffd49ec76e68d9808",
+        "638a906a1d1ef0c8b32204d9270f79c55421fc9d"
       ],
       "blobs": {
-        "script": "53c3710166c2e5e43becd36234e10bafe68ac659",
-        "tests": "794c66dd179265e4a2e7ccd6a2285be175831843",
-        "receipt": "3e8278abfe978f524679fc4ad8057f5e465de3e8",
-        "gate": "5355606e5044709de854207cda8b76e094fe38bd"
+        "script": "f69c4826349afbfb5c572a8c395e7e580427da10",
+        "tests": "863f45676f515104547e4c35d4880e829bb75d38",
+        "receipt": "61939804179d4816a176b07d0c9e92886d12f4f0",
+        "gate": "e48903db3c895e67492f3588056911fe91ab92b9"
       },
       "manifestBuilder": {
         "observedAt": "2026-10-26T01:37:18Z",
@@ -1812,6 +1813,28 @@
             }
           }
         }
+      },
+      "ciEvidence": "docs/skin/evidence/physical-camera-benchmark-release-gate-v2-ci-20261027-v1.json",
+      "evidenceRegistryRequired": true,
+      "evidenceRegistryComplete": false,
+      "requiredShaBoundArtifacts": 7,
+      "receiptBooleansAloneMayAccept": false,
+      "focusedTestsPassed": 8,
+      "fullSkinResearchTestsPassed": 327,
+      "ci": {
+        "runId": 40544957357,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40544957357",
+        "headSha": "638a906a1d1ef0c8b32204d9270f79c55421fc9d",
+        "status": "completed",
+        "conclusion": "success",
+        "frontendJobId": 122332954294,
+        "frontend": "success",
+        "backendJobId": 122332954525,
+        "backend": "success",
+        "deterministicPassed": 1627,
+        "deterministicSkipped": 44,
+        "deterministicWarnings": 2,
+        "skinResearchTests": 327
       }
     }
   },
@@ -4403,6 +4426,54 @@
         "frontendJobId": 122284979042,
         "frontend": "success",
         "backendJobId": 122284979844,
+        "backend": "success"
+      }
+    },
+    "unifiedSkinResultReleaseGateV11": {
+      "observedAt": "2026-10-27T16:55:15Z",
+      "schemaVersion": 11,
+      "methodVersion": "unified-skin-result-release-gate-v11",
+      "workingBaselinePreserved": true,
+      "currentIntegratedPresentationAllowed": true,
+      "generatedReplayIntegrationSmokeAllowed": true,
+      "generatedReplayAccuracyEvidenceAllowed": false,
+      "physicalCameraGateMethod": "physical-camera-benchmark-release-gate-v2",
+      "physicalCameraArtifactRegistryRequired": true,
+      "physicalCameraRequiredShaBoundArtifacts": 7,
+      "physicalCameraReceiptBooleansAloneMayAccept": false,
+      "allClassReleaseGatesAccepted": false,
+      "physicalCameraBenchmarkAccepted": false,
+      "acceptedEndToEndCandidatePresent": false,
+      "finalRoadmapAcceptanceAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 48,
+        "result": "OK"
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 327,
+        "result": "OK"
+      },
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v11.json",
+      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v11.json",
+      "ciEvidence": "docs/skin/evidence/physical-camera-benchmark-release-gate-v2-ci-20261027-v1.json",
+      "implementationCommit": "638a906a1d1ef0c8b32204d9270f79c55421fc9d",
+      "blobs": {
+        "script": "186ce3422c9d78a82d4138edfc970012b1ed05e0",
+        "tests": "53b038b1f1e3caba4bdd0d8ec9134ddd998b9a17",
+        "receipt": "d56992aa95e5fc16e420a3ac031c3d2055e7aed2",
+        "gate": "20b444c43a7b6628df9d6dd45fd2ffc8a5b13976"
+      },
+      "ci": {
+        "runId": 40544957357,
+        "url": "https://github.com/sasmazt90/attune-more/actions/runs/40544957357",
+        "headSha": "638a906a1d1ef0c8b32204d9270f79c55421fc9d",
+        "status": "completed",
+        "conclusion": "success",
+        "frontendJobId": 122332954294,
+        "frontend": "success",
+        "backendJobId": 122332954525,
         "backend": "success"
       }
     }
@@ -7654,6 +7725,35 @@
           "frontend": "in_progress",
           "backendJobId": 122109317369,
           "backend": "in_progress"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T16:55:15Z",
+      "action": "Read the remote checkpoint first and refreshed all 20 accessible Roboflow projects, exact acne/regional/under-eye versions and training lists, the empty grouped under-eye project and existing upload task sLFwX7CYBVcnnD6iAW5o. Acne and regional NAS/small jobs remain finished, under-eye pilot v2 still has no training, grouped under-eye remains empty, and the existing upload task remains created/no-progress; no duplicate training, upload, version, inference, threshold or activation work was started. Repaired the common physical-camera fail-open path: v1 could be made ready by changing twelve receipt booleans without supplying any real camera artifact. Gate v2 now requires seven exact SHA-256-bound artifacts (camera manifest, dual-review expert truth, capture and localization evaluations, pre-locked per-class policy, real-browser product replay and final class acceptance) with consistent benchmark, method, threshold, geometry, policy and replay identities. The unified task-13 gate was advanced to v11 and requires this v2 camera method. Forty-eight focused tests and all 327 skin-research tests passed locally. GitHub Actions run 40544957357 is green: frontend job 122332954294 and backend job 122332954525 passed; the deterministic suite passed 1,627 tests with 44 skips and 2 warnings, and the complete skin-research suite passed 327 tests. No physical captures or expert artifacts were fabricated, so camera and final roadmap acceptance remain false.",
+      "report": "docs/skin/evidence/physical-camera-benchmark-release-gate-v2-ci-20261027-v1.json",
+      "evidence": [
+        "docs/skin/evidence/physical-camera-benchmark-release-receipt-20261027-v2.json",
+        "docs/skin/evidence/physical-camera-benchmark-release-gate-20261027-v2.json",
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v11.json",
+        "docs/skin/evidence/unified-skin-result-release-gate-20261027-v11.json"
+      ],
+      "tests": {
+        "focused": 48,
+        "skinResearch": 327,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40544957357,
+          "headSha": "638a906a1d1ef0c8b32204d9270f79c55421fc9d",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122332954294,
+          "frontend": "success",
+          "backendJobId": 122332954525,
+          "backend": "success"
         }
       ]
     }

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "physical-camera-benchmark-release-gate-v2-ci-v1",
+  "observedAt": "2026-10-27T16:55:15Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "638a906a1d1ef0c8b32204d9270f79c55421fc9d",
+  "implementationTree": "67a059153ed51dbc422247e9c3be2f1313e16172",
+  "githubActions": {
+    "runId": 40544957357,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40544957357",
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "headSha": "638a906a1d1ef0c8b32204d9270f79c55421fc9d",
+    "conclusion": "success",
+    "frontendJobId": 122332954294,
+    "frontendProductionBuild": "success",
+    "backendJobId": 122332954525,
+    "localizationContract": "success",
+    "deterministicSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2,
+      "result": "OK"
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 327,
+      "result": "OK"
+    }
+  },
+  "localVerification": {
+    "physicalCameraAndUnifiedFocusedTests": 48,
+    "completeSkinResearchEvidenceSuite": 327,
+    "result": "OK"
+  },
+  "physicalCameraGate": {
+    "receipt": "docs/skin/evidence/physical-camera-benchmark-release-receipt-20261027-v2.json",
+    "evidence": "docs/skin/evidence/physical-camera-benchmark-release-gate-20261027-v2.json",
+    "evidenceRegistryRequired": true,
+    "receiptBooleansAloneMayAccept": false,
+    "requiredShaBoundArtifacts": 7,
+    "physicalCameraBenchmarkAccepted": false
+  },
+  "unifiedGate": {
+    "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v11.json",
+    "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v11.json",
+    "physicalCameraGateMethod": "physical-camera-benchmark-release-gate-v2",
+    "roadmapAccepted": false
+  },
+  "roboflowMutation": {
+    "trainingStarted": false,
+    "uploadStarted": false,
+    "versionGenerated": false,
+    "inferenceStarted": false,
+    "thresholdChanged": false,
+    "activationChanged": false
+  }
+}
