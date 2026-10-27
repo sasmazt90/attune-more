@@ -19,6 +19,14 @@ def admit_consent(page):
  consent=page.get_by_label('Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.',exact=True)
  if consent.count():
   consent.check();page.get_by_role('button',name='İzin ver ve devam et',exact=True).click()
+def set_photo_consent(page,enabled):
+ control=page.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla')
+ expect(control).to_be_enabled()
+ if control.is_checked()!=enabled:control.click()
+ # This controlled input commits under navigator.locks. check()/uncheck()
+ # inspect its state before that async transaction settles on some runtimes.
+ if enabled:expect(control).to_be_checked()
+ else:expect(control).not_to_be_checked()
 def scan(page,tag):
  page.goto('http://127.0.0.1:3000/skin');admit_consent(page)
  page.get_by_role('button',name='Analizi Başlat',exact=True).click()

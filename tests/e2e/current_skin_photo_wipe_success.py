@@ -4,7 +4,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 sys.path.insert(0,str(Path(__file__).parent))
 from current_skin_photo_history import rows,source_receipt
-from skin_browser_support import configure,scan,open_selected,capture_native,GPU,BROWSER
+from skin_browser_support import configure,scan,open_selected,capture_native,GPU,BROWSER,set_photo_consent
 ROOT=Path.cwd();OUT=Path(os.getenv('SKIN_PRIVACY_AUDIT_DIR',str(ROOT/'audit-results/skin-findings-privacy')));configure(OUT)
 
 def api(port,path,payload=None):
@@ -38,7 +38,7 @@ def main():
      c=launch();p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
      assert c.request.post('http://127.0.0.1:8001/api/vehicle/speed',data={'speedKmH':0}).ok
      p.goto('http://127.0.0.1:3000/privacy');photo=p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla');assert not photo.is_checked()
-     p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check();photo.check();expect(photo).to_be_checked()
+     p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check();set_photo_consent(p,True)
      record=scan(p,'privacy');stored=rows(p);assert len(stored)==1
      receipt=source_receipt(record,stored[0]);open_selected(p,record);expect(p.locator('[data-skin-snapshot]')).to_have_attribute('data-snapshot-photoid',record['general']['captureId'])
      p.screenshot(path=str(OUT/'result-desktop.png'),full_page=True);p.set_viewport_size(dict(width=720,height=900));assert p.evaluate('document.documentElement.scrollWidth<=innerWidth');p.screenshot(path=str(OUT/'result-narrow.png'),full_page=True);c.close()

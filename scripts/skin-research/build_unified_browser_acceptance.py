@@ -30,10 +30,10 @@ CODE_BLOBS = {
     "apps/vehicle-app/src/utils/regionalSkinMap.ts": "258ab2d845b3743ede309938cd14da8831a01046",
     "apps/vehicle-app/src/utils/skinPhotoHistory.ts": "d143cb121cc39149b1ee4d26d4e4bacd9ba0f288",
     "apps/vehicle-app/src/utils/skinOverview.ts": "3c269aeec588886b38906b0db59f4934df752e8b",
-    "tests/e2e/current_skin_contract.py": "e829bbe5576b87add48cceffe1e835a5e3ed99db",
-    "tests/e2e/current_skin_photo_history.py": "54d282c448a0ddc9ccf2d1bed6960af4ebfe714c",
-    "tests/e2e/current_skin_photo_wipe_success.py": "4a3aeed45492658abe18df330b5c7d6dcafff3cc",
-    "tests/e2e/skin_browser_support.py": "3b71d6da50b26be336912adcbb8bd0b1973fb98b",
+    "tests/e2e/current_skin_contract.py": "727a4b35a45971c41678bd22168f3f749e37fa7f",
+    "tests/e2e/current_skin_photo_history.py": "f4b8b45291df74ff0051be5faa5447571189b5fc",
+    "tests/e2e/current_skin_photo_wipe_success.py": "995fd3991c24dd3f9dcdd0d888e3d16695a23194",
+    "tests/e2e/skin_browser_support.py": "539559044a29d6f6a5ce48f006d0e5b7a5e2bcfc",
     "tests/e2e/skin_bundle_preflight.py": "b2509a76122c82c91215059ec1fdce234844376f",
     "apps/vehicle-app/src/app/skin/page.tsx": "0e2a0c2190eadbedf4d5487c1567ff436ca8b94d",
     "tests/e2e/prepare_multi_angle_fixture.py": "5a0aef702ee10003fad9ed828c3b6f25b43f493c"
@@ -90,6 +90,12 @@ def validate_findings_browser(proof: dict[str, Any]) -> str:
     require(proof.get('poseMock'), False, 'findings proof used a pose mock')
     require(proof.get('qualityOverride'), False, 'findings proof used a quality override')
     require(proof.get('pageErrors'), [], 'findings proof has page errors')
+    native_capture=proof.get('nativeCapture',{})
+    if not isinstance(native_capture,dict):raise EvidenceError('actual browser200 capture missing')
+    for key in ('allRequestsHaveSuccessfulResponse','distinctNewRecord','findingsMatchServer'):
+        require(native_capture.get(key),True,f'native200 capture missing {key}')
+    require(native_capture.get('poses'),['FRONT','LEFT','RIGHT'],'native200 capture poses missing')
+    require(native_capture.get('sourcePhotoCount'),3,'native200 capture source photos missing')
     api=proof.get('api', {})
     require(api.get('sourcePhotoCount'), 3, 'findings proof requires three distinct photos')
     require(api.get('poses'), ['FRONT','LEFT','RIGHT'], 'findings capture poses missing')
@@ -100,8 +106,9 @@ def validate_findings_browser(proof: dict[str, Any]) -> str:
     models=json.loads((ROOT/'research/skin-findings/MODEL_MANIFEST.json').read_text())['models']
     expected={m['runtimeName']:m['sha256'] for m in models if m.get('runtimeName') in ('acnes.pt','findings.pt','regional.pt','skinmap.pt','wrinkles.pt')}
     for pose in ('FRONT','LEFT','RIGHT'):
-        actual=proof.get('runtimeModels',{}).get(pose,{})
-        for name,digest in expected.items():require(actual.get(name),digest,f'{pose}: model identity mismatch: {name}')
+        for key in ('runtimeModels','runtimeModelsAtNativeZoom'):
+            actual=proof.get(key,{}).get(pose,{})
+            for name,digest in expected.items():require(actual.get(name),digest,f'{pose}: model identity mismatch: {name} ({key})')
     return build_id
 
 def validate_browser(proof: dict[str, Any]) -> str:

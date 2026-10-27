@@ -8,7 +8,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from PIL import Image
 sys.path.insert(0,str(Path(__file__).parent))
-from skin_browser_support import configure,scan,check_result,open_selected,capture_native,GPU,REGIONS,BROWSER
+from skin_browser_support import configure,scan,check_result,open_selected,capture_native,GPU,REGIONS,BROWSER,set_photo_consent
 ROOT=Path.cwd();OUT=Path(os.getenv('SKIN_HISTORY_AUDIT_DIR',str(ROOT/'audit-results/skin-findings-history')));configure(OUT)
 
 def rows(page):
@@ -34,7 +34,7 @@ if __name__=='__main__':
   c=launch();p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
   assert c.request.post('http://127.0.0.1:8000/api/vehicle/speed',data={'speedKmH':0}).ok
   p.goto('http://127.0.0.1:3000/privacy');photo=p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla');assert not photo.is_checked()
-  p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check();photo.check();expect(photo).to_be_checked()
+  p.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla').check();set_photo_consent(p,True)
   scans=[];records=[];shots=[]
   for n in range(3):
    if n:
@@ -55,7 +55,7 @@ if __name__=='__main__':
   captures={'top':capture_native(p,profile,OUT/'native200.png')};p.locator('[data-skin-result]').scroll_into_view_if_needed();captures['result']=capture_native(p,profile,OUT/'native200-result.png')
   p.goto('http://127.0.0.1:3000/profile');row=p.locator('[data-record-table] [data-record-id="'+records[0]['id']+'"]');row.get_by_role('button',name=re.compile('kaydını sil:')).click();p.get_by_role('button',name='Evet, sil',exact=True).click();expect(row).to_have_count(0)
   assert {r['id'] for r in rows(p)}=={r['id'] for r in records[1:]}
-  p.goto('http://127.0.0.1:3000/privacy');p.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla').uncheck();p.wait_for_function("()=>new Promise(resolve=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records'),r=t.objectStore('records').count();r.onsuccess=()=>resolve(r.result===0);t.oncomplete=()=>db.close();};})")
+  p.goto('http://127.0.0.1:3000/privacy');set_photo_consent(p,False);p.wait_for_function("()=>new Promise(resolve=>{const q=indexedDB.open('attune-skin-photos');q.onsuccess=()=>{const db=q.result,t=db.transaction('records'),r=t.objectStore('records').count();r.onsuccess=()=>resolve(r.result===0);t.oncomplete=()=>db.close();};})")
   assert not rows(p) and len(p.evaluate('JSON.parse(localStorage.getItem("togg_health_skin_history"))'))==2
   open_selected(p,records[1]);expect(p.locator('[data-skin-snapshot]')).to_have_count(0);check_result(p,records[1],shots,'photos-revoked',photo=False)
   assert not errors,errors

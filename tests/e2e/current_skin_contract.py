@@ -39,7 +39,7 @@ if(kind){const j=r.ok?await r.clone().json():null;window.skinCalls.push(kind==='
 VIEW_REGIONS = {'forehead': ['forehead', 'nose'], 'periorbital': ['periorbital'], 'rightCheek': ['rightCheek'], 'leftCheek': ['leftCheek'], 'chin': ['chin']}
 
 
-from skin_browser_support import check_result,check_acne_types,seen_ids,capture_native,configure,BROWSER
+from skin_browser_support import check_result,check_acne_types,seen_ids,capture_native,configure,BROWSER,scan
 if '--chromium' not in sys.argv:CHANNEL=BROWSER
 configure(OUT)
 
@@ -137,22 +137,38 @@ with sync_playwright() as pw:
     p.screenshot(path=str(OUT / 'history-detail.png')); shots.append('history-detail.png'); frame()
     p.get_by_role('dialog').locator('[data-skin-open-result]').click(); expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
     assert 'view=record' in p.url, p.url
-    native = None;capture_basis=None
+    native = None;capture_basis=None;native_capture=None;native_models={}
     if NATIVE:
         saved = c.storage_state(); c.close(); b.close()
         profile = tempfile.TemporaryDirectory(prefix='attune-skin-result-zoom-')
         pref = Path(profile.name) / 'Default'; pref.mkdir(); (pref / 'Preferences').write_text(json.dumps({'partition': {'default_zoom_level': {'x': math.log(2) / math.log(1.2)}}}), 'utf8')
         c = pw.chromium.launch_persistent_context(profile.name, headless=False, no_viewport=True, args=['--window-size=1600,1000', *ARGS], **CHANNEL)
+        c.add_init_script(HOOK)
         c.add_init_script('if(location.origin==="http://127.0.0.1:3000"&&!sessionStorage.getItem("r")){for(const v of ' + json.dumps(saved['origins'][0]['localStorage']) + ')localStorage.setItem(v.name,v.value);sessionStorage.setItem("r","1");}')
-        p = c.new_page(); p.goto('http://127.0.0.1:3000/skin?view=latest'); expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
+        p = c.new_page();p.on('pageerror',lambda e:errors.append(str(e)));p.goto('http://127.0.0.1:3000/skin?view=latest');expect(p.locator('[data-skin-result]')).to_be_visible(timeout=20000)
         native = p.evaluate('({innerWidth,outerWidth,dpr:devicePixelRatio,scroll:document.documentElement.scrollWidth,cssZoom:getComputedStyle(document.documentElement).zoom})')
         assert native['dpr'] >= 2 and native['innerWidth'] < native['outerWidth'] * .65 and native['cssZoom']=='1' and native['scroll'] <= native['innerWidth'], native
-        capture_basis=capture_native(p,profile.name,OUT/'native200-overview.png');c.close();profile.cleanup()
+        capture_basis=capture_native(p,profile.name,OUT/'native200-overview.png')
+        # Preserve the originally failing condition: a NEW capture at actual
+        # browser200%, with all unchanged pose/quality/eyewear/frame gates.
+        zoom_record=scan(p,'native200-capture')
+        zoom_calls=p.evaluate('window.skinCalls')
+        (OUT/'native200-api-calls.json').write_text(json.dumps(zoom_calls,ensure_ascii=False,indent=2),'utf8')
+        zoom_skin=[x for x in zoom_calls if x['kind']=='skin'];zoom_fuse=[x for x in zoom_calls if x['kind']=='fuse']
+        assert len(zoom_skin)==3 and all(x['status']==200 and x['status2']=='OK' for x in zoom_skin)
+        assert sorted(x['pose'] for x in zoom_skin)==['FRONT','LEFT','RIGHT'] and len({x['photoId'] for x in zoom_skin})==3
+        assert len(zoom_fuse)==1 and zoom_fuse[0]['status']==200
+        assert zoom_record['id']!=rec['id'] and zoom_record['general']['findings']==zoom_fuse[0]['response']['findings']
+        assert zoom_record['general']['findingsRegionalMap']==zoom_fuse[0]['response']['regionalSkinMap']
+        check_result(p,zoom_record,shots,'native200-result',frame=frame)
+        native_models={x['pose']:x['regionalSkinMap']['models'] for x in zoom_skin}
+        native_capture=dict(poses=sorted(x['pose'] for x in zoom_skin),sourcePhotoCount=3,allRequestsHaveSuccessfulResponse=True,distinctNewRecord=True,findingsMatchServer=True)
+        capture_native(p,profile.name,OUT/'native200-capture-result.png');c.close();profile.cleanup()
     assert not errors, errors
     proof = dict(status='PASS',methodVersion='skin-findings-browser-api-v2',buildId=Path('apps/vehicle-app/.next/BUILD_ID').read_text().strip(),realBrowser=True,browserEngine='chromium',controlledFixture=True,physicalCamera=False,expertGroundTruth=False,accuracyEvidence=False,realModelInference=True,approvedFindingsUI=True,nativeZoomCapture=capture_basis,apiE2EPassed=True,sourceBoundNumericRows=True,runtimeModels={x['pose']:x['regionalSkinMap']['models'] for x in skin[-3:]}, camera='fake-device y4m fixture (not a physical camera)', fixture=str(Y4M.name), poseMock=False, qualityOverride=False,
                  modelInference='real (saved models via core-api)', seconds=round(seconds, 1), recordId=rec['id'],
                  findings=rec['general']['findings'], skinType=rec['general']['skinType'].get('value'),
-                 nativeZoom=native if NATIVE else 'NOT RUN (--skip-native-zoom)',api={'sourcePhotoCount':len({x['photoId'] for x in skin[-3:]}),'poses':sorted(x['pose'] for x in skin[-3:]),'allRequestsHaveSuccessfulResponse':True},findingsMatchServer=True, screenshots=shots, pageErrors=errors, cameraColor=colour)
+                 nativeZoom=native if NATIVE else 'NOT RUN (--skip-native-zoom)',nativeCapture=native_capture,runtimeModelsAtNativeZoom=native_models,api={'sourcePhotoCount':len({x['photoId'] for x in skin[-3:]}),'poses':sorted(x['pose'] for x in skin[-3:]),'allRequestsHaveSuccessfulResponse':True},findingsMatchServer=True, screenshots=shots, pageErrors=errors, cameraColor=colour)
     video = None
     if not FULL and frame_no[0]:
         import subprocess

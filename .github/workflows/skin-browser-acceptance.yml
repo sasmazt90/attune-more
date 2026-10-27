@@ -16,13 +16,15 @@ concurrency:
   cancel-in-progress: ${{ !startsWith(inputs.expected_source_sha || '', 'drive-metadata-only:') }}
 jobs:
   skin-unified-browser-acceptance:
-    if: github.ref == 'refs/heads/work/skin-roadmap-20261023'
+    if: github.ref == 'refs/heads/work/skin-roadmap-20261023' || github.ref == 'refs/heads/integrate/skin-cloud-claude-20261027'
     runs-on: ubuntu-latest
     timeout-minutes: 50
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       OPENAI_API_KEY: ''
       ATTUNE_LOAD_LOCAL_ENV: '0'
+      HF_HUB_OFFLINE: '1'
+      TRANSFORMERS_OFFLINE: '1'
       ATTUNE_DATA_DIR: ${{ runner.temp }}/attune-skin-isolated-data
       SKIN_RESULT_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/browser
       SKIN_HISTORY_AUDIT_DIR: audit-results/unified-skin-result-browser-acceptance/history
@@ -49,6 +51,8 @@ jobs:
         run: |
           npm ci
           python -m pip install -r services/core-api/requirements.txt -r tests/requirements-skin.txt pillow
+          python -m pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r tests/requirements-skin-runtime.txt
           python -m playwright install --with-deps chromium
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg xvfb

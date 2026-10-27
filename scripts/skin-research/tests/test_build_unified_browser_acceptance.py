@@ -137,10 +137,12 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
             sourceBoundNumericRows=True,
             api=dict(sourcePhotoCount=3, poses=['FRONT', 'LEFT', 'RIGHT'], allRequestsHaveSuccessfulResponse=True),
             nativeZoom=dict(dpr=2, cssZoom='1', innerWidth=800, outerWidth=1600, scroll=800),
+            nativeCapture=dict(poses=['FRONT','LEFT','RIGHT'],sourcePhotoCount=3,allRequestsHaveSuccessfulResponse=True,distinctNewRecord=True,findingsMatchServer=True),
         )
         models=json.loads((ROOT/'research/skin-findings/MODEL_MANIFEST.json').read_text())['models']
         expected={m['runtimeName']:m['sha256'] for m in models if m.get('runtimeName') in ('acnes.pt','findings.pt','regional.pt','skinmap.pt','wrinkles.pt')}
         self.browser['runtimeModels']={pose:dict(expected) for pose in ('FRONT','LEFT','RIGHT')}
+        self.browser['runtimeModelsAtNativeZoom']={pose:dict(expected) for pose in ('FRONT','LEFT','RIGHT')}
         self.history.update(methodVersion='skin-findings-indexeddb-v2', selectedRecordBinding=True,
                             sourceBoundSixRegions=True, approvedFindingsUI=True, poseMock=False, qualityOverride=False)
 
@@ -172,6 +174,14 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
     def test_ci_must_belong_to_the_tested_immutable_head(self):
         self.ci['githubActions']['headSha']='b'*40
         with self.assertRaisesRegex(MODULE.EvidenceError,'CI head does not match'):MODULE.build(self.args())
+
+    def test_native_zoom_requires_a_new_real_capture_not_only_result_replay(self):
+        self.use_findings_proofs();self.browser['nativeCapture']=None
+        with self.assertRaisesRegex(MODULE.EvidenceError,'actual browser200 capture missing'):MODULE.build(self.args())
+
+    def test_native_capture_model_identity_cannot_differ_from_verified_bundle(self):
+        self.use_findings_proofs();self.browser['runtimeModelsAtNativeZoom']['RIGHT']['acnes.pt']='b'*64
+        with self.assertRaisesRegex(MODULE.EvidenceError,'model identity mismatch'):MODULE.build(self.args())
 
 
 if __name__ == "__main__":
