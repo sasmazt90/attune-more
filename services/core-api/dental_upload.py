@@ -44,7 +44,9 @@ def upload_roi(image,points=None):
         tooth,glare,gum,_,gray=dental_pixels(image,mouth,native_capture=True)
         # Accept an actual open mouth or visible natural bite from the photo;
         # no camera movement/liveness or user checkbox is used for uploads.
-        quality=dental_quality(image,points,bite=opening<=.32)
+        # Pose-specific aperture/contact rules are camera-step rules only
+        # (unchanged behaviour: uploads never had an opening-based rejection).
+        quality=dental_quality(image,points,pose_check=False)
         if not quality['valid']:raise UploadError(quality['reasons'][0])
         ys,xs=np.where(mouth)
         quality.update(geometrySource='detected-inner-mouth',sourceType='upload',motionGateApplied=False,fullFaceRequired=False,roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(xs.max()-xs.min()+1),height=int(ys.max()-ys.min()+1)),analysisScale=1)

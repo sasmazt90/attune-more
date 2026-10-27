@@ -65,7 +65,35 @@ def dental_pixels(image,mouth,native_capture=False):
     return tooth,glare,gum,tongue,gray
 
 
-def dental_quality(image,points,bite=False):
+BITE_CONTACT={'centralHalfWidth':.25,'maxGapRatio':.04,'minContactColumns':.60,'minEnamelColumns':.50,'version':'incisal-contact-v1'}
+
+
+def incisal_contact(tooth,mouth,p,width):
+    """Visible upper/lower incisal contact in the central mouth columns.
+
+    Lip aperture is not a bite signal: a wide bite smile parts the lips and a
+    relaxed open mouth can have a small lip ratio. A natural-bite column has
+    enamel on both sides of the inner-lip midline and no vertical non-enamel
+    run between enamel pixels longer than maxGapRatio * mouth width.
+    """
+    h,w=mouth.shape;center=(p[13]+p[14])/2;axis=p[308]-p[78];slope=float(axis[1]/axis[0]) if abs(axis[0])>1e-6 else 0.
+    half=width*BITE_CONTACT['centralHalfWidth'];limit=width*BITE_CONTACT['maxGapRatio']
+    total=enamel=contact=0;gaps=[]
+    for x in range(max(0,int(np.floor(center[0]-half))),min(w,int(np.ceil(center[0]+half))+1)):
+        rows=np.flatnonzero(mouth[:,x])
+        if len(rows)<3:continue
+        total+=1;y0=rows.min();column=tooth[y0:rows.max()+1,x];idx=np.flatnonzero(column)
+        if len(idx)<2:continue
+        enamel+=1;midline=center[1]+(x-center[0])*slope-y0
+        gap=int(np.max(np.diff(idx))-1);gaps.append(gap/width)
+        if idx[0]<midline<idx[-1] and gap<=limit:contact+=1
+    enamel_fraction=enamel/max(total,1);contact_fraction=contact/max(enamel,1)
+    return dict(version=BITE_CONTACT['version'],centralColumns=total,enamelColumnFraction=enamel_fraction,contactColumnFraction=contact_fraction,
+                medianIncisalGapRatio=float(np.median(gaps)) if gaps else None,
+                confirmed=bool(total and enamel_fraction>=BITE_CONTACT['minEnamelColumns'] and contact_fraction>=BITE_CONTACT['minContactColumns']))
+
+
+def dental_quality(image,points,bite=False,pose_check=True):
     mouth,width,opening,p=mouth_geometry(points,image.shape)
     tooth,glare,gum,tongue,gray=dental_pixels(image,mouth,native_capture=True)
     count=int(tooth.sum());area=int(mouth.sum());area_fraction=count/max(area,1)
@@ -76,16 +104,18 @@ def dental_quality(image,points,bite=False):
     lap=cv2.Laplacian(gray,cv2.CV_32F)
     sharp=float(np.mean(lap[interior]**2)) if interior.any() else 0
     light=float(gray[mouth].mean()) if area else 0
-    reasons=[]
+    reasons=[];contact=incisal_contact(tooth,mouth,p,width)
     if width<65:reasons.append('INSUFFICIENT_TOOTH_DETAIL')
-    if not bite and opening<.12:reasons.append('MOUTH_CLOSED')
-    if bite and opening>.32:reasons.append('NATURAL_BITE_REQUIRED')
+    if pose_check and not bite and opening<.12:reasons.append('MOUTH_CLOSED')
+    if pose_check and bite and not contact['confirmed']:reasons.append('NATURAL_BITE_REQUIRED')
     if count<max(150,width*width*.008) or fraction<.30:reasons.append('TEETH_NOT_VISIBLE')
     if light<45 or light>230:reasons.append('LIGHT_INVALID')
     if sharp<12:reasons.append('BLURRY')
     if glare.sum()/max(count+glare.sum(),1)>.12:reasons.append('SALIVA_OR_GLARE')
     if tongue.sum()/max(area,1)>.7:reasons.append('TONGUE_OCCLUSION')
-    return dict(valid=not reasons,reasons=reasons,mouthOpeningRatio=opening,mouthWidthPixels=width,
+    ys,xs=np.where(mouth)
+    roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(xs.max()-xs.min()+1),height=int(ys.max()-ys.min()+1)) if len(xs) else None
+    return dict(valid=not reasons,reasons=reasons,mouthOpeningRatio=opening,mouthWidthPixels=width,incisalContact=contact,roi=roi,
                 visibleToothPixels=count,toothFraction=fraction,enamelAreaFraction=area_fraction,supportedEnamelColumns=columns,sharpness=sharp,light=light,clippedPixels=int(glare.sum()))
 
 
@@ -153,10 +183,15 @@ def calculus_candidates(image,tooth,gum):
     gradient=np.hypot(cv2.Sobel(gray,cv2.CV_32F,1,0),cv2.Sobel(gray,cv2.CV_32F,0,1))
     mask=border&yellow&(texture>.025)&(gradient>.12)&(gray>.15)&(gray<.9)
     n,labels,stats,_=cv2.connectedComponentsWithStats(mask.astype(np.uint8));candidates=[]
+    # Same components/contours as before, but each is traced inside its own
+    # bounding box (offset back to source pixels) and the enamel total is
+    # computed once. The previous full-frame pass per component made large
+    # uploads exceed the 30 s local analysis budget.
+    area_limit=int(tooth.sum())*.15
     for i in range(1,n):
         x,y,w,h,area=stats[i]
-        if area<6 or area>tooth.sum()*.15:continue
-        cc,_=cv2.findContours((labels==i).astype(np.uint8),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        if area<6 or area>area_limit:continue
+        cc,_=cv2.findContours((labels[y:y+h,x:x+w]==i).astype(np.uint8),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE,offset=(int(x),int(y)))
         candidates.append(dict(bounds=dict(x=int(x),y=int(y),width=int(w),height=int(h)),points=max(cc,key=cv2.contourArea)[:,0,:].tolist(),areaPixels=int(area)))
     return candidates,int(border.sum())
 
@@ -263,4 +298,5 @@ def analyze_dental(payload,check=lambda:None):
     # Relative mouth position/color is not tooth identity across perspective;
     # do not invent multiview confirmation or suppress valid per-view evidence.
     check()
-    return adult_product_result(dict(methodVersion='dental-visible-v2',sourceType='camera',views=views,storage='volatile-memory-only',clinicalValidation=False))
+    missing=[pose for pose in ('FRONT','RIGHT','LEFT','BITE') if pose not in {c['pose'] for c in captures}]
+    return adult_product_result(dict(methodVersion='dental-visible-v2',sourceType='camera',views=views,missingViews=missing,biteGate=BITE_CONTACT['version'],storage='volatile-memory-only',clinicalValidation=False))

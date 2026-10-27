@@ -71,7 +71,7 @@ R.validateDentalView(raw.views[0]);a.throws(()=>R.dentalRecordMeasurements(raw))
 const rows=R.dentalRecordMeasurements(adult);a.equal(rows[0].caries.value,1);a.deepEqual(rows[0].caries.candidates.map(c=>c.classCode),['D']);
 const bad=structuredClone(adult.views[0]);bad.caries.candidates=[...raw.views[0].caries.candidates];bad.caries.value=2;a.throws(()=>R.validateDentalView(bad));
 const records=[{id:'legacy',timestamp:'2026-10-17T01:00:00Z',sourceType:'camera',measurements:raw.views},{id:'adult',timestamp:'2026-10-17T02:00:00Z',sourceType:'camera',measurements:rows}];
-const snapshot=JSON.stringify(records),series=H.buildHistorySeries('dental',records);a.equal(series.filter(s=>s.criterion==='caries').length,2);a.equal(JSON.stringify(records),snapshot);a.equal(JSON.stringify(raw),before);a.equal(R.DENTAL_ACCUMULATION_LABEL,'Diş taşı birikimi');a(series.filter(s=>s.criterion==='accumulation').every(s=>s.label===R.DENTAL_ACCUMULATION_LABEL));
+const snapshot=JSON.stringify(records),series=H.buildHistorySeries('dental',records);a.equal(series.filter(s=>s.criterion==='caries').length,2);a.equal(JSON.stringify(records),snapshot);a.equal(JSON.stringify(raw),before);a.equal(R.DENTAL_ACCUMULATION_LABEL,'Birikim görünümü');a(series.filter(s=>s.criterion==='accumulation').every(s=>s.label===R.DENTAL_ACCUMULATION_LABEL));
 '''
  p=subprocess.run(['node','-e',code],cwd=ROOT,input=json.dumps(dict(raw=raw,adult=adult)),text=True,capture_output=True)
  assert p.returncode==0,p.stdout+p.stderr

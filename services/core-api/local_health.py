@@ -268,7 +268,9 @@ async def dental(request: Request):
         raise HTTPException(429, 'LOCAL_ANALYSIS_BUSY')
     from dental_analysis import analyze_dental,DentalModelError
     try:
-        if not isinstance(value.get('captures'),list) or [c.get('pose') for c in value['captures']]!=['FRONT','RIGHT','LEFT','BITE']:raise ValueError()
+        # BITE may be skipped by the user (e.g. contact cannot be shown); it is
+        # then reported as a missing view, never as a measured/healthy bite.
+        if not isinstance(value.get('captures'),list) or [c.get('pose') for c in value['captures']] not in (['FRONT','RIGHT','LEFT','BITE'],['FRONT','RIGHT','LEFT']):raise ValueError()
         for capture in value['captures']:
             landmarks(capture.get('landmarks'))
             if capture.get('pose') not in ('FRONT','RIGHT','LEFT','BITE'):raise ValueError()
