@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-27",
-      "lastCheckedAt": "2026-10-27T13:31:07Z",
+      "lastCheckedAt": "2026-10-27T15:16:15Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-27T13:31:07Z",
+      "lastCheckedAt": "2026-10-27T15:16:15Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -741,7 +741,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T13:31:07Z",
+      "lastCheckedAt": "2026-10-27T15:16:15Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -2967,7 +2967,9 @@
         "docs/skin/evidence/unified-privacy-lifecycle-20261027-v1.json",
         "docs/skin/evidence/unified-privacy-runtime-status-20261027-v1.json",
         "docs/skin/evidence/unified-unavailable-overlap-controls-20261027-v1.json",
-        "docs/skin/evidence/unified-working-product-replay-20261027-v1.json"
+        "docs/skin/evidence/unified-working-product-replay-20261027-v1.json",
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v9.json",
+        "docs/skin/evidence/unified-skin-result-release-gate-20261027-v9.json"
       ],
       "blockers": [
         "The merged main branch already has the nine-criterion result path, separate skin type, six regional views, overview, local maps/contours, persistence gate and result UI. The roadmap branch now extends the result contract to eleven appearance headings plus skin type; Post acne and Pigmentation remain explicitly unavailable, not fabricated. Production merge/deployment is not part of this run.",
@@ -4241,16 +4243,86 @@
       "ci": {
         "runId": 40512982566,
         "headSha": "6e2b2b881ffd1a64cbacd48f0129ce43747796b7",
-        "status": "queued",
+        "status": "completed",
         "frontendJobId": 122219264147,
-        "frontend": "queued",
+        "frontend": "success",
         "backendJobId": 122219264420,
-        "backend": "queued"
+        "backend": "success",
+        "conclusion": "success"
+      }
+    },
+    "unifiedSkinResultReleaseGateV9": {
+      "observedAt": "2026-10-27T15:16:15Z",
+      "methodVersion": "unified-skin-result-release-gate-v9",
+      "workingBaselinePreserved": true,
+      "currentIntegratedPresentationAllowed": true,
+      "generatedReplayIntegrationSmokeAllowed": true,
+      "generatedReplayAccuracyEvidenceAllowed": false,
+      "expectedBranch": "work/skin-roadmap-20261023",
+      "repositoryCiSchemaVersion": 2,
+      "repositoryCiImplementationCommitMustMatchWorkflowHead": true,
+      "browserAcceptanceRequired": true,
+      "browserAcceptanceCommitMustMatchRepositoryCi": true,
+      "browserAcceptanceWorkflowIdMustMatch": 370615037,
+      "browserAcceptanceWorkflowPathMustMatch": ".github/workflows/e2e-audit.yml",
+      "browserAcceptanceJobIdMustBePositive": true,
+      "browserArtifactIdMustBePositive": true,
+      "browserArtifactDigestMustBeSha256": true,
+      "browserArtifactWorkflowRunMustHaveExactIdentityFields": true,
+      "browserAcceptanceMustRemainControlledFixture": true,
+      "browserAcceptanceMaySatisfyPhysicalCamera": false,
+      "browserAcceptanceMayServeAsExpertTruth": false,
+      "browserAcceptanceMayServeAsAccuracyEvidence": false,
+      "verifiedBrowserRun": {
+        "runId": 40456553840,
+        "jobId": 122031134314,
+        "headSha": "94065c2031963fb984849f7be70aa7a4239dfa86",
+        "branch": "work/skin-roadmap-20261023",
+        "workflowId": 370615037,
+        "workflowPath": ".github/workflows/e2e-audit.yml",
+        "artifactId": 12712804062,
+        "artifactDigest": "sha256:fa908e2462267e159c22b1883e3068abed28c21aeae29c9ae2f1422354f8e481"
+      },
+      "allClassReleaseGatesAccepted": false,
+      "physicalCameraBenchmarkAccepted": false,
+      "acceptedEndToEndCandidatePresent": false,
+      "finalRoadmapAcceptanceAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": {
+        "tests": 35,
+        "result": "OK"
+      },
+      "completeSkinResearchEvidenceSuite": {
+        "tests": 319,
+        "result": "OK"
+      },
+      "repositoryCiEvidence": "docs/skin/evidence/unified-browser-acceptance-ci-20261027-v2.json",
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v9.json",
+      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v9.json",
+      "priorV8Ci": {
+        "runId": 40512982566,
+        "headSha": "6e2b2b881ffd1a64cbacd48f0129ce43747796b7",
+        "conclusion": "success",
+        "frontendJobId": 122219264147,
+        "frontend": "success",
+        "backendJobId": 122219264420,
+        "backend": "success"
+      },
+      "ci": {
+        "runId": 40528632969,
+        "headSha": "956ef15086ab0e4da88f6e44e048db1828abb692",
+        "status": "completed",
+        "conclusion": "success",
+        "frontendJobId": 122274985921,
+        "frontend": "success",
+        "backendJobId": 122274986109,
+        "backend": "success"
       }
     }
   },
   "nextActions": [
-    "Replay scripts/skin-research/check_unified_skin_result_release.py v8 for every task-13 decision. Repository CI evidence must be schema v2 for work/skin-roadmap-20261023; repository CI, real-browser acceptance and the browser artifact workflow run must all bind to the same implementation commit and branch. The browser evidence remains a controlled fixture and may never satisfy physical-camera, expert-truth or accuracy acceptance. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while every per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gate remains false.",
+    "Replay scripts/skin-research/check_unified_skin_result_release.py v9 for every task-13 decision. Repository CI, real-browser acceptance and the browser artifact workflow run must bind the same implementation commit and branch; the browser proof must also bind exact workflow 370615037 at .github/workflows/e2e-audit.yml, positive job/artifact IDs and a sha256 artifact digest. The controlled fixture may never satisfy physical-camera, expert-truth or accuracy acceptance. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while every per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gate remains false.",
     "Use scripts/skin-research/build_under_eye_expert_review.py with docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json and the private resolver to complete all 88 item-bound expert decisions for darkcircle and eyebag. The queue reads only the 284 train and 77 validation COCO payloads; the 38-image locked test annotations and pixels remain unread and unselected. Lock each class's positive, polygon-extent, hard-negative and ambiguity policies independently. Missing target annotations are candidates, not negatives; source polygons are selection geometry, not expert truth. Even a complete semantic protocol does not authorize training until full person/source identity coverage, rights, an authorized exact archive, a new untouched final test and consented camera reservation also pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
@@ -4298,6 +4370,53 @@
     "Preserve browser-contract commit cf7447b28e2c39cc976f0af9d66e4be5a44dff54, SVG-layer commits 992d2fcb7c5cdf5ac88a107398e211f940aa39fb / 21b878b2a8b8cadaf005ecee3d06260ba23df758, categorical-history commits 5f97b9ed33433d669ccf2ce478d9a11c6505425b / bfe0e606c25663109139c65e0768a395a3be09e6, retained-replay commits 2cd5ce52506c26c4371ff564da586ea67cf5470c / cd4a8f89f63b8f7cd69c2a47709f066c818cfeb5, storage-gate commit a1738e2e3842377f4ddb42c25b3e07362f6795eb, history-status commits ccf16f2c406eb9155de410d05b6a939a330b4c7c / d870d334be3b7b6af6d187f98dfe3edd726f777a and passed controlled-fixture real-Chromium run 40456553840. Browser integration acceptance is complete for the controlled fixture; consented physical-camera, adjudicated expert truth, per-class accuracy and final-roadmap acceptance remain pending."
   ],
   "executionLog": [
+    {
+      "date": "2026-10-27",
+      "observedAt": "2026-10-27T15:16:15Z",
+      "action": "Read the remote checkpoint first and directly verified that the merged product baseline already produces concrete /api/local-health/skin results. Completed saved v8 CI run 40512982566: frontend job 122219264147 and backend job 122219264420 both passed. Refreshed all 20 accessible Roboflow projects and exact acne/regional/under-eye training and model-group state: acne NAS/small and regional NAS/small remain finished; acne NAS exposes 89 children, regional NAS 75 records, under-eye pilot v2 and grouped under-eye have zero models, grouped under-eye remains empty, and upload task sLFwX7CYBVcnnD6iAW5o remains created/no-progress. No duplicate training, upload, version, inference, threshold or activation work was started. Hardened task-13 unified release gate to v9: in addition to branch/commit/run binding, browser evidence must now use the pinned E2E workflow ID/path, positive job and artifact identities, an exact sha256 artifact digest and a closed artifact-workflow identity object. Thirty-five focused tests and all 319 skin-research tests passed locally. GitHub Actions run 40528632969 is green: frontend job 122274985921 and backend job 122274986109 both passed. Class, consented expert physical-camera and immutable end-to-end acceptance remain false.",
+      "report": "docs/skin/evidence/unified-skin-result-release-gate-20261027-v9.json",
+      "evidence": [
+        "docs/skin/evidence/unified-browser-acceptance-ci-20261027-v2.json",
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261027-v9.json"
+      ],
+      "commits": [
+        "956ef15086ab0e4da88f6e44e048db1828abb692"
+      ],
+      "tests": {
+        "focused": 35,
+        "skinResearch": 319,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40512982566,
+          "headSha": "6e2b2b881ffd1a64cbacd48f0129ce43747796b7",
+          "conclusion": "success",
+          "frontendJobId": 122219264147,
+          "frontend": "success",
+          "backendJobId": 122219264420,
+          "backend": "success"
+        },
+        {
+          "runId": 40528632969,
+          "headSha": "956ef15086ab0e4da88f6e44e048db1828abb692",
+          "conclusion": "success",
+          "frontendJobId": 122274985921,
+          "frontend": "success",
+          "backendJobId": 122274986109,
+          "backend": "success"
+        },
+        {
+          "runId": 40456553840,
+          "headSha": "94065c2031963fb984849f7be70aa7a4239dfa86",
+          "branch": "work/skin-roadmap-20261023",
+          "conclusion": "success",
+          "jobId": 122031134314,
+          "workflowId": 370615037,
+          "artifactId": 12712804062
+        }
+      ]
+    },
     {
       "date": "2026-10-27",
       "observedAt": "2026-10-27T13:31:07Z",
