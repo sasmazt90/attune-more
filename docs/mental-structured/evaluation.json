@@ -1,0 +1,282 @@
+{
+  "scope": "18 authored development probes, not held-out model accuracy or clinical validation",
+  "runs": 360,
+  "probeResults": [
+    {
+      "language": "en",
+      "syntheticInput": "I lost my job yesterday and I feel sad.",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B07"
+    },
+    {
+      "language": "tr",
+      "syntheticInput": "Dün işimi kaybettim ve çok üzgünüm.",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B07"
+    },
+    {
+      "language": "de",
+      "syntheticInput": "Ich habe meinen Job verloren und bin traurig.",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B07"
+    },
+    {
+      "language": "en",
+      "syntheticInput": "Every day I cannot sleep and I feel worried.",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B06",
+        "B07"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B02",
+        "B06",
+        "B07"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "tr",
+      "syntheticInput": "Her gün uyuyamıyorum ve kaygılı hissediyorum.",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B06",
+        "B07"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B02",
+        "B06",
+        "B07"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "de",
+      "syntheticInput": "Ich kann jeden Tag nicht schlafen und fühle mich ängstlich.",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B06",
+        "B07"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B02",
+        "B06",
+        "B07"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "en",
+      "syntheticInput": "I thought nobody would help me.",
+      "expectedFulfilled": [
+        "B01",
+        "B05"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B05"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "tr",
+      "syntheticInput": "Aklımdan kimse yardım etmez düşüncesi geçti.",
+      "expectedFulfilled": [
+        "B01",
+        "B05"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B05"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "de",
+      "syntheticInput": "Ich dachte, niemand würde mir helfen.",
+      "expectedFulfilled": [
+        "B01",
+        "B05"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B05"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "en",
+      "syntheticInput": "Talking to my friend helped me.",
+      "expectedFulfilled": [
+        "B01",
+        "B09"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B09"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "tr",
+      "syntheticInput": "Arkadaşımla konuşmak yardımcı oldu.",
+      "expectedFulfilled": [
+        "B01",
+        "B09"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B09"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "de",
+      "syntheticInput": "Das Gespräch mit meiner Freundin hat mir geholfen.",
+      "expectedFulfilled": [
+        "B01",
+        "B09"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B09"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "en",
+      "syntheticInput": "I need some quiet time.",
+      "expectedFulfilled": [
+        "B01",
+        "B10"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B10"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "tr",
+      "syntheticInput": "Biraz sessizliğe ihtiyacım var.",
+      "expectedFulfilled": [
+        "B01",
+        "B10"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B10"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "de",
+      "syntheticInput": "Ich brauche etwas Ruhe.",
+      "expectedFulfilled": [
+        "B01",
+        "B10"
+      ],
+      "actualFulfilled": [
+        "B01",
+        "B10"
+      ],
+      "expectedObjectivesFound": true,
+      "nextNode": "B03"
+    },
+    {
+      "language": "en",
+      "syntheticInput": "got the sack yday, proper gutted",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "actualFulfilled": [],
+      "expectedObjectivesFound": false,
+      "nextNode": "C01"
+    },
+    {
+      "language": "tr",
+      "syntheticInput": "işimi kaybetim dün moralim sıfır",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "actualFulfilled": [],
+      "expectedObjectivesFound": false,
+      "nextNode": "C01"
+    },
+    {
+      "language": "de",
+      "syntheticInput": "job weg seit gestern, total geknickt",
+      "expectedFulfilled": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "actualFulfilled": [],
+      "expectedObjectivesFound": false,
+      "nextNode": "C01"
+    }
+  ],
+  "probesWithAllExpectedObjectives": 15,
+  "routingLatencyMs": {
+    "median": 0.497,
+    "p95": 0.82
+  },
+  "processPeakRSSKiB": 35836,
+  "runtime": "Python standard library routing + Pydantic; CPU, warmed content/prototype caches",
+  "networkRequestsDuringEvaluation": 0,
+  "paidAPICalls": 0,
+  "actualAPICost": null,
+  "actualTTSTiming": null,
+  "note": "RAM is peak whole evaluation process, not isolated classifier memory. Missing objectives are retained in this report."
+}

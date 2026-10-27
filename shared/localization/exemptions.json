@@ -266,5 +266,9 @@
   "3a4321586db614e2": {
     "source": "Ça",
     "reason": "Turkish weekday abbreviation inside the per-language weekday table (SkinDateRangeDialog); EN/DE use their own tables, never a translated message."
+  },
+  "6089172c95e10143": {
+    "source": "(?:bitte )?(?:ich (?:möchte|will) )?(?:(?:das )?gespräch pausieren|eine pause machen)",
+    "reason": "Internal explicit German pause-intent grammar; never displayed as user-facing text."
   }
 }

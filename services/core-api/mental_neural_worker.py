@@ -49,6 +49,11 @@ def synthesize(payload):
     progress('import-runtime')
     import torch
     import numpy as np
+    if 'seed' in payload:
+        seed=payload['seed']
+        if type(seed) is not int or not 0<=seed<=2**32-1:raise ValueError('INVALID_SEED')
+        import random
+        random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
     from chatterbox.mtl_tts import ChatterboxMultilingualTTS
     from chatterbox.models.tokenizers import tokenizer as tokenizer_module
     def local_mapping(*args, **kwargs):

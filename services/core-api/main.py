@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse, Response
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from speech_stream import ProviderSpeechResponse, close_once
 from pydantic import BaseModel, Field, StrictBool, field_validator
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Literal
 from datetime import datetime
 from contextlib import asynccontextmanager
 import os
@@ -205,11 +205,15 @@ class MemoryPayload(BaseModel):
     @classmethod
     def memory_bounds(cls,value):return validate_memory(value)
 
+from mental_structured import FlowState
+
 class ConversePayload(MemoryPayload):
     userMessage: str = Field(min_length=1, max_length=6000)
     sessionId: Optional[str] = Field(default=None,min_length=1,max_length=128)
     history: Optional[List[Dict[str, str]]] = Field(default=None,max_length=40)
     cloudConsent: StrictBool = False
+    engine: Literal['legacy','structured-v1'] = 'legacy'
+    structuredState: Optional[FlowState] = None
 
     @field_validator('userMessage')
     @classmethod
@@ -232,9 +236,31 @@ def validate_mental_messages(messages):
     if sum(len(m['content']) for m in messages)>120000:raise ValueError('SESSION_CONTENT_LIMIT')
     return messages
 
+class HistoricalMentalSummary(BaseModel):
+    id: str = Field(min_length=1,max_length=128)
+    summaryText: str = Field(min_length=1,max_length=2000)
+    themes: List[str] = Field(max_length=12)
+
+    @field_validator('themes')
+    @classmethod
+    def stable_themes(cls,value):
+        from mental_themes import stable_session_themes
+        return stable_session_themes(value)
+
 class AnalyzeSessionPayload(MemoryPayload):
     messages: List[Dict[str, str]] = Field(max_length=200)
     cloudConsent: StrictBool = False
+    engine: Literal['legacy','structured-v1'] = 'legacy'
+    historyConsent: StrictBool = False
+    priorSessions: List[HistoricalMentalSummary] = Field(default_factory=list,max_length=5)
+    noAdvice: StrictBool = False
+
+    @field_validator('priorSessions')
+    @classmethod
+    def valid_history(cls,value,info):
+        if value and not (info.data.get('cloudConsent') and info.data.get('historyConsent')):
+            raise ValueError('HISTORY_PROCESSING_CONSENT_REQUIRED')
+        return value
 
     @field_validator('messages')
     @classmethod
@@ -249,6 +275,7 @@ class NeuralSpeechPayload(BaseModel):
     text: str = Field(min_length=1, max_length=4096)
     language: str
     speechConsent: StrictBool = False
+    speakerProfile: Optional[Literal['official-default']] = None
 
     @field_validator('text')
     @classmethod
@@ -382,6 +409,12 @@ def converse_mental_assistant(payload: ConversePayload):
 
     from conversation_control import conversation_control
     control = conversation_control(user_msg) if not is_driving else None
+    if payload.engine == 'structured-v1':
+        from mental_structured import require_approved_library, route
+        if os.getenv('ATTUNE_MENTAL_STRUCTURED_ENABLED') != '1':
+            raise HTTPException(409,'STRUCTURED_ENGINE_DISABLED')
+        require_approved_library(current_language())
+        return route(user_msg,current_language(),payload.structuredState,control,is_driving)
     if control:
         return control
 
@@ -410,6 +443,11 @@ def analyze_mental_session(payload: AnalyzeSessionPayload):
     if payload.cloudConsent and not os.getenv('OPENAI_API_KEY', '').strip():
         raise HTTPException(status_code=503, detail='PROVIDER_NOT_CONFIGURED')
     analyzer = get_active_session_analyzer() if payload.cloudConsent else LocalFallbackSessionAnalyzer()
+    if payload.engine == 'structured-v1':
+        analyzer.structured = True
+        analyzer.no_advice = payload.noAdvice
+        from mental_analysis import relevant_history
+        analyzer.prior_sessions = relevant_history(payload.messages,payload.priorSessions) if payload.historyConsent and payload.cloudConsent else []
     if payload.memory:
         analyzer.session_memory = payload.memory
     return analyzer.analyze_session(payload.messages)
@@ -472,6 +510,9 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
         raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
     if payload.language != current_language():
         raise HTTPException(422, 'TTS_LANGUAGE_MISMATCH')
+    if payload.speakerProfile:
+        from mental_audio_identity import verify_speaker
+        verify_speaker(payload.language)
     def permitted():
         return (vehicle_state.get('driverAuthenticated') is True
                 and vehicle_state.get('vehicleMoving') is False
@@ -479,7 +520,8 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
     raw = await generate_for_request(payload.text, payload.language, permitted, request)
     return Response(raw, media_type='audio/wav', headers={
         'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
-        'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language]})
+        'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language],
+        **({'X-TTS-Speaker-Profile':payload.speakerProfile} if payload.speakerProfile else {})})
 
 @app.post('/api/vision/speech')
 async def vision_speech(payload: SpeechPayload):

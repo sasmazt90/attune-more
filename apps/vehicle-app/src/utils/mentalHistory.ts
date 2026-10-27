@@ -17,6 +17,10 @@ export interface MentalHistoryItem {
   moodTrend?: string;
   moodTrendSource?: 'assistant-inferred';
   providerType?: string;
+  recommendations?:string[];
+  relatedSessionIds?:string[];
+  recurringThemes?:string[];
+  structuredFlow?:{contentVersion:'v1';speakerProfile:'official-default';seed?:number;selections:string[]};
 }
 
 const MOOD_LABELS: Record<string, string> = { STRESSED: 'Gergin', TIRED: 'Yorgun', RELAXED: 'Rahat', NEUTRAL: 'Nötr' };

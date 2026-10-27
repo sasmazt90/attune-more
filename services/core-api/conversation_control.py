@@ -18,9 +18,15 @@ def conversation_control(text):
     german_finish = re.fullmatch(
         r'(?:bitte )?(?:ich (?:möchte|will) (?:das )?gespräch(?: jetzt)? beenden|'
         r'(?:das )?gespräch(?: jetzt)? beenden|beenden sie(?: bitte)? (?:das )?gespräch)', value)
-    if value in controls['finish'] or german_finish:
+    english_finish = re.fullmatch(
+        r'(?:please )?(?:i (?:want|would like) to )?(?:end|finish) (?:the|this|our) conversation(?: now| please)?', value)
+    english_pause = re.fullmatch(
+        r'(?:please )?(?:i (?:want|would like) to )?(?:pause (?:the|this|our) conversation|take a break)(?: now| please)?', value)
+    german_pause = re.fullmatch(
+        r'(?:bitte )?(?:ich (?:möchte|will) )?(?:(?:das )?gespräch pausieren|eine pause machen)', value)
+    if value in controls['finish'] or german_finish or english_finish:
         return {'reply': 'Görüşmeyi bitiriyorum. Kendinize iyi bakın.', 'sessionAction': 'finish', 'providerType': 'CONVERSATION_CONTROL', 'isCrisis': False}
-    if value in controls['pause']:
+    if value in controls['pause'] or english_pause or german_pause:
         return {'reply': 'Görüşmeyi duraklatıyorum. Hazır olduğunuzda Devam et düğmesiyle sürdürebilirsiniz.', 'sessionAction': 'pause', 'providerType': 'CONVERSATION_CONTROL', 'isCrisis': False}
     if re.fullmatch(r'(lütfen )?(görüşmeyi bitir|görüşmeyi sonlandır|konuşmayı bitir|konuşmayı sonlandır|bitir|bitirelim|görüşmeyi bitirmek istiyorum|konuşmayı bitirmek istiyorum|şimdilik bu kadar|hoşça kal|hoşçakal|görüşürüz)', value):
         return {'reply': 'Görüşmeyi bitiriyorum. Kendinize iyi bakın.', 'sessionAction': 'finish', 'providerType': 'CONVERSATION_CONTROL', 'isCrisis': False}

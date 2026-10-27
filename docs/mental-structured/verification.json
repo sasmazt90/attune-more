@@ -1,0 +1,41 @@
+{
+  "baseCommit": "84ccea4a83ca4eafb751b66dcf5bd2963a8f0fb4",
+  "unitSuite": {
+    "tests": "1733",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "44",
+    "time": "142.803"
+  },
+  "frontend": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed"
+  },
+  "browserGate": {
+    "realLocalAPI": true,
+    "syntheticASR": true,
+    "physicalAudioTested": false,
+    "results": [
+      {
+        "scenario": "unapproved-library",
+        "passed": true,
+        "generationRequests": 0
+      },
+      {
+        "scenario": "crisis",
+        "passed": true,
+        "generationRequests": 0
+      }
+    ]
+  },
+  "audio": {
+    "plannedScripts": 414,
+    "plannedRepresentativeClips": 9,
+    "generatedClips": 0,
+    "approvedClips": 0,
+    "reason": "verified Chatterbox model bundle unavailable"
+  },
+  "paidCalls": 0,
+  "defaultEnabled": false
+}

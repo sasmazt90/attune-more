@@ -1,6 +1,6 @@
 import raw from '../../public/audio/localized/manifest.json';
 import type {Language} from './core';
-export type FixedClip={text:string;sourceTextSha256:string;url:string;bytes:number;sha256:string;mimeType?:'audio/mp4'|'audio/mpeg';durationSeconds?:number};
+export type FixedClip={text:string;sourceTextSha256:string;url:string;bytes:number;sha256:string;mimeType?:'audio/mp4'|'audio/mpeg'|'audio/wav';durationSeconds?:number};
 export type LocalAudioProfile={id:string;name:string;locale:string;gender:'male'|'female';provider:'local';local:true;guidance:Record<string,FixedClip>;vision:Record<string,FixedClip>};
 type AudioMap={version:string;source:string;auditoryAcceptance:'pending';voices:Record<'en'|'de',Record<'male'|'female',LocalAudioProfile>>;hearing:Record<'en'|'de',{url:string;bytes:number;sha256:string}>};
 export const localizedAudio=raw as unknown as AudioMap;

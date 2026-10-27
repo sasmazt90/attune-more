@@ -24,7 +24,7 @@ export async function POST(request:NextRequest){
   backend=new URL(process.env.ATTUNE_MENTAL_TTS_BACKEND_URL||'http://127.0.0.1:8000');
   if(backend.protocol!=='http:'||!['127.0.0.1','localhost','[::1]'].includes(backend.hostname)||backend.username||backend.password||backend.pathname!=='/'||backend.search||backend.hash)throw Error();
  }catch{return fail(503,'NEURAL_TTS_LOOPBACK_BACKEND_REQUIRED');}
- let payload:{text:string;language:string;speechConsent:boolean};
+ let payload:{text:string;language:string;speechConsent:boolean;speakerProfile?:'official-default'};
  try{
   // Bound actual streamed bytes, including requests without Content-Length.
   const reader=request.body?.getReader();if(!reader)return fail(422,'INVALID_SPEECH');
@@ -33,7 +33,8 @@ export async function POST(request:NextRequest){
   const bytes=new Uint8Array(size);let at=0;for(const part of parts){bytes.set(part,at);at+=part.length;}
   const value=JSON.parse(new TextDecoder().decode(bytes));
   if(typeof value?.text!=='string'||!value.text.trim()||value.text.length>4096||!['tr','en','de'].includes(value.language)||value.speechConsent!==true)return fail(422,'INVALID_SPEECH');
-  payload={text:value.text,language:value.language,speechConsent:true};
+  if(value.speakerProfile!==undefined&&value.speakerProfile!=='official-default')return fail(422,'INVALID_SPEAKER');
+  payload={text:value.text,language:value.language,speechConsent:true,...(value.speakerProfile?{speakerProfile:value.speakerProfile}:{})};
  }catch{return fail(422,'INVALID_SPEECH');}
  const controller=new AbortController(),cancel=()=>controller.abort();
  request.signal.addEventListener('abort',cancel,{once:true});
@@ -44,12 +45,13 @@ export async function POST(request:NextRequest){
   const response=await fetch(target,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(payload),signal:controller.signal});
   if(!response.ok)return fail([401,403,409,422,429,503,504].includes(response.status)?response.status:503,'NEURAL_TTS_UNAVAILABLE');
   if(response.headers.get('content-type')?.split(';')[0]!=='audio/wav'||response.headers.get('x-tts-source')!=='chatterbox-multilingual-v3'||response.headers.get('x-tts-locale')!==({tr:'tr-TR',en:'en-US',de:'de-DE'}[payload.language]))return fail(502,'INVALID_TTS_RESPONSE');
+  if(payload.speakerProfile&&response.headers.get('x-tts-speaker-profile')!==payload.speakerProfile)return fail(502,'INVALID_TTS_SPEAKER');
   const reader=response.body?.getReader();if(!reader)return fail(502,'INVALID_TTS_RESPONSE');
   const chunks:Uint8Array[]=[];let size=0;
   while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>8*1024*1024){await reader.cancel();return fail(502,'TTS_RESPONSE_TOO_LARGE');}chunks.push(value);}
   if(size<=44||controller.signal.aborted)return fail(502,'INVALID_TTS_RESPONSE');
   const bytes=new Uint8Array(size);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
-  return new Response(bytes,{headers:{'Content-Type':'audio/wav','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':response.headers.get('x-tts-locale')!}});
+  return new Response(bytes,{headers:{'Content-Type':'audio/wav','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':response.headers.get('x-tts-locale')!,...(payload.speakerProfile?{'X-TTS-Speaker-Profile':payload.speakerProfile}:{})}});
  }catch{return fail(controller.signal.aborted?504:503,'NEURAL_TTS_UNAVAILABLE');}
  finally{clearTimeout(deadline);request.signal.removeEventListener('abort',cancel);}
 }
