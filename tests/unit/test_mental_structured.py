@@ -164,7 +164,7 @@ def test_variations_are_seeded_compatible_and_balanced():
 def test_catalog_semantic_parity_and_truthful_pending_manifest():
     rows=content()['rows'];keys=[r['audioAssetId'] for r in rows]
     assert len(set(keys))==414
-    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/manifest.json').read_text())
+    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text())
     entries={e['assetId']:e for e in manifest['entries']}
     for lang in ('tr','en','de'):
         assert sum(r['language']==lang and r['questionNodeId']=='A' for r in rows)==12
@@ -175,8 +175,9 @@ def test_catalog_semantic_parity_and_truthful_pending_manifest():
     for row in rows:
         entry=entries[row['audioAssetId']]
         assert row['exactText']==entry['exactScript']
-        assert entry['approvalStatus'] in ('pending-generation','synthesized-awaiting-listening-review')
-        if entry['approvalStatus']=='pending-generation':assert entry['sha256'] is None
+        assert entry['speakerProfile']=='female-calm-v1'
+        assert entry['approvalStatus'] in ('pending-generation','synthesized-awaiting-validation','validated','approved')
+        if entry['approvalStatus']=='pending-generation':assert entry.get('sha256') is None
         else:
             import hashlib
             path=ROOT/'apps/vehicle-app/public'/entry['audioPath'].lstrip('/')

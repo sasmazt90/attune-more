@@ -27,7 +27,7 @@ class FlowState(BaseModel):
     model_config = ConfigDict(extra='forbid')
     version: Literal['v1'] = 'v1'
     language: Literal['tr','en','de']
-    speakerProfile: Literal['official-default'] = 'official-default'
+    speakerProfile: Literal['female-calm-v1'] = 'female-calm-v1'
     seed: int = Field(default=1, ge=0, le=2**32-1)
     turn: int = Field(default=0, ge=0, le=40)
     asked: list[Node] = Field(default_factory=list, max_length=40)
@@ -209,7 +209,7 @@ def route(text,language,state=None,control=None,is_driving=False,finish_after_re
 
 def require_approved_library(language):
     """No draft/silent dynamic fallback, and no externally supplied asset URLs."""
-    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/manifest.json').read_text('utf-8'))
+    manifest=json.loads((ROOT/'apps/vehicle-app/public/audio/mental/v1/female-calm-v1-manifest.json').read_text('utf-8'))
     if content()['reviewStatus']!='approved' or manifest.get('joinApprovalStatus')!='approved':
         raise HTTPException(503,'STRUCTURED_CONTENT_AND_AUDIO_REVIEW_REQUIRED')
     expected={r['audioAssetId']:r for r in content()['rows'] if r['language']==language}

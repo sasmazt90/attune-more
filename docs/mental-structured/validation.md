@@ -1,36 +1,13 @@
-# Validation record
+# PR #12 validation
 
-Date: 27 October 2026. All conversation fixtures are authored/synthetic. No paid OpenAI, external TTS or Chatterbox inference was used in routine tests. No production transcript was used. No clinical or auditory acceptance is claimed.
+The owner approved the nine `female-calm-v1` representative recordings and six joined previews and authorized remaining-catalog production and routine verification. Production is in progress; this document will record the final inventory and PR-head checks. No merge or deployment is authorized.
 
-## Executed checks
+- The selected structured profile and personalized-closing request are `female-calm-v1`; a separate female runtime configuration preserves the legacy/default voice configuration.
+- Approved recordings and original comparison files are protected by SHA-256 baselines. Existing bytes are never overwritten.
+- New recordings are checkpointed with exact scripts, IDs, conditioning/settings, deterministic seeds, hashes, PCM metrics and production timing. Resident model reuse is explicit in new recipes.
+- An independent, checksum-verified multilingual Whisper recognizer runs locally for pronunciation screening. It neither changes the TTS model nor certifies natural prosody; uncertain transcripts are retained for review rather than hidden.
+- Integrity/PCM checks, catalog completeness, all allowed A+B pairs, same-profile closing, lifecycle/consent/storage protections and session boundaries are covered by final validation and regression tests.
+- Classifier comparison is closed by the owner: retain current rules. No semantic-model integration or further benchmarking is pending.
+- Google Drive is the durable backup destination. The backup is incomplete until final expected-file inventory and independent readback hashes are verified; no Cloud copies are deleted.
 
-* Relevant Mental Health, crisis Unicode, privacy API, localization, automotive contract and speech-stream tests: **415 passed** (`/tmp/mental-regressions.xml` in the execution workspace).
-* Added routing/audio/analysis tests plus technical closeout and localization final check: **50 passed** (`/tmp/mental-final-check.xml`). The final new suite contains 30 parameterized test cases after the explicit-control additions.
-* Frontend `npm run typecheck`, `npm run lint`, `npm run build`: passed. Build also runs type and lint checks. Next.js emits its existing `next lint` deprecation notice; no ESLint errors or warnings.
-* `git diff --check` and compilation of added Python modules/scripts: passed.
-* Real local Next.js/API browser smoke (`tests/e2e/mental_structured_gate.py`) with both feature flags enabled: **2 scenarios passed**. An ordinary synthetic ASR input gets the explicit unapproved-library notice, without analysis, compaction or speech-generation requests. A crisis input still shows 112 locally without an ordinary converse/generation request. The historical-summary opt-in starts unchecked. Physical ASR/audio and an approved production voice library were not tested.
-* Follow-up full unit suite: **1,698 passed, 44 skipped**, two upstream deprecation warnings, in 148.30 seconds (`/tmp/all-unit-followup-final.xml`). The follow-up targeted benchmark/flow suites passed 39 cases. Chrome-dependent tests used the existing workspace executable as described below. The 44 existing skips do not establish coverage of unavailable models/hardware.
-
-The local environment needed `pycocotools==2.0.10` (already pinned in CI) for collection and `scikit-learn==1.9.1` (already in `tests/requirements-skin.txt`). They were installed only into the existing workspace virtual environment; no project dependency changed. Browser tests requesting the absent `/opt/google/chrome/chrome` were run through a temporary Python launcher that only supplies the existing `/workspace/.attune-tools/chrome/opt/google/chrome/chrome` as `executable_path`. Test assertions and application code were unchanged. The existing `with-chrome` mount wrapper could not create its UID map in this sandbox, so the direct executable override avoided any system changes. Local TestClient/browser runs required the execution tool's network permission because asynchronous loopback wakeups stalled in the network-disabled sandbox; provider traffic remained mocked or blocked by the unapproved-library gate.
-
-## What the tests establish
-
-The executed production `send`, `speak`, `updateContext`, `finish` and closing-speech closures are tested with labeled service/audio fixtures. The standard successful path makes one ordinary `/converse` request with zero external response/TTS generation; finishing twice sends one `/analyze-session` request and one same-speaker neural request. Both a false return and an exception from closing audio preserve the visible analysis. Muted completion makes zero closing requests. A stale closing callback cannot stop a new session's audio. Crisis handling still wins at the normal-session turn/character bound. Pause/finish use the existing control parser with affirmative TR/EN/DE extensions; a negated finish request is not executed.
-
-Real prepared-audio selection/sequencing tests require exact scripts, IDs, language, speaker, approval and PCM WAV mapping; mismatched/unapproved assets fail without synthesis, and abort after A prevents B. The shared fixed-byte/playback regressions cover hashes, mute, focus, cancellation, deadlines and gestures. Backend tests cover flags, pending audio, crisis precedence, driving response, bounded state, locale restart, distinct history consent, relevant stable themes, rejection of invented related IDs and missing conditioning before synthesis. Catalog tests verify 12 A and 10 variants per B node in every language, stable semantics, compatibility and truthful pending metadata.
-
-These are technical assertions with fixtures, not proof that a live language model will never produce unsupported prose or that separately synthesized audio sounds natural. The follow-up provisioned the verified official bundle and generated nine representative clips using the isolated pinned CPU runtime, outside routine tests. Nine manifest entries are `synthesized-awaiting-listening-review`; 405 remain `pending-generation`. Six lossless A+B previews reuse the recorded PCM. No auditory approval or mass production occurred. See `followup-review.md` for measured generation time/RSS and the 180-utterance baseline.
-
-## Measurements and comparison
-
-`evaluation.json` is generated by `python scripts/mental_structured_evaluate.py --output docs/mental-structured/evaluation.json`. It records 360 warmed CPU routing runs over 18 authored probes, whole-process peak RSS, per-probe supplied objectives and omitted colloquial/ASR information. Fifteen probes find every expected objective; three deliberately difficult slang/ASR inputs abstain and clarify. This is development-probe coverage, not held-out classifier accuracy. Use the JSON's exact timing values; the benchmark excludes network, recognition, audio fetching and playback.
-
-| Operation | Existing code path | Structured path verified with mocks |
-| --- | --- | --- |
-| Ordinary reply | One live conversation request when cloud mode is active | Zero conversational OpenAI calls |
-| Ordinary dynamic narration | One neural generation for an uncached dynamic reply | Zero dynamic TTS calls; approved files only |
-| Long-session context | Additional OpenAI compaction possible | Zero compaction requests; complete bounded transcript |
-| Successful session analysis | One analysis request | One extended analysis request, including spoken summary |
-| Personalized closing | No closing narration in the audited hook | One same-speaker generation, unless muted/cancelled/failing before generation |
-
-The original probe artifacts do not measure token consumption, billing, live response latency, isolated classifier RAM or perceptual quality. Later offline synthesis timing is recorded in the audio manifests; the separate [female voice review](listening-female-calm-v1/README.md) adds descriptive encoder similarities and comparison durations. These are not calibrated identity verification or listening approval. `actualAPICost` remains null. The new mode remains disabled and its approval gate remains closed.
+Current targeted suite: 164 passed. Final broader tests, frontend build and exact-head GitHub CI will be recorded after production and implementation are complete. Physical vehicle acceptance remains outside these Cloud tests.

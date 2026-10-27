@@ -257,7 +257,7 @@ export function useMentalConversation(parked: boolean) {
       if (typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('Invalid reply');
       if (!isDemoMode() && !['LIVE_OPENAI', 'CRISIS_SAFETY_GUARD', 'CONVERSATION_CONTROL',...(r.structured?['STRUCTURED_LOCAL']:[])].includes(data.providerType)) throw new Error('Unexpected demo reply');
       if(r.structured&&!data.isCrisis){
-        if(data.providerType!=='STRUCTURED_LOCAL'||!data.structuredState||data.structuredState.language!==getLanguage()||data.structuredState.speakerProfile!=='official-default'||!Array.isArray(data.audioAssetIds))throw Error('Invalid structured reply');
+        if(data.providerType!=='STRUCTURED_LOCAL'||!data.structuredState||data.structuredState.language!==getLanguage()||data.structuredState.speakerProfile!=='female-calm-v1'||!Array.isArray(data.audioAssetIds))throw Error('Invalid structured reply');
         r.structuredState=data.structuredState;
       }
       r.pendingTurn=null;
@@ -284,7 +284,7 @@ export function useMentalConversation(parked: boolean) {
     if(structuredConversationEnabled()&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Chatterbox sesini seçin.'));return;}
     cleanup(); const r = runtime.current;
     r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];r.memory=[];r.memoryThrough=0;r.pendingTurn=null;r.pendingSpeech=null;
-    r.structured=structuredConversationEnabled();r.structuredState=r.structured?{language:getLanguage(),speakerProfile:'official-default',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
+    r.structured=structuredConversationEnabled();r.structuredState=r.structured?{language:getLanguage(),speakerProfile:'female-calm-v1',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
     settings.current.textMode = false;
     setActive(true); setMessages([]); setSummary(null); setNotice(null); setVoiceNotice(null); setVoiceState('ready'); setPhase('ready');
     listen();
@@ -315,7 +315,7 @@ export function useMentalConversation(parked: boolean) {
       const item: MentalHistoryItem = { id: r.id, date: new Date().toISOString(), summaryText: data.summaryText, themes: data.themes.map(canonicalMentalTheme),
         moodTrend: typeof data.moodTrend === 'string' ? data.moodTrend : undefined, moodTrendSource:typeof data.moodTrend==='string'?'assistant-inferred':undefined, providerType: data.providerType, schemaVersion: 3, startedAt: r.startedAt, completedAt: new Date().toISOString(), completed: true, consented: false };
       if(r.structured){item.recommendations=data.recommendations;item.relatedSessionIds=data.relatedSessionIds;item.recurringThemes=data.recurringThemes;
-        item.structuredFlow={contentVersion:'v1',speakerProfile:'official-default',seed:r.structuredState?.seed,selections:r.structuredState?.selections||[]};}
+        item.structuredFlow={contentVersion:'v1',speakerProfile:'female-calm-v1',seed:r.structuredState?.seed,selections:r.structuredState?.selections||[]};}
       if (!isDemoMode() && isMentalSummarySavingAllowed()) {
         // This is the last operation before storage. Consent can change during analysis.
         item.consented = true;
@@ -337,7 +337,7 @@ export function useMentalConversation(parked: boolean) {
     if(!current())return;
     r.controller=controller;
     try{
-      const played=await mentalNeuralSpeech(text,controller.signal,current,()=>setVoiceState('speaking'),audio=>{r.audio=audio;},{speakerProfile:'official-default',observe:stage=>timing(stage),requestGesture:play=>{if(!current())return()=>{};pendingAudioPlay.current=play;setAudioNeedsGesture(true);return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};}});
+      const played=await mentalNeuralSpeech(text,controller.signal,current,()=>setVoiceState('speaking'),audio=>{r.audio=audio;},{speakerProfile:'female-calm-v1',observe:stage=>timing(stage),requestGesture:play=>{if(!current())return()=>{};pendingAudioPlay.current=play;setAudioNeedsGesture(true);return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};}});
       if(!played&&current())setVoiceNotice(t('Özet hazır; kapanış sesi oynatılamadı.'));
     }catch{if(current())setVoiceNotice(t('Özet hazır; kapanış sesi oynatılamadı.'));}
     finally{if(r.controller===controller)r.controller=null;if(r.epoch===epoch){stopAudio();if(r.mounted)setVoiceState('ready');}}

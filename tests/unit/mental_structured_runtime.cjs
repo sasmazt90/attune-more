@@ -19,11 +19,11 @@ const code=ts.transpileModule(names.map(n=>functions[n]).join('\n'),{compilerOpt
    append:m=>r.transcript.push(m),checkCrisisTrigger:()=>({isCrisis:crisisLimit,emergencyResponseTr:'112 emergency'}),spokenText:x=>x,isDemoMode:()=>false,isMentalSummarySavingAllowed:()=>false,
    API:'mock',resume:()=>{r.busy=false;},cancel:()=>{r.active=false;},mentalSpeechEngine:()=> 'chatterbox-v3',approvedMentalTemplate:()=>null,
    playPreparedMental:async(text,ids)=>{prepared++;assert.equal(text,'Okay. What happened?');assert.deepEqual(ids,['prepared-A','prepared-B']);return true;},
-   mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;assert(current());assert.equal(options.speakerProfile,'official-default');assert.equal(text,'Your own concise closing summary.');if(scenario==='throw')throw Error('Fixture audio unavailable');if(scenario==='late'){r.epoch++;r.audio='new-session-audio';}return closingWorks;},
+   mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;assert(current());assert.equal(options.speakerProfile,'female-calm-v1');assert.equal(text,'Your own concise closing summary.');if(scenario==='throw')throw Error('Fixture audio unavailable');if(scenario==='late'){r.epoch++;r.audio='new-session-audio';}return closingWorks;},
    pendingAudioPlay:{current:null},setAudioNeedsGesture:no,
    fetch:async(url,options)=>{
     const body=JSON.parse(options.body);
-    if(url.endsWith('/converse')){turnCalls++;assert.equal(body.engine,'structured-v1');assert.deepEqual(body.history,[]);return {ok:true,json:async()=>({reply:'Okay. What happened?',providerType:'STRUCTURED_LOCAL',structuredState:{language:'en',speakerProfile:'official-default',listenOnly:false},audioAssetIds:['prepared-A','prepared-B']})};}
+    if(url.endsWith('/converse')){turnCalls++;assert.equal(body.engine,'structured-v1');assert.deepEqual(body.history,[]);return {ok:true,json:async()=>({reply:'Okay. What happened?',providerType:'STRUCTURED_LOCAL',structuredState:{language:'en',speakerProfile:'female-calm-v1',listenOnly:false},audioAssetIds:['prepared-A','prepared-B']})};}
     assert(url.endsWith('/analyze-session'),'No compaction/rewrite/other network requests');analyses++;
     assert.equal(body.messages.length,2);assert.equal(body.historyConsent,false);assert.deepEqual(body.priorSessions,[]);
     return {ok:true,json:async()=>({summaryText:'You described your own situation.',themes:[],providerType:'LIVE_OPENAI',spokenSummary:'Your own concise closing summary.',recommendations:[],relatedSessionIds:[],recurringThemes:[]})};

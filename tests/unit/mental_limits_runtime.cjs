@@ -11,7 +11,7 @@ const code=ts.transpileModule(['send','finish','updateContext','speakClosing'].m
   const count=scenario==='39th-turn'?76:scenario==='39-turn-cross'?78:64;
   const size=['100k-cross','withdrawn-consent'].includes(scenario)?1500:scenario==='94k-soft-close'?1400:500;
   const rows=Array.from({length:count},(_,i)=>({id:'prior-'+i,turn:Math.floor(i/2)+1,sender:i%2?'AI':'USER',text:String(i).padEnd(size,'x'),time:'12:00',completed:true}));
-  const r={structured:true,structuredState:{language:'en',speakerProfile:'official-default',listenOnly:false},mounted:true,active:true,epoch:1,audioEpoch:0,
+  const r={structured:true,structuredState:{language:'en',speakerProfile:'female-calm-v1',listenOnly:false},mounted:true,active:true,epoch:1,audioEpoch:0,
            turn:scenario==='39th-turn'?38:scenario==='39-turn-cross'?39:32,id:'boundary',startedAt:'2026-10-27',transcript:[...rows],memory:[],memoryThrough:0,busy:false,failed:false};
   const input=['100k-cross','withdrawn-consent','94k-soft-close'].includes(scenario)?'final user statement '.padEnd(6000,'z'):'This is my final statement';
   let ordinary=0,analysis=0,neural=0,summary,phase,analysed;
@@ -21,7 +21,7 @@ const code=ts.transpileModule(['send','finish','updateContext','speakClosing'].m
    serviceAllowed:()=>settings.current.speechConsent,checkCrisisTrigger:()=>({isCrisis:false}),spokenText:v=>v,isDemoMode:()=>false,isMentalSummarySavingAllowed:()=>false,
    canonicalMentalTheme:v=>v,append:m=>r.transcript.push(m),setPhase:v=>phase=v,setNotice:no,setActive:no,setSummary:v=>summary=v,setVoiceState:no,setVoiceNotice:no,
    API:'fixture',speak:async()=>{r.busy=false;},pendingAudioPlay:{current:null},setAudioNeedsGesture:no,
-   mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;assert(current());assert.equal(options.speakerProfile,'official-default');return true;},
+   mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;assert(current());assert.equal(options.speakerProfile,'female-calm-v1');return true;},
    fetch:async(url,options)=>{
     const body=JSON.parse(options.body);
     if(url.endsWith('/converse')){ordinary++;assert.equal(body.finishAfterReply,true);return {ok:true,json:async()=>({providerType:'STRUCTURED_LOCAL',reply:'Prepared closing phrase.',sessionAction:'finish',audioAssetIds:['prepared-F01'],structuredState:r.structuredState})};}

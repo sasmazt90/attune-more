@@ -1,8 +1,8 @@
-import manifest from '../../public/audio/mental/v1/manifest.json';
+import manifest from '../../public/audio/mental/v1/female-calm-v1-manifest.json';
 import {getLanguage} from '../i18n/core';
 import {playFixedSpeech} from './fixedFileSpeech';
 
-export type StructuredState={language:string;speakerProfile:'official-default';listenOnly:boolean;turn:number;seed?:number;selections?:string[]}&Record<string,unknown>;
+export type StructuredState={language:string;speakerProfile:'female-calm-v1';listenOnly:boolean;turn:number;seed?:number;selections?:string[]}&Record<string,unknown>;
 export const structuredConversationEnabled=()=>process.env.NEXT_PUBLIC_MENTAL_CONVERSATION_ENGINE==='structured-v1';
 
 /** Exact approved scripts/bytes only. Missing assets never trigger synthesis. */
@@ -10,7 +10,7 @@ export async function playPreparedMental(text:string,ids:string[],signal:AbortSi
  const language=getLanguage();
  const allowed=()=>current()&&getLanguage()===language&&!signal.aborted;
  const clips=ids.map(id=>manifest.entries.find(e=>e.assetId===id));
- if(!ids.length||clips.some(e=>!e||e.language!==language||e.speakerProfile!=='official-default'||e.approvalStatus!=='approved'||!e.sha256||!e.bytes||!e.durationMs)||clips.map(e=>e!.exactScript).join(' ')!==text||manifest.joinApprovalStatus!=='approved')return false;
+ if(!ids.length||clips.some(e=>!e||e.language!==language||e.speakerProfile!=='female-calm-v1'||e.approvalStatus!=='approved'||!e.sha256||!e.bytes||!e.durationMs)||clips.map(e=>e!.exactScript).join(' ')!==text||manifest.joinApprovalStatus!=='approved')return false;
  // Hold focus for the complete utterance, including the calibrated join.
  const owner={},focus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event&{owner:object;active:boolean};event.owner=owner;event.active=active;window.dispatchEvent(event);};
  focus(true);

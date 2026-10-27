@@ -1,6 +1,6 @@
 {
   "id": "female-calm-v1",
-  "status": "review-only-awaiting-owner-listening",
+  "status": "owner-approved-for-full-catalog-production",
   "referenceDataset": "LJ Speech 1.1",
   "referenceClip": "LJ001-0001",
   "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
@@ -16,6 +16,7 @@
     "temperature": 0.8
   },
   "postProcessing": "PCM16 encoding only; upstream watermark retained; no pitch/rate shifting",
-  "speakerConsistency": "Not verified by listening. A common reference does not establish cross-language perceptual identity.",
-  "dynamicClosing": "Must use this same profile id, pinned reference hash, and generation settings when explicitly activated after approval."
+  "speakerConsistency": "Owner listening approval covers nine TR/EN/DE samples and six joins; not independent biometric verification.",
+  "dynamicClosing": "Must use this same profile id, pinned reference hash, and generation settings when explicitly activated after approval.",
+  "ownerApprovedAt": "2026-10-27T17:47:57Z"
 }

@@ -518,7 +518,7 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
         return (vehicle_state.get('driverAuthenticated') is True
                 and vehicle_state.get('vehicleMoving') is False
                 and vehicle_state.get('vehicleParked') is True)
-    raw = await generate_for_request(payload.text, payload.language, permitted, request)
+    raw = await generate_for_request(payload.text, payload.language, permitted, request, **({'speaker_profile':payload.speakerProfile} if payload.speakerProfile else {}))
     return Response(raw, media_type='audio/wav', headers={
         'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
         'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language],

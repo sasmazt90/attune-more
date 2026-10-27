@@ -181,14 +181,20 @@ def validate_wave(raw):
     return raw
 
 
-async def generate(text, language, permitted, disconnected):
+def configuration_path(speaker_profile=None):
+    if speaker_profile=='female-calm-v1':
+        return os.getenv('ATTUNE_MENTAL_TTS_FEMALE_CONFIG') or os.getenv('ATTUNE_MENTAL_TTS_CONFIG', '')
+    return os.getenv('ATTUNE_MENTAL_TTS_CONFIG', '')
+
+
+async def generate(text, language, permitted, disconnected, speaker_profile=None):
     """One bounded subprocess; cancellation kills inference and discards all output."""
     global _busy
     if _busy:
         raise HTTPException(429, 'NEURAL_TTS_BUSY')
     if not permitted():
         raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
-    path = os.getenv('ATTUNE_MENTAL_TTS_CONFIG', '')
+    path = configuration_path(speaker_profile)
     if not path or not Path(path).is_file():
         raise HTTPException(503, 'NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE')
     # A request omitting speakerProfile must not bypass the female review gate.
@@ -281,7 +287,7 @@ async def generate(text, language, permitted, disconnected):
             _busy = False
 
 
-async def generate_for_request(text, language, permitted, request):
+async def generate_for_request(text, language, permitted, request, speaker_profile=None):
     """Observe disconnects after FastAPI has consumed the validated JSON body.
 
     Request.is_disconnected uses a pre-cancelled receive probe. With the HTTP
@@ -306,7 +312,7 @@ async def generate_for_request(text, language, permitted, request):
 
     watcher = asyncio.create_task(watch())
     try:
-        return await generate(text, language, permitted, disconnected)
+        return await generate(text, language, permitted, disconnected, **({'speaker_profile':speaker_profile} if speaker_profile else {}))
     finally:
         watcher.cancel()
         await asyncio.gather(watcher, return_exceptions=True)

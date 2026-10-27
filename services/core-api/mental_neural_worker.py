@@ -12,7 +12,7 @@ from time import monotonic
 from mental_neural_tts import load_configuration, MAX_SECONDS, verify_runtime_source
 
 
-def synthesize(payload):
+def synthesize(payload, runtime=None):
     started = monotonic()
     phases = []
 
@@ -31,7 +31,12 @@ def synthesize(payload):
         Path(path).write_text(json.dumps(phases), encoding='utf-8')
 
     progress('verify-assets')
-    config, directory, reference, profile = load_configuration(payload['config'], payload['language'])
+    config, directory, reference, profile = load_configuration(payload['config'], payload['language'], **({'verify_models': False} if runtime and 'model' in runtime else {}))
+    if runtime is not None:
+        signature = json.dumps(config, sort_keys=True)
+        if runtime.get('signature', signature) != signature:
+            raise ValueError('BATCH_CONFIGURATION_CHANGED')
+        runtime['signature'] = signature
     text = payload['text']
     if not isinstance(text, str) or not text.strip() or len(text) > 4096:
         raise ValueError('INVALID_TEXT')
@@ -66,7 +71,15 @@ def synthesize(payload):
     if device not in ('cpu', 'cuda'):
         raise ValueError('UNSUPPORTED_DEVICE')
     progress('load-model')
-    model = ChatterboxMultilingualTTS.from_local(str(directory), device, t3_model='v3')
+    if runtime is not None and 'model' in runtime:
+        model = runtime['model']
+    else:
+        model = ChatterboxMultilingualTTS.from_local(str(directory), device, t3_model='v3')
+        if runtime is not None:runtime['model'] = model
+    if runtime is not None and 'seed' in payload:
+        # Resident jobs seed after construction, independent of worker/order.
+        # Existing one-shot recipes and all approved bytes remain unchanged.
+        random.seed(seed);np.random.seed(seed);torch.manual_seed(seed)
     # The review profile uses the upstream reference-audio API. Default calls
     # retain the original internal conditioning; all calls retain the watermark.
     if model.conds is None:
