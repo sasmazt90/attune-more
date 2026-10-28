@@ -1,0 +1,93 @@
+{
+  "blockers": [
+    "expert_decision_count_mismatch",
+    "expert_decisions_incomplete",
+    "expert_protocol_sha256_missing_or_invalid",
+    "review_authority_ref_missing_or_invalid",
+    "review_ref_missing_or_invalid"
+  ],
+  "confidenceThreshold": 0.3,
+  "datasetMutationAuthorized": false,
+  "decision": "blocked",
+  "evalId": "7s06OfIzx78XzATqr5oA",
+  "expectedDecisions": 45,
+  "expertProtocolSHA256": null,
+  "expertReviewComplete": false,
+  "finalTestEvaluationAuthorized": false,
+  "methodVersion": "acne-validation-expert-review-preflight-v1",
+  "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+  "modelProposalsAreExpertTruth": false,
+  "perClass": {
+    "Pigmentation": {
+      "expected": 15,
+      "reviewed": 0,
+      "rootCauseCounts": {
+        "ambiguous_policy": 0,
+        "confounder_or_hard_negative": 0,
+        "domain_or_resolution_gap": 0,
+        "image_unassessable": 0,
+        "label_extent_inconsistent": 0,
+        "label_missing": 0,
+        "label_wrong_class": 0,
+        "model_only_failure": 0
+      },
+      "truthStatusCounts": {
+        "ambiguous": 0,
+        "evaluated_negative": 0,
+        "positive_target": 0,
+        "unassessable": 0
+      }
+    },
+    "Pimple": {
+      "expected": 15,
+      "reviewed": 0,
+      "rootCauseCounts": {
+        "ambiguous_policy": 0,
+        "confounder_or_hard_negative": 0,
+        "domain_or_resolution_gap": 0,
+        "image_unassessable": 0,
+        "label_extent_inconsistent": 0,
+        "label_missing": 0,
+        "label_wrong_class": 0,
+        "model_only_failure": 0
+      },
+      "truthStatusCounts": {
+        "ambiguous": 0,
+        "evaluated_negative": 0,
+        "positive_target": 0,
+        "unassessable": 0
+      }
+    },
+    "Post acne": {
+      "expected": 15,
+      "reviewed": 0,
+      "rootCauseCounts": {
+        "ambiguous_policy": 0,
+        "confounder_or_hard_negative": 0,
+        "domain_or_resolution_gap": 0,
+        "image_unassessable": 0,
+        "label_extent_inconsistent": 0,
+        "label_missing": 0,
+        "label_wrong_class": 0,
+        "model_only_failure": 0
+      },
+      "truthStatusCounts": {
+        "ambiguous": 0,
+        "evaluated_negative": 0,
+        "positive_target": 0,
+        "unassessable": 0
+      }
+    }
+  },
+  "productActivationAllowed": false,
+  "queueDigest": "6fa8ccb7a2a1c072bb18fc80bf64babcffd5b59d764b7429c43beaf8383bc6c6",
+  "reviewAuthorityRef": null,
+  "reviewRef": null,
+  "reviewedDecisions": 0,
+  "schemaVersion": 1,
+  "split": "valid",
+  "targetedRemediationPlanningAllowed": false,
+  "testSplitRead": false,
+  "thresholdSelectedHere": false,
+  "trainingAuthorized": false
+}

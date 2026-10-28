@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "acne-validation-expert-review-builder-v1",
+  "observedAt": "2026-10-28T20:32:45Z",
+  "implementation": "scripts/skin-research/build_acne_validation_expert_review.py",
+  "tests": "scripts/skin-research/tests/test_build_acne_validation_expert_review.py",
+  "queue": "docs/skin/evidence/acne-validation-failure-review-queue-20261028-v1.json",
+  "inputTemplate": "docs/skin/evidence/acne-validation-expert-review-input-template-20261028-v1.json",
+  "preflight": "docs/skin/evidence/acne-validation-expert-review-preflight-20261028-v1.json",
+  "queueDigest": "6fa8ccb7a2a1c072bb18fc80bf64babcffd5b59d764b7429c43beaf8383bc6c6",
+  "expectedDecisions": 45,
+  "perClassDecisions": {
+    "Pigmentation": 15,
+    "Pimple": 15,
+    "Post acne": 15
+  },
+  "privateResolverRequired": true,
+  "qualifiedHumanReviewRequired": true,
+  "rawProviderIdentifiersCommitted": false,
+  "expertReviewComplete": false,
+  "targetedRemediationPlanningAllowed": false,
+  "datasetMutationAuthorized": false,
+  "trainingAuthorized": false,
+  "finalTestEvaluationAuthorized": false,
+  "productActivationAllowed": false,
+  "decision": "blocked",
+  "reason": "QUALIFIED_HUMAN_REVIEW_MANIFEST_REQUIRED"
+}

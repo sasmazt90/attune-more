@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "acne-validation-expert-review-input-v1",
+  "queueDigest": "6fa8ccb7a2a1c072bb18fc80bf64babcffd5b59d764b7429c43beaf8383bc6c6",
+  "evalId": "7s06OfIzx78XzATqr5oA",
+  "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+  "split": "valid",
+  "confidenceThreshold": 0.3,
+  "testSplitRead": false,
+  "thresholdSelectedHere": false,
+  "reviewRef": null,
+  "reviewAuthorityRef": null,
+  "expertProtocolSHA256": null,
+  "reviewPolicy": {
+    "qualifiedHumanReviewConfirmed": true,
+    "modelProposalHiddenUntilIndependentDecision": true,
+    "nativeResolutionSourceViewed": true,
+    "classDefinitionsLockedBeforeReview": true,
+    "missingLabelNotNegativeOrNormal": true,
+    "modelProposalNotExpertTruth": true,
+    "reviewDoesNotAuthorizeRelabel": true,
+    "reviewDoesNotAuthorizeTraining": true,
+    "testExcluded": true
+  },
+  "decisions": []
+}
