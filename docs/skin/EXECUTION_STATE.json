@@ -763,7 +763,10 @@
         "activationAllowed": false,
         "implementation": "scripts/skin-research/audit_under_eye_grouped_provider_export.py",
         "tests": "scripts/skin-research/tests/test_audit_under_eye_grouped_provider_export.py",
-        "evidence": "docs/skin/evidence/under-eye-grouped-provider-export-audit-contract-20261028-v1.json"
+        "evidence": "docs/skin/evidence/under-eye-grouped-provider-export-audit-contract-20261028-v1.json",
+        "implementationCommit": "1ab8cf4bb2d0ecfc305ae93e404236a3466dad45",
+        "ciRunId": 40635135418,
+        "ciEvidence": "docs/skin/evidence/under-eye-grouped-provider-export-audit-ci-20261028-v1.json"
       }
     },
     "regionalMap": {
@@ -8482,15 +8485,35 @@
       "evidence": [
         "scripts/skin-research/audit_under_eye_grouped_provider_export.py",
         "scripts/skin-research/tests/test_audit_under_eye_grouped_provider_export.py",
-        "docs/skin/evidence/under-eye-grouped-provider-export-audit-contract-20261028-v1.json"
+        "docs/skin/evidence/under-eye-grouped-provider-export-audit-contract-20261028-v1.json",
+        "docs/skin/evidence/under-eye-grouped-provider-export-audit-ci-20261028-v1.json"
       ],
       "tests": {
         "focused": 5,
         "result": "OK",
         "authorizedArchiveSelfIdentityAudit": "passed",
-        "selfIdentityIsProviderEvidence": false
+        "selfIdentityIsProviderEvidence": false,
+        "deterministic": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "skinResearch": 372
       },
-      "providerTasks": []
+      "providerTasks": [],
+      "implementationCommit": "1ab8cf4bb2d0ecfc305ae93e404236a3466dad45",
+      "runs": [
+        {
+          "runId": 40635135418,
+          "headSha": "1ab8cf4bb2d0ecfc305ae93e404236a3466dad45",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122640245039,
+          "frontend": "success",
+          "backendJobId": 122640245287,
+          "backend": "success"
+        }
+      ]
     }
   ]
 }

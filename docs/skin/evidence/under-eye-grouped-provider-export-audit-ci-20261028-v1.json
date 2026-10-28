@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T05:00:50Z",
+  "methodVersion": "under-eye-grouped-provider-export-audit-ci-v1",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "1ab8cf4bb2d0ecfc305ae93e404236a3466dad45",
+  "workflow": {
+    "runId": 40635135418,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40635135418",
+    "status": "completed",
+    "conclusion": "success",
+    "createdAt": "2026-10-28T04:56:44Z",
+    "completedAt": "2026-10-28T05:00:50Z",
+    "frontend": {
+      "jobId": 122640245039,
+      "conclusion": "success",
+      "completedAt": "2026-10-28T04:57:28Z"
+    },
+    "backend": {
+      "jobId": 122640245287,
+      "conclusion": "success",
+      "completedAt": "2026-10-28T05:00:49Z"
+    }
+  },
+  "tests": {
+    "deterministic": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2,
+      "durationSeconds": 150.97
+    },
+    "skinResearch": {
+      "passed": 372,
+      "durationSeconds": 4.956
+    },
+    "focusedLocal": {
+      "passed": 5
+    },
+    "authorizedArchiveSelfIdentityAudit": "passed",
+    "selfIdentityIsProviderEvidence": false
+  },
+  "providerState": {
+    "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "private": true,
+    "images": 0,
+    "versions": [],
+    "providerExportObserved": false,
+    "uploadStartedByThisRun": false,
+    "versionStartedByThisRun": false,
+    "trainingStartedByThisRun": false
+  },
+  "releaseEffect": {
+    "providerExportIdentityVerified": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "productActivationAllowed": false,
+    "roadmapAccepted": false
+  }
+}
