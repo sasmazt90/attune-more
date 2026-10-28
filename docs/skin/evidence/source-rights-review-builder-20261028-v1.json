@@ -1,0 +1,104 @@
+{
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "d691f31764003fdd19ccc25641a2e13af84ae697",
+  "liveState": {
+    "accessibleRoboflowProjects": 20,
+    "acneVersion1Trainings": {
+      "49ee6204cf069198bbfa": "finished",
+      "5b632a5c12b76fcfe703": "finished"
+    },
+    "regionalMutableImages": 476,
+    "regionalMutableUnannotated": 139,
+    "regionalVersion1Images": 337,
+    "regionalVersion1Trainings": {
+      "3485f8c67f957a1b850d": "finished",
+      "af287a006e2e428f5ce4": "finished"
+    },
+    "staleUploadProgress": null,
+    "staleUploadStatus": "created",
+    "staleUploadTask": "sLFwX7CYBVcnnD6iAW5o",
+    "underEyePilotImages": 399,
+    "underEyeVersion2Trainings": []
+  },
+  "mappingEvidence": {
+    "expandedSourceStatesDeclarationIsNotIndividualRightsProof": true,
+    "expandedSourcesGitBlob": "8771f1aed674f1c7f554dcb6fa539b20c7696f38",
+    "individualImageRightsReviewed": false,
+    "publisherDeclarationPresent": true,
+    "publisherDeclarationUsedAsIndividualImageRightsProof": false,
+    "selectedArchiveCountExpected": 11,
+    "selectedSourcesGitBlob": "cfd24d16f86f3437dd3b1d925053cc7ebe543399",
+    "unverifiedStockMarkersExcluded": true
+  },
+  "methodVersion": "source-rights-review-builder-v1",
+  "observedAt": "2026-10-28T12:10:49Z",
+  "privacyAndRightsPolicy": {
+    "archiveNamesPathsOrUrlsAccepted": false,
+    "excludedArchivesAccessed": false,
+    "privateManifestCommitted": false,
+    "publisherDeclarationAcceptedAsIndividualImageRightsProof": false,
+    "rawRightsDocumentsAccepted": false,
+    "reviewerIdentityAccepted": false
+  },
+  "publicPreflight": {
+    "allIndividualImageRightsReviewed": false,
+    "allSelectedArchivesReviewed": false,
+    "blockers": [
+      "excluded_archive_inventory_unreconciled",
+      "individual_image_rights_review_incomplete",
+      "publisher_declaration_is_not_individual_image_rights_proof",
+      "selected_archive_rights_registry_incomplete"
+    ],
+    "decision": "blocked",
+    "methodVersion": "source-rights-review-preflight-v1",
+    "readyForReleaseArtifact": false,
+    "selectedArchiveCount": 0,
+    "selectedArchiveCountExpected": 11
+  },
+  "releaseArtifact": {
+    "emitted": false,
+    "methodVersionWhenComplete": "source-rights-review-v1",
+    "reason": "archive-by-archive and individual-image rights evidence is incomplete"
+  },
+  "roboflowWritesStarted": false,
+  "schemaVersion": 1,
+  "sourceMappingRelease": {
+    "evidenceRegistryComplete": false,
+    "productTruthAuthorized": false,
+    "trainingDataReleaseAuthorized": false
+  },
+  "tests": {
+    "availableSkinResearchSuite": {
+      "passed": 95,
+      "result": "OK"
+    },
+    "builderFocused": {
+      "passed": 7,
+      "result": "OK"
+    },
+    "githubActionsObserved": false,
+    "pythonCompile": true
+  },
+  "trackedFiles": {
+    "builder": {
+      "path": "scripts/skin-research/build_source_rights_review.py",
+      "sha256": "cb4e085dfa932511ebddad4c48bd889e5577dac4a1be751aec2887cd5fcf552d"
+    },
+    "currentFacts": {
+      "path": "docs/skin/evidence/source-rights-review-current-facts-20261028-v1.json",
+      "sha256": "fd831f6f7d7a7a662327ee8be3af17042d3195ef17c1510ada7b0c514cc50b8d"
+    },
+    "inputTemplate": {
+      "path": "docs/skin/evidence/source-rights-review-input-template-20261028-v1.json",
+      "sha256": "db904dea07c8379e31421b0fb0b2dbca158d6bf1c53c25e6fa450855d4e00ae0"
+    },
+    "preflight": {
+      "path": "docs/skin/evidence/source-rights-review-preflight-20261028-v1.json",
+      "sha256": "d2c7d357603a42b12202f2d353469afa3ad0120fbbe163766f35260bef36e7e6"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_source_rights_review.py",
+      "sha256": "bd02bf594c5c097a4d9157b8d0e58cf4d28db2f87d08bbb0db248ccecf91a206"
+    }
+  }
+}
