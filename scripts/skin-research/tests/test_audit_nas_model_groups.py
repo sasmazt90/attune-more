@@ -25,8 +25,11 @@ class NasModelGroupAuditTest(unittest.TestCase):
     def test_repository_snapshot_is_complete_and_fail_closed(self):
         result = audit.audit_snapshot(facts())
         rows = {row["project"]: row for row in result["projects"]}
-        self.assertEqual(rows["attune-skin-acne-marks-pigmentation"]["inventory"]["children"], 89)
-        self.assertEqual(rows["attune-skin-regional-skin-map"]["inventory"]["children"], 75)
+        self.assertEqual(rows["attune-skin-acne-marks-pigmentation"]["inventory"]["uniqueChildren"], 89)
+        self.assertEqual(rows["attune-skin-regional-skin-map"]["inventory"]["modelRecords"], 75)
+        self.assertEqual(rows["attune-skin-regional-skin-map"]["inventory"]["uniqueChildren"], 74)
+        self.assertEqual(len(rows["attune-skin-regional-skin-map"]["inventory"]["duplicateModelIds"]), 1)
+        self.assertEqual(rows["attune-skin-regional-skin-map"]["evaluationCoverage"]["missingUniqueNasChildEvaluations"], 73)
         self.assertFalse(rows["attune-skin-acne-marks-pigmentation"]["evaluationCoverage"]["complete"])
         self.assertFalse(rows["attune-skin-regional-skin-map"]["decision"]["productActivationAllowed"])
 
@@ -55,10 +58,10 @@ class NasModelGroupAuditTest(unittest.TestCase):
         with self.assertRaisesRegex(audit.AuditError, "not read completely"):
             audit.audit_snapshot(value)
 
-    def test_duplicate_child_rejects(self):
+    def test_unexpected_duplicate_child_rejects(self):
         value = facts()
         value["projects"][0]["children"][1]["modelId"] = value["projects"][0]["children"][0]["modelId"]
-        with self.assertRaisesRegex(audit.AuditError, "invalid or duplicated"):
+        with self.assertRaisesRegex(audit.AuditError, "duplication changed"):
             audit.audit_snapshot(value)
 
     def test_group_drift_rejects(self):

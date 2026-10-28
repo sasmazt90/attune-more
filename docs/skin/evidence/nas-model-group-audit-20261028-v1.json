@@ -9,10 +9,12 @@
       "trainingId": "5b632a5c12b76fcfe703",
       "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
       "inventory": {
-        "children": 89,
+        "modelRecords": 89,
+        "uniqueChildren": 89,
+        "duplicateModelIds": [],
         "complete": true,
-        "finished": 89,
-        "recommendedFlagged": 2,
+        "finishedModelRecords": 89,
+        "recommendedFlaggedUniqueChildren": 2,
         "recommendedModelIds": [
           "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
           "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1"
@@ -45,8 +47,8 @@
         "evaluatedNasModelIds": [
           "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262"
         ],
-        "missingNasChildEvaluations": 88,
-        "complete": false
+        "complete": false,
+        "missingUniqueNasChildEvaluations": 88
       },
       "interpretation": {
         "recommendedUsedAsAccuracyWinner": false,
@@ -69,10 +71,14 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
       "inventory": {
-        "children": 75,
+        "modelRecords": 75,
+        "uniqueChildren": 74,
+        "duplicateModelIds": [
+          "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
+        ],
         "complete": true,
-        "finished": 75,
-        "recommendedFlagged": 1,
+        "finishedModelRecords": 75,
+        "recommendedFlaggedUniqueChildren": 1,
         "recommendedModelIds": [
           "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
         ]
@@ -104,8 +110,8 @@
         "evaluatedNasModelIds": [
           "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
         ],
-        "missingNasChildEvaluations": 74,
-        "complete": false
+        "complete": false,
+        "missingUniqueNasChildEvaluations": 73
       },
       "interpretation": {
         "recommendedUsedAsAccuracyWinner": false,

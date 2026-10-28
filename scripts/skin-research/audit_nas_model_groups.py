@@ -25,7 +25,9 @@ EXPECTED = {
         "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
         "taskType": "object-detection",
         "modelType": "rfdetr-nas",
-        "children": 89,
+        "records": 89,
+        "uniqueChildren": 89,
+        "duplicateModelIds": [],
         "providerEvaluations": 2,
         "evaluatedNasChildren": 1,
     },
@@ -35,7 +37,9 @@ EXPECTED = {
         "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
         "taskType": "instance-segmentation",
         "modelType": "rfdetr-nas-seg",
-        "children": 75,
+        "records": 75,
+        "uniqueChildren": 74,
+        "duplicateModelIds": ["tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"],
         "providerEvaluations": 2,
         "evaluatedNasChildren": 1,
     },
@@ -110,18 +114,23 @@ def _validate_project(value: dict[str, Any]) -> dict[str, Any]:
     if page != {
         "offset": 0,
         "limit": 200,
-        "total": expected["children"],
-        "returned": expected["children"],
+        "total": expected["records"],
+        "returned": expected["records"],
         "truncated": False,
     }:
         raise AuditError(f"{project} modelGroup was not read completely in one page")
 
     children = value.get("children")
-    if not isinstance(children, list) or len(children) != expected["children"]:
+    if not isinstance(children, list) or len(children) != expected["records"]:
         raise AuditError(f"{project} child inventory is incomplete")
     model_ids = [row.get("modelId") for row in children if isinstance(row, dict)]
-    if len(model_ids) != len(set(model_ids)) or any(not isinstance(item, str) for item in model_ids):
-        raise AuditError(f"{project} child identities are invalid or duplicated")
+    if len(model_ids) != len(children) or any(not isinstance(item, str) or not item for item in model_ids):
+        raise AuditError(f"{project} child identities are invalid")
+    duplicate_model_ids = sorted({
+        model_id for model_id in model_ids if model_ids.count(model_id) > 1
+    })
+    if len(set(model_ids)) != expected["uniqueChildren"] or duplicate_model_ids != expected["duplicateModelIds"]:
+        raise AuditError(f"{project} provider record duplication changed")
 
     normalized: list[dict[str, Any]] = []
     for row in children:
@@ -169,17 +178,19 @@ def _validate_project(value: dict[str, Any]) -> dict[str, Any]:
     if len(evaluated_children) != expected["evaluatedNasChildren"]:
         raise AuditError(f"{project} evaluated NAS child coverage changed")
 
-    recommended = sorted(row["modelId"] for row in normalized if row["recommended"])
+    recommended = sorted({row["modelId"] for row in normalized if row["recommended"]})
     return {
         "project": project,
         "version": expected["version"],
         "trainingId": expected["trainingId"],
         "modelGroup": expected["modelGroup"],
         "inventory": {
-            "children": len(normalized),
+            "modelRecords": len(normalized),
+            "uniqueChildren": len(child_set),
+            "duplicateModelIds": duplicate_model_ids,
             "complete": True,
-            "finished": len(normalized),
-            "recommendedFlagged": len(recommended),
+            "finishedModelRecords": len(normalized),
+            "recommendedFlaggedUniqueChildren": len(recommended),
             "recommendedModelIds": recommended,
         },
         "observedAggregateLeaders": {
@@ -192,8 +203,8 @@ def _validate_project(value: dict[str, Any]) -> dict[str, Any]:
             "providerEvaluations": len(evaluations),
             "evaluatedNasChildren": len(evaluated_children),
             "evaluatedNasModelIds": evaluated_children,
-            "missingNasChildEvaluations": len(normalized) - len(evaluated_children),
-            "complete": len(evaluated_children) == len(normalized),
+            "missingUniqueNasChildEvaluations": len(child_set) - len(evaluated_children),
+            "complete": len(evaluated_children) == len(child_set),
         },
         "interpretation": {
             "recommendedUsedAsAccuracyWinner": False,
