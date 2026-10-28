@@ -1,0 +1,618 @@
+{
+  "classes": {
+    "Pigmentation": {
+      "aggregateFailures": {
+        "crossClassInbound": 1,
+        "crossClassOutbound": 71,
+        "falsePositiveFromBackground": 14,
+        "missedToBackground": 205
+      },
+      "candidateImagesWithFailure": 45,
+      "expertDecisionsComplete": false,
+      "reviewItems": [
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 62
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 310,
+          "recordRef": "7d8f624dcffea5ef2576e67c6758f70cb650e324a7f73996cd62755731607081"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 20
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 104,
+          "recordRef": "4da95534311e76f71551a076cf0652600cd7baca1f4795ed353480d15b22825d"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 7,
+            "missedToBackground": 13
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 87,
+          "recordRef": "7db58eef406ff19854c8fe9cc6cec27d9d2b53d26c20db44ea4abd97944889c4"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 4,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 13
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 81,
+          "recordRef": "425afe5ee21c07fbbf2079893315c50604f6aaf7086b8cdd7f6b6f0fe7e1f801"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 11
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 59,
+          "recordRef": "1eb849450a910171840e55264224cdb7c6bc1ec9582d62571f1eb67ee71baac2"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 10,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 3
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 55,
+          "recordRef": "848c2dafd0f9c7d92a633372690017e26bec43ba657c672a45dc32e7ecf1a00b"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 10
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 54,
+          "recordRef": "0a0c872b91c121f0af7abeb91dc71f5156208765d1abc12b2178996b89fe2d16"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 8
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 48,
+          "recordRef": "4a064a28fd0e2fd6ef022ae315b91eed753dcf4316184a0a36d7925bc26a7bd1"
+        },
+        {
+          "clusterId": 3,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 9
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 45,
+          "recordRef": "3669e5b6f679568b24dc04a7d8b0f0d6b890135bd4c9e537c87aba3fd077d82e"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 5,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 5
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 45,
+          "recordRef": "9432e741379d641f4d40e6dba75edaa0d39e1e8ae5f6c352a5e2f495c6b9a049"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 3,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 6
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 42,
+          "recordRef": "7ae31d2914f1a0308f6f5ee9a179ceeded4de7f9d5f302ef3f6b679ea0c32eff"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 8
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 40,
+          "recordRef": "96dd3780c6cfaa3aa2cea0daef879fc486bbad70af76e21341e4c695576777dd"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 4,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 3
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 31,
+          "recordRef": "7466f60bf9cbce066112fc64ae8ef8065eb39285b02d54fa9073c826794675b9"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 4,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 3
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 31,
+          "recordRef": "b1f4db614104c5daf33fed3e0115b831c2df54d157bec96c0c5865dc349053cd"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 4,
+            "falsePositiveFromBackground": 0,
+            "missedToBackground": 2
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 26,
+          "recordRef": "ad0d8c16ef413a99010ef8e0a2c841c1b03e75aecb19654559d746d064b2541e"
+        }
+      ],
+      "reviewItemsSelected": 15
+    },
+    "Pimple": {
+      "aggregateFailures": {
+        "crossClassInbound": 62,
+        "crossClassOutbound": 106,
+        "falsePositiveFromBackground": 664,
+        "missedToBackground": 488
+      },
+      "candidateImagesWithFailure": 150,
+      "expertDecisionsComplete": false,
+      "reviewItems": [
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 18,
+            "falsePositiveFromBackground": 3,
+            "missedToBackground": 28
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 218,
+          "recordRef": "bf19369fe7865afcaadc98b8a27df85092a8b9a6bdb8f81e26e2b843fd861d77"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 6,
+            "missedToBackground": 27
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 151,
+          "recordRef": "2de7488c85336d0969b3f54ad3b4c87bcbdce0403f45b518b7de16cc566facd3"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 1,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 14,
+            "missedToBackground": 21
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 136,
+          "recordRef": "c3f51472d492924982ae27b63b4b5bba262e862449e680e5c8951db1d32836f1"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 5,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 13,
+            "missedToBackground": 16
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 121,
+          "recordRef": "f012db4f61554b2392fee5cc3547a6f63606313d27a739e9f9d5768d4582710f"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 3,
+            "missedToBackground": 21
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 115,
+          "recordRef": "0077312d991009f00cd99e32ee14531bdb78da6de7f2665797a780eaa817e2c7"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 15,
+            "missedToBackground": 15
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 105,
+          "recordRef": "deb509a7473170603ff24e0f8aff2b1ecb43f12bc87a7a330854b3ec2bad37d1"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 1,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 10,
+            "missedToBackground": 16
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 103,
+          "recordRef": "ff5423cf828caaf64bfdc35531bf113704ce7d64a1f9594ccfdfc82ff0f56f60"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 2,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 11,
+            "missedToBackground": 13
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 101,
+          "recordRef": "c86aa74e45d273839f077d8f3a7974aa51eff055f94e30d25c5938ba342890d6"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 3,
+            "falsePositiveFromBackground": 4,
+            "missedToBackground": 14
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 90,
+          "recordRef": "7f519e60f581ae3f2b4fdd4598309e98c653239c8dab857c843a56dfbb4cc4db"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 5,
+            "missedToBackground": 14
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 84,
+          "recordRef": "b4dc06bc0934884d841623f9a654fc1fac4661da9b0856bfbd3e222699d5816e"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 2,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 5,
+            "missedToBackground": 13
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 81,
+          "recordRef": "e447b78b8ea3cc0eee635dbf1628c70684c796232d138c9fde6dc6e5e7371da5"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 7,
+            "missedToBackground": 12
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 78,
+          "recordRef": "7039dc2e291d4f80e012596e92699c6efd37a64c480216e9c7448bad04575f7a"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 1,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 9,
+            "missedToBackground": 9
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 74,
+          "recordRef": "502b33ac182f01d6d4b6f07662cbe53c0adb44921744c00a85b09f8f60f3fdab"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 2,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 9,
+            "missedToBackground": 10
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 74,
+          "recordRef": "bc03347febe5f9d1eae6a71d0eab4a73abf0867048985a722388cf5fad0fbbc0"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 1,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 7,
+            "missedToBackground": 11
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 72,
+          "recordRef": "4da81622c705bd91e2099d3a5ac0ddfeabe3fd5e2d96ecb37f735a33dc94717d"
+        }
+      ],
+      "reviewItemsSelected": 15
+    },
+    "Post acne": {
+      "aggregateFailures": {
+        "crossClassInbound": 173,
+        "crossClassOutbound": 59,
+        "falsePositiveFromBackground": 3570,
+        "missedToBackground": 4755
+      },
+      "candidateImagesWithFailure": 165,
+      "expertDecisionsComplete": false,
+      "reviewItems": [
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 67,
+            "missedToBackground": 237
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 1327,
+          "recordRef": "bc03347febe5f9d1eae6a71d0eab4a73abf0867048985a722388cf5fad0fbbc0"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 59,
+            "missedToBackground": 162
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 936,
+          "recordRef": "e447b78b8ea3cc0eee635dbf1628c70684c796232d138c9fde6dc6e5e7371da5"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 66,
+            "missedToBackground": 134
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 802,
+          "recordRef": "44a16e1bfaafee0f5574f9399109717212596ab03fea7b27848823b004f5473d"
+        },
+        {
+          "clusterId": 2,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 3,
+            "falsePositiveFromBackground": 11,
+            "missedToBackground": 151
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 789,
+          "recordRef": "74c2da2d68abe554fde09339b0d20f7a75d44bede3a5330c9fff7ee4ba1e53d0"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 43,
+            "missedToBackground": 138
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 776,
+          "recordRef": "7d8f624dcffea5ef2576e67c6758f70cb650e324a7f73996cd62755731607081"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 61,
+            "missedToBackground": 121
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 727,
+          "recordRef": "4676ec26c0c54807ebc4db557fafc0098440dbbfc62a26c8b6b725db339d5e05"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 34,
+            "missedToBackground": 101
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 577,
+          "recordRef": "764438008ddda067b085456c3e1edb7f174231e511822629aa849566482cf921"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 49,
+            "missedToBackground": 84
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 518,
+          "recordRef": "62c7af204613680955aae17d1142532ba8d0e6f082ae3b6f3f0a7192ff9eda5c"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 42,
+            "missedToBackground": 82
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 494,
+          "recordRef": "54e96049e2818a3588d1de280d6bffb667ccb4115908b29e9664a8634011e466"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 1,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 44,
+            "missedToBackground": 79
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 490,
+          "recordRef": "29aa9228b48e62cc70263639172ee99626383730ea65e55fadcd4daa9f99413f"
+        },
+        {
+          "clusterId": 2,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 36,
+            "missedToBackground": 81
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 477,
+          "recordRef": "c9078d899ce822a0a30ef020bd209736524face2db35c475e4574fc0faf4f78e"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 2,
+            "crossClassOutbound": 1,
+            "falsePositiveFromBackground": 33,
+            "missedToBackground": 80
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 476,
+          "recordRef": "502b33ac182f01d6d4b6f07662cbe53c0adb44921744c00a85b09f8f60f3fdab"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 2,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 20,
+            "missedToBackground": 83
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 461,
+          "recordRef": "4da95534311e76f71551a076cf0652600cd7baca1f4795ed353480d15b22825d"
+        },
+        {
+          "clusterId": 0,
+          "failureCounts": {
+            "crossClassInbound": 2,
+            "crossClassOutbound": 2,
+            "falsePositiveFromBackground": 14,
+            "missedToBackground": 81
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 447,
+          "recordRef": "c86aa74e45d273839f077d8f3a7974aa51eff055f94e30d25c5938ba342890d6"
+        },
+        {
+          "clusterId": 1,
+          "failureCounts": {
+            "crossClassInbound": 0,
+            "crossClassOutbound": 0,
+            "falsePositiveFromBackground": 47,
+            "missedToBackground": 64
+          },
+          "modelProposalOnly": true,
+          "priorityScore": 414,
+          "recordRef": "a646b3eb52fc79a799131d8fc53039e83fe2680741a4299d27d5664b6209b8d8"
+        }
+      ],
+      "reviewItemsSelected": 15
+    }
+  },
+  "decision": {
+    "expertReviewComplete": false,
+    "finalTestEvaluationAuthorized": false,
+    "privateResolverRequired": true,
+    "productActivationAllowed": false,
+    "reason": "EXPERT_REVIEW_REQUIRED_BEFORE_TARGETED_REMEDIATION",
+    "trainingAuthorized": false
+  },
+  "observedAt": "2026-10-28T19:39:14Z",
+  "privacy": {
+    "containsFilenames": false,
+    "containsImageBytes": false,
+    "containsImageIds": false,
+    "containsPaths": false,
+    "recordRefsAreSHA256Pseudonyms": true
+  },
+  "queueDigest": "6fa8ccb7a2a1c072bb18fc80bf64babcffd5b59d764b7429c43beaf8383bc6c6",
+  "rankingPolicy": {
+    "method": "5*missed + 4*cross_outbound + 3*cross_inbound + 2*background_fp",
+    "perClassLimit": 15,
+    "rankingAuthorizesRelabel": false,
+    "rankingIsExpertTruth": false
+  },
+  "schemaVersion": "acne-validation-failure-review-queue-v1",
+  "source": {
+    "confidenceThreshold": 0.3,
+    "evalId": "7s06OfIzx78XzATqr5oA",
+    "images": 165,
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "project": "attune-skin-acne-marks-pigmentation",
+    "split": "valid",
+    "testSplitRead": false,
+    "thresholdSelectedHere": false,
+    "version": 1
+  }
+}
