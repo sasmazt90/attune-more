@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "acne-live-evaluation-facts-v1",
+  "observedAt": "2026-10-28T18:42:30Z",
+  "project": {
+    "id": "attune-skin-acne-marks-pigmentation",
+    "version": 1,
+    "images": 800,
+    "splits": {"train": 553, "valid": 165, "test": 82},
+    "classes": {"Pimple": 3640, "Post acne": 32123, "Pigmentation": 1579}
+  },
+  "training": {
+    "trainingId": "5b632a5c12b76fcfe703",
+    "status": "finished",
+    "nasChildren": 89,
+    "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup"
+  },
+  "releaseControls": {
+    "expertSemanticReviewComplete": false,
+    "personIndependentGroupingComplete": false,
+    "groupLockedReplacementSplitReady": false,
+    "newUntouchedFinalTestReserved": false,
+    "physicalCameraHoldoutReserved": false,
+    "existingTestExposed": true
+  },
+  "evaluations": [
+    {
+      "evalId": "7s06OfIzx78XzATqr5oA",
+      "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+      "status": "done",
+      "project": "attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "providerRecommended": false,
+      "summary": {"map50": 0.13301487328188502, "map50_95": 0.03422613061721248, "precision": 0.547, "recall": 0.199, "f1": 0.207},
+      "perClass": {
+        "valid": [
+          {"className": "Pimple", "map50": 0.13632048178591874, "map50_95": 0.03349070837538215, "precision": 0.291, "recall": 0.234, "f1": 0.26, "optimalThreshold": 0.35},
+          {"className": "Post acne", "map50": 0.18213685229092666, "map50_95": 0.04928213674219928, "precision": 0.359, "recall": 0.29, "f1": 0.321, "optimalThreshold": 0.31},
+          {"className": "Pigmentation", "map50": 0.039959950762015556, "map50_95": 0.014022963618123418, "precision": 0.115, "recall": 0.081, "f1": 0.095, "optimalThreshold": 0.15}
+        ],
+        "test": [
+          {"className": "Pimple", "map50": 0.18178170442428168, "map50_95": 0.04993333620656488, "precision": 0.319, "recall": 0.274, "f1": 0.295, "optimalThreshold": 0.39},
+          {"className": "Post acne", "map50": 0.1848325895833806, "map50_95": 0.04456150310173727, "precision": 0.34, "recall": 0.305, "f1": 0.322, "optimalThreshold": 0.31},
+          {"className": "Pigmentation", "map50": 0.032430325837992775, "map50_95": 0.008183552543335268, "precision": 0.108, "recall": 0.077, "f1": 0.089, "optimalThreshold": 0.13}
+        ]
+      },
+      "confusion": {
+        "split": "test", "confidenceThreshold": 0.2,
+        "classes": ["Pigmentation", "Pimple", "Post acne", "background"],
+        "matrix": [[4, 2, 60, 117], [0, 147, 30, 170], [1, 19, 1263, 2205], [17, 1001, 3766, 0]]
+      }
+    },
+    {
+      "evalId": "0xMgfVLFzMyNEOhN1baC",
+      "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+      "status": "done",
+      "project": "attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "providerRecommended": true,
+      "summary": {"map50": 0.01633573039355655, "map50_95": 0.005815579406663475, "precision": 0.096, "recall": 0.035, "f1": 0.048},
+      "perClass": {
+        "valid": [
+          {"className": "Pimple", "map50": 0.007692815952701714, "map50_95": 0.002154241463813446, "precision": 0.075, "recall": 0.044, "f1": 0.055, "optimalThreshold": 0.17},
+          {"className": "Post acne", "map50": 0.015753249787453846, "map50_95": 0.007121409442445063, "precision": 0.104, "recall": 0.03, "f1": 0.047, "optimalThreshold": 0.11},
+          {"className": "Pigmentation", "map50": 0.0014794244905725876, "map50_95": 0.0004878401480943142, "precision": 0.038, "recall": 0.028, "f1": 0.033, "optimalThreshold": 0.12}
+        ],
+        "test": [
+          {"className": "Pimple", "map50": 0.03149735822497029, "map50_95": 0.008036725371051552, "precision": 0.127, "recall": 0.075, "f1": 0.094, "optimalThreshold": 0.19},
+          {"className": "Post acne", "map50": 0.017357175641878282, "map50_95": 0.009380279588507073, "precision": 0.133, "recall": 0.032, "f1": 0.052, "optimalThreshold": 0.16},
+          {"className": "Pigmentation", "map50": 0.0001526573138210891, "map50_95": 0.000029733260431800438, "precision": 0.004, "recall": 0.016, "f1": 0.007, "optimalThreshold": 0.08}
+        ]
+      },
+      "confusion": {
+        "split": "test", "confidenceThreshold": 0.2,
+        "classes": ["Pigmentation", "Pimple", "Post acne", "background"],
+        "matrix": [[0, 0, 1, 182], [0, 24, 7, 316], [0, 2, 101, 3385], [2, 151, 482, 0]]
+      }
+    }
+  ]
+}

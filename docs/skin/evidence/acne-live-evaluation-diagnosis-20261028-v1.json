@@ -1,0 +1,152 @@
+{
+  "classes": {
+    "Pigmentation": {
+      "accepted": false,
+      "actions": [
+        "expert-adjudicate Pigmentation versus Post acne, freckles, moles, shadow, and tone variation",
+        "collect/review targeted positives and hard negatives; never populate from a tone proxy"
+      ],
+      "bestObservedEvalId": "7s06OfIzx78XzATqr5oA",
+      "diagnosticTest": {
+        "f1": 0.089,
+        "map50": 0.032430325837992775,
+        "map50_95": 0.008183552543335268,
+        "optimalThreshold": 0.13,
+        "precision": 0.108,
+        "recall": 0.077
+      },
+      "testAtConfidence020": {
+        "crossClassPredictions": 62,
+        "falsePositiveFromBackground": 17,
+        "missedToBackground": 117,
+        "truePositive": 4
+      },
+      "validation": {
+        "f1": 0.095,
+        "map50": 0.039959950762015556,
+        "map50_95": 0.014022963618123418,
+        "optimalThreshold": 0.15,
+        "precision": 0.115,
+        "recall": 0.081
+      }
+    },
+    "Pimple": {
+      "accepted": false,
+      "actions": [
+        "expert-review Pimple versus Post acne boundary and hard negatives",
+        "review missed small lesions and false-positive objectness before any resolution experiment"
+      ],
+      "bestObservedEvalId": "7s06OfIzx78XzATqr5oA",
+      "diagnosticTest": {
+        "f1": 0.295,
+        "map50": 0.18178170442428168,
+        "map50_95": 0.04993333620656488,
+        "optimalThreshold": 0.39,
+        "precision": 0.319,
+        "recall": 0.274
+      },
+      "testAtConfidence020": {
+        "crossClassPredictions": 30,
+        "falsePositiveFromBackground": 1001,
+        "missedToBackground": 170,
+        "truePositive": 147
+      },
+      "validation": {
+        "f1": 0.26,
+        "map50": 0.13632048178591874,
+        "map50_95": 0.03349070837538215,
+        "optimalThreshold": 0.35,
+        "precision": 0.291,
+        "recall": 0.234
+      }
+    },
+    "Post acne": {
+      "accepted": false,
+      "actions": [
+        "expert-review dense Post acne labels and Pimple/Pigmentation confusions",
+        "define sampling policy only after group locking; do not treat class prevalence as truth quality"
+      ],
+      "bestObservedEvalId": "7s06OfIzx78XzATqr5oA",
+      "diagnosticTest": {
+        "f1": 0.322,
+        "map50": 0.1848325895833806,
+        "map50_95": 0.04456150310173727,
+        "optimalThreshold": 0.31,
+        "precision": 0.34,
+        "recall": 0.305
+      },
+      "testAtConfidence020": {
+        "crossClassPredictions": 20,
+        "falsePositiveFromBackground": 3766,
+        "missedToBackground": 2205,
+        "truePositive": 1263
+      },
+      "validation": {
+        "f1": 0.321,
+        "map50": 0.18213685229092666,
+        "map50_95": 0.04928213674219928,
+        "optimalThreshold": 0.31,
+        "precision": 0.359,
+        "recall": 0.29
+      }
+    }
+  },
+  "decision": {
+    "blindRetrainingAllowed": false,
+    "blockers": [
+      "expert_semantic_review_incomplete",
+      "person_independent_grouping_incomplete",
+      "group_locked_replacement_split_missing",
+      "new_untouched_final_test_missing",
+      "physical_camera_holdout_missing",
+      "current_test_is_diagnostic_only",
+      "evaluated_model_coverage_incomplete",
+      "all_three_classes_below_release_quality"
+    ],
+    "finalTestEvaluationAuthorized": false,
+    "productActivationAllowed": false,
+    "reason": "TARGETED_DATA_AND_SEMANTIC_REMEDIATION_REQUIRED",
+    "trainingAuthorized": false
+  },
+  "evaluationCoverage": {
+    "complete": false,
+    "evaluatedModels": 2,
+    "expectedModels": 90,
+    "missingEvaluations": 88
+  },
+  "observedAt": "2026-10-28T18:42:30Z",
+  "observedMetricLeader": {
+    "evalId": "7s06OfIzx78XzATqr5oA",
+    "isReleaseWinner": false,
+    "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+    "testMap50_95": 0.03422613061721248
+  },
+  "privacy": {
+    "containsExcludedArchiveDetails": false,
+    "containsFilenames": false,
+    "containsImageBytes": false,
+    "containsProviderImageIds": false
+  },
+  "project": {
+    "id": "attune-skin-acne-marks-pigmentation",
+    "version": 1
+  },
+  "providerRecommendedFlag": {
+    "evalId": "0xMgfVLFzMyNEOhN1baC",
+    "overridesPerClassEvidence": false,
+    "usedAsAccuracyOrHardwareWinner": false
+  },
+  "schemaVersion": "acne-live-evaluation-diagnosis-v1",
+  "targetedNextExperiment": {
+    "authorizedNow": false,
+    "prerequisites": [
+      "expert_semantic_review_incomplete",
+      "person_independent_grouping_incomplete",
+      "group_locked_replacement_split_missing",
+      "new_untouched_final_test_missing",
+      "physical_camera_holdout_missing"
+    ],
+    "type": "face_aligned_single_roi_or_higher_effective_resolution",
+    "validationOnly": true
+  }
+}
