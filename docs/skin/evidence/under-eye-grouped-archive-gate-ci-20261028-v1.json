@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T02:14:10Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "46fd920a19aa2219d64d462ef6f8b459c5ffdf7f",
+  "local": {
+    "focusedTests": 5,
+    "generatedGateDiff": "exact",
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40619340580,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40619340580",
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "headSha": "46fd920a19aa2219d64d462ef6f8b459c5ffdf7f",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122589272518,
+    "frontendProductionBuild": "success",
+    "backendJobId": 122589272279,
+    "backend": "success",
+    "deterministicTests": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "skinResearchTests": {
+      "passed": 357,
+      "result": "OK"
+    }
+  },
+  "roadmapAccepted": false
+}
