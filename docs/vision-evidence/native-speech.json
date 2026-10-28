@@ -1,0 +1,17 @@
+{
+  "kind": "actual Chrome SpeechRecognition with fake microphone; camera/model fixtures only",
+  "apiAvailable": true,
+  "status": "provider-error-observed",
+  "events": [
+    "playing",
+    "ended",
+    "playing",
+    "ended",
+    "letter-rendered",
+    "listening",
+    "asr-error:audio-capture"
+  ],
+  "scoredTrials": 0,
+  "realUtteranceAccuracy": "NOT_TESTED",
+  "physicalMicrophone": "NOT_AVAILABLE"
+}

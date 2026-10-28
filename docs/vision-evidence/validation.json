@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-28",
+  "startingCommit": "bb6088f8826e473e986a9f40e7f901ff11026030",
+  "testedImplementationCommit": "cd70a29fda9f34d5c58fc0680142eb34cddff95a",
+  "finalSourceCommit": "50b13c82a225e3005e8f07ad6770855ac6d6e247",
+  "finalSourceDelta": "restores original shared translations and removes obsolete answer-button copy; localization/runtime checks passed after this change",
+  "unitSuite": {
+    "passed": 1794,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 44,
+    "seconds": 93.583,
+    "browserDependency": "tests selected the installed Chrome binary for hardcoded channel=chrome calls"
+  },
+  "typecheck": "PASS",
+  "lint": "PASS, no warnings or errors",
+  "productionBuild": "PASS",
+  "localizationInventory": "PASS",
+  "transcriptInterpretation": {
+    "tr": 39,
+    "en": 31,
+    "de": 30,
+    "physicalASRAccuracy": "NOT_TESTED"
+  },
+  "automaticEyeGateAndGeometryChecks": 42,
+  "actualTrackerGeneratedPixelTests": 5,
+  "guidanceAndSessionBrowserEvidence": "browser-results.json",
+  "nativeCameraEvidence": "native-camera.json",
+  "nativeSpeechEvidence": "native-speech.json",
+  "aaos": {
+    "hostPolicyChecks": 69,
+    "javaSyntaxFiles": 9,
+    "assembleDebugAndLintDebug": "BLOCKED: installed /usr/lib/jvm/java-21-openjdk-amd64 lacks JAVA_COMPILER capability",
+    "androidRuntimeAcceptance": false
+  },
+  "githubCI": {
+    "implementationCommit": "cd70a29fda9f34d5c58fc0680142eb34cddff95a",
+    "runUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40608738456",
+    "backend": "success",
+    "frontend": "success",
+    "automotiveWorkflow": "not triggered; no native Android changes"
+  },
+  "physicalUserAcceptance": false,
+  "newManualAnswerOrCameraOverride": false,
+  "merged": false,
+  "deployed": false
+}
