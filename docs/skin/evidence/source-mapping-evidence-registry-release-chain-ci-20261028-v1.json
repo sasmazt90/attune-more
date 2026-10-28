@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T09:07:03Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "1dfc6df068335f69fc010b3b272f7dac29908008",
+  "sourceMappingGate": {
+    "methodVersion": "source-mapping-release-gate-v2",
+    "requiredSha256BoundArtifacts": 8,
+    "evidenceRegistryRequired": true,
+    "evidenceRegistryComplete": false,
+    "trainingDataReleaseAuthorized": false,
+    "productTruthAuthorized": false,
+    "sourceMappingsAreExpertTruth": false
+  },
+  "unifiedResultGate": {
+    "methodVersion": "unified-skin-result-release-gate-v19",
+    "sourceMappingReleaseReady": false,
+    "workingBaselinePreserved": true,
+    "currentIntegratedPresentationAllowed": true,
+    "roadmapAccepted": false
+  },
+  "localFocusedTests": {
+    "tests": 51,
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40661190405,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40661190405",
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "headSha": "1dfc6df068335f69fc010b3b272f7dac29908008",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122724336481,
+    "frontendProductionBuild": "success",
+    "backendJobId": 122724336837,
+    "backendUnitTests": "success",
+    "localizationContract": "success",
+    "deterministicUnitSuite": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchEvidenceSuite": {
+      "tests": 388,
+      "result": "OK"
+    }
+  },
+  "roboflowWritesStarted": false,
+  "providerTasksCreated": []
+}
