@@ -837,7 +837,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-27T20:41:43Z",
+    "lastCheckedAt": "2026-10-28T07:17:17Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -4779,44 +4779,76 @@
         "backend": "success"
       }
     },
-    "unifiedSkinResultReleaseGateV16": {
-      "observedAt": "2026-10-28T05:41:14Z",
-      "schemaVersion": 16,
-      "methodVersion": "unified-skin-result-release-gate-v16",
+    "regionalProviderDatasetReleaseGateV4": {
+      "observedAt": "2026-10-28T07:17:17Z",
+      "schemaVersion": 4,
+      "methodVersion": "regional-provider-dataset-release-gate-v4",
+      "groupLockedManifestVerified": true,
+      "providerPolygonGeometryAuditRequired": true,
+      "boxGeometryAcceptedAsPolygonTruth": false,
+      "crowdOrRLEGeometryAcceptedAsPolygonTruth": false,
+      "mutableProjectDriftDetected": true,
+      "providerVersionReady": false,
+      "trainingAuthorized": false,
+      "finalTestAuthorized": false,
+      "activationAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": 60,
+      "completeSkinResearchEvidenceSuite": 378,
+      "receipt": "docs/skin/evidence/regional-provider-dataset-release-receipt-20261028-v4.json",
+      "evidence": "docs/skin/evidence/regional-provider-dataset-release-gate-20261028-v4.json",
+      "implementationCommit": "558a6251d9379791e110d5a3597cdde29e089348",
+      "ciEvidence": "docs/skin/evidence/regional-provider-polygon-identity-release-chain-ci-20261028-v1.json",
+      "ci": {
+        "runId": 40648666733,
+        "headSha": "558a6251d9379791e110d5a3597cdde29e089348",
+        "status": "completed",
+        "conclusion": "success",
+        "frontendJobId": 122683356950,
+        "frontend": "success",
+        "backendJobId": 122683356257,
+        "backend": "success"
+      }
+    },
+    "unifiedSkinResultReleaseGateV17": {
+      "observedAt": "2026-10-28T07:17:17Z",
+      "schemaVersion": 17,
+      "methodVersion": "unified-skin-result-release-gate-v17",
       "workingBaselinePreserved": true,
       "currentIntegratedPresentationAllowed": true,
       "generatedReplayIntegrationSmokeAllowed": true,
       "generatedReplayAccuracyEvidenceAllowed": false,
       "underEyeMethodVersion": "under-eye-per-class-release-gate-v5",
-      "regionalProviderDatasetGateMethod": "regional-provider-dataset-release-gate-v3",
+      "regionalProviderDatasetGateMethod": "regional-provider-dataset-release-gate-v4",
       "allClassReleaseGatesAccepted": false,
       "physicalCameraBenchmarkAccepted": false,
       "acceptedEndToEndCandidatePresent": false,
       "finalRoadmapAcceptanceAllowed": false,
       "roadmapAccepted": false,
       "decision": "blocked",
-      "localFocusedTests": 63,
-      "completeSkinResearchEvidenceSuite": 372,
-      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v16.json",
-      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261028-v16.json",
-      "implementationCommit": "eeffa6e15196224fbc097f3323dcd42c025a7060",
-      "ciEvidence": "docs/skin/evidence/under-eye-provider-identity-release-chain-ci-20261028-v1.json",
+      "localFocusedTests": 60,
+      "completeSkinResearchEvidenceSuite": 378,
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v17.json",
+      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261028-v17.json",
+      "implementationCommit": "558a6251d9379791e110d5a3597cdde29e089348",
+      "ciEvidence": "docs/skin/evidence/regional-provider-polygon-identity-release-chain-ci-20261028-v1.json",
       "ci": {
-        "runId": 40639590278,
-        "headSha": "eeffa6e15196224fbc097f3323dcd42c025a7060",
+        "runId": 40648666733,
+        "headSha": "558a6251d9379791e110d5a3597cdde29e089348",
         "status": "completed",
         "conclusion": "success",
-        "frontendJobId": 122654362218,
+        "frontendJobId": 122683356950,
         "frontend": "success",
-        "backendJobId": 122654362400,
+        "backendJobId": 122683356257,
         "backend": "success"
       }
     }
   },
   "nextActions": [
-    "Preserve the completed 337/337 opaque source/person review and the deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the provider project remains 337 images at 244/63/30 with version 1 only; do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact provider version 2 matching the zero-crossing manifest is confirmed. Keep the 51-image final test untouched for selection or thresholds.",
+    "Preserve the completed 337/337 opaque source/person review and deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the mutable provider project drifted to 476 images at 334/85/57 with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30. Do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact augmentation-free provider version 2 matches the group-locked manifest and passes audit_regional_provider_version_export.py schema v2 by image-content plus canonical polygon geometry. Boxes, RLE/crowd masks, out-of-bounds or degenerate rings and duplicate/cross-split image content cannot satisfy polygon identity. Keep the 51-image final test untouched for selection or thresholds.",
     "Complete and accept the independent 81-item Oily/Redness expert semantic mask protocol before any regional training authorization. The completed source/person review establishes grouping only: source polygons, model predictions and missing labels remain ineligible as expert truth; independent consented physical-camera evidence is still required.",
-    "Replay scripts/skin-research/check_unified_skin_result_release.py v16 for every task-13 decision. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while exact per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false. Under-eye decisions must bind the exact grouped release gate v4 through under-eye per-class gate v5, including augmentation-free generated-version identity and provider-export content/polygon identity; regional provider decisions must bind gate v3. A controlled browser fixture cannot satisfy physical-camera, expert-truth or accuracy acceptance.",
+    "Replay scripts/skin-research/check_unified_skin_result_release.py v17 for every task-13 decision. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while exact per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false. Under-eye decisions must bind the exact grouped release gate v4 through under-eye per-class gate v5, including augmentation-free generated-version identity and provider-export content/polygon identity; regional provider decisions must bind gate v4 and its exact canonical-polygon export audit rather than counts, tags or boxes. A controlled browser fixture cannot satisfy physical-camera, expert-truth or accuracy acceptance.",
     "Use only the authorized grouped archive SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122 for a fresh direct upload into the still-empty private tolgar-sasmaz/attune-skin-under-eye-grouped-research project. The current provider export was downloaded only in an isolated browser environment and is not available in the workspace, so do not upload until the actual workspace file is present and its SHA256 is verified exactly. Never reuse stale task sLFwX7CYBVcnnD6iAW5o or the revoked archive. After upload, verify exactly 399 images, 869 annotations, 284/77/38 splits, 382 darkcircle and 487 eyebag instances and zero augmentation before version generation. Export the generated provider version and run scripts/skin-research/audit_under_eye_grouped_provider_export.py against the exact authorized archive; require content-hash plus canonical-polygon identity before binding any future research-training decision. Complete all 88 expert decisions and person independence; training, final-test evaluation and activation remain forbidden until all gates and independent physical-camera evidence pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
@@ -8562,7 +8594,51 @@
           "backend": "success"
         }
       ]
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T07:17:17Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional and under-eye project/version/training state without starting duplicate work. Acne remains private at 800 images with unchanged 553/165/82 splits and finished NAS and small runs; regional remains mutable at 476 images with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30 and all known runs are finished; under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 at 279/81/39 and no version-2 training; grouped under-eye remains private and empty, and stale upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. Hardened the regional provider version-export audit so a future version 2 must match privacy-safe image-content and canonical polygon-ring identity, not merely class counts or bounding boxes. The auditor now rejects box-only or RLE/crowd geometry, non-finite or out-of-image coordinates, degenerate rings, duplicate content and cross-split content reuse. Bound that audit into regional provider gate v4 and unified result gate v17. Provider version 2, rights review, the expert semantic mask protocol and independent physical-camera holdout remain missing; research training, final-test evaluation, activation and roadmap acceptance remain false. Sixty focused tests passed locally. GitHub Actions run 40648666733 is green: frontend job 122683356950 and backend job 122683356257 passed; deterministic tests passed 1,627 with 44 skips and 2 warnings, and the complete skin-research suite passed 378 tests. No private payload was uploaded or exposed and no provider task was created.",
+      "report": "docs/skin/evidence/regional-provider-polygon-identity-release-chain-ci-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/audit_regional_provider_version_export.py",
+        "scripts/skin-research/tests/test_audit_regional_provider_version_export.py",
+        "scripts/skin-research/check_regional_provider_dataset_release.py",
+        "scripts/skin-research/tests/test_check_regional_provider_dataset_release.py",
+        "docs/skin/evidence/regional-provider-dataset-release-receipt-20261028-v4.json",
+        "docs/skin/evidence/regional-provider-dataset-release-gate-20261028-v4.json",
+        "scripts/skin-research/check_unified_skin_result_release.py",
+        "scripts/skin-research/tests/test_check_unified_skin_result_release.py",
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v17.json",
+        "docs/skin/evidence/unified-skin-result-release-gate-20261028-v17.json",
+        "docs/skin/evidence/regional-provider-polygon-identity-release-chain-ci-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 60,
+        "result": "OK",
+        "deterministic": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "skinResearch": 378
+      },
+      "providerTasks": [],
+      "implementationCommit": "558a6251d9379791e110d5a3597cdde29e089348",
+      "runs": [
+        {
+          "runId": 40648666733,
+          "headSha": "558a6251d9379791e110d5a3597cdde29e089348",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122683356950,
+          "frontend": "success",
+          "backendJobId": 122683356257,
+          "backend": "success"
+        }
+      ]
     }
   ]
 }
+
 

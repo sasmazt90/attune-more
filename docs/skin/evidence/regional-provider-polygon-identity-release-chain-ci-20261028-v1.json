@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "regional-provider-polygon-identity-release-chain-ci-v1",
+  "observedAt": "2026-10-28T07:17:17Z",
+  "implementationCommit": "558a6251d9379791e110d5a3597cdde29e089348",
+  "repositoryCI": {
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "runId": 40648666733,
+    "headSha": "558a6251d9379791e110d5a3597cdde29e089348",
+    "createdAt": "2026-10-28T07:13:18Z",
+    "completedAt": "2026-10-28T07:17:17Z",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122683356950,
+    "frontend": "success",
+    "backendJobId": 122683356257,
+    "backend": "success",
+    "deterministicTests": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchTests": 378
+  },
+  "localVerification": {
+    "focusedTests": 60,
+    "pythonCompilation": "passed",
+    "jsonValidation": "passed"
+  },
+  "providerState": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "public": false,
+    "mutableImages": 476,
+    "mutableUnannotatedCounter": 139,
+    "mutableSplits": {
+      "train": 334,
+      "valid": 85,
+      "test": 57
+    },
+    "immutableVersions": [
+      {
+        "versionNumber": 1,
+        "images": 337,
+        "splits": {
+          "train": 244,
+          "valid": 63,
+          "test": 30
+        }
+      }
+    ],
+    "providerVersion2Present": false,
+    "newUploadStarted": false,
+    "newVersionStarted": false,
+    "newTrainingStarted": false,
+    "newInferenceStarted": false,
+    "newActivationStarted": false
+  },
+  "geometryContract": {
+    "identityBasis": "canonical-polygon-ring-v1",
+    "providerPolygonGeometryAuditRequired": true,
+    "polygonCoordinatesMustBeFiniteAndInsideImage": true,
+    "degeneratePolygonAccepted": false,
+    "boxGeometryAcceptedAsPolygonTruth": false,
+    "crowdOrRLEGeometryAcceptedAsPolygonTruth": false,
+    "duplicateOrCrossSplitImageContentAccepted": false,
+    "filenamesOrProviderImageIdsEmitted": false
+  },
+  "releaseChain": {
+    "regionalProviderGate": {
+      "methodVersion": "regional-provider-dataset-release-gate-v4",
+      "receipt": "docs/skin/evidence/regional-provider-dataset-release-receipt-20261028-v4.json",
+      "gate": "docs/skin/evidence/regional-provider-dataset-release-gate-20261028-v4.json",
+      "gateSHA256": "ed6439dd26113d0abe800aff13dfa879bd9679fc9af10aa1811533e71ee97afb",
+      "providerVersionReady": false,
+      "trainingAuthorized": false,
+      "finalTestAuthorized": false,
+      "activationAllowed": false,
+      "roadmapAccepted": false
+    },
+    "unifiedGate": {
+      "methodVersion": "unified-skin-result-release-gate-v17",
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v17.json",
+      "gate": "docs/skin/evidence/unified-skin-result-release-gate-20261028-v17.json",
+      "gateSHA256": "dc0ccaba3da1a6aabb6672244a275ba7ca3845a635b9e3ae234b01b3cf622c7f",
+      "workingBaselinePreserved": true,
+      "roadmapAccepted": false
+    }
+  }
+}
