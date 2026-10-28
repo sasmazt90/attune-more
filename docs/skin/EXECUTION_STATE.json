@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T18:08:02Z",
+      "lastCheckedAt": "2026-10-28T18:42:30Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -468,6 +468,32 @@
         "ciSkinResearchTests": 228,
         "ciRunId": 40312602038,
         "implementationCommit": "a7a4117c1c36ced28c8ddae08166d2344437bf6f"
+      },
+      "liveEvaluationDiagnosis": {
+        "observedAt": "2026-10-28T18:42:30Z",
+        "methodVersion": "acne-live-evaluation-diagnosis-v1",
+        "script": "scripts/skin-research/build_acne_live_evaluation_diagnosis.py",
+        "facts": "docs/skin/evidence/acne-live-evaluation-facts-20261028-v1.json",
+        "evidence": "docs/skin/evidence/acne-live-evaluation-diagnosis-20261028-v1.json",
+        "expectedModels": 90,
+        "evaluatedModels": 2,
+        "missingEvaluations": 88,
+        "knownEvaluationIds": [
+          "7s06OfIzx78XzATqr5oA",
+          "0xMgfVLFzMyNEOhN1baC"
+        ],
+        "observedMetricLeaderEvalId": "7s06OfIzx78XzATqr5oA",
+        "observedMetricLeaderAccepted": false,
+        "providerRecommendedEvalId": "0xMgfVLFzMyNEOhN1baC",
+        "providerRecommendedUsedAsWinner": false,
+        "classesRemainSeparate": true,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "blindRetrainingAllowed": false,
+        "targetedNextExperiment": "face_aligned_single_roi_or_higher_effective_resolution",
+        "targetedNextExperimentAuthorized": false,
+        "implementationCommit": "69edf51ec96fd5c31f088e1cea03596f0dcb38f2"
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -9152,6 +9178,26 @@
       },
       "providerTasks": [],
       "implementationCommit": "7b259d8682831956ca5e7a1cf0625272651da7da",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T18:42:30Z",
+      "action": "Read the persistent checkpoint first and refreshed the exact acne project, version, health report, finished NAS training, model-evaluation inventory and evaluation details without starting duplicate work. The project remains private with 800 images, unchanged 553/165/82 splits and 3640 Pimple, 32123 Post acne and 1579 Pigmentation boxes. Training 5b632a5c12b76fcfe703 remains finished with 89 NAS children. Only two of 90 known models have provider evaluations: small eval 7s06OfIzx78XzATqr5oA and recommended-flag NAS eval 0xMgfVLFzMyNEOhN1baC, leaving 88 models without comparable evaluation. Implemented a privacy-safe, fail-closed live evaluation diagnosis builder that validates exact project/training/eval bindings, all three per-class validation and diagnostic-test records, and fixed test@0.20 confusion matrices. It records the small model as the observed metric leader only, never as a release winner; the provider recommended flag is explicitly not treated as an accuracy or hardware winner. All three classes remain rejected. The receipt preserves the exposed test as diagnostic only, keeps training/final-test/product activation false, and identifies a single validation-only face-aligned or higher-effective-resolution experiment that remains unauthorized until expert semantics, person-independent grouping, a group-locked replacement split, a new untouched final test and a physical-camera holdout exist. Eight focused tests and all 151 skin-research tests available in this partial workspace passed. No Roboflow write, evaluation job, training, excluded-archive access, private payload commit or provider task was created.",
+      "report": "docs/skin/evidence/acne-live-evaluation-diagnosis-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_acne_live_evaluation_diagnosis.py",
+        "scripts/skin-research/tests/test_build_acne_live_evaluation_diagnosis.py",
+        "docs/skin/evidence/acne-live-evaluation-facts-20261028-v1.json",
+        "docs/skin/evidence/acne-live-evaluation-diagnosis-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 8,
+        "availableSkinResearch": 151,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "69edf51ec96fd5c31f088e1cea03596f0dcb38f2",
       "runs": []
     }
   ]
