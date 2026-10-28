@@ -57,6 +57,10 @@ export const LETTER_INSTRUCTIONS={
 function normalizeSpeech(text:string){return text.toLocaleLowerCase('tr-TR').normalize('NFKC').replace(/[’‘`]/g,"'").replace(/[^a-zçğıöşü ]/g,' ').replace(/\s+/g,' ').trim();}
 /** Only instruction clauses, not broad vocabulary/short answer filtering. */
 export function isLetterInstructionEcho(text:string,language:'tr'|'en'|'de'='tr'){
+ // A valid partial answer can also be a phrase inside a prompt (DE: auf dem
+ // Kopf). Semantic admission must win over substring echo filtering.
+ const answer=parseLetterAnswer(text,language);
+ if(!answer.ambiguous&&!answer.unrecognized&&(answer.letter||answer.rotation!==undefined||answer.mirrored!==undefined||answer.command||answer.clarify==='reverse'))return false;
  if(language!=='tr'){
   const normal=(value:string)=>value.toLocaleLowerCase(language==='de'?'de-DE':'en-US').normalize('NFKC').replace(/[^\p{L} ]/gu,' ').replace(/\s+/g,' ').trim();
   const value=normal(text);

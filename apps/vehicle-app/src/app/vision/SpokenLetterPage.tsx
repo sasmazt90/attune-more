@@ -21,7 +21,7 @@ import type { VisionEvidence } from '../../utils/visionTracking';
 import { VisionFlow, eyeInstruction } from '../../utils/visionFlow';
 import { LETTER_PATHS, LETTER_PROTOCOL, LETTER_METHOD, answerTransform, describeAnswer, LetterResult, RenderedSymbolGeometry, SpokenLetterSession, letterConditionFailure, parseLetterAnswer, respondToVisibleLetter, isLetterInstructionEcho } from '../../utils/spokenVision';
 import {VisionJourney} from '../../components/vision/VisionJourney';
-import {VISION_ANSWER_SETTLE_MS,visionRecognitionChoice} from '../../utils/visionSpeechTurn';
+import {VISION_ANSWER_SETTLE_MS,visionRecognitionChoice,visionRecognitionConfidence,type VisionComponentConfidence} from '../../utils/visionSpeechTurn';
 import {eyeObservation} from '../../utils/visionEyeState';
 import { VisionAnswerMemory } from '../../utils/visionAnswerMemory';
 import { appendHealthRecord } from '../../utils/healthRecords';
@@ -42,7 +42,7 @@ export default function SpokenLetterPage(){
  const video=useRef<HTMLVideoElement>(null),canvas=useRef<HTMLCanvasElement>(null),symbol=useRef<SVGSVGElement>(null),flow=useRef(new VisionFlow());
  const r=useRef({mounted:false,epoch:0,active:false,recognitionFailures:0,pendingPrompt:null as string|null,silenceReminders:new Set<string>(),speechActive:false,starting:false,stream:null as MediaStream|null,engine:null as VisionInference|null,raf:0,timer:null as ReturnType<typeof setInterval>|null,session:null as SpokenLetterSession|null,evidence:null as VisionEvidence|null,recognition:null as any,listeningStarted:false,answerTimer:null as ReturnType<typeof setTimeout>|null,settleAnswer:null as (()=>void)|null,audio:null as HTMLAudioElement|null,controller:null as AbortController|null,cancelSpeech:null as (()=>void)|null,url:null as string|null,restart:null as ReturnType<typeof setTimeout>|null,voiceGeneration:0,voiceTimeout:null as ReturnType<typeof setTimeout>|null,muted:false,modal:false,fault:'',faultSince:0,announcedFault:'',answerMemory:new VisionAnswerMemory(),clarifications:0,saving:false,mainInstructionGiven:false,nextPrompt:0,lastPrompt:'',prompted:new Set<string>(),conditionGate:new VisionResponseGate(),previewPoints:undefined as VisionEvidence['alignment']['landmarks']});
  useLocaleSwitchLock('vision',r.current.active&&flow.current.stage!=='user-paused');
- const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},pause:()=>{},silence:()=>{},timing:(_name:string)=>{}});
+ const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string,_components?:VisionComponentConfidence)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},pause:()=>{},silence:()=>{},timing:(_name:string)=>{}});
  const refresh=()=>redraw(v=>v+1);
  const stage=useCallback((next:Parameters<VisionFlow['transition']>[0],reason='')=>{flow.current.transition(next,reason);redraw(v=>v+1);},[]);
  function current(epoch:number){return serviceAllowed('vision')&&r.current.mounted&&r.current.active&&r.current.epoch===epoch&&parked.current&&isCameraAllowed()&&isMicrophoneAllowed();}
@@ -112,7 +112,7 @@ export default function SpokenLetterPage(){
    if(controlOnly&&(!['resume','finish'].includes(parseLetterAnswer(text,getLanguage()).command||'')||(confidence>0&&confidence<.5)))return;
    accepted=true;s.suspendResponse();a.recognitionFailures=0;timing('asr-final');abortRecognition();setVoice('quiet');
    if(canvas.current)canvas.current.dataset.visionAnswer=JSON.stringify({parsed:parseLetterAnswer(text,getLanguage(),{letter:s.letter}),confidence,atMs:performance.now(),presentationId:id});
-   actions.current.receive(text,confidence,id,`${recognitionId}:${finals.map(x=>x.index).join(',')}`);
+   actions.current.receive(text,confidence,id,`${recognitionId}:${finals.map(x=>x.index).join(',')}`,visionRecognitionConfidence(finals));
   };
   recognition.onspeechend=()=>{if(valid())a.speechActive=false;};
   recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech'){abortRecognition();s.suspendResponse();setVoice('quiet');if(controlOnly)scheduleListening();else actions.current.silence();return;}recognitionFailure(event.error);};
@@ -180,7 +180,7 @@ export default function SpokenLetterPage(){
    stage('listening');scheduleListening();
   });
  }
- function receive(text:string,confidence:number,id:string,key:string){
+ function receive(text:string,confidence:number,id:string,key:string,componentConfidence?:VisionComponentConfidence){
   const a=r.current,s=a.session;if(!s||!current(a.epoch)||s.presentationId!==id)return;
   const parsed=parseLetterAnswer(text,getLanguage(),{letter:s.letter});
   if(parsed.command&&confidence>0&&confidence<.5)return;
@@ -191,7 +191,7 @@ export default function SpokenLetterPage(){
   if(!a.answerMemory.matches(target)||a.answerMemory.processed)return;
   // Store decoded fields before the admission/confidence gate. Showing an
   // understood fragment must not claim information that memory then discards.
-  if(!parsed.command){if(!a.answerMemory.append(target,key,text,parsed,confidence))return;refresh();}
+  if(!parsed.command){if(!a.answerMemory.append(target,key,text,parsed,confidence,componentConfidence))return;refresh();}
   if(a.answerTimer)clearTimeout(a.answerTimer);a.answerTimer=null;a.settleAnswer=null;
   setVoice('quiet');
   const merged=parsed.command?parsed:a.answerMemory.answer,geometry=measureSymbol(),now=performance.now();

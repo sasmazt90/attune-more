@@ -36,7 +36,15 @@ source differences below must not be mistaken for a physical ASR A/B benchmark.
 4. **Silence handling:** silent recognition ends previously restarted capture
    without a conversational reminder. One short approved reminder per missing
    component/stimulus is now bounded; repeated silent ends do not loop speech.
-5. **Response timing:** playback, output teardown and final settlement are now
+5. **Valid orientation rejected as echo:** the old substring filter classified
+   German “auf dem Kopf” as instruction echo, even during an answer turn. The
+   actual browser run stalled on that valid orientation. Unambiguous semantic
+   letter/orientation answers now take priority over phrase overlap with prompts.
+6. **Confidence mixing inside a final event:** distinct native letter and
+   orientation result segments were pooled by minimum confidence. The controller
+   now preserves confidence for the semantic fields supplied by each result.
+   Native confidence remains per result, not per word; none is invented.
+7. **Response timing:** playback, output teardown and final settlement are now
    excluded from the response clock. Recognition start begins timing; final/end
    suspends it. Vision adaptation/scoring formulas are unchanged.
 

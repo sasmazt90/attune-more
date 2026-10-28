@@ -44,11 +44,11 @@ def expect_partial(p,text,code,rows,confidence=.99,screenshot=None):
  p.evaluate('probe.waitAfter=performance.now()');row=emit(p,text,confidence);next_prompt(p,code);row.update({'followUp':code,'scored':count(p)-row['scoreCountBefore']});assert row['scored']==0
  if screenshot:p.screenshot(path=str(OUT/screenshot),full_page=False)
  ready(p);rows.append(row)
-def finish(p,text,rows,screenshot=None):
+def finish(p,text,rows,screenshot=None,correct=True):
  row=emit(p,text)
  if screenshot:p.wait_for_timeout(80);snap(p,screenshot)
  p.wait_for_function('n=>probe.events.filter(e=>e.combinedCorrect!==undefined).length===n',arg=row['scoreCountBefore']+1,timeout=10000);row['scored']=1;rows.append(row)
- assert p.evaluate('probe.events.filter(e=>e.combinedCorrect!==undefined).at(-1).combinedCorrect')
+ assert p.evaluate('probe.events.filter(e=>e.combinedCorrect!==undefined).at(-1).combinedCorrect')==correct
 def snap(p,name):p.screenshot(path=str(OUT/(name+'.png')),full_page=False)
 
 
@@ -133,24 +133,28 @@ def run_main():
     for fault in ['test-covered','no-face','uncertain']:
      ready(p);before=count(p);p.evaluate('v=>probe.fault=v',fault);p.wait_for_function("()=>!document.querySelector('[data-letter-optotype]')",timeout=6000);assert count(p)==before;p.evaluate('probe.fault=null');ready(p)
     while count(p)<24:
-     ready(p);v=target(p);finish(p,word(v,lang)+' '+orientation(v,lang),[])
+     ready(p);v=target(p)
+    if count(p)==23:
+     wrong={**v,'letter':'E' if v['letter']!='E' else 'B'};finish(p,word(wrong,lang)+' '+orientation(v,lang),[],correct=False)
+    else:finish(p,word(v,lang)+' '+orientation(v,lang),[])
     p.get_by_role('button',name={'tr':'Tamam','en':'OK','de':'OK'}[lang],exact=True).click()
     if lang=='tr':snap(p,'desktop-results')
-    result=p.evaluate("JSON.parse(localStorage.getItem('togg_health_latest_vision'))");valid=[t for t in result['trials'] if t['valid']];assert len(valid)==24 and all(t['combinedCorrect'] for t in valid);assert sum(t['eye']=='RIGHT' for t in valid)==12
+    result=p.evaluate("JSON.parse(localStorage.getItem('togg_health_latest_vision'))");valid=[t for t in result['trials'] if t['valid']];assert len(valid)==24 and sum(t['combinedCorrect'] for t in valid)==23;assert sum(t['eye']=='RIGHT' for t in valid)==12
     p.reload();p.get_by_role('button',name={'tr':'Sonucu Aç','en':'Open result','de':'Ergebnis öffnen'}[lang],exact=True).click();p.get_by_role('dialog').wait_for()
     if lang=='tr':snap(p,'desktop-history')
     assert p.locator('[data-eye-summary]').count()==2
     checks.append({'stage':lang+' 24 questions / both eyes / results / history','status':'PASS'})
     assert not errors,errors;assert p.evaluate('probe.overlaps')==[]
     starts=p.evaluate('probe.turnEvents.filter(e=>e.stage==="recognizer-start").map(e=>e.afterAudioMs)');assert all(t>=300 for t in starts)
-    languages[lang]={'status':'PASS','camera':'SIMULATED','ASR':'SIMULATED','audio':'native approved recordings','scenarios':scenarios,'events':p.evaluate('probe.turnEvents'),'overlaps':p.evaluate('probe.overlaps')}
+    languages[lang]={'status':'PASS','camera':'SIMULATED','ASR':'SIMULATED','audio':'native approved recordings','session':{'valid':24,'rightEye':12,'leftEye':12,'intentionallyWrong':1,'combinedCorrect':23},'scenarios':scenarios,'events':p.evaluate('probe.turnEvents'),'overlaps':p.evaluate('probe.overlaps')}
+    (OUT/'conversation-browser.json').write_text(json.dumps({'status':'RUNNING','languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
     ctx.close()
     # Fresh mobile context: same existing responsive UI, real audio then ASR fixture.
     c=browser.new_context(viewport={'width':390,'height':844});c.add_init_script(SEED+BOOT+OBSERVE+f"localStorage.setItem('attune.language.v1','{lang}');");q=c.new_page();current=q;q.goto(BASE+'/vision');q.get_by_role('button',name=start,exact=True).click();ready(q)
     v=target(q);finish(q,word(v,lang)+' '+orientation(v,lang),[]);ready(q);assert q.evaluate('document.documentElement.scrollWidth<=innerWidth+1');q.screenshot(path=str(OUT/f'mobile-{lang}.png'),full_page=True)
     q.evaluate("localStorage.setItem('attune_privacy_microphone_allowed','false');window.dispatchEvent(new Event('attune-privacy'))");q.wait_for_function("()=>probe.streams.every(s=>s.getTracks().every(t=>t.readyState==='ended'))");assert q.evaluate("localStorage.getItem('togg_health_latest_vision')")==None
     checks.append({'stage':lang+' responsive / microphone consent / cleanup','status':'PASS'});c.close()
-   (OUT/'conversation-browser.json').write_text(json.dumps({'kind':'actual production browser/native audio; simulated camera/model/ASR','physicalUserAcceptance':False,'languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
+   (OUT/'conversation-browser.json').write_text(json.dumps({'status':'PASS','kind':'actual production browser/native audio; simulated camera/model/ASR','physicalUserAcceptance':False,'languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
   except Exception:
    if current and not current.is_closed():current.screenshot(path=str(OUT/'failure.png'),full_page=True)
    raise
