@@ -1,0 +1,29 @@
+{
+  "counts": {
+    "final_test": 1,
+    "train": 1,
+    "validation": 1
+  },
+  "methodVersion": "skin-source-group-locked-split-input-v1",
+  "recordCount": 3,
+  "releaseRef": null,
+  "schemaVersion": 1,
+  "selectedArchiveCount": 11,
+  "sourcePersonGroupingEvidence": null,
+  "sourceRegistryRef": null,
+  "splitAssignmentSHA256": null,
+  "splitPolicy": {
+    "allRecordsAssignedExactlyOnce": true,
+    "cameraSubjectsIncluded": false,
+    "crossSplitGroupCount": 0,
+    "excludedArchivesIncluded": false,
+    "finalTestLabelsHiddenDuringDevelopment": true,
+    "finalTestUsedForSelection": false,
+    "finalTestUsedForThresholds": false,
+    "finalTestUsedForTraining": false,
+    "groupLocked": true,
+    "modelPredictionsUsedToAssignSplits": false
+  },
+  "splitRef": null,
+  "targetCoverage": []
+}

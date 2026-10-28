@@ -1,0 +1,36 @@
+{
+  "allRecordsAssignedExactlyOnce": false,
+  "blockers": [
+    "source_person_grouping_artifact_missing",
+    "source_person_grouping_incomplete",
+    "known_cross_split_exact_groups_present",
+    "locked_split_assignment_missing",
+    "final_test_reservation_missing",
+    "per_target_split_coverage_unverified",
+    "camera_subject_exclusion_unverified"
+  ],
+  "cameraSubjectsIncluded": false,
+  "counts": {
+    "final_test": 0,
+    "train": 0,
+    "validation": 0
+  },
+  "crossSplitGroupCount": 66,
+  "decision": "blocked",
+  "excludedArchivesIncluded": false,
+  "finalTestLabelsHiddenDuringDevelopment": false,
+  "finalTestUsedForSelection": false,
+  "finalTestUsedForThresholds": false,
+  "finalTestUsedForTraining": false,
+  "groupLocked": false,
+  "knownExactCrossSplitGroupCount": 66,
+  "knownRecordCount": 7865,
+  "methodVersion": "skin-source-group-locked-split-preflight-v1",
+  "modelPredictionsUsedToAssignSplits": false,
+  "readyForReleaseArtifact": false,
+  "releaseRef": null,
+  "schemaVersion": 1,
+  "sourceFactsMethodVersion": "source-mapping-release-receipt-v2",
+  "sourceRegistryRef": null,
+  "splitRef": null
+}
