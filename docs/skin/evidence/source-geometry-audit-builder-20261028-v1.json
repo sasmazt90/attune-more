@@ -1,0 +1,70 @@
+{
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "ba07dfd75336c0f43e466e477d2bbfa013705e6c",
+  "methodVersion": "skin-source-geometry-audit-builder-v1",
+  "observedAt": "2026-10-28T11:19:41Z",
+  "privacyAndTruthPolicy": {
+    "archiveNamesPathsOrUrlsAccepted": false,
+    "boxesAcceptedAsPixelTruth": false,
+    "missingLabelsAcceptedAsNegativeOrNormal": false,
+    "modelGeometryAcceptedAsExpertTruth": false,
+    "privateManifestCommitted": false,
+    "rawAnnotationPayloadsAccepted": false,
+    "rectanglePolygonsAcceptedAsPixelTruth": false,
+    "reviewerIdentityAccepted": false
+  },
+  "publicPreflight": {
+    "allGeometryAudited": false,
+    "decision": "blocked",
+    "knownAuditedImages": 7865,
+    "knownBoxOnlyAnnotationCount": 3129,
+    "knownInvalidGeometryIssueCount": 57,
+    "knownRectanglePolygonCount": 1067,
+    "knownValidPolygonCount": 3035,
+    "methodVersion": "skin-source-geometry-audit-preflight-v1",
+    "readyForReleaseArtifact": false,
+    "selectedArchiveCount": 0
+  },
+  "releaseArtifact": {
+    "emitted": false,
+    "methodVersionWhenComplete": "skin-source-geometry-audit-v1",
+    "reason": "selected-archive geometry coverage, expert semantics and zero-issue release inventory are incomplete"
+  },
+  "roboflowWritesStarted": false,
+  "schemaVersion": 1,
+  "sourceMappingRelease": {
+    "evidenceRegistryComplete": false,
+    "productTruthAuthorized": false,
+    "trainingDataReleaseAuthorized": false
+  },
+  "tests": {
+    "availableSkinResearchSuite": {
+      "passed": 88,
+      "result": "OK"
+    },
+    "builderFocused": {
+      "passed": 7,
+      "result": "OK"
+    },
+    "githubActionsObserved": false,
+    "pythonCompile": true
+  },
+  "trackedFiles": {
+    "builder": {
+      "path": "scripts/skin-research/build_source_geometry_audit.py",
+      "sha256": "8e6a2380e1b058e3fbbdc1764452acbb24d0817a7403ad2f8ad471860dbc0fad"
+    },
+    "inputTemplate": {
+      "path": "docs/skin/evidence/source-geometry-audit-input-template-20261028-v1.json",
+      "sha256": "50118184217d75f5bf7bbbc4f893b486957e3e0b84ac4efe15e3f6e45dbacc24"
+    },
+    "preflight": {
+      "path": "docs/skin/evidence/source-geometry-audit-preflight-20261028-v1.json",
+      "sha256": "4add055c7447db88c16c0d98e303bd40554d5f031bf9563d7da81963305c2c4c"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_source_geometry_audit.py",
+      "sha256": "9b0e241bc90e4d3ac6b1fdf5fa65df16e1ab65f58a99f6f74816cb565af86e9d"
+    }
+  }
+}
