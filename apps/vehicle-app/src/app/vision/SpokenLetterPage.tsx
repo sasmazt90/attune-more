@@ -221,7 +221,7 @@ export default function SpokenLetterPage(){
   }
   };
   const token=flow.current.token(),epoch=a.epoch;
-  setAnswerNotice('Yanıt alındı. Düzeltmek için şimdi söyleyin.');
+  setAnswerNotice('Yanıt alındı. Değerlendiriliyor.');
   a.settleAnswer=settle;
   a.answerTimer=setTimeout(settle,VISION_ANSWER_SETTLE_MS);
  }

@@ -147,13 +147,16 @@ def run_main():
     p.get_by_role('button',name={'tr':'Tamam','en':'OK','de':'OK'}[lang],exact=True).click()
     if lang=='tr':snap(p,'desktop-results')
     result=p.evaluate("JSON.parse(localStorage.getItem('togg_health_latest_vision'))");valid=[t for t in result['trials'] if t['valid']];assert len(valid)==24 and sum(t['combinedCorrect'] for t in valid)==23;assert sum(t['eye']=='RIGHT' for t in valid)==12
+    turn_events=p.evaluate('probe.turnEvents');overlaps=p.evaluate('probe.overlaps')
+    starts=[e['afterAudioMs'] for e in turn_events if e['stage']=='recognizer-start']
+    assert len(starts)>=24 and all(t>=300 for t in starts),starts
+    assert overlaps==[],overlaps
     p.reload();p.get_by_role('button',name={'tr':'Sonucu Aç','en':'Open result','de':'Ergebnis öffnen'}[lang],exact=True).click();p.get_by_role('dialog').wait_for()
     if lang=='tr':snap(p,'desktop-history')
     assert p.locator('[data-eye-summary]').count()==2
     checks.append({'stage':lang+' 24 questions / both eyes / results / history','status':'PASS'})
-    assert not errors,errors;assert p.evaluate('probe.overlaps')==[]
-    starts=p.evaluate('probe.turnEvents.filter(e=>e.stage==="recognizer-start").map(e=>e.afterAudioMs)');assert all(t>=300 for t in starts)
-    languages[lang]={'status':'PASS','camera':'SIMULATED','ASR':'SIMULATED','audio':'native approved recordings','session':{'valid':24,'rightEye':12,'leftEye':12,'intentionallyWrong':1,'combinedCorrect':23},'scenarios':scenarios,'events':p.evaluate('probe.turnEvents'),'overlaps':p.evaluate('probe.overlaps')}
+    assert not errors,errors
+    languages[lang]={'status':'PASS','camera':'SIMULATED','ASR':'SIMULATED','audio':'native approved recordings','session':{'valid':24,'rightEye':12,'leftEye':12,'intentionallyWrong':1,'combinedCorrect':23},'scenarios':scenarios,'events':turn_events,'overlaps':overlaps}
     (OUT/REPORT).write_text(json.dumps({'status':'RUNNING','languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
     ctx.close()
     # Fresh mobile context: same existing responsive UI, real audio then ASR fixture.
