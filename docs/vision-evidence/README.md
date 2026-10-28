@@ -1,0 +1,1 @@
+Historical PR #13 evidence from the previous voice flow. The owner subsequently required sequential playback/listening. Current evidence is in ../vision-conversation-evidence/ and ../vision-conversation-report.md. Synthetic camera and ASR inputs remain explicitly identified.

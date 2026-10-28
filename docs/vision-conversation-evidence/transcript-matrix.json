@@ -1,0 +1,1228 @@
+{
+  "kind": "deterministic transcript, automatic eye gates and production-controller tests; no physical ASR/camera claim",
+  "languages": {
+    "tr": {
+      "passed": 39,
+      "cases": [
+        {
+          "text": "E",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "E harfi",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Elma",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Edirne",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Bence E",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "E sola dönük",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E sol yana devrik",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E sol yana devrilmiş",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E sola devrik",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E sola devrilmiş",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E sola yatmış",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E saat yönünün tersinde doksan derece",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E doksan derece sola",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E sağa yatmış",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E sağ yana devrilmiş",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E saat yönünde 90 derece",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E doksan derece sağa",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E aşaa bakıyor",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E aşağı dönük",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E düz",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E normal",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E standart",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E doğru yönde",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E baş aşağı",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E 180 derece dönmüş",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E aynalı",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E ayna görüntüsü",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E ayna yansıması",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E simetrik",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E hem baş aşağı hem aynalı",
+          "expected": {
+            "letter": "E",
+            "rotation": 180,
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E dikey aynalı",
+          "expected": {
+            "letter": "E",
+            "rotation": 180,
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E ama ters",
+          "expected": {
+            "letter": "E",
+            "clarify": "reverse"
+          },
+          "actual": {
+            "clarify": "reverse",
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E ters ve simetrik",
+          "expected": {
+            "clarify": "reverse"
+          },
+          "actual": {
+            "mirrored": true,
+            "clarify": "reverse",
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "P değil E düz",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "Pırasanın P'si sola yatmış",
+          "expected": {
+            "letter": "P",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "P",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E değil",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "clarify": "letter",
+            "ambiguous": "letter"
+          },
+          "pass": true
+        },
+        {
+          "text": "patates düz",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "ambiguous": "letter",
+            "rotation": 0,
+            "clarify": "letter"
+          },
+          "pass": true
+        },
+        {
+          "text": "E yukarı bakıyor",
+          "expected": {
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "F aşağı bakıyor",
+          "expected": {
+            "clarify": "orientation"
+          },
+          "actual": {
+            "ambiguous": "rotation",
+            "letter": "F",
+            "clarify": "orientation"
+          },
+          "pass": true
+        }
+      ]
+    },
+    "en": {
+      "passed": 31,
+      "cases": [
+        {
+          "text": "E",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "ee",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Echo",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "elephant",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "I think the letter is E",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "E turned right",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E tilted to the right",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E ninety degrees clockwise",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E clockwise 90 degrees",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E counterclockwise ninety degrees",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E anticlockwise",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E ninety degrees counterclockwise",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E leaning left",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E upside down",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E one hundred and eighty degrees clockwise",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E half a turn",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E mirrored",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E mirror image",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E horizontally reflected",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E flipped horizontally",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E vertically mirrored",
+          "expected": {
+            "letter": "E",
+            "rotation": 180,
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E upside down and mirrored",
+          "expected": {
+            "letter": "E",
+            "rotation": 180,
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E not mirrored upright",
+          "expected": {
+            "letter": "E",
+            "rotation": 0,
+            "mirrored": false
+          },
+          "actual": {
+            "mirrored": false,
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "P no E upright",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E facing down",
+          "expected": {
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E pointing up",
+          "expected": {
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E as in elephant upright",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E as in banana upright",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "ambiguous": "letter",
+            "rotation": 0,
+            "clarify": "letter"
+          },
+          "pass": true
+        },
+        {
+          "text": "E reverse",
+          "expected": {
+            "clarify": "reverse"
+          },
+          "actual": {
+            "clarify": "reverse",
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "not E",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "clarify": "letter",
+            "ambiguous": "letter"
+          },
+          "pass": true
+        },
+        {
+          "text": "engineering upright",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "ambiguous": "letter",
+            "rotation": 0,
+            "clarify": "letter"
+          },
+          "pass": true
+        }
+      ]
+    },
+    "de": {
+      "passed": 30,
+      "cases": [
+        {
+          "text": "E",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "eh",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Emil",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Essen",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "Elefant",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "ich denke der Buchstabe ist E",
+          "expected": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "actual": {
+            "letter": "E",
+            "clarify": "orientation"
+          },
+          "pass": true
+        },
+        {
+          "text": "E nach rechts",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E im Uhrzeigersinn neunzig Grad",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E neunzig Grad im Uhrzeigersinn",
+          "expected": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E nach links",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E gegen den Uhrzeigersinn neunzig Grad",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E neunzig Grad gegen den Uhrzeigersinn",
+          "expected": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E auf dem Kopf",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E kopfüber",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E um hundertachtzig Grad gedreht",
+          "expected": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E gespiegelt",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E spiegelverkehrt",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E Spiegelbild",
+          "expected": {
+            "letter": "E",
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "E vertikal gespiegelt",
+          "expected": {
+            "letter": "E",
+            "rotation": 180,
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E kopfüber und gespiegelt",
+          "expected": {
+            "rotation": 180,
+            "mirrored": true
+          },
+          "actual": {
+            "mirrored": true,
+            "letter": "E",
+            "rotation": 180
+          },
+          "pass": true
+        },
+        {
+          "text": "E nicht gespiegelt aufrecht",
+          "expected": {
+            "rotation": 0,
+            "mirrored": false
+          },
+          "actual": {
+            "mirrored": false,
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "P nein E aufrecht",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "nicht P sondern E aufrecht",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E wie Elefant aufrecht",
+          "expected": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 0
+          },
+          "pass": true
+        },
+        {
+          "text": "E wie Banane aufrecht",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "ambiguous": "letter",
+            "rotation": 0,
+            "clarify": "letter"
+          },
+          "pass": true
+        },
+        {
+          "text": "E zeigt nach unten",
+          "expected": {
+            "rotation": 90
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 90
+          },
+          "pass": true
+        },
+        {
+          "text": "E schaut nach oben",
+          "expected": {
+            "rotation": 270
+          },
+          "actual": {
+            "letter": "E",
+            "rotation": 270
+          },
+          "pass": true
+        },
+        {
+          "text": "E umgekehrt",
+          "expected": {
+            "clarify": "reverse"
+          },
+          "actual": {
+            "clarify": "reverse",
+            "letter": "E"
+          },
+          "pass": true
+        },
+        {
+          "text": "Äpfel aufrecht",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "ambiguous": "letter",
+            "rotation": 0,
+            "clarify": "letter"
+          },
+          "pass": true
+        },
+        {
+          "text": "Straße aufrecht",
+          "expected": {
+            "clarify": "letter"
+          },
+          "actual": {
+            "ambiguous": "letter",
+            "rotation": 0,
+            "clarify": "letter"
+          },
+          "pass": true
+        }
+      ]
+    }
+  },
+  "automaticEyeChecks": 42,
+  "controller": "passed",
+  "transformMatrix": "6 letters x 8 transforms passed"
+}

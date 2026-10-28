@@ -1,3 +1,4 @@
+import type {VisionComponentConfidence} from './visionSpeechTurn';
 import { answerTransform, mergeLetterAnswer, type Eye, type ParsedAnswer } from './spokenVision';
 
 export interface AnswerTarget {sessionId:string;eye:Eye;targetId:string}
@@ -9,26 +10,28 @@ export class VisionAnswerMemory {
  private keys=new Set<string>();
  private fragments:string[]=[];
  private confirmation=new Set<'letter'|'rotation'|'mirror'>();
+ private fieldConfidence:{letter:number|null;rotation:number|null;mirror:number|null}={letter:null,rotation:null,mirror:null};
  answer:ParsedAnswer={};processed=false;
  bind(target:AnswerTarget){
   if(this.matches(target))return false;
   this.clear();this.target={...target};return true;
  }
  matches(target:AnswerTarget){return !!this.target&&this.target.sessionId===target.sessionId&&this.target.eye===target.eye&&this.target.targetId===target.targetId;}
- append(target:AnswerTarget,key:string,text:string,parsed:ParsedAnswer,confidence=1){
+ append(target:AnswerTarget,key:string,text:string,parsed:ParsedAnswer,confidence=1,componentConfidence?:VisionComponentConfidence){
   if(!this.matches(target)||this.processed||this.keys.has(key)||parsed.command)return false;
   this.keys.add(key);this.fragments.push(text.trim().slice(0,160));
+  if(parsed.unrecognized)return true; // Noise never erases a component from an earlier turn.
   this.answer=mergeLetterAnswer(this.answer,parsed);
-  const uncertain=confidence>0&&confidence<.5;
   // Confidence belongs to the heard component, not to the next ASR callback.
   // A confidently repeated/corrected component confirms it without losing the other.
   const fields:('letter'|'rotation'|'mirror')[]=[];
   if(parsed.letter||parsed.ambiguous==='letter')fields.push('letter');
   if(parsed.rotation!==undefined||parsed.orientation||parsed.ambiguous==='rotation')fields.push('rotation');
   if(parsed.mirrored!==undefined||parsed.clarify==='reverse')fields.push('mirror');
-  for(const field of fields){if(uncertain)this.confirmation.add(field);else this.confirmation.delete(field);}
+  for(const field of fields){const heardConfidence=componentConfidence?.[field]??confidence;this.fieldConfidence[field]=Number.isFinite(heardConfidence)&&heardConfidence>0?heardConfidence:null;if(heardConfidence>0&&heardConfidence<.5)this.confirmation.add(field);else this.confirmation.delete(field);}
   return true;
  }
+ get confidence(){const orientation=[this.fieldConfidence.rotation,this.fieldConfidence.mirror].filter((v):v is number=>v!==null);return {...this.fieldConfidence,orientation:orientation.length?Math.min(...orientation):null};}
  get heard(){return this.fragments.join(' · ');}
  get fragmentCount(){return this.fragments.length;}
  get missing(): 'letter'|'orientation'|'reverse'|null {
@@ -38,5 +41,5 @@ export class VisionAnswerMemory {
   return this.confirmation.has('letter')?'letter':this.confirmation.has('rotation')||this.confirmation.has('mirror')?'orientation':null;
  }
  markProcessed(){this.processed=true;}
- clear(){this.target=null;this.keys.clear();this.fragments=[];this.confirmation.clear();this.answer={};this.processed=false;}
+ clear(){this.target=null;this.keys.clear();this.fragments=[];this.confirmation.clear();this.fieldConfidence={letter:null,rotation:null,mirror:null};this.answer={};this.processed=false;}
 }

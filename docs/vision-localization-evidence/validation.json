@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-28",
+  "baselineCommit": "e59f929dd3c0ea9c361a6834738057d45b3086d9",
+  "testedImplementationCommit": "5f0deb484ddd0bc69adbc13e2589a10b9a4a53a0",
+  "scope": "localization corrections only",
+  "status": "PASS",
+  "languages": {
+    "tr": {
+      "status": "PASS",
+      "browserStages": 43,
+      "screenshots": 31,
+      "validAnswers": 24,
+      "eyes": [
+        "RIGHT",
+        "LEFT"
+      ],
+      "dynamicTranslationAssertions": 463,
+      "sourceDerivedStatusMessages": 48,
+      "approvedScriptMappings": 11
+    },
+    "en": {
+      "status": "PASS",
+      "browserStages": 43,
+      "screenshots": 31,
+      "validAnswers": 24,
+      "eyes": [
+        "RIGHT",
+        "LEFT"
+      ],
+      "dynamicTranslationAssertions": 463,
+      "sourceDerivedStatusMessages": 48,
+      "approvedScriptMappings": 11
+    },
+    "de": {
+      "status": "PASS",
+      "browserStages": 43,
+      "screenshots": 31,
+      "validAnswers": 24,
+      "eyes": [
+        "RIGHT",
+        "LEFT"
+      ],
+      "dynamicTranslationAssertions": 463,
+      "sourceDerivedStatusMessages": 48,
+      "approvedScriptMappings": 11
+    }
+  },
+  "correctedCatalogEntries": 28,
+  "beforeAfter": "before-after.json",
+  "exactStrings": "corrected-strings.json",
+  "localTests": {
+    "passed": 79,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 17.405,
+    "selected": "vision or localization or locale or language"
+  },
+  "typecheck": "PASS",
+  "lint": "PASS, no warnings/errors",
+  "productionBuild": "PASS",
+  "localizationInventory": {
+    "status": "PASS",
+    "catalogMessages": 2091,
+    "inventoriedSources": 1881,
+    "exemptions": 78,
+    "scope": "Frontend JSX/accessibility/source literals and shared modules/guidance; backend API/mental/care/control plus health-module response/error presentation sources. Dynamic/private/provider text needs runtime review.",
+    "failures": []
+  },
+  "sharedSkinCatalog": "PASS",
+  "scopeProof": {
+    "changedProductSources": [
+      "apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx",
+      "apps/vehicle-app/src/components/CardCarousel.tsx"
+    ],
+    "visionPageDelta": "only the same muted-output display literal at two sites",
+    "carouselDelta": "only localization of aria-roledescription",
+    "speechRecognitionLogicChanged": false,
+    "eyeDetectionChanged": false,
+    "scoringChanged": false,
+    "assessmentLogicChanged": false,
+    "layoutChanged": false,
+    "featuresAdded": false,
+    "localizationEngineChanged": false,
+    "approvedAudioChanged": false
+  },
+  "browserProvenance": "actual production DOM and localization; camera/model/ASR fixtures; native approved audio accelerated 4x for text audit",
+  "desktopViewport": [
+    1440,
+    1000
+  ],
+  "mobileViewport": [
+    390,
+    844
+  ],
+  "physicalTesting": false,
+  "merged": false,
+  "deployed": false,
+  "githubCI": {
+    "implementationCommit": "5f0deb484ddd0bc69adbc13e2589a10b9a4a53a0",
+    "runUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40619388774",
+    "deliveryHead": "Live delivery-head checks and conclusions are recorded in PR #13; evidence/report is a subsequent commit"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "statusBefore": "FAIL",
+  "statusAfter": "PASS",
+  "language": "de",
+  "transcript": "auf dem Kopf",
+  "beforeInstructionEcho": true,
+  "afterInstructionEcho": false,
+  "parsedAfter": {
+    "rotation": 180,
+    "clarify": "letter"
+  },
+  "kind": "actual prior/current source; confirmed by production browser stall before fix"
+}

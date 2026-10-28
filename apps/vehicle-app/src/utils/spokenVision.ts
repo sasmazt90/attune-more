@@ -1,6 +1,7 @@
 import prompts from '../../../../shared/localization/vision-prompts.json';
 import {t} from '../i18n/core';
-/** Target-independent parsing and a nonclinical letter task; TR protocol unchanged. */
+import {interpretVisionAnswer} from './visionLanguage';
+/** Target-independent interpretation and a nonclinical letter task. */
 export const LETTER_PROTOCOL='spoken-letter-v2';
 export const LETTER_METHOD='mirror-x-then-rotate-two-up-two-down-step50-min15-v4';
 export type Orientation='upright'|'right'|'down'|'left'|'mirror';
@@ -13,7 +14,7 @@ export const LETTER_PATHS:Record<Letter,string>={
 };
 export type Rotation=0|90|180|270;
 export type LetterTransform={rotation:Rotation;mirrored:boolean;mirrorAxis:'x';order:'mirror-then-rotate'};
-export type ParsedAnswer={command?:'not-visible'|'repeat'|'pause'|'resume'|'finish';letter?:Letter;orientation?:Orientation;rotation?:Rotation;mirrored?:boolean;clarify?:'letter'|'orientation'|'reverse';ambiguous?:'letter'|'rotation'};
+export type ParsedAnswer={unrecognized?:boolean;command?:'not-visible'|'repeat'|'pause'|'resume'|'finish';letter?:Letter;orientation?:Orientation;rotation?:Rotation;mirrored?:boolean;clarify?:'letter'|'orientation'|'reverse';ambiguous?:'letter'|'rotation'};
 export const LEGACY_LETTER_PROTOCOL='spoken-letter-v1';
 export function isLetterProtocol(protocol:unknown){return protocol===LETTER_PROTOCOL||protocol===LEGACY_LETTER_PROTOCOL;}
 export function legacyTransform(orientation:Orientation):LetterTransform{return {rotation:({upright:0,right:90,down:180,left:270,mirror:0} as const)[orientation],mirrored:orientation==='mirror',mirrorAxis:'x',order:'mirror-then-rotate'};}
@@ -56,6 +57,10 @@ export const LETTER_INSTRUCTIONS={
 function normalizeSpeech(text:string){return text.toLocaleLowerCase('tr-TR').normalize('NFKC').replace(/[’‘`]/g,"'").replace(/[^a-zçğıöşü ]/g,' ').replace(/\s+/g,' ').trim();}
 /** Only instruction clauses, not broad vocabulary/short answer filtering. */
 export function isLetterInstructionEcho(text:string,language:'tr'|'en'|'de'='tr'){
+ // A valid partial answer can also be a phrase inside a prompt (DE: auf dem
+ // Kopf). Semantic admission must win over substring echo filtering.
+ const answer=parseLetterAnswer(text,language);
+ if(!answer.ambiguous&&!answer.unrecognized&&(answer.letter||answer.rotation!==undefined||answer.mirrored!==undefined||answer.command||answer.clarify==='reverse'))return false;
  if(language!=='tr'){
   const normal=(value:string)=>value.toLocaleLowerCase(language==='de'?'de-DE':'en-US').normalize('NFKC').replace(/[^\p{L} ]/gu,' ').replace(/\s+/g,' ').trim();
   const value=normal(text);
@@ -67,71 +72,8 @@ export function isLetterInstructionEcho(text:string,language:'tr'|'en'|'de'='tr'
  if(/söyleyin|söyler misiniz|okuyun|bakın|kullanabilirsiniz|beklemeniz gerekmez|yanıtınız alındı|test ediyoruz|kalsın|kapatın|örtün/.test(value))return true;
  return Object.values(LETTER_INSTRUCTIONS).map(normalizeSpeech).some(line=>value.split(' ').length>=3&&line.includes(value));
 }
-export function parseLetterAnswer(text:string,language:'tr'|'en'|'de'='tr'):ParsedAnswer {
- if(language!=='tr')return parseLetterAnswer(localizedAnswerTokens(text,language));
- let value=normalizeSpeech(text);
- if(/^(?:harfi )?(?:göremiyorum|ayırt edemiyorum)$/.test(value))return {command:'not-visible'};
- if(/^(?:bitir|sonlandır|testi bitir)$/.test(value))return {command:'finish'};
- if(/^(?:devam et|sürdür)$/.test(value))return {command:'resume'};
- if(/^(?:duraklat|bekle)$/.test(value))return {command:'pause'};
- if(/^(?:tekrar|yeniden söyle)$/.test(value))return {command:'repeat'};
- // Explicit correction has priority over the earlier rejected component.
- if(/\bdeğil\b/.test(value)){
-  const parts=value.split(/\bdeğil\b/),replacement=parseLetterAnswer(parts.at(-1)!.trim()),previous=parseLetterAnswer(parts.slice(0,-1).join(' '));
-  if(previous.letter&&replacement.letter)return mergeLetterAnswer(previous,replacement);
-  value=parts.at(-1)!.trim();
- }
- const tokens=value.split(' '),aliases:Record<Letter,string[]>={A:['a'],B:['b','be'],E:['e'],F:['f','fe','ef','efe'],P:['p','pe'],R:['r','re','er']};
- const explicit=(Object.keys(aliases) as Letter[]).filter(l=>aliases[l].some(alias=>tokens.includes(alias)));
- const rotations:Rotation[]=[];
- if(/\b(düz|dik|normal)\b/.test(value))rotations.push(0);
- if(/sağa|sağ yat|sağ yön/.test(value))rotations.push(90);
- if(/sola|sol yat|sol yön/.test(value))rotations.push(270);
- if(/baş aşağı|başaşağı|aşağı(?:ya)? dönük|tepetaklak/.test(value))rotations.push(180);
- const mirror=/aynalı|ayna görüntüsü|yansıtılmış|yansıma/.test(value);
- const rotation=rotations.length===1?rotations[0]:undefined;
- const fillers=new Set('düz dik normal baş aşağı aşağıya dönük yatmış sağa sola sağ sol yön yöne yönü yönünü ayna aynalı görüntüsü yansıtılmış yansıma tepetaklak başaşağı ters ve harf harfi harfin söylüyorum söylediğim olan bu şu bir kelime kelimesi kodluyorum si sı s i ı nin nın nun nün'.split(' '));
- const coding=[...new Set(tokens.filter(t=>t&&!fillers.has(t)))];
- let letter=explicit.length===1?explicit[0]:undefined;
- const ambiguousLetter=explicit.length>1||!explicit.length&&coding.length!==1&&coding.length>0;
- if(!explicit.length&&coding.length===1){const initial=coding[0][0].toLocaleUpperCase('tr-TR');if(initial in LETTER_PATHS)letter=initial as Letter;}
- const answer:ParsedAnswer={...(letter?{letter}:{}),...(rotation!==undefined?{rotation}:{}),...(mirror?{mirrored:true}:{}),...(ambiguousLetter||!explicit.length&&coding.length===1&&!letter?{ambiguous:'letter' as const}:rotations.length>1?{ambiguous:'rotation' as const}:{})};
- if(/\bters\b/.test(value)&&rotation===undefined&&!mirror)return {...answer,clarify:'reverse'};
- if(answer.ambiguous)return {...answer,clarify:answer.ambiguous==='letter'?'letter':'orientation'};
- if(!letter)answer.clarify='letter';else if(!answerTransform(answer))answer.clarify='orientation';
- return answer;
-}
-/** Language adaptation only: target, geometry, scoring and ambiguity policy are unchanged. */
-export function localizedAnswerTokens(text:string,language:'en'|'de'){
- let value=text.normalize('NFC').toLocaleLowerCase(language==='de'?'de-DE':'en-US').replace(/[’‘]/g,"'");
- // Translate controls only as complete utterances, never inside code-word
- // answers ("repeat right" must retain R, not become Turkish "tekrar").
- // Bare finish/fertig/beenden are valid F/F/B code words. Ending a session
- // requires an explicit test phrase; the original TR protocol is unchanged.
- const controls:Record<string,string>=language==='en'?{
-  "i can't see it":'göremiyorum','i cannot see it':'göremiyorum','not visible':'göremiyorum',
-  'repeat':'tekrar','pause':'duraklat','resume':'devam et','continue':'devam et',
-  'finish the test':'bitir','stop the test':'bitir'
- }:{'ich sehe es nicht':'göremiyorum','nicht erkennbar':'göremiyorum',
-  'wiederholen':'tekrar','pausieren':'duraklat','pause':'duraklat','fortsetzen':'devam et','weiter':'devam et',
-  'test beenden':'bitir','den test beenden':'bitir'};
- const utterance=value.replace(/[^\p{L}' ]/gu,' ').replace(/\s+/g,' ').trim();
- if(Object.hasOwn(controls,utterance))return controls[utterance];
- const phrases:Record<string,string>=language==='en'?{
-  'upside down':'baş aşağı','turned right':'sağa','turned left':'sola','mirrored':'aynalı','mirror':'aynalı',
-  'upright':'düz','right':'sağa','left':'sola','reverse':'ters',
-  'bee':'be','pee':'pe','eff':'ef','are':'re','ay':'a','ee':'e','no':'değil','and':'ve'
- }:{'auf dem kopf':'baş aşağı',
-  'kopfüber':'baş aşağı','nach rechts':'sağa','nach links':'sola','rechts':'sağa','links':'sola',
-  'aufrecht':'düz','gerade':'düz','gespiegelt':'aynalı','spiegelverkehrt':'aynalı','umgekehrt':'ters',
-  'beh':'be','peh':'pe','eff':'ef','und':'ve','nein':'değil'};
- for(const [source,target] of Object.entries(phrases).sort((a,b)=>b[0].length-a[0].length)){
-  const escaped=source.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');value=value.replace(new RegExp('(?<![\\p{L}])'+escaped+'(?![\\p{L}])','gu'),target);
- }
- // The unchanged TR tokenizer does not include ä/ß. Keep these as non-target
- // graphemes instead of deleting an initial (Äpfel must never become P-fel).
- if(language==='de')value=value.replace(/[äß]/g,'x');
- return value.replace(/\b(?:please|the|letter|is|bitte|der|die|das|buchstabe|ist)\b/gu,' ').replace(/\s+/g,' ').trim();
+export function parseLetterAnswer(text:string,language:'tr'|'en'|'de'='tr',context?:{letter:Letter}):ParsedAnswer {
+ return interpretVisionAnswer(text,language,context);
 }
 /** These are exact symmetries of the drawn A and E paths. Composition is
  * mirror in local x, then clockwise rotation, as in LetterStimulus. */
@@ -142,7 +84,7 @@ export function equivalentTransform(letter:Letter,a:LetterTransform,b:LetterTran
  return !!symmetry&&x.every((v,i)=>v===y[i]*symmetry[i%2]);
 }
 export function equivalentOrientation(letter:Letter,a:Orientation,b:Orientation){return equivalentTransform(letter,legacyTransform(a),legacyTransform(b));}
-export type EyePixelEvidence={state:'open'|'closed'|'covered'|'uncertain';ear:number|null;darkFraction:number|null;contrast:number|null;method:string;baselineEar?:number;blinkCoefficient?:number|null;heldMs?:number;appearanceChange?:number;templateCorrelation?:number;palmCoverage?:number;wideTemplateCorrelation?:number;candidateState?:'open'|'closed'|'covered'|'uncertain'};
+export type EyePixelEvidence={state:'open'|'closed'|'covered'|'uncertain';occlusionKind?:'hand'|'object';ear:number|null;darkFraction:number|null;contrast:number|null;method:string;baselineEar?:number;blinkCoefficient?:number|null;heldMs?:number;appearanceChange?:number;templateCorrelation?:number;palmCoverage?:number;wideTemplateCorrelation?:number;candidateState?:'open'|'closed'|'covered'|'uncertain'};
 export type LetterConditions={observedAt:number;cameraLive:boolean;modelActive:boolean;faceCount:number;qualityValid:boolean;positionValid:boolean;relativeScaleChange:number|null;motionStable?:boolean;right:EyePixelEvidence;left:EyePixelEvidence;distancePolicy?:'head-anchors-hysteresis-v1';distanceState?:'learning'|'stable'|'near'|'far'|'unknown';blocker?:string|null;trackingMethod?:string};
 export function letterConditionFailure(c:LetterConditions|null,eye:Eye|null,now:number):'camera'|'position'|'eye'|'uncertain'|null {
  if(!c||!Number.isFinite(now)||!Number.isFinite(c.observedAt)||now-c.observedAt>750||now<c.observedAt||!c.cameraLive||!c.modelActive||c.faceCount!==1||!c.qualityValid)return 'camera';

@@ -1,0 +1,52 @@
+{
+  "kind": "controlled camera/model/ASR events; actual browser UI, Audio, API and history",
+  "physicalUserAcceptance": false,
+  "checks": [
+    {
+      "name": "Native approved guidance interrupted by interim speech; duplicate final scores once; obsolete guidance stays stopped",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "Mid-utterance correction changes pending final before scoring",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "Transient ASR transport failure recovers microphone on the same target with no repeated guidance or score",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "Wrong/both eyes, missing face, poor light and uncertain eyes block presentation/scoring without any manual override",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "ASR session limit ends after two retries; explicit retry preserves target and does not score a failure",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "24 spoken answers, automatic hand/object condition admission in each eye, pause cancellation, deterministic scores and history reload",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "tr mobile spoken answer, responsive UI and microphone-consent withdrawal cleanup",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "en mobile spoken answer, responsive UI and microphone-consent withdrawal cleanup",
+      "status": "PASS",
+      "detail": true
+    },
+    {
+      "name": "de mobile spoken answer, responsive UI and microphone-consent withdrawal cleanup",
+      "status": "PASS",
+      "detail": true
+    }
+  ],
+  "errors": []
+}

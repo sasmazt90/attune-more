@@ -4849,11 +4849,6 @@
     "en": "Speech output is muted.",
     "de": "Sprachausgabe ist stummgeschaltet."
   },
-  "182e41da54f263b3": {
-    "tr": "Seslendirme kapalı. Header hoparlörünü açıp devam edin.",
-    "en": "Speech output is muted. Enable the header speaker and resume.",
-    "de": "Sprachausgabe ist stummgeschaltet. Aktivieren Sie den Lautsprecher in der Kopfzeile und fahren Sie fort."
-  },
   "f057418a477fe55d": {
     "tr": "Seslendirme kapatıldı. Test duraklatıldı; hazırlığı yeniden doğrulayın.",
     "en": "Speech output muted. Test paused; verify preparation again.",
@@ -10218,5 +10213,245 @@
     "tr": "Hazır görüşme henüz kullanıma açık değil; içerik ve ses onayı gerekiyor.",
     "en": "The prepared conversation is not available yet; content and audio review are required.",
     "de": "Das vorbereitete Gespräch ist noch nicht verfügbar; Inhalte und Aufnahmen müssen freigegeben werden."
+  },
+  "809ea6db4dc75835": {
+    "tr": "Tamamlanan yanıtlar",
+    "en": "Completed answers",
+    "de": "Abgeschlossene Antworten"
+  },
+  "8052f24b256bf533": {
+    "tr": "Sesli yönerge oynatılamadı. Ekrandaki yönergeyle devam edebilirsiniz.",
+    "en": "Voice guidance could not play. You can continue with the on-screen instructions.",
+    "de": "Die Sprachanweisung konnte nicht abgespielt werden. Sie können mit den Anweisungen auf dem Bildschirm fortfahren."
+  },
+  "81ac99dd2e47ebf3": {
+    "tr": "Koşullar değişti. Yanıt puanlanmadı; tekrar yanıtlayın.",
+    "en": "Conditions changed. No answer was scored; please answer again.",
+    "de": "Die Bedingungen haben sich geändert. Die Antwort wurde nicht gewertet; bitte antworten Sie erneut."
+  },
+  "9a757c0389ae4b32": {
+    "tr": "Yanıt alındı. Değerlendiriliyor.",
+    "en": "Answer received. Evaluating.",
+    "de": "Antwort erkannt. Wird ausgewertet."
+  },
+  "c957f22d70617918": {
+    "tr": "Netlik",
+    "en": "Sharpness",
+    "de": "Schärfe"
+  },
+  "ea91c9a47f7e0222": {
+    "tr": "Mesafe / Konum",
+    "en": "Distance / Position",
+    "de": "Abstand / Position"
+  },
+  "6ecc476907aa4526": {
+    "tr": "Konuşma algılanmadı. Dinliyor yazarken harfi veya yönünü tekrar söyleyin.",
+    "en": "No speech detected. Say the letter or direction again while listening is active.",
+    "de": "Keine Sprache erkannt. Sagen Sie den Buchstaben oder die Richtung erneut, wenn das Mikrofon zuhört."
+  },
+  "29cc2fa926a878d7": {
+    "tr": "Konuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.",
+    "en": "Reconnecting speech recognition. No answer was scored.",
+    "de": "Die Spracherkennung wird erneut verbunden. Keine Antwort wurde gewertet."
+  },
+  "44932852f8f9ef1e": {
+    "tr": "Konuşma tanıma kullanılamıyor. Mikrofon iznini ve bağlantıyı kontrol edip tekrar deneyin.",
+    "en": "Speech recognition is unavailable. Check microphone permission and your connection, then retry.",
+    "de": "Die Spracherkennung ist nicht verfügbar. Prüfen Sie die Mikrofonberechtigung und Verbindung und versuchen Sie es erneut."
+  },
+  "3803a351bc61145e": {
+    "tr": "Bu tarayıcı sesli yanıtı desteklemiyor. Konuşma tanımayı destekleyen bir tarayıcıda açın.",
+    "en": "This browser does not support spoken answers. Open this task in a browser that supports speech recognition.",
+    "de": "Dieser Browser unterstützt keine gesprochenen Antworten. Öffnen Sie die Aufgabe in einem Browser mit Spracherkennung."
+  },
+  "dfbd4fc2ab6c93e1": {
+    "tr": "Mikrofon veya konuşma hizmeti kullanılamıyor. Yanıt puanlanmadı; tekrar deneyin.",
+    "en": "The microphone or speech service is unavailable. No answer was scored; please retry.",
+    "de": "Mikrofon oder Sprachdienst ist nicht verfügbar. Keine Antwort wurde gewertet; versuchen Sie es erneut."
+  },
+  "abe94e4cc4a71259": {
+    "tr": "Kamera, mikrofon veya hizmet izni kapalı; görev durduruldu.",
+    "en": "Camera, microphone or service permission is off; the task stopped.",
+    "de": "Kamera-, Mikrofon- oder Dienstberechtigung ist deaktiviert; die Aufgabe wurde beendet."
+  },
+  "6aca780fd944b038": {
+    "tr": "Harf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.",
+    "en": "Say the letter name or a common spelling word, such as E, Echo.",
+    "de": "Nennen Sie den Buchstaben oder ein gängiges Buchstabierwort, etwa E, Emil."
+  },
+  "75195db1d30e5ef7": {
+    "tr": "elle örtülü",
+    "en": "covered by hand",
+    "de": "mit der Hand bedeckt"
+  },
+  "8ea1cb84898b64f6": {
+    "tr": "nesneyle örtülü",
+    "en": "covered by object",
+    "de": "durch einen Gegenstand bedeckt"
+  },
+  "5c8d89da792b55c7": {
+    "tr": "yüz hizası bekleniyor",
+    "en": "waiting for face alignment",
+    "de": "Gesichtsausrichtung wird erwartet"
+  },
+  "467425b3ac38282a": {
+    "tr": "kamera bekleniyor",
+    "en": "waiting for camera",
+    "de": "Kamera wird erwartet"
+  },
+  "96d4147bc58a77e6": {
+    "tr": "Yönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın",
+    "en": "After the instruction ends, wait for “Listening” and then answer",
+    "de": "Warten Sie nach der Anweisung auf „Zuhören“ und antworten Sie dann"
+  },
+  "63cbaee7e7bab6ca": {
+    "tr": "Konuşma algılanmadı. Yönergeden sonra yanıtlayın.",
+    "en": "No speech detected. Please answer after the instruction.",
+    "de": "Keine Sprache erkannt. Bitte antworten Sie nach der Anweisung."
+  },
+  "d45e77eaddbfa0af": {
+    "tr": "Yanıt işleniyor",
+    "en": "Processing answer",
+    "de": "Antwort wird verarbeitet"
+  },
+  "a82db30a5fb6c172": {
+    "tr": "Kamera karesi bekleniyor",
+    "en": "Waiting for a camera frame",
+    "de": "Warten auf ein Kamerabild"
+  },
+  "4eabeffcd46de5de": {
+    "tr": "Toplam ortalama skor",
+    "en": "Overall average score",
+    "de": "Mittlerer Gesamtwert"
+  },
+  "6970a0513447c49a": {
+    "tr": "Harf boyutu",
+    "en": "Letter size",
+    "de": "Buchstabengröße"
+  },
+  "1727204f4c261434": {
+    "tr": "Seslendirme kapalı. Üst çubuktaki hoparlörü açıp devam edin.",
+    "en": "Speech output is muted. Enable the speaker in the top bar and resume.",
+    "de": "Die Sprachausgabe ist stummgeschaltet. Aktivieren Sie den Lautsprecher in der oberen Leiste und setzen Sie die Aufgabe fort."
+  },
+  "79f1ca9f75507858": {
+    "tr": "Kaydırılabilir kartlar",
+    "en": "carousel",
+    "de": "Karussell"
+  },
+  "3b6f8b4735270392": {
+    "tr": "{0} · düz",
+    "en": "{0} · upright",
+    "de": "{0} · aufrecht"
+  },
+  "30579c27a1479c0c": {
+    "tr": "{0} · düz ve aynalı",
+    "en": "{0} · upright and mirrored",
+    "de": "{0} · aufrecht und gespiegelt"
+  },
+  "21eeec69ac500ae3": {
+    "tr": "{0} · sağa yatmış",
+    "en": "{0} · tilted right",
+    "de": "{0} · nach rechts geneigt"
+  },
+  "856124612f7ab61b": {
+    "tr": "{0} · sağa yatmış ve aynalı",
+    "en": "{0} · tilted right and mirrored",
+    "de": "{0} · nach rechts geneigt und gespiegelt"
+  },
+  "f2d930501f7b808c": {
+    "tr": "{0} · baş aşağı",
+    "en": "{0} · upside down",
+    "de": "{0} · auf dem Kopf"
+  },
+  "c36537f51718287e": {
+    "tr": "{0} · baş aşağı ve aynalı",
+    "en": "{0} · upside down and mirrored",
+    "de": "{0} · auf dem Kopf und gespiegelt"
+  },
+  "a971adb69f1be91f": {
+    "tr": "{0} · sola yatmış",
+    "en": "{0} · tilted left",
+    "de": "{0} · nach links geneigt"
+  },
+  "ad04b8d5baad10ba": {
+    "tr": "{0} · sola yatmış ve aynalı",
+    "en": "{0} · tilted left and mirrored",
+    "de": "{0} · nach links geneigt und gespiegelt"
+  },
+  "2d7f7b5df7c36009": {
+    "tr": "{0} · yön anlaşılmadı",
+    "en": "{0} · orientation not understood",
+    "de": "{0} · Ausrichtung nicht verstanden"
+  },
+  "59be221fb4607b6d": {
+    "tr": "Sağ gözünüzü test ediyoruz. Sol gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın.",
+    "en": "We are testing your right eye. Close or cover your left eye. Look at the letter area with your open eye.",
+    "de": "Wir testen Ihr rechtes Auge. Schließen Sie Ihr linkes Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich."
+  },
+  "493d33d914e18f6f": {
+    "tr": "Sağ gözünüzü test ediyoruz. Sol gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın. {0}",
+    "en": "We are testing your right eye. Close or cover your left eye. Look at the letter area with your open eye. {0}",
+    "de": "Wir testen Ihr rechtes Auge. Schließen Sie Ihr linkes Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich. {0}"
+  },
+  "27f8504c96fd1693": {
+    "tr": "Sağ göz · {0}/12",
+    "en": "Right eye · {0}/12",
+    "de": "Rechtes Auge · {0}/12"
+  },
+  "1a117515d13ad7e9": {
+    "tr": "Sol gözünüzü test ediyoruz. Sağ gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın.",
+    "en": "We are testing your left eye. Close or cover your right eye. Look at the letter area with your open eye.",
+    "de": "Wir testen Ihr linkes Auge. Schließen Sie Ihr rechtes Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich."
+  },
+  "20508c5ceea18e61": {
+    "tr": "Sol gözünüzü test ediyoruz. Sağ gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın. {0}",
+    "en": "We are testing your left eye. Close or cover your right eye. Look at the letter area with your open eye. {0}",
+    "de": "Wir testen Ihr linkes Auge. Schließen Sie Ihr rechtes Auge oder decken Sie es ab. Schauen Sie mit dem offenen Auge auf den Buchstabenbereich. {0}"
+  },
+  "a370e90790939d44": {
+    "tr": "Sol göz · {0}/12",
+    "en": "Left eye · {0}/12",
+    "de": "Linkes Auge · {0}/12"
+  },
+  "b203f6afa6be9f0a": {
+    "tr": "Göz Sağlığı: kayıtlar okunamadı; veriler korunuyor.",
+    "en": "Vision Health: records could not be read; data is preserved.",
+    "de": "Augengesundheit: Einträge konnten nicht gelesen werden; die Daten bleiben erhalten."
+  },
+  "69f168ac6b2523ad": {
+    "tr": "Göz kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the eye check.",
+    "de": "Wegen der Augenprüfung pausiert."
+  },
+  "d79db2fa6232e72c": {
+    "tr": "Baş pozu kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the head-position check.",
+    "de": "Wegen der Kopfhaltungsprüfung pausiert."
+  },
+  "c5cdc232ceccb087": {
+    "tr": "Netlik kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the sharpness check.",
+    "de": "Wegen der Schärfeprüfung pausiert."
+  },
+  "1474da6a148d2801": {
+    "tr": "Işık kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the lighting check.",
+    "de": "Wegen der Beleuchtungsprüfung pausiert."
+  },
+  "ffe52b65e56993ad": {
+    "tr": "Görüntü kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the image check.",
+    "de": "Wegen der Bildprüfung pausiert."
+  },
+  "f564e21e9a36394d": {
+    "tr": "Kadraj kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the framing check.",
+    "de": "Wegen der Bildausschnittsprüfung pausiert."
+  },
+  "a99753281760ff8b": {
+    "tr": "Mesafe kontrolü nedeniyle duraklatıldı.",
+    "en": "Paused for the distance check.",
+    "de": "Wegen der Abstandsprüfung pausiert."
   }
 }

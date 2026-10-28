@@ -54,7 +54,7 @@ assert(instructions.en.includes('finish the test'));assert(instructions.de.inclu
 // geometry, admission flags and scheduling. Real scoring/memory are retained.
 const fs=require('fs'),ts=require('typescript');
 const source=ts.createSourceFile('page.tsx',fs.readFileSync('apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
-const functions=[];function visit(node){if(ts.isFunctionDeclaration(node)&&['receive','current'].includes(node.name?.text))functions.push(node.getText(source));ts.forEachChild(node,visit);}visit(source);assert.equal(functions.length,2);
+const functions=[];function visit(node){if(ts.isFunctionDeclaration(node)&&['receive','current','followUpCode'].includes(node.name?.text))functions.push(node.getText(source));ts.forEachChild(node,visit);}visit(source);assert.equal(functions.length,3);
 const compiled=ts.transpileModule(functions.join('\n'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText;
 const {VisionFlow}=require('../../apps/vehicle-app/src/utils/visionFlow.ts');
 function receiver(language){
@@ -63,15 +63,15 @@ function receiver(language){
  const memory=new VisionAnswerMemory();memory.bind({sessionId:session.id,eye:session.eye,targetId:session.trialId});
  const eye={state:'open',ear:.3,method:'synthetic'},closed={...eye,state:'closed'};
  const conditions={observedAt:performance.now(),cameraLive:true,modelActive:true,faceCount:1,qualityValid:true,positionValid:true,relativeScaleChange:0,right:eye,left:closed};
- const r={current:{session,mounted:true,active:true,epoch:1,answerMemory:memory,evidence:{conditions},answerTimer:null,settleAnswer:null,listeningStarted:true}},parked={current:true};
- let permitted=true,cancellations=0,pauses=0,resumes=0;
+ const r={current:{session,mounted:true,active:true,epoch:1,answerMemory:memory,evidence:{conditions},answerTimer:null,settleAnswer:null,listeningStarted:true,clarified:new Set(),speechActive:false}},parked={current:true};
+ let permitted=true,cancellations=0,pauses=0,resumes=0;const pending=new Map();let timerId=0;
  const deps={r,flow,parked,getLanguage:C.getLanguage,serviceAllowed:()=>permitted,isCameraAllowed:()=>permitted,isMicrophoneAllowed:()=>permitted,parseLetterAnswer:V.parseLetterAnswer,
   complete:cancelled=>{assert.equal(cancelled,true);cancellations++;},pause:()=>pauses++,resume:()=>resumes++,
   refresh:()=>{},failure:()=>null,measureSymbol:()=>({viewportWidthCssPx:session.sizePx,viewportHeightCssPx:session.sizePx,pathWidthCssPx:session.sizePx*.8,pathHeightCssPx:session.sizePx*.8,strokeWidthCssPx:session.sizePx*.1,measuredAt:performance.now(),method:'dom-svg-css-pixels'}),
   setAnswerNotice:()=>{},answerDescription:V.describeAnswer,inspect:()=>{},prompt:()=>{},stopSpeech:()=>{},setVoice:()=>{},answerTransform:V.answerTransform,respondToVisibleLetter:V.respondToVisibleLetter,stopVoice:()=>{},
-  stage:next=>flow.current.transition(next),setTimeout:()=>1,clearTimeout:()=>{},sessionStorage:{getItem:()=>null}};
+  stage:next=>flow.current.transition(next),VISION_ANSWER_SETTLE_MS:750,setTimeout:(fn,ms)=>{pending.set(++timerId,{fn,ms});return timerId;},clearTimeout:id=>pending.delete(id),sessionStorage:{getItem:()=>null}};
  const receive=new Function(...Object.keys(deps),compiled+'\nreturn receive;')(...Object.values(deps));
- return {session,flow,memory,parked,deny:()=>{permitted=false;},receive:text=>receive(text,.9,session.presentationId,crypto.randomUUID()),counts:()=>[cancellations,pauses,resumes]};
+ return {session,flow,memory,parked,deny:()=>{permitted=false;},receive:text=>{receive(text,.9,session.presentationId,crypto.randomUUID());for(const [id,item]of [...pending])if(item.ms===750){pending.delete(id);item.fn();}},counts:()=>[cancellations,pauses,resumes]};
 }
 for(const [language,word,direction,finish] of [['tr','F','sağa','testi bitir'],['en','finish','right','finish the test'],['de','fertig','rechts','Test beenden']]){
  let a=receiver(language);a.receive(word);assert.equal(a.session.trials.length,0);assert.equal(a.memory.answer.letter,'F');assert.equal(a.memory.missing,'orientation');assert.deepEqual(a.counts(),[0,0,0]);
