@@ -1,0 +1,61 @@
+{
+  "annotations": 869,
+  "archiveBytes": 15086760,
+  "archiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "boxUsedAsPolygonTruth": false,
+  "classCounts": {
+    "darkcircle": 382,
+    "eyebag": 487
+  },
+  "containsImageNamesOrProviderIds": false,
+  "crossSplitDuplicateImageBytes": 0,
+  "decision": "local_archive_identity_and_geometry_verified_only",
+  "images": 399,
+  "methodVersion": "under-eye-grouped-local-archive-audit-v1",
+  "observedAt": "2026-10-28T22:08:15Z",
+  "polygonCount": 869,
+  "polygonGeometryVerified": true,
+  "privacySafe": true,
+  "productActivationAllowed": false,
+  "providerMutationPerformed": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "splits": {
+    "test": {
+      "annotations": 88,
+      "classCounts": {
+        "darkcircle": 41,
+        "eyebag": 47
+      },
+      "contentSetSHA256": "518be85fbd251d62449aa86f4a7f5508402a8df2aa684f6725f4c819cbfb8afa",
+      "geometrySummarySHA256": "27b46a64933918ab3f0df51daf599d3ad2c2af56bbf48f082932111edd24482a",
+      "images": 38
+    },
+    "train": {
+      "annotations": 632,
+      "classCounts": {
+        "darkcircle": 271,
+        "eyebag": 361
+      },
+      "contentSetSHA256": "c706c3637b3e1c2f0984c601b2438a2e3f5d000a6e4abdc68fcf77a6b06962a2",
+      "geometrySummarySHA256": "e55a8dd2f5d049ef7c7e38587430c65aceb3f50b01688250b3e8bed9d20150af",
+      "images": 284
+    },
+    "valid": {
+      "annotations": 149,
+      "classCounts": {
+        "darkcircle": 70,
+        "eyebag": 79
+      },
+      "contentSetSHA256": "d8ca0f75c44ea067eeec83a5006621bbfc1da2ee7075e8a61ade3348130d65fa",
+      "geometrySummarySHA256": "beaa998c3d2b8e968f327b5d506bf03da3753028e5fe6d2762bbe7adab86abc3",
+      "images": 77
+    }
+  },
+  "testEvaluationAuthorized": false,
+  "uploadPerformed": false,
+  "versionGenerationAuthorized": false,
+  "vertexCount": 9641,
+  "zipSafetyVerified": true
+}
