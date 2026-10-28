@@ -103,8 +103,15 @@ def verify_provider_upload(
     _require(trainings == [], "provider training exists before authorization")
 
     provider_summary_images = facts.get("providerProjectSummaryImages")
-    _require(isinstance(provider_summary_images, int) and provider_summary_images >= 0, "provider summary count is invalid")
-    summary_consistent = provider_summary_images == EXPECTED_IMAGES
+    provider_summary_unannotated = facts.get("providerProjectSummaryUnannotated")
+    _require(isinstance(provider_summary_images, int) and provider_summary_images >= 0, "provider summary image count is invalid")
+    _require(
+        isinstance(provider_summary_unannotated, int) and provider_summary_unannotated >= 0,
+        "provider summary unannotated count is invalid",
+    )
+    summary_image_count_consistent = provider_summary_images == EXPECTED_IMAGES
+    summary_label_count_consistent = provider_summary_unannotated == 0
+    summary_consistent = summary_image_count_consistent and summary_label_count_consistent
 
     return {
         "schemaVersion": 1,
@@ -126,6 +133,9 @@ def verify_provider_upload(
         "splits": EXPECTED_SPLITS,
         "classAnnotationCounts": EXPECTED_CLASSES,
         "providerProjectSummaryImages": provider_summary_images,
+        "providerProjectSummaryUnannotated": provider_summary_unannotated,
+        "providerProjectSummaryImageCountConsistent": summary_image_count_consistent,
+        "providerProjectSummaryLabelCountConsistent": summary_label_count_consistent,
         "providerProjectSummaryConsistent": summary_consistent,
         "providerProjectSummaryLagObserved": not summary_consistent,
         "versionPresent": False,

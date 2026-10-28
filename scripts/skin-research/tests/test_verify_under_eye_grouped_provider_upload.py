@@ -58,7 +58,8 @@ def valid_facts():
             "splits": {"train": 284, "valid": 77, "test": 38},
             "classAnnotationCounts": {"darkcircle": 382, "eyebag": 487},
         },
-        "providerProjectSummaryImages": 0,
+        "providerProjectSummaryImages": 399,
+        "providerProjectSummaryUnannotated": 399,
         "versions": [],
         "trainings": [],
     }
@@ -77,13 +78,15 @@ class ProviderUploadVerificationTests(unittest.TestCase):
         receipt = MODULE.verify_provider_upload(valid_facts(), expected_task_id=TASK_ID)
         self.assertTrue(receipt["uploadCompleted"])
         self.assertTrue(receipt["providerProjectSummaryLagObserved"])
+        self.assertTrue(receipt["providerProjectSummaryImageCountConsistent"])
+        self.assertFalse(receipt["providerProjectSummaryLabelCountConsistent"])
         self.assertFalse(receipt["versionGenerationAuthorized"])
         self.assertFalse(receipt["productActivationAllowed"])
         self.assertNotIn("imageId", json.dumps(receipt))
 
     def test_accepts_eventually_consistent_project_summary(self):
         facts = valid_facts()
-        facts["providerProjectSummaryImages"] = 399
+        facts["providerProjectSummaryUnannotated"] = 0
         receipt = MODULE.verify_provider_upload(facts, expected_task_id=TASK_ID)
         self.assertTrue(receipt["providerProjectSummaryConsistent"])
         self.assertFalse(receipt["providerProjectSummaryLagObserved"])
