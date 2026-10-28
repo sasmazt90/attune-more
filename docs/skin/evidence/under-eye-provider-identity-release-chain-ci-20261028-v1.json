@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T05:46:47Z",
+  "methodVersion": "under-eye-provider-identity-release-chain-ci-v1",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "eeffa6e15196224fbc097f3323dcd42c025a7060",
+  "workflow": {
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "runId": 40639590278,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40639590278",
+    "status": "completed",
+    "conclusion": "success",
+    "createdAt": "2026-10-28T05:42:55Z",
+    "completedAt": "2026-10-28T05:46:47Z",
+    "frontend": {
+      "jobId": 122654362218,
+      "conclusion": "success",
+      "completedAt": "2026-10-28T05:44:59Z"
+    },
+    "backend": {
+      "jobId": 122654362400,
+      "conclusion": "success",
+      "completedAt": "2026-10-28T05:46:46Z"
+    }
+  },
+  "tests": {
+    "focusedLocal": {
+      "passed": 63
+    },
+    "deterministic": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2,
+      "durationSeconds": 143.93
+    },
+    "skinResearch": {
+      "passed": 372,
+      "durationSeconds": 5.016
+    }
+  },
+  "providerState": {
+    "groupedProject": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "private": true,
+    "images": 0,
+    "versions": [],
+    "staleUploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+    "staleUploadTaskStatus": "created",
+    "providerExportObserved": false,
+    "uploadStartedByThisRun": false,
+    "versionStartedByThisRun": false,
+    "trainingStartedByThisRun": false
+  },
+  "releaseChain": {
+    "groupedGateMethod": "under-eye-grouped-release-gate-v4",
+    "perClassGateMethod": "under-eye-per-class-release-gate-v5",
+    "unifiedGateMethod": "unified-skin-result-release-gate-v16",
+    "augmentationFreeGroupedVersionVerified": false,
+    "providerExportIdentityVerified": false,
+    "researchTrainingAuthorized": false,
+    "finalTestEvaluationAuthorized": false,
+    "productActivationAllowed": false,
+    "roadmapAccepted": false
+  }
+}
