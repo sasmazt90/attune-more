@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T13:41:37Z",
+      "lastCheckedAt": "2026-10-28T14:41:45Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T13:41:37Z",
+      "lastCheckedAt": "2026-10-28T14:41:45Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -9003,6 +9003,28 @@
       },
       "providerTasks": [],
       "implementationCommit": "5d41992ba6ff9b2827ae2dd5faf63e6a315e753f",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T14:41:45Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye, grouped under-eye and stale upload-task state without starting duplicate work. Acne remains private at 800 images with unchanged 553/165/82 splits and both known runs finished; regional remains mutable at 476 images with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30 and both known runs are finished; under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 remains 279/81/39 with no training; grouped under-eye remains private and empty; stale upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. Implemented the missing skin-source-group-locked-split-v1 production path as a privacy-safe, fail-closed builder bound to completed source/person grouping evidence. Replaying current facts keeps 7,865 known records and 66 known exact cross-split groups blocked. A complete private manifest may emit the exact artifact only after all eleven selected archives are covered, every source/person group is assigned exactly once to positive train, validation and final-test partitions, cross-split groups are zero, all ten targets have expert-label coverage in every partition, final-test labels remain hidden from development and final test is excluded from training, thresholds and model selection. Physical-camera subjects, excluded archives and model-driven split assignment remain forbidden. The manifest rejects archive names/paths/URLs, raw record/group/subject IDs, reviewer identity, annotations and predictions. The committed template remains incomplete and public preflight remains blocked, so no split release artifact was emitted and training-data/product-truth authorization remains false. Eight focused tests and all 119 skin-research tests available in this partial workspace passed, including deterministic preflight replay. No private split ledger was committed or uploaded, no Roboflow write was made and no provider task was created.",
+      "report": "docs/skin/evidence/source-group-locked-split-builder-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_source_group_locked_split.py",
+        "scripts/skin-research/tests/test_build_source_group_locked_split.py",
+        "docs/skin/evidence/source-group-locked-split-input-template-20261028-v1.json",
+        "docs/skin/evidence/source-group-locked-split-preflight-20261028-v1.json",
+        "docs/skin/evidence/source-group-locked-split-builder-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 8,
+        "availableSkinResearch": 119,
+        "preflightReplayMatched": true,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "017422fe4bd6e8ca0e94d066d348233f5380de62",
       "runs": []
     }
   ]

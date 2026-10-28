@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-28",
+  "implementationCommit": "017422fe4bd6e8ca0e94d066d348233f5380de62",
+  "methodVersion": "skin-source-group-locked-split-builder-report-v1",
+  "observedAt": "2026-10-28T14:41:45Z",
+  "preflight": {
+    "decision": "blocked",
+    "knownExactCrossSplitGroupCount": 66,
+    "knownRecordCount": 7865,
+    "readyForReleaseArtifact": false
+  },
+  "releaseContract": {
+    "artifactMethodVersion": "skin-source-group-locked-split-v1",
+    "cameraSubjectsIncluded": false,
+    "crossSplitGroupCount": 0,
+    "finalTestLabelsHiddenDuringDevelopment": true,
+    "finalTestUsedForSelection": false,
+    "finalTestUsedForThresholds": false,
+    "finalTestUsedForTraining": false,
+    "groupLocked": true,
+    "modelPredictionsUsedToAssignSplits": false,
+    "selectedArchiveCount": 11,
+    "targets": ["acne", "oil", "dry", "redness", "tone", "lines", "dark", "bags", "type", "sag"]
+  },
+  "remoteState": {
+    "accessibleProjectCount": 20,
+    "acne": {
+      "images": 800,
+      "splits": {"test": 82, "train": 553, "valid": 165},
+      "trainings": {
+        "49ee6204cf069198bbfa": "finished",
+        "5b632a5c12b76fcfe703": "finished"
+      }
+    },
+    "groupedUnderEye": {
+      "images": 0,
+      "public": false
+    },
+    "regional": {
+      "mutableImages": 476,
+      "mutableUnannotated": 139,
+      "trainings": {
+        "3485f8c67f957a1b850d": "finished",
+        "af287a006e2e428f5ce4": "finished"
+      },
+      "version1Images": 337,
+      "version1Splits": {"test": 30, "train": 244, "valid": 63}
+    },
+    "staleUploadTask": {
+      "progress": null,
+      "status": "created",
+      "taskId": "sLFwX7CYBVcnnD6iAW5o"
+    },
+    "underEye": {
+      "darkcirclePolygons": 382,
+      "eyebagPolygons": 487,
+      "images": 399,
+      "version2Splits": {"test": 39, "train": 279, "valid": 81},
+      "version2TrainingCount": 0
+    }
+  },
+  "schemaVersion": 1,
+  "tests": {
+    "availableSkinResearch": 119,
+    "focused": 8,
+    "preflightReplayExitCode": 2,
+    "preflightReplayMatched": true,
+    "result": "OK"
+  },
+  "writes": {
+    "providerTasksCreated": [],
+    "roboflowWrites": [],
+    "trainingStarted": false
+  }
+}
