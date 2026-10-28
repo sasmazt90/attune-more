@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T22:08:15Z",
+      "lastCheckedAt": "2026-10-28T22:43:20Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -548,6 +548,88 @@
         "productActivationAllowed": false,
         "decision": "blocked",
         "implementationCommit": "23a5958e9c1b1d5a73f29f9307c13c914cc52103"
+      },
+      "nasModelGroupAudit": {
+        "observedAt": "2026-10-28T22:43:20Z",
+        "methodVersion": "nas-model-group-audit-v1",
+        "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+        "childInventory": {
+          "modelRecords": 89,
+          "uniqueChildren": 89,
+          "duplicateModelIds": [],
+          "complete": true,
+          "finishedModelRecords": 89,
+          "recommendedFlaggedUniqueChildren": 2,
+          "recommendedModelIds": [
+            "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+            "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1"
+          ]
+        },
+        "observedAggregateLeaders": {
+          "map50": {
+            "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+            "value": 17.59
+          },
+          "map5095": {
+            "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+            "value": 4.51
+          },
+          "fastestByHardware": {
+            "AI1": {
+              "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f45e1",
+              "latencyMs": 2.368880033493042
+            },
+            "T4": {
+              "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9602f1",
+              "latencyMs": 1.0690560340881348
+            }
+          },
+          "releaseWinnerClaimed": false
+        },
+        "evaluationCoverage": {
+          "providerEvaluations": 2,
+          "evaluatedNasChildren": 1,
+          "evaluatedNasModelIds": [
+            "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262"
+          ],
+          "complete": false,
+          "missingUniqueNasChildEvaluations": 88
+        },
+        "providerRecommendedSemantics": {
+          "flattenedUnionOnly": true,
+          "usedAsAccuracyWinner": false,
+          "usedAsHardwareWinner": false,
+          "authoritativeRecommendedByHardwarePresent": false
+        },
+        "perClassAcceptanceAllowed": false,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "facts": "docs/skin/evidence/nas-model-group-facts-20261028-v1.json",
+        "evidence": "docs/skin/evidence/nas-model-group-audit-20261028-v1.json",
+        "script": "scripts/skin-research/audit_nas_model_groups.py",
+        "tests": "scripts/skin-research/tests/test_audit_nas_model_groups.py",
+        "implementationCommit": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+        "ci": {
+          "runId": 40783025211,
+          "headSha": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 123149197357,
+          "frontend": "success",
+          "backendJobId": 123149197239,
+          "backend": "success",
+          "deterministicSuite": {
+            "passed": 1627,
+            "skipped": 44,
+            "warnings": 2
+          },
+          "skinResearchSuite": {
+            "passed": 491,
+            "result": "OK"
+          }
+        },
+        "ciEvidence": "docs/skin/evidence/nas-model-group-audit-ci-20261028-v1.json"
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -567,7 +649,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T22:08:15Z",
+      "lastCheckedAt": "2026-10-28T22:43:20Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -673,7 +755,7 @@
         "uploadProgress": null,
         "bytesSent": false,
         "trainingStarted": false,
-        "lastObservedAt": "2026-10-28T22:08:15Z",
+        "lastObservedAt": "2026-10-28T22:43:20Z",
         "evidence": "docs/skin/evidence/under-eye-provider-state-20261028-v3.json"
       },
       "groupedReleaseGate": {
@@ -951,7 +1033,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-28T22:08:15Z",
+      "lastCheckedAt": "2026-10-28T22:43:20Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1325,6 +1407,89 @@
         "confirmedSplitMutation": false,
         "providerVersionCreated": false,
         "trainingStarted": false
+      },
+      "nasModelGroupAudit": {
+        "observedAt": "2026-10-28T22:43:20Z",
+        "methodVersion": "nas-model-group-audit-v1",
+        "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+        "childInventory": {
+          "modelRecords": 75,
+          "uniqueChildren": 74,
+          "duplicateModelIds": [
+            "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
+          ],
+          "complete": true,
+          "finishedModelRecords": 75,
+          "recommendedFlaggedUniqueChildren": 1,
+          "recommendedModelIds": [
+            "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
+          ]
+        },
+        "observedAggregateLeaders": {
+          "map50": {
+            "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700",
+            "value": 49.73
+          },
+          "map5095": {
+            "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+            "value": 20.96
+          },
+          "fastestByHardware": {
+            "AI1": {
+              "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4f45e1",
+              "latencyMs": 2.368880033493042
+            },
+            "T4": {
+              "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9602f1",
+              "latencyMs": 1.0690560340881348
+            }
+          },
+          "releaseWinnerClaimed": false
+        },
+        "evaluationCoverage": {
+          "providerEvaluations": 2,
+          "evaluatedNasChildren": 1,
+          "evaluatedNasModelIds": [
+            "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
+          ],
+          "complete": false,
+          "missingUniqueNasChildEvaluations": 73
+        },
+        "providerRecommendedSemantics": {
+          "flattenedUnionOnly": true,
+          "usedAsAccuracyWinner": false,
+          "usedAsHardwareWinner": false,
+          "authoritativeRecommendedByHardwarePresent": false
+        },
+        "perClassAcceptanceAllowed": false,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "facts": "docs/skin/evidence/nas-model-group-facts-20261028-v1.json",
+        "evidence": "docs/skin/evidence/nas-model-group-audit-20261028-v1.json",
+        "script": "scripts/skin-research/audit_nas_model_groups.py",
+        "tests": "scripts/skin-research/tests/test_audit_nas_model_groups.py",
+        "implementationCommit": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+        "ci": {
+          "runId": 40783025211,
+          "headSha": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 123149197357,
+          "frontend": "success",
+          "backendJobId": 123149197239,
+          "backend": "success",
+          "deterministicSuite": {
+            "passed": 1627,
+            "skipped": 44,
+            "warnings": 2
+          },
+          "skinResearchSuite": {
+            "passed": 491,
+            "result": "OK"
+          }
+        },
+        "ciEvidence": "docs/skin/evidence/nas-model-group-audit-ci-20261028-v1.json"
       }
     },
     "regionalSkinTypeBoxes": {
@@ -5196,6 +5361,7 @@
     }
   },
   "nextActions": [
+    "Preserve docs/skin/evidence/nas-model-group-audit-20261028-v1.json and replay scripts/skin-research/audit_nas_model_groups.py before interpreting either frozen NAS modelGroup. The complete one-page inventories contain 89 acne records/89 unique children and 75 regional records/74 unique children; the regional provider page contains two materially different records for model ID e79545, and the audit fail-closes if that duplication changes. Provider recommended is a flattened union only: it is not an accuracy winner, hardware winner or per-class acceptance signal. Aggregate map50/map50-95 and fastest-per-hardware rows are observations only; just 1/89 acne and 1/74 unique regional NAS children have provider model evaluations. Bind exact per-class validation evidence and the existing expert/person-independent/final-test/camera gates before any candidate, threshold, final-test or activation decision. Preserve successful GitHub Actions run 40783025211 and do not start duplicate training or evaluation.",
     "Preserve the completed 337/337 opaque source/person review and deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the mutable provider project drifted to 476 images at 334/85/57 with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30. Do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact augmentation-free provider version 2 matches the group-locked manifest and passes audit_regional_provider_version_export.py schema v3 by image-content plus canonical simple-polygon geometry. Absolute, traversal or symlinked image paths, duplicate category identities, boxes, RLE/crowd masks, self-intersecting or repeated-vertex rings, out-of-image bboxes, nonpositive areas, degenerate rings and duplicate/cross-split image content cannot satisfy provider identity. Keep the 51-image final test untouched for selection or thresholds.",
     "Complete and accept the independent 81-item Oily/Redness expert semantic mask protocol before any regional training authorization. The completed source/person review establishes grouping only: source polygons, model predictions and missing labels remain ineligible as expert truth; independent consented physical-camera evidence is still required.",
     "Replay scripts/skin-research/check_unified_skin_result_release.py v19 for every task-13 decision. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while exact per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false. The unified gate must also bind source-mapping gate v2 and its complete eight-artifact SHA-256 registry; mutable source-release booleans cannot authorize training data or product truth. Under-eye decisions must bind the exact grouped release gate v4 through under-eye per-class gate v5, including augmentation-free generated-version identity and provider-export content/polygon identity; regional provider decisions must bind gate v5 and its exact canonical simple-polygon, safe-path, category, bbox and area audit rather than counts, tags or boxes. A controlled browser fixture cannot satisfy physical-camera, expert-truth or accuracy acceptance.",
@@ -9349,6 +9515,54 @@
       "providerTasks": [],
       "implementationCommit": "dfc104a9053b3be1c1a701a62d714dbfc485df13",
       "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T22:55:31Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye project/version/training state without starting duplicate work. Acne remains private at 800 images with unchanged 553/165/82 splits and both known runs finished; regional remains mutable at 476 images with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30 and both known runs finished; under-eye pilot version 2 still has no training; grouped under-eye remains private and empty, its stale upload task remains created/no-progress and it has no model. Paginated each NAS modelGroup in one complete page and implemented a privacy-safe fail-closed audit. Acne has 89 records/89 unique children. Regional has 75 provider records but only 74 unique child IDs because e79545 appears twice with materially different recommended/metric payloads; the audit now preserves and exact-binds that provider anomaly instead of hiding it or falsely rejecting the whole snapshot. Provider recommended, Pareto membership, aggregate map50/map50-95 and fastest-per-hardware rows remain observations only, never accuracy, hardware or per-class winners. Only 1/89 acne and 1/74 unique regional NAS children have provider evaluations, so per-class acceptance, final-test use, retraining and product activation remain false. Initial CI run 40782270971 exposed the duplicate-record assumption; commit fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4 corrected the record/unique-child accounting and unexpected-duplication gate. GitHub Actions run 40783025211 is green: frontend job 123149197357 passed, backend job 123149197239 passed 1,627 deterministic tests with 44 skips and 2 warnings, and the complete skin-research suite passed 491 tests. No Roboflow write, evaluation creation, upload, version, training, excluded-archive access or private payload commit occurred.",
+      "report": "docs/skin/evidence/nas-model-group-audit-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/audit_nas_model_groups.py",
+        "scripts/skin-research/tests/test_audit_nas_model_groups.py",
+        "docs/skin/evidence/nas-model-group-facts-20261028-v1.json",
+        "docs/skin/evidence/nas-model-group-audit-20261028-v1.json",
+        "docs/skin/evidence/nas-model-group-audit-ci-20261028-v1.json"
+      ],
+      "tests": {
+        "localExecutionEnvironmentAvailable": false,
+        "focusedLocal": 0,
+        "ciRunId": 40783025211,
+        "frontend": "success",
+        "backend": "success",
+        "deterministicPassed": 1627,
+        "deterministicSkipped": 44,
+        "deterministicWarnings": 2,
+        "skinResearchPassed": 491,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+      "runs": [
+        {
+          "type": "github_actions",
+          "id": 40782270971,
+          "status": "completed",
+          "conclusion": "failure",
+          "headSha": "374f7be0f6d760e9dd1e81a07da113cd0880747b",
+          "frontendJobId": 123146649533,
+          "backendJobId": 123146648863,
+          "supersededBy": 40783025211
+        },
+        {
+          "type": "github_actions",
+          "id": 40783025211,
+          "status": "completed",
+          "conclusion": "success",
+          "headSha": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+          "frontendJobId": 123149197357,
+          "backendJobId": 123149197239
+        }
+      ]
     }
   ]
 }

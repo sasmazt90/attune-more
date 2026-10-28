@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "nas-model-group-audit-ci-v1",
+  "observedAt": "2026-10-28T22:55:31Z",
+  "repository": "sasmazt90/attune-more",
+  "branch": "work/skin-roadmap-20261023",
+  "workflow": "CI / Submission QA Guard",
+  "runId": 40783025211,
+  "runUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40783025211",
+  "headSha": "fb77e63ea9f5b63e4f3b8b68306775c01cdc45a4",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 123149197239,
+      "name": "Backend Unit Tests (Python 3.11)",
+      "status": "completed",
+      "conclusion": "success",
+      "relevantSteps": [
+        {
+          "name": "Run deterministic unit test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        {
+          "name": "Run complete skin research evidence suite",
+          "status": "completed",
+          "conclusion": "success",
+          "passed": 491,
+          "result": "OK"
+        }
+      ]
+    },
+    {
+      "id": 123149197357,
+      "name": "Frontend Production Build (Node.js 22.20.0)",
+      "status": "completed",
+      "conclusion": "success",
+      "relevantSteps": [
+        {
+          "name": "Run Next.js Production Build",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "predecessorFailure": {
+    "runId": 40782270971,
+    "headSha": "374f7be0f6d760e9dd1e81a07da113cd0880747b",
+    "conclusion": "failure",
+    "cause": "regional provider page contains 75 records but 74 unique model IDs; initial auditor incorrectly required record IDs to be unique",
+    "supersededBy": 40783025211
+  },
+  "localExecutionEnvironmentAvailable": false,
+  "providerMutationPerformed": false,
+  "roadmapAccepted": false
+}
