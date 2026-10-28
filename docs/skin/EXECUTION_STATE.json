@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T14:41:45Z",
+      "lastCheckedAt": "2026-10-28T15:31:06Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T14:41:45Z",
+      "lastCheckedAt": "2026-10-28T15:31:06Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -9025,6 +9025,28 @@
       },
       "providerTasks": [],
       "implementationCommit": "017422fe4bd6e8ca0e94d066d348233f5380de62",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T15:31:06Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye, grouped under-eye and stale upload-task state without starting duplicate work. Acne remains private at 800 images with unchanged 553/165/82 splits; its NAS group still exposes 89 children and both known runs are finished. Regional remains mutable at 476 images with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30; its NAS group exposes 75 children and both known runs are finished. Under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 remains 279/81/39 with no training; grouped under-eye remains private and empty; stale upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. Implemented the missing skin-source-independent-camera-reservation-v1 production path as a privacy-safe, fail-closed builder. The current public facts remain blocked because no physical-camera subjects or sessions are reserved. A complete private manifest may emit the exact reservation artifact only after source-independent subjects have one consent-before-capture physical-camera session each with front, left and right views, immutable reservation/capture/consent/privacy evidence and explicit no-overlap verification against the source registry. Generated or rendered media, controlled fixtures, source-registry subjects, excluded archives, model predictions and reuse for training, validation, threshold fitting, model selection or test retuning are forbidden. Reservation is explicitly not physical-camera acceptance or accuracy evidence; later consented capture, expert truth, per-class metrics and working-product replay remain required. The manifest rejects names, paths, URLs, raw subject/person/record IDs, contact or demographic data, media, annotations and predictions. Eight focused tests and all 127 skin-research tests available in this partial workspace passed, including deterministic preflight replay. No private reservation or capture payload was committed or uploaded, no Roboflow write was made and no provider task was created.",
+      "report": "docs/skin/evidence/source-independent-camera-reservation-builder-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_source_independent_camera_reservation.py",
+        "scripts/skin-research/tests/test_build_source_independent_camera_reservation.py",
+        "docs/skin/evidence/source-independent-camera-reservation-input-template-20261028-v1.json",
+        "docs/skin/evidence/source-independent-camera-reservation-preflight-20261028-v1.json",
+        "docs/skin/evidence/source-independent-camera-reservation-builder-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 8,
+        "availableSkinResearch": 127,
+        "preflightReplayMatched": true,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "857ba2a0f9d076da8c0bad21b152edde58c6e666",
       "runs": []
     }
   ]
