@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T15:31:06Z",
+      "lastCheckedAt": "2026-10-28T17:16:03Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T15:31:06Z",
+      "lastCheckedAt": "2026-10-28T17:16:03Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -837,7 +837,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-28T07:33:17Z",
+      "lastCheckedAt": "2026-10-28T17:16:03Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -1074,7 +1074,7 @@
           "docs/skin/evidence/regional-mask-inferences-test-20261023-v1.index.json"
         ]
       },
-      "lastCheckedDate": "2026-10-27",
+      "lastCheckedDate": "2026-10-28",
       "sourcePersonCoverageReview": {
         "observedAt": "2026-10-27T20:41:43Z",
         "methodVersion": "regional-mask-source-person-review-v1",
@@ -2205,6 +2205,40 @@
         "deterministicWarnings": 2,
         "skinResearchTests": 327
       }
+    },
+    "excludedArchiveInventoryBuilder": {
+      "observedAt": "2026-10-28T17:16:03Z",
+      "methodVersion": "excluded-archive-inventory-reconciliation-builder-v1",
+      "script": "scripts/skin-research/build_excluded_archive_inventory.py",
+      "tests": "scripts/skin-research/tests/test_build_excluded_archive_inventory.py",
+      "inputTemplate": "docs/skin/evidence/excluded-archive-inventory-input-template-20261028-v1.json",
+      "preflight": "docs/skin/evidence/excluded-archive-inventory-preflight-20261028-v1.json",
+      "report": "docs/skin/evidence/excluded-archive-inventory-builder-20261028-v1.json",
+      "implementationCommit": "cb384e47f04b36d52f8b83d4a9f83b51693d28b6",
+      "releaseArtifactMethod": "excluded-archive-inventory-reconciliation-v1",
+      "requiredArchiveCount": 4,
+      "reconciledArchiveCount": 0,
+      "metadataOnlyPresenceVerificationRequired": true,
+      "archiveNamesPathsUrlsAccepted": false,
+      "archiveContentEnumerationAllowed": false,
+      "archiveHashInputAccepted": false,
+      "archiveHashRecomputationAllowed": false,
+      "excludedArchiveAccessAllowed": false,
+      "mutationAllowed": false,
+      "uploadAllowed": false,
+      "trainingUseAllowed": false,
+      "productUseAllowed": false,
+      "sourceReleaseContributionAllowed": false,
+      "inventoryReconciled": false,
+      "readyForReleaseArtifact": false,
+      "releaseArtifactEmitted": false,
+      "trainingDataReleaseAuthorized": false,
+      "productTruthAuthorized": false,
+      "localFocusedTests": 8,
+      "availableSkinResearchEvidenceSuite": 135,
+      "preflightReplayMatched": true,
+      "githubActionsObserved": false,
+      "providerTasks": []
     }
   },
   "sourceAccess": {
@@ -9047,6 +9081,28 @@
       },
       "providerTasks": [],
       "implementationCommit": "857ba2a0f9d076da8c0bad21b152edde58c6e666",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T17:16:03Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye, grouped under-eye, NAS child and stale upload-task state without starting duplicate work. Acne remains private at 800 images with unchanged 553/165/82 splits, 89 paginated NAS children and both known runs finished; regional remains mutable at 476 images with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30, 75 paginated NAS children and both known runs finished; under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 remains 279/81/39 with no training; grouped under-eye remains private and empty; stale upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. Implemented the exact excluded-archive-inventory-reconciliation-v1 production builder required by the source-mapping evidence registry. The new path upgrades the earlier gate by forbidding archive hashes, archive-hash recomputation, content enumeration and any source-release contribution; it accepts only four unique opaque archive references plus distinct metadata-only presence and preservation evidence verified without content access. Names, paths, URLs, contents, excluded-archive access, mutation, upload, training use and product use fail hard. The committed template remains empty and deterministic preflight remains blocked at zero reconciled archives, so no release artifact was emitted and training-data/product-truth authorization remains false. Eight focused tests and all 135 skin-research tests available in this partial workspace passed, including deterministic preflight replay. No excluded archive was accessed, hashed, mutated, uploaded or used; no private payload was committed; no Roboflow write was made and no provider task was created.",
+      "report": "docs/skin/evidence/excluded-archive-inventory-builder-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_excluded_archive_inventory.py",
+        "scripts/skin-research/tests/test_build_excluded_archive_inventory.py",
+        "docs/skin/evidence/excluded-archive-inventory-input-template-20261028-v1.json",
+        "docs/skin/evidence/excluded-archive-inventory-preflight-20261028-v1.json",
+        "docs/skin/evidence/excluded-archive-inventory-builder-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 8,
+        "availableSkinResearch": 135,
+        "preflightReplayMatched": true,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "cb384e47f04b36d52f8b83d4a9f83b51693d28b6",
       "runs": []
     }
   ]

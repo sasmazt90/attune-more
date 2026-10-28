@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "excluded-archive-inventory-reconciliation-builder-v1",
+  "observedAt": "2026-10-28T17:16:03Z",
+  "implementationCommit": "cb384e47f04b36d52f8b83d4a9f83b51693d28b6",
+  "releaseArtifactMethod": "excluded-archive-inventory-reconciliation-v1",
+  "implementation": {
+    "script": "scripts/skin-research/build_excluded_archive_inventory.py",
+    "tests": "scripts/skin-research/tests/test_build_excluded_archive_inventory.py",
+    "inputTemplate": "docs/skin/evidence/excluded-archive-inventory-input-template-20261028-v1.json",
+    "preflight": "docs/skin/evidence/excluded-archive-inventory-preflight-20261028-v1.json"
+  },
+  "upgradeFromPriorGate": {
+    "priorScript": "scripts/skin-research/reconcile_excluded_archive_inventory.py",
+    "priorGate": "docs/skin/evidence/excluded-archive-inventory-gate-20261026-v1.json",
+    "priorArchiveHashInputAccepted": true,
+    "newArchiveHashInputAccepted": false,
+    "newArchiveHashRecomputationAllowed": false,
+    "newContentEnumerationAllowed": false,
+    "newReleaseContributionAllowed": false,
+    "exactSourceMappingRegistryFieldsEmitted": true
+  },
+  "currentPreflight": {
+    "requiredArchiveCount": 4,
+    "reconciledArchiveCount": 0,
+    "inventoryReconciled": false,
+    "preservationPolicyEnforced": false,
+    "containsPublicNamesOrPaths": false,
+    "excludedArchivesAccessed": false,
+    "mutationPerformed": false,
+    "uploadPerformed": false,
+    "trainingUsePerformed": false,
+    "productUsePerformed": false,
+    "sourceReleaseContributionAllowed": false,
+    "readyForReleaseArtifact": false,
+    "releaseArtifactEmitted": false
+  },
+  "privateManifestPolicy": {
+    "opaqueArchiveReferencesOnly": true,
+    "metadataOnlyPresenceVerificationRequired": true,
+    "presenceVerifiedWithoutContentAccessRequired": true,
+    "archiveNamesPathsUrlsRejected": true,
+    "archiveContentsRejected": true,
+    "archiveHashesRejected": true,
+    "duplicateOpaqueReferencesRejected": true,
+    "duplicateEvidenceHashesRejected": true,
+    "unsafeArchiveActionRejected": true,
+    "privateManifestCommitted": false
+  },
+  "tests": {
+    "focused": 8,
+    "availableSkinResearch": 135,
+    "preflightReplayMatched": true,
+    "result": "OK"
+  },
+  "roboflowRefresh": {
+    "accessibleProjects": 20,
+    "acne": {
+      "images": 800,
+      "splits": {"train": 553, "valid": 165, "test": 82},
+      "nasTrainingStatus": "finished",
+      "smallTrainingStatus": "finished",
+      "nasChildCount": 89
+    },
+    "regional": {
+      "mutableImages": 476,
+      "mutableUnannotated": 139,
+      "version1Images": 337,
+      "version1Splits": {"train": 244, "valid": 63, "test": 30},
+      "nasTrainingStatus": "finished",
+      "smallTrainingStatus": "finished",
+      "nasChildCount": 75
+    },
+    "underEye": {
+      "images": 399,
+      "classes": {"darkcircle": 382, "eyebag": 487},
+      "version2Splits": {"train": 279, "valid": 81, "test": 39},
+      "version2TrainingCount": 0
+    },
+    "groupedUnderEye": {
+      "images": 0,
+      "splits": {"train": 0, "valid": 0, "test": 0}
+    },
+    "staleUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null,
+      "retryStarted": false
+    }
+  },
+  "trainingStarted": false,
+  "roboflowWritePerformed": false,
+  "providerTasks": [],
+  "trainingDataReleaseAuthorized": false,
+  "productTruthAuthorized": false,
+  "roadmapComplete": false
+}
