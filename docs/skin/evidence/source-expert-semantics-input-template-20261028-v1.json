@@ -1,0 +1,47 @@
+{
+  "mapContract": {
+    "combinationRequiresCoverageAndRuleValidation": true,
+    "combinationRule": "oily-t-zone-plus-supported-normal-or-dry-outside-t-zone",
+    "dry": "blue",
+    "mixedLayersAllowed": true,
+    "normal": "uncoloured-only-if-evaluated-normal",
+    "oily": "green",
+    "redness": "red-contour-or-hatching-independent",
+    "unknown": "light-grey-never-normal"
+  },
+  "methodVersion": "skin-source-expert-semantics-input-v1",
+  "releaseRef": null,
+  "review": {
+    "allTargetsReviewed": false,
+    "expertAuthorizationConfirmed": false,
+    "protocolsLockedBeforeDatasetRelease": false,
+    "semanticDisagreementsResolved": false
+  },
+  "schemaVersion": 1,
+  "sourceRegistryRef": null,
+  "targetSemantics": [],
+  "targetsExpected": [
+    "acne",
+    "oil",
+    "dry",
+    "redness",
+    "tone",
+    "lines",
+    "dark",
+    "bags",
+    "type",
+    "sag"
+  ],
+  "truthPolicy": {
+    "boxesUsedAsPixelTruth": false,
+    "mappingUsedAsExpertTruth": false,
+    "missingLabelMeansNegativeOrNormal": false,
+    "modelPredictionUsedAsExpertTruth": false,
+    "normalRequiresEvaluatedNormal": true,
+    "pulUsedAsBroadRegionalDryness": false,
+    "rectanglePolygonsUsedAsPixelTruth": false,
+    "rednessIndependentFromSensitivity": true,
+    "toneUsedAsLocalizedPigmentation": false,
+    "wholeFaceClassReplicatedIntoRegions": false
+  }
+}

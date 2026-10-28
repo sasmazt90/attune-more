@@ -1,0 +1,47 @@
+{
+  "blockers": [
+    "expert_semantic_protocols_missing",
+    "per_class_expert_semantics_not_locked",
+    "source_label_mappings_are_routing_hints_only"
+  ],
+  "boxesUsedAsPixelTruth": false,
+  "decision": "blocked",
+  "mapContract": {
+    "combinationRequiresCoverageAndRuleValidation": true,
+    "combinationRule": "oily-t-zone-plus-supported-normal-or-dry-outside-t-zone",
+    "dry": "blue",
+    "mixedLayersAllowed": true,
+    "normal": "uncoloured-only-if-evaluated-normal",
+    "oily": "green",
+    "redness": "red-contour-or-hatching-independent",
+    "unknown": "light-grey-never-normal"
+  },
+  "mappingUsedAsExpertTruth": false,
+  "methodVersion": "skin-source-expert-semantics-preflight-v1",
+  "missingLabelMeansNegativeOrNormal": false,
+  "modelPredictionUsedAsExpertTruth": false,
+  "normalRequiresEvaluatedNormal": true,
+  "perClassExpertSemanticsLocked": false,
+  "pulUsedAsBroadRegionalDryness": false,
+  "readyForReleaseArtifact": false,
+  "rectanglePolygonsUsedAsPixelTruth": false,
+  "rednessIndependentFromSensitivity": true,
+  "releaseRef": null,
+  "reviewedTargetCount": 0,
+  "schemaVersion": 1,
+  "sourceRegistryRef": null,
+  "targets": [
+    "acne",
+    "oil",
+    "dry",
+    "redness",
+    "tone",
+    "lines",
+    "dark",
+    "bags",
+    "type",
+    "sag"
+  ],
+  "toneUsedAsLocalizedPigmentation": false,
+  "wholeFaceClassReplicatedIntoRegions": false
+}

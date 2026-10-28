@@ -1,0 +1,36 @@
+{
+  "boxIsNotMask": true,
+  "mapContract": {
+    "combinationRequiresCoverageAndRuleValidation": true,
+    "combinationRule": "oily-t-zone-plus-supported-normal-or-dry-outside-t-zone",
+    "dry": "blue",
+    "mixedLayersAllowed": true,
+    "normal": "uncoloured-only-if-evaluated-normal",
+    "oily": "green",
+    "redness": "red-contour-or-hatching-independent",
+    "unknown": "light-grey-never-normal"
+  },
+  "mappingGitBlobs": {
+    "expandedSources": "8771f1aed674f1c7f554dcb6fa539b20c7696f38",
+    "selectedSources": "cfd24d16f86f3437dd3b1d925053cc7ebe543399"
+  },
+  "mappingLabelsAreResearchRoutingHints": true,
+  "methodVersion": "skin-source-expert-semantics-current-facts-v1",
+  "modelPredictionsUsedForSelection": false,
+  "perClassExpertSemanticsLocked": false,
+  "schemaVersion": 1,
+  "sourceReviewExpertReviewed": false,
+  "targets": [
+    "acne",
+    "oil",
+    "dry",
+    "redness",
+    "tone",
+    "lines",
+    "dark",
+    "bags",
+    "type",
+    "sag"
+  ],
+  "unknownAreasMasked": true
+}
