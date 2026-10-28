@@ -22,5 +22,5 @@ with sync_playwright() as pw:
    except Exception:status='no-terminal-provider-event-within-45s'
   events=p.evaluate('nativeSpeechEvents');assert p.evaluate('probe.events.filter(e=>e.combinedCorrect!==undefined).length')==0
   result={'kind':'actual Chrome SpeechRecognition with fake microphone; camera/model fixtures only','apiAvailable':available,'status':status,'events':events,'scoredTrials':0,'realUtteranceAccuracy':'NOT_TESTED','physicalMicrophone':'NOT_AVAILABLE'}
-  Path('docs/vision-evidence/native-speech.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+  Path('docs/vision-conversation-evidence/native-speech.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
  finally:browser.close()

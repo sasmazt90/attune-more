@@ -23,5 +23,5 @@ with sync_playwright() as pw:
         denied.new_cdp_session(q).send('Browser.setPermission',{'permission':{'name':'camera'},'setting':'denied','origin':BASE})
         q.get_by_role('button',name='Başlat',exact=True).click();q.locator('p[role=alert]').wait_for();assert q.locator('[data-letter-optotype]').count()==0
         result={'kind':'native fake-device browser capture; unchanged local MediaPipe worker/weights; no face in test pattern','delegate':evidence['delegate'],'faceCount':0,'eyes':['uncertain','uncertain'],'nativeCameraPermissionDenied':True,'trackDisconnectionCleanup':True,'physicalUserAcceptance':False}
-        path=Path('docs/vision-evidence/native-camera.json');path.parent.mkdir(exist_ok=True);path.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+        path=Path('docs/vision-conversation-evidence/native-camera.json');path.parent.mkdir(exist_ok=True);path.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
     finally:browser.close()

@@ -93,7 +93,7 @@ export default function SpokenLetterPage(){
    const finals=[];for(let i=event.resultIndex||0;i<event.results.length;i++){
     const item=event.results[i];if(!item)continue;
     const choices=Array.from({length:Math.min(item.length||1,3)},(_,n)=>({transcript:item[n].transcript,confidence:item[n].confidence}));
-    const chosen=visionRecognitionChoice(choices,getLanguage(),{letter:s.letter});if(!chosen||isLetterInstructionEcho(chosen.transcript,getLanguage()))continue;
+    const chosen=visionRecognitionChoice(choices,getLanguage(),{letter:s.letter});if(!chosen||!chosen.transcript.trim()||isLetterInstructionEcho(chosen.transcript,getLanguage()))continue;
     if(!item.isFinal){
      // A meaningful interim cancels obsolete speech and the pending commit,
      // without using an interim transcript as a scored answer.
@@ -115,7 +115,7 @@ export default function SpokenLetterPage(){
    actions.current.receive(text,confidence,id,`${recognitionId}:${finals.map(x=>x.index).join(',')}`);
   };
   recognition.onspeechend=()=>{if(valid())a.speechActive=false;};
-  recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech')return;recognitionFailure(event.error);};
+  recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech'){abortRecognition();s.suspendResponse();setVoice('quiet');if(controlOnly)scheduleListening();else actions.current.silence();return;}recognitionFailure(event.error);};
   recognition.onend=()=>{if(!valid())return;a.recognition=null;a.listeningStarted=false;a.speechActive=false;s.suspendResponse();setVoice('quiet');if(!accepted&&!controlOnly)actions.current.silence();else scheduleListening();};
   try{recognition.start();}catch{recognitionFailure('start-failed');}
  }
