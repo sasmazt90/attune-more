@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261028-v15.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261028-v16.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -669,4 +669,5 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 

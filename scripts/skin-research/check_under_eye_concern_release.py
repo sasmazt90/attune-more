@@ -22,7 +22,7 @@ EXPECTED_BLOBS = {
     "providerGroupedReproduction": "12d3bc76bdc41482828932e401d3df9738a6ace8",
     "providerState": "e56d27cd2e51f3fd06eb116d723b8924e89f8a00",
     "groupedArchiveAuthorization": "24aff0aaa21026523b32ce257ec00725b3b25861",
-    "groupedReleaseGate": "213837262f0e729efb102330c81d33e5d5d74782",
+    "groupedReleaseGate": "a39f41d725846c04c2c92124d112644df4093eac",
     "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
     "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
     "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1",
@@ -33,7 +33,7 @@ KNOWN_INELIGIBLE_MODEL_IDS = {REJECTED_UNGROUPED_MODEL_ID}
 EXPECTED_GROUPED_ARCHIVE_SHA256 = "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122"
 REVOKED_GROUPED_ARCHIVE_SHA256 = "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8"
 EXPECTED_SOURCE_ARCHIVE_SHA256 = "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
-EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = "b24dda0a3c1ac46c650c111855ecac5ef4a014f67e6ab96d633ccac776d7d127"
+EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = "9b5b8f1f43cb27b64a328092ed273b23ccbbc760e07d03b5ea76f70addc9cb0f"
 EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256 = "8784366d14ac86d6472f87c4f14ae7940e5c9344f2cfceeb30ef24b3f116c38d"
 
 
@@ -129,7 +129,7 @@ def _validate_grouped_release_gate(gate: dict[str, Any] | None) -> dict[str, boo
     _require(gate.get("schemaVersion"), 1, "grouped release gate schema changed")
     _require(
         gate.get("methodVersion"),
-        "under-eye-grouped-release-gate-v3",
+        "under-eye-grouped-release-gate-v4",
         "grouped release gate method changed",
     )
     _require(
@@ -161,7 +161,8 @@ def _validate_grouped_release_gate(gate: dict[str, Any] | None) -> dict[str, boo
     flags = {
         "archive": gate.get("exactArchiveAuthorized") is True,
         "import": gate.get("versionGenerationAuthorized") is True,
-        "version": gate.get("researchTrainingAuthorized") is True,
+        "version": gate.get("augmentationFreeGroupedVersionVerified") is True,
+        "providerExport": gate.get("providerExportIdentityVerified") is True,
         "training": gate.get("researchTrainingAuthorized") is True,
     }
     if flags["version"] and not flags["import"]:
@@ -299,6 +300,7 @@ def evaluate_release(
         ("exactArchiveAuthorized", "archive"),
         ("groupedImportVerified", "import"),
         ("augmentationFreeGroupedVersionVerified", "version"),
+        ("providerExportIdentityVerified", "providerExport"),
     ):
         if candidate.get(field) is not grouped_flags[grouped_field]:
             raise GateInputError(f"{field} claim is not bound to grouped release gate evidence")
@@ -318,6 +320,8 @@ def evaluate_release(
         shared_training_blockers.append("grouped_import_verification_missing")
     if not grouped_flags["version"]:
         shared_training_blockers.append("grouped_version_verification_missing")
+    if not grouped_flags["providerExport"]:
+        shared_training_blockers.append("grouped_provider_export_identity_verification_missing")
     if not grouped_flags["training"]:
         shared_training_blockers.append("grouped_release_gate_training_authorization_missing")
     if not queue_verified:
@@ -341,8 +345,8 @@ def evaluate_release(
     }
     roadmap_accepted = distinct_candidate and all(item["productActivationAllowed"] for item in class_decisions.values())
     return {
-        "schemaVersion": 4,
-        "methodVersion": "under-eye-per-class-release-gate-v4",
+        "schemaVersion": 5,
+        "methodVersion": "under-eye-per-class-release-gate-v5",
         "existingConcreteResultFlowPreserved": True,
         "classesRemainSeparate": True,
         "ungroupedModelAccepted": False,
@@ -351,6 +355,7 @@ def evaluate_release(
         "expertReviewQueueVerified": queue_verified,
         "expertSemanticProtocolVerified": protocol_verified,
         "groupedReleaseGateVerified": True,
+        "providerExportIdentityVerified": grouped_flags["providerExport"],
         "blindRetrainingAllowed": False,
         "classDecisions": class_decisions,
         "roadmapAccepted": roadmap_accepted,
@@ -380,4 +385,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
 

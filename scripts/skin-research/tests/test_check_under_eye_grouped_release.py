@@ -52,6 +52,28 @@ def remote():
     }
 
 
+def provider_audit(sha):
+    return {
+        "schemaVersion": MODULE.EXPECTED_PROVIDER_AUDIT_SCHEMA,
+        "project": MODULE.EXPECTED_GROUPED_PROJECT,
+        "public": False,
+        "versionNumber": 1,
+        "authorizedArchiveSHA256": sha,
+        "images": 399,
+        "annotations": 869,
+        "splits": {"train": 284, "valid": 77, "test": 38},
+        "classCounts": {"darkcircle": 382, "eyebag": 487},
+        "allProviderRecordsMatchedAuthorizedArchiveOnce": True,
+        "unexpectedProviderRecords": 0,
+        "missingAuthorizedRecords": 0,
+        "crossSplitContentHashCount": 0,
+        "polygonGeometryVerified": True,
+        "boxGeometryUsedAsPolygonTruth": False,
+        "containsFilenamesOrProviderImageIds": False,
+        "providerDatasetIdentitySHA256": "1" * 64,
+    }
+
+
 class UnderEyeGroupedReleaseGateTest(unittest.TestCase):
     def test_new_exact_archive_authorizes_only_fresh_direct_upload(self):
         sha = reproduction()["outputArchiveSHA256"]
@@ -91,6 +113,7 @@ class UnderEyeGroupedReleaseGateTest(unittest.TestCase):
             "upload": {"taskId": "fresh-task", "status": "completed", "progress": 1, "bytesSent": True},
             "importedDataset": dict(MODULE.EXPECTED_GROUPED),
             "generatedVersion": {
+                "version": 1,
                 "ready": True,
                 "splits": dict(MODULE.EXPECTED_GROUPED["splits"]),
                 "augmentation": {},
@@ -99,22 +122,28 @@ class UnderEyeGroupedReleaseGateTest(unittest.TestCase):
         sha = reproduction()["outputArchiveSHA256"]
         result = MODULE.evaluate_release(reproduction(), state, authorized_archive_sha256=sha)
         self.assertTrue(result["versionGenerationAuthorized"])
+        self.assertFalse(result["augmentationFreeGroupedVersionVerified"])
+        self.assertFalse(result["providerExportIdentityVerified"])
         self.assertFalse(result["researchTrainingAuthorized"])
+        self.assertIn("grouped_provider_export_identity_not_verified", result["blockers"])
         self.assertIn("expert_under_eye_semantic_review_missing", result["blockers"])
         self.assertIn("person_independence_not_verified", result["blockers"])
 
     def test_training_requires_verified_version_expert_semantics_and_identity(self):
         state = remote()
+        sha = reproduction()["outputArchiveSHA256"]
         state["groupedProject"].update({
             "images": 399,
             "versions": [1],
             "upload": {"taskId": "fresh-task", "status": "completed", "progress": 1, "bytesSent": True},
             "importedDataset": dict(MODULE.EXPECTED_GROUPED),
             "generatedVersion": {
+                "version": 1,
                 "ready": True,
                 "splits": dict(MODULE.EXPECTED_GROUPED["splits"]),
                 "augmentation": {},
             },
+            "providerExportAudit": provider_audit(sha),
             "expertReview": {
                 "accepted": True,
                 "semanticProtocol": "darkcircle-eyebag-v1",
@@ -122,12 +151,14 @@ class UnderEyeGroupedReleaseGateTest(unittest.TestCase):
             },
             "identityReview": {"accepted": True, "personIndependent": True},
         })
-        sha = reproduction()["outputArchiveSHA256"]
         result = MODULE.evaluate_release(reproduction(), state, authorized_archive_sha256=sha)
         self.assertTrue(result["researchTrainingAuthorized"])
+        self.assertTrue(result["augmentationFreeGroupedVersionVerified"])
+        self.assertTrue(result["providerExportIdentityVerified"])
         self.assertFalse(result["testEvaluationAuthorized"])
         self.assertFalse(result["productActivationAllowed"])
 
 
 if __name__ == "__main__":
     unittest.main()
+

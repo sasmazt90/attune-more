@@ -29,6 +29,7 @@ EXPECTED_GROUPED = {
 }
 EXPECTED_SOURCE_SHA256 = "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
 EXPECTED_GROUPED_PROJECT = "tolgar-sasmaz/attune-skin-under-eye-grouped-research"
+EXPECTED_PROVIDER_AUDIT_SCHEMA = "under-eye-grouped-provider-export-audit-v1"
 REVOKED_ARCHIVE_SHA256 = "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8"
 
 
@@ -105,12 +106,37 @@ def evaluate_release(
     imported = grouped.get("importedDataset")
     import_verified = imported == EXPECTED_GROUPED and upload.get("status") == "completed"
     generated_version = grouped.get("generatedVersion")
+    provider_audit = grouped.get("providerExportAudit", {})
+    provider_export_verified = bool(
+        isinstance(generated_version, dict)
+        and isinstance(provider_audit, dict)
+        and provider_audit.get("schemaVersion") == EXPECTED_PROVIDER_AUDIT_SCHEMA
+        and provider_audit.get("project") == EXPECTED_GROUPED_PROJECT
+        and provider_audit.get("public") is False
+        and provider_audit.get("versionNumber") == generated_version.get("version")
+        and provider_audit.get("authorizedArchiveSHA256") == candidate_sha
+        and provider_audit.get("images") == EXPECTED_GROUPED["images"]
+        and provider_audit.get("annotations") == EXPECTED_GROUPED["annotations"]
+        and provider_audit.get("splits") == EXPECTED_GROUPED["splits"]
+        and provider_audit.get("classCounts") == EXPECTED_GROUPED["classCounts"]
+        and provider_audit.get("allProviderRecordsMatchedAuthorizedArchiveOnce") is True
+        and provider_audit.get("unexpectedProviderRecords") == 0
+        and provider_audit.get("missingAuthorizedRecords") == 0
+        and provider_audit.get("crossSplitContentHashCount") == 0
+        and provider_audit.get("polygonGeometryVerified") is True
+        and provider_audit.get("boxGeometryUsedAsPolygonTruth") is False
+        and provider_audit.get("containsFilenamesOrProviderImageIds") is False
+        and isinstance(provider_audit.get("providerDatasetIdentitySHA256"), str)
+        and len(provider_audit["providerDatasetIdentitySHA256"]) == 64
+    )
     version_verified = bool(
         import_verified
         and isinstance(generated_version, dict)
         and generated_version.get("ready") is True
+        and isinstance(generated_version.get("version"), int)
         and generated_version.get("splits") == EXPECTED_GROUPED["splits"]
         and generated_version.get("augmentation") == {}
+        and provider_export_verified
     )
     expert_review = grouped.get("expertReview", {})
     expert_reviewed = bool(
@@ -142,6 +168,8 @@ def evaluate_release(
         blockers.append("grouped_import_counts_and_splits_not_verified")
     if not version_verified:
         blockers.append("augmentation_free_grouped_version_not_verified")
+    if not provider_export_verified:
+        blockers.append("grouped_provider_export_identity_not_verified")
     if not expert_reviewed:
         blockers.append("expert_under_eye_semantic_review_missing")
     if not person_independent:
@@ -153,7 +181,7 @@ def evaluate_release(
 
     return {
         "schemaVersion": 1,
-        "methodVersion": "under-eye-grouped-release-gate-v3",
+        "methodVersion": "under-eye-grouped-release-gate-v4",
         "sourceArchiveSHA256": EXPECTED_SOURCE_SHA256,
         "revokedArchiveSHA256": REVOKED_ARCHIVE_SHA256,
         "authorizedArchiveSHA256": authorized_archive_sha256,
@@ -163,6 +191,8 @@ def evaluate_release(
         "freshDirectUploadRequired": True,
         "archiveUploadAuthorized": fresh_upload_authorized,
         "versionGenerationAuthorized": import_verified,
+        "augmentationFreeGroupedVersionVerified": version_verified,
+        "providerExportIdentityVerified": provider_export_verified,
         "researchTrainingAuthorized": research_training_authorized,
         "testEvaluationAuthorized": False,
         "productActivationAllowed": False,
@@ -191,3 +221,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -15,16 +15,18 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261028-v4.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261028-v5.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _grouped_gate(training_ready=False):
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-grouped-release-gate-20261028-v3.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-grouped-release-gate-20261028-v4.json"
     gate = json.loads(path.read_text(encoding="utf-8"))
     if training_ready:
         gate["archiveUploadAuthorized"] = False
         gate["versionGenerationAuthorized"] = True
+        gate["augmentationFreeGroupedVersionVerified"] = True
+        gate["providerExportIdentityVerified"] = True
         gate["researchTrainingAuthorized"] = True
         gate["blockers"] = [
             "independent_camera_holdout_missing",
@@ -90,6 +92,7 @@ def _complete_training_prerequisites(receipt):
     receipt["candidate"]["exactArchiveAuthorized"] = True
     receipt["candidate"]["groupedImportVerified"] = True
     receipt["candidate"]["augmentationFreeGroupedVersionVerified"] = True
+    receipt["candidate"]["providerExportIdentityVerified"] = True
 
 
 def _install_distinct_candidate(receipt):
@@ -112,6 +115,7 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         self.assertTrue(result["expertReviewQueueVerified"])
         self.assertFalse(result["expertSemanticProtocolVerified"])
         self.assertFalse(result["researchTrainingAuthorized"])
+        self.assertFalse(result["providerExportIdentityVerified"])
         self.assertFalse(result["distinctGroupedCandidatePresent"])
         self.assertFalse(result["blindRetrainingAllowed"])
         self.assertFalse(result["classDecisions"]["darkcircle"]["productActivationAllowed"])
@@ -240,6 +244,7 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         receipt = _receipt()
         receipt["candidate"]["groupedImportVerified"] = True
         receipt["candidate"]["augmentationFreeGroupedVersionVerified"] = True
+        receipt["candidate"]["providerExportIdentityVerified"] = True
         with self.assertRaisesRegex(module.GateInputError, "not bound"):
             module.evaluate_release(receipt, _grouped_gate(), _queue())
 
@@ -256,4 +261,5 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 

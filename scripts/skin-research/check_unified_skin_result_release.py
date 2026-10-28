@@ -21,7 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
-EXPECTED_RECEIPT_SCHEMA = 15
+EXPECTED_RECEIPT_SCHEMA = 16
 EXPECTED_REPOSITORY_CI_SCHEMA = 3
 EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
 EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -68,7 +68,7 @@ EXPECTED_GATE_METHODS = {
     "skinTypeCombination": "skin-type-combination-release-gate-v2",
     "redness": "regional-redness-release-gate-v2",
     "toneUnevenness": "tone-unevenness-release-gate-v2",
-    "underEye": "under-eye-per-class-release-gate-v4",
+    "underEye": "under-eye-per-class-release-gate-v5",
     "wrinkles": "wrinkle-per-class-release-gate-v2",
     "sag": "sag-appearance-release-gate-v2",
 }
@@ -450,8 +450,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = list(dict.fromkeys(blockers))
     accepted = regional_provider_ready and candidate_accepted and not blockers
     return {
-        "schemaVersion": 15,
-        "methodVersion": "unified-skin-result-release-gate-v15",
+        "schemaVersion": 16,
+        "methodVersion": "unified-skin-result-release-gate-v16",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,
@@ -484,4 +484,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
 
