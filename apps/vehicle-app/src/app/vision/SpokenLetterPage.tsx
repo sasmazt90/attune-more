@@ -51,7 +51,7 @@ export default function SpokenLetterPage(){
  function stopSpeech(){const a=r.current;a.voiceGeneration++;if(a.voiceTimeout)clearTimeout(a.voiceTimeout);a.voiceTimeout=null;a.controller?.abort();a.controller=null;a.cancelSpeech?.();a.cancelSpeech=null;if(a.audio){a.audio.onplaying=a.audio.onended=a.audio.onerror=null;a.audio.pause();a.audio.removeAttribute('src');a.audio.load();a.audio=null;}if(a.url)URL.revokeObjectURL(a.url);a.url=null;}
  function stopVoice(){if(r.current.answerTimer)clearTimeout(r.current.answerTimer);r.current.answerTimer=null;r.current.settleAnswer=null;abortRecognition();stopSpeech();if(r.current.mounted)setVoice('quiet');}
  function stop(){const a=r.current;a.epoch++;a.active=false;stopVoice();cancelAnimationFrame(a.raf);if(a.timer)clearInterval(a.timer);a.timer=null;a.stream?.getTracks().forEach(t=>t.stop());a.stream=null;a.engine?.close();a.engine=null;a.session=null;a.evidence=null;a.previewPoints=undefined;if(canvas.current)delete canvas.current.dataset.visionEvidence;a.modal=false;a.pendingPrompt=null;a.silenceReminders.clear();a.answerMemory.clear();a.mainInstructionGiven=false;a.nextPrompt=0;a.lastPrompt='';a.prompted.clear();a.conditionGate=new VisionResponseGate();if(video.current)video.current.srcObject=null;flow.current.reset();if(a.mounted){setAnswerNotice('');setEvidence(null);refresh();}}
- useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[stage]);
+ useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Üst çubuktaki hoparlörü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[stage]);
  useEffect(()=>{
   let language=getLanguage();
   const changed=()=>{const next=getLanguage(),localeChanged=next!==language;language=next;if(!r.current.active)return;
@@ -68,7 +68,7 @@ export default function SpokenLetterPage(){
   return {viewportWidthCssPx:b.width,viewportHeightCssPx:b.height,pathWidthCssPx:p.width,pathHeightCssPx:p.height,strokeWidthCssPx:stroke,measuredAt:performance.now(),method:'dom-svg-css-pixels'};
  }
  async function speak(code:string,onEnded:()=>void){
-  const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;if(speechMuted()){stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');return;}abortRecognition();stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
+  const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;if(speechMuted()){stage('user-paused','Seslendirme kapalı. Üst çubuktaki hoparlörü açıp devam edin.');return;}abortRecognition();stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
   const valid=()=>current(epoch)&&a.voiceGeneration===generation&&a.controller===controller&&flow.current.matches(token);
   const fail=()=>{if(!valid())return;stopVoice();stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Seçilen dilde yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
   setVoice('loading');a.voiceTimeout=setTimeout(()=>{if(valid()){controller.abort();fail();}},25000);
