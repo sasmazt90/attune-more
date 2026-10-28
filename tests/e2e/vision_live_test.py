@@ -60,9 +60,17 @@ with sync_playwright() as pw:
   page.wait_for_function('()=>probe.current!==probe.old&&!probe.current.aborted');ready(page);assert target(page)==before and count(page)==2
   record('Transient ASR transport failure recovers microphone on the same target with no repeated guidance or score')
   for fault in ['test-covered','both-covered','no-face','poor-light','uncertain']:
-   page.evaluate('v=>probe.fault=v',fault);page.wait_for_timeout(1100);assert page.locator('[data-letter-optotype]').count()==0 and count(page)==2
+   page.evaluate('v=>probe.fault=v',fault);page.wait_for_function("()=>!document.querySelector('[data-letter-optotype]')",timeout=6000);assert count(page)==2
    page.evaluate('probe.fault=null');ready(page)
   record('Wrong/both eyes, missing face, poor light and uncertain eyes block presentation/scoring without any manual override')
+  # Transport retries are finite; the existing retry action retains the target.
+  before=target(page)
+  for retry in range(3):
+   page.evaluate("probe.old=probe.current;probe.current.onerror({error:'network'})")
+   if retry<2:page.wait_for_function('()=>probe.current!==probe.old&&!probe.current.aborted')
+  page.wait_for_function("()=>document.querySelector('[data-vision-stage]').dataset.visionStage==='error'");assert count(page)==2
+  page.get_by_role('button',name='Tekrar dene',exact=True).click();ready(page);assert target(page)==before
+  record('ASR session limit ends after two retries; explicit retry preserves target and does not score a failure')
   # Demonstrate automatic covered states independently in each eye stage.
   for index in range(2,24):
    ready(page)
@@ -97,6 +105,8 @@ with sync_playwright() as pw:
   assert not errors,errors
   (OUT/'browser-results.json').write_text(json.dumps({'kind':'controlled camera/model/ASR events; actual browser UI, Audio, API and history','physicalUserAcceptance':False,'checks':checks,'errors':errors},indent=2)+'\n')
  except Exception:
-  if page and not page.is_closed():page.screenshot(path=str(OUT/'failure.png'),full_page=True)
+  if page and not page.is_closed():
+   print('Failure state:',page.locator('[data-vision-stage]').get_attribute('data-vision-stage'),flush=True)
+   page.screenshot(path=str(OUT/'failure.png'),full_page=True)
   raise
  finally:browser.close()

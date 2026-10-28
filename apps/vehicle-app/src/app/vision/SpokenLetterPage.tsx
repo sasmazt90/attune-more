@@ -22,6 +22,7 @@ import { VisionFlow, eyeInstruction } from '../../utils/visionFlow';
 import { LETTER_PATHS, LETTER_PROTOCOL, LETTER_METHOD, answerTransform, describeAnswer, LetterResult, RenderedSymbolGeometry, SpokenLetterSession, letterConditionFailure, parseLetterAnswer, respondToVisibleLetter, isLetterInstructionEcho } from '../../utils/spokenVision';
 import {VisionJourney} from '../../components/vision/VisionJourney';
 import {VISION_ANSWER_SETTLE_MS,visionRecognitionChoice} from '../../utils/visionSpeechTurn';
+import {eyeObservation} from '../../utils/visionEyeState';
 import { VisionAnswerMemory } from '../../utils/visionAnswerMemory';
 import { appendHealthRecord } from '../../utils/healthRecords';
 import { isCameraAllowed, isMicrophoneAllowed, isVisionSavingAllowed, isDemoMode } from '../../utils/attuneMode';
@@ -30,7 +31,7 @@ import { VISION_FRAME_CLASS } from '../../components/VisionFrame';
 import {approvedClip} from '../../i18n/approvedAudio';
 import {playFixedSpeech} from '../../utils/fixedFileSpeech';
 const TEXT:Record<string,string>={face:'Yüzünüzü kamera görüntüsünde tutun.',framing:'Yüzünüzün tamamını kamera görüntüsünde tutun.',pose:'Başınızı biraz ekrana çevirin; harf alanına bakabilirsiniz.',light:'Açık gözünüzün bulunduğu tarafı aydınlatın.',bright:'Yüzünüzdeki parlamayı azaltın.',blur:'Açık göz çevresinde netlik yetersiz. Kamera netliğini kontrol edin.',preparing:'İki göz açık: başlangıç konumu öğreniliyor.',recede:'Biraz geri çekilin.',approach:'Biraz yaklaşın.','distance-unknown':'Mesafeyi güvenilir izleyemiyorum; yüzünüzü görünür tutun.',camera:'Kamera görüntüsü güncel değil.',eye:'Test edilen göz açık; diğer göz kapalı veya örtülü olmalı.',uncertain:'Göz örtüsünü veya göz açıklığını kontrol edemiyorum.','both-eyes':'İki göz de kapalı veya örtülü. Test edilen gözünüzü açın.','test-eye':'Test edilen gözünüzü açın; diğer gözü kapatın veya örtün.','cover-other':'Diğer gözünüzü kapatın veya örtün.'};
-const EYE_TEXT={open:'açık',closed:'kapalı',covered:'örtülü',uncertain:'değerlendirilemiyor'};
+const EYE_TEXT={EYE_OPEN:'açık',EYE_CLOSED:'kapalı',EYE_COVERED_BY_HAND:'elle örtülü',EYE_OCCLUDED_BY_OBJECT:'nesneyle örtülü',EYE_NOT_VISIBLE_OR_UNCERTAIN:'değerlendirilemiyor',FACE_NOT_ALIGNED:'yüz hizası bekleniyor',CAMERA_UNAVAILABLE:'kamera bekleniyor'};
 export default function SpokenLetterPage(){
  const {text:i18nText,node:i18nNode}=useTranslations();
  const {isParked,syncStatus}=useVehicle(),parked=useRef(isParked);parked.current=isParked;
@@ -248,7 +249,7 @@ export default function SpokenLetterPage(){
  const lastHeard=r.current.answerMemory.heard;
  const f=flow.current,s=r.current.session,c=evidence?.conditions,fresh=!!c&&performance.now()-c.observedAt<=750,active=r.current.active;
  useEffect(()=>{if(!active)return;const element=document.querySelector<HTMLElement>('[data-vision-stage]'),header=document.querySelector<HTMLElement>('[data-cockpit-header]');if(element){element.style.scrollMarginTop=`${header&&getComputedStyle(header).position==='sticky'?header.getBoundingClientRect().height+8:8}px`;element.scrollIntoView({block:'start',behavior:'instant'});}},[active]);
- const problem=active?failure():null,faceVisible=fresh&&c?.faceCount===1,eyeLine=c?`Sol göz: ${EYE_TEXT[c.left.state]} · Sağ göz: ${EYE_TEXT[c.right.state]}`:'İki göz açık başlayın';
+ const problem=active?failure():null,faceVisible=fresh&&c?.faceCount===1,eyeLine=c?`Sol göz: ${EYE_TEXT[eyeObservation(c,'LEFT',performance.now())]} · Sağ göz: ${EYE_TEXT[eyeObservation(c,'RIGHT',performance.now())]}`:'İki göz açık başlayın';
  const rows=[['Yüz / Kadraj',!fresh?'Ölçüm bekleniyor':c?.blocker==='pose'||c?.blocker==='framing'?TEXT[c.blocker]:c?.faceCount===1?'Yüz izleniyor':'Yüzünüzü görüntüde tutun'],['Işık',!faceVisible?'Ölçüm bekleniyor':c?.qualityValid?'İyi':evidence?.quality.status==='TOO_DARK'?TEXT.light:evidence?.quality.status==='TOO_BRIGHT'?TEXT.bright:'İyi'],['Netlik',!faceVisible?'Ölçüm bekleniyor':c?.qualityValid||(evidence?.quality.blurScore||0)>=4?'İyi':TEXT.blur],['Mesafe / Konum',c?.blocker&&['preparing','recede','approach','distance-unknown'].includes(c.blocker)?TEXT[c.blocker]:c?.distanceState==='stable'?'Başlangıç mesafesi korunuyor':c?.distanceState==='unknown'?'Mesafe ölçümü güvenilir değil':'Başlangıç bekleniyor'],['Göz kontrolü',eyeLine],['Görüntü güncelliği',fresh?'Güncel':'Kamera karesi bekleniyor']];
  const blockLabel=problem&&['eye','uncertain','both-eyes','test-eye','cover-other'].includes(problem)?'Göz':problem==='pose'?'Baş pozu':problem==='blur'?'Netlik':problem==='light'||problem==='bright'?'Işık':problem==='camera'?'Görüntü':problem==='face'||problem==='framing'?'Kadraj':'Mesafe';
  const placeholder=!evidence&&f.stage==='preparing'?'Kamera ve cihazdaki modeller hazırlanıyor…':f.stage==='user-paused'||f.stage==='error'||f.stage==='condition-paused'?f.reason:f.stage==='eye-instruction'?eyeInstruction(s?.eye||'RIGHT'):f.stage==='eye-check'?eyeInstruction(s?.eye||'RIGHT')+(problem&&problem!=='cover-other'?' '+(TEXT[problem]||TEXT.uncertain):''):problem?(problem==='preparing'?'Başlangıç kontrolü sürüyor.':`${blockLabel} kontrolü nedeniyle duraklatıldı.`):'Harf hazırlanıyor…';
