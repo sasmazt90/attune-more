@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T03:18:00Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+  "releaseChain": [
+    "under-eye-grouped-release-gate-v3",
+    "under-eye-per-class-release-gate-v4",
+    "unified-skin-result-release-gate-v15"
+  ],
+  "local": {
+    "focusedTests": 24,
+    "underEyeGeneratedGateDiff": "exact",
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40625493402,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40625493402",
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "headSha": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122609286623,
+    "frontendProductionBuild": "success",
+    "backendJobId": 122609286917,
+    "backend": "success",
+    "deterministicTests": {"passed": 1627, "skipped": 44, "warnings": 2},
+    "skinResearchTests": {"passed": 359, "result": "OK"}
+  },
+  "archiveUploadStarted": false,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false
+}

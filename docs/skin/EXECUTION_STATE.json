@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T02:09:16Z",
+      "lastCheckedAt": "2026-10-28T03:14:07Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -513,7 +513,7 @@
         "trainingStarted": false,
         "activationAllowed": false,
         "evidence": "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261027-v2.json",
-        "providerStateEvidence": "docs/skin/evidence/under-eye-provider-state-20261028-v3.json"
+        "providerStateEvidence": "docs/skin/evidence/under-eye-gate-bind-provider-refresh-20261028-v1.json"
       },
       "groupedSource": {
         "methodVersion": "under-eye-source-photo-review-v2",
@@ -611,7 +611,7 @@
         "testEvaluationAuthorized": false,
         "productActivationAllowed": false,
         "authorizationEvidence": "docs/skin/evidence/under-eye-grouped-archive-authorization-20261028-v3.json",
-        "providerStateEvidence": "docs/skin/evidence/under-eye-provider-state-20261028-v3.json",
+        "providerStateEvidence": "docs/skin/evidence/under-eye-gate-bind-provider-refresh-20261028-v1.json",
         "evidence": "docs/skin/evidence/under-eye-grouped-release-gate-20261028-v3.json",
         "ci": {
           "runId": 40619340580,
@@ -622,7 +622,11 @@
           "frontend": "success",
           "backendJobId": 122589272279,
           "backend": "success"
-        }
+        },
+        "browserExportDownloadedInIsolatedEnvironment": true,
+        "workspaceArchiveAvailable": false,
+        "workspaceSHA256Verified": false,
+        "uploadStarted": false
       },
       "expertSemanticReview": {
         "observedAt": "2026-10-27T07:43:33Z",
@@ -657,11 +661,16 @@
         "activationAllowed": false
       },
       "perClassReleaseGate": {
-        "observedAt": "2026-10-27T08:43:08Z",
-        "methodVersion": "under-eye-per-class-release-gate-v3",
+        "observedAt": "2026-10-28T03:18:00Z",
+        "schemaVersion": 4,
+        "methodVersion": "under-eye-per-class-release-gate-v4",
         "script": "scripts/skin-research/check_under_eye_concern_release.py",
-        "receipt": "docs/skin/evidence/under-eye-per-class-release-receipt-20261027-v3.json",
-        "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261027-v3.json",
+        "receipt": "docs/skin/evidence/under-eye-per-class-release-receipt-20261028-v4.json",
+        "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261028-v4.json",
+        "groupedReleaseGate": "docs/skin/evidence/under-eye-grouped-release-gate-20261028-v3.json",
+        "groupedReleaseGateCanonicalSHA256": "b24dda0a3c1ac46c650c111855ecac5ef4a014f67e6ab96d633ccac776d7d127",
+        "groupedReleaseGateVerified": true,
+        "exactArchiveAuthorized": true,
         "reviewQueue": "docs/skin/evidence/under-eye-expert-review-queue-20261027-v1.json",
         "reviewQueueVerified": true,
         "expertSemanticProtocolVerified": false,
@@ -680,16 +689,18 @@
         "roadmapAccepted": false,
         "classesRemainSeparate": true,
         "workingConcreteResultFlowPreserved": true,
-        "localFocusedTests": 14,
-        "localSkinResearchTests": 303,
+        "localFocusedTests": 24,
+        "completeSkinResearchEvidenceSuite": 359,
+        "implementationCommit": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+        "ciEvidence": "docs/skin/evidence/under-eye-grouped-chain-ci-20261028-v1.json",
         "ci": {
-          "runId": 40475821552,
-          "headSha": "83e324742eb891fc301fc0dcf068f45bf7440dea",
+          "runId": 40625493402,
+          "headSha": "68e6e78664a88fc7228e65d24189141a68dc0c01",
           "status": "completed",
           "conclusion": "success",
-          "frontendJobId": 122093660325,
+          "frontendJobId": 122609286623,
           "frontend": "success",
-          "backendJobId": 122093659997,
+          "backendJobId": 122609286917,
           "backend": "success"
         }
       },
@@ -4659,13 +4670,82 @@
         "backendJobId": 122332954525,
         "backend": "success"
       }
+    },
+    "underEyePerClassReleaseGateV4": {
+      "observedAt": "2026-10-28T03:18:00Z",
+      "schemaVersion": 4,
+      "methodVersion": "under-eye-per-class-release-gate-v4",
+      "groupedReleaseGateVerified": true,
+      "exactArchiveAuthorized": true,
+      "expertSemanticProtocolVerified": false,
+      "distinctGroupedCandidatePresent": false,
+      "researchTrainingAuthorized": false,
+      "finalTestEvaluationAuthorized": {
+        "darkcircle": false,
+        "eyebag": false
+      },
+      "productActivationAllowed": {
+        "darkcircle": false,
+        "eyebag": false
+      },
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": 24,
+      "completeSkinResearchEvidenceSuite": 359,
+      "receipt": "docs/skin/evidence/under-eye-per-class-release-receipt-20261028-v4.json",
+      "evidence": "docs/skin/evidence/under-eye-per-class-release-gate-20261028-v4.json",
+      "implementationCommit": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+      "ciEvidence": "docs/skin/evidence/under-eye-grouped-chain-ci-20261028-v1.json",
+      "ci": {
+        "runId": 40625493402,
+        "headSha": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+        "status": "completed",
+        "conclusion": "success",
+        "frontendJobId": 122609286623,
+        "frontend": "success",
+        "backendJobId": 122609286917,
+        "backend": "success"
+      }
+    },
+    "unifiedSkinResultReleaseGateV15": {
+      "observedAt": "2026-10-28T03:18:00Z",
+      "schemaVersion": 15,
+      "methodVersion": "unified-skin-result-release-gate-v15",
+      "workingBaselinePreserved": true,
+      "currentIntegratedPresentationAllowed": true,
+      "generatedReplayIntegrationSmokeAllowed": true,
+      "generatedReplayAccuracyEvidenceAllowed": false,
+      "underEyeMethodVersion": "under-eye-per-class-release-gate-v4",
+      "regionalProviderDatasetGateMethod": "regional-provider-dataset-release-gate-v3",
+      "allClassReleaseGatesAccepted": false,
+      "physicalCameraBenchmarkAccepted": false,
+      "acceptedEndToEndCandidatePresent": false,
+      "finalRoadmapAcceptanceAllowed": false,
+      "roadmapAccepted": false,
+      "decision": "blocked",
+      "localFocusedTests": 24,
+      "completeSkinResearchEvidenceSuite": 359,
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v15.json",
+      "evidence": "docs/skin/evidence/unified-skin-result-release-gate-20261028-v15.json",
+      "implementationCommit": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+      "ciEvidence": "docs/skin/evidence/under-eye-grouped-chain-ci-20261028-v1.json",
+      "ci": {
+        "runId": 40625493402,
+        "headSha": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+        "status": "completed",
+        "conclusion": "success",
+        "frontendJobId": 122609286623,
+        "frontend": "success",
+        "backendJobId": 122609286917,
+        "backend": "success"
+      }
     }
   },
   "nextActions": [
     "Preserve the completed 337/337 opaque source/person review and the deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the provider project remains 337 images at 244/63/30 with version 1 only; do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact provider version 2 matching the zero-crossing manifest is confirmed. Keep the 51-image final test untouched for selection or thresholds.",
     "Complete and accept the independent 81-item Oily/Redness expert semantic mask protocol before any regional training authorization. The completed source/person review establishes grouping only: source polygons, model predictions and missing labels remain ineligible as expert truth; independent consented physical-camera evidence is still required.",
-    "Replay scripts/skin-research/check_unified_skin_result_release.py v11 for every task-13 decision. Repository CI evidence must use schema v3 and bind exact workflow 362950948 at .github/workflows/ci.yml, its run URL/ID, distinct positive frontend/backend job IDs, branch and implementation commit. Real-browser evidence must separately bind workflow 370615037, positive job/artifact IDs and a sha256 artifact digest. Neither controlled fixture may satisfy physical-camera, expert-truth or accuracy acceptance. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false.",
-    "Use the newly authorized exact grouped archive SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122 only for a fresh direct upload into the still-empty private tolgar-sasmaz/attune-skin-under-eye-grouped-research project. Never reuse the stale created/no-bytes task sLFwX7CYBVcnnD6iAW5o, and never use the revoked older archive SHA256 41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8. After upload, verify exactly 399 images, 869 annotations, 284/77/38 splits, 382 darkcircle and 487 eyebag instances and zero augmentation before generating a version. Then use scripts/skin-research/build_under_eye_expert_review.py with the private resolver to complete all 88 item-bound expert decisions and verify person independence. Training, final-test evaluation and activation remain forbidden until those gates and independent physical-camera evidence pass.",
+    "Replay scripts/skin-research/check_unified_skin_result_release.py v15 for every task-13 decision. Preserve the functioning /api/local-health/skin baseline and all twelve product headings while exact per-class, consented expert physical-camera, immutable end-to-end and final-roadmap gates remain false. Under-eye decisions must bind the exact grouped release gate v3 through under-eye per-class gate v4; regional provider decisions must bind gate v3. A controlled browser fixture cannot satisfy physical-camera, expert-truth or accuracy acceptance.",
+    "Use only the authorized grouped archive SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122 for a fresh direct upload into the still-empty private tolgar-sasmaz/attune-skin-under-eye-grouped-research project. The current provider export was downloaded only in an isolated browser environment and is not available in the workspace, so do not upload until the actual workspace file is present and its SHA256 is verified exactly. Never reuse stale task sLFwX7CYBVcnnD6iAW5o or the revoked archive. After upload, verify exactly 399 images, 869 annotations, 284/77/38 splits, 382 darkcircle and 487 eyebag instances and zero augmentation before version generation. Complete all 88 expert decisions and person independence; training, final-test evaluation and activation remain forbidden until all gates and independent physical-camera evidence pass.",
     "Preserve passed real-Chromium controlled-fixture run 40456553840 and matching repository CI run 40456553849. The six sanitized artifacts bind one immutable build and prove API, six-region map, IndexedDB history, native-200 geometry, consent, retention and deletion integration only; they explicitly do not prove physical-camera capture, expert truth or accuracy. Keep physical-camera, expert-truth, per-class and final-roadmap gates false unless their separate evidence passes; do not repeat the browser run or start duplicate Roboflow work.",
     "Preserve green GitHub Actions run 40297234134 and the functioning main /api/local-health/skin result flow. When consented physical-camera manifest, adjudicated expert truth and locked capture/localization receipts exist, run both evaluators and scripts/skin-research/check_physical_camera_acceptance.py with a per-class policy locked before camera_final and a real /api/local-health/skin replay. Do not mark the roadmap complete until every class and real camera/browser/map/history/privacy gate passes.",
     "After a consented physical-camera manifest exists, collect the private matrix defined by docs/skin/evidence/physical-camera-expert-review-input-template-20261026-v1.json and run scripts/skin-research/build_physical_camera_expert_truth.py. Every activated class on every capture needs exactly two independent qualified human reviews; discordant decision or polygon truth needs an independent third expert. Keep positive localized polygons normalized, model proposals hidden, missing truth distinct from evaluated negative, unknown/unassessable distinct from Normal, and Redness independent from sensitivity. Do not commit reviewer identity, image bytes or raw private fields.",
@@ -8250,6 +8330,44 @@
           "frontendJobId": 122589272518,
           "frontend": "success",
           "backendJobId": 122589272279,
+          "backend": "success"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T03:18:00Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye project/version/training state without starting a duplicate upload, version, training, inference, threshold or activation job. Acne remains private at 800 images with unchanged 553/165/82 splits and finished NAS and small runs; regional remains a drifted 476-image mutable project with only immutable version 1 and finished NAS and small runs; under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 at 279/81/39 and no version-2 training; grouped under-eye remains private and empty, and its stale upload task remains created with no progress. The version-2 COCO export was ready and downloaded only in an isolated browser environment; no workspace file or SHA-256 was available, so no upload was attempted. Hardened the under-eye per-class gate to v4 so mutable receipt booleans cannot bypass the exact canonical grouped-release evidence, and bound v4 into unified result gate v15. The exact authorized archive blocker is removed, but grouped import/version, expert semantics, person independence, training, final-test, physical-camera, integration and activation remain blocked. Twenty-four focused tests and exact gate replay passed locally. GitHub Actions run 40625493402 completed successfully: frontend job 122609286623 and backend job 122609286917 passed; deterministic tests passed 1,627 with 44 skips and 2 warnings, and the complete skin-research suite passed 359 tests. No private URL, archive path, filename, image byte, training or activation was committed.",
+      "report": "docs/skin/evidence/under-eye-grouped-chain-ci-20261028-v1.json",
+      "evidence": [
+        "docs/skin/evidence/under-eye-gate-bind-provider-refresh-20261028-v1.json",
+        "docs/skin/evidence/under-eye-per-class-release-receipt-20261028-v4.json",
+        "docs/skin/evidence/under-eye-per-class-release-gate-20261028-v4.json",
+        "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v15.json",
+        "docs/skin/evidence/unified-skin-result-release-gate-20261028-v15.json",
+        "scripts/skin-research/check_under_eye_concern_release.py",
+        "scripts/skin-research/check_unified_skin_result_release.py"
+      ],
+      "tests": {
+        "focused": 24,
+        "generatedGateDiff": "exact",
+        "deterministic": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "skinResearch": 359,
+        "result": "OK"
+      },
+      "runs": [
+        {
+          "runId": 40625493402,
+          "headSha": "68e6e78664a88fc7228e65d24189141a68dc0c01",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122609286623,
+          "frontend": "success",
+          "backendJobId": 122609286917,
           "backend": "success"
         }
       ]

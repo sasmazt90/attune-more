@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T03:14:07Z",
+  "accessibleProjects": 20,
+  "acne": {
+    "project": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation",
+    "private": true,
+    "images": 800,
+    "splits": {"train": 553, "valid": 165, "test": 82},
+    "classes": {"Pimple": 3640, "Post acne": 32123, "Pigmentation": 1579},
+    "versions": [1],
+    "trainings": [
+      {"trainingId": "5b632a5c12b76fcfe703", "modelType": "rfdetr-nas-parent", "status": "finished"},
+      {"trainingId": "49ee6204cf069198bbfa", "modelType": "rfdetr-small", "status": "finished"}
+    ]
+  },
+  "regional": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "private": true,
+    "mutableImages": 476,
+    "mutableSplits": {"train": 334, "valid": 85, "test": 57},
+    "unannotatedCounter": 139,
+    "versions": [{"version": 1, "images": 337, "splits": {"train": 244, "valid": 63, "test": 30}}],
+    "trainings": [
+      {"trainingId": "3485f8c67f957a1b850d", "modelType": "rfdetr-nas-seg-parent", "status": "finished"},
+      {"trainingId": "af287a006e2e428f5ce4", "modelType": "rfdetr-seg-small", "status": "finished"}
+    ]
+  },
+  "underEye": {
+    "pilotProject": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+    "private": true,
+    "images": 399,
+    "classes": {"darkcircle": 382, "eyebag": 487},
+    "providerVersion": 2,
+    "splits": {"train": 279, "valid": 81, "test": 39},
+    "preprocessing": {},
+    "augmentation": {},
+    "trainings": [],
+    "export": {
+      "format": "coco",
+      "ready": true,
+      "images": 399,
+      "downloadObservedInIsolatedBrowser": true,
+      "workspaceFileAvailable": false,
+      "workspaceSHA256Verified": false,
+      "signedUrlCommitted": false
+    },
+    "groupedProject": {
+      "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+      "private": true,
+      "images": 0,
+      "versions": [],
+      "staleUploadTaskId": "sLFwX7CYBVcnnD6iAW5o",
+      "staleUploadTaskStatus": "created",
+      "staleUploadTaskProgress": null,
+      "staleUploadTaskReusable": false
+    }
+  },
+  "mutations": {
+    "uploadStarted": false,
+    "versionGenerated": false,
+    "trainingStarted": false,
+    "activationChanged": false
+  },
+  "privacySafe": true
+}
