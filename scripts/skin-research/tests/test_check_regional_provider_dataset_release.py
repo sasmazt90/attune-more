@@ -75,7 +75,7 @@ def exact_audit():
         "manifestFileSHA256": MODULE.MANIFEST_FILE_SHA256,
         "assignmentsSHA256": MODULE.ASSIGNMENTS_SHA256,
         "recordIdentityBasis": "image-content-sha256",
-        "geometryIdentityBasis": "canonical-polygon-ring-v1",
+        "geometryIdentityBasis": "canonical-simple-polygon-ring-v2",
         "exportArchiveSHA256": "1" * 64,
         "splitImageContentSetSHA256": {
             "train": "2" * 64,
@@ -93,6 +93,12 @@ def exact_audit():
         "crossSplitContentHashCount": 0,
         "duplicateImageContentCount": 0,
         "polygonGeometryVerified": True,
+        "simplePolygonGeometryVerified": True,
+        "selfIntersectionCount": 0,
+        "pathSafetyVerified": True,
+        "categoryIdentityVerified": True,
+        "bboxWithinImageVerified": True,
+        "positiveAreaVerified": True,
         "boxGeometryAcceptedAsPolygonTruth": False,
         "crowdOrRLEGeometryAcceptedAsPolygonTruth": False,
         "invalidPolygonCount": 0,
@@ -258,6 +264,32 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         result = MODULE.evaluate_release(value, self.root)
         self.assertFalse(result["providerVersionReady"])
         self.assertIn("provider_polygon_geometry_audit_mismatch", result["blockers"])
+
+    def test_unsafe_path_or_non_simple_geometry_cannot_authorize_training(self):
+        for field in ("pathSafetyVerified", "simplePolygonGeometryVerified"):
+            audit = exact_audit()
+            audit[field] = False
+            self.audit_path.write_text(json.dumps(audit, sort_keys=True) + "\n", encoding="utf-8")
+            identity = dict(self.audit_identity)
+            identity["sha256"] = hashlib.sha256(self.audit_path.read_bytes()).hexdigest()
+            value = self.make_receipt()
+            value["candidateVersion"] = exact_candidate(identity)
+            result = MODULE.evaluate_release(value, self.root)
+            self.assertFalse(result["providerVersionReady"])
+            self.assertIn("provider_export_audit_mismatch", result["blockers"])
+
+    def test_out_of_image_bbox_or_nonpositive_area_cannot_authorize_training(self):
+        for field in ("bboxWithinImageVerified", "positiveAreaVerified"):
+            audit = exact_audit()
+            audit[field] = False
+            self.audit_path.write_text(json.dumps(audit, sort_keys=True) + "\n", encoding="utf-8")
+            identity = dict(self.audit_identity)
+            identity["sha256"] = hashlib.sha256(self.audit_path.read_bytes()).hexdigest()
+            value = self.make_receipt()
+            value["candidateVersion"] = exact_candidate(identity)
+            result = MODULE.evaluate_release(value, self.root)
+            self.assertFalse(result["providerVersionReady"])
+            self.assertIn("provider_export_audit_mismatch", result["blockers"])
 
     def test_project_growth_must_match_uploaded_records(self):
         value = self.make_receipt()

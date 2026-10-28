@@ -18,13 +18,14 @@ from pathlib import Path
 from typing import Any
 
 
-SCHEMA = "regional-provider-version-export-audit-v2"
+SCHEMA = "regional-provider-version-export-audit-v3"
 PROJECT_ID = "tolgar-sasmaz/attune-skin-regional-skin-map"
 PROJECT_TYPE = "instance-segmentation"
 MANIFEST_FILE_SHA256 = "d698580acae5c2987392e170bd408d626ad0ba685f4c49f5899c7bef46b967ce"
 ASSIGNMENTS_SHA256 = "2a8608d2f74fbf3e64fca53b60334a64add9c47f0301766dc47c9ca2fe651e3c"
 SPLITS = ("train", "valid", "test")
 CLASSES = ("Oily", "Redness")
+GEOMETRY_IDENTITY_BASIS = "canonical-simple-polygon-ring-v2"
 
 
 class AuditError(ValueError):
@@ -67,6 +68,76 @@ def _number(value: Any, label: str) -> float:
     return round(number, 8)
 
 
+def _orientation(a: list[float], b: list[float], c: list[float]) -> float:
+    return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
+
+
+def _on_segment(a: list[float], b: list[float], point: list[float]) -> bool:
+    return (
+        min(a[0], b[0]) <= point[0] <= max(a[0], b[0])
+        and min(a[1], b[1]) <= point[1] <= max(a[1], b[1])
+        and abs(_orientation(a, b, point)) <= 1e-8
+    )
+
+
+def _segments_intersect(
+    a: list[float], b: list[float], c: list[float], d: list[float]
+) -> bool:
+    ab_c = _orientation(a, b, c)
+    ab_d = _orientation(a, b, d)
+    cd_a = _orientation(c, d, a)
+    cd_b = _orientation(c, d, b)
+    if ((ab_c > 1e-8 and ab_d < -1e-8) or (ab_c < -1e-8 and ab_d > 1e-8)) and (
+        (cd_a > 1e-8 and cd_b < -1e-8) or (cd_a < -1e-8 and cd_b > 1e-8)
+    ):
+        return True
+    return any(
+        abs(value) <= 1e-8 and _on_segment(start, end, point)
+        for value, start, end, point in (
+            (ab_c, a, b, c),
+            (ab_d, a, b, d),
+            (cd_a, c, d, a),
+            (cd_b, c, d, b),
+        )
+    )
+
+
+def _validate_simple_polygon(points: list[list[float]], label: str) -> None:
+    if len({tuple(point) for point in points}) != len(points):
+        raise AuditError(f"{label} polygon repeats vertices")
+    edge_count = len(points)
+    for first in range(edge_count):
+        a = points[first]
+        b = points[(first + 1) % edge_count]
+        for second in range(first + 1, edge_count):
+            if second == first or second == first + 1:
+                continue
+            if first == 0 and second == edge_count - 1:
+                continue
+            c = points[second]
+            d = points[(second + 1) % edge_count]
+            if _segments_intersect(a, b, c, d):
+                raise AuditError(f"{label} polygon self-intersects")
+
+
+def _safe_image_path(split_root: Path, file_name: str, split: str) -> Path:
+    if not file_name or "\x00" in file_name or "\\" in file_name:
+        raise AuditError(f"{split} image path is unsafe")
+    relative = Path(file_name)
+    if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+        raise AuditError(f"{split} image path is unsafe")
+    base = split_root.resolve()
+    candidate = split_root / relative
+    try:
+        resolved = candidate.resolve(strict=True)
+        resolved.relative_to(base)
+    except (OSError, ValueError) as exc:
+        raise AuditError(f"{split} image path escapes the split root") from exc
+    if candidate.is_symlink() or not resolved.is_file():
+        raise AuditError(f"{split} image bytes missing or linked")
+    return resolved
+
+
 def _canonical_ring(values: Any, width: int, height: int, label: str) -> list[list[float]]:
     if not isinstance(values, list) or len(values) < 6 or len(values) % 2:
         raise AuditError(f"{label} polygon is invalid")
@@ -80,6 +151,7 @@ def _canonical_ring(values: Any, width: int, height: int, label: str) -> list[li
         raise AuditError(f"{label} polygon is degenerate")
     if any(x < 0 or x > width or y < 0 or y > height for x, y in points):
         raise AuditError(f"{label} polygon contains outside points")
+    _validate_simple_polygon(points, label)
     area2 = sum(
         points[index][0] * points[(index + 1) % len(points)][1]
         - points[(index + 1) % len(points)][0] * points[index][1]
@@ -108,9 +180,19 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
         categories = coco.get("categories")
         if not isinstance(categories, list):
             raise AuditError(f"{split} categories missing")
-        category_names = {item.get("id"): item.get("name") for item in categories if isinstance(item, dict)}
-        if set(category_names.values()) != set(CLASSES):
+        if len(categories) != len(CLASSES) or any(not isinstance(item, dict) for item in categories):
             raise AuditError(f"{split} class inventory changed")
+        category_ids = [item.get("id") for item in categories]
+        category_values = [item.get("name") for item in categories]
+        if (
+            any(isinstance(item, bool) or not isinstance(item, (int, str)) or item == "" for item in category_ids)
+            or any(not isinstance(item, str) or not item for item in category_values)
+            or len(set(category_ids)) != len(category_ids)
+            or len(set(category_values)) != len(category_values)
+            or set(category_values) != set(CLASSES)
+        ):
+            raise AuditError(f"{split} class inventory changed")
+        category_names = dict(zip(category_ids, category_values))
         images = coco.get("images")
         if not isinstance(images, list):
             raise AuditError(f"{split} images missing")
@@ -121,7 +203,12 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
             image_id = image.get("id")
             width = image.get("width")
             height = image.get("height")
-            if image_id in image_by_id:
+            if (
+                isinstance(image_id, bool)
+                or not isinstance(image_id, (int, str))
+                or image_id == ""
+                or image_id in image_by_id
+            ):
                 raise AuditError(f"{split} image id is duplicated")
             if (
                 isinstance(width, bool)
@@ -158,8 +245,18 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
             if not isinstance(bbox, list) or len(bbox) != 4:
                 raise AuditError(f"{split} annotation bbox is invalid")
             canonical_bbox = [_number(value, label) for value in bbox]
-            if canonical_bbox[2] <= 0 or canonical_bbox[3] <= 0:
+            if (
+                canonical_bbox[0] < 0
+                or canonical_bbox[1] < 0
+                or canonical_bbox[2] <= 0
+                or canonical_bbox[3] <= 0
+                or canonical_bbox[0] + canonical_bbox[2] > image["width"]
+                or canonical_bbox[1] + canonical_bbox[3] > image["height"]
+            ):
                 raise AuditError(f"{split} annotation bbox is invalid")
+            area = _number(annotation.get("area"), label)
+            if area <= 0:
+                raise AuditError(f"{split} annotation area is invalid")
             class_name = category_names[annotation["category_id"]]
             class_counts[class_name] += 1
             polygon_count += len(polygons)
@@ -168,16 +265,14 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
                 "class": class_name,
                 "bbox": canonical_bbox,
                 "segmentation": polygons,
-                "area": _number(annotation.get("area"), label),
+                "area": area,
                 "iscrowd": 0,
             })
 
         records: list[dict[str, Any]] = []
         content_hashes: list[str] = []
         for image in images:
-            image_path = split_root / image["file_name"]
-            if not image_path.is_file():
-                raise AuditError(f"{split} image bytes missing")
+            image_path = _safe_image_path(split_root, image["file_name"], split)
             digest = hashlib.sha256(image_path.read_bytes()).hexdigest()
             content_hashes.append(digest)
             canonical_annotations = sorted(
@@ -252,7 +347,7 @@ def build_audit(expected_root: Path, provider_root: Path, manifest: Path, versio
         "manifestFileSHA256": MANIFEST_FILE_SHA256,
         "assignmentsSHA256": ASSIGNMENTS_SHA256,
         "recordIdentityBasis": "image-content-sha256",
-        "geometryIdentityBasis": "canonical-polygon-ring-v1",
+        "geometryIdentityBasis": GEOMETRY_IDENTITY_BASIS,
         "exportArchiveSHA256": _digest_json(archive_identity),
         "splitImageContentSetSHA256": {
             split: provider[split]["contentSetSHA256"] for split in SPLITS
@@ -266,6 +361,12 @@ def build_audit(expected_root: Path, provider_root: Path, manifest: Path, versio
         "crossSplitContentHashCount": cross_split,
         "duplicateImageContentCount": 0,
         "polygonGeometryVerified": True,
+        "simplePolygonGeometryVerified": True,
+        "selfIntersectionCount": 0,
+        "pathSafetyVerified": True,
+        "categoryIdentityVerified": True,
+        "bboxWithinImageVerified": True,
+        "positiveAreaVerified": True,
         "boxGeometryAcceptedAsPolygonTruth": False,
         "crowdOrRLEGeometryAcceptedAsPolygonTruth": False,
         "invalidPolygonCount": 0,
