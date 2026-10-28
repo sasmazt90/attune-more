@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "regional-provider-safe-geometry-release-chain-ci-v1",
+  "observedAt": "2026-10-28T07:33:17Z",
+  "implementationCommit": "d830db0c3497733c6431022ae6bcb163382c82d2",
+  "repositoryCI": {
+    "workflowId": 362950948,
+    "workflowPath": ".github/workflows/ci.yml",
+    "runId": 40650388803,
+    "headSha": "d830db0c3497733c6431022ae6bcb163382c82d2",
+    "createdAt": "2026-10-28T07:29:16Z",
+    "completedAt": "2026-10-28T07:33:17Z",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122688850132,
+    "frontend": "success",
+    "backendJobId": 122688849800,
+    "backend": "success",
+    "deterministicTests": {
+      "passed": 1627,
+      "skipped": 44,
+      "warnings": 2
+    },
+    "completeSkinResearchTests": 384
+  },
+  "localVerification": {
+    "focusedTests": 66,
+    "pythonCompilation": "passed",
+    "jsonValidation": "passed"
+  },
+  "providerState": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "public": false,
+    "mutableImages": 476,
+    "mutableUnannotatedCounter": 139,
+    "mutableSplits": {
+      "train": 334,
+      "valid": 85,
+      "test": 57
+    },
+    "immutableVersions": [
+      {
+        "versionNumber": 1,
+        "images": 337,
+        "splits": {
+          "train": 244,
+          "valid": 63,
+          "test": 30
+        }
+      }
+    ],
+    "providerVersion2Present": false,
+    "newUploadStarted": false,
+    "newVersionStarted": false,
+    "newTrainingStarted": false,
+    "newInferenceStarted": false,
+    "newActivationStarted": false
+  },
+  "geometryContract": {
+    "identityBasis": "canonical-simple-polygon-ring-v2",
+    "providerPolygonGeometryAuditRequired": true,
+    "simplePolygonGeometryRequired": true,
+    "selfIntersectingPolygonAccepted": false,
+    "polygonCoordinatesMustBeFiniteAndInsideImage": true,
+    "pathSafetyRequired": true,
+    "absoluteOrTraversalImagePathAccepted": false,
+    "symlinkedImagePayloadAccepted": false,
+    "categoryIdentityRequired": true,
+    "bboxWithinImageRequired": true,
+    "positiveAreaRequired": true,
+    "degeneratePolygonAccepted": false,
+    "boxGeometryAcceptedAsPolygonTruth": false,
+    "crowdOrRLEGeometryAcceptedAsPolygonTruth": false,
+    "duplicateOrCrossSplitImageContentAccepted": false,
+    "filenamesOrProviderImageIdsEmitted": false
+  },
+  "releaseChain": {
+    "regionalProviderGate": {
+      "methodVersion": "regional-provider-dataset-release-gate-v5",
+      "receipt": "docs/skin/evidence/regional-provider-dataset-release-receipt-20261028-v5.json",
+      "gate": "docs/skin/evidence/regional-provider-dataset-release-gate-20261028-v5.json",
+      "gateSHA256": "dd330d98d9c034f1a6293c4def56fa974108241b35eff0ecd1b8ca298b947b79",
+      "providerVersionReady": false,
+      "trainingAuthorized": false,
+      "finalTestAuthorized": false,
+      "activationAllowed": false,
+      "roadmapAccepted": false
+    },
+    "unifiedGate": {
+      "methodVersion": "unified-skin-result-release-gate-v18",
+      "receipt": "docs/skin/evidence/unified-skin-result-release-receipt-20261028-v18.json",
+      "gate": "docs/skin/evidence/unified-skin-result-release-gate-20261028-v18.json",
+      "gateSHA256": "218ef23ffede172c3a0d6991c2f6ed7bc575e8575b73f5fa05d0f6779e41ea3e",
+      "workingBaselinePreserved": true,
+      "roadmapAccepted": false
+    }
+  },
+  "providerTasks": []
+}
