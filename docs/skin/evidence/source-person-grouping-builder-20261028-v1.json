@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-28",
+  "implementationCommit": "5d41992ba6ff9b2827ae2dd5faf63e6a315e753f",
+  "methodVersion": "skin-source-person-grouping-builder-report-v1",
+  "observedAt": "2026-10-28T13:41:37Z",
+  "preflight": {
+    "decision": "blocked",
+    "knownExactCrossSplitGroupCount": 66,
+    "knownFilenameCandidateGroupCount": 286,
+    "knownPerceptualCandidatePairCount": 1301,
+    "knownRecordCount": 7865,
+    "readyForReleaseArtifact": false,
+    "sourcePersonGroupingComplete": false,
+    "underEyeReviewedCrossSplitGroupCount": 3
+  },
+  "releaseContract": {
+    "artifactMethodVersion": "skin-source-person-grouping-v1",
+    "excludedArchivesAccessed": false,
+    "filenameCandidateAcceptedAsIdentity": false,
+    "modelPredictionAcceptedAsIdentity": false,
+    "photoGroupAcceptedAsPersonIdentity": false,
+    "selectedArchiveCountExpected": 11,
+    "similarityCandidateAcceptedAsIdentity": false,
+    "singletonAssignmentAcceptedAsIdentity": false
+  },
+  "remoteState": {
+    "accessibleProjectCount": 20,
+    "acne": {
+      "images": 800,
+      "splits": {"test": 82, "train": 553, "valid": 165},
+      "trainings": {
+        "49ee6204cf069198bbfa": "finished",
+        "5b632a5c12b76fcfe703": "finished"
+      }
+    },
+    "regional": {
+      "mutableImages": 476,
+      "mutableUnannotated": 139,
+      "trainings": {
+        "3485f8c67f957a1b850d": "finished",
+        "af287a006e2e428f5ce4": "finished"
+      },
+      "version1Images": 337,
+      "version1Splits": {"test": 30, "train": 244, "valid": 63}
+    },
+    "underEye": {
+      "darkcirclePolygons": 382,
+      "eyebagPolygons": 487,
+      "images": 399,
+      "version2Splits": {"test": 39, "train": 279, "valid": 81},
+      "version2TrainingCount": 0
+    }
+  },
+  "schemaVersion": 1,
+  "tests": {
+    "availableSkinResearch": 111,
+    "focused": 8,
+    "preflightReplayExitCode": 2,
+    "preflightReplayMatched": true,
+    "result": "OK"
+  },
+  "writes": {
+    "providerTasksCreated": [],
+    "roboflowWrites": [],
+    "trainingStarted": false
+  }
+}
