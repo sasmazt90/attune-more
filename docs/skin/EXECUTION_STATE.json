@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T18:42:30Z",
+      "lastCheckedAt": "2026-10-28T19:39:14Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -494,6 +494,32 @@
         "targetedNextExperiment": "face_aligned_single_roi_or_higher_effective_resolution",
         "targetedNextExperimentAuthorized": false,
         "implementationCommit": "69edf51ec96fd5c31f088e1cea03596f0dcb38f2"
+      },
+      "validationFailureReviewQueue": {
+        "observedAt": "2026-10-28T19:39:14Z",
+        "methodVersion": "acne-validation-failure-review-queue-v1",
+        "script": "scripts/skin-research/build_acne_validation_failure_queue.py",
+        "evidence": "docs/skin/evidence/acne-validation-failure-review-queue-20261028-v1.json",
+        "evalId": "7s06OfIzx78XzATqr5oA",
+        "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-small-t2",
+        "split": "valid",
+        "images": 165,
+        "confidenceThreshold": 0.3,
+        "thresholdSelectedHere": false,
+        "testSplitRead": false,
+        "perClassReviewItems": {
+          "Pimple": 15,
+          "Post acne": 15,
+          "Pigmentation": 15
+        },
+        "queueDigest": "6fa8ccb7a2a1c072bb18fc80bf64babcffd5b59d764b7429c43beaf8383bc6c6",
+        "rawProviderIdentifiersCommitted": false,
+        "modelProposalsAreExpertTruth": false,
+        "expertReviewComplete": false,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "implementationCommit": "77587d74d9350f1d2ff854822501e202868f8a66"
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -9198,6 +9224,25 @@
       },
       "providerTasks": [],
       "implementationCommit": "69edf51ec96fd5c31f088e1cea03596f0dcb38f2",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T19:39:14Z",
+      "action": "Read the persistent checkpoint first and refreshed the exact acne project, finished NAS training and model-evaluation inventory without starting duplicate work. The private project remains at 800 images with unchanged 553/165/82 splits and 3640 Pimple, 32123 Post acne and 1579 Pigmentation boxes; training 5b632a5c12b76fcfe703 remains finished with 89 NAS children, while only the same two model evaluations exist. Read all 165 unaugmented validation-image results for small-model eval 7s06OfIzx78XzATqr5oA at the fixed stored 0.30 confidence slice. Implemented a privacy-safe failure-queue builder that rejects test rows, non-stored 0.35 results, augmented or incomplete inventories, duplicate rows and invalid confusion cells. It ranks validation failures separately for Pimple, Post acne and Pigmentation and emitted 15 expert-review candidates per class with only SHA-256 pseudonyms and aggregate failure counts. The committed artifact contains no provider image IDs, filenames, paths or image bytes; its private resolver was not committed. Model errors remain review proposals, not expert truth; the builder did not select a threshold, read the test split, relabel data or authorize training/final-test/product activation. Eight focused tests and all 159 skin-research tests available in this partial workspace passed. No Roboflow write, evaluation job, training, excluded-archive access, private payload commit or provider task was created.",
+      "report": "docs/skin/evidence/acne-validation-failure-review-queue-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_acne_validation_failure_queue.py",
+        "scripts/skin-research/tests/test_build_acne_validation_failure_queue.py",
+        "docs/skin/evidence/acne-validation-failure-review-queue-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 8,
+        "availableSkinResearch": 159,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "77587d74d9350f1d2ff854822501e202868f8a66",
       "runs": []
     }
   ]
