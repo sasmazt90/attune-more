@@ -645,7 +645,18 @@
           "testEvaluationAuthorized": false,
           "productActivationAllowed": false,
           "evidence": "docs/skin/evidence/under-eye-grouped-upload-preflight-20261028-v1.json",
-          "script": "scripts/skin-research/verify_under_eye_grouped_upload.py"
+          "script": "scripts/skin-research/verify_under_eye_grouped_upload.py",
+          "ci": {
+            "runId": 40629334971,
+            "headSha": "a1b72f58776bbddd55faab065575b21d74743080",
+            "status": "completed",
+            "conclusion": "success",
+            "frontendJobId": 122621762545,
+            "frontend": "success",
+            "backendJobId": 122621762438,
+            "backend": "success"
+          },
+          "ciEvidence": "docs/skin/evidence/under-eye-grouped-upload-preflight-ci-20261028-v1.json"
         }
       },
       "expertSemanticReview": {
@@ -8398,6 +8409,7 @@
       "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye project/version/training state without starting a duplicate version, training, inference, threshold or activation job. Acne remains private at 800 images with unchanged 553/165/82 splits and finished NAS and small runs; regional remains a drifted 476-image mutable project with only immutable version 1 and finished NAS and small runs; under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 at 279/81/39 and no version-2 training; grouped under-eye remains private and empty, and its stale upload task remains created with no progress. Downloaded the augmentation-free provider v2 COCO export and verified source SHA256 6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99. The repository's production builder reproduced the exact authorized grouped archive SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122 at 15,086,760 bytes with 399 images, 869 unchanged polygons and 284/77/38 splits. Added a side-effect-free upload preflight that binds the archive bytes, source reproduction, exact private destination, empty-project requirement, stale-task prohibition and post-upload counts while keeping version generation, research training, final-test evaluation, activation and roadmap acceptance false. The available provider write channel did not permit transferring the private archive, so no upload task was created and no indirect workaround was attempted. Twenty-two focused builder, preflight, grouped-gate and expert-review tests passed. Expert semantics, person independence, grouped provider import/version, untouched final test, physical-camera and product integration evidence remain pending.",
       "report": "docs/skin/evidence/under-eye-grouped-upload-preflight-20261028-v1.json",
       "evidence": [
+        "docs/skin/evidence/under-eye-grouped-upload-preflight-ci-20261028-v1.json",
         "docs/skin/evidence/under-eye-grouped-upload-preflight-20261028-v1.json",
         "scripts/skin-research/verify_under_eye_grouped_upload.py",
         "scripts/skin-research/tests/test_verify_under_eye_grouped_upload.py",
@@ -8408,9 +8420,28 @@
         "focused": 22,
         "productionArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
         "productionArchiveBytes": 15086760,
-        "result": "OK"
+        "result": "OK",
+        "deterministic": {
+          "passed": 1627,
+          "skipped": 44,
+          "warnings": 2
+        },
+        "skinResearch": 367
       },
-      "providerTasks": []
+      "providerTasks": [],
+      "implementationCommit": "a1b72f58776bbddd55faab065575b21d74743080",
+      "runs": [
+        {
+          "runId": 40629334971,
+          "headSha": "a1b72f58776bbddd55faab065575b21d74743080",
+          "status": "completed",
+          "conclusion": "success",
+          "frontendJobId": 122621762545,
+          "frontend": "success",
+          "backendJobId": 122621762438,
+          "backend": "success"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "under-eye-grouped-upload-preflight-ci-v1",
+  "observedAt": "2026-10-28T03:57:47Z",
+  "implementationCommit": "a1b72f58776bbddd55faab065575b21d74743080",
+  "preflightEvidence": {
+    "path": "docs/skin/evidence/under-eye-grouped-upload-preflight-20261028-v1.json",
+    "sha256": "e919c23d76a7763dda8a04fea671829f81677a45e1fee87b6b55d24c30a74c3d"
+  },
+  "implementation": {
+    "path": "scripts/skin-research/verify_under_eye_grouped_upload.py",
+    "sha256": "975c77c28934e27c31dd02a32aa1f287ef36e75860a5ff84b928ab6339e4f73f"
+  },
+  "tests": {
+    "path": "scripts/skin-research/tests/test_verify_under_eye_grouped_upload.py",
+    "sha256": "bc6af8fcdc3ddd4b4c8ddc6f7951e9365cea1326e35e72080bac9c7370b48651",
+    "focusedPassed": 22,
+    "deterministicPassed": 1627,
+    "deterministicSkipped": 44,
+    "deterministicWarnings": 2,
+    "skinResearchPassed": 367
+  },
+  "run": {
+    "runId": 40629334971,
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122621762545,
+    "frontend": "success",
+    "backendJobId": 122621762438,
+    "backend": "success"
+  },
+  "archiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "archiveUploadAuthorized": true,
+  "uploadPerformed": false,
+  "versionGenerationAuthorized": false,
+  "researchTrainingAuthorized": false,
+  "testEvaluationAuthorized": false,
+  "productActivationAllowed": false,
+  "roadmapAccepted": false
+}
