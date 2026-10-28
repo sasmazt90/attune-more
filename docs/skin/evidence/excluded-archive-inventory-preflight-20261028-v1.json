@@ -1,0 +1,28 @@
+{
+  "archiveHashesRecomputed": false,
+  "blockers": [
+    "excluded_archive_private_inventory_missing",
+    "fourth_excluded_archive_not_reconciled",
+    "metadata_only_presence_evidence_missing",
+    "preservation_policy_evidence_missing"
+  ],
+  "containsPublicNamesOrPaths": false,
+  "contentsEnumerated": false,
+  "decision": "blocked",
+  "excludedArchivesAccessed": false,
+  "inventoryReconciled": false,
+  "metadataOnlyVerification": true,
+  "methodVersion": "excluded-archive-inventory-reconciliation-preflight-v1",
+  "mutationPerformed": false,
+  "preservationPolicyEnforced": false,
+  "productUsePerformed": false,
+  "readyForReleaseArtifact": false,
+  "reconciledArchiveCount": 0,
+  "releaseRef": null,
+  "requiredArchiveCount": 4,
+  "schemaVersion": 1,
+  "sourceFactsMethodVersion": "source-mapping-release-receipt-v2",
+  "sourceReleaseContributionAllowed": false,
+  "trainingUsePerformed": false,
+  "uploadPerformed": false
+}
