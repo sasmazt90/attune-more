@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T02:09:16Z",
+  "methodVersion": "under-eye-grouped-archive-authorization-v3",
+  "sourceArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+  "authorizedArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "revokedArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+  "revocationReason": "The older archive predates the fourth reviewed cross-split same-source-photo group and therefore preserves a known avoidable split leakage.",
+  "authorization": {
+    "destinationProject": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "destinationMustRemainPrivate": true,
+    "destinationMustBeEmpty": true,
+    "freshDirectArchiveUpload": true,
+    "reuseExistingCreatedTask": false,
+    "versionGeneration": false,
+    "researchTraining": false,
+    "testEvaluation": false,
+    "productActivation": false
+  },
+  "requiredPostUploadVerification": {
+    "images": 399,
+    "annotations": 869,
+    "splits": {"train": 284, "valid": 77, "test": 38},
+    "classCounts": {"darkcircle": 382, "eyebag": 487},
+    "augmentation": {}
+  },
+  "remainingHumanEvidence": [
+    "Expert review of the darkcircle and eyebag semantic protocol and all 399 grouped images.",
+    "Person-identity independence review across train, validation and test.",
+    "Independent physical-camera cohort and product integration evidence."
+  ],
+  "privacySafe": true
+}

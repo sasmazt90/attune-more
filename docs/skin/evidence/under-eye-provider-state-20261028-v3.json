@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T02:09:16Z",
+  "methodVersion": "under-eye-provider-state-v3",
+  "pilotVersion": {
+    "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+    "version": 2,
+    "images": 399,
+    "annotations": 869,
+    "splits": {"train": 279, "valid": 81, "test": 39},
+    "classCounts": {"darkcircle": 382, "eyebag": 487},
+    "preprocessing": {},
+    "augmentation": {},
+    "trainings": [],
+    "exportArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
+  },
+  "groupedProject": {
+    "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "private": true,
+    "images": 0,
+    "versions": [],
+    "upload": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null,
+      "bytesSent": false
+    }
+  },
+  "observations": {
+    "sourceExportReady": true,
+    "sourceExportImages": 399,
+    "sourceExportFormat": "coco",
+    "sourceExportDownloadedInThisRun": false,
+    "sourceExportDownloadBlocker": "signed_url_blocked_by_client",
+    "providerMutationPerformed": false
+  },
+  "source": "Roboflow projects_get, versions_export and image_upload_status",
+  "privacySafe": true
+}

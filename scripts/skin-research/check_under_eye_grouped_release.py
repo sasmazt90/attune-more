@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """Fail-closed release gate for the grouped under-eye research dataset.
 
-The gate separates four operations that must never be conflated:
-archive upload, dataset-version generation, research training and product
-activation. A locally reproducible archive is not upload authorization when
-its digest differs from the explicitly authorized digest. An empty project is
-not a generated dataset, and a finished research model is not product proof.
+The gate authorizes only a fresh upload of the exact, deterministic grouped
+archive into the exact empty private research project.  Upload, version
+generation, research training, final-test evaluation and product activation
+remain separate operations.
 """
 
 from __future__ import annotations
@@ -28,6 +27,9 @@ EXPECTED_GROUPED = {
     "splits": {"train": 284, "valid": 77, "test": 38},
     "classCounts": {"darkcircle": 382, "eyebag": 487},
 }
+EXPECTED_SOURCE_SHA256 = "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
+EXPECTED_GROUPED_PROJECT = "tolgar-sasmaz/attune-skin-under-eye-grouped-research"
+REVOKED_ARCHIVE_SHA256 = "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8"
 
 
 class GateInputError(ValueError):
@@ -49,6 +51,8 @@ def evaluate_release(
 
     if reproduction.get("methodVersion") != "under-eye-grouped-archive-v2":
         raise GateInputError("unexpected reproduction method")
+    if reproduction.get("sourceArchiveSHA256") != EXPECTED_SOURCE_SHA256:
+        raise GateInputError("source archive SHA256 is not the reviewed export")
     _exact_mapping(reproduction.get("source"), EXPECTED_SOURCE, "source export")
     _exact_mapping(reproduction.get("output"), EXPECTED_GROUPED, "grouped output")
     if reproduction.get("reviewedCrossSplitGroups") != 4 or reproduction.get("movedImages") != 5:
@@ -60,10 +64,14 @@ def evaluate_release(
     candidate_sha = reproduction.get("outputArchiveSHA256")
     if not isinstance(candidate_sha, str) or len(candidate_sha) != 64:
         raise GateInputError("missing output archive SHA256")
+    if authorized_archive_sha256 == REVOKED_ARCHIVE_SHA256:
+        raise GateInputError("revoked archive SHA256 cannot be authorized")
 
     pilot = remote.get("pilotVersion", {})
     if pilot.get("version") != 2:
         raise GateInputError("provider pilot version 2 is not bound")
+    if pilot.get("exportArchiveSHA256") != EXPECTED_SOURCE_SHA256:
+        raise GateInputError("provider source export SHA256 changed")
     if pilot.get("preprocessing") != {} or pilot.get("augmentation") != {}:
         raise GateInputError("provider source version must remain augmentation-free")
     _exact_mapping(
@@ -78,15 +86,20 @@ def evaluate_release(
     )
 
     grouped = remote.get("groupedProject", {})
+    if grouped.get("project") != EXPECTED_GROUPED_PROJECT or grouped.get("private") is not True:
+        raise GateInputError("grouped destination project identity or privacy changed")
     upload = grouped.get("upload", {})
     project_empty = grouped.get("images") == 0 and grouped.get("versions") == []
-    upload_has_no_bytes = upload.get("status") == "created" and upload.get("progress") is None
+    stale_created_task = bool(
+        upload.get("taskId")
+        and upload.get("status") == "created"
+        and upload.get("progress") is None
+        and upload.get("bytesSent") is False
+    )
+    upload_in_progress = upload.get("status") not in (None, "created", "completed")
     exact_archive_authorized = candidate_sha == authorized_archive_sha256
-    archive_upload_authorized = bool(
-        exact_archive_authorized
-        and project_empty
-        and upload_has_no_bytes
-        and upload.get("taskId")
+    fresh_upload_authorized = bool(
+        exact_archive_authorized and project_empty and not upload_in_progress
     )
 
     imported = grouped.get("importedDataset")
@@ -99,6 +112,20 @@ def evaluate_release(
         and generated_version.get("splits") == EXPECTED_GROUPED["splits"]
         and generated_version.get("augmentation") == {}
     )
+    expert_review = grouped.get("expertReview", {})
+    expert_reviewed = bool(
+        expert_review.get("accepted") is True
+        and expert_review.get("semanticProtocol") == "darkcircle-eyebag-v1"
+        and expert_review.get("reviewedImages") == EXPECTED_GROUPED["images"]
+    )
+    identity_review = grouped.get("identityReview", {})
+    person_independent = bool(
+        identity_review.get("accepted") is True
+        and identity_review.get("personIndependent") is True
+    )
+    research_training_authorized = bool(
+        version_verified and expert_reviewed and person_independent
+    )
 
     blockers: list[str] = []
     if not exact_archive_authorized:
@@ -107,12 +134,18 @@ def evaluate_release(
         blockers.append("grouped_project_is_partially_populated_or_unverified")
     if project_empty:
         blockers.append("grouped_project_is_empty")
-    if upload_has_no_bytes:
-        blockers.append("existing_upload_task_has_no_processed_bytes")
+    if stale_created_task:
+        blockers.append("stale_upload_task_must_not_be_reused")
+    if upload_in_progress:
+        blockers.append("another_grouped_upload_is_in_progress")
     if not import_verified:
         blockers.append("grouped_import_counts_and_splits_not_verified")
     if not version_verified:
         blockers.append("augmentation_free_grouped_version_not_verified")
+    if not expert_reviewed:
+        blockers.append("expert_under_eye_semantic_review_missing")
+    if not person_independent:
+        blockers.append("person_independence_not_verified")
     blockers.extend([
         "independent_camera_holdout_missing",
         "working_product_integration_evidence_missing",
@@ -120,14 +153,17 @@ def evaluate_release(
 
     return {
         "schemaVersion": 1,
-        "methodVersion": "under-eye-grouped-release-gate-v2",
+        "methodVersion": "under-eye-grouped-release-gate-v3",
+        "sourceArchiveSHA256": EXPECTED_SOURCE_SHA256,
+        "revokedArchiveSHA256": REVOKED_ARCHIVE_SHA256,
         "authorizedArchiveSHA256": authorized_archive_sha256,
         "candidateArchiveSHA256": candidate_sha,
         "exactArchiveAuthorized": exact_archive_authorized,
-        "existingUploadTaskReusable": bool(project_empty and upload_has_no_bytes and upload.get("taskId")),
-        "archiveUploadAuthorized": archive_upload_authorized,
+        "existingUploadTaskReusable": False,
+        "freshDirectUploadRequired": True,
+        "archiveUploadAuthorized": fresh_upload_authorized,
         "versionGenerationAuthorized": import_verified,
-        "researchTrainingAuthorized": version_verified,
+        "researchTrainingAuthorized": research_training_authorized,
         "testEvaluationAuthorized": False,
         "productActivationAllowed": False,
         "roadmapAccepted": False,

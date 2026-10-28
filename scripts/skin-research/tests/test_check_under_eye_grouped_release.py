@@ -11,9 +11,10 @@ sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
 
 
-def reproduction(sha="a" * 64):
+def reproduction(sha="8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122"):
     return {
         "methodVersion": "under-eye-grouped-archive-v2",
+        "sourceArchiveSHA256": MODULE.EXPECTED_SOURCE_SHA256,
         "source": dict(MODULE.EXPECTED_SOURCE),
         "output": dict(MODULE.EXPECTED_GROUPED),
         "reviewedCrossSplitGroups": 4,
@@ -34,66 +35,98 @@ def remote():
             "classCounts": {"darkcircle": 382, "eyebag": 487},
             "preprocessing": {},
             "augmentation": {},
+            "exportArchiveSHA256": MODULE.EXPECTED_SOURCE_SHA256,
         },
         "groupedProject": {
+            "project": MODULE.EXPECTED_GROUPED_PROJECT,
+            "private": True,
             "images": 0,
             "versions": [],
-            "upload": {"taskId": "existing-task", "status": "created", "progress": None},
+            "upload": {
+                "taskId": "stale-task",
+                "status": "created",
+                "progress": None,
+                "bytesSent": False,
+            },
         },
     }
 
 
 class UnderEyeGroupedReleaseGateTest(unittest.TestCase):
-    def test_current_sha_mismatch_blocks_every_downstream_operation(self):
-        result = MODULE.evaluate_release(
-            reproduction("b" * 64), remote(), authorized_archive_sha256="a" * 64
-        )
-        self.assertFalse(result["archiveUploadAuthorized"])
-        self.assertFalse(result["versionGenerationAuthorized"])
-        self.assertFalse(result["researchTrainingAuthorized"])
-        self.assertFalse(result["productActivationAllowed"])
-        self.assertIn("candidate_archive_sha256_does_not_match_authorized_archive", result["blockers"])
-
-    def test_exact_archive_only_authorizes_reuse_of_existing_upload_task(self):
-        result = MODULE.evaluate_release(
-            reproduction("a" * 64), remote(), authorized_archive_sha256="a" * 64
-        )
+    def test_new_exact_archive_authorizes_only_fresh_direct_upload(self):
+        sha = reproduction()["outputArchiveSHA256"]
+        result = MODULE.evaluate_release(reproduction(), remote(), authorized_archive_sha256=sha)
         self.assertTrue(result["archiveUploadAuthorized"])
-        self.assertTrue(result["existingUploadTaskReusable"])
+        self.assertFalse(result["existingUploadTaskReusable"])
+        self.assertTrue(result["freshDirectUploadRequired"])
         self.assertFalse(result["versionGenerationAuthorized"])
         self.assertFalse(result["researchTrainingAuthorized"])
+        self.assertIn("stale_upload_task_must_not_be_reused", result["blockers"])
 
-    def test_verified_import_and_version_can_authorize_research_training_only(self):
+    def test_revoked_old_archive_fails_hard(self):
+        with self.assertRaisesRegex(MODULE.GateInputError, "revoked archive"):
+            MODULE.evaluate_release(
+                reproduction(MODULE.REVOKED_ARCHIVE_SHA256),
+                remote(),
+                authorized_archive_sha256=MODULE.REVOKED_ARCHIVE_SHA256,
+            )
+
+    def test_source_export_and_private_destination_are_identity_bound(self):
+        bad = reproduction()
+        bad["sourceArchiveSHA256"] = "0" * 64
+        with self.assertRaisesRegex(MODULE.GateInputError, "reviewed export"):
+            MODULE.evaluate_release(bad, remote(), authorized_archive_sha256=bad["outputArchiveSHA256"])
         state = remote()
-        state["groupedProject"] = {
+        state["groupedProject"]["private"] = False
+        with self.assertRaisesRegex(MODULE.GateInputError, "privacy"):
+            MODULE.evaluate_release(
+                reproduction(), state, authorized_archive_sha256=reproduction()["outputArchiveSHA256"]
+            )
+
+    def test_verified_import_and_version_still_do_not_authorize_training_without_reviews(self):
+        state = remote()
+        state["groupedProject"].update({
             "images": 399,
             "versions": [1],
-            "upload": {"taskId": "existing-task", "status": "completed", "progress": 1},
+            "upload": {"taskId": "fresh-task", "status": "completed", "progress": 1, "bytesSent": True},
             "importedDataset": dict(MODULE.EXPECTED_GROUPED),
             "generatedVersion": {
                 "ready": True,
-                "splits": {"train": 284, "valid": 77, "test": 38},
+                "splits": dict(MODULE.EXPECTED_GROUPED["splits"]),
                 "augmentation": {},
             },
-        }
-        result = MODULE.evaluate_release(
-            reproduction("a" * 64), state, authorized_archive_sha256="a" * 64
-        )
+        })
+        sha = reproduction()["outputArchiveSHA256"]
+        result = MODULE.evaluate_release(reproduction(), state, authorized_archive_sha256=sha)
         self.assertTrue(result["versionGenerationAuthorized"])
+        self.assertFalse(result["researchTrainingAuthorized"])
+        self.assertIn("expert_under_eye_semantic_review_missing", result["blockers"])
+        self.assertIn("person_independence_not_verified", result["blockers"])
+
+    def test_training_requires_verified_version_expert_semantics_and_identity(self):
+        state = remote()
+        state["groupedProject"].update({
+            "images": 399,
+            "versions": [1],
+            "upload": {"taskId": "fresh-task", "status": "completed", "progress": 1, "bytesSent": True},
+            "importedDataset": dict(MODULE.EXPECTED_GROUPED),
+            "generatedVersion": {
+                "ready": True,
+                "splits": dict(MODULE.EXPECTED_GROUPED["splits"]),
+                "augmentation": {},
+            },
+            "expertReview": {
+                "accepted": True,
+                "semanticProtocol": "darkcircle-eyebag-v1",
+                "reviewedImages": 399,
+            },
+            "identityReview": {"accepted": True, "personIndependent": True},
+        })
+        sha = reproduction()["outputArchiveSHA256"]
+        result = MODULE.evaluate_release(reproduction(), state, authorized_archive_sha256=sha)
         self.assertTrue(result["researchTrainingAuthorized"])
         self.assertFalse(result["testEvaluationAuthorized"])
         self.assertFalse(result["productActivationAllowed"])
-
-    def test_changed_pixels_geometry_or_provider_augmentation_fail_hard(self):
-        bad = reproduction()
-        bad["imageBytesChanged"] = 1
-        with self.assertRaisesRegex(MODULE.GateInputError, "image bytes changed"):
-            MODULE.evaluate_release(bad, remote(), authorized_archive_sha256="a" * 64)
-        bad = reproduction()
-        state = remote()
-        state["pilotVersion"]["augmentation"] = {"flip": True}
-        with self.assertRaisesRegex(MODULE.GateInputError, "augmentation-free"):
-            MODULE.evaluate_release(bad, state, authorized_archive_sha256="a" * 64)
 
 
 if __name__ == "__main__":
