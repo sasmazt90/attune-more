@@ -1,0 +1,803 @@
+{
+  "status": "PASS",
+  "language": "tr",
+  "kind": "production UI; simulated camera/model/ASR; native approved audio accelerated 4x for text audit",
+  "physicalTesting": false,
+  "stages": [
+    {
+      "stage": "preparation",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ],
+      "screenshot": "tr-preparation.png"
+    },
+    {
+      "stage": "camera-preparation",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nYüz / Kadraj\nÖlçüm bekleniyor\nIşık\nÖlçüm bekleniyor\nNetlik\nÖlçüm bekleniyor\nMesafe / Konum\nBaşlangıç bekleniyor\nGöz kontrolü\nİki göz açık başlayın\nGörüntü güncelliği\nKamera karesi bekleniyor\n\nKamera ve cihazdaki modeller hazırlanıyor…\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-camera-preparation.png"
+    },
+    {
+      "stage": "instruction",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nYönerge okunuyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: açık · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nYönerge okunuyor\n\nSağ gözünüzü test ediyoruz. Sol gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-instruction.png"
+    },
+    {
+      "stage": "listening",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-listening.png"
+    },
+    {
+      "stage": "clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nAlgılanan: B · yön anlaşılmadı. Yalnız yön bekleniyor.\n\nDuyulan: “Bolu”\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-clarification.png"
+    },
+    {
+      "stage": "processing",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nYanıt işleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nYanıt alındı. Değerlendiriliyor.\n\nDuyulan: “Bolu · saat yönünün tersinde doksan derece”\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-processing.png"
+    },
+    {
+      "stage": "letter-clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n1 / 24\n\nSağ göz · 2/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nAlgılanan: harf anlaşılmadı · sola yatmış ve aynalı. Yalnız harf bekleniyor.\n\nDuyulan: “saat yönünün tersinde doksan derece ve aynalı”\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-letter-clarification.png"
+    },
+    {
+      "stage": "reverse-clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n2 / 24\n\nSağ göz · 3/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nAlgılanan: E · yön anlaşılmadı. Baş aşağı mı, aynalı mı?\n\nDuyulan: “E ters”\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-reverse-clarification.png"
+    },
+    {
+      "stage": "repeat-clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n3 / 24\n\nSağ göz · 4/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nAlgılanan: harf anlaşılmadı · yön anlaşılmadı. Yanıtı yeniden söyleyin.\n\nDuyulan: “blablabla”\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-repeat-clarification.png"
+    },
+    {
+      "stage": "silence",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nYönerge hazırlanıyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nYönerge hazırlanıyor\n\nKonuşma algılanmadı. Yönergeden sonra yanıtlayın.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-silence.png"
+    },
+    {
+      "stage": "reconnecting",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nMikrofon hazırlanıyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-reconnecting.png"
+    },
+    {
+      "stage": "error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nKonuşma tanıma kullanılamıyor. Mikrofon iznini ve bağlantıyı kontrol edip tekrar deneyin.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nTekrar dene\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\n\nMikrofon veya konuşma hizmeti kullanılamıyor. Yanıt puanlanmadı; tekrar deneyin.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-error.png"
+    },
+    {
+      "stage": "retry",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ]
+    },
+    {
+      "stage": "paused",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDuraklatıldı. Devam et ile sürdürebilirsiniz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDevam et\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-paused.png"
+    },
+    {
+      "stage": "muted",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nSeslendirme kapalı. Üst çubuktaki hoparlörü açıp devam edin.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDevam et\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-muted.png"
+    },
+    {
+      "stage": "hand-coverage",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: elle örtülü · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-hand-coverage.png"
+    },
+    {
+      "stage": "object-coverage",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: nesneyle örtülü · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-object-coverage.png"
+    },
+    {
+      "stage": "condition-both-open",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: açık · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDiğer gözünüzü kapatın veya örtün.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-condition-both-open.png"
+    },
+    {
+      "stage": "condition-both-closed",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: kapalı\nGörüntü güncelliği\nGüncel\n\nİki göz de kapalı veya örtülü. Test edilen gözünüzü açın.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-test-covered",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: kapalı\nGörüntü güncelliği\nGüncel\n\nİki göz de kapalı veya örtülü. Test edilen gözünüzü açın.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-uncertain",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: değerlendirilemiyor · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nGöz örtüsünü veya göz açıklığını kontrol edemiyorum.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-condition-uncertain.png"
+    },
+    {
+      "stage": "condition-no-face",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüzünüzü görüntüde tutun\nIşık\nÖlçüm bekleniyor\nNetlik\nÖlçüm bekleniyor\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nYüzünüzü kamera görüntüsünde tutun.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-pose",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nBaşınızı biraz ekrana çevirin; harf alanına bakabilirsiniz.\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nBaşınızı biraz ekrana çevirin; harf alanına bakabilirsiniz.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-framing",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüzünüzün tamamını kamera görüntüsünde tutun.\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nYüzünüzün tamamını kamera görüntüsünde tutun.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-light",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nAçık gözünüzün bulunduğu tarafı aydınlatın.\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nAçık gözünüzün bulunduğu tarafı aydınlatın.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-condition-light.png"
+    },
+    {
+      "stage": "condition-bright",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nYüzünüzdeki parlamayı azaltın.\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nYüzünüzdeki parlamayı azaltın.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-blur",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nAçık göz çevresinde netlik yetersiz. Kamera netliğini kontrol edin.\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nAçık göz çevresinde netlik yetersiz. Kamera netliğini kontrol edin.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-near",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBiraz geri çekilin.\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nBiraz geri çekilin.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-approach",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBiraz yaklaşın.\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nBiraz yaklaşın.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-distance-unknown",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nMesafeyi güvenilir izleyemiyorum; yüzünüzü görünür tutun.\nGöz kontrolü\nSol göz: yüz hizası bekleniyor · Sağ göz: yüz hizası bekleniyor\nGörüntü güncelliği\nGüncel\n\nMesafeyi güvenilir izleyemiyorum; yüzünüzü görünür tutun.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ]
+    },
+    {
+      "stage": "condition-stale",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n4 / 24\n\nSağ göz · 5/12\n\nKoşul bekleniyor\n\nYüz / Kadraj\nÖlçüm bekleniyor\nIşık\nÖlçüm bekleniyor\nNetlik\nÖlçüm bekleniyor\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kamera bekleniyor · Sağ göz: kamera bekleniyor\nGörüntü güncelliği\nKamera karesi bekleniyor\n\nKamera görüntüsü güncel değil.\n\nKoşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.\n\nKonuşma bağlantısı yeniden kuruluyor. Yanıt puanlanmadı.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-condition-stale.png"
+    },
+    {
+      "stage": "left-eye-instruction",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n12 / 24\n\nSol göz · 1/12\n\nYönerge okunuyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: açık · Sağ göz: kapalı\nGörüntü güncelliği\nGüncel\n\nYönerge okunuyor\n\nSol gözünüzü test ediyoruz. Sağ gözünüzü kapatın veya örtün. Açık gözünüzle harf alanına bakın.\n\nDuyulan: “Fatsa saat yönünün tersinde doksan derece ve aynalı”\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-left-eye-instruction.png"
+    },
+    {
+      "stage": "completion",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nYeni görev\nHazırlık\nSağ göz\nSol göz\nSonuç\n24 / 24\nHarf tanıma sonucu\nSağ göz\nHarf tanımlama skoru\n%100\nHarf yönü skoru\n%100\nToplam ortalama skor\n%100\nGeçerli yanıt sayısı\n12\nBoyut bazlı sonuçlar\nSol göz\nHarf tanımlama skoru\n%100\nHarf yönü skoru\n%100\nToplam ortalama skor\n%100\nGeçerli yanıt sayısı\n12\nBoyut bazlı sonuçlar\nİlk görünür kart: 1 / 2\nUzman seçenekleri\nGöz Sağlığı kayıtları\n\n1 kayıt\n\nTarih\tSaat\tModül\tÖzet\t\nSonucu Aç\n\tSil\n28.10.2026\t02:12\tGöz Sağlığı\tTamamlanan ön değerlendirme\t\n\t\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler\nGörme bildirimi\n\nGörev tamamlandı. Sonuç bu cihazdaki geçmişe kaydedildi.\n\nTamam",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Harf tanıma sonucu",
+        "Kaydırılabilir kartlar",
+        "Önceki kartlar",
+        "Sonraki kartlar",
+        "1 / 2",
+        "2 / 2",
+        "Sonucu Aç",
+        "Göz Sağlığı kaydını sil: 28.10.2026 02:12:07",
+        "Görme bildirimi"
+      ],
+      "screenshot": "tr-completion.png"
+    },
+    {
+      "stage": "results",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nYeni görev\nHazırlık\nSağ göz\nSol göz\nSonuç\n24 / 24\nHarf tanıma sonucu\nSağ göz\nHarf tanımlama skoru\n%100\nHarf yönü skoru\n%100\nToplam ortalama skor\n%100\nGeçerli yanıt sayısı\n12\nBoyut bazlı sonuçlar\nHarf boyutu\tHarf yönü skoru\tHarf tanımlama skoru\tToplam ortalama skor\n120,0 × 120,0\t%100\t%100\t%100\n60,0 × 60,0\t%100\t%100\t%100\n30,0 × 30,0\t%100\t%100\t%100\n15,0 × 15,0\t%100\t%100\t%100\nSol göz\nHarf tanımlama skoru\n%100\nHarf yönü skoru\n%100\nToplam ortalama skor\n%100\nGeçerli yanıt sayısı\n12\nBoyut bazlı sonuçlar\nHarf boyutu\tHarf yönü skoru\tHarf tanımlama skoru\tToplam ortalama skor\n120,0 × 120,0\t%100\t%100\t%100\n60,0 × 60,0\t%100\t%100\t%100\n30,0 × 30,0\t%100\t%100\t%100\n15,0 × 15,0\t%100\t%100\t%100\nİlk görünür kart: 1 / 2\nUzman seçenekleri\nGöz Sağlığı kayıtları\n\n1 kayıt\n\nTarih\tSaat\tModül\tÖzet\t\nSonucu Aç\n\tSil\n28.10.2026\t02:12\tGöz Sağlığı\tTamamlanan ön değerlendirme\t\n\t\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Harf tanıma sonucu",
+        "Kaydırılabilir kartlar",
+        "Önceki kartlar",
+        "Sonraki kartlar",
+        "1 / 2",
+        "2 / 2",
+        "Sonucu Aç",
+        "Göz Sağlığı kaydını sil: 28.10.2026 02:12:07"
+      ],
+      "screenshot": "tr-results.png"
+    },
+    {
+      "stage": "history",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\nGöz Sağlığı kayıtları\n\n1 kayıt\n\nTarih\tSaat\tModül\tÖzet\t\nSonucu Aç\n\tSil\n28.10.2026\t02:12\tGöz Sağlığı\tTamamlanan ön değerlendirme\t\n\t\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler",
+        "Sonucu Aç",
+        "Göz Sağlığı kaydını sil: 28.10.2026 02:12:07",
+        "Göz Sağlığı sonucu",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Sonuç penceresini kapat",
+        "Harf tanıma sonucu",
+        "Kaydırılabilir kartlar",
+        "Önceki kartlar",
+        "Sonraki kartlar",
+        "1 / 2",
+        "2 / 2"
+      ],
+      "screenshot": "tr-history.png"
+    },
+    {
+      "stage": "history-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nGöz Sağlığı: kayıtlar okunamadı; veriler korunuyor.\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ],
+      "screenshot": "tr-history-error.png"
+    },
+    {
+      "stage": "permission-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\n\nKamera ve mikrofon izinlerini Gizlilik ekranından açın.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ],
+      "screenshot": "tr-permission-error.png"
+    },
+    {
+      "stage": "camera-denied",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\n\nKamera görüntüsü alınamadı. Kamera izinlerini ve cihazı kontrol edin.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ],
+      "screenshot": "tr-camera-denied.png"
+    },
+    {
+      "stage": "camera-busy",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\n\nKamera açılamadı; başka kamera kullanımını bitirip yeniden deneyin.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ],
+      "screenshot": "tr-camera-busy.png"
+    },
+    {
+      "stage": "model-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\n\nYüz/el modeli veya önizleme başlatılamadı. Bağlantıyı kontrol edip tekrar deneyin.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ],
+      "screenshot": "tr-model-error.png"
+    },
+    {
+      "stage": "playback-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: açık · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nSesli yönerge kullanılamıyor. Tekrar deneyin.\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nTekrar dene\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\n\nSeçilen dilde yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar"
+      ],
+      "screenshot": "tr-playback-error.png"
+    },
+    {
+      "stage": "mobile",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nDevam eden işlem sırasında dil ve ses seçimi kilitlidir; ilerlemeniz korunur.\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nHazırlık\nSağ göz\nSol göz\nSonuç\n0 / 24\n\nSağ göz · 1/12\n\nDinliyor\n\nYüz / Kadraj\nYüz izleniyor\nIşık\nİyi\nNetlik\nİyi\nMesafe / Konum\nBaşlangıç mesafesi korunuyor\nGöz kontrolü\nSol göz: kapalı · Sağ göz: açık\nGörüntü güncelliği\nGüncel\n\nDinliyor\n\nYeni konumla yeniden başlat\nDuraklat\nBitir\nHarf ve yönü herhangi bir sırada söyleyebilirsiniz.\nHarf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.\nDüz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.\n“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Ölçüm aşamaları",
+        "Tamamlanan yanıtlar",
+        "Yanıtlanacak harf"
+      ],
+      "screenshot": "tr-mobile.png"
+    },
+    {
+      "stage": "consent-withdrawal",
+      "status": "PASS",
+      "visibleText": "Attune.more\nUygulama dili\nTR\nEN\nDE\nSes\nPARK\nⓘ\nKokpit\nSağlık Merkezi\nUzman & Randevu\nSağlık Geçmişim\nGöz Sağlığı\nⓘ\nGörme Görevi\n\nİki gözünüz açık başlayın. Sonra belirtilen gözü kapatın veya örtün.\n\nAçık gözünüzle ekrandaki harfe bakın\nHarfi ve yönünü istediğiniz sırada söyleyin\nHarfi doğrudan veya bir kelimeyle kodlayın\nYönerge bittikten sonra “Dinliyor” yazısını bekleyip yanıtlayın\nBAŞLAT\n\nKamera, mikrofon veya hizmet izni kapalı; görev durduruldu.\n\nGöz Sağlığı kayıtları\n\n0 kayıt\n\nHenüz kayıt yok.\n\nAttune.more\n•\nKişiselleştirilmiş Sağlık ve İyi Oluş\n•\nTıbbi teşhis içermez; ön değerlendirme ve değişim takibi amaçlıdır.\nGizlilik & İzinler",
+      "accessibleText": [
+        "Attune.more",
+        "Uygulama dili",
+        "Ses seçenekleri",
+        "Uygulama sesi sessiz",
+        "Seslendirmeyi kapat",
+        "Demo araç durumu hakkında bilgi",
+        "Ana sekmeler",
+        "Görme görevi ve hizmet bilgisi hakkında bilgi",
+        "Başı tam görünen doğal portrede ekrandaki harf görevini temsil eden sade öğeler"
+      ]
+    }
+  ],
+  "testedImplementationCommit": "5f0deb484ddd0bc69adbc13e2589a10b9a4a53a0"
+}

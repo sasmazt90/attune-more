@@ -1,0 +1,803 @@
+{
+  "status": "PASS",
+  "language": "en",
+  "kind": "production UI; simulated camera/model/ASR; native approved audio accelerated 4x for text audit",
+  "physicalTesting": false,
+  "stages": [
+    {
+      "stage": "preparation",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ],
+      "screenshot": "en-preparation.png"
+    },
+    {
+      "stage": "camera-preparation",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nFace / Framing\nWaiting for measurement\nLighting\nWaiting for measurement\nSharpness\nWaiting for measurement\nDistance / Position\nWaiting to start\nEye check\nStart with both eyes open\nImage freshness\nWaiting for a camera frame\n\nPreparing camera and on-device models…\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-camera-preparation.png"
+    },
+    {
+      "stage": "instruction",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nPreparing instruction\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: open · Right eye: open\nImage freshness\nCurrent\n\nPreparing instruction\n\nWe are testing your right eye. Close or cover your left eye. Look at the letter area with your open eye.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-instruction.png"
+    },
+    {
+      "stage": "listening",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-listening.png"
+    },
+    {
+      "stage": "clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nDetected: F · orientation not understood. Waiting only for orientation.\n\nHeard: “Foxtrot”\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-clarification.png"
+    },
+    {
+      "stage": "processing",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nProcessing answer\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nAnswer received. Evaluating.\n\nHeard: “Foxtrot · upright”\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-processing.png"
+    },
+    {
+      "stage": "letter-clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n1 / 24\n\nRight eye · 2/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nDetected: letter not understood · tilted right. Waiting only for the letter.\n\nHeard: “clockwise ninety degrees”\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-letter-clarification.png"
+    },
+    {
+      "stage": "reverse-clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n2 / 24\n\nRight eye · 3/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nDetected: E · orientation not understood. Upside down or mirrored?\n\nHeard: “E reverse”\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-reverse-clarification.png"
+    },
+    {
+      "stage": "repeat-clarification",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n3 / 24\n\nRight eye · 4/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nDetected: letter not understood · orientation not understood. Say your response again.\n\nHeard: “blablabla”\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-repeat-clarification.png"
+    },
+    {
+      "stage": "silence",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nReading instruction\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nReading instruction\n\nNo speech detected. Please answer after the instruction.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-silence.png"
+    },
+    {
+      "stage": "reconnecting",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nPreparing microphone\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-reconnecting.png"
+    },
+    {
+      "stage": "error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nSpeech recognition is unavailable. Check microphone permission and your connection, then retry.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nTry again\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\n\nThe microphone or speech service is unavailable. No answer was scored; please retry.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-error.png"
+    },
+    {
+      "stage": "retry",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ]
+    },
+    {
+      "stage": "paused",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nPaused. You can continue with Resume.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nResume\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-paused.png"
+    },
+    {
+      "stage": "muted",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nSpeech output is muted. Enable the speaker in the top bar and resume.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nResume\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-muted.png"
+    },
+    {
+      "stage": "hand-coverage",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: covered by hand · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-hand-coverage.png"
+    },
+    {
+      "stage": "object-coverage",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: covered by object · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-object-coverage.png"
+    },
+    {
+      "stage": "condition-both-open",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: open · Right eye: open\nImage freshness\nCurrent\n\nClose or cover your other eye.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-condition-both-open.png"
+    },
+    {
+      "stage": "condition-both-closed",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: closed\nImage freshness\nCurrent\n\nBoth eyes are closed or covered. Open the eye being tested.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-test-covered",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: closed\nImage freshness\nCurrent\n\nBoth eyes are closed or covered. Open the eye being tested.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-uncertain",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: cannot be assessed · Right eye: open\nImage freshness\nCurrent\n\nI cannot verify eye covering or whether the eye is open.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-condition-uncertain.png"
+    },
+    {
+      "stage": "condition-no-face",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nKeep your face in view\nLighting\nWaiting for measurement\nSharpness\nWaiting for measurement\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nKeep your face in the camera image.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-pose",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTurn your head slightly toward the screen; you can look at the letter area.\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nTurn your head slightly toward the screen; you can look at the letter area.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-framing",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nKeep your whole face in the camera image.\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nKeep your whole face in the camera image.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-light",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nIlluminate the side with your open eye.\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nIlluminate the side with your open eye.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-condition-light.png"
+    },
+    {
+      "stage": "condition-bright",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nReduce glare on your face.\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nReduce glare on your face.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-blur",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nInsufficient sharpness around the open eye. Check camera focus.\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nInsufficient sharpness around the open eye. Check camera focus.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-near",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nMove back a little.\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nMove back a little.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-approach",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nMove a little closer.\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nMove a little closer.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-distance-unknown",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nI cannot track distance reliably; keep your face visible.\nEye check\nLeft eye: waiting for face alignment · Right eye: waiting for face alignment\nImage freshness\nCurrent\n\nI cannot track distance reliably; keep your face visible.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ]
+    },
+    {
+      "stage": "condition-stale",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n4 / 24\n\nRight eye · 5/12\n\nWaiting for conditions\n\nFace / Framing\nWaiting for measurement\nLighting\nWaiting for measurement\nSharpness\nWaiting for measurement\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: waiting for camera · Right eye: waiting for camera\nImage freshness\nWaiting for a camera frame\n\nCamera image is not current.\n\nThe task resumes automatically when conditions improve. Invalid trials are not scored.\n\nReconnecting speech recognition. No answer was scored.\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-condition-stale.png"
+    },
+    {
+      "stage": "left-eye-instruction",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n12 / 24\n\nLeft eye · 1/12\n\nReading instruction\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: open · Right eye: closed\nImage freshness\nCurrent\n\nReading instruction\n\nWe are testing your left eye. Close or cover your right eye. Look at the letter area with your open eye.\n\nHeard: “Papa counterclockwise ninety degrees and mirrored”\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-left-eye-instruction.png"
+    },
+    {
+      "stage": "completion",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nNew task\nPreparation\nRight eye\nLeft eye\nResult\n24 / 24\nLetter recognition result\nRight eye\nLetter identification score\n100%\nLetter orientation score\n100%\nOverall average score\n100%\nNumber of valid responses\n12\nResults by size\nLeft eye\nLetter identification score\n100%\nLetter orientation score\n100%\nOverall average score\n100%\nNumber of valid responses\n12\nResults by size\nFirst visible card: 1 / 2\nSpecialist options\nVision Health records\n\nRecords: 1\n\nDate\tTime\tModule\tSummary\t\nOpen result\n\tDelete\n10/28/2026\t02:11 AM\tVision Health\tCompleted preliminary assessment\t\n\t\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions\nVision notice\n\nTask complete. The result was saved to this device's history.\n\nOK",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter recognition result",
+        "carousel",
+        "Previous cards",
+        "Next cards",
+        "1 / 2",
+        "2 / 2",
+        "Open result",
+        "Delete Vision Health record: 10/28/2026, 2:11:58 AM",
+        "Vision notice"
+      ],
+      "screenshot": "en-completion.png"
+    },
+    {
+      "stage": "results",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nNew task\nPreparation\nRight eye\nLeft eye\nResult\n24 / 24\nLetter recognition result\nRight eye\nLetter identification score\n100%\nLetter orientation score\n100%\nOverall average score\n100%\nNumber of valid responses\n12\nResults by size\nLetter size\tLetter orientation score\tLetter identification score\tOverall average score\n120.0 × 120.0\t100%\t100%\t100%\n60.0 × 60.0\t100%\t100%\t100%\n30.0 × 30.0\t100%\t100%\t100%\n15.0 × 15.0\t100%\t100%\t100%\nLeft eye\nLetter identification score\n100%\nLetter orientation score\n100%\nOverall average score\n100%\nNumber of valid responses\n12\nResults by size\nLetter size\tLetter orientation score\tLetter identification score\tOverall average score\n120.0 × 120.0\t100%\t100%\t100%\n60.0 × 60.0\t100%\t100%\t100%\n30.0 × 30.0\t100%\t100%\t100%\n15.0 × 15.0\t100%\t100%\t100%\nFirst visible card: 1 / 2\nSpecialist options\nVision Health records\n\nRecords: 1\n\nDate\tTime\tModule\tSummary\t\nOpen result\n\tDelete\n10/28/2026\t02:11 AM\tVision Health\tCompleted preliminary assessment\t\n\t\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter recognition result",
+        "carousel",
+        "Previous cards",
+        "Next cards",
+        "1 / 2",
+        "2 / 2",
+        "Open result",
+        "Delete Vision Health record: 10/28/2026, 2:11:58 AM"
+      ],
+      "screenshot": "en-results.png"
+    },
+    {
+      "stage": "history",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\nVision Health records\n\nRecords: 1\n\nDate\tTime\tModule\tSummary\t\nOpen result\n\tDelete\n10/28/2026\t02:11 AM\tVision Health\tCompleted preliminary assessment\t\n\t\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible",
+        "Open result",
+        "Delete Vision Health record: 10/28/2026, 2:11:58 AM",
+        "Vision Health result",
+        "Information about Vision task and service information",
+        "Close result dialog",
+        "Letter recognition result",
+        "carousel",
+        "Previous cards",
+        "Next cards",
+        "1 / 2",
+        "2 / 2"
+      ],
+      "screenshot": "en-history.png"
+    },
+    {
+      "stage": "history-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\nVision Health records\n\nRecords: 0\n\nVision Health: records could not be read; data is preserved.\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ],
+      "screenshot": "en-history-error.png"
+    },
+    {
+      "stage": "permission-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\n\nEnable camera and microphone permissions on the Privacy screen.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ],
+      "screenshot": "en-permission-error.png"
+    },
+    {
+      "stage": "camera-denied",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\n\nNo camera image received. Check camera permissions and the device.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ],
+      "screenshot": "en-camera-denied.png"
+    },
+    {
+      "stage": "camera-busy",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\n\nThe camera could not open; stop other camera use and try again.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ],
+      "screenshot": "en-camera-busy.png"
+    },
+    {
+      "stage": "model-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\n\nFace/hand model or preview could not start. Check the connection and try again.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ],
+      "screenshot": "en-model-error.png"
+    },
+    {
+      "stage": "playback-error",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nFace / Framing\nWaiting for measurement\nLighting\nWaiting for measurement\nSharpness\nWaiting for measurement\nDistance / Position\nWaiting to start\nEye check\nStart with both eyes open\nImage freshness\nWaiting for a camera frame\n\nSpoken instruction unavailable. Try again.\n\nRestart with a new position\nPause\nFinish\nTry again\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\n\nThe instruction could not be played in the selected language; the response was not listened to or scored.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers"
+      ],
+      "screenshot": "en-playback-error.png"
+    },
+    {
+      "stage": "mobile",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nLanguage and voice selection are locked during the current task; your progress is preserved.\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nPreparation\nRight eye\nLeft eye\nResult\n0 / 24\n\nRight eye · 1/12\n\nListening\n\nFace / Framing\nTracking face\nLighting\nGood\nSharpness\nGood\nDistance / Position\nStarting distance maintained\nEye check\nLeft eye: closed · Right eye: open\nImage freshness\nCurrent\n\nListening\n\nRestart with a new position\nPause\nFinish\nYou can say the letter and orientation in either order.\nSay the letter name or a common spelling word, such as E, Echo.\nYou can say upright, upside down, tilted right/left, mirrored, or a combination of these.\nYou can use the commands “repeat”, “I can't see it”, “pause”, “resume” and “finish the test”.\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Measurement stages",
+        "Completed answers",
+        "Letter to answer"
+      ],
+      "screenshot": "en-mobile.png"
+    },
+    {
+      "stage": "consent-withdrawal",
+      "status": "PASS",
+      "visibleText": "Attune.more\nApplication language\nTR\nEN\nDE\nVoice\nPARK\nⓘ\nCockpit\nHealth Center\nSpecialists & Appointments\nMy Health History\nVision Health\nⓘ\nVision task\n\nStart with both eyes open. Then close or cover the indicated eye.\n\nLook at the letter on the screen with your open eye\nSay the letter and its orientation in either order\nSay the letter directly or code it with a word\nAfter the instruction ends, wait for “Listening” and then answer\nSTART\n\nCamera, microphone or service permission is off; the task stopped.\n\nVision Health records\n\nRecords: 0\n\nNo records yet.\n\nAttune.more\n•\nPersonalized Health and Wellbeing\n•\nNo medical diagnosis; intended for preliminary assessment and tracking changes.\nPrivacy & Permissions",
+      "accessibleText": [
+        "Attune.more",
+        "Application language",
+        "Voice options",
+        "Application audio is muted",
+        "Mute speech output",
+        "Information about Demo vehicle state",
+        "Main tabs",
+        "Information about Vision task and service information",
+        "Simple elements representing the on-screen letter task on a natural portrait with the whole head visible"
+      ]
+    }
+  ],
+  "testedImplementationCommit": "5f0deb484ddd0bc69adbc13e2589a10b9a4a53a0"
+}
