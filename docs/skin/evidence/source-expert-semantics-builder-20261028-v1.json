@@ -1,0 +1,123 @@
+{
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "b438201395c48b3ca40d18e87a276acb05ff978e",
+  "liveState": {
+    "accessibleRoboflowProjects": 20,
+    "acneVersion1Trainings": {
+      "49ee6204cf069198bbfa": "finished",
+      "5b632a5c12b76fcfe703": "finished"
+    },
+    "regionalMutableImages": 476,
+    "regionalMutableUnannotated": 139,
+    "regionalVersion1Images": 337,
+    "regionalVersion1Trainings": {
+      "3485f8c67f957a1b850d": "finished",
+      "af287a006e2e428f5ce4": "finished"
+    },
+    "staleUploadProgress": null,
+    "staleUploadStatus": "created",
+    "staleUploadTask": "sLFwX7CYBVcnnD6iAW5o",
+    "underEyePilotImages": 399,
+    "underEyeVersion2Trainings": []
+  },
+  "mapContract": {
+    "combinationRequiresCoverageAndRuleValidation": true,
+    "combinationRule": "oily-t-zone-plus-supported-normal-or-dry-outside-t-zone",
+    "dry": "blue",
+    "mixedLayersAllowed": true,
+    "normal": "uncoloured-only-if-evaluated-normal",
+    "oily": "green",
+    "redness": "red-contour-or-hatching-independent",
+    "unknown": "light-grey-never-normal"
+  },
+  "mappingEvidence": {
+    "expandedSourcesGitBlob": "8771f1aed674f1c7f554dcb6fa539b20c7696f38",
+    "mappingLabelsAreResearchRoutingHints": true,
+    "selectedSourcesGitBlob": "cfd24d16f86f3437dd3b1d925053cc7ebe543399",
+    "sourceReviewExpertReviewed": false,
+    "targets": [
+      "acne",
+      "oil",
+      "dry",
+      "redness",
+      "tone",
+      "lines",
+      "dark",
+      "bags",
+      "type",
+      "sag"
+    ]
+  },
+  "methodVersion": "skin-source-expert-semantics-builder-v1",
+  "observedAt": "2026-10-28T12:48:02Z",
+  "publicPreflight": {
+    "blockers": [
+      "expert_semantic_protocols_missing",
+      "per_class_expert_semantics_not_locked",
+      "source_label_mappings_are_routing_hints_only"
+    ],
+    "decision": "blocked",
+    "methodVersion": "skin-source-expert-semantics-preflight-v1",
+    "perClassExpertSemanticsLocked": false,
+    "readyForReleaseArtifact": false,
+    "reviewedTargetCount": 0
+  },
+  "releaseArtifact": {
+    "emitted": false,
+    "methodVersionWhenComplete": "skin-source-expert-semantics-v1",
+    "reason": "qualified-human per-target expert protocols are not yet supplied or locked"
+  },
+  "roboflowWritesStarted": false,
+  "schemaVersion": 1,
+  "sourceMappingRelease": {
+    "evidenceRegistryComplete": false,
+    "productTruthAuthorized": false,
+    "trainingDataReleaseAuthorized": false
+  },
+  "tests": {
+    "availableSkinResearchSuite": {
+      "passed": 103,
+      "result": "OK"
+    },
+    "builderFocused": {
+      "passed": 8,
+      "result": "OK"
+    },
+    "githubActionsObserved": false,
+    "pythonCompile": true
+  },
+  "trackedFiles": {
+    "builder": {
+      "path": "scripts/skin-research/build_source_expert_semantics.py",
+      "sha256": "7965ed4c9a5f3c89351694934a2749a8762a0bccff1e217c66aa89454b33bcec"
+    },
+    "currentFacts": {
+      "path": "docs/skin/evidence/source-expert-semantics-current-facts-20261028-v1.json",
+      "sha256": "7489f811efee341ff039aa7afefe68eeb346fae00f3029a46305f96cba35fb0f"
+    },
+    "inputTemplate": {
+      "path": "docs/skin/evidence/source-expert-semantics-input-template-20261028-v1.json",
+      "sha256": "162c60ccc3e7b693dc6133440852ff46ff3f6951b02aaf72b84ec5d28f452f44"
+    },
+    "preflight": {
+      "path": "docs/skin/evidence/source-expert-semantics-preflight-20261028-v1.json",
+      "sha256": "a104b6c47a7893afb6977b194993a5a46a20bdbc56c7836f06e39532d9590a71"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_source_expert_semantics.py",
+      "sha256": "a592a94b0a9fbc16fe484f58410b36f81f26e747701b40b6da3591bec3d58dc4"
+    }
+  },
+  "truthPolicy": {
+    "boxesUsedAsPixelTruth": false,
+    "mappingUsedAsExpertTruth": false,
+    "missingLabelMeansNegativeOrNormal": false,
+    "modelPredictionUsedAsExpertTruth": false,
+    "normalRequiresEvaluatedNormal": true,
+    "pulUsedAsBroadRegionalDryness": false,
+    "rectanglePolygonsUsedAsPixelTruth": false,
+    "rednessIndependentFromSensitivity": true,
+    "toneUsedAsLocalizedPigmentation": false,
+    "wholeFaceClassReplicatedIntoRegions": false
+  }
+}
