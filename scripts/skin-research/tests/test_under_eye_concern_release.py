@@ -1,4 +1,5 @@
 import copy
+from contextlib import contextmanager
 import importlib.util
 import json
 from pathlib import Path
@@ -14,8 +15,32 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261027-v3.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261028-v4.json"
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _grouped_gate(training_ready=False):
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-grouped-release-gate-20261028-v3.json"
+    gate = json.loads(path.read_text(encoding="utf-8"))
+    if training_ready:
+        gate["archiveUploadAuthorized"] = False
+        gate["versionGenerationAuthorized"] = True
+        gate["researchTrainingAuthorized"] = True
+        gate["blockers"] = [
+            "independent_camera_holdout_missing",
+            "working_product_integration_evidence_missing",
+        ]
+    return gate
+
+
+@contextmanager
+def _accept_grouped_gate(gate):
+    original = module.EXPECTED_GROUPED_GATE_CANONICAL_SHA256
+    module.EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = module._canonical_sha(gate)
+    try:
+        yield
+    finally:
+        module.EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = original
 
 
 def _queue():
@@ -54,9 +79,6 @@ def _complete_protocol(queue):
 
 def _complete_training_prerequisites(receipt):
     for field in (
-        "exactArchiveAuthorized",
-        "groupedImportVerified",
-        "augmentationFreeGroupedVersionVerified",
         "rightsReviewed",
         "expertPerClassMaskNegativeAndAmbiguityProtocolComplete",
         "personIndependentGroupedSplitLocked",
@@ -65,6 +87,9 @@ def _complete_training_prerequisites(receipt):
         "qualityPolicyLockedBeforeValidation",
     ):
         receipt["candidate"][field] = True
+    receipt["candidate"]["exactArchiveAuthorized"] = True
+    receipt["candidate"]["groupedImportVerified"] = True
+    receipt["candidate"]["augmentationFreeGroupedVersionVerified"] = True
 
 
 def _install_distinct_candidate(receipt):
@@ -81,7 +106,7 @@ def _install_distinct_candidate(receipt):
 
 class UnderEyeConcernReleaseTests(unittest.TestCase):
     def test_current_classes_are_independently_blocked(self):
-        result = module.evaluate_release(_receipt(), _queue())
+        result = module.evaluate_release(_receipt(), _grouped_gate(), _queue())
         self.assertTrue(result["existingConcreteResultFlowPreserved"])
         self.assertTrue(result["classesRemainSeparate"])
         self.assertTrue(result["expertReviewQueueVerified"])
@@ -96,35 +121,35 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         receipt = _receipt()
         receipt["semanticContract"]["classesRemainSeparate"] = False
         with self.assertRaisesRegex(module.GateInputError, "remain separate"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_medical_cause_claims_are_rejected(self):
         receipt = _receipt()
         receipt["semanticContract"]["darkcircleMedicalCauseInferred"] = True
         with self.assertRaisesRegex(module.GateInputError, "medical causes"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
         receipt = _receipt()
         receipt["semanticContract"]["eyebagEdemaOrFluidRetentionInferred"] = True
         with self.assertRaisesRegex(module.GateInputError, "edema"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_missing_label_cannot_become_negative_truth(self):
         receipt = _receipt()
         receipt["semanticContract"]["missingClassMeansNegative"] = True
         with self.assertRaisesRegex(module.GateInputError, "negative truth"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_class_metrics_cannot_be_merged_or_hidden(self):
         receipt = _receipt()
         receipt["ungroupedModel"]["classMetrics"]["darkcircle"]["diagnosticTest"]["f1"] = 0.568
         with self.assertRaisesRegex(module.GateInputError, "per-class"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_partial_grouping_cannot_become_person_independent(self):
         receipt = _receipt()
         receipt["source"]["personIndependent"] = True
         with self.assertRaisesRegex(module.GateInputError, "cannot become person-independent"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_known_ungrouped_model_cannot_be_relabelled_as_grouped_candidate(self):
         receipt = _receipt()
@@ -136,7 +161,7 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
             "datasetVersion": 1,
         })
         with self.assertRaisesRegex(module.GateInputError, "cannot be relabelled"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_candidate_must_belong_to_grouped_research_project(self):
         receipt = _receipt()
@@ -148,13 +173,15 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
             "datasetVersion": 2,
         })
         with self.assertRaisesRegex(module.GateInputError, "grouped research project"):
-            module.evaluate_release(receipt)
+            module.evaluate_release(receipt, _grouped_gate())
 
     def test_completed_pre_model_evidence_authorizes_only_targeted_training(self):
         receipt = _receipt()
         _complete_training_prerequisites(receipt)
         queue = _queue()
-        result = module.evaluate_release(receipt, queue, _complete_protocol(queue))
+        gate = _grouped_gate(training_ready=True)
+        with _accept_grouped_gate(gate):
+            result = module.evaluate_release(receipt, gate, queue, _complete_protocol(queue))
         self.assertTrue(result["researchTrainingAuthorized"])
         self.assertFalse(result["distinctGroupedCandidatePresent"])
         self.assertFalse(result["roadmapAccepted"])
@@ -166,7 +193,9 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         for field in receipt["candidate"]["classes"]["darkcircle"]:
             receipt["candidate"]["classes"]["darkcircle"][field] = True
         queue = _queue()
-        result = module.evaluate_release(receipt, queue, _complete_protocol(queue))
+        gate = _grouped_gate(training_ready=True)
+        with _accept_grouped_gate(gate):
+            result = module.evaluate_release(receipt, gate, queue, _complete_protocol(queue))
         self.assertTrue(result["classDecisions"]["darkcircle"]["productActivationAllowed"])
         self.assertFalse(result["classDecisions"]["eyebag"]["productActivationAllowed"])
         self.assertFalse(result["roadmapAccepted"])
@@ -179,7 +208,9 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
             for field in receipt["candidate"]["classes"][class_name]:
                 receipt["candidate"]["classes"][class_name][field] = True
         queue = _queue()
-        result = module.evaluate_release(receipt, queue, _complete_protocol(queue))
+        gate = _grouped_gate(training_ready=True)
+        with _accept_grouped_gate(gate):
+            result = module.evaluate_release(receipt, gate, queue, _complete_protocol(queue))
         self.assertTrue(result["researchTrainingAuthorized"])
         self.assertTrue(result["roadmapAccepted"])
         self.assertEqual(result["decision"], "ready")
@@ -188,13 +219,13 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         receipt = _receipt()
         receipt["candidate"]["expertPerClassMaskNegativeAndAmbiguityProtocolComplete"] = True
         with self.assertRaisesRegex(module.GateInputError, "not bound"):
-            module.evaluate_release(receipt, _queue())
+            module.evaluate_release(receipt, _grouped_gate(), _queue())
 
     def test_review_queue_tampering_is_rejected(self):
         queue = _queue()
         queue["dataset"]["testSelectedForReview"] = 1
         with self.assertRaisesRegex(module.GateInputError, "queue content changed"):
-            module.evaluate_release(_receipt(), queue)
+            module.evaluate_release(_receipt(), _grouped_gate(), queue)
 
     def test_protocol_must_cover_every_frozen_queue_item(self):
         receipt = _receipt()
@@ -203,8 +234,26 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         protocol = _complete_protocol(queue)
         protocol["classes"][0]["reviewedItemIds"].pop()
         with self.assertRaisesRegex(module.GateInputError, "cover the frozen queue"):
-            module.evaluate_release(receipt, queue, protocol)
+            module.evaluate_release(receipt, _grouped_gate(), queue, protocol)
+
+    def test_receipt_booleans_cannot_promote_current_grouped_gate(self):
+        receipt = _receipt()
+        receipt["candidate"]["groupedImportVerified"] = True
+        receipt["candidate"]["augmentationFreeGroupedVersionVerified"] = True
+        with self.assertRaisesRegex(module.GateInputError, "not bound"):
+            module.evaluate_release(receipt, _grouped_gate(), _queue())
+
+    def test_revoked_or_reusable_stale_upload_gate_is_rejected(self):
+        gate = _grouped_gate()
+        gate["authorizedArchiveSHA256"] = module.REVOKED_GROUPED_ARCHIVE_SHA256
+        with self.assertRaisesRegex(module.GateInputError, "content changed"):
+            module.evaluate_release(_receipt(), gate, _queue())
+        gate = _grouped_gate()
+        gate["existingUploadTaskReusable"] = True
+        with self.assertRaisesRegex(module.GateInputError, "content changed"):
+            module.evaluate_release(_receipt(), gate, _queue())
 
 
 if __name__ == "__main__":
     unittest.main()
+

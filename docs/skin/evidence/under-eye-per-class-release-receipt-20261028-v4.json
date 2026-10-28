@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 4,
+  "observedAt": "2026-10-28T03:20:00Z",
+  "inputBlobs": {
+    "ungroupedModelReceipt": "6b50743ad404024ab33a6dfb536424de9324e5bb",
+    "ungroupedModelVerdict": "437c97d23f6163ecc12c40dc52e4f12d60a840d9",
+    "sourcePhotoReview": "80dbf3d4d89ec089a72db54a40b497d836b20fc7",
+    "providerGroupedReproduction": "12d3bc76bdc41482828932e401d3df9738a6ace8",
+    "providerState": "e56d27cd2e51f3fd06eb116d723b8924e89f8a00",
+    "groupedArchiveAuthorization": "24aff0aaa21026523b32ce257ec00725b3b25861",
+    "groupedReleaseGate": "213837262f0e729efb102330c81d33e5d5d74782",
+    "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
+    "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1"
+  },
+  "semanticContract": {
+    "classes": {
+      "darkcircle": "dark",
+      "eyebag": "bags"
+    },
+    "classesRemainSeparate": true,
+    "mayCoexist": true,
+    "missingClassMeansNegative": false,
+    "modelPredictionIsExpertTruth": false,
+    "darkcircleMedicalCauseInferred": false,
+    "eyebagEdemaOrFluidRetentionInferred": false
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "darkHeadingPresent": true,
+    "bagsHeadingPresent": true
+  },
+  "source": {
+    "providerSourceVersion": 2,
+    "images": 399,
+    "classCounts": {
+      "darkcircle": 382,
+      "eyebag": 487
+    },
+    "sourceSplits": {
+      "train": 279,
+      "valid": 81,
+      "test": 39
+    },
+    "groupedSplits": {
+      "train": 284,
+      "valid": 77,
+      "test": 38
+    },
+    "reviewedCrossSplitGroups": 4,
+    "movedImages": 5,
+    "imageBytesChanged": 0,
+    "annotationPayloadsChanged": 0,
+    "personIndependent": false,
+    "groupedProjectImages": 0,
+    "uploadStatus": "created",
+    "uploadProgress": null,
+    "candidateArchiveMatchesAuthorizedArchive": true,
+    "existingUploadTaskReusable": false,
+    "freshDirectUploadRequired": true
+  },
+  "ungroupedModel": {
+    "trainingId": "d194569acd3ebe7cf8b7",
+    "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+    "evalId": "ntJE3M4iMTVBPCg2HwIb",
+    "generatedImages": 952,
+    "thresholdsLockedBeforeTest": false,
+    "accepted": false,
+    "classMetrics": {
+      "darkcircle": {
+        "threshold": 0.32,
+        "validation": {
+          "precision": 0.5,
+          "recall": 0.597,
+          "f1": 0.544
+        },
+        "diagnosticTest": {
+          "precision": 0.5,
+          "recall": 0.61,
+          "f1": 0.549
+        },
+        "providerTestMap50": 0.6100278019619981,
+        "providerTestMap50_95": 0.22253903692392357,
+        "passed": false
+      },
+      "eyebag": {
+        "threshold": 0.49,
+        "validation": {
+          "precision": 0.75,
+          "recall": 0.6,
+          "f1": 0.667
+        },
+        "diagnosticTest": {
+          "precision": 0.697,
+          "recall": 0.479,
+          "f1": 0.568
+        },
+        "providerTestMap50": 0.6263657136973713,
+        "providerTestMap50_95": 0.2371280819762581,
+        "passed": false
+      }
+    }
+  },
+  "candidate": {
+    "mode": "not-trained",
+    "projectId": null,
+    "modelId": null,
+    "trainingId": null,
+    "datasetVersion": null,
+    "exactArchiveAuthorized": true,
+    "groupedImportVerified": false,
+    "augmentationFreeGroupedVersionVerified": false,
+    "rightsReviewed": false,
+    "expertPerClassMaskNegativeAndAmbiguityProtocolComplete": false,
+    "personIndependentGroupedSplitLocked": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "trainedFromAuthorizedGroupedArchive": false,
+    "candidateChangeMatchesPreRegisteredExperiment": false,
+    "thresholdsLockedBeforeFinalTest": false,
+    "classes": {
+      "darkcircle": {
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      },
+      "eyebag": {
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      }
+    }
+  }
+}
+

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Fail-closed, per-class release gate for dark circles and under-eye bags."""
+"""Fail-closed, per-class release gate for dark circles and under-eye bags.
+
+Archive/import/version/training claims are derived from the independently
+evaluated grouped-dataset gate.  Mutable booleans in this receipt cannot
+promote the stale upload task or the revoked three-group archive.
+"""
 
 from __future__ import annotations
 
@@ -13,12 +18,12 @@ from typing import Any
 EXPECTED_BLOBS = {
     "ungroupedModelReceipt": "6b50743ad404024ab33a6dfb536424de9324e5bb",
     "ungroupedModelVerdict": "437c97d23f6163ecc12c40dc52e4f12d60a840d9",
-    "sourceGroupSplit": "1e6ab8d942de0b50e54016ff24518cf7dc3ca3b6",
-    "providerGroupedReproduction": "b835168ebee70699236c4748fa8fc39e4c5168ba",
-    "providerState": "7bf6041f507f616d8e4d7ef3bc77b6f054a4a67f",
-    "groupedReleaseGate": "d0b3062be1c9a946740bcc7bd2a42da1c21c92b2",
+    "sourcePhotoReview": "80dbf3d4d89ec089a72db54a40b497d836b20fc7",
+    "providerGroupedReproduction": "12d3bc76bdc41482828932e401d3df9738a6ace8",
+    "providerState": "e56d27cd2e51f3fd06eb116d723b8924e89f8a00",
+    "groupedArchiveAuthorization": "24aff0aaa21026523b32ce257ec00725b3b25861",
+    "groupedReleaseGate": "213837262f0e729efb102330c81d33e5d5d74782",
     "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
-    "unifiedResultReceipt": "aac52634eaba105cd1ccc86383b7665eca7b53eb",
     "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
     "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1",
 }
@@ -26,6 +31,9 @@ REJECTED_UNGROUPED_MODEL_ID = "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdet
 EXPECTED_GROUPED_PROJECT_ID = "tolgar-sasmaz/attune-skin-under-eye-grouped-research"
 KNOWN_INELIGIBLE_MODEL_IDS = {REJECTED_UNGROUPED_MODEL_ID}
 EXPECTED_GROUPED_ARCHIVE_SHA256 = "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122"
+REVOKED_GROUPED_ARCHIVE_SHA256 = "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8"
+EXPECTED_SOURCE_ARCHIVE_SHA256 = "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
+EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = "b24dda0a3c1ac46c650c111855ecac5ef4a014f67e6ab96d633ccac776d7d127"
 EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256 = "8784366d14ac86d6472f87c4f14ae7940e5c9344f2cfceeb30ef24b3f116c38d"
 
 
@@ -110,6 +118,57 @@ def _validate_expert_protocol(queue: dict[str, Any], protocol: dict[str, Any] | 
     return True
 
 
+def _validate_grouped_release_gate(gate: dict[str, Any] | None) -> dict[str, bool]:
+    if gate is None:
+        raise GateInputError("grouped release gate evidence is required")
+    _require(
+        _canonical_sha(gate),
+        EXPECTED_GROUPED_GATE_CANONICAL_SHA256,
+        "grouped release gate content changed",
+    )
+    _require(gate.get("schemaVersion"), 1, "grouped release gate schema changed")
+    _require(
+        gate.get("methodVersion"),
+        "under-eye-grouped-release-gate-v3",
+        "grouped release gate method changed",
+    )
+    _require(
+        gate.get("sourceArchiveSHA256"),
+        EXPECTED_SOURCE_ARCHIVE_SHA256,
+        "grouped release source archive changed",
+    )
+    _require(
+        gate.get("revokedArchiveSHA256"),
+        REVOKED_GROUPED_ARCHIVE_SHA256,
+        "revoked grouped archive boundary changed",
+    )
+    _require(
+        gate.get("authorizedArchiveSHA256"),
+        EXPECTED_GROUPED_ARCHIVE_SHA256,
+        "authorized grouped archive changed",
+    )
+    _require(
+        gate.get("candidateArchiveSHA256"),
+        EXPECTED_GROUPED_ARCHIVE_SHA256,
+        "candidate grouped archive changed",
+    )
+    _require(gate.get("exactArchiveAuthorized"), True, "exact grouped archive is not authorized")
+    _require(gate.get("existingUploadTaskReusable"), False, "stale grouped upload task cannot be reused")
+    _require(gate.get("freshDirectUploadRequired"), True, "fresh direct grouped upload requirement changed")
+    _require(gate.get("testEvaluationAuthorized"), False, "grouped dataset gate cannot authorize final-test use")
+    _require(gate.get("productActivationAllowed"), False, "grouped dataset gate cannot activate product output")
+    _require(gate.get("roadmapAccepted"), False, "grouped dataset gate cannot accept the roadmap")
+    flags = {
+        "archive": gate.get("exactArchiveAuthorized") is True,
+        "import": gate.get("versionGenerationAuthorized") is True,
+        "version": gate.get("researchTrainingAuthorized") is True,
+        "training": gate.get("researchTrainingAuthorized") is True,
+    }
+    if flags["version"] and not flags["import"]:
+        raise GateInputError("grouped training authorization requires a verified import and version")
+    return flags
+
+
 def _class_decision(shared_blockers: list[str], candidate: dict[str, Any], class_name: str) -> dict[str, Any]:
     class_candidate = candidate.get("classes", {}).get(class_name, {})
     test_blockers = list(shared_blockers)
@@ -165,10 +224,12 @@ def _validate_candidate_identity(candidate: dict[str, Any]) -> tuple[bool, list[
 
 def evaluate_release(
     receipt: dict[str, Any],
+    grouped_release_gate: dict[str, Any] | None = None,
     review_queue: dict[str, Any] | None = None,
     expert_protocol: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     _require(receipt.get("inputBlobs"), EXPECTED_BLOBS, "input blobs changed")
+    grouped_flags = _validate_grouped_release_gate(grouped_release_gate)
 
     contract = receipt.get("semanticContract", {})
     _require(contract.get("classes"), {"darkcircle": "dark", "eyebag": "bags"}, "under-eye class headings changed")
@@ -190,16 +251,18 @@ def evaluate_release(
     _require(source.get("images"), 399, "source image inventory changed")
     _require(source.get("classCounts"), {"darkcircle": 382, "eyebag": 487}, "class inventory changed")
     _require(source.get("sourceSplits"), {"train": 279, "valid": 81, "test": 39}, "source splits changed")
-    _require(source.get("groupedSplits"), {"train": 283, "valid": 78, "test": 38}, "grouped splits changed")
-    _require(source.get("reviewedCrossSplitGroups"), 3, "reviewed cross-split groups changed")
-    _require(source.get("movedImages"), 4, "grouped moved-image inventory changed")
+    _require(source.get("groupedSplits"), {"train": 284, "valid": 77, "test": 38}, "grouped splits changed")
+    _require(source.get("reviewedCrossSplitGroups"), 4, "reviewed cross-split groups changed")
+    _require(source.get("movedImages"), 5, "grouped moved-image inventory changed")
     _require(source.get("imageBytesChanged"), 0, "grouped image bytes changed")
     _require(source.get("annotationPayloadsChanged"), 0, "grouped annotations changed")
     _require(source.get("personIndependent"), False, "partial grouping cannot become person-independent")
     _require(source.get("groupedProjectImages"), 0, "empty grouped project state changed")
     _require(source.get("uploadStatus"), "created", "grouped upload status changed")
     _require(source.get("uploadProgress"), None, "grouped upload progress changed")
-    _require(source.get("candidateArchiveMatchesAuthorizedArchive"), False, "archive authorization boundary changed")
+    _require(source.get("candidateArchiveMatchesAuthorizedArchive"), True, "archive authorization boundary changed")
+    _require(source.get("existingUploadTaskReusable"), False, "stale upload task cannot be reused")
+    _require(source.get("freshDirectUploadRequired"), True, "fresh direct upload requirement changed")
 
     model = receipt.get("ungroupedModel", {})
     _require(model.get("trainingId"), "d194569acd3ebe7cf8b7", "model training identity changed")
@@ -232,12 +295,16 @@ def evaluate_release(
     protocol_verified = queue_verified and _validate_expert_protocol(review_queue, expert_protocol)
 
     candidate = receipt.get("candidate", {})
+    for field, grouped_field in (
+        ("exactArchiveAuthorized", "archive"),
+        ("groupedImportVerified", "import"),
+        ("augmentationFreeGroupedVersionVerified", "version"),
+    ):
+        if candidate.get(field) is not grouped_flags[grouped_field]:
+            raise GateInputError(f"{field} claim is not bound to grouped release gate evidence")
     if candidate.get("expertPerClassMaskNegativeAndAmbiguityProtocolComplete") is not protocol_verified:
         raise GateInputError("expert protocol claim is not bound to the frozen queue and protocol")
     shared_requirements = {
-        "exactArchiveAuthorized": "exact_archive_authorization_missing",
-        "groupedImportVerified": "grouped_import_verification_missing",
-        "augmentationFreeGroupedVersionVerified": "grouped_version_verification_missing",
         "rightsReviewed": "rights_review_missing",
         "personIndependentGroupedSplitLocked": "person_independent_grouped_split_missing",
         "newUntouchedFinalTestReserved": "new_untouched_final_test_missing",
@@ -245,6 +312,14 @@ def evaluate_release(
         "qualityPolicyLockedBeforeValidation": "quality_policy_not_locked_before_validation",
     }
     shared_training_blockers = [reason for field, reason in shared_requirements.items() if candidate.get(field) is not True]
+    if not grouped_flags["archive"]:
+        shared_training_blockers.append("exact_archive_authorization_missing")
+    if not grouped_flags["import"]:
+        shared_training_blockers.append("grouped_import_verification_missing")
+    if not grouped_flags["version"]:
+        shared_training_blockers.append("grouped_version_verification_missing")
+    if not grouped_flags["training"]:
+        shared_training_blockers.append("grouped_release_gate_training_authorization_missing")
     if not queue_verified:
         shared_training_blockers.append("expert_review_queue_verification_missing")
     if not protocol_verified:
@@ -266,8 +341,8 @@ def evaluate_release(
     }
     roadmap_accepted = distinct_candidate and all(item["productActivationAllowed"] for item in class_decisions.values())
     return {
-        "schemaVersion": 3,
-        "methodVersion": "under-eye-per-class-release-gate-v3",
+        "schemaVersion": 4,
+        "methodVersion": "under-eye-per-class-release-gate-v4",
         "existingConcreteResultFlowPreserved": True,
         "classesRemainSeparate": True,
         "ungroupedModelAccepted": False,
@@ -275,6 +350,7 @@ def evaluate_release(
         "researchTrainingAuthorized": not shared_training_blockers,
         "expertReviewQueueVerified": queue_verified,
         "expertSemanticProtocolVerified": protocol_verified,
+        "groupedReleaseGateVerified": True,
         "blindRetrainingAllowed": False,
         "classDecisions": class_decisions,
         "roadmapAccepted": roadmap_accepted,
@@ -286,12 +362,14 @@ def evaluate_release(
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--receipt", type=Path, required=True)
+    parser.add_argument("--grouped-release-gate", type=Path, required=True)
     parser.add_argument("--review-queue", type=Path, required=True)
     parser.add_argument("--expert-protocol", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     result = evaluate_release(
         json.loads(args.receipt.read_text(encoding="utf-8")),
+        json.loads(args.grouped_release_gate.read_text(encoding="utf-8")),
         json.loads(args.review_queue.read_text(encoding="utf-8")),
         json.loads(args.expert_protocol.read_text(encoding="utf-8")) if args.expert_protocol else None,
     )
@@ -302,3 +380,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
