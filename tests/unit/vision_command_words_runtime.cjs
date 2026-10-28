@@ -54,7 +54,7 @@ assert(instructions.en.includes('finish the test'));assert(instructions.de.inclu
 // geometry, admission flags and scheduling. Real scoring/memory are retained.
 const fs=require('fs'),ts=require('typescript');
 const source=ts.createSourceFile('page.tsx',fs.readFileSync('apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
-const functions=[];function visit(node){if(ts.isFunctionDeclaration(node)&&['receive','current'].includes(node.name?.text))functions.push(node.getText(source));ts.forEachChild(node,visit);}visit(source);assert.equal(functions.length,2);
+const functions=[];function visit(node){if(ts.isFunctionDeclaration(node)&&['receive','current','followUpCode'].includes(node.name?.text))functions.push(node.getText(source));ts.forEachChild(node,visit);}visit(source);assert.equal(functions.length,3);
 const compiled=ts.transpileModule(functions.join('\n'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText;
 const {VisionFlow}=require('../../apps/vehicle-app/src/utils/visionFlow.ts');
 function receiver(language){

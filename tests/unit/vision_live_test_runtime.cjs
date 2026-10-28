@@ -84,7 +84,7 @@ assert(!T.distributedHeadAnchors([{x:100,y:100},{x:102,y:105},{x:103,y:110}],200
 assert(T.distributedHeadAnchors([{x:100,y:100},{x:300,y:100},{x:200,y:50}],200));
 // Execute production receive/current with virtual time: no tests reimplement scoring.
 const source=ts.createSourceFile('page.tsx',fs.readFileSync('apps/vehicle-app/src/app/vision/SpokenLetterPage.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX),functions=[];
-function visit(n){if(ts.isFunctionDeclaration(n)&&['receive','current'].includes(n.name?.text))functions.push(n.getText(source));ts.forEachChild(n,visit);}visit(source);
+function visit(n){if(ts.isFunctionDeclaration(n)&&['receive','current','followUpCode'].includes(n.name?.text))functions.push(n.getText(source));ts.forEachChild(n,visit);}visit(source);
 assert(!source.text.includes('VisionAnswerControls')&&!source.text.includes('inputMode')&&!source.text.includes('confirmCoverage'));
 const compiled=ts.transpileModule(functions.join('\n'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText;
 function harness(){

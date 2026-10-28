@@ -93,3 +93,36 @@ for(let t=100;t<=2500;t+=400)e=tracker.assess(ctx,w,h,{landmarks:[points],hands:
 assert.equal(e.conditions.distanceState,'stable');assert(e.conditions.positionValid);
 assert.equal(e.conditions.right.state,'open');assert.equal(e.conditions.left.state,'open');
 """)
+
+
+def test_optotype_gaze_never_requires_pupils_to_face_camera():
+    # Controlled eye/iris geometry and source-pixel gaze shifts; not natural-camera accuracy.
+    node(r"""
+const w=640,h=480,ctx={canvas:{width:w,height:h},blank:false,getImageData(x,y,width,height){width=Math.ceil(width);height=Math.ceil(height);const data=new Uint8ClampedArray(width*height*4);for(let j=0;j<height;j++)for(let i=0;i<width;i++){const k=(j*width+i)*4,v=this.blank?0:90+((Math.floor(x)+i)*17+(Math.floor(y)+j)*31)%100;data[k]=data[k+1]=data[k+2]=v;data[k+3]=255;}return {width,height,data};}};
+const points=Array.from({length:478},()=>({x:.5,y:.5,z:0}));
+for(const [id,x,y] of [[10,.5,.2],[152,.5,.8],[168,.5,.35],[1,.5,.5],[4,.5,.52],[2,.5,.56],[234,.2,.5],[454,.8,.5],[127,.23,.42],[356,.77,.42],[93,.26,.55],[323,.74,.55],[33,.3,.4],[133,.43,.4],[160,.33,.38],[158,.4,.38],[153,.4,.42],[144,.33,.42],[362,.57,.4],[263,.7,.4],[385,.60,.38],[387,.67,.38],[373,.67,.42],[380,.60,.42],[70,.34,.34],[300,.66,.34]])points[id]={x,y,z:0};
+
+const pixelField=ctx.getImageData.bind(ctx);ctx.gaze={x:0,y:0};ctx.shut=null;
+ctx.getImageData=function(x,y,width,height){const image=pixelField(x,y,width,height);for(let j=0;j<image.height;j++)for(let i=0;i<image.width;i++){
+ for(const [side,cx]of [['RIGHT',.365],['LEFT',.635]]){
+  if(this.shut===side)continue;
+  const px=cx*w+this.gaze.x,py=.4*h+this.gaze.y;
+  if((x+i-px)**2+(y+j-py)**2<7**2){const k=(j*image.width+i)*4;image.data[k]=image.data[k+1]=image.data[k+2]=25;}
+ }
+}return image;};
+for(const testEye of ['RIGHT','LEFT']){
+ const tracker=new T.VisionTracker();ctx.gaze={x:0,y:0};ctx.shut=null;let e;
+ const model=(p,t)=>({landmarks:[p],hands:[],blinkRight:ctx.shut==='RIGHT'?.9:.02,blinkLeft:ctx.shut==='LEFT'?.9:.02,inferenceMs:1,frameTime:t});
+ for(let t=100;t<=1300;t+=200)e=tracker.assess(ctx,w,h,model(points,t),t,null);
+ const p=structuredClone(points),ids=testEye==='RIGHT'?[385,387,373,380]:[160,158,153,144];ctx.shut=testEye==='RIGHT'?'LEFT':'RIGHT';for(const id of ids)p[id].y=.4;
+ let now=1400;
+ for(const gaze of [{x:-12,y:0},{x:12,y:0},{x:0,y:-7},{x:0,y:7}]){
+  ctx.gaze=gaze;
+  // Iris landmarks deliberately move independently of the head/lid anchors.
+  for(let id=468;id<478;id++)p[id]={x:.5+gaze.x/w,y:.4+gaze.y/h,z:0};
+  for(let i=0;i<5;i++,now+=200)e=tracker.assess(ctx,w,h,model(p,now),now,testEye);
+  assert.equal(e.conditions[testEye==='RIGHT'?'right':'left'].state,'open',JSON.stringify({testEye,gaze,e:e.conditions}));
+  assert.equal(V.letterConditionFailure(e.conditions,testEye,now-200),null);
+ }
+}
+""")

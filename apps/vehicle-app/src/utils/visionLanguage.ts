@@ -41,7 +41,7 @@ export function interpretVisionAnswer(text:string,language:Language='tr',context
   const result:ParsedAnswer={...before,...after};delete result.command;
   if(after.ambiguous)return finish(result);
   if(!after.letter&&after.rotation===undefined&&after.mirrored===undefined)return {...before,ambiguous:before.letter?'letter':'rotation',clarify:before.letter?'letter':'orientation'};
-  delete result.ambiguous;delete result.clarify;
+  delete result.ambiguous;delete result.clarify;delete result.unrecognized;
   return finish(result);
  }
  // Keep digit forms and word forms equivalent without losing angle evidence.
@@ -86,6 +86,7 @@ export function interpretVisionAnswer(text:string,language:Language='tr',context
  else if(letters.size>1||tokens.length)result.ambiguous='letter';
  const unique=[...new Set(rotations)];
  if(unique.length===1)result.rotation=unique[0];else if(unique.length>1)result.ambiguous='rotation';
+ if(!letters.size&&!unique.length&&result.mirrored===undefined&&!reverse&&!pointing.length)return {unrecognized:true,clarify:'letter'};
  return finish(result);
 }
 function finish(result:ParsedAnswer):ParsedAnswer{

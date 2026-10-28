@@ -14,7 +14,7 @@ export const LETTER_PATHS:Record<Letter,string>={
 };
 export type Rotation=0|90|180|270;
 export type LetterTransform={rotation:Rotation;mirrored:boolean;mirrorAxis:'x';order:'mirror-then-rotate'};
-export type ParsedAnswer={command?:'not-visible'|'repeat'|'pause'|'resume'|'finish';letter?:Letter;orientation?:Orientation;rotation?:Rotation;mirrored?:boolean;clarify?:'letter'|'orientation'|'reverse';ambiguous?:'letter'|'rotation'};
+export type ParsedAnswer={unrecognized?:boolean;command?:'not-visible'|'repeat'|'pause'|'resume'|'finish';letter?:Letter;orientation?:Orientation;rotation?:Rotation;mirrored?:boolean;clarify?:'letter'|'orientation'|'reverse';ambiguous?:'letter'|'rotation'};
 export const LEGACY_LETTER_PROTOCOL='spoken-letter-v1';
 export function isLetterProtocol(protocol:unknown){return protocol===LETTER_PROTOCOL||protocol===LEGACY_LETTER_PROTOCOL;}
 export function legacyTransform(orientation:Orientation):LetterTransform{return {rotation:({upright:0,right:90,down:180,left:270,mirror:0} as const)[orientation],mirrored:orientation==='mirror',mirrorAxis:'x',order:'mirror-then-rotate'};}

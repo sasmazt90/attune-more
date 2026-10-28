@@ -40,9 +40,9 @@ export default function SpokenLetterPage(){
  const [answerNotice,setAnswerNotice]=useState('');
  const answerDescription=describeAnswer;
  const video=useRef<HTMLVideoElement>(null),canvas=useRef<HTMLCanvasElement>(null),symbol=useRef<SVGSVGElement>(null),flow=useRef(new VisionFlow());
- const r=useRef({mounted:false,epoch:0,active:false,recognitionFailures:0,clarified:new Set<string>(),speechActive:false,starting:false,stream:null as MediaStream|null,engine:null as VisionInference|null,raf:0,timer:null as ReturnType<typeof setInterval>|null,session:null as SpokenLetterSession|null,evidence:null as VisionEvidence|null,recognition:null as any,listeningStarted:false,answerTimer:null as ReturnType<typeof setTimeout>|null,settleAnswer:null as (()=>void)|null,audio:null as HTMLAudioElement|null,controller:null as AbortController|null,cancelSpeech:null as (()=>void)|null,url:null as string|null,restart:null as ReturnType<typeof setTimeout>|null,voiceGeneration:0,voiceTimeout:null as ReturnType<typeof setTimeout>|null,muted:false,modal:false,fault:'',faultSince:0,announcedFault:'',answerMemory:new VisionAnswerMemory(),clarifications:0,saving:false,mainInstructionGiven:false,nextPrompt:0,lastPrompt:'',prompted:new Set<string>(),conditionGate:new VisionResponseGate(),previewPoints:undefined as VisionEvidence['alignment']['landmarks']});
+ const r=useRef({mounted:false,epoch:0,active:false,recognitionFailures:0,pendingPrompt:null as string|null,silenceReminders:new Set<string>(),speechActive:false,starting:false,stream:null as MediaStream|null,engine:null as VisionInference|null,raf:0,timer:null as ReturnType<typeof setInterval>|null,session:null as SpokenLetterSession|null,evidence:null as VisionEvidence|null,recognition:null as any,listeningStarted:false,answerTimer:null as ReturnType<typeof setTimeout>|null,settleAnswer:null as (()=>void)|null,audio:null as HTMLAudioElement|null,controller:null as AbortController|null,cancelSpeech:null as (()=>void)|null,url:null as string|null,restart:null as ReturnType<typeof setTimeout>|null,voiceGeneration:0,voiceTimeout:null as ReturnType<typeof setTimeout>|null,muted:false,modal:false,fault:'',faultSince:0,announcedFault:'',answerMemory:new VisionAnswerMemory(),clarifications:0,saving:false,mainInstructionGiven:false,nextPrompt:0,lastPrompt:'',prompted:new Set<string>(),conditionGate:new VisionResponseGate(),previewPoints:undefined as VisionEvidence['alignment']['landmarks']});
  useLocaleSwitchLock('vision',r.current.active&&flow.current.stage!=='user-paused');
- const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},pause:()=>{},timing:(_name:string)=>{}});
+ const actions=useRef({inspect:()=>{},receive:(_text:string,_confidence:number,_id:string,_key:string)=>{},listen:()=>{},stop:()=>{},measure:()=>null as RenderedSymbolGeometry|null,prompt:(_code?:string)=>{},current:(_epoch:number):boolean=>false,canPresent:():boolean=>false,renderError:()=>{},pause:()=>{},silence:()=>{},timing:(_name:string)=>{}});
  const refresh=()=>redraw(v=>v+1);
  const stage=useCallback((next:Parameters<VisionFlow['transition']>[0],reason='')=>{flow.current.transition(next,reason);redraw(v=>v+1);},[]);
  function current(epoch:number){return serviceAllowed('vision')&&r.current.mounted&&r.current.active&&r.current.epoch===epoch&&parked.current&&isCameraAllowed()&&isMicrophoneAllowed();}
@@ -50,7 +50,7 @@ export default function SpokenLetterPage(){
  function abortRecognition(){const a=r.current,old=a.recognition;a.recognition=null;a.listeningStarted=false;a.speechActive=false;if(a.restart)clearTimeout(a.restart);a.restart=null;try{old?.abort();}catch{}}
  function stopSpeech(){const a=r.current;a.voiceGeneration++;if(a.voiceTimeout)clearTimeout(a.voiceTimeout);a.voiceTimeout=null;a.controller?.abort();a.controller=null;a.cancelSpeech?.();a.cancelSpeech=null;if(a.audio){a.audio.onplaying=a.audio.onended=a.audio.onerror=null;a.audio.pause();a.audio.removeAttribute('src');a.audio.load();a.audio=null;}if(a.url)URL.revokeObjectURL(a.url);a.url=null;}
  function stopVoice(){if(r.current.answerTimer)clearTimeout(r.current.answerTimer);r.current.answerTimer=null;r.current.settleAnswer=null;abortRecognition();stopSpeech();if(r.current.mounted)setVoice('quiet');}
- function stop(){const a=r.current;a.epoch++;a.active=false;stopVoice();cancelAnimationFrame(a.raf);if(a.timer)clearInterval(a.timer);a.timer=null;a.stream?.getTracks().forEach(t=>t.stop());a.stream=null;a.engine?.close();a.engine=null;a.session=null;a.evidence=null;a.previewPoints=undefined;if(canvas.current)delete canvas.current.dataset.visionEvidence;a.modal=false;a.clarified.clear();a.answerMemory.clear();a.mainInstructionGiven=false;a.nextPrompt=0;a.lastPrompt='';a.prompted.clear();a.conditionGate=new VisionResponseGate();if(video.current)video.current.srcObject=null;flow.current.reset();if(a.mounted){setAnswerNotice('');setEvidence(null);refresh();}}
+ function stop(){const a=r.current;a.epoch++;a.active=false;stopVoice();cancelAnimationFrame(a.raf);if(a.timer)clearInterval(a.timer);a.timer=null;a.stream?.getTracks().forEach(t=>t.stop());a.stream=null;a.engine?.close();a.engine=null;a.session=null;a.evidence=null;a.previewPoints=undefined;if(canvas.current)delete canvas.current.dataset.visionEvidence;a.modal=false;a.pendingPrompt=null;a.silenceReminders.clear();a.answerMemory.clear();a.mainInstructionGiven=false;a.nextPrompt=0;a.lastPrompt='';a.prompted.clear();a.conditionGate=new VisionResponseGate();if(video.current)video.current.srcObject=null;flow.current.reset();if(a.mounted){setAnswerNotice('');setEvidence(null);refresh();}}
  useEffect(()=>{const mute=()=>{if(speechMuted()&&r.current.active){stopSpeech();stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');abortRecognition();}};window.addEventListener('attune-guidance-muted',mute);return()=>window.removeEventListener('attune-guidance-muted',mute);},[stage]);
  useEffect(()=>{
   let language=getLanguage();
@@ -68,9 +68,9 @@ export default function SpokenLetterPage(){
   return {viewportWidthCssPx:b.width,viewportHeightCssPx:b.height,pathWidthCssPx:p.width,pathHeightCssPx:p.height,strokeWidthCssPx:stroke,measuredAt:performance.now(),method:'dom-svg-css-pixels'};
  }
  async function speak(code:string,onEnded:()=>void){
-  const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;if(speechMuted()){stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');return;}stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
+  const a=r.current,epoch=a.epoch;if(!current(epoch)||a.muted)return;if(speechMuted()){stage('user-paused','Seslendirme kapalı. Header hoparlörünü açıp devam edin.');return;}abortRecognition();stopSpeech();const generation=a.voiceGeneration,token=flow.current.token(),controller=new AbortController();a.controller=controller;
   const valid=()=>current(epoch)&&a.voiceGeneration===generation&&a.controller===controller&&flow.current.matches(token);
-  const fail=()=>{if(!valid())return;stopSpeech();setVoice('failed');setError('Sesli yönerge oynatılamadı. Ekrandaki yönergeyle devam edebilirsiniz.');onEnded();};
+  const fail=()=>{if(!valid())return;stopVoice();stage('error','Sesli yönerge kullanılamıyor. Tekrar deneyin.');setVoice('failed');setError('Seçilen dilde yönerge oynatılamadı; yanıt dinlenmedi ve puanlanmadı.');};
   setVoice('loading');a.voiceTimeout=setTimeout(()=>{if(valid()){controller.abort();fail();}},25000);
   try{
    const clip=approvedClip(getLanguage(),'vision','vision:'+code);
@@ -81,15 +81,15 @@ export default function SpokenLetterPage(){
   }catch{fail();}
  }
  function listen(){
-  const a=r.current,s=a.session,epoch=a.epoch,f=flow.current,controlOnly=f.stage==='user-paused';if(!s||!current(epoch)||document.hidden||speechMuted()||!isMicrophoneAllowed()||a.recognition||a.restart||a.muted||a.modal||(!controlOnly&&(!f.canAnswer||failure()||!measureSymbol())))return;
+  const a=r.current,s=a.session,epoch=a.epoch,f=flow.current,controlOnly=f.stage==='user-paused';if(!s||!current(epoch)||document.hidden||speechMuted()||!isMicrophoneAllowed()||a.recognition||a.restart||a.controller||a.audio?.paused===false||a.answerTimer||a.settleAnswer||a.muted||a.modal||(!controlOnly&&(!f.canAnswer||failure()||!measureSymbol())))return;
   const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){recognitionFailure('unsupported');return;}
-  const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang=getLocale();recognition.continuous=true;recognition.interimResults=true;recognition.maxAlternatives=3;const finalIndexes=new Set<number>();
+  const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang=getLocale();recognition.continuous=false;recognition.interimResults=true;recognition.maxAlternatives=3;const finalIndexes=new Set<number>();let accepted=false;
   // Identity callbacks survive a short blink; answer admission remains a
   // separate fresh-frame/stimulus gate. Persistent faults stop this instance.
   const valid=()=>current(epoch)&&isMicrophoneAllowed()&&a.recognition===recognition&&flow.current.matches(token)&&s.presentationId===id;
-  recognition.onstart=()=>{if(valid()){a.listeningStarted=true;if(a.audio?.paused!==false)setVoice('listening');timing('listening');}else{try{recognition.abort();}catch{}}};
+  recognition.onstart=()=>{if(valid()){if(!controlOnly)s.beginResponse();a.listeningStarted=true;if(a.audio?.paused!==false)setVoice('listening');timing('listening');}else{try{recognition.abort();}catch{}}};
   recognition.onresult=(event:any)=>{
-   if(!valid())return;
+   if(!valid()||accepted)return;
    const finals=[];for(let i=event.resultIndex||0;i<event.results.length;i++){
     const item=event.results[i];if(!item)continue;
     const choices=Array.from({length:Math.min(item.length||1,3)},(_,n)=>({transcript:item[n].transcript,confidence:item[n].confidence}));
@@ -98,7 +98,7 @@ export default function SpokenLetterPage(){
      // A meaningful interim cancels obsolete speech and the pending commit,
      // without using an interim transcript as a scored answer.
      if(chosen.parsed.letter||chosen.parsed.rotation!==undefined||chosen.parsed.mirrored!==undefined||chosen.parsed.command){
-      stopSpeech();a.speechActive=true;if(a.answerTimer)clearTimeout(a.answerTimer);a.answerTimer=null;setVoice('listening');
+      a.speechActive=true;if(a.answerTimer)clearTimeout(a.answerTimer);a.answerTimer=null;setVoice('listening');
      }
      continue;
     }
@@ -110,13 +110,13 @@ export default function SpokenLetterPage(){
    // generation accepts only the already advertised resume/finish commands;
    // letters, noise and low-confidence controls never enter answer memory.
    if(controlOnly&&(!['resume','finish'].includes(parseLetterAnswer(text,getLanguage()).command||'')||(confidence>0&&confidence<.5)))return;
-   a.recognitionFailures=0;timing('asr-final');
-   if(canvas.current)canvas.current.dataset.visionAnswer=JSON.stringify({parsed:parseLetterAnswer(text,getLanguage()),confidence,atMs:performance.now(),presentationId:id});
+   accepted=true;s.suspendResponse();a.recognitionFailures=0;timing('asr-final');abortRecognition();setVoice('quiet');
+   if(canvas.current)canvas.current.dataset.visionAnswer=JSON.stringify({parsed:parseLetterAnswer(text,getLanguage(),{letter:s.letter}),confidence,atMs:performance.now(),presentationId:id});
    actions.current.receive(text,confidence,id,`${recognitionId}:${finals.map(x=>x.index).join(',')}`);
   };
   recognition.onspeechend=()=>{if(valid())a.speechActive=false;};
-  recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech'){if(!controlOnly)setAnswerNotice('Konuşma algılanmadı. Dinliyor yazarken harfi veya yönünü tekrar söyleyin.');return;}recognitionFailure(event.error);};
-  recognition.onend=()=>{if(!valid())return;a.recognition=null;a.listeningStarted=false;a.restart=setTimeout(()=>{a.restart=null;if(current(epoch)&&flow.current.matches(token))actions.current.listen();},350);};
+  recognition.onerror=(event:any)=>{if(!valid())return;timing('asr-error:'+event.error);if(event.error==='no-speech')return;recognitionFailure(event.error);};
+  recognition.onend=()=>{if(!valid())return;a.recognition=null;a.listeningStarted=false;a.speechActive=false;s.suspendResponse();setVoice('quiet');if(!accepted&&!controlOnly)actions.current.silence();else scheduleListening();};
   try{recognition.start();}catch{recognitionFailure('start-failed');}
  }
  function failure(){const a=r.current,s=a.session,c=a.evidence?.conditions||null,v=video.current;if(!c||!v||v.paused||v.ended||v.readyState<2||!a.stream?.getVideoTracks().every(t=>t.readyState==='live')||performance.now()-c.observedAt>750)return 'camera';if(c.blocker)return c.blocker;const gate=s?flow.current.gatedEye(s.eye):null;if(gate){const opened=gate==='RIGHT'?c.right:c.left,other=gate==='RIGHT'?c.left:c.right;if(['closed','covered'].includes(opened.state)&&['closed','covered'].includes(other.state))return 'both-eyes';if(['closed','covered'].includes(opened.state))return 'test-eye';if(opened.state==='open'&&other.state==='open')return 'cover-other';}return letterConditionFailure(c,gate,performance.now());}
@@ -135,8 +135,8 @@ export default function SpokenLetterPage(){
   }
   a.fault='';a.faultSince=0;a.announcedFault='';
   if(f.instructionEye!==s.eye){f.eye=s.eye;f.instructionEye=s.eye;stage('eye-instruction',eyeInstruction(s.eye));void speak(s.eye==='RIGHT'?'right':'left',()=>{stage('eye-check',eyeInstruction(s.eye));actions.current.inspect();});return;}
-  if(f.stage==='preparing'||f.stage==='eye-check'||f.stage==='condition-paused'){if(!s.presentationId){s.present();if(a.answerMemory.bind({sessionId:s.id,eye:s.eye,targetId:s.trialId})){setAnswerNotice('');a.clarifications=0;a.clarified.clear();}}f.presentationId=s.presentationId;stage('rendering');return;}
-  if(f.stage==='listening'){s.beginResponse();actions.current.listen();}
+  if(f.stage==='preparing'||f.stage==='eye-check'||f.stage==='condition-paused'){if(!s.presentationId){s.present();if(a.answerMemory.bind({sessionId:s.id,eye:s.eye,targetId:s.trialId})){setAnswerNotice('');a.clarifications=0;a.silenceReminders.clear();}}f.presentationId=s.presentationId;stage('rendering');return;}
+  if(f.stage==='listening')actions.current.listen();
  }
  function discardPresentation(reason:string){const a=r.current;a.session?.invalidate(reason,a.evidence?.conditions||null,performance.now(),null);flow.current.presentationId='';}
  function pause(){r.current.session?.suspendResponse();stopVoice();discardPresentation('USER_PAUSED');stage('user-paused','Duraklatıldı. Devam et ile sürdürebilirsiniz.');actions.current.listen();}
@@ -149,21 +149,43 @@ export default function SpokenLetterPage(){
   if(isVisionSavingAllowed()&&!isDemoMode()&&!a.saving){a.saving=true;try{await appendHealthRecord('vision',value,{},()=>current(epoch)&&isVisionSavingAllowed());notice='Görev tamamlandı. Sonuç bu cihazdaki geçmişe kaydedildi.';}catch{notice='Görev tamamlandı ancak sonuç kaydedilemedi.';}finally{a.saving=false;}}
   if(a.epoch!==epoch)return;stop();setResult(value);stage('result');setDialog(notice);
  }
+ function scheduleListening(){
+  const a=r.current;if(a.restart)clearTimeout(a.restart);const epoch=a.epoch,token=flow.current.token();
+  a.restart=setTimeout(()=>{a.restart=null;if(current(epoch)&&flow.current.matches(token))actions.current.listen();},350);
+ }
+ function followUpCode(){
+  const memory=r.current.answerMemory;
+  const p=memory.answer,hasOrientation=p.rotation!==undefined||p.mirrored!==undefined||!!p.orientation;
+  return !p.letter&&!hasOrientation&&!p.ambiguous&&p.clarify!=='reverse'?'repeat':memory.missing||'repeat';
+ }
+ function silence(){
+  const a=r.current,s=a.session;if(!s||!flow.current.canAnswer||failure())return;
+  const code=followUpCode(),key=s.trialId+'/'+code;
+  if(!a.silenceReminders.has(key)){a.silenceReminders.add(key);setAnswerNotice('Konuşma algılanmadı. Yönergeden sonra yanıtlayın.');prompt(code);}
+  else scheduleListening();
+ }
  function prompt(code?:string){
   const a=r.current,s=a.session;if(!s||failure()||!measureSymbol())return;
-  if(!code){
-   if(a.prompted.has(s.presentationId))return;a.prompted.add(s.presentationId);
-   if(a.mainInstructionGiven){s.beginResponse();stage('listening');actions.current.listen();return;}
-   code='repeat';a.mainInstructionGiven=true;
+  const initial=!code;
+  if(initial){
+   if(!a.pendingPrompt&&a.prompted.has(s.trialId)){stage('listening');scheduleListening();return;}
+   code=a.pendingPrompt||(a.answerMemory.fragmentCount?followUpCode():a.mainInstructionGiven?'next1':'repeat');a.mainInstructionGiven=true;
   }
-  a.lastPrompt=code;s.beginResponse();stage('listening');void speak(code,()=>{if(s.presentationId)actions.current.inspect();});actions.current.listen();
+  const id=s.presentationId,epoch=a.epoch;
+  a.lastPrompt=code!;a.pendingPrompt=code!;s.suspendResponse();abortRecognition();stage('prompting');
+  timing('prompt:'+code);
+  void speak(code!,()=>{
+   if(!current(epoch)||s.presentationId!==id||flow.current.stage!=='prompting')return;
+   if(initial)a.prompted.add(s.trialId);a.pendingPrompt=null;
+   stage('listening');scheduleListening();
+  });
  }
  function receive(text:string,confidence:number,id:string,key:string){
   const a=r.current,s=a.session;if(!s||!current(a.epoch)||s.presentationId!==id)return;
   const parsed=parseLetterAnswer(text,getLanguage(),{letter:s.letter});
   if(parsed.command&&confidence>0&&confidence<.5)return;
   if(flow.current.stage==='user-paused'){if(parsed.command==='resume')resume();else if(parsed.command==='finish')void complete(true);return;}
-  if(!flow.current.letterVisible)return;
+  if(!flow.current.canAnswer)return;
   if(parsed.command==='finish'){void complete(true);return;}if(parsed.command==='pause'){pause();return;}if(parsed.command==='resume'){resume();return;}
   const target={sessionId:s.id,eye:s.eye,targetId:s.trialId};
   if(!a.answerMemory.matches(target)||a.answerMemory.processed)return;
@@ -171,20 +193,20 @@ export default function SpokenLetterPage(){
   // understood fragment must not claim information that memory then discards.
   if(!parsed.command){if(!a.answerMemory.append(target,key,text,parsed,confidence))return;refresh();}
   if(a.answerTimer)clearTimeout(a.answerTimer);a.answerTimer=null;a.settleAnswer=null;
-  stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');
+  setVoice('quiet');
   const merged=parsed.command?parsed:a.answerMemory.answer,geometry=measureSymbol(),now=performance.now();
   if(failure()||!geometry||!flow.current.canAnswer){setAnswerNotice(`Algılanan: ${answerDescription(merged)}. Koşullar düzelince bu harf için yeniden yanıt verin.`);s.unscored('CONDITIONS_INVALID_AT_RESPONSE',a.evidence?.conditions||null,now,geometry,parsed);inspect();return;}
   if(parsed.command==='repeat'){a.speechActive=false;prompt(a.lastPrompt||'repeat');return;}
   const unclear=!parsed.command&&(!!a.answerMemory.missing||!!merged.clarify||!merged.letter||!answerTransform(merged));
   if(unclear){
-   const code=a.answerMemory.missing||'repeat';
+   const code=followUpCode();
    setAnswerNotice(`Algılanan: ${answerDescription(merged)}. ${code==='letter'?'Yalnız harf bekleniyor.':code==='reverse'?'Baş aşağı mı, aynalı mı?':code==='orientation'?'Yalnız yön bekleniyor.':'Yanıtı yeniden söyleyin.'}`);
    const token=flow.current.token(),epoch=a.epoch;
-   a.answerTimer=setTimeout(()=>{a.answerTimer=null;if(current(epoch)&&flow.current.matches(token)&&s.presentationId===id&&!failure()&&!a.speechActive&&!a.clarified.has(code)){a.clarified.add(code);prompt(code);}},2400);
+   a.answerTimer=setTimeout(()=>{a.answerTimer=null;if(current(epoch)&&flow.current.matches(token)&&s.presentationId===id&&!failure())prompt(code);},350);
    return;
   }
   const settle=()=>{
-   a.answerTimer=null;if(!current(epoch)||!flow.current.matches(token)||s.presentationId!==id||a.answerMemory.processed||a.speechActive)return;
+   a.answerTimer=null;a.settleAnswer=null;if(!current(epoch)||!flow.current.matches(token)||s.presentationId!==id||a.answerMemory.processed||a.speechActive)return;
    if(failure()||!measureSymbol()){setAnswerNotice('Koşullar değişti. Yanıt puanlanmadı; tekrar yanıtlayın.');return;}
    const before=s.adaptationState;
   if(respondToVisibleLetter(s,merged,a.evidence?.conditions||null,id,measureSymbol)){
@@ -217,7 +239,7 @@ export default function SpokenLetterPage(){
   discardPresentation('ASR_UNAVAILABLE');stage('error','Konuşma tanıma kullanılamıyor. Mikrofon iznini ve bağlantıyı kontrol edip tekrar deneyin.');setVoice('failed');
   setError(reason==='unsupported'?'Bu tarayıcı sesli yanıtı desteklemiyor. Konuşma tanımayı destekleyen bir tarayıcıda açın.':'Mikrofon veya konuşma hizmeti kullanılamıyor. Yanıt puanlanmadı; tekrar deneyin.');
  }
- actions.current={inspect,receive,listen,stop,pause,measure:measureSymbol,prompt,current,timing,canPresent:()=>!failure(),renderError:()=>{discardPresentation('STIMULUS_NOT_VISIBLE');stage('error','Harf alanı görünür değil. Alanı ekrana getirip tekrar deneyin.');setError('Harf gösterilemedi; yanıt istenmedi veya puanlanmadı.');}};
+ actions.current={inspect,receive,listen,stop,pause,silence,measure:measureSymbol,prompt,current,timing,canPresent:()=>!failure(),renderError:()=>{discardPresentation('STIMULUS_NOT_VISIBLE');stage('error','Harf alanı görünür değil. Alanı ekrana getirip tekrar deneyin.');setError('Harf gösterilemedi; yanıt istenmedi veya puanlanmadı.');}};
  const renderStage=flow.current.stage,renderToken=flow.current.token();
  // Require a painted, nonzero, unclipped stimulus before any response prompt.
  useEffect(()=>{if(renderStage!=='rendering')return;const token=renderToken,epoch=r.current.epoch;let cancelled=false,raf=0;const startedAt=performance.now();const verify=()=>{if(cancelled||!actions.current.current(epoch)||!flow.current.matches(token))return;if(actions.current.measure()&&actions.current.canPresent()){actions.current.timing('letter-rendered');actions.current.prompt();}else if(performance.now()-startedAt<2000)raf=requestAnimationFrame(verify);else actions.current.renderError();};raf=requestAnimationFrame(()=>{
@@ -261,7 +283,7 @@ export default function SpokenLetterPage(){
    {active&&<section className="grid md:grid-cols-2 gap-4 rounded-2xl bg-cockpit-surface border border-slate-800/90 p-4 md:p-6 w-full min-w-0 max-w-full">
     <div className="order-first md:order-none md:col-span-2 grid md:grid-cols-2 gap-4 min-w-0"><div className="hidden md:block" aria-hidden="true"/><div className="space-y-2 min-w-0">
      <p className="text-center font-semibold">{i18nNode(s?`${s.eye==='RIGHT'?'Sağ':'Sol'} göz · ${s.trials.length%12+1}/12`:'')}</p>
-     <p role="status" data-vision-readiness className="min-h-5 text-sm text-togg-turquoise text-center">{i18nNode(voice==='playing'?(r.current.listeningStarted?'Yönerge okunuyor · Dinliyor':'Yönerge okunuyor'):voice==='loading'?(r.current.listeningStarted?'Yönerge hazırlanıyor · Dinliyor':'Yönerge hazırlanıyor'):f.stage==='listening'&&r.current.listeningStarted?(f.conditionsValid?'Dinliyor':'Koşul bekleniyor'):f.stage==='listening'?'Mikrofon hazırlanıyor':f.stage==='condition-paused'?'Koşul bekleniyor':'')}</p>
+     <p role="status" data-vision-readiness className="min-h-5 text-sm text-togg-turquoise text-center">{i18nNode(voice==='playing'?'Yönerge okunuyor':voice==='loading'?'Yönerge hazırlanıyor':f.stage==='listening'&&r.current.listeningStarted?(f.conditionsValid?'Dinliyor':'Koşul bekleniyor'):f.stage==='listening'?(r.current.answerTimer?'Yanıt işleniyor':'Mikrofon hazırlanıyor'):f.stage==='condition-paused'?'Koşul bekleniyor':'')}</p>
     </div></div>
     <div className="space-y-2 min-w-0"><CameraPreview videoRef={video} landmarks={r.current.previewPoints} vision/><div data-camera-preparation className="space-y-1.5">{rows.map(([label,value])=><div key={label} className="flex flex-wrap justify-between gap-2 px-3 py-1.5 rounded-xl border border-white/10 text-sm"><span>{i18nNode(label)}</span><span className={value==='İyi'||value==='Güncel'?'text-emerald-400':'text-slate-300'}>{i18nNode(value)}</span></div>)}</div><p className="text-sm text-togg-turquoise" data-vision-voice={voice}>{i18nNode(voice==='playing'?'Yönerge okunuyor':voice==='loading'?'Yönerge hazırlanıyor':voice==='listening'?'Dinliyor':'')}</p></div>
     <div className="order-first md:order-none flex flex-col items-center justify-start gap-2 min-w-0 self-start w-full">
