@@ -1,5 +1,10 @@
 # OEM-independent Android Automotive prototype
 
+Current update: [28 October implementation audit and evidence](DEMO_READINESS_20261028.md)
+and [OEM demo execution guide](OEM_DEMO_GUIDE.md). Earlier records below describe
+their own source revisions; the historical emulator run does not validate the
+current APK.
+
 This implements a separate **AAOS parked application prototype**, using a native
 Android Activity and a restricted WebView. It preserves the Next.js application,
 FastAPI API, five health modules, consent/storage contracts, simulation and safety

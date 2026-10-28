@@ -947,8 +947,17 @@ class Assessment:
             self.adb('reverse', 'tcp:3000', 'tcp:3000')
         assert self.tap('Yeniden dene')
         self.wait(lambda: 'android.webkit.WebView' in self.ui())
+        client = self.connect()
+        client.request('ready')
+        assert client.request('http-document-error')['status'] == 404
+        self.wait(lambda: 'Sayfa yüklenemedi' in self.ui(), label='main-document HTTP 404 native Retry state')
+        self.wait(self.no_web_target, label='HTTP failure removed the WebView')
+        assert self.api()['vehicleParked'] is True
+        self.capture('web-http-failed')
+        assert self.tap('Yeniden dene')
+        self.wait(lambda: 'android.webkit.WebView' in self.ui())
         self.connect().request('ready')
-        return 'Real WebView main-frame connection failure showed native retry state; retry restored existing web app.'
+        return 'Real connection failure and main-document HTTP 404 showed native Retry; a subresource 404 kept the page alive; explicit retries restored the app.'
 
     def permissions_denied(self):
         observation = self.probe()

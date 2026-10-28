@@ -55,6 +55,16 @@ async function navigate(page, routePath) {
   return { path: routePath, status: 'PASS', ...result };
 }
 
+async function httpDocumentError(page) {
+  // Exercise a real Next.js 404: first as a subresource (must keep the view),
+  // then as the main document (must enter the native Retry state).
+  const status = await page.evaluate(async () => (await fetch('/__attune_aaos_missing_document__')).status);
+  if (status !== 404) throw Error('Missing-document prerequisite did not return 404: ' + status);
+  try { await page.evaluate(() => window.location.assign('/__attune_aaos_missing_document__')); }
+  catch (error) { if (!page.isClosed()) throw error; }
+  return { status };
+}
+
 async function serve() {
   const { _android } = require(process.env.ATTUNE_PLAYWRIGHT_NODE_PACKAGE);
   let device, page, phase = 'connect';
@@ -119,6 +129,7 @@ async function serve() {
     }
     if (action === 'wait-url') { await page.waitForURL(ORIGIN + args.route); return page.url(); }
     if (action === 'navigate') return navigate(page, args.route);
+    if (action === 'http-document-error') return httpDocumentError(page);
     if (action === 'localization-language') return localized.language(page,args.language);
     if (action === 'localization-recording') return localized.recording(page,args.language,args.module);
     if (action === 'localization-decode') return localized.decode(page);
@@ -169,4 +180,4 @@ if (require.main === module) {
     console.log('PASS: Node/Playwright Android API import; no emulator contacted or driver installed');
   } else serve().catch(error => { console.error(error); process.exitCode = 1; });
 }
-module.exports = { mediaConstraints, allowedResource, ROUTES, navigate };
+module.exports = { mediaConstraints, allowedResource, ROUTES, navigate, httpDocumentError };

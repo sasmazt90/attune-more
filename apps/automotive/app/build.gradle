@@ -14,6 +14,9 @@ android {
         versionName '0.1-prototype'
     }
     buildFeatures { buildConfig true }
+    // Native labels follow the existing in-app TR/EN/DE selector offline.
+    // Retain all three resource sets if this prototype is packaged as a bundle.
+    bundle { language { enableSplit = false } }
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
