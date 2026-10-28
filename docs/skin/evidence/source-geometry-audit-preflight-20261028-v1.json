@@ -1,0 +1,28 @@
+{
+  "allGeometryAudited": false,
+  "blockers": [
+    "box_only_annotations_ineligible_for_pixel_truth",
+    "clean3_api_export_count_discrepancy_unresolved",
+    "expert_semantic_geometry_review_incomplete",
+    "known_invalid_geometry_present",
+    "rectangle_polygons_ineligible_for_pixel_truth",
+    "selected_archive_geometry_coverage_incomplete",
+    "selected_pair_expert_review_incomplete",
+    "under_eye_source_person_coverage_incomplete"
+  ],
+  "boxesAcceptedAsPixelTruth": false,
+  "decision": "blocked",
+  "knownAuditedImages": 7865,
+  "knownBoxOnlyAnnotationCount": 3129,
+  "knownInvalidGeometryIssueCount": 57,
+  "knownRectanglePolygonCount": 1067,
+  "knownValidPolygonCount": 3035,
+  "methodVersion": "skin-source-geometry-audit-preflight-v1",
+  "missingLabelsAcceptedAsNegativeOrNormal": false,
+  "modelGeometryAcceptedAsExpertTruth": false,
+  "readyForReleaseArtifact": false,
+  "rectanglePolygonsAcceptedAsPixelTruth": false,
+  "schemaVersion": 1,
+  "selectedArchiveCount": 0,
+  "sourceFactsMethodVersion": "source-mapping-release-receipt-v2"
+}
