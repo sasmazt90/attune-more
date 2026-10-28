@@ -14,10 +14,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.PermissionRequest;
 import android.webkit.RenderProcessGoneDetail;
@@ -107,8 +110,20 @@ public final class MainActivity extends Activity {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(Color.rgb(6, 11, 18));
-        // Normal system insets/cutouts remain under OS control; no immersive or forced landscape mode.
-        root.setFitsSystemWindows(true);
+        // Target 35 enforces edge-to-edge on Android 15. Keep toolbar, health
+        // controls and focused inputs inside system bars, cutouts and the IME.
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().setDecorFitsSystemWindows(false);
+            root.setOnApplyWindowInsetsListener((view, insets) -> {
+                android.graphics.Insets safe = insets.getInsets(WindowInsets.Type.systemBars()
+                    | WindowInsets.Type.displayCutout() | WindowInsets.Type.ime());
+                view.setPadding(safe.left, safe.top, safe.right, safe.bottom);
+                return WindowInsets.CONSUMED;
+            });
+        } else {
+            root.setFitsSystemWindows(true);
+        }
         HorizontalScrollView scroll = new HorizontalScrollView(this);
         LinearLayout toolbar = new LinearLayout(this);
         back = button(R.string.back, () -> { if (ready() && web != null && web.canGoBack()) web.goBack(); });
@@ -144,6 +159,7 @@ public final class MainActivity extends Activity {
         frame.addView(placeholder);
         root.addView(frame, new LinearLayout.LayoutParams(-1, 0, 1));
         setContentView(root);
+        root.requestApplyInsets();
     }
 
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
@@ -267,6 +283,14 @@ public final class MainActivity extends Activity {
             }
             @Override public void onReceivedError(WebView source, WebResourceRequest request, WebResourceError error) {
                 if (source == web && request.isForMainFrame()) { pageFailed = true; destroyWeb(); render(); }
+            }
+            @Override public void onReceivedHttpError(WebView source, WebResourceRequest request, WebResourceResponse response) {
+                // A live frontend can still return 404/503. Treat only the main
+                // document as a shell failure; module/API/asset errors keep the
+                // existing product's error and consent handling.
+                if (source == web && request.isForMainFrame() && response.getStatusCode() >= 400) {
+                    pageFailed = true; destroyWeb(); render();
+                }
             }
             @Override public void onReceivedSslError(WebView source, SslErrorHandler handler, SslError error) {
                 handler.cancel();

@@ -2,7 +2,7 @@
 // Offline policy checks; these never contact an Android device.
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { mediaConstraints, allowedResource, ROUTES, navigate } = require('./webview_driver.cjs');
+const { mediaConstraints, allowedResource, ROUTES, navigate, httpDocumentError } = require('./webview_driver.cjs');
 const localized = require('./localized_webview.cjs');
 const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
 const {execFileSync} = require('node:child_process');
@@ -66,6 +66,22 @@ test('Observer admits exact local resources and rejects lookalike/external origi
 test('Navigation rejects routes outside the finite list before interacting', async () => {
   assert.equal(ROUTES.size, 9);
   await assert.rejects(navigate(null, '/unapproved'), /finite acceptance list/);
+});
+
+test('HTTP failure observation rejects a wrong status or live-page error instead of inventing native acceptance', async () => {
+  // RPC fixtures only; native Retry and target destruction need the emulator.
+  for (const status of [200, 503]) {
+    let calls = 0;
+    await assert.rejects(httpDocumentError({ evaluate: async () => { calls++; return status; } }), /did not return 404/);
+    assert.equal(calls, 1);
+  }
+  for (const closed of [false, true]) {
+    let calls = 0;
+    const page = { evaluate: async () => { if (++calls === 1) return 404; throw Error('target closed'); }, isClosed: () => closed };
+    if (closed) assert.deepEqual(await httpDocumentError(page), { status: 404 });
+    else await assert.rejects(httpDocumentError(page), /target closed/);
+    assert.equal(calls, 2);
+  }
 });
 
 test('Integrated observer accepts only three locales and five health modules', () => {

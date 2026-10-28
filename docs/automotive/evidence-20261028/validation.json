@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-28",
+  "source_base": "23a26e7b9c29239322240f0875aba74e5896ae53",
+  "branch": "feat/aaos-demo-readiness-20261028",
+  "tested_source_sha256": {
+    "apps/automotive/app/build.gradle": "9ae3b181ec33bdb316f75661b7db6141b58d53e188d1cd6a861967777c26ef4c",
+    "apps/automotive/app/src/main/java/more/attune/automotive/MainActivity.java": "042c25f0b1f1303976cdbaecee23ce19cc1d5f4374aa43f4a5503cda97d2e11b",
+    "tests/automotive/test_webview_driver.cjs": "ab1ad48d723fa47ad70470aacd3d573ff9321111a8ae94b695694010bec8d32f",
+    "tests/automotive/validate_emulator.py": "94eeedfab27f6290aa06033d9bf4141a3065b3e4ece481639dea94b539a6ec24",
+    "tests/automotive/webview_driver.cjs": "3eff3a6299508c72fdbf6f0b065ba1710ba5fdab027c86afb4b0bec2f60344a5",
+    "tests/e2e/automotive_web_smoke.py": "6122f8d77bd9597ad0018346254e2f84811efa8b11073b6c3fca8205ca57f004",
+    "tests/e2e/automotive_asset_smoke.py": "5f5a770dd129652275cf5297c84ccd6037ee58bf1504005e85af2ea2b7a8d975"
+  },
+  "environment": {
+    "os": "Debian GNU/Linux 13",
+    "jdk": "Temurin 21.0.13+9",
+    "gradle": "8.11.1",
+    "agp": "8.9.2",
+    "sdk": 35,
+    "build_tools": "35.0.0",
+    "node": "22.20.0",
+    "npm": "10.9.3",
+    "python": "3.11.17",
+    "chrome": "155.0.8059.84"
+  },
+  "checks": {
+    "baseline_debug_and_lint": "PASS; 0 errors / 2 warnings",
+    "debug_and_lint": "PASS; 0 errors / 1 reviewed JavaScript warning",
+    "release_assemble": "PASS; unsigned; integration intentionally unavailable",
+    "apk_signature": "PASS; v2",
+    "automotive_pytest": {
+      "tests": 122,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "java_policy": {
+      "passed": 69
+    },
+    "node_observer_tests": {
+      "passed": 8
+    },
+    "frontend_build": "PASS",
+    "frontend_typecheck": "PASS",
+    "frontend_lint": "PASS",
+    "unit_pytest": {
+      "tests": 1841,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 44
+    },
+    "browser_layout_and_simulation": {
+      "passed": 216,
+      "route_observations": 162,
+      "png_count": 162,
+      "languages": [
+        "tr",
+        "en",
+        "de"
+      ],
+      "viewports": [
+        [
+          1024,
+          600
+        ],
+        [
+          1280,
+          720
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          800,
+          480
+        ],
+        [
+          1024,
+          400
+        ]
+      ],
+      "runtime": "desktop Chrome; not Android"
+    },
+    "browser_assets": {
+      "passed": 235,
+      "model_or_loader_files": 8,
+      "wasm_compiled": 3,
+      "recordings_hashed_and_decoded": 227,
+      "runtime": "desktop Chrome; no inference or playback"
+    }
+  },
+  "setup_history": [
+    "Fetched origin/main: restored checkout was 16 commits behind. All implementation starts at verified main.",
+    "Initial sandbox-denied socket operations resolved with supported explicit network access.",
+    "Initial system Java lacked javac; installed official checksum-verified JDK. Final automotive suite executes both compiler-dependent tests.",
+    "Installed repository-pinned pycocotools 2.0.10 and scikit-learn 1.9.1 for existing scientific unit fixtures.",
+    "Full unit run uses a local runner supplying the installed Chrome executable through Playwright launch options to tests that hardcode channel=chrome. Assertions and browser APIs are otherwise unchanged.",
+    "An interim automotive lifecycle fixture correctly rejected the smoke backend already listening on port 8000. Stopped task-owned demo servers before the final 91-test pass."
+  ],
+  "native_acceptance": {
+    "status": "BLOCKED",
+    "kvm_device_present": false,
+    "emulator_launched": false,
+    "apk_installed": false,
+    "current_webview_version": null,
+    "reason": "No /dev/kvm or preinstalled emulator/AVD/system image; existing controlled harness requires KVM and Ubuntu 24.04, while host is Debian 13.",
+    "new_http_recovery_and_insets": "compiled/linted; native execution unverified",
+    "hosted_workflow_dispatched": false,
+    "physical_media_or_vehicle_tested": false
+  },
+  "official_documentation_review": {
+    "reviewed": "2026-10-28",
+    "access": "connected web tool; shell destination denied",
+    "sources": [
+      "https://developer.android.com/training/cars",
+      "https://developer.android.com/training/cars/parked/automotive-os",
+      "https://developer.android.com/training/cars/testing/emulator",
+      "https://developer.android.com/develop/ui/views/layout/edge-to-edge"
+    ]
+  },
+  "boundaries": [
+    "No health algorithm, model weights, speech provider, production dependency or Windows launcher changed.",
+    "No current native five-module functional acceptance, physical capture, audible output, clinical certification, OEM integration or official distribution eligibility established.",
+    "Historical emulator evidence applies only to its recorded old source/APK."
+  ],
+  "artifacts": [
+    {
+      "file": "attune-aaos-debug.apk",
+      "bytes": 64978,
+      "sha256": "11f9a6cf86c5e72c03f647250782917836f0c220d7f988e44de0268c4b52d756"
+    },
+    {
+      "file": "attune-aaos-release-unsigned.apk",
+      "bytes": 53223,
+      "sha256": "1a8c537cdefc54d2885a12a8d2bb3e6ba8c6d66caadd4642687dfe2eb3f25479"
+    }
+  ]
+}
