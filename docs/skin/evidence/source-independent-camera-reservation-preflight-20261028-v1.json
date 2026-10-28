@@ -1,0 +1,41 @@
+{
+  "blockers": [
+    "physical_camera_reservation_missing",
+    "source_independent_subject_reservation_missing",
+    "pre_capture_consent_protocol_missing",
+    "physical_camera_capture_protocol_missing",
+    "privacy_retention_policy_missing",
+    "front_left_right_session_plan_missing"
+  ],
+  "cameraReservationRef": null,
+  "captureDeviceIsPhysicalCameraRequired": true,
+  "consentObtainedBeforeCaptureRequired": true,
+  "consentRequired": true,
+  "controlledFixture": false,
+  "decision": "blocked",
+  "excludedArchivesUsed": false,
+  "expectedCaptureCount": 0,
+  "expertGroundTruthRequiredForAcceptance": true,
+  "generated": false,
+  "methodVersion": "skin-source-independent-camera-reservation-preflight-v1",
+  "readyForReleaseArtifact": false,
+  "releaseRef": null,
+  "requiredViews": [
+    "front",
+    "left",
+    "right"
+  ],
+  "reservationIsNotAcceptanceEvidence": true,
+  "reserved": false,
+  "reservedSessionCount": 0,
+  "reservedSubjectCount": 0,
+  "schemaVersion": 1,
+  "sourceFactsMethodVersion": "source-mapping-release-receipt-v2",
+  "sourceRegistryRef": null,
+  "sourceType": "physical-camera",
+  "subjectIndependentFromSourceRegistry": true,
+  "syntheticOrRenderedMediaAllowed": false,
+  "usedForModelSelection": false,
+  "usedForTestThresholdRetuning": false,
+  "usedForTrainingValidationOrThresholdSelection": false
+}

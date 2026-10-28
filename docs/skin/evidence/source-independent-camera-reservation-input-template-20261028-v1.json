@@ -1,0 +1,33 @@
+{
+  "cameraPolicy": {
+    "captureDeviceIsPhysicalCameraRequired": true,
+    "consentObtainedBeforeCaptureRequired": true,
+    "consentRequired": true,
+    "controlledFixture": false,
+    "excludedArchivesUsed": false,
+    "expertGroundTruthRequiredForAcceptance": true,
+    "generated": false,
+    "reservationIsNotAcceptanceEvidence": true,
+    "reserved": true,
+    "sourceType": "physical-camera",
+    "subjectIndependentFromSourceRegistry": true,
+    "syntheticOrRenderedMediaAllowed": false,
+    "usedForModelSelection": false,
+    "usedForTestThresholdRetuning": false,
+    "usedForTrainingValidationOrThresholdSelection": false
+  },
+  "cameraReservationRef": null,
+  "captureProtocolSHA256": null,
+  "consentProtocolSHA256": null,
+  "expectedCaptureCount": 0,
+  "independenceVerification": null,
+  "methodVersion": "skin-source-independent-camera-reservation-input-v1",
+  "privacyRetentionPolicySHA256": null,
+  "releaseRef": null,
+  "requiredViews": ["front", "left", "right"],
+  "reservationEvidenceSHA256": null,
+  "reservedSessionCount": 0,
+  "reservedSubjectCount": 0,
+  "schemaVersion": 1,
+  "sourceRegistryRef": null
+}
