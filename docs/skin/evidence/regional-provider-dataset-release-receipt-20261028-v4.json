@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "regional-provider-dataset-release-receipt-v4",
+  "observedAt": "2026-10-28T07:11:20Z",
+  "providerProject": {
+    "id": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "type": "instance-segmentation",
+    "public": false,
+    "images": 476,
+    "unannotatedCounter": 139,
+    "splits": {"train": 334, "valid": 85, "test": 57},
+    "classes": {"Oily": 1373, "Redness": 898},
+    "versions": [{"versionNumber": 1, "images": 337, "splits": {"train": 244, "valid": 63, "test": 30}}]
+  },
+  "upload": {
+    "taskId": "RzTdxfpBr9REzkke1mPp",
+    "status": "completed",
+    "uploaded": 139,
+    "duplicates": 198,
+    "annotated": 337,
+    "errors": 0,
+    "warnings": 0,
+    "failedChunks": 0
+  },
+  "postUploadRecords": {
+    "records": 139,
+    "splits": {"train": 90, "valid": 22, "test": 27},
+    "annotations": {"Oily": 308, "Redness": 327},
+    "allCarryExistingQuarantineTags": true,
+    "containsFilenamesOrProviderImageIds": false,
+    "membershipClassification": "unverified_until_exact_provider_export",
+    "tagEstablishesUnwantedMembership": false,
+    "tagBasedDeletionOrVersionExclusionAllowed": false
+  },
+  "quarantineTagging": {
+    "tag": "provider-drift-rztdxfpbr9rezkke1mpp",
+    "taskId": "z1JPrbxrIKsktjFBLigp",
+    "status": "completed",
+    "totalProcessed": 139,
+    "succeeded": 139,
+    "failed": 0,
+    "verifiedTaggedRecords": 139,
+    "verifiedSplits": {"train": 90, "valid": 22, "test": 27},
+    "imagesOrAnnotationsDeleted": false
+  },
+  "groupLockedManifest": {
+    "path": "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json",
+    "blobSHA": "088c38a2e8802fedc14486cf0b873225774b82f4",
+    "sha256": "d698580acae5c2987392e170bd408d626ad0ba685f4c49f5899c7bef46b967ce",
+    "assignmentsSHA256": "2a8608d2f74fbf3e64fca53b60334a64add9c47f0301766dc47c9ca2fe651e3c",
+    "queueItemsSHA256": "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5",
+    "reviewDecisionsSHA256": "41702f492a41c72e15764288c9c0da7b9a2c43cb2c619cdb851a5098fc67ced1",
+    "records": {"train": 236, "valid": 50, "test": 51},
+    "annotations": {
+      "train": {"Oily": 719, "Redness": 394},
+      "valid": {"Oily": 157, "Redness": 110},
+      "test": {"Oily": 189, "Redness": 67}
+    },
+    "crossSplitGroupCount": 0,
+    "allRecordsAssignedExactlyOnce": true
+  },
+  "postUploadProvenanceAudit": {
+    "path": "docs/skin/evidence/regional-post-upload-provenance-audit-20261028-v1.json",
+    "sha256": "80565d2f95e5eea80f201d1ce67fe34e3a65bcc8f53e3f4f6476f04e2250ddcb"
+  },
+  "candidateVersion": null,
+  "releasePrerequisites": {
+    "rightsReviewed": false,
+    "expertSemanticMaskProtocolAccepted": false,
+    "independentPhysicalCameraHoldoutReserved": false
+  },
+  "attestations": {
+    "mutableProjectIsNotAnImmutableVersion": true,
+    "uploadCompletionAloneDoesNotAuthorizeTraining": true,
+    "declarativeCandidateFieldsCannotAuthorizeTraining": true,
+    "providerExportAuditRequired": true,
+    "providerPolygonGeometryAuditRequired": true,
+    "boxGeometryAcceptedAsPolygonTruth": false,
+    "crowdOrRLEGeometryAcceptedAsPolygonTruth": false,
+    "providerExportAuditContainsNoFilenamesOrProviderImageIds": true,
+    "postUploadTagsAreProvenanceOnly": true,
+    "tagBasedExclusionForbidden": true,
+    "noProviderVersionCreated": true,
+    "noTrainingStarted": true,
+    "noImageBytesOrPrivateResolversCommitted": true
+  }
+}
+

@@ -17,7 +17,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SCHEMA = "regional-provider-dataset-release-receipt-v3"
+SCHEMA = "regional-provider-dataset-release-receipt-v4"
 PROJECT_ID = "tolgar-sasmaz/attune-skin-regional-skin-map"
 PROJECT_TYPE = "instance-segmentation"
 MANIFEST_PATH = "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json"
@@ -26,7 +26,7 @@ MANIFEST_FILE_SHA256 = "d698580acae5c2987392e170bd408d626ad0ba685f4c49f5899c7bef
 ASSIGNMENTS_SHA256 = "2a8608d2f74fbf3e64fca53b60334a64add9c47f0301766dc47c9ca2fe651e3c"
 QUEUE_SHA256 = "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5"
 DECISIONS_SHA256 = "41702f492a41c72e15764288c9c0da7b9a2c43cb2c619cdb851a5098fc67ced1"
-AUDIT_SCHEMA = "regional-provider-version-export-audit-v1"
+AUDIT_SCHEMA = "regional-provider-version-export-audit-v2"
 POST_UPLOAD_AUDIT_SCHEMA = "regional-post-upload-provenance-audit-v1"
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 TARGET_IMAGES = 337
@@ -168,10 +168,18 @@ def _candidate_version_ready(candidate: Any, evidence_root: Path) -> tuple[bool,
         "manifestFileSHA256": MANIFEST_FILE_SHA256,
         "assignmentsSHA256": ASSIGNMENTS_SHA256,
         "recordIdentityBasis": "image-content-sha256",
+        "geometryIdentityBasis": "canonical-polygon-ring-v1",
         "allProviderRecordsMatchedManifestOnce": True,
         "unexpectedProviderRecords": 0,
         "missingManifestRecords": 0,
         "crossSplitContentHashCount": 0,
+        "duplicateImageContentCount": 0,
+        "polygonGeometryVerified": True,
+        "boxGeometryAcceptedAsPolygonTruth": False,
+        "crowdOrRLEGeometryAcceptedAsPolygonTruth": False,
+        "invalidPolygonCount": 0,
+        "outsidePointCount": 0,
+        "degeneratePolygonCount": 0,
         "sourcePersonCoverageComplete": True,
         "crossSplitGroupCount": 0,
         "finalTestUsedForSelectionOrThresholds": False,
@@ -194,6 +202,38 @@ def _candidate_version_ready(candidate: Any, evidence_root: Path) -> tuple[bool,
             for value in split_digests.values()
         ):
             blockers.append("provider_export_audit_mismatch")
+    expected_annotation_totals = {
+        split: sum(TARGET_ANNOTATIONS[split].values()) for split in TARGET_SPLITS
+    }
+    polygon_annotations = audit.get("polygonAnnotations")
+    polygons = audit.get("polygons")
+    vertices = audit.get("vertices")
+    if polygon_annotations != expected_annotation_totals:
+        blockers.append("provider_polygon_geometry_audit_mismatch")
+    if (
+        not isinstance(polygons, dict)
+        or set(polygons) != set(TARGET_SPLITS)
+        or any(
+            isinstance(polygons[split], bool)
+            or not isinstance(polygons[split], int)
+            or polygons[split] < expected_annotation_totals[split]
+            for split in TARGET_SPLITS
+        )
+    ):
+        blockers.append("provider_polygon_geometry_audit_mismatch")
+    if (
+        not isinstance(vertices, dict)
+        or set(vertices) != set(TARGET_SPLITS)
+        or any(
+            isinstance(vertices[split], bool)
+            or not isinstance(vertices[split], int)
+            or not isinstance(polygons, dict)
+            or not isinstance(polygons.get(split), int)
+            or vertices[split] < polygons[split] * 3
+            for split in TARGET_SPLITS
+        )
+    ):
+        blockers.append("provider_polygon_geometry_audit_mismatch")
     return not blockers, blockers
 
 
@@ -233,13 +273,16 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     training_authorized = provider_dataset_ready and not blockers
     blockers = list(dict.fromkeys(blockers))
     return {
-        "schemaVersion": 3,
-        "methodVersion": "regional-provider-dataset-release-gate-v3",
+        "schemaVersion": 4,
+        "methodVersion": "regional-provider-dataset-release-gate-v4",
         "project": PROJECT_ID,
         "mutableProjectDriftDetected": project_drift,
         "groupLockedManifestVerified": True,
         "postUploadProvenanceVerified": True,
         "tagBasedExclusionAuthorized": False,
+        "providerPolygonGeometryAuditRequired": True,
+        "boxGeometryAcceptedAsPolygonTruth": False,
+        "crowdOrRLEGeometryAcceptedAsPolygonTruth": False,
         "providerVersionReady": provider_dataset_ready,
         "trainingAuthorized": training_authorized,
         "finalTestAuthorized": False,
@@ -264,3 +307,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

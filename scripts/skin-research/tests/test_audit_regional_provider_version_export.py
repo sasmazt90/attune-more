@@ -13,13 +13,20 @@ SPEC.loader.exec_module(MODULE)
 MANIFEST = Path(__file__).parents[3] / "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json"
 
 
-def write_archive(root: Path, changed_split=None):
+def write_archive(root: Path, changed_split=None, rotate_split=None, box_only_split=None, outside_split=None, duplicate_content=False):
     for index, split in enumerate(MODULE.SPLITS, start=1):
         split_root = root / split
         split_root.mkdir(parents=True)
         file_name = f"private-provider-{split}.jpg"
-        (split_root / file_name).write_bytes(f"image-{split}".encode())
+        (split_root / file_name).write_bytes(
+            b"same-image" if duplicate_content else f"image-{split}".encode()
+        )
         category = 2 if split == changed_split else 1
+        polygon = [1, 2, 4, 2, 4, 6, 1, 6]
+        if split == rotate_split:
+            polygon = [4, 2, 4, 6, 1, 6, 1, 2]
+        if split == outside_split:
+            polygon = [1, 2, 14, 2, 4, 6, 1, 6]
         coco = {
             "images": [{"id": 100 + index, "file_name": file_name, "width": 10, "height": 12}],
             "categories": [{"id": 1, "name": "Oily"}, {"id": 2, "name": "Redness"}],
@@ -28,7 +35,7 @@ def write_archive(root: Path, changed_split=None):
                 "image_id": 100 + index,
                 "category_id": category,
                 "bbox": [1, 2, 3, 4],
-                "segmentation": [[1, 2, 3, 4, 5, 6]],
+                "segmentation": [] if split == box_only_split else [polygon],
                 "area": 12,
                 "iscrowd": 0,
             }],
@@ -47,6 +54,8 @@ class RegionalProviderVersionExportAuditTests(unittest.TestCase):
             result = MODULE.build_audit(expected, provider, MANIFEST, 2)
             self.assertTrue(result["allProviderRecordsMatchedManifestOnce"])
             self.assertEqual(result["images"], 3)
+            self.assertTrue(result["polygonGeometryVerified"])
+            self.assertFalse(result["boxGeometryAcceptedAsPolygonTruth"])
             serialized = json.dumps(result)
             self.assertNotIn("private-provider", serialized)
             self.assertNotIn("image_id", serialized)
@@ -61,6 +70,47 @@ class RegionalProviderVersionExportAuditTests(unittest.TestCase):
             with self.assertRaisesRegex(MODULE.AuditError, "valid archive"):
                 MODULE.build_audit(expected, provider, MANIFEST, 2)
 
+    def test_polygon_ring_rotation_is_equivalent(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            expected = root / "expected"
+            provider = root / "provider"
+            write_archive(expected)
+            write_archive(provider, rotate_split="valid")
+            result = MODULE.build_audit(expected, provider, MANIFEST, 2)
+            self.assertTrue(result["polygonGeometryVerified"])
+
+    def test_box_only_geometry_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            expected = root / "expected"
+            provider = root / "provider"
+            write_archive(expected)
+            write_archive(provider, box_only_split="test")
+            with self.assertRaisesRegex(MODULE.AuditError, "boxes are not polygon truth"):
+                MODULE.build_audit(expected, provider, MANIFEST, 2)
+
+    def test_outside_polygon_point_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            expected = root / "expected"
+            provider = root / "provider"
+            write_archive(expected)
+            write_archive(provider, outside_split="train")
+            with self.assertRaisesRegex(MODULE.AuditError, "outside points"):
+                MODULE.build_audit(expected, provider, MANIFEST, 2)
+
+    def test_duplicate_or_cross_split_content_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            expected = root / "expected"
+            provider = root / "provider"
+            write_archive(expected, duplicate_content=True)
+            write_archive(provider, duplicate_content=True)
+            with self.assertRaisesRegex(MODULE.AuditError, "cross-split image content"):
+                MODULE.build_audit(expected, provider, MANIFEST, 2)
+
 
 if __name__ == "__main__":
     unittest.main()
+

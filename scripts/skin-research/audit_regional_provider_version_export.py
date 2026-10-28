@@ -12,12 +12,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
 
-SCHEMA = "regional-provider-version-export-audit-v1"
+SCHEMA = "regional-provider-version-export-audit-v2"
 PROJECT_ID = "tolgar-sasmaz/attune-skin-regional-skin-map"
 PROJECT_TYPE = "instance-segmentation"
 MANIFEST_FILE_SHA256 = "d698580acae5c2987392e170bd408d626ad0ba685f4c49f5899c7bef46b967ce"
@@ -57,6 +58,48 @@ def _validate_manifest(path: Path) -> None:
         raise AuditError("group-locked manifest does not prove leakage-safe complete assignment")
 
 
+def _number(value: Any, label: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise AuditError(f"{label} must be numeric")
+    number = float(value)
+    if not math.isfinite(number):
+        raise AuditError(f"{label} must be finite")
+    return round(number, 8)
+
+
+def _canonical_ring(values: Any, width: int, height: int, label: str) -> list[list[float]]:
+    if not isinstance(values, list) or len(values) < 6 or len(values) % 2:
+        raise AuditError(f"{label} polygon is invalid")
+    points = [
+        [_number(values[index], label), _number(values[index + 1], label)]
+        for index in range(0, len(values), 2)
+    ]
+    if points[0] == points[-1]:
+        points.pop()
+    if len(points) < 3:
+        raise AuditError(f"{label} polygon is degenerate")
+    if any(x < 0 or x > width or y < 0 or y > height for x, y in points):
+        raise AuditError(f"{label} polygon contains outside points")
+    area2 = sum(
+        points[index][0] * points[(index + 1) % len(points)][1]
+        - points[(index + 1) % len(points)][0] * points[index][1]
+        for index in range(len(points))
+    )
+    if abs(area2) <= 1e-8:
+        raise AuditError(f"{label} polygon is degenerate")
+    candidates = []
+    for ring in (points, list(reversed(points))):
+        candidates.extend(ring[index:] + ring[:index] for index in range(len(ring)))
+    return min(candidates)
+
+
+def _canonical_segmentation(value: Any, width: int, height: int, label: str) -> list[list[list[float]]]:
+    if not isinstance(value, list) or not value:
+        raise AuditError(f"{label} requires polygon segmentation; boxes are not polygon truth")
+    polygons = [_canonical_ring(ring, width, height, label) for ring in value]
+    return sorted(polygons, key=lambda ring: json.dumps(ring, separators=(",", ":")))
+
+
 def _canonical_archive(root: Path) -> dict[str, Any]:
     result: dict[str, Any] = {}
     for split in SPLITS:
@@ -68,28 +111,70 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
         category_names = {item.get("id"): item.get("name") for item in categories if isinstance(item, dict)}
         if set(category_names.values()) != set(CLASSES):
             raise AuditError(f"{split} class inventory changed")
-        annotations_by_image: dict[Any, list[dict[str, Any]]] = defaultdict(list)
-        class_counts: Counter[str] = Counter()
-        for annotation in coco.get("annotations", []):
-            if not isinstance(annotation, dict) or annotation.get("category_id") not in category_names:
-                raise AuditError(f"{split} annotation is invalid")
-            class_name = category_names[annotation["category_id"]]
-            class_counts[class_name] += 1
-            annotations_by_image[annotation.get("image_id")].append({
-                "class": class_name,
-                "bbox": annotation.get("bbox"),
-                "segmentation": annotation.get("segmentation"),
-                "area": annotation.get("area"),
-                "iscrowd": annotation.get("iscrowd", 0),
-            })
-        records: list[dict[str, Any]] = []
-        content_hashes: list[str] = []
         images = coco.get("images")
         if not isinstance(images, list):
             raise AuditError(f"{split} images missing")
+        image_by_id: dict[Any, dict[str, Any]] = {}
         for image in images:
             if not isinstance(image, dict) or not isinstance(image.get("file_name"), str):
                 raise AuditError(f"{split} image entry is invalid")
+            image_id = image.get("id")
+            width = image.get("width")
+            height = image.get("height")
+            if image_id in image_by_id:
+                raise AuditError(f"{split} image id is duplicated")
+            if (
+                isinstance(width, bool)
+                or not isinstance(width, int)
+                or width <= 0
+                or isinstance(height, bool)
+                or not isinstance(height, int)
+                or height <= 0
+            ):
+                raise AuditError(f"{split} image dimensions are invalid")
+            image_by_id[image_id] = image
+
+        annotations_by_image: dict[Any, list[dict[str, Any]]] = defaultdict(list)
+        class_counts: Counter[str] = Counter()
+        polygon_count = 0
+        vertex_count = 0
+        annotations = coco.get("annotations")
+        if not isinstance(annotations, list):
+            raise AuditError(f"{split} annotations missing")
+        for annotation in annotations:
+            if not isinstance(annotation, dict) or annotation.get("category_id") not in category_names:
+                raise AuditError(f"{split} annotation is invalid")
+            image_id = annotation.get("image_id")
+            image = image_by_id.get(image_id)
+            if image is None:
+                raise AuditError(f"{split} contains annotations for unknown images")
+            if annotation.get("iscrowd", 0) not in (0, False):
+                raise AuditError(f"{split} crowd/RLE geometry is not accepted as polygon truth")
+            label = f"{split} annotation"
+            polygons = _canonical_segmentation(
+                annotation.get("segmentation"), image["width"], image["height"], label
+            )
+            bbox = annotation.get("bbox")
+            if not isinstance(bbox, list) or len(bbox) != 4:
+                raise AuditError(f"{split} annotation bbox is invalid")
+            canonical_bbox = [_number(value, label) for value in bbox]
+            if canonical_bbox[2] <= 0 or canonical_bbox[3] <= 0:
+                raise AuditError(f"{split} annotation bbox is invalid")
+            class_name = category_names[annotation["category_id"]]
+            class_counts[class_name] += 1
+            polygon_count += len(polygons)
+            vertex_count += sum(len(ring) for ring in polygons)
+            annotations_by_image[image_id].append({
+                "class": class_name,
+                "bbox": canonical_bbox,
+                "segmentation": polygons,
+                "area": _number(annotation.get("area"), label),
+                "iscrowd": 0,
+            })
+
+        records: list[dict[str, Any]] = []
+        content_hashes: list[str] = []
+        for image in images:
             image_path = split_root / image["file_name"]
             if not image_path.is_file():
                 raise AuditError(f"{split} image bytes missing")
@@ -105,8 +190,9 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
                 "height": image.get("height"),
                 "annotations": canonical_annotations,
             })
-        if set(annotations_by_image) - {image.get("id") for image in images if isinstance(image, dict)}:
-            raise AuditError(f"{split} contains annotations for unknown images")
+        duplicate_content_count = len(content_hashes) - len(set(content_hashes))
+        if duplicate_content_count:
+            raise AuditError(f"{split} contains duplicate image content")
         result[split] = {
             "images": len(images),
             "classCounts": {name: class_counts[name] for name in CLASSES},
@@ -115,6 +201,10 @@ def _canonical_archive(root: Path) -> dict[str, Any]:
                 records, key=lambda item: json.dumps(item, sort_keys=True, separators=(",", ":")),
             )),
             "contentHashes": content_hashes,
+            "polygonAnnotations": len(annotations),
+            "polygons": polygon_count,
+            "vertices": vertex_count,
+            "duplicateImageContentCount": duplicate_content_count,
         }
     return result
 
@@ -134,6 +224,8 @@ def build_audit(expected_root: Path, provider_root: Path, manifest: Path, versio
         1 for digest in set(all_hashes)
         if sum(digest in provider[split]["contentHashes"] for split in SPLITS) > 1
     )
+    if cross_split:
+        raise AuditError("provider export contains cross-split image content")
     split_counts = {split: provider[split]["images"] for split in SPLITS}
     annotations = {split: provider[split]["classCounts"] for split in SPLITS}
     class_totals = {
@@ -160,6 +252,7 @@ def build_audit(expected_root: Path, provider_root: Path, manifest: Path, versio
         "manifestFileSHA256": MANIFEST_FILE_SHA256,
         "assignmentsSHA256": ASSIGNMENTS_SHA256,
         "recordIdentityBasis": "image-content-sha256",
+        "geometryIdentityBasis": "canonical-polygon-ring-v1",
         "exportArchiveSHA256": _digest_json(archive_identity),
         "splitImageContentSetSHA256": {
             split: provider[split]["contentSetSHA256"] for split in SPLITS
@@ -171,6 +264,18 @@ def build_audit(expected_root: Path, provider_root: Path, manifest: Path, versio
         "unexpectedProviderRecords": 0,
         "missingManifestRecords": 0,
         "crossSplitContentHashCount": cross_split,
+        "duplicateImageContentCount": 0,
+        "polygonGeometryVerified": True,
+        "boxGeometryAcceptedAsPolygonTruth": False,
+        "crowdOrRLEGeometryAcceptedAsPolygonTruth": False,
+        "invalidPolygonCount": 0,
+        "outsidePointCount": 0,
+        "degeneratePolygonCount": 0,
+        "polygonAnnotations": {
+            split: provider[split]["polygonAnnotations"] for split in SPLITS
+        },
+        "polygons": {split: provider[split]["polygons"] for split in SPLITS},
+        "vertices": {split: provider[split]["vertices"] for split in SPLITS},
         "sourcePersonCoverageComplete": True,
         "crossSplitGroupCount": 0,
         "finalTestUsedForSelectionOrThresholds": False,
@@ -194,3 +299,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

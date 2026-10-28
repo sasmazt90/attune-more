@@ -75,6 +75,7 @@ def exact_audit():
         "manifestFileSHA256": MODULE.MANIFEST_FILE_SHA256,
         "assignmentsSHA256": MODULE.ASSIGNMENTS_SHA256,
         "recordIdentityBasis": "image-content-sha256",
+        "geometryIdentityBasis": "canonical-polygon-ring-v1",
         "exportArchiveSHA256": "1" * 64,
         "splitImageContentSetSHA256": {
             "train": "2" * 64,
@@ -90,6 +91,25 @@ def exact_audit():
         "unexpectedProviderRecords": 0,
         "missingManifestRecords": 0,
         "crossSplitContentHashCount": 0,
+        "duplicateImageContentCount": 0,
+        "polygonGeometryVerified": True,
+        "boxGeometryAcceptedAsPolygonTruth": False,
+        "crowdOrRLEGeometryAcceptedAsPolygonTruth": False,
+        "invalidPolygonCount": 0,
+        "outsidePointCount": 0,
+        "degeneratePolygonCount": 0,
+        "polygonAnnotations": {
+            split: sum(MODULE.TARGET_ANNOTATIONS[split].values())
+            for split in MODULE.TARGET_SPLITS
+        },
+        "polygons": {
+            split: sum(MODULE.TARGET_ANNOTATIONS[split].values())
+            for split in MODULE.TARGET_SPLITS
+        },
+        "vertices": {
+            split: sum(MODULE.TARGET_ANNOTATIONS[split].values()) * 4
+            for split in MODULE.TARGET_SPLITS
+        },
         "sourcePersonCoverageComplete": True,
         "crossSplitGroupCount": 0,
         "finalTestUsedForSelectionOrThresholds": False,
@@ -153,6 +173,8 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.assertTrue(result["mutableProjectDriftDetected"])
         self.assertFalse(result["providerVersionReady"])
         self.assertFalse(result["trainingAuthorized"])
+        self.assertTrue(result["providerPolygonGeometryAuditRequired"])
+        self.assertFalse(result["boxGeometryAcceptedAsPolygonTruth"])
         self.assertIn("provider_version_2_missing", result["blockers"])
         self.assertIn("mutable_provider_project_drifted_from_group_locked_candidate", result["blockers"])
 
@@ -212,6 +234,31 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.assertFalse(result["providerVersionReady"])
         self.assertIn("provider_export_audit_mismatch", result["blockers"])
 
+    def test_box_only_or_declarative_polygon_geometry_cannot_authorize_training(self):
+        audit = exact_audit()
+        audit["polygonGeometryVerified"] = False
+        audit["boxGeometryAcceptedAsPolygonTruth"] = True
+        self.audit_path.write_text(json.dumps(audit, sort_keys=True) + "\n", encoding="utf-8")
+        identity = dict(self.audit_identity)
+        identity["sha256"] = hashlib.sha256(self.audit_path.read_bytes()).hexdigest()
+        value = self.make_receipt()
+        value["candidateVersion"] = exact_candidate(identity)
+        result = MODULE.evaluate_release(value, self.root)
+        self.assertFalse(result["providerVersionReady"])
+        self.assertIn("provider_export_audit_mismatch", result["blockers"])
+
+    def test_polygon_cardinality_mismatch_blocks(self):
+        audit = exact_audit()
+        audit["polygons"]["test"] -= 1
+        self.audit_path.write_text(json.dumps(audit, sort_keys=True) + "\n", encoding="utf-8")
+        identity = dict(self.audit_identity)
+        identity["sha256"] = hashlib.sha256(self.audit_path.read_bytes()).hexdigest()
+        value = self.make_receipt()
+        value["candidateVersion"] = exact_candidate(identity)
+        result = MODULE.evaluate_release(value, self.root)
+        self.assertFalse(result["providerVersionReady"])
+        self.assertIn("provider_polygon_geometry_audit_mismatch", result["blockers"])
+
     def test_project_growth_must_match_uploaded_records(self):
         value = self.make_receipt()
         value["providerProject"]["images"] = 475
@@ -234,3 +281,4 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
