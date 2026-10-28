@@ -1,0 +1,61 @@
+{
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "6ac8ac04b7dcb5ab647d7a25d863d4ecafb32fe3",
+  "methodVersion": "source-archive-hash-registry-builder-v1",
+  "observedAt": "2026-10-28T09:56:08Z",
+  "privacyAndPreservation": {
+    "archiveNamesPathsOrUrlsAccepted": false,
+    "excludedArchiveAccessAllowed": false,
+    "excludedArchiveHashRecomputationAllowed": false,
+    "excludedArchiveOverlapAllowed": false,
+    "privateManifestCommitted": false,
+    "publicArtifactContainsRawArchiveHashes": false
+  },
+  "publicPreflight": {
+    "decision": "blocked",
+    "methodVersion": "source-archive-hash-registry-preflight-v1",
+    "readyForReleaseArtifact": false,
+    "selectedArchiveCount": 0
+  },
+  "releaseArtifact": {
+    "emitted": false,
+    "methodVersionWhenComplete": "source-archive-hash-registry-v1",
+    "reason": "authorized private selected-archive hash evidence has not been supplied"
+  },
+  "roboflowWritesStarted": false,
+  "schemaVersion": 1,
+  "sourceMappingRelease": {
+    "evidenceRegistryComplete": false,
+    "productTruthAuthorized": false,
+    "trainingDataReleaseAuthorized": false
+  },
+  "tests": {
+    "builderFocused": {
+      "passed": 6,
+      "result": "OK"
+    },
+    "availableSkinResearchSuite": {
+      "passed": 81,
+      "result": "OK"
+    },
+    "githubActionsObserved": false
+  },
+  "trackedFiles": {
+    "builder": {
+      "path": "scripts/skin-research/build_source_archive_hash_registry.py",
+      "sha256": "f1615838d317198b01302d19531e707f763e9c4a739e8da178f7af6713e17e1f"
+    },
+    "inputTemplate": {
+      "path": "docs/skin/evidence/source-archive-hash-registry-input-template-20261028-v1.json",
+      "sha256": "f4870867c8438287b54a3fd001251c926fdc3c822c6558c129e721e0f621fde4"
+    },
+    "preflight": {
+      "path": "docs/skin/evidence/source-archive-hash-registry-preflight-20261028-v1.json",
+      "sha256": "3ff60207a470edb6f230379590e076aa8e0fb40bdf1801908ca6d9807691e5a0"
+    },
+    "tests": {
+      "path": "scripts/skin-research/tests/test_build_source_archive_hash_registry.py",
+      "sha256": "37e5cb43d8d77e78fbe734b2eaefc85168063e98babf66489b3ab9328724f992"
+    }
+  }
+}
