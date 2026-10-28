@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T04:54:53Z",
+  "methodVersion": "under-eye-grouped-provider-export-audit-contract-v1",
+  "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+  "projectPrivate": true,
+  "providerProjectStillEmpty": true,
+  "providerExportObserved": false,
+  "authorizedArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "contract": {
+    "images": 399,
+    "annotations": 869,
+    "splits": {"train": 284, "valid": 77, "test": 38},
+    "classCounts": {"darkcircle": 382, "eyebag": 487},
+    "recordIdentityBasis": "image-content-sha256-plus-canonical-polygon-geometry",
+    "filenamesOrProviderImageIdsInReceipt": false,
+    "boxGeometryAcceptedAsPolygonTruth": false,
+    "crossSplitContentHashAllowed": false
+  },
+  "implementation": {
+    "auditScript": "scripts/skin-research/audit_under_eye_grouped_provider_export.py",
+    "auditScriptSHA256": "4043656f38359a38442b35408fe8bc370f5c963d03c05f8474e1c8a2756abd73",
+    "auditTests": "scripts/skin-research/tests/test_audit_under_eye_grouped_provider_export.py",
+    "auditTestsSHA256": "c3f9d627eb283b93e66367505002d50221eeee1dcf1693e7708755f2f8133e39"
+  },
+  "localValidation": {
+    "unitTests": 5,
+    "unitTestFailures": 0,
+    "authorizedArchiveSelfIdentityAudit": "passed",
+    "selfIdentityReceiptSHA256": "74e18a1d9f9cb3fb4906132b13ee91a300f8dfe9d3004d188299d8742fefd0ed",
+    "selfIdentityIsProviderEvidence": false
+  },
+  "releaseEffect": {
+    "versionGenerationAuthorized": false,
+    "providerExportIdentityVerified": false,
+    "researchTrainingAuthorized": false,
+    "testEvaluationAuthorized": false,
+    "productActivationAllowed": false
+  },
+  "remainingSequence": [
+    "Upload the exact authorized private archive only after explicit payload-disclosure authorization.",
+    "Verify import counts and generate an augmentation-free grouped version.",
+    "Export that exact provider version and run the committed identity audit.",
+    "Bind the privacy-safe audit receipt into the grouped release gate before any research training decision."
+  ]
+}
