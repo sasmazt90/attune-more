@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "under-eye-grouped-provider-upload-facts-v1",
+  "observedAt": "2026-10-28T23:40:18Z",
+  "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+  "private": true,
+  "archiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "archiveBytes": 15086760,
+  "upload": {
+    "taskId": "jwquQEBFgx3HWd9ziIMn",
+    "status": "completed",
+    "progress": {"current": 399, "total": 399},
+    "result": {
+      "uploaded": 399,
+      "duplicates": 0,
+      "annotated": 399,
+      "videosStaged": 0,
+      "videoIds": [],
+      "uploadErrors": [],
+      "annotationErrors": [],
+      "warnings": [
+        {"type": "ignored", "path": "README.roboflow.txt", "name": "README.roboflow.txt", "reason": "readme"}
+      ],
+      "chunkCount": 4,
+      "failedChunks": 0
+    }
+  },
+  "annotationBoard": {
+    "datasetJobs": 1,
+    "datasetImages": 399,
+    "datasetAnnotated": 399,
+    "datasetUnannotated": 0,
+    "percentLabeled": 100,
+    "uploadJobId": "RkHnNSIiivCmaojFIdYv",
+    "uploadJobStatus": "complete"
+  },
+  "paginatedDatasetSearch": {
+    "complete": true,
+    "pages": 5,
+    "images": 399,
+    "splits": {"train": 284, "valid": 77, "test": 38},
+    "classAnnotationCounts": {"darkcircle": 382, "eyebag": 487}
+  },
+  "providerProjectSummaryImages": 0,
+  "providerProjectSummaryLagObserved": true,
+  "versions": [],
+  "trainings": [],
+  "containsImageIds": false,
+  "containsFilenames": false,
+  "containsImageBytes": false,
+  "containsAnnotationGeometry": false
+}
