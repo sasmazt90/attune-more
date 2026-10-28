@@ -768,7 +768,7 @@
         "uploadAnnotationBoardJobId": "RkHnNSIiivCmaojFIdYv",
         "datasetCountSource": "annotation-board-and-complete-paginated-dataset-search",
         "datasetSearchPages": 5,
-        "providerProjectSummaryImages": 0,
+        "providerProjectSummaryImages": 399,
         "providerProjectSummaryConsistent": false,
         "providerProjectSummaryLagObserved": true,
         "staleUploadTask": {
@@ -780,7 +780,10 @@
         "versionGenerationAuthorized": false,
         "researchTrainingAuthorized": false,
         "testEvaluationAuthorized": false,
-        "productActivationAllowed": false
+        "productActivationAllowed": false,
+        "providerProjectSummaryUnannotated": 399,
+        "providerProjectSummaryImageCountConsistent": true,
+        "providerProjectSummaryLabelCountConsistent": false
       },
       "groupedReleaseGate": {
         "methodVersion": "under-eye-grouped-release-gate-v4",
@@ -905,7 +908,7 @@
             "darkcircle": 382,
             "eyebag": 487
           },
-          "providerProjectSummaryImages": 0,
+          "providerProjectSummaryImages": 399,
           "providerProjectSummaryLagObserved": true,
           "versionPresent": false,
           "trainingPresent": false,
@@ -917,7 +920,10 @@
           "evidence": "docs/skin/evidence/under-eye-grouped-provider-upload-verification-20261028-v1.json",
           "script": "scripts/skin-research/verify_under_eye_grouped_provider_upload.py",
           "tests": "scripts/skin-research/tests/test_verify_under_eye_grouped_provider_upload.py",
-          "implementationCommit": "68bd185a7e9007767e45d823ca62419ebdd95a9c"
+          "implementationCommit": "5506758053ad79304c9fce395a3d8e9028c46d31",
+          "providerProjectSummaryUnannotated": 399,
+          "providerProjectSummaryImageCountConsistent": true,
+          "providerProjectSummaryLabelCountConsistent": false
         }
       },
       "expertSemanticReview": {
@@ -3565,7 +3571,7 @@
         "docs/skin/evidence/under-eye-grouped-provider-upload-verification-20261028-v1.json"
       ],
       "blockers": [
-        "The exact authorized private grouped archive (SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122) is now uploaded by provider task jwquQEBFgx3HWd9ziIMn: 399/399 images are annotated, splits are 284/77/38, and class annotation counts are 382 darkcircle/487 eyebag with zero duplicates, upload errors, annotation errors or failed chunks. The annotation board and complete five-page Dataset search agree; the project-summary counter still lags at zero. No provider version or training exists. Upload completion does not authorize version generation, research training, held-out test evaluation or activation; exact provider-export identity, independent expert semantics/person grouping, consented physical-camera slices and integration controls remain required. Do not re-upload the archive.",
+        "The exact authorized private grouped archive (SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122) is now uploaded by provider task jwquQEBFgx3HWd9ziIMn: 399/399 images are annotated, splits are 284/77/38, and class annotation counts are 382 darkcircle/487 eyebag with zero duplicates, upload errors, annotation errors or failed chunks. The annotation board, upload receipt and complete five-page Dataset search agree; the project summary reports 399 images but still marks all 399 unannotated. No provider version or training exists. Upload completion does not authorize version generation, research training, held-out test evaluation or activation; exact provider-export identity, independent expert semantics/person grouping, consented physical-camera slices and integration controls remain required. Do not re-upload the archive.",
         "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.32, darkcircle test precision/recall/F1 is 0.500/0.610/0.549. The full audit now confirms four known cross-split source-photo groups, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project.",
         "The executable per-class under-eye gate preserves the functioning dark appearance heading but keeps darkcircle independently blocked. It forbids collapsing darkcircle with eyebag, interpreting missing labels as negatives, inferring a medical cause, or promoting model proposals to expert truth. Exact grouped import/version authorization, rights, expert per-class truth, person-independent splits, a new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history controls remain required."
       ]
@@ -3610,7 +3616,7 @@
         "docs/skin/evidence/under-eye-grouped-provider-upload-verification-20261028-v1.json"
       ],
       "blockers": [
-        "The exact authorized private grouped archive (SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122) is now uploaded by provider task jwquQEBFgx3HWd9ziIMn: 399/399 images are annotated, splits are 284/77/38, and class annotation counts are 382 darkcircle/487 eyebag with zero duplicates, upload errors, annotation errors or failed chunks. The annotation board and complete five-page Dataset search agree; the project-summary counter still lags at zero. No provider version or training exists. Upload completion does not authorize version generation, research training, held-out test evaluation or activation; exact provider-export identity, independent expert semantics/person grouping, consented physical-camera slices and integration controls remain required. Do not re-upload the archive.",
+        "The exact authorized private grouped archive (SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122) is now uploaded by provider task jwquQEBFgx3HWd9ziIMn: 399/399 images are annotated, splits are 284/77/38, and class annotation counts are 382 darkcircle/487 eyebag with zero duplicates, upload errors, annotation errors or failed chunks. The annotation board, upload receipt and complete five-page Dataset search agree; the project summary reports 399 images but still marks all 399 unannotated. No provider version or training exists. Upload completion does not authorize version generation, research training, held-out test evaluation or activation; exact provider-export identity, independent expert semantics/person grouping, consented physical-camera slices and integration controls remain required. Do not re-upload the archive.",
         "An external RF-DETR Seg Small model was trained on ungrouped pilot v1 (952 generated images from 399 originals). At validation-selected threshold 0.49, eyebag test precision/recall/F1 is 0.697/0.479/0.568. The full audit now confirms four known cross-split source-photo groups, provider test panels were already exposed, and camera/integration evidence is absent; this model is rejected and cannot substitute for the empty grouped project.",
         "The executable per-class under-eye gate preserves the functioning bags appearance heading but keeps eyebag independently blocked. It forbids collapsing eyebag with darkcircle, interpreting missing labels as negatives, implying edema/fluid retention, or promoting model proposals to expert truth. Exact grouped import/version authorization, rights, expert per-class truth, person-independent splits, a new untouched final test, physical-camera skin-tone/lighting/pose slices, integration and unavailable/history controls remain required."
       ]
@@ -5427,7 +5433,7 @@
     }
   },
   "nextActions": [
-    "Preserve provider upload task jwquQEBFgx3HWd9ziIMn and annotation-board job RkHnNSIiivCmaojFIdYv for tolgar-sasmaz/attune-skin-under-eye-grouped-research; do not re-upload the exact authorized archive. The private upload is complete at 399 annotated images with exact 284/77/38 splits and 382 darkcircle/487 eyebag polygons, while the top-level project-summary counter still lags at zero. Replay scripts/skin-research/verify_under_eye_grouped_provider_upload.py against the privacy-safe aggregate receipt. No version or training exists, and upload completion alone does not authorize either: first satisfy independent expert semantic/person-independence gates, then generate an augmentation-free grouped version and bind its provider export by image content plus canonical polygon geometry before any training, held-out test use, camera claim or product activation.",
+    "Preserve provider upload task jwquQEBFgx3HWd9ziIMn and annotation-board job RkHnNSIiivCmaojFIdYv for tolgar-sasmaz/attune-skin-under-eye-grouped-research; do not re-upload the exact authorized archive. The private upload is complete at 399 annotated images with exact 284/77/38 splits and 382 darkcircle/487 eyebag polygons, while the top-level project summary now reports 399 images but still classifies all 399 as unannotated despite its nonzero class counts. Replay scripts/skin-research/verify_under_eye_grouped_provider_upload.py against the privacy-safe aggregate receipt. No version or training exists, and upload completion alone does not authorize either: first satisfy independent expert semantic/person-independence gates, then generate an augmentation-free grouped version and bind its provider export by image content plus canonical polygon geometry before any training, held-out test use, camera claim or product activation.",
     "Preserve docs/skin/evidence/nas-model-group-audit-20261028-v1.json and replay scripts/skin-research/audit_nas_model_groups.py before interpreting either frozen NAS modelGroup. The complete one-page inventories contain 89 acne records/89 unique children and 75 regional records/74 unique children; the regional provider page contains two materially different records for model ID e79545, and the audit fail-closes if that duplication changes. Provider recommended is a flattened union only: it is not an accuracy winner, hardware winner or per-class acceptance signal. Aggregate map50/map50-95 and fastest-per-hardware rows are observations only; just 1/89 acne and 1/74 unique regional NAS children have provider model evaluations. Bind exact per-class validation evidence and the existing expert/person-independent/final-test/camera gates before any candidate, threshold, final-test or activation decision. Preserve successful GitHub Actions run 40783025211 and do not start duplicate training or evaluation.",
     "Preserve the completed 337/337 opaque source/person review and deterministic 236/50/51 group-locked replacement manifest. Roboflow upload task RzTdxfpBr9REzkke1mPp completed without errors, but the mutable provider project drifted to 476 images at 334/85/57 with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30. Do not claim a split mutation, create a training job, evaluate the held-out final test or activate a model until an exact augmentation-free provider version 2 matches the group-locked manifest and passes audit_regional_provider_version_export.py schema v3 by image-content plus canonical simple-polygon geometry. Absolute, traversal or symlinked image paths, duplicate category identities, boxes, RLE/crowd masks, self-intersecting or repeated-vertex rings, out-of-image bboxes, nonpositive areas, degenerate rings and duplicate/cross-split image content cannot satisfy provider identity. Keep the 51-image final test untouched for selection or thresholds.",
     "Complete and accept the independent 81-item Oily/Redness expert semantic mask protocol before any regional training authorization. The completed source/person review establishes grouping only: source polygons, model predictions and missing labels remain ineligible as expert truth; independent consented physical-camera evidence is still required.",
@@ -9634,7 +9640,7 @@
     {
       "date": "2026-10-28",
       "observedAt": "2026-10-28T23:40:18Z",
-      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye project/version/training/evaluation inventories without starting duplicate work. The existing acne and regional trainings/evaluations remain finished and unchanged; under-eye pilot version 2 still has no training. Used the newly available host-assisted direct-upload path only for the exact authorized private archive attune-under-eye-grouped-authorized-v2.zip (15,086,760 bytes; SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122). Provider task jwquQEBFgx3HWd9ziIMn completed 399/399 with 399 annotated, zero duplicates, zero failed chunks, zero upload/annotation errors and only the expected ignored README. Annotation-board job RkHnNSIiivCmaojFIdYv completed at 399/399 labeled; a complete five-page Dataset query independently proved 284/77/38 splits and 382 darkcircle/487 eyebag annotations. The top-level provider project-summary counter still reports zero, so the new verifier records an eventual-consistency lag instead of treating zero as Normal, empty truth or upload failure. Implemented a fail-closed privacy-safe verifier and deterministic evidence replay; 44 focused tests passed. A broader 97-test scratch-only discovery was not accepted as project evidence because this partial workspace has a pre-existing currentProductRecheck digest mismatch in 12 unified-gate tests; the changed files do not touch that registry. Commit 68bd185a7e9007767e45d823ca62419ebdd95a9c contains only the verifier, its tests and aggregate evidence. No excluded archive was accessed, no filenames/image IDs/bytes/geometry were committed, and no version, training, evaluation or product activation was created.",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye project/version/training/evaluation inventories without starting duplicate work. The existing acne and regional trainings/evaluations remain finished and unchanged; under-eye pilot version 2 still has no training. Used the newly available host-assisted direct-upload path only for the exact authorized private archive attune-under-eye-grouped-authorized-v2.zip (15,086,760 bytes; SHA256 8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122). Provider task jwquQEBFgx3HWd9ziIMn completed 399/399 with 399 annotated, zero duplicates, zero failed chunks, zero upload/annotation errors and only the expected ignored README. Annotation-board job RkHnNSIiivCmaojFIdYv completed at 399/399 labeled; a complete five-page Dataset query independently proved 284/77/38 splits and 382 darkcircle/487 eyebag annotations. The top-level provider project summary initially reported zero and later caught up to 399 images, but still marks all 399 unannotated despite nonzero class counts; the new verifier separately binds image-count and label-count consistency and records the remaining provider-summary lag instead of treating it as Normal, empty truth or upload failure. Implemented a fail-closed privacy-safe verifier and deterministic evidence replay; 44 focused tests passed. A broader 97-test scratch-only discovery was not accepted as project evidence because this partial workspace has a pre-existing currentProductRecheck digest mismatch in 12 unified-gate tests; the changed files do not touch that registry. Implementation commits 68bd185a7e9007767e45d823ca62419ebdd95a9c and 5506758053ad79304c9fce395a3d8e9028c46d31 contain only the verifier, its tests and aggregate evidence; the latter exact-binds the observed project-summary label-count drift. No excluded archive was accessed, no filenames/image IDs/bytes/geometry were committed, and no version, training, evaluation or product activation was created.",
       "report": "docs/skin/evidence/under-eye-grouped-provider-upload-verification-20261028-v1.json",
       "evidence": [
         "scripts/skin-research/verify_under_eye_grouped_provider_upload.py",
@@ -9669,8 +9675,12 @@
           "total": 399
         }
       ],
-      "implementationCommit": "68bd185a7e9007767e45d823ca62419ebdd95a9c",
-      "runs": []
+      "implementationCommit": "5506758053ad79304c9fce395a3d8e9028c46d31",
+      "runs": [],
+      "implementationCommits": [
+        "68bd185a7e9007767e45d823ca62419ebdd95a9c",
+        "5506758053ad79304c9fce395a3d8e9028c46d31"
+      ]
     }
   ]
 }
