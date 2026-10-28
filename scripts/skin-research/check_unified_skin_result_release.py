@@ -21,7 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
-EXPECTED_RECEIPT_SCHEMA = 18
+EXPECTED_RECEIPT_SCHEMA = 19
 EXPECTED_REPOSITORY_CI_SCHEMA = 3
 EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
 EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -73,6 +73,7 @@ EXPECTED_GATE_METHODS = {
     "sag": "sag-appearance-release-gate-v2",
 }
 EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v2"
+EXPECTED_SOURCE_MAPPING_GATE_METHOD = "source-mapping-release-gate-v2"
 EXPECTED_REGIONAL_PROVIDER_DATASET_GATE_METHOD = "regional-provider-dataset-release-gate-v5"
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
@@ -148,6 +149,58 @@ def _validate_gate_registry(receipt: dict[str, Any], evidence_root: Path) -> tup
         if not accepted:
             blockers.extend(f"task_{task}_release_gate_not_accepted" for task in expected_tasks)
     return not blockers, blockers, summary
+
+
+def _validate_source_mapping_gate(
+    receipt: dict[str, Any], evidence_root: Path,
+) -> tuple[bool, list[str], dict[str, Any]]:
+    entry = receipt.get("sourceMappingGate")
+    if not isinstance(entry, dict):
+        raise GateInputError("source mapping gate entry missing")
+    _require(
+        entry.get("methodVersion"), EXPECTED_SOURCE_MAPPING_GATE_METHOD,
+        "source mapping gate is not the current expected method",
+    )
+    payload = _load_evidence(entry.get("evidence"), "source mapping gate", evidence_root)
+    _require(
+        payload.get("methodVersion"), entry.get("methodVersion"),
+        "source mapping gate method identity changed",
+    )
+    _require(
+        payload.get("evidenceRegistryRequired"), True,
+        "source mapping gate must require the immutable evidence registry",
+    )
+    _require(
+        payload.get("sourceMappingsAreExpertTruth"), False,
+        "source mappings cannot become expert truth",
+    )
+    training_authorized = payload.get("trainingDataReleaseAuthorized") is True
+    product_truth_authorized = payload.get("productTruthAuthorized") is True
+    registry_complete = payload.get("evidenceRegistryComplete") is True
+    _require(
+        entry.get("trainingDataReleaseAuthorized"), training_authorized,
+        "source mapping training authorization does not match evidence",
+    )
+    _require(
+        entry.get("productTruthAuthorized"), product_truth_authorized,
+        "source mapping product-truth authorization does not match evidence",
+    )
+    ready = training_authorized and product_truth_authorized and registry_complete
+    blockers: list[str] = []
+    if not training_authorized:
+        blockers.append("source_mapping_training_data_release_not_authorized")
+    if not product_truth_authorized:
+        blockers.append("source_mapping_product_truth_not_authorized")
+    if not registry_complete:
+        blockers.append("source_mapping_evidence_registry_incomplete")
+    return ready, blockers, {
+        "methodVersion": payload.get("methodVersion"),
+        "evidenceRegistryRequired": True,
+        "evidenceRegistryComplete": registry_complete,
+        "sourceMappingsAreExpertTruth": False,
+        "trainingDataReleaseAuthorized": training_authorized,
+        "productTruthAuthorized": product_truth_authorized,
+    }
 
 
 def _validate_regional_provider_dataset_gate(
@@ -425,6 +478,9 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     _require(smoke.get("integrationSmokeAllowed"), True, "generated integration smoke changed")
 
     repository_ci = _validate_repository_ci(receipt.get("repositoryCI"), evidence_root)
+    source_mapping_ready, source_mapping_blockers, source_mapping_summary = (
+        _validate_source_mapping_gate(receipt, evidence_root)
+    )
     regional_provider_ready, regional_provider_blockers, regional_provider_summary = (
         _validate_regional_provider_dataset_gate(receipt, evidence_root)
     )
@@ -442,21 +498,24 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
         receipt.get("acceptanceCandidate", {}), evidence_root, all_class_gates, camera_accepted, repository_ci
     )
     blockers = (
-        regional_provider_blockers
+        source_mapping_blockers
+        + regional_provider_blockers
         + class_blockers
         + ([] if camera_accepted else ["physical_camera_benchmark_not_accepted"])
         + candidate_blockers
     )
     blockers = list(dict.fromkeys(blockers))
-    accepted = regional_provider_ready and candidate_accepted and not blockers
+    accepted = source_mapping_ready and regional_provider_ready and candidate_accepted and not blockers
     return {
-        "schemaVersion": 18,
-        "methodVersion": "unified-skin-result-release-gate-v18",
+        "schemaVersion": 19,
+        "methodVersion": "unified-skin-result-release-gate-v19",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,
         "generatedReplayAccuracyEvidenceAllowed": False,
         "repositoryCI": repository_ci,
+        "sourceMappingGate": source_mapping_summary,
+        "sourceMappingReleaseReady": source_mapping_ready,
         "regionalProviderDatasetGate": regional_provider_summary,
         "regionalProviderDatasetReady": regional_provider_ready,
         "classReleaseGates": gate_summary,

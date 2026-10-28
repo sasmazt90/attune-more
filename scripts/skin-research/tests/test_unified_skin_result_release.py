@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261028-v18.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261028-v19.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -33,6 +33,19 @@ def _install_complete_evidence(receipt, root):
     for name, expected in module.EXPECTED_INPUT_EVIDENCE.items():
         receipt["inputEvidence"][name] = _write(root, Path(expected["path"]).name, {"fixture": name})
     module.EXPECTED_INPUT_EVIDENCE = copy.deepcopy(receipt["inputEvidence"])
+    source_mapping = {
+        "methodVersion": receipt["sourceMappingGate"]["methodVersion"],
+        "evidenceRegistryRequired": True,
+        "evidenceRegistryComplete": True,
+        "sourceMappingsAreExpertTruth": False,
+        "trainingDataReleaseAuthorized": True,
+        "productTruthAuthorized": True,
+    }
+    receipt["sourceMappingGate"]["evidence"] = _write(
+        root, "source-mapping-gate-ready.json", source_mapping,
+    )
+    receipt["sourceMappingGate"]["trainingDataReleaseAuthorized"] = True
+    receipt["sourceMappingGate"]["productTruthAuthorized"] = True
     for name, entry in receipt["classReleaseGates"].items():
         payload = {"methodVersion": entry["methodVersion"], "roadmapAccepted": True}
         entry["evidence"] = _write(root, f"{name}-accepted.json", payload)
@@ -164,9 +177,23 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
         self.assertFalse(result["allClassReleaseGatesAccepted"])
         self.assertFalse(result["physicalCameraBenchmarkAccepted"])
         self.assertFalse(result["regionalProviderDatasetReady"])
+        self.assertFalse(result["sourceMappingReleaseReady"])
+        self.assertIn("source_mapping_evidence_registry_incomplete", result["blockers"])
         self.assertIn("regional_provider_version_not_ready", result["blockers"])
         self.assertIn("regional_provider_training_not_authorized", result["blockers"])
         self.assertFalse(result["roadmapAccepted"])
+
+    def test_source_mapping_booleans_cannot_disagree_with_bound_evidence(self):
+        receipt = _receipt()
+        receipt["sourceMappingGate"]["trainingDataReleaseAuthorized"] = True
+        with self.assertRaisesRegex(module.GateInputError, "training authorization does not match evidence"):
+            module.evaluate_release(receipt)
+
+    def test_stale_source_mapping_gate_cannot_reenter(self):
+        receipt = _receipt()
+        receipt["sourceMappingGate"]["methodVersion"] = "source-mapping-release-gate-v1"
+        with self.assertRaisesRegex(module.GateInputError, "current expected method"):
+            module.evaluate_release(receipt)
 
     def test_regional_provider_boolean_cannot_disagree_with_bound_evidence(self):
         receipt = _receipt()

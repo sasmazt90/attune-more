@@ -1,0 +1,33 @@
+{
+  "blockers": [
+    "four_excluded_archive_inventory_not_reconciled",
+    "all_archive_hashes_not_verified",
+    "rights_review_incomplete",
+    "expert_semantics_incomplete",
+    "geometry_audit_incomplete",
+    "source_person_grouping_incomplete",
+    "locked_group_split_missing",
+    "independent_camera_holdout_missing",
+    "excludedArchiveInventory_evidence_missing",
+    "archiveHashRegistry_evidence_missing",
+    "rightsReview_evidence_missing",
+    "expertSemantics_evidence_missing",
+    "geometryAudit_evidence_missing",
+    "sourcePersonGrouping_evidence_missing",
+    "lockedSplit_evidence_missing",
+    "cameraReservation_evidence_missing"
+  ],
+  "boxToMaskConversionAllowed": false,
+  "decision": "blocked",
+  "evidenceRegistryComplete": false,
+  "evidenceRegistryRequired": true,
+  "methodVersion": "source-mapping-release-gate-v2",
+  "missingLabelToNormalAllowed": false,
+  "productTruthAuthorized": false,
+  "researchRoutingAllowed": true,
+  "schemaVersion": 2,
+  "sourceMappingsAreExpertTruth": false,
+  "sourceReleaseIdentity": null,
+  "toneToProductPigmentationAllowed": false,
+  "trainingDataReleaseAuthorized": false
+}

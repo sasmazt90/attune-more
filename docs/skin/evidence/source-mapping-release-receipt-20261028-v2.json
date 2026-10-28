@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 2,
+  "methodVersion": "source-mapping-release-receipt-v2",
+  "createdAt": "2026-10-28T08:05:00Z",
+  "inputBlobs": {
+    "scripts/skin-research/selected_sources.py": "cfd24d16f86f3437dd3b1d925053cc7ebe543399",
+    "scripts/skin-research/expanded_sources.py": "8771f1aed674f1c7f554dcb6fa539b20c7696f38",
+    "docs/skin/evidence/source-review-checks-20261023-v1.json": "6feddd434914c1f6d0b1cccf3cb0221ef35213f7",
+    "docs/skin/evidence/source-visual-inspection-20261023-v1.json": "641ace42509141e8a70cd675130179376fe98070",
+    "docs/skin/evidence/source-acquisition-summary-20261023-v1.json": "18370bbbb536dc2562726ae0b686a66bc741a331",
+    "docs/skin/evidence/clean3-source-summary-20261023-v1.json": "ddf96001096c606ad51e0792fa3496132f3d1eb1",
+    "docs/skin/evidence/regional-mask-source-group-audit-20261025-v1.json": "29314becfb5fd8c6f77e389036e2afa152aa56cb",
+    "docs/skin/evidence/under-eye-provider-v2-grouped-reproduction-20261025-v1.json": "b835168ebee70699236c4748fa8fc39e4c5168ba"
+  },
+  "mappingContract": {
+    "mappingIsCandidateSemanticRoutingOnly": true,
+    "boxesArePixelTruth": false,
+    "rectanglePolygonsArePixelTruth": false,
+    "missingLabelMeansNegativeOrNormal": false,
+    "modelPredictionMeansExpertTruth": false,
+    "toneMayBecomeProductPigmentation": false,
+    "pulMayBecomeBroadRegionalDryness": false,
+    "wholeFaceClassReplicationAllowed": false,
+    "unknownCountsAsNormal": false
+  },
+  "auditFacts": {
+    "sourceReview": {
+      "selectedPairsVerified": 120,
+      "imageByteEquality": true,
+      "annotationStructuralEquality": true,
+      "sourceTrainOnly": true,
+      "expertReviewed": false,
+      "productAccepted": false
+    },
+    "clean3": {
+      "actualImages": 3240,
+      "apiImages": 3261,
+      "apiExportCountDiscrepancyUnresolved": true,
+      "geometry": {
+        "Dry-Skin": {"box": 2117, "validPolygon": 6},
+        "Oily-Skin": {"box": 889, "validPolygon": 10},
+        "Skin-Redness": {"box": 123, "validPolygon": 0}
+      },
+      "crossSplitExactGroups": 9
+    },
+    "acquisition": {
+      "images": 4226,
+      "crossSplitExactGroups": 57,
+      "crossSplitPerceptualCandidatePairs": 1301,
+      "crossSplitFilenameCandidateGroups": 286,
+      "geometryIssueCount": 57,
+      "face": {"images": 408, "geometryIssueCount": 39},
+      "redness": {"images": 1746, "validPolygon": 2150, "rectanglePolygon": 1067}
+    },
+    "underEye": {
+      "images": 399,
+      "darkcirclePolygons": 382,
+      "eyebagPolygons": 487,
+      "reviewedCrossSplitGroups": 3,
+      "sourcePersonCoverageComplete": false
+    },
+    "excludedArchives": {
+      "requiredPreservedCount": 4,
+      "mappingScriptListedCount": 3,
+      "fullInventoryReconciled": false,
+      "mutationPerformed": false
+    }
+  },
+  "targetDecisions": {
+    "acne": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "oil": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "dry": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "redness": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "tone": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "lines": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "dark": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "bags": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "type": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false},
+    "sag": {"researchRoutingAllowed": true, "expertTruthAuthorized": false, "trainingDataReleaseAuthorized": false, "productTruthAuthorized": false}
+  },
+  "acceptanceCandidate": {
+    "releaseRef": null,
+    "sourceRegistryRef": null,
+    "splitRef": null,
+    "cameraReservationRef": null,
+    "allFourExcludedArchivesReconciled": false,
+    "allArchiveHashesVerified": false,
+    "allRightsReviewed": false,
+    "perClassExpertSemanticsLocked": false,
+    "allGeometryAudited": false,
+    "sourcePersonGroupingComplete": false,
+    "lockedTrainValidationFinalTestSplit": false,
+    "independentCameraReserved": false,
+    "artifacts": {
+      "excludedArchiveInventory": null,
+      "archiveHashRegistry": null,
+      "rightsReview": null,
+      "expertSemantics": null,
+      "geometryAudit": null,
+      "sourcePersonGrouping": null,
+      "lockedSplit": null,
+      "cameraReservation": null
+    }
+  }
+}
