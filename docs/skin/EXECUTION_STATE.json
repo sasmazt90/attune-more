@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T17:16:03Z",
+      "lastCheckedAt": "2026-10-28T18:08:02Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -487,7 +487,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T17:16:03Z",
+      "lastCheckedAt": "2026-10-28T18:08:02Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -837,7 +837,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-28T17:16:03Z",
+      "lastCheckedAt": "2026-10-28T18:08:02Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -2236,6 +2236,33 @@
       "productTruthAuthorized": false,
       "localFocusedTests": 8,
       "availableSkinResearchEvidenceSuite": 135,
+      "preflightReplayMatched": true,
+      "githubActionsObserved": false,
+      "providerTasks": []
+    },
+    "sourceMappingReleaseCandidateBuilder": {
+      "observedAt": "2026-10-28T18:08:02Z",
+      "methodVersion": "skin-source-mapping-release-candidate-builder-v1",
+      "script": "scripts/skin-research/build_source_mapping_release_candidate.py",
+      "tests": "scripts/skin-research/tests/test_build_source_mapping_release_candidate.py",
+      "inputTemplate": "docs/skin/evidence/source-mapping-release-candidate-input-template-20261028-v1.json",
+      "preflight": "docs/skin/evidence/source-mapping-release-candidate-preflight-20261028-v1.json",
+      "report": "docs/skin/evidence/source-mapping-release-candidate-builder-20261028-v1.json",
+      "implementationCommit": "7b259d8682831956ca5e7a1cf0625272651da7da",
+      "requiredArtifactCount": 8,
+      "artifactCount": 0,
+      "artifactPathsRestrictedToPublicEvidenceRegistry": true,
+      "artifactSHA256ComputedFromCommittedBytes": true,
+      "sharedReleaseIdentityRequired": true,
+      "existingFailClosedGateMustAuthorize": true,
+      "completeSyntheticArtifactRegistryPassedRealGate": true,
+      "readyToEmitReceipt": false,
+      "releaseReceiptEmitted": false,
+      "releaseGateEmitted": false,
+      "trainingDataReleaseAuthorized": false,
+      "productTruthAuthorized": false,
+      "localFocusedTests": 8,
+      "availableSkinResearchEvidenceSuite": 143,
       "preflightReplayMatched": true,
       "githubActionsObserved": false,
       "providerTasks": []
@@ -9103,6 +9130,28 @@
       },
       "providerTasks": [],
       "implementationCommit": "cb384e47f04b36d52f8b83d4a9f83b51693d28b6",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T18:08:02Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus exact acne, regional, under-eye, grouped under-eye, paginated NAS-child and stale upload-task state without starting duplicate work. Acne NAS and small runs remain finished with 89 NAS children; regional NAS and small runs remain finished with 75 NAS children; under-eye version 2 still has no training; grouped under-eye remains private and empty; stale upload task sLFwX7CYBVcnnD6iAW5o remains created with no progress. Implemented a fail-closed source-mapping release-candidate assembler so the eight required artifacts no longer need manually entered paths or SHA-256 values. It restricts paths to committed public evidence JSON, computes SHA-256 from exact bytes, locks artifact method identities, requires one shared opaque release identity, derives source-registry/split/camera identities and delegates the final decision to the existing source-mapping release gate. A complete synthetic eight-artifact registry passed the real gate; path traversal, missing evidence, method mismatch and mixed release identities fail hard, and incomplete input cannot emit either receipt or gate. The committed template intentionally contains zero artifacts, so deterministic preflight remains blocked with all eight evidence items missing and no release output was created. Eight focused tests and all 143 skin-research tests available in this partial workspace passed. Training-data release, product-truth authorization and roadmap acceptance remain false. No private payload was committed or uploaded, no Roboflow write was made and no provider task was created.",
+      "report": "docs/skin/evidence/source-mapping-release-candidate-builder-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_source_mapping_release_candidate.py",
+        "scripts/skin-research/tests/test_build_source_mapping_release_candidate.py",
+        "docs/skin/evidence/source-mapping-release-candidate-input-template-20261028-v1.json",
+        "docs/skin/evidence/source-mapping-release-candidate-preflight-20261028-v1.json",
+        "docs/skin/evidence/source-mapping-release-candidate-builder-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 8,
+        "availableSkinResearch": 143,
+        "preflightReplayMatched": true,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "7b259d8682831956ca5e7a1cf0625272651da7da",
       "runs": []
     }
   ]

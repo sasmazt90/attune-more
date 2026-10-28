@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "methodVersion": "skin-source-mapping-release-candidate-builder-v1",
+  "observedAt": "2026-10-28T18:08:02Z",
+  "implementationCommit": "7b259d8682831956ca5e7a1cf0625272651da7da",
+  "implementation": {
+    "script": "scripts/skin-research/build_source_mapping_release_candidate.py",
+    "tests": "scripts/skin-research/tests/test_build_source_mapping_release_candidate.py",
+    "inputTemplate": "docs/skin/evidence/source-mapping-release-candidate-input-template-20261028-v1.json",
+    "preflight": "docs/skin/evidence/source-mapping-release-candidate-preflight-20261028-v1.json",
+    "delegatedGate": "scripts/skin-research/check_source_mapping_release.py"
+  },
+  "contract": {
+    "requiredArtifactCount": 8,
+    "artifactPathsRestrictedToPublicEvidenceRegistry": true,
+    "artifactSHA256ComputedFromCommittedBytes": true,
+    "artifactMethodsLocked": true,
+    "sharedReleaseIdentityRequired": true,
+    "sourceRegistryIdentityDerived": true,
+    "splitIdentityDerived": true,
+    "cameraReservationIdentityDerived": true,
+    "manualReceiptDigestEntryRequired": false,
+    "existingFailClosedGateMustAuthorize": true,
+    "incompleteRegistryMayEmitReceipt": false,
+    "incompleteRegistryMayEmitGate": false
+  },
+  "currentPreflight": {
+    "artifactCount": 0,
+    "requiredArtifactCount": 8,
+    "evidenceRegistryComplete": false,
+    "trainingDataReleaseAuthorized": false,
+    "productTruthAuthorized": false,
+    "readyToEmitReceipt": false,
+    "releaseReceiptEmitted": false,
+    "releaseGateEmitted": false,
+    "decision": "blocked"
+  },
+  "integrationVerification": {
+    "completeSyntheticArtifactRegistryPassedRealGate": true,
+    "mixedReleaseIdentityRejected": true,
+    "artifactMethodMismatchRejected": true,
+    "pathTraversalRejected": true,
+    "missingArtifactRejected": true,
+    "registryAndReceiptDigestsDeterministic": true
+  },
+  "tests": {
+    "focused": 8,
+    "availableSkinResearch": 143,
+    "preflightReplayMatched": true,
+    "result": "OK"
+  },
+  "roboflowRefresh": {
+    "accessibleProjects": 20,
+    "acne": {
+      "nasTrainingStatus": "finished",
+      "smallTrainingStatus": "finished",
+      "nasChildCount": 89
+    },
+    "regional": {
+      "nasTrainingStatus": "finished",
+      "smallTrainingStatus": "finished",
+      "nasChildCount": 75
+    },
+    "underEyeVersion2TrainingCount": 0,
+    "groupedUnderEyeImages": 0,
+    "staleUploadTask": {
+      "taskId": "sLFwX7CYBVcnnD6iAW5o",
+      "status": "created",
+      "progress": null,
+      "retryStarted": false
+    }
+  },
+  "trainingStarted": false,
+  "roboflowWritePerformed": false,
+  "providerTasks": [],
+  "roadmapComplete": false
+}
