@@ -68,3 +68,28 @@ for(const side of ['RIGHT','LEFT'])for(const kind of ['hand','object']){
  assert(V.letterConditionFailure(e.conditions,side,2200));
 }
 """)
+
+
+def test_slow_fresh_frames_can_establish_and_revoke_eye_conditions():
+    node(r"""
+const e=new T.SustainedEyeState();assert.equal(e.update('closed',100).state,'uncertain');
+assert.equal(e.update('closed',500).state,'uncertain');assert.equal(e.update('closed',900).state,'closed');
+assert.equal(e.update('open',950).state,'open');assert.equal(e.update('closed',1000).state,'uncertain');
+// Missing more than the camera freshness deadline breaks the hold.
+assert.equal(e.update('closed',1800).state,'uncertain');assert.equal(e.update('closed',2200).state,'uncertain');assert.equal(e.update('closed',2600).state,'closed');
+const d=new T.HeadDistanceHysteresis();d.update(.2,100);d.update(.2,500);assert.equal(d.update(.2,900),'near');
+assert.equal(d.update(.0,1300),'near');assert.equal(d.update(.0,1700),'stable');
+""")
+
+
+def test_slow_fresh_model_frames_can_finish_open_eye_baseline():
+    node(r"""
+const w=640,h=480,ctx={canvas:{width:w,height:h},blank:false,getImageData(x,y,width,height){width=Math.ceil(width);height=Math.ceil(height);const data=new Uint8ClampedArray(width*height*4);for(let j=0;j<height;j++)for(let i=0;i<width;i++){const k=(j*width+i)*4,v=this.blank?0:90+((Math.floor(x)+i)*17+(Math.floor(y)+j)*31)%100;data[k]=data[k+1]=data[k+2]=v;data[k+3]=255;}return {width,height,data};}};
+const points=Array.from({length:478},()=>({x:.5,y:.5,z:0}));
+for(const [id,x,y] of [[10,.5,.2],[152,.5,.8],[168,.5,.35],[1,.5,.5],[4,.5,.52],[2,.5,.56],[234,.2,.5],[454,.8,.5],[127,.23,.42],[356,.77,.42],[93,.26,.55],[323,.74,.55],[33,.3,.4],[133,.43,.4],[160,.33,.38],[158,.4,.38],[153,.4,.42],[144,.33,.42],[362,.57,.4],[263,.7,.4],[385,.60,.38],[387,.67,.38],[373,.67,.42],[380,.60,.42],[70,.34,.34],[300,.66,.34]])points[id]={x,y,z:0};
+
+const tracker=new T.VisionTracker();let e;
+for(let t=100;t<=2500;t+=400)e=tracker.assess(ctx,w,h,{landmarks:[points],hands:[],blinkRight:.02,blinkLeft:.02,inferenceMs:1,frameTime:t},t,null);
+assert.equal(e.conditions.distanceState,'stable');assert(e.conditions.positionValid);
+assert.equal(e.conditions.right.state,'open');assert.equal(e.conditions.left.state,'open');
+""")

@@ -3,7 +3,7 @@ import { SkinAnalyzer, type FaceAlignment } from './skinAnalyzer';
 import { visionFrameQuality } from './visionFrameQuality';
 import {occlusionKind} from './visionEyeState';
 import type { Eye, EyePixelEvidence, LetterConditions } from './spokenVision';
-export const VISION_TRACKING_RULES={baselineMs:1000,eyeHoldMs:600,distanceEnter:.15,distanceExit:.10,distanceHoldMs:600,recoveryMs:350,openLidRatio:.62} as const;
+export const VISION_TRACKING_RULES={baselineMs:1000,eyeHoldMs:600,maxFrameGapMs:750,eyeHoldSamples:3,distanceEnter:.15,distanceExit:.10,distanceHoldMs:600,recoveryMs:350,openLidRatio:.62} as const;
 /** Native geometry remains distinct from occlusion. The open candidate keeps
  * a margin above the closed bound, plus low blink and visible-template gates.
  * Physical wink evidence had an otherwise visible test eye at ratios .63-.72;
@@ -52,14 +52,25 @@ export function headScaleConsensus(ratios:number[]):number|null{
  return median(candidates[0]);
 }
 export class SustainedEyeState {
- private candidate='uncertain';private since=0;private last:number|null=null;
- update(candidate:EyePixelEvidence['state'],now:number){if(this.last!==null&&now-this.last>300)this.since=now;this.last=now;const occluded=(v:string)=>v==='closed'||v==='covered';if(candidate!==this.candidate&&!(occluded(candidate)&&occluded(this.candidate)))this.since=now;this.candidate=candidate;const heldMs=now-this.since;return {state:occluded(candidate)?heldMs>=VISION_TRACKING_RULES.eyeHoldMs?candidate:'uncertain':candidate,heldMs} as {state:EyePixelEvidence['state'];heldMs:number};}
+ private candidate='uncertain';private since=0;private last:number|null=null;private samples=0;private cadence:number|null=null;
+ update(candidate:EyePixelEvidence['state'],now:number){
+  const occluded=(v:string)=>v==='closed'||v==='covered';
+  const gap=this.last===null?null:now-this.last;
+  // Consistently slow fresh frames can establish a hold. A sudden stall in a
+  // previously fast stream still breaks continuity, even inside freshness.
+  const discontinuity=gap===null||gap<0||gap>VISION_TRACKING_RULES.maxFrameGapMs||this.cadence!==null&&gap>Math.max(300,this.cadence*2);
+  this.cadence=gap!==null&&gap>0&&gap<=VISION_TRACKING_RULES.maxFrameGapMs?gap:null;
+  if(discontinuity||candidate!==this.candidate&&!(occluded(candidate)&&occluded(this.candidate))){this.since=now;this.samples=0;}
+  this.last=now;this.candidate=candidate;this.samples++;
+  const heldMs=now-this.since;
+  return {state:occluded(candidate)?heldMs>=VISION_TRACKING_RULES.eyeHoldMs&&this.samples>=VISION_TRACKING_RULES.eyeHoldSamples?candidate:'uncertain':candidate,heldMs} as {state:EyePixelEvidence['state'];heldMs:number};
+ }
 }
 export class HeadDistanceHysteresis {
  private committed:'stable'|'near'|'far'='stable';private candidate='';private since=0;private last:number|null=null;
  update(relative:number|null,now:number,reliable=true):'stable'|'near'|'far'|'unknown'{
   if(!Number.isFinite(now)){this.candidate='';this.last=null;return 'unknown';}
-  if(this.last!==null&&now-this.last>300)this.candidate='';this.last=now;if(relative===null||!Number.isFinite(relative)||!reliable){this.candidate='';return 'unknown';}
+  if(this.last!==null&&now-this.last>VISION_TRACKING_RULES.maxFrameGapMs)this.candidate='';this.last=now;if(relative===null||!Number.isFinite(relative)||!reliable){this.candidate='';return 'unknown';}
   const target=relative>VISION_TRACKING_RULES.distanceEnter?'near':relative< -VISION_TRACKING_RULES.distanceEnter?'far':Math.abs(relative)<=VISION_TRACKING_RULES.distanceExit?'stable':this.committed;
   if(target!==this.committed){if(this.candidate!==target){this.candidate=target;this.since=now;}if(now-this.since>=(target==='stable'?VISION_TRACKING_RULES.recoveryMs:VISION_TRACKING_RULES.distanceHoldMs))this.committed=target;}else this.candidate='';
   return this.committed;
@@ -126,7 +137,7 @@ export class VisionTracker {
   this.trustedPatches=this.trustedPatches.map(v=>({...v,box:{x:cx*w+(v.box.x-cx*w)*scale+tx*w,y:cy*h+(v.box.y-cy*h)*scale+ty*h,width:v.box.width*scale,height:v.box.height*scale}}));this.trackedScaleReliable=true;return p;
  }
  assess(ctx:CanvasRenderingContext2D,w:number,h:number,model:VisionModelFrame,now:number,eye:Eye|null):VisionEvidence{
-  if(!this.baseline&&this.lastFrame&&now-this.lastFrame>300){this.samples=[];this.baselineSince=0;}this.lastFrame=now;
+  if(!this.baseline&&this.lastFrame&&now-this.lastFrame>VISION_TRACKING_RULES.maxFrameGapMs){this.samples=[];this.baselineSince=0;}this.lastFrame=now;
   let p=model.landmarks.length===1?model.landmarks[0]:null;const native=!!p;let tracked=false;
   if(!p&&model.landmarks.length===0){p=this.followPixels(ctx,w,h);tracked=!!p;}
   const absent:EyePixelEvidence={state:'uncertain',ear:null,darkFraction:null,contrast:null,method:'no-reliable-eye-pixels'};

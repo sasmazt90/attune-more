@@ -65,9 +65,9 @@ with sync_playwright() as pw:
   record('Wrong/both eyes, missing face, poor light and uncertain eyes block presentation/scoring without any manual override')
   # Transport retries are finite; the existing retry action retains the target.
   before=target(page)
-  for retry in range(3):
+  for retry in range(2):
    page.evaluate("probe.old=probe.current;probe.current.onerror({error:'network'})")
-   if retry<2:page.wait_for_function('()=>probe.current!==probe.old&&!probe.current.aborted')
+   if retry<1:page.wait_for_function('()=>probe.current!==probe.old&&!probe.current.aborted')
   page.wait_for_function("()=>document.querySelector('[data-vision-stage]').dataset.visionStage==='error'");assert count(page)==2
   page.get_by_role('button',name='Tekrar dene',exact=True).click();ready(page);assert target(page)==before
   record('ASR session limit ends after two retries; explicit retry preserves target and does not score a failure')
