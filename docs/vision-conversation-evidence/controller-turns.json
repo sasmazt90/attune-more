@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "testedImplementationCommit": "6e3269a2f64fadd570f0883a591c9ab84cd5c90c",
+  "kind": "actual production controller with virtual Audio/ASR/time; no physical-media accuracy claim",
+  "languages": {
+    "tr": {
+      "status": "PASS",
+      "scenarios": 15,
+      "scope": "production controller with virtual Audio/ASR/time; not physical media validation"
+    },
+    "en": {
+      "status": "PASS",
+      "scenarios": 15,
+      "scope": "production controller with virtual Audio/ASR/time; not physical media validation"
+    },
+    "de": {
+      "status": "PASS",
+      "scenarios": 15,
+      "scope": "production controller with virtual Audio/ASR/time; not physical media validation"
+    }
+  },
+  "componentConfidence": "independent native-result fields; no per-word confidence invented"
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "actual production browser/native audio; simulated camera/model/ASR",
+  "checks": [
+    {
+      "stage": "tr retry / pause during follow-up / spoken resume / retained component",
+      "status": "PASS"
+    },
+    {
+      "stage": "en retry / pause during follow-up / spoken resume / retained component",
+      "status": "PASS"
+    },
+    {
+      "stage": "de retry / pause during follow-up / spoken resume / retained component",
+      "status": "PASS"
+    }
+  ]
+}

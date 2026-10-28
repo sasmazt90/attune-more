@@ -31,6 +31,7 @@ Run each condition separately for RIGHT-test-eye and LEFT-test-eye stages:
 | Slow but fresh 350–500 ms frames | Baseline/eye holds can complete; excessive frame age still rejects |
 | Camera denied / disconnected | No saved incomplete result; owned tracks/worker close |
 | Eye switch | New anatomical side evaluated; previous side cannot satisfy it |
+| Look at optotypes left/right/above/below the camera | Valid lid/face/coverage evidence can pass; pupil position alone must neither block progression nor establish closure |
 
 Measure time from sustained correct action to admission, source frame age, model
 frame intervals and oscillation count. Keep verified detection distinct from
@@ -44,7 +45,7 @@ Select the locale before starting or while paused using the existing controls.
 Include direct letters, common spelling words, explicit spelling syntax, both
 orders of letter/orientation, mirror + rotation, corrections, colloquial speech,
 quiet/noisy rooms, silence, low volume, accents and delayed/repeated responses.
-The deterministic examples in `vision-evidence/transcript-matrix.json` are a
+The deterministic examples in `vision-conversation-evidence/transcript-matrix.json` are a
 starting corpus, not recordings or proof of ASR accuracy.
 
 Record four independent outcomes for each utterance:

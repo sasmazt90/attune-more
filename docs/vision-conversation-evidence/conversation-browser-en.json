@@ -1,0 +1,2129 @@
+{
+  "status": "PASS",
+  "kind": "actual production browser/native audio; simulated camera/model/ASR",
+  "physicalUserAcceptance": false,
+  "languages": {
+    "en": {
+      "status": "PASS",
+      "camera": "SIMULATED",
+      "ASR": "SIMULATED",
+      "audio": "native approved recordings",
+      "session": {
+        "valid": 24,
+        "rightEye": 12,
+        "leftEye": 12,
+        "intentionallyWrong": 1,
+        "combinedCorrect": 23
+      },
+      "scenarios": [
+        {
+          "name": "letter-only",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "Foxtrot",
+              "confidence": 0.99,
+              "scoreCountBefore": 0,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "clockwise ninety degrees",
+              "confidence": 0.99,
+              "scoreCountBefore": 0,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "orientation-only",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "upside down",
+              "confidence": 0.99,
+              "scoreCountBefore": 1,
+              "followUp": "letter",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "Papa",
+              "confidence": 0.99,
+              "scoreCountBefore": 1,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "both",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "Bravo upside down and mirrored",
+              "confidence": 0.99,
+              "scoreCountBefore": 2,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "neither",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "blablabla",
+              "confidence": 0.99,
+              "scoreCountBefore": 3,
+              "followUp": "repeat",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "Romeo upside down",
+              "confidence": 0.99,
+              "scoreCountBefore": 3,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "ambiguous-letter",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "E or F clockwise ninety degrees",
+              "confidence": 0.99,
+              "scoreCountBefore": 4,
+              "followUp": "letter",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "Echo",
+              "confidence": 0.99,
+              "scoreCountBefore": 4,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "ambiguous-orientation",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "Alpha right left",
+              "confidence": 0.99,
+              "scoreCountBefore": 5,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "upside down",
+              "confidence": 0.99,
+              "scoreCountBefore": 5,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "low-letter-confidence",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "Alpha",
+              "confidence": 0.3,
+              "scoreCountBefore": 6,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "clockwise ninety degrees",
+              "confidence": 0.99,
+              "scoreCountBefore": 6,
+              "followUp": "letter",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "Alpha",
+              "confidence": 0.99,
+              "scoreCountBefore": 6,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "low-orientation-confidence",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "upside down",
+              "confidence": 0.3,
+              "scoreCountBefore": 7,
+              "followUp": "letter",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "Alpha",
+              "confidence": 0.99,
+              "scoreCountBefore": 7,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "upside down",
+              "confidence": 0.99,
+              "scoreCountBefore": 7,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "letter-correction",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "B",
+              "confidence": 0.99,
+              "scoreCountBefore": 8,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "B no P",
+              "confidence": 0.99,
+              "scoreCountBefore": 8,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "counterclockwise ninety degrees and mirrored",
+              "confidence": 0.99,
+              "scoreCountBefore": 8,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "orientation-correction",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "clockwise ninety degrees",
+              "confidence": 0.99,
+              "scoreCountBefore": 9,
+              "followUp": "letter",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "clockwise ninety degrees no upright",
+              "confidence": 0.99,
+              "scoreCountBefore": 9,
+              "followUp": "letter",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "Bravo",
+              "confidence": 0.99,
+              "scoreCountBefore": 9,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "silence",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "Foxtrot counterclockwise ninety degrees and mirrored",
+              "confidence": 0.99,
+              "scoreCountBefore": 10,
+              "scored": 1
+            }
+          ]
+        },
+        {
+          "name": "stale-event",
+          "status": "PASS",
+          "turns": [
+            {
+              "fixtureTranscript": "Echo",
+              "confidence": 0.99,
+              "scoreCountBefore": 11,
+              "followUp": "orientation",
+              "scored": 0
+            },
+            {
+              "fixtureTranscript": "upright",
+              "confidence": 0.99,
+              "scoreCountBefore": 11,
+              "scored": 1
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "stage": "playing",
+          "atMs": 508.1000000005588,
+          "clock": "browser-performance",
+          "presentationId": "",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 6058.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 6075.600000000559,
+          "clock": "browser-performance",
+          "presentationId": "",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 12298.100000000559,
+          "clock": "browser-performance",
+          "presentationId": "",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 12329.400000000373,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:repeat",
+          "atMs": 12329.600000000559,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 12340.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 15134.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.30000000074506,
+          "atMs": 15485.600000000559
+        },
+        {
+          "stage": "listening",
+          "atMs": 15485.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 15525.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 15877,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 15896.400000000373,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 17910.400000000373,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.30000000074506,
+          "atMs": 18261.60000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 18261.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 18273.900000000373,
+          "clock": "browser-performance",
+          "presentationId": "8ee48863-9e2c-45ce-94b3-6d136a1e5599",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 19046,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 19046.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 19061.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 20600.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.69999999925494,
+          "atMs": 20951.799999999814
+        },
+        {
+          "stage": "listening",
+          "atMs": 20951.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 21244.400000000373,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:letter",
+          "atMs": 21596.900000000373,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 21615.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 24771.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 354.09999999962747,
+          "atMs": 25125.200000000186
+        },
+        {
+          "stage": "listening",
+          "atMs": 25125.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 25144,
+          "clock": "browser-performance",
+          "presentationId": "038c9bd3-d5dc-4132-a153-ed228707204d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 25929.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "94b9a7e5-0ec2-478d-95b4-00961e2b67cc",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 25930.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "94b9a7e5-0ec2-478d-95b4-00961e2b67cc",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 25947.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "94b9a7e5-0ec2-478d-95b4-00961e2b67cc",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 27513.900000000373,
+          "clock": "browser-performance",
+          "presentationId": "94b9a7e5-0ec2-478d-95b4-00961e2b67cc",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 353.40000000037253,
+          "atMs": 27867.10000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 27867.5,
+          "clock": "browser-performance",
+          "presentationId": "94b9a7e5-0ec2-478d-95b4-00961e2b67cc",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 28177.5,
+          "clock": "browser-performance",
+          "presentationId": "94b9a7e5-0ec2-478d-95b4-00961e2b67cc",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 28962.5,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 28963.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 28971.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 30493.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.90000000037253,
+          "atMs": 30845.200000000186
+        },
+        {
+          "stage": "listening",
+          "atMs": 30846.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 31109.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:repeat",
+          "atMs": 31461.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 31474,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 34317.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.6000000005588,
+          "atMs": 34668.60000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 34668.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 34689.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "6fe7dba1-4b17-445e-93cb-7b228de82f60",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 35478.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 35478.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 35486.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 37050.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.3999999994412,
+          "atMs": 37401.299999999814
+        },
+        {
+          "stage": "listening",
+          "atMs": 37401.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 37426.5,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:letter",
+          "atMs": 37782.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 37790.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 40975.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.90000000037253,
+          "atMs": 41326.200000000186
+        },
+        {
+          "stage": "listening",
+          "atMs": 41326.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 41340.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "c5404ccf-56ae-4191-ba64-ffd4aad3358f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 42111.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 42111.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 42120,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 43683.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.29999999981374,
+          "atMs": 44034.5
+        },
+        {
+          "stage": "listening",
+          "atMs": 44034.5,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 44058.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 44415.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 44423.5,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 46427.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 354.6000000005588,
+          "atMs": 46781.90000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 46782.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 46803.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "e4e60f44-448b-415f-835a-8f8c7c7f53f1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 47577.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 47577.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 47586.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 49130.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.79999999981374,
+          "atMs": 49481.799999999814
+        },
+        {
+          "stage": "listening",
+          "atMs": 49482.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 49506.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 49857.5,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 49869.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 51871.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.59999999962747,
+          "atMs": 52222
+        },
+        {
+          "stage": "listening",
+          "atMs": 52222.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 52237.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:letter",
+          "atMs": 52588,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 52596.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 55753.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.09999999962747,
+          "atMs": 56104.700000000186
+        },
+        {
+          "stage": "listening",
+          "atMs": 56104.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 56117.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "ad8995a1-5860-40dc-9f4f-af32d14a7ce8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 56894.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 56894.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 56900.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 58423.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 357.8999999994412,
+          "atMs": 58781.799999999814
+        },
+        {
+          "stage": "listening",
+          "atMs": 58782.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 58812.799999999814,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:letter",
+          "atMs": 59163.700000000186,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 59172.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 62353.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.90000000037253,
+          "atMs": 62704.200000000186
+        },
+        {
+          "stage": "listening",
+          "atMs": 62704.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 62720.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 63070.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 63080.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 65082.5,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.8999999994412,
+          "atMs": 65433.299999999814
+        },
+        {
+          "stage": "listening",
+          "atMs": 65433.299999999814,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 65452.200000000186,
+          "clock": "browser-performance",
+          "presentationId": "28d5e4f0-31e0-4e7d-afb6-c0b571f7fecb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 66228.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 66229.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 66238.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 67761.5,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 353.29999999981374,
+          "atMs": 68114.79999999981
+        },
+        {
+          "stage": "listening",
+          "atMs": 68115.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 68141.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 68493.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 68505.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 70552.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.29999999981374,
+          "atMs": 70903.40000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 70903.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 70918.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 71270.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 71283.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 73339.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.20000000018626,
+          "atMs": 73690.40000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 73690.5,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 73702.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "70beca08-9402-49e6-b70e-9eaab3d0590e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 74477.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 74478.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 74487.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 76028.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 354.20000000018626,
+          "atMs": 76382.70000000019
+        },
+        {
+          "stage": "listening",
+          "atMs": 76383.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 76407.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:letter",
+          "atMs": 76759.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 76768.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 79923.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 357.70000000018626,
+          "atMs": 80281.5
+        },
+        {
+          "stage": "listening",
+          "atMs": 80283.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 80304.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:letter",
+          "atMs": 80656.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 80669.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 83813.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.70000000018626,
+          "atMs": 84165.40000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 84165.5,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 84183.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "0451a834-53c9-4086-857c-7ef6038e082f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 84959.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 84959.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 84972.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 86516.5,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.70000000018626,
+          "atMs": 86867.29999999981
+        },
+        {
+          "stage": "listening",
+          "atMs": 86867.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-error:no-speech",
+          "atMs": 86890.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:repeat",
+          "atMs": 86890.5,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 86904.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 89696.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.09999999962747,
+          "atMs": 90047.29999999981
+        },
+        {
+          "stage": "listening",
+          "atMs": 90047.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-error:no-speech",
+          "atMs": 90065.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 719.7999999998137,
+          "atMs": 90416
+        },
+        {
+          "stage": "listening",
+          "atMs": 90416.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 90434.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "30170b12-de80-40d1-ad15-fa8dc428d157",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 91209.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 91209.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 91218.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 92740.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.59999999962747,
+          "atMs": 93091
+        },
+        {
+          "stage": "listening",
+          "atMs": 93091,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 93113.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "prompt:orientation",
+          "atMs": 93463.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 93473.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 95478,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.6000000005588,
+          "atMs": 95828.60000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 95828.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 95853.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "d3da748e-35af-44a9-bec7-900440f94fb1",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "playing",
+          "atMs": 96622.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 103223.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 103259.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "a7b638b0-3572-41d8-a9d0-4fad29204b7d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 103259.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "a7b638b0-3572-41d8-a9d0-4fad29204b7d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 103270,
+          "clock": "browser-performance",
+          "presentationId": "a7b638b0-3572-41d8-a9d0-4fad29204b7d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 104813,
+          "clock": "browser-performance",
+          "presentationId": "a7b638b0-3572-41d8-a9d0-4fad29204b7d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.6000000005588,
+          "atMs": 105163.70000000019
+        },
+        {
+          "stage": "listening",
+          "atMs": 105163.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "a7b638b0-3572-41d8-a9d0-4fad29204b7d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 105441.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "a7b638b0-3572-41d8-a9d0-4fad29204b7d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 106226,
+          "clock": "browser-performance",
+          "presentationId": "f9cbe30c-02aa-462f-9094-507af3e13b3d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 106226.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "f9cbe30c-02aa-462f-9094-507af3e13b3d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 106235.5,
+          "clock": "browser-performance",
+          "presentationId": "f9cbe30c-02aa-462f-9094-507af3e13b3d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 107797.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "f9cbe30c-02aa-462f-9094-507af3e13b3d",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.5,
+          "atMs": 108149
+        },
+        {
+          "stage": "listening",
+          "atMs": 108149.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "f9cbe30c-02aa-462f-9094-507af3e13b3d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 108426.5,
+          "clock": "browser-performance",
+          "presentationId": "f9cbe30c-02aa-462f-9094-507af3e13b3d",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 109209.5,
+          "clock": "browser-performance",
+          "presentationId": "1bc3f1f9-e858-46fe-86a6-4a703b4783a8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 109210.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "1bc3f1f9-e858-46fe-86a6-4a703b4783a8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 109222.5,
+          "clock": "browser-performance",
+          "presentationId": "1bc3f1f9-e858-46fe-86a6-4a703b4783a8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 110794.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "1bc3f1f9-e858-46fe-86a6-4a703b4783a8",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.6000000005588,
+          "atMs": 111145.90000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 111145.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "1bc3f1f9-e858-46fe-86a6-4a703b4783a8",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 112061.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "da5b1c7c-c793-4bf5-9667-bb7f5c607276",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 1618.6000000005588,
+          "atMs": 112412.90000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 112413,
+          "clock": "browser-performance",
+          "presentationId": "da5b1c7c-c793-4bf5-9667-bb7f5c607276",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 113359.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "3ba40a8b-5cf9-46df-96f7-d2c2f8b57e53",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 2916.300000000745,
+          "atMs": 113710.60000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 113710.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "3ba40a8b-5cf9-46df-96f7-d2c2f8b57e53",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 114926.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "60a1ae0f-d3cd-48c3-bbc2-51f746b33405",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 4486.100000000559,
+          "atMs": 115280.40000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 115280.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "60a1ae0f-d3cd-48c3-bbc2-51f746b33405",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 115307.29999999981,
+          "clock": "browser-performance",
+          "presentationId": "60a1ae0f-d3cd-48c3-bbc2-51f746b33405",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 116092.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "20beb90e-f4c4-433c-ac87-bcad694a0c85",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 116092.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "20beb90e-f4c4-433c-ac87-bcad694a0c85",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 116101.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "20beb90e-f4c4-433c-ac87-bcad694a0c85",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 117622.5,
+          "clock": "browser-performance",
+          "presentationId": "20beb90e-f4c4-433c-ac87-bcad694a0c85",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.20000000018626,
+          "atMs": 117973.70000000019
+        },
+        {
+          "stage": "listening",
+          "atMs": 117973.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "20beb90e-f4c4-433c-ac87-bcad694a0c85",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 117989.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "20beb90e-f4c4-433c-ac87-bcad694a0c85",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 118774.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "3bed7eca-0743-416c-b892-e1ff468e5070",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 118774.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "3bed7eca-0743-416c-b892-e1ff468e5070",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 118783.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "3bed7eca-0743-416c-b892-e1ff468e5070",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 120307.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "3bed7eca-0743-416c-b892-e1ff468e5070",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 354.20000000018626,
+          "atMs": 120662.10000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 120662.5,
+          "clock": "browser-performance",
+          "presentationId": "3bed7eca-0743-416c-b892-e1ff468e5070",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 120687.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "3bed7eca-0743-416c-b892-e1ff468e5070",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 121458.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "02650345-f71d-424c-a2f7-7f82f3fac951",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 121459.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "02650345-f71d-424c-a2f7-7f82f3fac951",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 121470.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "02650345-f71d-424c-a2f7-7f82f3fac951",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 123044.70000000019,
+          "clock": "browser-performance",
+          "presentationId": "02650345-f71d-424c-a2f7-7f82f3fac951",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.70000000018626,
+          "atMs": 123396.40000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 123396.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "02650345-f71d-424c-a2f7-7f82f3fac951",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 123419,
+          "clock": "browser-performance",
+          "presentationId": "02650345-f71d-424c-a2f7-7f82f3fac951",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 124191.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "49cfb937-8a8e-4012-98e6-1137559f3d7f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 124191.5,
+          "clock": "browser-performance",
+          "presentationId": "49cfb937-8a8e-4012-98e6-1137559f3d7f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 124203.5,
+          "clock": "browser-performance",
+          "presentationId": "49cfb937-8a8e-4012-98e6-1137559f3d7f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 125747.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "49cfb937-8a8e-4012-98e6-1137559f3d7f",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.79999999981374,
+          "atMs": 126098.5
+        },
+        {
+          "stage": "listening",
+          "atMs": 126098.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "49cfb937-8a8e-4012-98e6-1137559f3d7f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 126116.5,
+          "clock": "browser-performance",
+          "presentationId": "49cfb937-8a8e-4012-98e6-1137559f3d7f",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 126891.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "8d0d17c5-e7ef-4086-88f5-5b1d8df1eceb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 126891.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "8d0d17c5-e7ef-4086-88f5-5b1d8df1eceb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 126900.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "8d0d17c5-e7ef-4086-88f5-5b1d8df1eceb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 128423.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "8d0d17c5-e7ef-4086-88f5-5b1d8df1eceb",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.29999999981374,
+          "atMs": 128775.20000000019
+        },
+        {
+          "stage": "listening",
+          "atMs": 128775.20000000019,
+          "clock": "browser-performance",
+          "presentationId": "8d0d17c5-e7ef-4086-88f5-5b1d8df1eceb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 128803.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "8d0d17c5-e7ef-4086-88f5-5b1d8df1eceb",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 129591.79999999981,
+          "clock": "browser-performance",
+          "presentationId": "f0dfcdf4-4315-428a-ac26-6961a038d93b",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 129592.5,
+          "clock": "browser-performance",
+          "presentationId": "f0dfcdf4-4315-428a-ac26-6961a038d93b",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 129601.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "f0dfcdf4-4315-428a-ac26-6961a038d93b",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 131125.2000000002,
+          "clock": "browser-performance",
+          "presentationId": "f0dfcdf4-4315-428a-ac26-6961a038d93b",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 351.40000000037253,
+          "atMs": 131476.60000000056
+        },
+        {
+          "stage": "listening",
+          "atMs": 131476.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "f0dfcdf4-4315-428a-ac26-6961a038d93b",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 131503.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "f0dfcdf4-4315-428a-ac26-6961a038d93b",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 132291,
+          "clock": "browser-performance",
+          "presentationId": "892b755d-b39d-4432-a4d5-7ecfd1caa8c3",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 132291.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "892b755d-b39d-4432-a4d5-7ecfd1caa8c3",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 132303.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "892b755d-b39d-4432-a4d5-7ecfd1caa8c3",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 133875.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "892b755d-b39d-4432-a4d5-7ecfd1caa8c3",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 350.79999999981374,
+          "atMs": 134226.40000000037
+        },
+        {
+          "stage": "listening",
+          "atMs": 134226.40000000037,
+          "clock": "browser-performance",
+          "presentationId": "892b755d-b39d-4432-a4d5-7ecfd1caa8c3",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 134254.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "892b755d-b39d-4432-a4d5-7ecfd1caa8c3",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 135041.5,
+          "clock": "browser-performance",
+          "presentationId": "ae629cb2-9162-4be2-b02c-9b451f186945",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 135042.2999999998,
+          "clock": "browser-performance",
+          "presentationId": "ae629cb2-9162-4be2-b02c-9b451f186945",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 135050.7999999998,
+          "clock": "browser-performance",
+          "presentationId": "ae629cb2-9162-4be2-b02c-9b451f186945",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 136622.2999999998,
+          "clock": "browser-performance",
+          "presentationId": "ae629cb2-9162-4be2-b02c-9b451f186945",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 356.20000000018626,
+          "atMs": 136978.5
+        },
+        {
+          "stage": "listening",
+          "atMs": 136979.2999999998,
+          "clock": "browser-performance",
+          "presentationId": "ae629cb2-9162-4be2-b02c-9b451f186945",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 137003.60000000056,
+          "clock": "browser-performance",
+          "presentationId": "ae629cb2-9162-4be2-b02c-9b451f186945",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "letter-rendered",
+          "atMs": 137775.10000000056,
+          "clock": "browser-performance",
+          "presentationId": "5b51cf4d-7dbe-4503-be19-91a825a3399e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "prompt:next1",
+          "atMs": 137775.90000000037,
+          "clock": "browser-performance",
+          "presentationId": "5b51cf4d-7dbe-4503-be19-91a825a3399e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "playing",
+          "atMs": 137784.5,
+          "clock": "browser-performance",
+          "presentationId": "5b51cf4d-7dbe-4503-be19-91a825a3399e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "ended",
+          "atMs": 139309.2000000002,
+          "clock": "browser-performance",
+          "presentationId": "5b51cf4d-7dbe-4503-be19-91a825a3399e",
+          "activeRecognizers": 0
+        },
+        {
+          "stage": "recognizer-start",
+          "afterAudioMs": 352.09999999962747,
+          "atMs": 139661.2000000002
+        },
+        {
+          "stage": "listening",
+          "atMs": 139661.2000000002,
+          "clock": "browser-performance",
+          "presentationId": "5b51cf4d-7dbe-4503-be19-91a825a3399e",
+          "activeRecognizers": 1
+        },
+        {
+          "stage": "asr-final",
+          "atMs": 139690.2999999998,
+          "clock": "browser-performance",
+          "presentationId": "5b51cf4d-7dbe-4503-be19-91a825a3399e",
+          "activeRecognizers": 1
+        }
+      ],
+      "overlaps": [],
+      "timingSummary": {
+        "recognitionStarts": 43,
+        "minimumAfterNativeAudioMs": 350.59999999962747,
+        "overlapViolations": 0
+      }
+    }
+  },
+  "checks": [
+    {
+      "stage": "en 24 questions / both eyes / results / history",
+      "status": "PASS"
+    },
+    {
+      "stage": "en responsive / microphone consent / cleanup",
+      "status": "PASS"
+    }
+  ],
+  "testedImplementationCommit": "6e3269a2f64fadd570f0883a591c9ab84cd5c90c"
+}

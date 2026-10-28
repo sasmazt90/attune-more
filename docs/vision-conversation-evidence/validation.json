@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-28",
+  "baseCommit": "bb6088f8826e473e986a9f40e7f901ff11026030",
+  "testedImplementationCommit": "6e3269a2f64fadd570f0883a591c9ab84cd5c90c",
+  "fullUnitSuite": {
+    "status": "PASS",
+    "sourceCommit": "1bfb7d5c83a6eb23a503bf5c84a6daf9cf0fb4a0",
+    "passed": 1796,
+    "skipped": 44,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 95.591,
+    "skips": {
+      "Historical browser replay requires local output/playwright/front-browser-api.json with its licensed photo and recorded geometry; not shipped in a clean clone": 2,
+      "Licensed local public source unavailable; production proof requires it": 3,
+      "Task-local retained real response is outside Git": 1,
+      "Windows Job Object execution required": 10,
+      "Optional licensed research checkout is absent": 1,
+      "Real Windows ABI required": 27
+    },
+    "browserDependency": "Installed Chrome executable substituted for hardcoded Playwright channel=chrome; actual browser-dependent tests ran"
+  },
+  "finalDelta": "6e3269a changes the existing response-status translation and captures browser timing events before history reload; no scoring/controller change since full unit suite",
+  "finalVisionRegressions": {
+    "status": "PASS",
+    "passed": 57,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 13.877
+  },
+  "typecheck": "PASS",
+  "lint": "PASS, no warnings/errors",
+  "productionBuild": "PASS",
+  "localizationInventory": {
+    "status": "PASS",
+    "catalogMessages": 2064,
+    "inventoriedSources": 1880,
+    "failures": []
+  },
+  "controllerScenariosPerLanguage": 15,
+  "transcriptInterpretationCases": {
+    "tr": 39,
+    "en": 31,
+    "de": 30
+  },
+  "automaticEyeGateAndGeometryChecks": 42,
+  "actualTrackerGeneratedPixelTests": 6,
+  "gazeRegression": {
+    "leftRightAboveBelowBothSides": 8,
+    "physicalAccuracy": "UNVERIFIED"
+  },
+  "productionBrowser": {
+    "status": "PASS",
+    "kind": "native UI/audio/SVG/scoring/results/history; camera/model/ASR simulated",
+    "languages": [
+      "tr",
+      "en",
+      "de"
+    ],
+    "validQuestionsPerLanguage": 24,
+    "rightEyeQuestionsPerLanguage": 12,
+    "leftEyeQuestionsPerLanguage": 12,
+    "combinedCorrectPerLanguage": 23,
+    "intentionallyWrongPerLanguage": 1,
+    "recognitionStartsPerLanguage": 43,
+    "overlapViolations": 0,
+    "minimumAfterNativeAudioMs": 350.59999999962747,
+    "turns": "conversation-browser.json",
+    "mobile": "390x844 responsive, consent withdrawal and cleanup passed in all three locales"
+  },
+  "lifecycleBrowser": {
+    "status": "PASS",
+    "sourceCommit": "1bfb7d5c83a6eb23a503bf5c84a6daf9cf0fb4a0",
+    "evidence": [
+      "lifecycle-browser.json",
+      "cleanup-browser.json"
+    ],
+    "finalDelta": "UI status copy and test evidence capture only"
+  },
+  "nativeCamera": {
+    "status": "PASS for rejection/lifecycle",
+    "evidence": "native-camera.json",
+    "physicalPositiveDetection": "BLOCKED: no participant camera media"
+  },
+  "nativeSpeech": {
+    "status": "BLOCKED for positive transcription",
+    "evidence": "native-speech.json",
+    "observedError": "audio-capture",
+    "nativePermissionDenial": "PASS: not-allowed",
+    "scoredTrials": 0,
+    "physicalMicrophone": "unavailable",
+    "realUtteranceAccuracy": "NOT_TESTED"
+  },
+  "aaos": {
+    "hostPolicyChecks": 69,
+    "javaSyntaxFiles": 9,
+    "hostStatus": "PASS",
+    "jdk": "Verified complete Temurin 21.0.10+7; previous JAVA_COMPILER issue resolved",
+    "assembleDebugAndLintDebug": "BLOCKED: SDK location not found; ANDROID_HOME/sdk.dir absent",
+    "workflowDispatch": "BLOCKED: GitHub HTTP 403 Forbidden",
+    "nativeRuntimeAcceptance": false
+  },
+  "githubCI": {
+    "implementationCommit": "6e3269a2f64fadd570f0883a591c9ab84cd5c90c",
+    "runUrl": "https://github.com/sasmazt90/attune-more/actions/runs/40616117474",
+    "frontend": "success",
+    "backend": "success",
+    "deliveryHead": "Read current PR head and checks on GitHub; evidence/report delivery is a subsequent commit"
+  },
+  "scopeAudit": {
+    "status": "PASS",
+    "answerButtons": false,
+    "inputModeSwitch": false,
+    "manualEyeConfirmation": false,
+    "cameraOverride": false,
+    "newWorkflowOrControl": false,
+    "providerChange": false,
+    "redesign": false,
+    "otherHealthModuleBehaviorChanged": false
+  },
+  "physicalUserAcceptance": false,
+  "merged": false,
+  "deployed": false
+}
