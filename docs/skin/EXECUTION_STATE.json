@@ -179,7 +179,7 @@
         "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--3a6a00"
       ],
       "lastCheckedDate": "2026-10-28",
-      "lastCheckedAt": "2026-10-28T19:39:14Z",
+      "lastCheckedAt": "2026-10-28T20:32:45Z",
       "modelCount": 90,
       "concurrentTraining": {
         "trainingId": "49ee6204cf069198bbfa",
@@ -520,6 +520,34 @@
         "finalTestEvaluationAuthorized": false,
         "productActivationAllowed": false,
         "implementationCommit": "77587d74d9350f1d2ff854822501e202868f8a66"
+      },
+      "validationExpertReview": {
+        "observedAt": "2026-10-28T20:32:45Z",
+        "methodVersion": "acne-validation-expert-review-preflight-v1",
+        "script": "scripts/skin-research/build_acne_validation_expert_review.py",
+        "inputTemplate": "docs/skin/evidence/acne-validation-expert-review-input-template-20261028-v1.json",
+        "preflight": "docs/skin/evidence/acne-validation-expert-review-preflight-20261028-v1.json",
+        "builderEvidence": "docs/skin/evidence/acne-validation-expert-review-builder-20261028-v1.json",
+        "queueDigest": "6fa8ccb7a2a1c072bb18fc80bf64babcffd5b59d764b7429c43beaf8383bc6c6",
+        "expectedDecisions": 45,
+        "reviewedDecisions": 0,
+        "perClassExpected": {
+          "Pimple": 15,
+          "Post acne": 15,
+          "Pigmentation": 15
+        },
+        "privateResolverRequired": true,
+        "qualifiedHumanReviewRequired": true,
+        "rawProviderIdentifiersCommitted": false,
+        "modelProposalsAreExpertTruth": false,
+        "expertReviewComplete": false,
+        "targetedRemediationPlanningAllowed": false,
+        "datasetMutationAuthorized": false,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "decision": "blocked",
+        "implementationCommit": "23a5958e9c1b1d5a73f29f9307c13c914cc52103"
       }
     },
     "acneSourceProject": "tolgar-sasmaz/attune-skin-acne-pilot",
@@ -539,7 +567,7 @@
         1,
         2
       ],
-      "lastCheckedAt": "2026-10-28T18:08:02Z",
+      "lastCheckedAt": "2026-10-28T20:32:45Z",
       "sourceSplits": {
         "train": 279,
         "valid": 81,
@@ -889,7 +917,7 @@
       "trainingId": "3485f8c67f957a1b850d",
       "modelType": "rfdetr-nas-seg-parent",
       "lastObservedStatus": "finished",
-      "lastCheckedAt": "2026-10-28T18:08:02Z",
+      "lastCheckedAt": "2026-10-28T20:32:45Z",
       "trainingCreatedAt": "2026-10-23T05:28:00.316000Z",
       "concurrentTraining": {
         "trainingId": "af287a006e2e428f5ce4",
@@ -9243,6 +9271,28 @@
       },
       "providerTasks": [],
       "implementationCommit": "77587d74d9350f1d2ff854822501e202868f8a66",
+      "runs": []
+    },
+    {
+      "date": "2026-10-28",
+      "observedAt": "2026-10-28T20:32:45Z",
+      "action": "Read the persistent checkpoint first and refreshed all 20 accessible Roboflow projects plus the exact acne, regional and under-eye project/version/training state without starting duplicate work. Acne remains private at 800 images with unchanged 553/165/82 splits and 3640 Pimple, 32123 Post acne and 1579 Pigmentation boxes; its NAS and small runs remain finished, the paginated NAS group still has 89 children and only the same two provider evaluations exist. Regional remains mutable at 476 images with 139 unannotated records while immutable version 1 remains 337 images at 244/63/30; both known runs remain finished and its NAS group still has 75 records. Under-eye pilot remains private at 399 images with 382 darkcircle and 487 eyebag polygons, version 2 remains 279/81/39 with no training; grouped under-eye remains private and empty. Implemented a privacy-safe, fail-closed qualified-human adjudication path for the fixed acne validation failure queue. It binds the exact queue digest, eval, model, valid split and stored 0.30 threshold; requires one independent expert decision for every 15 Pimple, 15 Post acne and 15 Pigmentation class/record pair; rejects test use, threshold selection, duplicate/missing/foreign decisions, raw identities/media/geometry, unsupported decision codes and visible model proposals. Only aggregate public counts may be emitted. The committed empty template and deterministic preflight remain blocked at 0/45 decisions, so no expert truth, relabel, dataset mutation, training, final-test use or product activation was authorized. Ten focused tests and all 169 skin-research tests available in this partial workspace passed. A leftover private provider payload from the prior run was removed from scratch and was not committed. No Roboflow write, evaluation job, training, excluded-archive access, private payload commit or provider task was created.",
+      "report": "docs/skin/evidence/acne-validation-expert-review-builder-20261028-v1.json",
+      "evidence": [
+        "scripts/skin-research/build_acne_validation_expert_review.py",
+        "scripts/skin-research/tests/test_build_acne_validation_expert_review.py",
+        "docs/skin/evidence/acne-validation-expert-review-input-template-20261028-v1.json",
+        "docs/skin/evidence/acne-validation-expert-review-preflight-20261028-v1.json",
+        "docs/skin/evidence/acne-validation-expert-review-builder-20261028-v1.json"
+      ],
+      "tests": {
+        "focused": 10,
+        "availableSkinResearch": 169,
+        "preflightReplayMatched": true,
+        "result": "OK"
+      },
+      "providerTasks": [],
+      "implementationCommit": "23a5958e9c1b1d5a73f29f9307c13c914cc52103",
       "runs": []
     }
   ]
