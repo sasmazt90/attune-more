@@ -54,12 +54,15 @@ Record four independent outcomes for each utterance:
 3. Current stimulus ID, anatomical eye, admission conditions and scored answer.
 4. User-facing progression, microphone state and guidance cancellation.
 
-Include speech while the answer instruction is playing, a correction immediately
-after a complete final, restart after silence, transport loss, repeated finals,
+Verify that speech during instructions is not captured or scored. Wait for native
+playback completion and the Listening indicator before answering. Test missing
+components, short follow-ups, and corrections during a subsequent listening turn.
+Include restart after silence, transport loss, repeated finals,
 late results after a question changes, pause/resume, exit/restart and consent
 withdrawal. Wrong but clearly recognized answers must score wrong; ASR/condition
 failures must remain unscored. Repeat must be explicit. A correct response must
-stop obsolete audio and advance once. Reopen completed history after reload.
+advance once; old output/events must not restart or affect the next question.
+Output and recognition must never overlap. Reopen completed history after reload.
 
 Report per-language transcription accuracy separately from interpretation and
 scoring accuracy; record unresolved cases instead of averaging them into success.

@@ -22,5 +22,14 @@ with sync_playwright() as pw:
    except Exception:status='no-terminal-provider-event-within-45s'
   events=p.evaluate('nativeSpeechEvents');assert p.evaluate('probe.events.filter(e=>e.combinedCorrect!==undefined).length')==0
   result={'kind':'actual Chrome SpeechRecognition with fake microphone; camera/model fixtures only','apiAvailable':available,'status':status,'events':events,'scoredTrials':0,'realUtteranceAccuracy':'NOT_TESTED','physicalMicrophone':'NOT_AVAILABLE'}
+  denied=browser.new_context(permissions=['camera']);denied.add_init_script(seed+source);q=denied.new_page();q.goto(os.getenv('VISION_TEST_URL','http://127.0.0.1:3306')+'/vision')
+  denied.new_cdp_session(q).send('Browser.setPermission',{'permission':{'name':'microphone'},'setting':'denied','origin':os.getenv('VISION_TEST_URL','http://127.0.0.1:3306')})
+  q.get_by_role('button',name='Başlat',exact=True).click()
+  if available:
+   try:q.wait_for_function("()=>nativeSpeechEvents.some(s=>s.startsWith('asr-error:'))",timeout=45000)
+   except Exception:pass
+  denied_errors=q.evaluate("nativeSpeechEvents.filter(s=>s.startsWith('asr-error:'))")
+  result['nativeMicrophonePermissionDenial']={'status':'PASS' if 'asr-error:not-allowed' in denied_errors else 'BLOCKED','observedErrors':denied_errors,'scoredTrials':q.evaluate('probe.events.filter(e=>e.combinedCorrect!==undefined).length')}
+  assert result['nativeMicrophonePermissionDenial']['scoredTrials']==0
   Path('docs/vision-conversation-evidence/native-speech.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
  finally:browser.close()

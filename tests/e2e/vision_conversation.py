@@ -25,6 +25,9 @@ WORDS={'tr':{'A':'Adana','B':'Bolu','E':'Edirne','F':'Fatsa','P':'Pırasa','R':'
 DIRECTIONS={'tr':{0:'düz',90:'saat yönünde doksan derece',180:'baş aşağı',270:'saat yönünün tersinde doksan derece'},'en':{0:'upright',90:'clockwise ninety degrees',180:'upside down',270:'counterclockwise ninety degrees'},'de':{0:'aufrecht',90:'im Uhrzeigersinn neunzig Grad',180:'auf dem Kopf',270:'gegen den Uhrzeigersinn neunzig Grad'}}
 MIRROR={'tr':' ve aynalı','en':' and mirrored','de':' und gespiegelt'}
 checks=[];languages={};current=None
+SELECTED=os.getenv('VISION_TEST_LANGUAGES','tr,en,de').split(',')
+assert SELECTED and all(lang in ['tr','en','de'] for lang in SELECTED)
+REPORT='conversation-browser.json' if SELECTED==['tr','en','de'] else 'conversation-browser-'+ '-'.join(SELECTED)+'.json'
 CATALOG=json.loads((ROOT/'shared/localization/messages.json').read_text())
 def label(text,lang):return next(v[lang] for v in CATALOG.values() if v['tr']==text)
 
@@ -72,7 +75,7 @@ def run_main():
  with sync_playwright() as pw:
   browser=pw.chromium.launch(executable_path=os.getenv('CHROME_PATH') or None,channel=None if os.getenv('CHROME_PATH') else 'chrome',headless=True,args=['--autoplay-policy=no-user-gesture-required','--enable-unsafe-swiftshader','--no-sandbox'])
   try:
-   for lang in ['tr','en','de']:
+   for lang in SELECTED:
     ctx=browser.new_context(viewport={'width':1440,'height':1000});ctx.add_init_script(SEED+BOOT+OBSERVE+f"localStorage.setItem('attune.language.v1','{lang}');")
     p=ctx.new_page();current=p;errors=[];p.on('pageerror',lambda e:errors.append(str(e)));p.goto(BASE+'/vision')
     start={'tr':'Başlat','en':'Start','de':'Starten'}[lang];p.get_by_role('button',name=start,exact=True).wait_for()
@@ -132,11 +135,15 @@ def run_main():
     p.evaluate('probe.fault=null')
     for fault in ['test-covered','no-face','uncertain']:
      ready(p);before=count(p);p.evaluate('v=>probe.fault=v',fault);p.wait_for_function("()=>!document.querySelector('[data-letter-optotype]')",timeout=6000);assert count(p)==before;p.evaluate('probe.fault=null');ready(p)
-    while count(p)<24:
+    for remaining in range(10):
+     before=count(p);assert before<24
      ready(p);v=target(p)
-    if count(p)==23:
-     wrong={**v,'letter':'E' if v['letter']!='E' else 'B'};finish(p,word(wrong,lang)+' '+orientation(v,lang),[],correct=False)
-    else:finish(p,word(v,lang)+' '+orientation(v,lang),[])
+     if before==23:
+      wrong={**v,'letter':'E' if v['letter']!='E' else 'B'};finish(p,word(wrong,lang)+' '+orientation(v,lang),[],correct=False)
+     else:finish(p,word(v,lang)+' '+orientation(v,lang),[])
+     assert count(p)==before+1
+     print('PASS',lang,'question',count(p),flush=True)
+    assert count(p)==24
     p.get_by_role('button',name={'tr':'Tamam','en':'OK','de':'OK'}[lang],exact=True).click()
     if lang=='tr':snap(p,'desktop-results')
     result=p.evaluate("JSON.parse(localStorage.getItem('togg_health_latest_vision'))");valid=[t for t in result['trials'] if t['valid']];assert len(valid)==24 and sum(t['combinedCorrect'] for t in valid)==23;assert sum(t['eye']=='RIGHT' for t in valid)==12
@@ -147,16 +154,16 @@ def run_main():
     assert not errors,errors;assert p.evaluate('probe.overlaps')==[]
     starts=p.evaluate('probe.turnEvents.filter(e=>e.stage==="recognizer-start").map(e=>e.afterAudioMs)');assert all(t>=300 for t in starts)
     languages[lang]={'status':'PASS','camera':'SIMULATED','ASR':'SIMULATED','audio':'native approved recordings','session':{'valid':24,'rightEye':12,'leftEye':12,'intentionallyWrong':1,'combinedCorrect':23},'scenarios':scenarios,'events':p.evaluate('probe.turnEvents'),'overlaps':p.evaluate('probe.overlaps')}
-    (OUT/'conversation-browser.json').write_text(json.dumps({'status':'RUNNING','languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
+    (OUT/REPORT).write_text(json.dumps({'status':'RUNNING','languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
     ctx.close()
     # Fresh mobile context: same existing responsive UI, real audio then ASR fixture.
     c=browser.new_context(viewport={'width':390,'height':844});c.add_init_script(SEED+BOOT+OBSERVE+f"localStorage.setItem('attune.language.v1','{lang}');");q=c.new_page();current=q;q.goto(BASE+'/vision');q.get_by_role('button',name=start,exact=True).click();ready(q)
     v=target(q);finish(q,word(v,lang)+' '+orientation(v,lang),[]);ready(q);assert q.evaluate('document.documentElement.scrollWidth<=innerWidth+1');q.screenshot(path=str(OUT/f'mobile-{lang}.png'),full_page=True)
     q.evaluate("localStorage.setItem('attune_privacy_microphone_allowed','false');window.dispatchEvent(new Event('attune-privacy'))");q.wait_for_function("()=>probe.streams.every(s=>s.getTracks().every(t=>t.readyState==='ended'))");assert q.evaluate("localStorage.getItem('togg_health_latest_vision')")==None
     checks.append({'stage':lang+' responsive / microphone consent / cleanup','status':'PASS'});c.close()
-   (OUT/'conversation-browser.json').write_text(json.dumps({'status':'PASS','kind':'actual production browser/native audio; simulated camera/model/ASR','physicalUserAcceptance':False,'languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
+   (OUT/REPORT).write_text(json.dumps({'status':'PASS','kind':'actual production browser/native audio; simulated camera/model/ASR','physicalUserAcceptance':False,'languages':languages,'checks':checks},ensure_ascii=False,indent=2)+'\n')
   except Exception:
-   if current and not current.is_closed():current.screenshot(path=str(OUT/'failure.png'),full_page=True)
+   if current and not current.is_closed():current.screenshot(path=str(OUT/('failure-'+lang+'.png')),full_page=True)
    raise
   finally:browser.close()
 

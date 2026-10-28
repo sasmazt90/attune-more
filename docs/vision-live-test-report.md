@@ -1,4 +1,8 @@
-# Vision Health PR #13 — engineering report
+# Vision Health PR #13 — historical engineering report
+
+This snapshot predates the owner's sequential-speech requirement. Current code,
+results and screenshots are in [the conversational flow report](vision-conversation-report.md).
+The earlier simultaneous-playback expectation is superseded.
 
 Date: 28 October 2026. [Draft PR #13](https://github.com/sasmazt90/attune-more/pull/13).
 Starting commit: `bb6088f8826e473e986a9f40e7f901ff11026030`.
