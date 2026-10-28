@@ -1,0 +1,37 @@
+{
+  "archiveBytes": 15086760,
+  "archiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+  "archiveUploadAuthorized": true,
+  "decision": "ready_for_exact_authorized_upload",
+  "destinationMustBeEmpty": true,
+  "destinationMustRemainPrivate": true,
+  "destinationProject": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+  "existingUploadTaskReusable": false,
+  "expectedPostUploadVerification": {
+    "annotations": 869,
+    "augmentation": {},
+    "classCounts": {
+      "darkcircle": 382,
+      "eyebag": 487
+    },
+    "images": 399,
+    "splits": {
+      "test": 38,
+      "train": 284,
+      "valid": 77
+    }
+  },
+  "freshDirectUploadRequired": true,
+  "methodVersion": "under-eye-grouped-upload-preflight-v1",
+  "observedAt": "2026-10-28T12:00:00Z",
+  "privacySafe": true,
+  "productActivationAllowed": false,
+  "providerTaskId": null,
+  "researchTrainingAuthorized": false,
+  "roadmapAccepted": false,
+  "schemaVersion": 1,
+  "sourceArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+  "testEvaluationAuthorized": false,
+  "uploadPerformed": false,
+  "versionGenerationAuthorized": false
+}
