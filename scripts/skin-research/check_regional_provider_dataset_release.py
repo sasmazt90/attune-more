@@ -17,7 +17,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SCHEMA = "regional-provider-dataset-release-receipt-v2"
+SCHEMA = "regional-provider-dataset-release-receipt-v3"
 PROJECT_ID = "tolgar-sasmaz/attune-skin-regional-skin-map"
 PROJECT_TYPE = "instance-segmentation"
 MANIFEST_PATH = "docs/skin/evidence/regional-mask-group-locked-split-20261027-v1.json"
@@ -27,6 +27,7 @@ ASSIGNMENTS_SHA256 = "2a8608d2f74fbf3e64fca53b60334a64add9c47f0301766dc47c9ca2fe
 QUEUE_SHA256 = "f516efb71509111bd55e079bcbb8b2a897e5c00b5c8416668f18af3e247698a5"
 DECISIONS_SHA256 = "41702f492a41c72e15764288c9c0da7b9a2c43cb2c619cdb851a5098fc67ced1"
 AUDIT_SCHEMA = "regional-provider-version-export-audit-v1"
+POST_UPLOAD_AUDIT_SCHEMA = "regional-post-upload-provenance-audit-v1"
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 TARGET_IMAGES = 337
 TARGET_SPLITS = {"train": 236, "valid": 50, "test": 51}
@@ -113,6 +114,29 @@ def _validate_snapshot(receipt: dict[str, Any]) -> bool:
     )
 
 
+def _validate_post_upload_provenance(receipt: dict[str, Any], evidence_root: Path) -> None:
+    audit = _load_evidence(
+        receipt.get("postUploadProvenanceAudit"),
+        "post-upload provenance audit",
+        evidence_root,
+    )
+    expected = {
+        "schemaVersion": POST_UPLOAD_AUDIT_SCHEMA,
+        "project": PROJECT_ID,
+        "uploadTaskId": receipt.get("upload", {}).get("taskId"),
+        "selectedRecords": receipt.get("postUploadRecords", {}).get("records"),
+        "membershipClassification": "unverified_until_exact_provider_export",
+        "contentIdentityEstablished": False,
+        "annotationIdentityEstablished": False,
+        "tagEstablishesUnwantedMembership": False,
+        "tagBasedDeletionOrVersionExclusionAllowed": False,
+        "exactProviderExportAuditRequired": True,
+        "containsFilenamesOrProviderImageIds": False,
+    }
+    if any(audit.get(field) != value for field, value in expected.items()):
+        raise GateInputError("post-upload provenance audit mismatch")
+
+
 def _candidate_version_ready(candidate: Any, evidence_root: Path) -> tuple[bool, list[str]]:
     if candidate is None:
         return False, ["provider_version_2_missing"]
@@ -187,12 +211,13 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     _require(manifest.get("crossSplitGroupCount"), 0, "group-locked manifest contains split leakage")
     _require(manifest.get("allRecordsAssignedExactlyOnce"), True, "group-locked manifest is incomplete")
 
+    _validate_post_upload_provenance(receipt, evidence_root)
     project_drift = _validate_snapshot(receipt)
     version_ready, blockers = _candidate_version_ready(receipt.get("candidateVersion"), evidence_root)
     if project_drift and not version_ready:
         blockers.extend([
             "mutable_provider_project_drifted_from_group_locked_candidate",
-            "post_upload_records_require_quarantine_or_verified_version_exclusion",
+            "mutable_provider_membership_requires_exact_export_audit",
         ])
 
     prerequisites = receipt.get("releasePrerequisites", {})
@@ -208,11 +233,13 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     training_authorized = provider_dataset_ready and not blockers
     blockers = list(dict.fromkeys(blockers))
     return {
-        "schemaVersion": 2,
-        "methodVersion": "regional-provider-dataset-release-gate-v2",
+        "schemaVersion": 3,
+        "methodVersion": "regional-provider-dataset-release-gate-v3",
         "project": PROJECT_ID,
         "mutableProjectDriftDetected": project_drift,
         "groupLockedManifestVerified": True,
+        "postUploadProvenanceVerified": True,
+        "tagBasedExclusionAuthorized": False,
         "providerVersionReady": provider_dataset_ready,
         "trainingAuthorized": training_authorized,
         "finalTestAuthorized": False,

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "regional-post-upload-provenance-observation-v1",
+  "observedAt": "2026-10-28T00:43:04Z",
+  "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+  "upload": {
+    "taskId": "RzTdxfpBr9REzkke1mPp",
+    "status": "completed",
+    "total": 337,
+    "uploaded": 139,
+    "duplicates": 198,
+    "annotated": 337,
+    "errors": 0,
+    "warnings": 0,
+    "failedChunks": 0
+  },
+  "selectedRecords": {
+    "tag": "provider-drift-rztdxfpbr9rezkke1mpp",
+    "records": 139,
+    "allSelectedRecordsCarryTag": true,
+    "selectionWasCreatedAfterUpload": true,
+    "contentOrAnnotationIdentityCompared": false,
+    "providerSplitFieldAvailableInWorkspaceSearch": false,
+    "tagCounts": {
+      "source-v11": 139,
+      "polygon-only": 139,
+      "regional-pilot": 139,
+      "normal-truth-pending": 139,
+      "quarantine-applied": 139,
+      "provider-drift-rztdxfpbr9rezkke1mpp": 139
+    },
+    "createdAtEpochMs": {
+      "minimum": "1793133229616",
+      "maximum": "1793133240579"
+    }
+  },
+  "privacy": {
+    "containsFilenames": false,
+    "containsProviderImageIds": false,
+    "containsImageBytes": false
+  }
+}

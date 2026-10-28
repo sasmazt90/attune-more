@@ -26,6 +26,7 @@ def receipt():
             "classes": {"Oily": 1373, "Redness": 898},
         },
         "upload": {
+            "taskId": "RzTdxfpBr9REzkke1mPp",
             "status": "completed",
             "uploaded": 139,
             "duplicates": 198,
@@ -119,12 +120,36 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
             "path": "docs/skin/evidence/provider-v2-audit.json",
             "sha256": hashlib.sha256(audit_path.read_bytes()).hexdigest(),
         }
+        post_audit = {
+            "schemaVersion": MODULE.POST_UPLOAD_AUDIT_SCHEMA,
+            "project": MODULE.PROJECT_ID,
+            "uploadTaskId": "RzTdxfpBr9REzkke1mPp",
+            "selectedRecords": 139,
+            "membershipClassification": "unverified_until_exact_provider_export",
+            "contentIdentityEstablished": False,
+            "annotationIdentityEstablished": False,
+            "tagEstablishesUnwantedMembership": False,
+            "tagBasedDeletionOrVersionExclusionAllowed": False,
+            "exactProviderExportAuditRequired": True,
+            "containsFilenamesOrProviderImageIds": False,
+        }
+        post_path = self.root / "docs/skin/evidence/post-upload-audit.json"
+        post_path.write_text(json.dumps(post_audit, sort_keys=True) + "\n", encoding="utf-8")
+        self.post_audit_identity = {
+            "path": "docs/skin/evidence/post-upload-audit.json",
+            "sha256": hashlib.sha256(post_path.read_bytes()).hexdigest(),
+        }
+
+    def make_receipt(self):
+        value = receipt()
+        value["postUploadProvenanceAudit"] = self.post_audit_identity
+        return value
 
     def tearDown(self):
         self.temporary.cleanup()
 
     def test_observed_provider_drift_blocks_training(self):
-        result = MODULE.evaluate_release(receipt())
+        result = MODULE.evaluate_release(self.make_receipt(), self.root)
         self.assertTrue(result["mutableProjectDriftDetected"])
         self.assertFalse(result["providerVersionReady"])
         self.assertFalse(result["trainingAuthorized"])
@@ -132,7 +157,7 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.assertIn("mutable_provider_project_drifted_from_group_locked_candidate", result["blockers"])
 
     def test_exact_immutable_v2_and_prerequisites_allow_one_training(self):
-        value = receipt()
+        value = self.make_receipt()
         value["candidateVersion"] = exact_candidate(self.audit_identity)
         value["releasePrerequisites"] = {
             "rightsReviewed": True,
@@ -146,7 +171,7 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.assertFalse(result["activationAllowed"])
 
     def test_version_one_cannot_be_relabelled_as_replacement(self):
-        value = receipt()
+        value = self.make_receipt()
         value["candidateVersion"] = exact_candidate(self.audit_identity)
         value["candidateVersion"]["versionNumber"] = 1
         result = MODULE.evaluate_release(value, self.root)
@@ -154,7 +179,7 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.assertIn("provider_version_2_missing", result["blockers"])
 
     def test_wrong_candidate_split_fails_closed(self):
-        value = receipt()
+        value = self.make_receipt()
         value["candidateVersion"] = exact_candidate(self.audit_identity)
         value["candidateVersion"]["splits"] = {"train": 237, "valid": 50, "test": 50}
         result = MODULE.evaluate_release(value, self.root)
@@ -162,13 +187,13 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.assertIn("exact_group_locked_provider_version_unconfirmed", result["blockers"])
 
     def test_declarative_candidate_without_export_audit_fails_closed(self):
-        value = receipt()
+        value = self.make_receipt()
         value["candidateVersion"] = exact_candidate(None)
         with self.assertRaisesRegex(MODULE.GateInputError, "evidence identity missing"):
             MODULE.evaluate_release(value, self.root)
 
     def test_export_audit_digest_mismatch_fails_closed(self):
-        value = receipt()
+        value = self.make_receipt()
         identity = dict(self.audit_identity)
         identity["sha256"] = "f" * 64
         value["candidateVersion"] = exact_candidate(identity)
@@ -181,24 +206,30 @@ class RegionalProviderDatasetReleaseTests(unittest.TestCase):
         self.audit_path.write_text(json.dumps(audit, sort_keys=True) + "\n", encoding="utf-8")
         identity = dict(self.audit_identity)
         identity["sha256"] = hashlib.sha256(self.audit_path.read_bytes()).hexdigest()
-        value = receipt()
+        value = self.make_receipt()
         value["candidateVersion"] = exact_candidate(identity)
         result = MODULE.evaluate_release(value, self.root)
         self.assertFalse(result["providerVersionReady"])
         self.assertIn("provider_export_audit_mismatch", result["blockers"])
 
     def test_project_growth_must_match_uploaded_records(self):
-        value = receipt()
+        value = self.make_receipt()
         value["providerProject"]["images"] = 475
         value["providerProject"]["splits"]["train"] = 333
         with self.assertRaisesRegex(MODULE.GateInputError, "project growth"):
-            MODULE.evaluate_release(value)
+            MODULE.evaluate_release(value, self.root)
 
     def test_upload_errors_fail_input_validation(self):
-        value = receipt()
+        value = self.make_receipt()
         value["upload"]["errors"] = 1
         with self.assertRaisesRegex(MODULE.GateInputError, "upload has errors"):
-            MODULE.evaluate_release(value)
+            MODULE.evaluate_release(value, self.root)
+
+    def test_post_upload_tag_cannot_authorize_exclusion(self):
+        result = MODULE.evaluate_release(self.make_receipt(), self.root)
+        self.assertTrue(result["postUploadProvenanceVerified"])
+        self.assertFalse(result["tagBasedExclusionAuthorized"])
+        self.assertIn("mutable_provider_membership_requires_exact_export_audit", result["blockers"])
 
 
 if __name__ == "__main__":
