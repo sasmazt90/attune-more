@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "nas-model-group-audit-v1",
+  "observedAt": "2026-10-28T22:43:20Z",
+  "accessibleProjects": 20,
+  "projects": [
+    {
+      "project": "attune-skin-acne-marks-pigmentation",
+      "version": 1,
+      "trainingId": "5b632a5c12b76fcfe703",
+      "modelGroup": "032w7Kc1N3tGyX43O8TN-5b632a5c12b76fcfe703-rfdetrNasGroup",
+      "inventory": {
+        "children": 89,
+        "complete": true,
+        "finished": 89,
+        "recommendedFlagged": 2,
+        "recommendedModelIds": [
+          "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262",
+          "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--ae28a1"
+        ]
+      },
+      "observedAggregateLeaders": {
+        "map50": {
+          "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--929397",
+          "value": 17.59
+        },
+        "map5095": {
+          "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--754885",
+          "value": 4.51
+        },
+        "fastestByHardware": {
+          "AI1": {
+            "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--4f45e1",
+            "latencyMs": 2.368880033493042
+          },
+          "T4": {
+            "modelId": "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--9602f1",
+            "latencyMs": 1.0690560340881348
+          }
+        },
+        "releaseWinnerClaimed": false
+      },
+      "evaluationCoverage": {
+        "providerEvaluations": 2,
+        "evaluatedNasChildren": 1,
+        "evaluatedNasModelIds": [
+          "tolgar-sasmaz/attune-skin-acne-marks-pigmentation-1-rfdetr-nas-t1--a5e262"
+        ],
+        "missingNasChildEvaluations": 88,
+        "complete": false
+      },
+      "interpretation": {
+        "recommendedUsedAsAccuracyWinner": false,
+        "recommendedUsedAsHardwareWinner": false,
+        "paretoMembershipUsedAsRecommendation": false,
+        "aggregateMetricsUsedAsPerClassEvidence": false
+      },
+      "decision": {
+        "perClassAcceptanceAllowed": false,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "blindRetrainingAllowed": false,
+        "reason": "PER_CLASS_AND_INDEPENDENT_ACCEPTANCE_EVIDENCE_REQUIRED"
+      }
+    },
+    {
+      "project": "attune-skin-regional-skin-map",
+      "version": 1,
+      "trainingId": "3485f8c67f957a1b850d",
+      "modelGroup": "k3CenVIV6eguGn8fSMdT-3485f8c67f957a1b850d-rfdetrNasGroup",
+      "inventory": {
+        "children": 75,
+        "complete": true,
+        "finished": 75,
+        "recommendedFlagged": 1,
+        "recommendedModelIds": [
+          "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
+        ]
+      },
+      "observedAggregateLeaders": {
+        "map50": {
+          "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--291700",
+          "value": 49.73
+        },
+        "map5095": {
+          "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--2c07ef",
+          "value": 20.96
+        },
+        "fastestByHardware": {
+          "AI1": {
+            "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--4f45e1",
+            "latencyMs": 2.368880033493042
+          },
+          "T4": {
+            "modelId": "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--9602f1",
+            "latencyMs": 1.0690560340881348
+          }
+        },
+        "releaseWinnerClaimed": false
+      },
+      "evaluationCoverage": {
+        "providerEvaluations": 2,
+        "evaluatedNasChildren": 1,
+        "evaluatedNasModelIds": [
+          "tolgar-sasmaz/attune-skin-regional-skin-map-1-rfdetr-nas-seg-t1--e79545"
+        ],
+        "missingNasChildEvaluations": 74,
+        "complete": false
+      },
+      "interpretation": {
+        "recommendedUsedAsAccuracyWinner": false,
+        "recommendedUsedAsHardwareWinner": false,
+        "paretoMembershipUsedAsRecommendation": false,
+        "aggregateMetricsUsedAsPerClassEvidence": false
+      },
+      "decision": {
+        "perClassAcceptanceAllowed": false,
+        "trainingAuthorized": false,
+        "finalTestEvaluationAuthorized": false,
+        "productActivationAllowed": false,
+        "blindRetrainingAllowed": false,
+        "reason": "PER_CLASS_AND_INDEPENDENT_ACCEPTANCE_EVIDENCE_REQUIRED"
+      }
+    }
+  ],
+  "providerRecommendedSemantics": {
+    "flattenedUnionOnly": true,
+    "accuracyWinnerClaimAllowed": false,
+    "hardwareWinnerClaimAllowed": false,
+    "authoritativeRecommendedByHardwarePresent": false
+  },
+  "crossProjectControls": {
+    "modelsComparedOnlyInsideTheirOwnProjectAndTask": true,
+    "perClassEvidenceRequiredSeparately": true,
+    "physicalCameraEvidenceRequiredSeparately": true,
+    "roadmapAccepted": false
+  },
+  "privacy": {
+    "containsImageBytes": false,
+    "containsFilenames": false,
+    "containsProviderImageIds": false,
+    "containsAnnotationsOrGeometry": false,
+    "containsExcludedArchiveDetails": false
+  }
+}
