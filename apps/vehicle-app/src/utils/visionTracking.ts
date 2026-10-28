@@ -1,7 +1,7 @@
 import type { NormalizedLandmark } from '@mediapipe/tasks-vision';
 import { SkinAnalyzer, type FaceAlignment } from './skinAnalyzer';
 import { visionFrameQuality } from './visionFrameQuality';
-import {occlusionKind} from './visionCoverage';
+import {occlusionKind} from './visionEyeState';
 import type { Eye, EyePixelEvidence, LetterConditions } from './spokenVision';
 export const VISION_TRACKING_RULES={baselineMs:1000,eyeHoldMs:600,distanceEnter:.15,distanceExit:.10,distanceHoldMs:600,recoveryMs:350,openLidRatio:.62} as const;
 /** Native geometry remains distinct from occlusion. The open candidate keeps
@@ -65,10 +65,24 @@ export class HeadDistanceHysteresis {
   return this.committed;
  }
 }
-function bounds(p:NormalizedLandmark[],ids:number[],w:number,h:number,padding:number):Box{
- const q=ids.map(i=>p[i]),span=Math.abs(q[0].x-q[3].x)*w,x=Math.min(...q.map(a=>a.x))*w-padding*span,y=Math.min(...q.map(a=>a.y))*h-padding*span;
- return {x,y,width:Math.max(...q.map(a=>a.x))*w+padding*span-x,height:Math.max(...q.map(a=>a.y))*h+padding*span-y};
+/** A lid-bounded ROI shrinks as the eye closes and can fall below patch's
+ * four-pixel minimum, making a valid closure impossible to evaluate. Use fixed
+ * eye-corner geometry so open/closed/covered pixels share the same source area.
+ * The .35 lid band covers the open-eye baseline; padding remains unchanged. */
+export function visionEyeRegion(p:NormalizedLandmark[],ids:number[],w:number,h:number,padding:number):Box{
+ const a=p[ids[0]],b=p[ids[3]],dx=(b.x-a.x)*w,dy=(b.y-a.y)*h,span=Math.hypot(dx,dy),cx=(a.x+b.x)*w/2,cy=(a.y+b.y)*h/2;
+ const width=Math.abs(dx)+span*padding*2,height=Math.abs(dy)+span*(.35+padding*2);
+ return {x:cx-width/2,y:cy-height/2,width,height};
 }
+/** At least three spatially distinct visible head patches must agree. Several
+ * adjacent nose landmarks alone cannot stand in for the entire missing face. */
+export function distributedHeadAnchors(points:{x:number;y:number}[],templeWidth:number){
+ if(!Number.isFinite(templeWidth)||templeWidth<=0)return false;
+ const independent:{x:number;y:number}[]=[];
+ for(const p of points)if(Number.isFinite(p.x)&&Number.isFinite(p.y)&&independent.every(q=>Math.hypot(p.x-q.x,p.y-q.y)>=templeWidth*.20))independent.push(p);
+ return independent.length>=3;
+}
+
 function patch(ctx:CanvasRenderingContext2D,b:Box):Patch|null{
  const {width:w,height:h}=ctx.canvas;if(b.x<0||b.y<0||b.x+b.width>w||b.y+b.height>h||b.width<8||b.height<4)return null;
  const data=ctx.getImageData(Math.floor(b.x),Math.floor(b.y),Math.ceil(b.width),Math.ceil(b.height)),gray:number[]=[],rgb:number[]=[];
@@ -94,12 +108,14 @@ export class VisionTracker {
  private baselinePairs:number[]|null=null;private baselinePoseHeight=0;private baselineTempleWidth=0;private samples:{ears:number[];blinks:number[];narrow:Patch[];wide:Patch[];lengths:number[]}[]=[];private baselineSince=0;private lastFrame=0;
  private eyeHold={RIGHT:new SustainedEyeState(),LEFT:new SustainedEyeState()};
  private distance:'learning'|'stable'|'near'|'far'|'unknown'='learning';private distanceHold=new HeadDistanceHysteresis();
- private lastNativeAt=-Infinity;private lastPoints:NormalizedLandmark[]|null=null;private trustedPatches:{id:number;image:Patch;box:Box}[]=[];private trackedScaleReliable=false;
+ private lastPoints:NormalizedLandmark[]|null=null;private trustedPatches:{id:number;image:Patch;box:Box}[]=[];private trackedScaleReliable=false;
  private followPixels(ctx:CanvasRenderingContext2D,w:number,h:number):NormalizedLandmark[]|null{
   this.trackedScaleReliable=false;if(!this.lastPoints||this.trustedPatches.length<3)return null;
   const hits:{id:number;dx:number;dy:number;correlation:number}[]=[];
   for(const a of this.trustedPatches){let best={dx:0,dy:0,correlation:-1};for(let dy=-12;dy<=12;dy+=3)for(let dx=-12;dx<=12;dx+=3){const p=patch(ctx,{...a.box,x:a.box.x+dx,y:a.box.y+dy});if(!p)continue;const cmp=compare(a.image,p);if(cmp.correlation>best.correlation)best={dx,dy,correlation:cmp.correlation};}if(best.correlation>.78)hits.push({id:a.id,...best});}
   if(hits.length<3)return null;const dx=median(hits.map(v=>v.dx)),dy=median(hits.map(v=>v.dy));if(hits.filter(v=>Math.hypot(v.dx-dx,v.dy-dy)<5).length<3)return null;
+  const templeWidth=Math.hypot((this.lastPoints[454].x-this.lastPoints[234].x)*w,(this.lastPoints[454].y-this.lastPoints[234].y)*h);
+  if(!distributedHeadAnchors(hits.map(v=>({x:this.lastPoints![v.id].x*w,y:this.lastPoints![v.id].y*h})),templeWidth))return null;
   const scales:number[]=[];for(let i=0;i<hits.length;i++)for(let j=i+1;j<hits.length;j++){const a=this.lastPoints[hits[i].id],b=this.lastPoints[hits[j].id],x=(a.x-b.x)*w,y=(a.y-b.y)*h,d=Math.hypot(x,y);if(d>80)scales.push(Math.hypot(x+hits[i].dx-hits[j].dx,y+hits[i].dy-hits[j].dy)/d);}
   if(scales.length<2||Math.max(...scales)-Math.min(...scales)>.06)return null;
   const scale=median(scales),cx=median(hits.map(v=>this.lastPoints![v.id].x)),cy=median(hits.map(v=>this.lastPoints![v.id].y));
@@ -111,8 +127,8 @@ export class VisionTracker {
  }
  assess(ctx:CanvasRenderingContext2D,w:number,h:number,model:VisionModelFrame,now:number,eye:Eye|null):VisionEvidence{
   if(!this.baseline&&this.lastFrame&&now-this.lastFrame>300){this.samples=[];this.baselineSince=0;}this.lastFrame=now;
-  let p=model.landmarks.length===1?model.landmarks[0]:null;const native=!!p;let tracked=false;if(native)this.lastNativeAt=now;
-  if(!p&&model.landmarks.length===0&&now-this.lastNativeAt<=1500){p=this.followPixels(ctx,w,h);tracked=!!p;}
+  let p=model.landmarks.length===1?model.landmarks[0]:null;const native=!!p;let tracked=false;
+  if(!p&&model.landmarks.length===0){p=this.followPixels(ctx,w,h);tracked=!!p;}
   const absent:EyePixelEvidence={state:'uncertain',ear:null,darkFraction:null,contrast:null,method:'no-reliable-eye-pixels'};
   if(!p){this.eyeHold.RIGHT.update('uncertain',now);this.eyeHold.LEFT.update('uncertain',now);this.distanceHold.update(null,now);}
   if(!p){const a:FaceAlignment={faceDetected:false,isMediaPipeActive:true,faceCount:model.landmarks.length,box:undefined,yaw:0,pitch:0,roll:0,scaleRatio:0,isAligned:false,guidanceTextTr:'Yüzünüzü kamera görüntüsünde tutun.'};return {alignment:a,quality:SkinAnalyzer.checkQuality(ctx,w,h,false),conditions:{observedAt:now,cameraLive:true,modelActive:true,faceCount:model.landmarks.length,qualityValid:false,positionValid:false,relativeScaleChange:null,right:absent,left:absent,distancePolicy:'head-anchors-hysteresis-v1',distanceState:'unknown',blocker:'face'},distanceSamples:this.samples.length,distanceRatios:[],inferenceMs:model.inferenceMs,width:w,height:h};}
@@ -123,7 +139,7 @@ export class VisionTracker {
   const yaw=(p[1].x-(p[33].x+p[263].x)/2)/Math.max(.01,Math.abs(p[33].x-p[263].x)),pitch=(p[1].y-p[10].y)/Math.max(.01,poseHeight),roll=Math.atan2((p[454].y-p[234].y)*h,(p[454].x-p[234].x)*w);
   const alignment:FaceAlignment={faceDetected:true,isMediaPipeActive:true,faceCount:1,box:{x:minX*w,y:minY*h,width:(maxX-minX)*w,height:(maxY-minY)*h},yaw,pitch,roll,scaleRatio:maxX-minX,isAligned:true,guidanceTextTr:'Yüz izleniyor',landmarks:p};
   const quality=visionFrameQuality(ctx,w,h,alignment,eye);
-  const measurements=(['RIGHT','LEFT'] as Eye[]).map(side=>{const ids=eyeIds[side],q=ids.map(i=>p![i]),dist=(i:number,j:number)=>Math.hypot((q[i].x-q[j].x)*w,(q[i].y-q[j].y)*h);return {anatomicalSideValid:eyeOnAnatomicalSide(side,(q[0].x+q[3].x)/2,(q[0].y+q[3].y)/2,p![168],p![2]),ear:(dist(1,5)+dist(2,4))/(2*Math.max(1,dist(0,3))),narrow:patch(ctx,bounds(p!,ids,w,h,.08)),wide:patch(ctx,bounds(p!,ids,w,h,.40)),box:bounds(p!,ids,w,h,.12),blink:side==='RIGHT'?model.blinkRight:model.blinkLeft};});
+  const measurements=(['RIGHT','LEFT'] as Eye[]).map(side=>{const ids=eyeIds[side],q=ids.map(i=>p![i]),dist=(i:number,j:number)=>Math.hypot((q[i].x-q[j].x)*w,(q[i].y-q[j].y)*h);return {anatomicalSideValid:eyeOnAnatomicalSide(side,(q[0].x+q[3].x)/2,(q[0].y+q[3].y)/2,p![168],p![2]),ear:(dist(1,5)+dist(2,4))/(2*Math.max(1,dist(0,3))),narrow:patch(ctx,visionEyeRegion(p!,ids,w,h,.08)),wide:patch(ctx,visionEyeRegion(p!,ids,w,h,.40)),box:visionEyeRegion(p!,ids,w,h,.12),blink:side==='RIGHT'?model.blinkRight:model.blinkLeft};});
   const lengths=pairs.map(([a,b])=>Math.hypot((p![a].x-p![b].x)*w,(p![a].y-p![b].y)*h,((p![a].z||0)-(p![b].z||0))*w));
   const poseValid=Math.abs(yaw)<.38&&pitch>.30&&pitch<.80&&Math.abs(roll)<.55;
   // Display zoom and an arbitrary fraction of the full camera frame cannot
@@ -145,8 +161,8 @@ export class VisionTracker {
    let candidate:EyePixelEvidence['state']='uncertain',method='personal-lid-geometry-and-blink';const palm=handCoverage(model.hands,v.box,w,h);
    if(v.anatomicalSideValid&&base&&cmp&&wide){const ratio=v.ear/base.ear;
     if(palm>.55&&(wide.change>.50||cmp.correlation<.25)&&wide.correlation<.55){candidate='covered';method='palm-over-eye-and-local-appearance';}
+    else if(native&&palm<.25&&wide.change<.50&&nativeLidState(ratio,v.blink,base.blink)==='closed'){candidate='closed';}
     else if(opaqueEyeAppearance(wide.change,wide.correlation,cmp.correlation,cmp.change)){candidate='covered';method='opaque-local-appearance-and-visible-head';}
-    else if(native&&nativeLidState(ratio,v.blink,base.blink)==='closed'){candidate='closed';}
     else if(native&&palm<.25&&wide.change<.45&&nativeLidState(ratio,v.blink,base.blink)==='open'&&cmp.correlation>.20){candidate='open';}
     else if(tracked&&cmp.correlation>.78&&wide.change<.25){candidate='open';method='trusted-eye-template-and-visible-head';}
    }

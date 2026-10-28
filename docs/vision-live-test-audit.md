@@ -16,8 +16,9 @@ Camera frames run through the local MediaPipe Face/Hand worker, personal open-ey
 templates, blink coefficients, lid geometry, pixel replacement, palm overlap,
 head-anchor distance consensus and temporal holds. Pupil absence is not used as
 proof of closure. Coverage can defeat face landmarks and patch correlation;
-single-camera inference cannot guarantee physical occlusion. The UI previously
-offered no alternative and could repeatedly pause or open a blocking dialog.
+single-camera inference cannot guarantee physical occlusion. The UI could repeatedly pause or open a blocking dialog. Automatic detection
+and usable condition guidance are required; manual confirmation cannot satisfy
+the camera condition gate.
 `covered` also lost the distinction between hand and object evidence.
 
 ASR is exclusively browser SpeechRecognition (tr-TR/en-US/de-DE), not a backend
@@ -25,7 +26,7 @@ transcription endpoint. Backend `vision_speech.py` is TTS. No audio recording,
 VAD pipeline, local ASR model or native AAOS recognizer is connected to this route.
 The recognizer ignores interim results and alternatives, commits complete finals
 immediately and treats unsupported/failed recognition as a blocking error. This
-drops corrections, prevents usable WebView fallback and leaves TTS speaking until
+drops corrections, blocks recognition recovery and leaves TTS speaking until
 a final. The parser discards digits, uses substring replacements for foreign
 grammar and infers letters from arbitrary word initials. Most degree, mirror-axis,
 counterclockwise and colloquial phrases therefore fail or become ambiguous.
@@ -46,3 +47,20 @@ Keep parser, scoring, browser-controller and physical media evidence separate.
 Existing historical closeout explicitly says physical acceptance was not done.
 Synthetic camera/ASR events cannot establish real eye or microphone accuracy.
 The delivery report records observed checks and any missing physical validation.
+
+
+## Corrected delivery scope
+
+PR #13 keeps spoken answers as the answer path. Letter/orientation buttons,
+input-mode switching and manual coverage confirmation were introduced in the
+initial implementation and have been removed, together with their state,
+condition override, result annotations, copy and supporting tests. No new
+answer or camera-verification workflow is authorized. Existing start/pause/
+resume/retry/finish controls and spoken repeat remain.
+
+The automatic eye audit found that eyelid-bounded sampling can collapse below
+four source pixels when an eye closes. Eye-corner-based regions preserve the
+sampling area across closure; native lid/blink evidence is checked against the
+surrounding appearance. Hand/object evidence remains separate. Tracking without
+native face landmarks requires three spatially distinct head patches, rather
+than several adjacent nose landmarks. The test eye remains independently gated.

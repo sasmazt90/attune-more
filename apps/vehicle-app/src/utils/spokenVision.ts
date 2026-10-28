@@ -1,7 +1,6 @@
 import prompts from '../../../../shared/localization/vision-prompts.json';
 import {t} from '../i18n/core';
 import {interpretVisionAnswer} from './visionLanguage';
-import {confirmationUsable,type CoverageConfirmation} from './visionCoverage';
 /** Target-independent interpretation and a nonclinical letter task. */
 export const LETTER_PROTOCOL='spoken-letter-v2';
 export const LETTER_METHOD='mirror-x-then-rotate-two-up-two-down-step50-min15-v4';
@@ -82,13 +81,12 @@ export function equivalentTransform(letter:Letter,a:LetterTransform,b:LetterTran
 }
 export function equivalentOrientation(letter:Letter,a:Orientation,b:Orientation){return equivalentTransform(letter,legacyTransform(a),legacyTransform(b));}
 export type EyePixelEvidence={state:'open'|'closed'|'covered'|'uncertain';occlusionKind?:'hand'|'object';ear:number|null;darkFraction:number|null;contrast:number|null;method:string;baselineEar?:number;blinkCoefficient?:number|null;heldMs?:number;appearanceChange?:number;templateCorrelation?:number;palmCoverage?:number;wideTemplateCorrelation?:number;candidateState?:'open'|'closed'|'covered'|'uncertain'};
-export type LetterConditions={coverageConfirmation?:CoverageConfirmation;observedAt:number;cameraLive:boolean;modelActive:boolean;faceCount:number;qualityValid:boolean;positionValid:boolean;relativeScaleChange:number|null;motionStable?:boolean;right:EyePixelEvidence;left:EyePixelEvidence;distancePolicy?:'head-anchors-hysteresis-v1';distanceState?:'learning'|'stable'|'near'|'far'|'unknown';blocker?:string|null;trackingMethod?:string};
+export type LetterConditions={observedAt:number;cameraLive:boolean;modelActive:boolean;faceCount:number;qualityValid:boolean;positionValid:boolean;relativeScaleChange:number|null;motionStable?:boolean;right:EyePixelEvidence;left:EyePixelEvidence;distancePolicy?:'head-anchors-hysteresis-v1';distanceState?:'learning'|'stable'|'near'|'far'|'unknown';blocker?:string|null;trackingMethod?:string};
 export function letterConditionFailure(c:LetterConditions|null,eye:Eye|null,now:number):'camera'|'position'|'eye'|'uncertain'|null {
  if(!c||!Number.isFinite(now)||!Number.isFinite(c.observedAt)||now-c.observedAt>750||now<c.observedAt||!c.cameraLive||!c.modelActive||c.faceCount!==1||!c.qualityValid)return 'camera';
  if(!c.positionValid||c.relativeScaleChange===null||!Number.isFinite(c.relativeScaleChange)||(c.distancePolicy!=='head-anchors-hysteresis-v1'&&(c.motionStable===false||Math.abs(c.relativeScaleChange)>.08)))return 'position';
  if(!eye)return null;
  const opened=eye==='RIGHT'?c.right:c.left,closed=eye==='RIGHT'?c.left:c.right;
- if(opened.state==='open'&&confirmationUsable(c,eye,c.coverageConfirmation||null,now))return null;
  if(opened.state==='uncertain'||closed.state==='uncertain')return 'uncertain';
  return opened.state==='open'&&(closed.state==='closed'||closed.state==='covered')?null:'eye';
 }
@@ -100,7 +98,7 @@ export interface LetterTrial {
  id:string;presentationId:string;sequence:number;protocolVersion:typeof LETTER_PROTOCOL|typeof LEGACY_LETTER_PROTOCOL;transform?:LetterTransform;methodVersion?:string;eye:Eye;letter:Letter;orientation:Orientation;sizePx:number;
  renderedGeometry:RenderedSymbolGeometry|null;parsedAnswer:ParsedAnswer;answer:({letter:Letter;orientation?:Orientation;transform?:LetterTransform})|null;
  letterCorrect:boolean|null;orientationCorrect:boolean|null;combinedCorrect:boolean|null;correct:boolean;notVisible:boolean;
- inputMethod?:'speech'|'buttons';coverageVerification?:'camera'|'user-confirmed';valid:boolean;invalidReason:string|null;conditions:LetterConditions|null;answeredAt:string;responseTimeMs:number;
+ valid:boolean;invalidReason:string|null;conditions:LetterConditions|null;answeredAt:string;responseTimeMs:number;
  distanceEvidence:{method:'relative-face-scale-only'|'relative-head-anchors';relativeScaleChange:number|null;absoluteDistanceCm:null;confidence:'unverified-absolute'};
 }
 export function scoreLetterTrial(t:Pick<LetterTrial,'valid'|'letter'|'orientation'|'answer'|'notVisible'> & {transform?:LetterTransform}){
@@ -143,7 +141,7 @@ export class SpokenLetterSession {
  private record(answer:ParsedAnswer,c:LetterConditions|null,now:number,geometry:RenderedSymbolGeometry|null,reason:string|null):LetterTrial {
   const notVisible=answer.command==='not-visible',transform=answerTransform(answer);const parsed=notVisible||!answer.letter||!transform?null:{letter:answer.letter,transform};
   const base={valid:reason===null,letter:this.letter,orientation:this.orientation,transform:structuredClone(this.transform),answer:parsed,notVisible};const scores=scoreLetterTrial(base);
-  return {id:this.trialId,presentationId:this.presentationId,sequence:++this.sequence,protocolVersion:LETTER_PROTOCOL,methodVersion:LETTER_METHOD,eye:this.eye,...base,sizePx:this.sizePx,renderedGeometry:geometry?structuredClone(geometry):null,parsedAnswer:structuredClone(answer),...scores,correct:scores.combinedCorrect===true,coverageVerification:c?.coverageConfirmation?'user-confirmed':'camera',invalidReason:reason,conditions:c?structuredClone(c):null,answeredAt:new Date().toISOString(),responseTimeMs:this.elapsed+(this.timing?Math.max(0,now-this.presentedAt):0),distanceEvidence:{method:c?.distancePolicy==='head-anchors-hysteresis-v1'?'relative-head-anchors':'relative-face-scale-only',relativeScaleChange:c?.relativeScaleChange??null,absoluteDistanceCm:null,confidence:'unverified-absolute'}};
+  return {id:this.trialId,presentationId:this.presentationId,sequence:++this.sequence,protocolVersion:LETTER_PROTOCOL,methodVersion:LETTER_METHOD,eye:this.eye,...base,sizePx:this.sizePx,renderedGeometry:geometry?structuredClone(geometry):null,parsedAnswer:structuredClone(answer),...scores,correct:scores.combinedCorrect===true,invalidReason:reason,conditions:c?structuredClone(c):null,answeredAt:new Date().toISOString(),responseTimeMs:this.elapsed+(this.timing?Math.max(0,now-this.presentedAt):0),distanceEvidence:{method:c?.distancePolicy==='head-anchors-hysteresis-v1'?'relative-head-anchors':'relative-face-scale-only',relativeScaleChange:c?.relativeScaleChange??null,absoluteDistanceCm:null,confidence:'unverified-absolute'}};
  }
  unscored(reason:string,c:LetterConditions|null,now:number,geometry:RenderedSymbolGeometry|null,parsed:ParsedAnswer={}){if(this.presentationId)this.invalidTrials.push(this.record(parsed,c,now,geometry,reason));}
  invalidate(reason:string,c:LetterConditions|null,now:number,geometry:RenderedSymbolGeometry|null){

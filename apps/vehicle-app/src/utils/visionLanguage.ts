@@ -5,7 +5,7 @@ type Language='tr'|'en'|'de';
 const words:Record<Language,Record<Letter,string[]>>={
  tr:{A:['a','adana','ankara','ali'],B:['b','be','bolu','bursa'],E:['e','elma','edirne'],F:['f','fe','ef','efe','fatsa','fatma'],P:['p','pe','pırasa','polatlı'],R:['r','re','er','rize']},
  en:{A:['a','ay','alpha','alfa','apple'],B:['b','bee','be','bravo','banana'],E:['e','ee','echo','elephant'],F:['f','eff','ef','foxtrot','fox','finish'],P:['p','pee','pea','papa','pear','pause'],R:['r','are','ar','romeo','rabbit','repeat','resume']},
- de:{A:['a','ah','anton','aachen','anna','apfel'],B:['b','be','beh','berta','berlin','beenden'],E:['e','eh','emil','essen','elefant'],F:['f','ef','eff','friedrich','frankfurt','fuchs','fertig','fortsetzen'],P:['p','pe','peh','paula','potsdam','papier','pausieren'],R:['r','er','richard','rostock','rose']}
+ de:{A:['a','ah','anton','aachen','anna','apfel'],B:['b','be','beh','berta','berlin','bären','beenden'],E:['e','eh','emil','essen','elefant'],F:['f','ef','eff','friedrich','frankfurt','fuchs','fertig','fortsetzen'],P:['p','pe','peh','paula','potsdam','papier','pausieren'],R:['r','er','richard','rostock','rose']}
 };
 const controls:Record<Language,Record<string,NonNullable<ParsedAnswer['command']>>>={
  tr:{'göremiyorum':'not-visible','harfi göremiyorum':'not-visible','ayırt edemiyorum':'not-visible','bitir':'finish','sonlandır':'finish','testi bitir':'finish','devam et':'resume','sürdür':'resume','duraklat':'pause','bekle':'pause','tekrar':'repeat','yeniden söyle':'repeat'},
@@ -38,14 +38,17 @@ export function interpretVisionAnswer(text:string,language:Language='tr',context
  const corrected=value.split(correction);
  if(corrected.length>1){
   const before=interpretVisionAnswer(corrected.slice(0,-1).join(' '),language,context),after=interpretVisionAnswer(corrected.at(-1)!,language,context);
-  const result:ParsedAnswer={...before,...after};delete result.command;delete result.ambiguous;
-  if(before.letter&&!after.letter){delete result.letter;result.clarify='letter';}
-  else if((before.rotation!==undefined||before.mirrored!==undefined)&&after.rotation===undefined&&after.mirrored===undefined){delete result.rotation;delete result.mirrored;result.clarify='orientation';}
-  else delete result.clarify;
+  const result:ParsedAnswer={...before,...after};delete result.command;
+  if(after.ambiguous)return finish(result);
+  if(!after.letter&&after.rotation===undefined&&after.mirrored===undefined)return {...before,ambiguous:before.letter?'letter':'rotation',clarify:before.letter?'letter':'orientation'};
+  delete result.ambiguous;delete result.clarify;
   return finish(result);
  }
  // Keep digit forms and word forms equivalent without losing angle evidence.
  const p=patterns[language],result:ParsedAnswer={},rotations:Rotation[]=[];
+ // An explicitly named letter with a possessive code word identifies that
+ // letter only when the word has the same initial (Paris'in P'si).
+ if(language==='tr')value=value.replace(/(?<!\p{L})(\p{L}+?)(?:nın|nin|nun|nün|ın|in|un|ün)? (?:nın |nin |nun |nün |ın |in |un |ün )?([abefpr]) (?:si|sı|s|i|ı)(?!\p{L})/gu,(all:string,word:string,letter:string)=>word[0].toLocaleUpperCase('tr-TR')===letter.toUpperCase()?letter:all);
  const take=(pattern:RegExp)=>{pattern.lastIndex=0;const found=pattern.test(value);pattern.lastIndex=0;if(found)value=value.replace(pattern,' ');return found;};
  // Explicit spelling syntax is bounded by a letter, not the displayed target.
  const explicit=language==='tr'?/\b([abefpr])(?: harfi)? (?:ile başlayan|yani) \p{L}+/gu:language==='en'?/\b([abefpr]) (?:as in|for) \p{L}+/gu:/\b([abefpr]) (?:wie) \p{L}+/gu;
