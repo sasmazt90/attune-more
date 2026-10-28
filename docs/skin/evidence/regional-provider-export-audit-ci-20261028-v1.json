@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-28T00:00:58Z",
+  "branch": "work/skin-roadmap-20261023",
+  "implementationCommit": "ead0ee81285da423e59f8ff3e542244334ca72c8",
+  "purpose": "Require a SHA-256-bound, privacy-safe exact provider export audit before regional version 2 can authorize training, and bind that gate into unified acceptance v13.",
+  "localVerification": {
+    "command": "python3 -m unittest discover -s scripts/skin-research/tests -p 'test_*.py'",
+    "skinResearchTests": 352,
+    "result": "OK"
+  },
+  "githubActions": {
+    "runId": 40605507846,
+    "url": "https://github.com/sasmazt90/attune-more/actions/runs/40605507846",
+    "workflowId": 362950948,
+    "headSha": "ead0ee81285da423e59f8ff3e542244334ca72c8",
+    "status": "completed",
+    "conclusion": "success",
+    "frontendJobId": 122543871550,
+    "frontendProductionBuild": "success",
+    "backendJobId": 122543871862,
+    "backend": "success",
+    "deterministicTests": {"passed": 1627, "skipped": 44, "warnings": 2},
+    "skinResearchTests": 352,
+    "skinResearchResult": "OK"
+  },
+  "providerState": {
+    "project": "tolgar-sasmaz/attune-skin-regional-skin-map",
+    "mutableImages": 476,
+    "mutableSplits": {"train": 334, "valid": 85, "test": 57},
+    "immutableVersions": [1],
+    "version2Exists": false,
+    "newTrainingStarted": false
+  },
+  "privacy": {
+    "filenamesCommitted": false,
+    "providerImageIdsCommitted": false,
+    "imageBytesCommitted": false,
+    "privateResolverCommitted": false
+  },
+  "outcome": {
+    "declarativeCandidateCanAuthorizeTraining": false,
+    "exactProviderExportAuditRequired": true,
+    "providerVersionReady": false,
+    "trainingAuthorized": false,
+    "activationAllowed": false,
+    "roadmapAccepted": false
+  }
+}
