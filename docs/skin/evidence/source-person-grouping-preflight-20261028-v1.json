@@ -1,0 +1,31 @@
+{
+  "blockers": [
+    "selected_archive_grouping_coverage_incomplete",
+    "known_cross_split_exact_groups_present",
+    "filename_candidates_require_human_resolution",
+    "perceptual_candidates_require_human_resolution",
+    "under_eye_source_person_coverage_incomplete",
+    "opaque_private_grouping_ledger_missing"
+  ],
+  "crossSplitGroupCount": 66,
+  "decision": "blocked",
+  "excludedArchivesAccessed": false,
+  "filenameCandidateAcceptedAsIdentity": false,
+  "knownExactCrossSplitGroupCount": 66,
+  "knownFilenameCandidateGroupCount": 286,
+  "knownPerceptualCandidatePairCount": 1301,
+  "knownRecordCount": 7865,
+  "methodVersion": "skin-source-person-grouping-preflight-v1",
+  "modelPredictionAcceptedAsIdentity": false,
+  "photoGroupAcceptedAsPersonIdentity": false,
+  "readyForReleaseArtifact": false,
+  "releaseRef": null,
+  "schemaVersion": 1,
+  "selectedArchiveCount": 0,
+  "similarityCandidateAcceptedAsIdentity": false,
+  "singletonAssignmentAcceptedAsIdentity": false,
+  "sourceFactsMethodVersion": "source-mapping-release-receipt-v2",
+  "sourcePersonGroupingComplete": false,
+  "sourceRegistryRef": null,
+  "underEyeReviewedCrossSplitGroupCount": 3
+}
