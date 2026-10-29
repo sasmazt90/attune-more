@@ -28,6 +28,8 @@ async function menu(page,{scroll,activate=link=>link.click({timeout:10000}),shot
  for(let i=0;i<routes.length;i++){
   await page.evaluate(()=>window.scrollTo(0,0));await trigger.click();await panel.waitFor();
   const before=await geometry(page);assert.deepEqual(before.links.map(x=>x.route),routes);assert(before.bottom<=before.viewportBottom-7,'dropdown exceeds visible viewport');assert(before.links.every(x=>x.height>=48),'touch targets shrank');
+  const shortNative=await page.evaluate(()=>!!document.querySelector('#attune-automotive-style')&&matchMedia('(min-width: 768px) and (max-height: 500px) and (orientation: landscape)').matches);
+  if(shortNative){assert(before.scrollHeight<=before.clientHeight+1,'short AAOS menu must show every item immediately');assert(before.links.every(x=>x.top>=before.top&&x.top+x.height<=before.bottom),'initial AAOS menu target clipped');}
   const link=panel.locator('a').nth(i);
   await (scroll||wheelIntoView)(page,link);
   await activate(link);await page.waitForURL(url=>url.pathname===routes[i]);await consent(page);assert.equal(await panel.count(),0);rows.push({route:routes[i],before});
