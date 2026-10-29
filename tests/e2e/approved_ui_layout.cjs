@@ -21,6 +21,10 @@ let browser;
    if(await consent.count()&&await consent.locator('input[type=checkbox]').count()){
     const checks=await consent.locator('input[type=checkbox]').all();for(const check of checks)await check.check();await consent.locator('button').first().click();
    }
+   if(['skin','dental','hearing','mental','vision'].includes(route)){
+    await page.locator('[data-health-portrait] img').waitFor();
+    await page.waitForFunction(()=>[...document.querySelectorAll('[data-health-portrait] img')].every(i=>i.complete&&i.naturalWidth>0));
+   }
    await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));});
    const row=await page.evaluate(()=>{const visible=e=>{const r=e.getBoundingClientRect();return r.width&&r.height};const infos=[...document.querySelectorAll('button[aria-haspopup="dialog"]')].filter(e=>e.textContent.trim()==='ⓘ'&&visible(e));return {headings:[...document.querySelectorAll('main h1,main h2')].map(e=>e.textContent),language:document.querySelector('#attune-language')?.value,headerVoiceButtons:document.querySelectorAll('header [data-language-selector] button').length,overflow:document.documentElement.scrollWidth-innerWidth,infos:infos.map(e=>{const r=e.getBoundingClientRect(),prev=e.previousElementSibling;const t=prev?.getBoundingClientRect();return {label:e.getAttribute('aria-label'),previousTag:prev?.tagName,previousText:prev?.textContent?.slice(0,70),gap:t?Math.round(r.left-t.right):null,verticalDifference:t?Math.round((r.top+r.height/2)-(t.top+t.height/2)):null,insideViewport:r.left>=0&&r.right<=innerWidth+1}}),heroInformationCount:document.querySelector('main section')?[...document.querySelector('main section').querySelectorAll('button')].filter(e=>e.textContent.trim()==='ⓘ').length:null};});
    const shot=path.join(shots,`${lang}-${viewport.width}-${route||'dashboard'}.png`);await page.screenshot({path:shot,fullPage:true,animations:'disabled'});
