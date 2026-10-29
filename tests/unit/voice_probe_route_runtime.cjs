@@ -1,17 +1,30 @@
-/** Execute actual JSX gate and route-effect bodies; no synthetic audio/capture. */
-const fs=require('fs'),ts=require('typescript'),assert=require('assert/strict');
-const text=fs.readFileSync('apps/vehicle-app/src/components/LanguageSelector.tsx','utf8');
-const ast=ts.createSourceFile('LanguageSelector.tsx',text,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);let gate,routeEffect;
-function visit(node){
- if(ts.isJsxAttribute(node)&&node.name.getText(ast)==='disabled'&&node.initializer?.expression?.getText(ast).includes("pathname!=='/'"))gate=node.initializer.expression.getText(ast);
- if(ts.isCallExpression(node)&&node.expression.getText(ast)==='useEffect'&&node.arguments[1]?.getText(ast)==='[pathname]')routeEffect=node.arguments[0].body.getText(ast);
- ts.forEachChild(node,visit);
-}visit(ast);assert(gate);assert(routeEffect);
-const disabled=new Function('permitted','pathname','sample','selectedVoice','preview','return '+gate);
-assert.equal(disabled(true,'/','Nonpersonal 1287',{},''),false);
-for(const path of ['/mental','/vision','/hearing','/vocal','/dental','/skin','/health-summary'])assert.equal(disabled(true,path,'Nonpersonal 1287',{},''),true,path);
-assert(disabled(false,'/','Text',{},''));assert(disabled(true,'/',' ',{},''));assert(disabled(true,'/','Text',null,''));for(const state of ['starting','speaking'])assert(disabled(true,'/','Text',{},state));
-let aborted=0,sample='old',preview='speaking';const controller={current:{abort(){aborted++;}}};
-new Function('previewController','setSample','setPreview',routeEffect)(controller,v=>sample=v,v=>preview=v);
-assert.equal(aborted,1);assert.equal(controller.current,null);assert.equal(sample,'');assert.equal(preview,'');
-console.log('PASS actual preview route gate, parked/text/voice/concurrency guards and cancellation on navigation; no synthesis or capture');
+/** Presentation contracts: actual components; no audio, health inference or data writes. */
+require('./ts_loader.js');
+const assert=require('node:assert/strict'),Module=require('node:module');
+global.React=require('react');const {renderToStaticMarkup}=require('react-dom/server'),h=React.createElement;
+global.window=new EventTarget();const store=new Map();global.localStorage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,String(v))};
+const core=require('../../apps/vehicle-app/src/i18n/core.ts');
+const {informationContent}=require('../../apps/vehicle-app/src/components/InformationButton.tsx');
+for(const lang of ['tr','en','de']){
+ core.setLanguage(lang);
+ const link=h('a',{href:'/privacy'},'Existing privacy link');const control=h('label',null,h('input',{type:'checkbox'}),'Existing consent control');
+ const content=informationContent([h('p',{key:'sentences'},'First point. Second point.'),h('p',{key:'decimal'},'The result is 3.5 dB.'),link,control]);
+ const html=renderToStaticMarkup(h('div',null,content));assert.equal((html.match(/<li/g)||[]).length,3);assert(html.includes('3.5 dB.'));assert(html.includes('href="/privacy"'));assert(html.includes('type="checkbox"'));
+ assert(!renderToStaticMarkup(h('div',null,informationContent(h('p',null,'The result is 3.5 dB.')))).includes('<li'));
+}
+let parked=true,locked=false,language='tr';const original=Module._load;
+Module._load=function(request,parent,...args){
+ if(parent?.filename.endsWith('LanguageSelector.tsx')){
+  if(request==='../context/VehicleContext')return {useVehicle:()=>({isParked:parked})};
+  if(request==='../i18n/useLocaleSwitchLock')return {useLanguageSwitchLocked:()=>locked};
+  if(request==='../i18n/LanguageProvider')return {useTranslations:()=>({language,text:x=>x})};
+ }
+ return original.call(this,request,parent,...args);
+};
+const {LanguageSelector}=require('../../apps/vehicle-app/src/components/LanguageSelector.tsx');
+for(language of ['tr','en','de'])for(const [p,l] of [[true,false],[false,false],[true,true]]){
+ parked=p;locked=l;const html=renderToStaticMarkup(h(LanguageSelector));const select=html.match(/<select[^>]*>/)[0];assert.equal(/\sdisabled(?:=|\s|>)/.test(select),!parked||locked);assert.equal((html.match(/<option/g)||[]).length,3);assert(!html.includes('<button'));assert(!html.includes('role="dialog"'));assert(html.includes('attune-language'));
+}
+Module._load=original;
+console.log('PASS actual language-only header component, PARK/assessment-lock gates, three locales, semantic information bullets and preservation of decimal text/links/consent controls; no synthesis.');
+

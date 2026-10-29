@@ -67,7 +67,7 @@ export default function ProfilePage() {
           </div>
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl md:text-2xl font-extrabold text-white">{i18nText("Sağlık Geçmişim")}</h1><InformationButton title={i18nText("Sağlık geçmişi")}><p>{i18nText("Sonuçlar bu tarayıcı profilinde saklanır. Silme yalnız seçtiğiniz uygulama kaydını kaldırır; dış sağlayıcının geçmiş isteklerini silmez. Paylaşımda yalnız seçtiğiniz kategoriler yazdırılır.")}</p></InformationButton>
+              <div className="inline-flex max-w-full min-w-0 items-center gap-2"><h1 className="min-w-0 break-words text-xl md:text-2xl font-extrabold text-white">{i18nText("Sağlık Geçmişim")}</h1><InformationButton title={i18nText("Sağlık geçmişi")}><p>{i18nText("Sonuçlar bu tarayıcı profilinde saklanır. Silme yalnız seçtiğiniz uygulama kaydını kaldırır; dış sağlayıcının geçmiş isteklerini silmez. Paylaşımda yalnız seçtiğiniz kategoriler yazdırılır.")}</p></InformationButton></div>
               <span className="text-slate-500">•</span>
               <span className="text-slate-300 font-medium text-sm">{isDemo ? <>{profile.user.displayName}{i18nText(' (örnek kimlik)')}</> : i18nText('Yerel kullanıcı')}</span>
               {isDemo && (

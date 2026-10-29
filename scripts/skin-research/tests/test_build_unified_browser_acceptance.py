@@ -3,6 +3,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -31,6 +32,18 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
+        # Schema unit tests use their own implementation fixture. Production
+        # CODE_BLOBS stay pinned to the historical replay and must not be
+        # refreshed merely because a later presentation file changed.
+        self.implementation = self.root / "implementation.tsx"
+        self.implementation.write_text("controlled implementation fixture", encoding="utf-8")
+        implementation_blobs = patch.dict(
+            MODULE.CODE_BLOBS,
+            {str(self.implementation): MODULE.git_blob(self.implementation)},
+            clear=True,
+        )
+        implementation_blobs.start()
+        self.addCleanup(implementation_blobs.stop)
         indicators = [row(identifier, identifier in MODULE.UNAVAILABLE) for identifier in MODULE.HEADINGS]
         run = {
             "graphs": MODULE.REGIONS,
@@ -97,6 +110,11 @@ class UnifiedBrowserAcceptanceTest(unittest.TestCase):
         self.assertFalse(result["indexeddb-history-replay.json"]["crossMethodBridgeAllowed"])
         self.assertTrue(result["working-product-replay.json"]["twelveProductHeadingsPassed"])
         self.assertFalse(result["browser-api-replay.json"]["physicalCameraCapture"])
+
+    def test_rejects_changed_implementation_blob(self):
+        self.implementation.write_text("changed implementation", encoding="utf-8")
+        with self.assertRaisesRegex(MODULE.EvidenceError, "implementation blob changed"):
+            MODULE.build(self.args())
 
     def test_rejects_missing_unavailable_localized_heading(self):
         self.browser["runs"][0]["result"]["general"]["indicators"][-1]["score"] = 1

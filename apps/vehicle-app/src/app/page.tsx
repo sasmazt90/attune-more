@@ -48,9 +48,9 @@ export default function CockpitDashboard() {
             </div>
 
             <div className="space-y-1">
-              <div className="flex items-center justify-between gap-3"><h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
+              <div className="flex items-center gap-2"><h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
                 <ProductWordmark />
-              </h1><InformationButton title={i18nText("Attune.more kokpiti")}><p>{i18nText("Kontroller yalnız park halinde kullanılabilir. Bu uygulama klinik tanı sağlamaz. Araç durumu simülasyondur; gerçek araç, rota veya donanım bağlantısı yoktur. Gerçek kayıt yoksa sonuç ve geçmiş üretilmez.")}</p></InformationButton></div>
+              </h1><InformationButton title={i18nText("Attune.more kokpiti")}><ul className="list-disc pl-5 space-y-3"><li>{i18nText("Kişisel sağlık ve iyi oluş modülleri ön değerlendirme amaçlı olup, kontroller yalnız park halinde kullanılabilir.")}</li><li>{i18nText("Bu uygulama klinik tanı sağlamaz.")}</li></ul></InformationButton></div>
               <p className="text-sm md:text-base text-slate-300 leading-relaxed">{i18nText("Park halinde göz, cilt, diş, işitme ve ruh sağlığı değerlendirmelerinizi başlatın. ")}</p>
             </div>
 
@@ -69,7 +69,6 @@ export default function CockpitDashboard() {
             </div>
           </div>
 
-          <InformationButton title={i18nText("Attune.more ve araç kapsamı")}><p>{i18nText("Park halinde kişisel sağlık ve iyi oluş ön değerlendirmesi içindir. Bu Windows uygulamasında gerçek araç telemetrisi bağlı değildir. Durum kontrolü header’daki Demo araç durumu bilgisinde bulunur. Klinik veya gerçek araç doğrulaması yapılmamıştır.")}</p></InformationButton>
         </div>
 
         {/* Sürüş Modu Emniyet Uyarısı (Sadece hareket halindeyken) */}
