@@ -20,6 +20,7 @@ import {SkinInference} from '../../utils/skinInference';
 import {StablePreviewCrop,SourceMotion,cameraCrop,Crop} from '../../utils/cameraStability';
 import {DentalCapture,DENTAL_POSES,DENTAL_GUIDANCE,assessDentalCapture,captureDental} from '../../utils/dentalCapture';
 import {DentalCaptureSession} from '../../utils/dentalCaptureSession';
+import {dentalCameraErrorMessage} from '../../utils/dentalCameraError';
 import {saveDentalPhotos,verifyDentalPhotoPixels,DENTAL_PHOTO_PERMISSION} from '../../utils/dentalPhotoHistory';
 import {validateDentalResult,validateDentalView,dentalRecordMeasurements,dentalViewMeasured,DENTAL_POSE_LABELS} from '../../utils/dentalResult';
 import {DentalResults} from '../../components/dental/DentalResults';
@@ -130,7 +131,7 @@ export default function DentalPage(){
     else{validSince.current=0;misses.current=0;best.current=undefined;setProgress(0);setNotice(moving?'Başınızı kısa süre sabit tutun.':quality.reasons[0]);}
     frameTimer.current=setTimeout(loop,160);
    };frameTimer.current=setTimeout(loop,100);
-  }catch(error){if(run===epoch.current){stop();setPhase('error');setNotice((error as Error).message||'Kamera açılamadı.');}}
+  }catch(error){if(run===epoch.current){console.warn('Dental camera startup failed:',error);stop();setPhase('error');setNotice(dentalCameraErrorMessage(error));}}
  };
  const saveResult=async()=>{if(!saveAllowed.current||!result||!isParked||saved||saving.current)return;const run=epoch.current,id=resultId.current;if(!id)return;saving.current=true;setSaveBusy(true);setSaveNote(null);try{
   const measurements=dentalRecordMeasurements(result);
@@ -155,7 +156,7 @@ export default function DentalPage(){
      {skipAvailable&&<p className={styles.hint}>{i18nNode(index===3?'Ön dişleriniz birbirine değmiyorsa bu adımı atlayabilirsiniz; dizilim ölçülmez.':'Bu görünüm alınamıyorsa atlayabilirsiniz; sonuçta “alınmadı” olarak gösterilir.')}</p>}</div>
    </div>}
    {phase==='analysis'&&<div className={styles.panel}><p role="status" className={styles.guide}>{i18nNode(notice)}</p><p className="animate-pulse">{i18nText("Yerel analiz sürüyor. İptal edebilirsiniz.")}</p><div className={styles.actions}><button type="button" className={styles.ghost} onClick={cancel}><X aria-hidden="true"/>{i18nText('İptal et')}</button></div></div>}
-   {phase==='error'&&<div className={styles.panel}><p role="alert" className={styles.warning}>{i18nNode(notice)}</p><p role="status" className="sr-only">{i18nNode(notice)}</p><div className={styles.actions}><button type="button" className={styles.primary} disabled={actionsDisabled||!isCameraAllowed()} onClick={start}><RotateCcw aria-hidden="true"/>{i18nText('Yeniden tara')}</button><button type="button" className={styles.secondary} disabled={actionsDisabled} onClick={()=>fileInput.current?.click()}><Upload aria-hidden="true"/>{i18nText('Fotoğraf Yükle')}</button><button type="button" className={styles.ghost} onClick={cancel}>{i18nText('Kapat')}</button></div></div>}
+   {phase==='error'&&<div className={styles.panel}><p role="alert" className={styles.warning}>{i18nNode(notice)}</p><div className={styles.actions}><button type="button" className={styles.primary} disabled={actionsDisabled||!isCameraAllowed()} onClick={start}><RotateCcw aria-hidden="true"/>{i18nText('Yeniden tara')}</button><button type="button" className={styles.secondary} disabled={actionsDisabled} onClick={()=>fileInput.current?.click()}><Upload aria-hidden="true"/>{i18nText('Fotoğraf Yükle')}</button><button type="button" className={styles.ghost} onClick={cancel}>{i18nText('Kapat')}</button></div></div>}
    {phase==='result'&&result&&<><p role="status" className="sr-only">{i18nNode(notice)}</p><DentalResults views={result.views} photos={photos} missingViews={result.missingViews||[]} sourceType={result.sourceType} footer={<div className={styles.save}>
     <label><input type="checkbox" checked={save} onChange={e=>setSave(e.target.checked)}/>{i18nText("Sayısal sonucu yerel geçmişime kaydet.")}</label>
     <div className={styles.actions} style={{marginTop:0}}><button type="button" className={styles.primary} disabled={!save||!isParked||saved||saveBusy} onClick={saveResult}>{i18nText("Sonucu kaydet")}</button><Link className={styles.secondary} href={careHref('dental')}>{i18nText("Diş hekimi seçenekleri")}</Link><button type="button" className={styles.ghost} onClick={cancel}>{i18nText('Geçici görüntüleri temizle')}</button></div>

@@ -53,3 +53,20 @@ main p, main article { overflow-wrap: anywhere; }
   position: sticky; top: 0; z-index: 1; background-color: inherit;
   box-shadow: 0 -2rem 0 0 var(--dialog-background, #0b1526);
 }
+
+/* The existing native shell injects this marker. Keep ordinary desktop/mobile
+ * layouts unchanged, including short browser windows without the AAOS shell. */
+@media (min-width: 768px) and (max-height: 500px) and (orientation: landscape) {
+  html:has(#attune-automotive-style) #health-centre-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 28rem;
+    overflow: visible;
+  }
+
+  /* The card measures the viewport minus its existing padding/borders and any
+   * sticky header. Preserve the image box ratio and object-contain artwork. */
+  html:has(#attune-automotive-style) [data-health-start] [data-health-portrait] {
+    width: min(360px, calc(var(--health-portrait-height, calc(100dvh - 4rem - 2px)) * .75));
+  }
+}

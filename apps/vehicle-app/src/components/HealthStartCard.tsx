@@ -2,7 +2,7 @@
 
 import {useTranslations} from '../i18n/LanguageProvider';
 import Image from 'next/image';
-import type {ReactNode} from 'react';
+import {useLayoutEffect,useRef,type ReactNode} from 'react';
 import {Camera,Eye,Headphones,HeartPulse,Mic,Scan,Sun,Volume2} from 'lucide-react';
 export type PreparationModule='skin'|'vision'|'dental'|'hearing'|'mental';
 export const HEALTH_START_CARD='bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 shadow-2xl w-full';
@@ -19,7 +19,23 @@ const CONTENT={
 export function HealthStartCard({module,actions,framed=true,footer}:{module:PreparationModule;actions?:ReactNode;framed?:boolean;footer?:ReactNode}){
  const {text:i18nText,node:i18nNode}=useTranslations();
  const c=CONTENT[module];
- return <div className={framed?HEALTH_START_CARD:undefined} data-health-start={module}>
+ const card=useRef<HTMLDivElement>(null);
+ useLayoutEffect(()=>{
+  const header=document.querySelector<HTMLElement>('[data-cockpit-header]'),viewport=window.visualViewport;
+  const resize=()=>{
+   if(!card.current)return;
+   const style=getComputedStyle(card.current),position=header?getComputedStyle(header).position:'static';
+   const headerHeight=header&&['sticky','fixed'].includes(position)?header.getBoundingClientRect().height:0;
+   const available=(viewport?.height||window.innerHeight)-headerHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-parseFloat(style.borderTopWidth)-parseFloat(style.borderBottomWidth);
+   if(available>0)card.current.style.setProperty('--health-portrait-height',`${available}px`);
+   else card.current.style.removeProperty('--health-portrait-height');
+  };
+  resize();const observer=typeof ResizeObserver==='undefined'?undefined:new ResizeObserver(resize);
+  if(header)observer?.observe(header);
+  window.addEventListener('resize',resize);viewport?.addEventListener('resize',resize);
+  return()=>{observer?.disconnect();window.removeEventListener('resize',resize);viewport?.removeEventListener('resize',resize);};
+ },[framed]);
+ return <div ref={card} className={framed?HEALTH_START_CARD:undefined} data-health-start={module}>
   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
    <div className="lg:col-span-6 flex justify-center min-w-0"><div className="relative w-full max-w-[360px] aspect-[3/4] rounded-2xl overflow-hidden" data-health-portrait={module}><Image src={`/assets/${module}-preparation-approved-v3.png`} alt={i18nText(c.alt)} fill sizes="(min-width: 1024px) 360px, (max-width: 480px) 80vw, 360px" className="object-contain" priority/></div></div>
    <div className="lg:col-span-6 space-y-6 max-w-md min-w-0">
