@@ -2,7 +2,7 @@
 import {useTranslations} from '../i18n/LanguageProvider';
 
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ProductWordmark } from './ProductWordmark';
@@ -31,6 +31,21 @@ export const CockpitHeader: React.FC = () => {
   const navigation = useRef<HTMLElement>(null);
   const [open,setOpen]=useState(false),[guidanceMuted,setGuidanceMuted]=useState(false);
   const trigger=useRef<HTMLButtonElement>(null),panel=useRef<HTMLDivElement>(null);
+  const [menuMaxHeight,setMenuMaxHeight]=useState<number>();
+  useLayoutEffect(()=>{
+    if(!open)return;
+    const viewport=window.visualViewport;
+    const resize=()=>{
+      const top=panel.current?.getBoundingClientRect().top;
+      if(top!==undefined)setMenuMaxHeight(Math.max(0,(viewport?.offsetTop||0)+(viewport?.height||window.innerHeight)-top-8));
+    };
+    resize();
+    const observer=typeof ResizeObserver==='undefined'?undefined:new ResizeObserver(resize);
+    if(navigation.current)observer?.observe(navigation.current);
+    window.addEventListener('resize',resize);
+    viewport?.addEventListener('resize',resize);viewport?.addEventListener('scroll',resize);
+    return()=>{observer?.disconnect();window.removeEventListener('resize',resize);viewport?.removeEventListener('resize',resize);viewport?.removeEventListener('scroll',resize);};
+  },[open]);
   const close=(focus=false)=>{setOpen(false);if(focus)trigger.current?.focus();};
   useEffect(()=>{setOpen(false);window.dispatchEvent(new Event('attune-guidance-cancel'));},[pathname]);
   useEffect(()=>{if(!open)return;const outside=(e:PointerEvent)=>{if(!panel.current?.contains(e.target as Node)&&!trigger.current?.contains(e.target as Node))setOpen(false);};const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){e.preventDefault();close(true);}};document.addEventListener('pointerdown',outside);document.addEventListener('keydown',key);return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',key);};},[open]);
@@ -98,7 +113,7 @@ export const CockpitHeader: React.FC = () => {
           <Link href="/" aria-current={pathname==='/'?'page':undefined} className={itemClass(pathname==='/')}><Activity className="w-3.5 h-3.5 shrink-0"/>{i18nText("Kokpit")}</Link>
           <div className="relative min-w-0">
             <button ref={trigger} type="button" aria-expanded={open} aria-controls="health-centre-links" className={itemClass(healthActive)+' w-full'} onClick={()=>setOpen(v=>!v)} onKeyDown={e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(true);requestAnimationFrame(()=>{const links=panel.current?.querySelectorAll<HTMLAnchorElement>('a');links?.[e.key==='ArrowDown'?0:links.length-1]?.focus();});}}}><HeartPulse className="w-3.5 h-3.5 shrink-0"/>{i18nText("Sağlık Merkezi")}</button>
-            {open&&<div ref={panel} id="health-centre-links" onKeyDown={move} className="absolute top-full right-0 sm:left-0 sm:right-auto mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-xl border border-white/20 bg-[#0b1424] shadow-2xl p-2 z-[60]" aria-label={i18nText("Sağlık modülleri")}>
+            {open&&<div ref={panel} id="health-centre-links" onKeyDown={move} style={{maxHeight:menuMaxHeight}} className="absolute top-full right-0 sm:left-0 sm:right-auto mt-2 w-56 max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain rounded-xl border border-white/20 bg-[#0b1424] shadow-2xl p-2 z-[60]" aria-label={i18nText("Sağlık modülleri")}>
               {HEALTH_CENTRE_MENU_IDS.map(id=><Link key={id} href={HEALTH_MODULES[id].route} aria-current={pathname===HEALTH_MODULES[id].route?'page':undefined} onClick={()=>close()} className={dropdownClass(pathname===HEALTH_MODULES[id].route)}><span className="w-[18px] shrink-0 inline-flex"><HealthModuleIcon module={id}/></span><span className="min-w-0 break-words">{i18nNode(HEALTH_MODULES[id].name)}</span></Link>)}
             </div>}
           </div>
