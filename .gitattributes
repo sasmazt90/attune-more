@@ -17,3 +17,8 @@ services/core-api/models/dryness-calibrated-v3/** -text whitespace=cr-at-eol
 # Vendored package manifests pin exact bytes, including upstream license/source.
 vendor/braces/** -text whitespace=cr-at-eol
 vendor/*.tgz -text
+
+# Historical Skin evidence and model parameters are hashed as raw bytes.
+# Prevent Windows core.autocrlf from rewriting their committed LF bytes on checkout.
+docs/skin/evidence/** -text
+services/core-api/models/regional-skin-v3/params.json -text
