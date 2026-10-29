@@ -4,8 +4,9 @@ const {chromium}=require('playwright');
 const out=path.resolve(process.env.ATTUNE_UI_OUTPUT||'output/approved-ui-layout'),mode='corrected';
 const baseURL=process.env.ATTUNE_UI_BASE_URL||'http://127.0.0.1:3000';
 fs.mkdirSync(out,{recursive:true});
+let browser;
 (async()=>{
- const browser=await chromium.launch({headless:true,...(process.env.ATTUNE_CHROME_EXECUTABLE?{executablePath:process.env.ATTUNE_CHROME_EXECUTABLE}:{})});
+ browser=await chromium.launch({headless:true,...(process.env.ATTUNE_CHROME_EXECUTABLE?{executablePath:process.env.ATTUNE_CHROME_EXECUTABLE}:{})});
  const result={mode,rows:[],dialogChecks:[],errors:[]};
  const widths=mode==='corrected'?[{width:1440,height:1000},{width:1024,height:600},{width:800,height:480},{width:390,height:844}]:[{width:1440,height:1000},{width:800,height:480}];
  const langs=mode==='corrected'?['tr','en','de']:['tr'];
@@ -32,7 +33,7 @@ fs.mkdirSync(out,{recursive:true});
    if(mode==='corrected'&&viewport.width===1440){
     const infos=page.locator('button[aria-haspopup="dialog"]').filter({hasText:'ⓘ'});const count=await infos.count();
     for(let index=0;index<count;index++){
-     const control=infos.nth(index);if(!await control.isVisible())continue;await control.click();const dialog=page.getByRole('dialog');await dialog.waitFor({state:'visible'});const title=await dialog.getAttribute('aria-labelledby');if(!title)throw Error('Dialog lacks accessible name');
+     const control=infos.nth(index);if(!await control.isVisible())continue;await control.click();const dialog=page.getByRole('dialog');await dialog.waitFor({state:'visible'});const title=(await dialog.getAttribute('aria-label'))||(await dialog.getAttribute('aria-labelledby'));if(!title)throw Error('Dialog lacks accessible name');
      await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});if(!await control.evaluate(e=>document.activeElement===e))throw Error('Information dialog focus was not restored');result.dialogChecks.push({lang,route:route||'dashboard',index,passed:true});
     }
    }
@@ -42,4 +43,4 @@ fs.mkdirSync(out,{recursive:true});
  }
  result.complete=true;fs.writeFileSync(path.join(out,`render-${mode}.json`),JSON.stringify(result,null,2));console.log(JSON.stringify({mode,rows:result.rows.length,dialogs:result.dialogChecks.length,errors:result.errors}));
  await browser.close();
-})().catch(e=>{console.error(e);process.exitCode=1});
+})().catch(async e=>{await browser?.close();console.error(e);process.exitCode=1});
