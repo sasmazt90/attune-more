@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-29T00:44:22Z",
+  "methodVersion": "under-eye-provider-state-v5",
+  "pilotVersion": {
+    "project": "tolgar-sasmaz/attune-skin-under-eye-pilot",
+    "version": 2,
+    "images": 399,
+    "annotations": 869,
+    "splits": {
+      "train": 279,
+      "valid": 81,
+      "test": 39
+    },
+    "classCounts": {
+      "darkcircle": 382,
+      "eyebag": 487
+    },
+    "preprocessing": {},
+    "augmentation": {},
+    "trainings": [],
+    "exportArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
+  },
+  "groupedProject": {
+    "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+    "private": true,
+    "images": 399,
+    "versions": [],
+    "upload": {
+      "taskId": "jwquQEBFgx3HWd9ziIMn",
+      "status": "completed",
+      "progress": {
+        "current": 399,
+        "total": 399
+      },
+      "bytesSent": true
+    },
+    "importedDataset": {
+      "images": 399,
+      "annotations": 869,
+      "splits": {
+        "train": 284,
+        "valid": 77,
+        "test": 38
+      },
+      "classCounts": {
+        "darkcircle": 382,
+        "eyebag": 487
+      }
+    },
+    "uploadVerification": {
+      "annotatedImages": 399,
+      "annotationErrors": 0,
+      "archiveBytes": 15086760,
+      "archiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+      "classAnnotationCounts": {
+        "darkcircle": 382,
+        "eyebag": 487
+      },
+      "datasetSearchComplete": true,
+      "datasetSearchPages": 5,
+      "decision": "UPLOAD_VERIFIED_VERSION_EXPERT_PROVIDER_EXPORT_AND_CAMERA_GATES_PENDING",
+      "duplicates": 0,
+      "methodVersion": "under-eye-grouped-provider-upload-verification-v1",
+      "observedAt": "2026-10-28T23:40:18Z",
+      "privacySafe": true,
+      "private": true,
+      "productActivationAllowed": false,
+      "project": "tolgar-sasmaz/attune-skin-under-eye-grouped-research",
+      "providerProjectSummaryConsistent": false,
+      "providerProjectSummaryImageCountConsistent": true,
+      "providerProjectSummaryImages": 399,
+      "providerProjectSummaryLabelCountConsistent": false,
+      "providerProjectSummaryLagObserved": true,
+      "providerProjectSummaryUnannotated": 399,
+      "providerTaskId": "jwquQEBFgx3HWd9ziIMn",
+      "researchTrainingAuthorized": false,
+      "roadmapAccepted": false,
+      "schemaVersion": 1,
+      "splits": {
+        "test": 38,
+        "train": 284,
+        "valid": 77
+      },
+      "testEvaluationAuthorized": false,
+      "trainingPresent": false,
+      "uploadCompleted": true,
+      "uploadErrors": 0,
+      "uploadedImages": 399,
+      "versionGenerationAuthorized": false,
+      "versionPresent": false
+    }
+  },
+  "observations": {
+    "accessibleProjects": 20,
+    "projectSummary": {
+      "images": 399,
+      "unannotated": 399,
+      "classes": {
+        "darkcircle": 382,
+        "eyebag": 487
+      },
+      "splits": {
+        "train": 284,
+        "valid": 77,
+        "test": 38
+      }
+    },
+    "annotationBoard": {
+      "images": 399,
+      "unannotated": 0,
+      "annotated": 399,
+      "percentLabeled": 100
+    },
+    "paginatedDatasetSearch": {
+      "complete": true,
+      "pages": 5,
+      "images": 399,
+      "splits": {
+        "train": 284,
+        "valid": 77,
+        "test": 38
+      },
+      "classAnnotationCounts": {
+        "darkcircle": 382,
+        "eyebag": 487
+      }
+    },
+    "projectSummaryLabelCountConsistent": false,
+    "reuploadRequired": false,
+    "providerMutationPerformed": false
+  },
+  "source": "Roboflow projects_list, projects_get, trainings_list, model_evals_list, image_upload_status, annotation_board_status and complete images_workspace_search",
+  "privacySafe": true
+}
+

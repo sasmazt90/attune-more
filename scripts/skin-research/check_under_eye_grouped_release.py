@@ -30,6 +30,7 @@ EXPECTED_GROUPED = {
 EXPECTED_SOURCE_SHA256 = "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
 EXPECTED_GROUPED_PROJECT = "tolgar-sasmaz/attune-skin-under-eye-grouped-research"
 EXPECTED_PROVIDER_AUDIT_SCHEMA = "under-eye-grouped-provider-export-audit-v1"
+EXPECTED_UPLOAD_VERIFICATION_METHOD = "under-eye-grouped-provider-upload-verification-v1"
 REVOKED_ARCHIVE_SHA256 = "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8"
 
 
@@ -40,6 +41,63 @@ class GateInputError(ValueError):
 def _exact_mapping(actual: Any, expected: dict[str, Any], label: str) -> None:
     if actual != expected:
         raise GateInputError(f"{label} does not match the frozen contract")
+
+
+def _validate_upload_verification(
+    verification: Any,
+    *,
+    candidate_sha: str,
+    upload: dict[str, Any],
+) -> tuple[bool, bool]:
+    """Bind the completed import to all privacy-safe provider surfaces."""
+
+    if not isinstance(verification, dict):
+        return False, False
+    if verification.get("schemaVersion") != 1:
+        raise GateInputError("provider upload verification schema changed")
+    if verification.get("methodVersion") != EXPECTED_UPLOAD_VERIFICATION_METHOD:
+        raise GateInputError("provider upload verification method changed")
+    if verification.get("project") != EXPECTED_GROUPED_PROJECT or verification.get("private") is not True:
+        raise GateInputError("provider upload verification project or privacy changed")
+    if verification.get("archiveSHA256") != candidate_sha:
+        raise GateInputError("provider upload verification archive changed")
+    if verification.get("archiveBytes") != 15_086_760:
+        raise GateInputError("provider upload verification byte count changed")
+    if verification.get("providerTaskId") != upload.get("taskId"):
+        raise GateInputError("provider upload task identity changed")
+    required = {
+        "uploadCompleted": True,
+        "uploadedImages": EXPECTED_GROUPED["images"],
+        "annotatedImages": EXPECTED_GROUPED["images"],
+        "duplicates": 0,
+        "uploadErrors": 0,
+        "annotationErrors": 0,
+        "datasetSearchComplete": True,
+        "datasetSearchPages": 5,
+        "splits": EXPECTED_GROUPED["splits"],
+        "classAnnotationCounts": EXPECTED_GROUPED["classCounts"],
+        "versionPresent": False,
+        "trainingPresent": False,
+    }
+    for field, expected in required.items():
+        if verification.get(field) != expected:
+            raise GateInputError(f"provider upload verification {field} changed")
+    summary_images = verification.get("providerProjectSummaryImages")
+    summary_unannotated = verification.get("providerProjectSummaryUnannotated")
+    if not isinstance(summary_images, int) or summary_images < 0:
+        raise GateInputError("provider project summary image count is invalid")
+    if not isinstance(summary_unannotated, int) or summary_unannotated < 0:
+        raise GateInputError("provider project summary unannotated count is invalid")
+    image_consistent = summary_images == EXPECTED_GROUPED["images"]
+    labels_consistent = summary_unannotated == 0
+    summary_consistent = image_consistent and labels_consistent
+    if verification.get("providerProjectSummaryImageCountConsistent") is not image_consistent:
+        raise GateInputError("provider project summary image consistency claim changed")
+    if verification.get("providerProjectSummaryLabelCountConsistent") is not labels_consistent:
+        raise GateInputError("provider project summary label consistency claim changed")
+    if verification.get("providerProjectSummaryConsistent") is not summary_consistent:
+        raise GateInputError("provider project summary aggregate consistency claim changed")
+    return True, summary_consistent
 
 
 def evaluate_release(
@@ -104,7 +162,18 @@ def evaluate_release(
     )
 
     imported = grouped.get("importedDataset")
-    import_verified = imported == EXPECTED_GROUPED and upload.get("status") == "completed"
+    upload_evidence_verified, provider_summary_consistent = _validate_upload_verification(
+        grouped.get("uploadVerification"),
+        candidate_sha=candidate_sha,
+        upload=upload,
+    )
+    if upload.get("status") == "completed" and not upload_evidence_verified:
+        raise GateInputError("completed grouped upload lacks bound provider verification")
+    import_verified = bool(
+        imported == EXPECTED_GROUPED
+        and upload.get("status") == "completed"
+        and upload_evidence_verified
+    )
     generated_version = grouped.get("generatedVersion")
     provider_audit = grouped.get("providerExportAudit", {})
     provider_export_verified = bool(
@@ -149,8 +218,14 @@ def evaluate_release(
         identity_review.get("accepted") is True
         and identity_review.get("personIndependent") is True
     )
+    version_generation_authorized = bool(
+        import_verified
+        and provider_summary_consistent
+        and expert_reviewed
+        and person_independent
+    )
     research_training_authorized = bool(
-        version_verified and expert_reviewed and person_independent
+        version_generation_authorized and version_verified
     )
 
     blockers: list[str] = []
@@ -166,6 +241,8 @@ def evaluate_release(
         blockers.append("another_grouped_upload_is_in_progress")
     if not import_verified:
         blockers.append("grouped_import_counts_and_splits_not_verified")
+    if upload_evidence_verified and not provider_summary_consistent:
+        blockers.append("provider_project_summary_label_count_inconsistent")
     if not version_verified:
         blockers.append("augmentation_free_grouped_version_not_verified")
     if not provider_export_verified:
@@ -181,16 +258,19 @@ def evaluate_release(
 
     return {
         "schemaVersion": 1,
-        "methodVersion": "under-eye-grouped-release-gate-v4",
+        "methodVersion": "under-eye-grouped-release-gate-v5",
         "sourceArchiveSHA256": EXPECTED_SOURCE_SHA256,
         "revokedArchiveSHA256": REVOKED_ARCHIVE_SHA256,
         "authorizedArchiveSHA256": authorized_archive_sha256,
         "candidateArchiveSHA256": candidate_sha,
         "exactArchiveAuthorized": exact_archive_authorized,
         "existingUploadTaskReusable": False,
-        "freshDirectUploadRequired": True,
+        "freshDirectUploadRequired": not upload_evidence_verified,
         "archiveUploadAuthorized": fresh_upload_authorized,
-        "versionGenerationAuthorized": import_verified,
+        "groupedImportVerified": import_verified,
+        "providerUploadEvidenceVerified": upload_evidence_verified,
+        "providerProjectSummaryConsistent": provider_summary_consistent,
+        "versionGenerationAuthorized": version_generation_authorized,
         "augmentationFreeGroupedVersionVerified": version_verified,
         "providerExportIdentityVerified": provider_export_verified,
         "researchTrainingAuthorized": research_training_authorized,
@@ -221,4 +301,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
 
