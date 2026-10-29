@@ -15,15 +15,15 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261028-v5.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-per-class-release-receipt-20261029-v6.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _grouped_gate(training_ready=False):
-    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-grouped-release-gate-20261028-v4.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "under-eye-grouped-release-gate-20261029-v5.json"
     gate = json.loads(path.read_text(encoding="utf-8"))
     if training_ready:
-        gate["archiveUploadAuthorized"] = False
+        gate["providerProjectSummaryConsistent"] = True
         gate["versionGenerationAuthorized"] = True
         gate["augmentationFreeGroupedVersionVerified"] = True
         gate["providerExportIdentityVerified"] = True
@@ -91,6 +91,9 @@ def _complete_training_prerequisites(receipt):
         receipt["candidate"][field] = True
     receipt["candidate"]["exactArchiveAuthorized"] = True
     receipt["candidate"]["groupedImportVerified"] = True
+    receipt["candidate"]["providerUploadEvidenceVerified"] = True
+    receipt["candidate"]["providerProjectSummaryConsistent"] = True
+    receipt["candidate"]["versionGenerationAuthorized"] = True
     receipt["candidate"]["augmentationFreeGroupedVersionVerified"] = True
     receipt["candidate"]["providerExportIdentityVerified"] = True
 
@@ -115,6 +118,12 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
         self.assertTrue(result["expertReviewQueueVerified"])
         self.assertFalse(result["expertSemanticProtocolVerified"])
         self.assertFalse(result["researchTrainingAuthorized"])
+        self.assertTrue(result["groupedImportVerified"])
+        self.assertTrue(result["providerUploadEvidenceVerified"])
+        self.assertFalse(result["providerProjectSummaryConsistent"])
+        self.assertFalse(result["versionGenerationAuthorized"])
+        self.assertNotIn("grouped_import_verification_missing", result["sharedTrainingBlockers"])
+        self.assertIn("provider_project_summary_inconsistent", result["sharedTrainingBlockers"])
         self.assertFalse(result["providerExportIdentityVerified"])
         self.assertFalse(result["distinctGroupedCandidatePresent"])
         self.assertFalse(result["blindRetrainingAllowed"])
@@ -242,11 +251,22 @@ class UnderEyeConcernReleaseTests(unittest.TestCase):
 
     def test_receipt_booleans_cannot_promote_current_grouped_gate(self):
         receipt = _receipt()
-        receipt["candidate"]["groupedImportVerified"] = True
+        receipt["candidate"]["providerProjectSummaryConsistent"] = True
+        receipt["candidate"]["versionGenerationAuthorized"] = True
         receipt["candidate"]["augmentationFreeGroupedVersionVerified"] = True
         receipt["candidate"]["providerExportIdentityVerified"] = True
         with self.assertRaisesRegex(module.GateInputError, "not bound"):
             module.evaluate_release(receipt, _grouped_gate(), _queue())
+
+    def test_completed_import_disables_repeat_upload_but_not_version_gate(self):
+        receipt = _receipt()
+        gate = _grouped_gate()
+        result = module.evaluate_release(receipt, gate, _queue())
+        self.assertTrue(result["groupedImportVerified"])
+        self.assertTrue(result["providerUploadEvidenceVerified"])
+        self.assertFalse(result["providerProjectSummaryConsistent"])
+        self.assertFalse(result["versionGenerationAuthorized"])
+        self.assertFalse(result["researchTrainingAuthorized"])
 
     def test_revoked_or_reusable_stale_upload_gate_is_rejected(self):
         gate = _grouped_gate()

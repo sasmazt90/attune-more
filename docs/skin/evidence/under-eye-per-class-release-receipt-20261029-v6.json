@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 6,
+  "observedAt": "2026-10-29T01:29:27Z",
+  "inputBlobs": {
+    "ungroupedModelReceipt": "6b50743ad404024ab33a6dfb536424de9324e5bb",
+    "ungroupedModelVerdict": "437c97d23f6163ecc12c40dc52e4f12d60a840d9",
+    "sourcePhotoReview": "80dbf3d4d89ec089a72db54a40b497d836b20fc7",
+    "providerGroupedReproduction": "12d3bc76bdc41482828932e401d3df9738a6ace8",
+    "providerState": "c1099b9baa359c7161a2ea39df196baf7ffce85b",
+    "groupedArchiveAuthorization": "24aff0aaa21026523b32ce257ec00725b3b25861",
+    "groupedReleaseGate": "d7cd632ced299fac8ac3962f20263d63082a791e",
+    "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
+    "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
+    "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1"
+  },
+  "semanticContract": {
+    "classes": {
+      "darkcircle": "dark",
+      "eyebag": "bags"
+    },
+    "classesRemainSeparate": true,
+    "mayCoexist": true,
+    "missingClassMeansNegative": false,
+    "modelPredictionIsExpertTruth": false,
+    "darkcircleMedicalCauseInferred": false,
+    "eyebagEdemaOrFluidRetentionInferred": false
+  },
+  "workingBaseline": {
+    "productAlreadyProducesConcreteResults": true,
+    "endpoint": "/api/local-health/skin",
+    "darkHeadingPresent": true,
+    "bagsHeadingPresent": true
+  },
+  "source": {
+    "providerSourceVersion": 2,
+    "images": 399,
+    "classCounts": {
+      "darkcircle": 382,
+      "eyebag": 487
+    },
+    "sourceSplits": {
+      "train": 279,
+      "valid": 81,
+      "test": 39
+    },
+    "groupedSplits": {
+      "train": 284,
+      "valid": 77,
+      "test": 38
+    },
+    "reviewedCrossSplitGroups": 4,
+    "movedImages": 5,
+    "imageBytesChanged": 0,
+    "annotationPayloadsChanged": 0,
+    "personIndependent": false,
+    "groupedProjectImages": 399,
+    "uploadStatus": "completed",
+    "uploadProgress": {
+      "current": 399,
+      "total": 399
+    },
+    "candidateArchiveMatchesAuthorizedArchive": true,
+    "existingUploadTaskReusable": false,
+    "freshDirectUploadRequired": false,
+    "groupedProjectUnannotatedSummary": 399,
+    "uploadTaskId": "jwquQEBFgx3HWd9ziIMn",
+    "uploadCounts": {
+      "uploaded": 399,
+      "annotated": 399,
+      "duplicates": 0,
+      "failedChunks": 0,
+      "uploadErrors": 0,
+      "annotationErrors": 0
+    },
+    "annotationBoard": {
+      "datasetImages": 399,
+      "annotated": 399,
+      "unannotated": 0,
+      "percentLabeled": 100
+    },
+    "completeDatasetSearch": {
+      "pages": 5,
+      "rows": 399,
+      "uniqueImages": 399,
+      "duplicateRows": 0,
+      "splits": {
+        "train": 284,
+        "valid": 77,
+        "test": 38
+      },
+      "classCounts": {
+        "darkcircle": 382,
+        "eyebag": 487
+      }
+    },
+    "providerProjectSummaryConsistent": false,
+    "versions": 0,
+    "trainings": 0,
+    "evaluations": 0,
+    "repeatUploadAuthorized": false
+  },
+  "ungroupedModel": {
+    "trainingId": "d194569acd3ebe7cf8b7",
+    "modelId": "tolgar-sasmaz/attune-skin-under-eye-pilot-1-rfdetr-seg-small-t1",
+    "evalId": "ntJE3M4iMTVBPCg2HwIb",
+    "generatedImages": 952,
+    "thresholdsLockedBeforeTest": false,
+    "accepted": false,
+    "classMetrics": {
+      "darkcircle": {
+        "threshold": 0.32,
+        "validation": {
+          "precision": 0.5,
+          "recall": 0.597,
+          "f1": 0.544
+        },
+        "diagnosticTest": {
+          "precision": 0.5,
+          "recall": 0.61,
+          "f1": 0.549
+        },
+        "providerTestMap50": 0.6100278019619981,
+        "providerTestMap50_95": 0.22253903692392357,
+        "passed": false
+      },
+      "eyebag": {
+        "threshold": 0.49,
+        "validation": {
+          "precision": 0.75,
+          "recall": 0.6,
+          "f1": 0.667
+        },
+        "diagnosticTest": {
+          "precision": 0.697,
+          "recall": 0.479,
+          "f1": 0.568
+        },
+        "providerTestMap50": 0.6263657136973713,
+        "providerTestMap50_95": 0.2371280819762581,
+        "passed": false
+      }
+    }
+  },
+  "candidate": {
+    "mode": "not-trained",
+    "projectId": null,
+    "modelId": null,
+    "trainingId": null,
+    "datasetVersion": null,
+    "exactArchiveAuthorized": true,
+    "groupedImportVerified": true,
+    "augmentationFreeGroupedVersionVerified": false,
+    "providerExportIdentityVerified": false,
+    "rightsReviewed": false,
+    "expertPerClassMaskNegativeAndAmbiguityProtocolComplete": false,
+    "personIndependentGroupedSplitLocked": false,
+    "newUntouchedFinalTestReserved": false,
+    "independentCameraHoldoutReserved": false,
+    "qualityPolicyLockedBeforeValidation": false,
+    "trainedFromAuthorizedGroupedArchive": false,
+    "candidateChangeMatchesPreRegisteredExperiment": false,
+    "thresholdsLockedBeforeFinalTest": false,
+    "classes": {
+      "darkcircle": {
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      },
+      "eyebag": {
+        "validationPassed": false,
+        "newUntouchedFinalTestPassed": false,
+        "physicalCameraHoldoutPassed": false,
+        "skinToneLightingPoseSlicesPassed": false,
+        "workingProductIntegrationPassed": false,
+        "unavailableAndHistoryControlsPassed": false
+      }
+    },
+    "providerUploadEvidenceVerified": true,
+    "providerProjectSummaryConsistent": false,
+    "versionGenerationAuthorized": false
+  }
+}

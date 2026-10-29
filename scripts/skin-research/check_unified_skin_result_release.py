@@ -21,7 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_BRANCH = "work/skin-roadmap-20261023"
-EXPECTED_RECEIPT_SCHEMA = 19
+EXPECTED_RECEIPT_SCHEMA = 20
 EXPECTED_REPOSITORY_CI_SCHEMA = 3
 EXPECTED_REPOSITORY_CI_WORKFLOW_ID = 362950948
 EXPECTED_REPOSITORY_CI_WORKFLOW_PATH = ".github/workflows/ci.yml"
@@ -68,13 +68,17 @@ EXPECTED_GATE_METHODS = {
     "skinTypeCombination": "skin-type-combination-release-gate-v2",
     "redness": "regional-redness-release-gate-v2",
     "toneUnevenness": "tone-unevenness-release-gate-v2",
-    "underEye": "under-eye-per-class-release-gate-v5",
+    "underEye": "under-eye-per-class-release-gate-v6",
     "wrinkles": "wrinkle-per-class-release-gate-v2",
     "sag": "sag-appearance-release-gate-v2",
 }
 EXPECTED_PHYSICAL_CAMERA_GATE_METHOD = "physical-camera-benchmark-release-gate-v2"
 EXPECTED_SOURCE_MAPPING_GATE_METHOD = "source-mapping-release-gate-v2"
 EXPECTED_REGIONAL_PROVIDER_DATASET_GATE_METHOD = "regional-provider-dataset-release-gate-v5"
+EXPECTED_UNDER_EYE_GROUPED_GATE_METHOD = "under-eye-grouped-release-gate-v5"
+EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256 = (
+    "924f50b2b5f730f76d28b773befbf172a679c58799d88dc77ed502dec5138388"
+)
 EXPECTED_HEADINGS = [
     "tone", "oil", "redness", "acne", "sag", "dry", "lines", "dark", "bags",
     "Post acne", "Pigmentation", "skinType",
@@ -96,6 +100,11 @@ def _require_positive_int(value: Any, message: str) -> int:
     if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
         raise GateInputError(message)
     return value
+
+
+def _canonical_sha(value: Any) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+    return hashlib.sha256(payload).hexdigest()
 
 
 def _load_evidence(identity: Any, label: str, evidence_root: Path) -> dict[str, Any]:
@@ -146,6 +155,39 @@ def _validate_gate_registry(receipt: dict[str, Any], evidence_root: Path) -> tup
             "methodVersion": payload.get("methodVersion"),
             "roadmapAccepted": accepted,
         }
+        if name == "underEye":
+            _require(
+                payload.get("groupedReleaseGateMethod"),
+                EXPECTED_UNDER_EYE_GROUPED_GATE_METHOD,
+                "under-eye gate is not bound to the current grouped release method",
+            )
+            _require(
+                payload.get("groupedReleaseGateCanonicalSHA256"),
+                EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256,
+                "under-eye grouped release gate identity changed",
+            )
+            _require(
+                payload.get("groupedImportVerified"), True,
+                "under-eye per-class gate lost verified grouped import",
+            )
+            _require(
+                payload.get("providerUploadEvidenceVerified"), True,
+                "under-eye per-class gate lost provider upload evidence",
+            )
+            summary[name].update({
+                "groupedReleaseGateMethod": payload.get("groupedReleaseGateMethod"),
+                "groupedReleaseGateCanonicalSHA256": payload.get(
+                    "groupedReleaseGateCanonicalSHA256"
+                ),
+                "groupedImportVerified": True,
+                "providerUploadEvidenceVerified": True,
+                "providerProjectSummaryConsistent": (
+                    payload.get("providerProjectSummaryConsistent") is True
+                ),
+                "versionGenerationAuthorized": (
+                    payload.get("versionGenerationAuthorized") is True
+                ),
+            })
         if not accepted:
             blockers.extend(f"task_{task}_release_gate_not_accepted" for task in expected_tasks)
     return not blockers, blockers, summary
@@ -249,6 +291,89 @@ def _validate_regional_provider_dataset_gate(
         "groupLockedManifestVerified": manifest_verified,
         "providerVersionReady": provider_version_ready,
         "trainingAuthorized": training_authorized,
+    }
+
+
+def _validate_under_eye_grouped_gate(
+    receipt: dict[str, Any], evidence_root: Path,
+) -> tuple[bool, list[str], dict[str, Any]]:
+    entry = receipt.get("underEyeGroupedReleaseGate")
+    if not isinstance(entry, dict):
+        raise GateInputError("under-eye grouped release gate entry missing")
+    _require(
+        entry.get("methodVersion"), EXPECTED_UNDER_EYE_GROUPED_GATE_METHOD,
+        "under-eye grouped release gate is not the current expected method",
+    )
+    payload = _load_evidence(
+        entry.get("evidence"), "under-eye grouped release gate", evidence_root,
+    )
+    _require(
+        payload.get("methodVersion"), entry.get("methodVersion"),
+        "under-eye grouped release gate method identity changed",
+    )
+    _require(
+        entry.get("canonicalSHA256"), EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256,
+        "under-eye grouped release gate registry identity changed",
+    )
+    _require(
+        _canonical_sha(payload), EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256,
+        "under-eye grouped release gate content changed",
+    )
+    _require(payload.get("exactArchiveAuthorized"), True, "under-eye grouped archive is not authorized")
+    _require(payload.get("existingUploadTaskReusable"), False, "stale under-eye upload cannot be reused")
+    _require(payload.get("freshDirectUploadRequired"), False, "completed under-eye import cannot require re-upload")
+    _require(payload.get("archiveUploadAuthorized"), False, "repeat under-eye archive upload cannot be authorized")
+    _require(payload.get("testEvaluationAuthorized"), False, "grouped gate cannot authorize final-test use")
+    _require(payload.get("productActivationAllowed"), False, "grouped gate cannot activate product output")
+    _require(payload.get("roadmapAccepted"), False, "grouped gate cannot accept the roadmap")
+    fields = (
+        "groupedImportVerified",
+        "providerUploadEvidenceVerified",
+        "providerProjectSummaryConsistent",
+        "versionGenerationAuthorized",
+        "augmentationFreeGroupedVersionVerified",
+        "providerExportIdentityVerified",
+        "researchTrainingAuthorized",
+    )
+    flags: dict[str, bool] = {}
+    for field in fields:
+        value = payload.get(field)
+        if not isinstance(value, bool):
+            raise GateInputError(f"under-eye grouped gate {field} flag is invalid")
+        _require(
+            entry.get(field), value,
+            f"under-eye grouped gate {field} does not match evidence",
+        )
+        flags[field] = value
+    if flags["versionGenerationAuthorized"] and not (
+        flags["groupedImportVerified"]
+        and flags["providerUploadEvidenceVerified"]
+        and flags["providerProjectSummaryConsistent"]
+    ):
+        raise GateInputError("under-eye version generation requires consistent verified provider surfaces")
+    if flags["augmentationFreeGroupedVersionVerified"] and not flags["versionGenerationAuthorized"]:
+        raise GateInputError("under-eye frozen version cannot precede version authorization")
+    if flags["researchTrainingAuthorized"] and not (
+        flags["augmentationFreeGroupedVersionVerified"]
+        and flags["providerExportIdentityVerified"]
+    ):
+        raise GateInputError("under-eye training requires verified frozen version and provider export")
+    blockers: list[str] = []
+    for field, blocker in (
+        ("groupedImportVerified", "under_eye_grouped_import_not_verified"),
+        ("providerUploadEvidenceVerified", "under_eye_provider_upload_evidence_not_verified"),
+        ("providerProjectSummaryConsistent", "under_eye_provider_project_summary_inconsistent"),
+        ("versionGenerationAuthorized", "under_eye_version_generation_not_authorized"),
+        ("augmentationFreeGroupedVersionVerified", "under_eye_grouped_version_not_verified"),
+        ("providerExportIdentityVerified", "under_eye_provider_export_identity_not_verified"),
+        ("researchTrainingAuthorized", "under_eye_research_training_not_authorized"),
+    ):
+        if not flags[field]:
+            blockers.append(blocker)
+    return not blockers, blockers, {
+        "methodVersion": payload.get("methodVersion"),
+        "canonicalSHA256": EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256,
+        **flags,
     }
 
 
@@ -484,7 +609,15 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     regional_provider_ready, regional_provider_blockers, regional_provider_summary = (
         _validate_regional_provider_dataset_gate(receipt, evidence_root)
     )
+    under_eye_grouped_ready, under_eye_grouped_blockers, under_eye_grouped_summary = (
+        _validate_under_eye_grouped_gate(receipt, evidence_root)
+    )
     all_class_gates, class_blockers, gate_summary = _validate_gate_registry(receipt, evidence_root)
+    _require(
+        gate_summary["underEye"]["groupedReleaseGateCanonicalSHA256"],
+        under_eye_grouped_summary["canonicalSHA256"],
+        "under-eye per-class and grouped gate identities disagree",
+    )
     camera_entry = receipt.get("physicalCameraGate", {})
     _require(
         camera_entry.get("methodVersion"), EXPECTED_PHYSICAL_CAMERA_GATE_METHOD,
@@ -500,15 +633,22 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
     blockers = (
         source_mapping_blockers
         + regional_provider_blockers
+        + under_eye_grouped_blockers
         + class_blockers
         + ([] if camera_accepted else ["physical_camera_benchmark_not_accepted"])
         + candidate_blockers
     )
     blockers = list(dict.fromkeys(blockers))
-    accepted = source_mapping_ready and regional_provider_ready and candidate_accepted and not blockers
+    accepted = (
+        source_mapping_ready
+        and regional_provider_ready
+        and under_eye_grouped_ready
+        and candidate_accepted
+        and not blockers
+    )
     return {
-        "schemaVersion": 19,
-        "methodVersion": "unified-skin-result-release-gate-v19",
+        "schemaVersion": 20,
+        "methodVersion": "unified-skin-result-release-gate-v20",
         "workingBaselinePreserved": True,
         "currentIntegratedPresentationAllowed": True,
         "generatedReplayIntegrationSmokeAllowed": True,
@@ -518,6 +658,8 @@ def evaluate_release(receipt: dict[str, Any], evidence_root: Path = ROOT) -> dic
         "sourceMappingReleaseReady": source_mapping_ready,
         "regionalProviderDatasetGate": regional_provider_summary,
         "regionalProviderDatasetReady": regional_provider_ready,
+        "underEyeGroupedReleaseGate": under_eye_grouped_summary,
+        "underEyeGroupedReleaseReady": under_eye_grouped_ready,
         "classReleaseGates": gate_summary,
         "allClassReleaseGatesAccepted": all_class_gates,
         "physicalCameraBenchmarkAccepted": camera_accepted,

@@ -16,7 +16,7 @@ spec.loader.exec_module(module)
 
 
 def _receipt():
-    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261028-v19.json"
+    path = ROOT / "docs" / "skin" / "evidence" / "unified-skin-result-release-receipt-20261029-v20.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -46,8 +46,53 @@ def _install_complete_evidence(receipt, root):
     )
     receipt["sourceMappingGate"]["trainingDataReleaseAuthorized"] = True
     receipt["sourceMappingGate"]["productTruthAuthorized"] = True
+    grouped = {
+        "schemaVersion": 1,
+        "methodVersion": module.EXPECTED_UNDER_EYE_GROUPED_GATE_METHOD,
+        "sourceArchiveSHA256": "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99",
+        "revokedArchiveSHA256": "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8",
+        "authorizedArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+        "candidateArchiveSHA256": "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122",
+        "exactArchiveAuthorized": True,
+        "existingUploadTaskReusable": False,
+        "freshDirectUploadRequired": False,
+        "archiveUploadAuthorized": False,
+        "groupedImportVerified": True,
+        "providerUploadEvidenceVerified": True,
+        "providerProjectSummaryConsistent": True,
+        "versionGenerationAuthorized": True,
+        "augmentationFreeGroupedVersionVerified": True,
+        "providerExportIdentityVerified": True,
+        "researchTrainingAuthorized": True,
+        "testEvaluationAuthorized": False,
+        "productActivationAllowed": False,
+        "roadmapAccepted": False,
+        "blockers": ["independent_camera_holdout_missing"],
+        "decision": "blocked",
+    }
+    grouped_canonical = module._canonical_sha(grouped)
+    module.EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256 = grouped_canonical
+    grouped_entry = receipt["underEyeGroupedReleaseGate"]
+    grouped_entry["canonicalSHA256"] = grouped_canonical
+    grouped_entry["evidence"] = _write(root, "under-eye-grouped-ready.json", grouped)
+    for field in (
+        "groupedImportVerified", "providerUploadEvidenceVerified",
+        "providerProjectSummaryConsistent", "versionGenerationAuthorized",
+        "augmentationFreeGroupedVersionVerified", "providerExportIdentityVerified",
+        "researchTrainingAuthorized",
+    ):
+        grouped_entry[field] = grouped[field]
     for name, entry in receipt["classReleaseGates"].items():
         payload = {"methodVersion": entry["methodVersion"], "roadmapAccepted": True}
+        if name == "underEye":
+            payload.update({
+                "groupedReleaseGateMethod": module.EXPECTED_UNDER_EYE_GROUPED_GATE_METHOD,
+                "groupedReleaseGateCanonicalSHA256": grouped_canonical,
+                "groupedImportVerified": True,
+                "providerUploadEvidenceVerified": True,
+                "providerProjectSummaryConsistent": True,
+                "versionGenerationAuthorized": True,
+            })
         entry["evidence"] = _write(root, f"{name}-accepted.json", payload)
         entry["roadmapAccepted"] = True
     camera = {
@@ -164,6 +209,16 @@ def _mutate_repository_ci(receipt, root, field, value, section=None):
 
 
 class UnifiedSkinResultReleaseTests(unittest.TestCase):
+    def setUp(self):
+        self._original_grouped_canonical = (
+            module.EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256
+        )
+
+    def tearDown(self):
+        module.EXPECTED_UNDER_EYE_GROUPED_GATE_CANONICAL_SHA256 = (
+            self._original_grouped_canonical
+        )
+
     def test_stale_receipt_schema_cannot_reenter(self):
         receipt = _receipt()
         receipt["schemaVersion"] = 10
@@ -178,6 +233,16 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
         self.assertFalse(result["physicalCameraBenchmarkAccepted"])
         self.assertFalse(result["regionalProviderDatasetReady"])
         self.assertFalse(result["sourceMappingReleaseReady"])
+        self.assertFalse(result["underEyeGroupedReleaseReady"])
+        self.assertTrue(
+            result["underEyeGroupedReleaseGate"]["groupedImportVerified"]
+        )
+        self.assertTrue(
+            result["underEyeGroupedReleaseGate"]["providerUploadEvidenceVerified"]
+        )
+        self.assertIn(
+            "under_eye_provider_project_summary_inconsistent", result["blockers"]
+        )
         self.assertIn("source_mapping_evidence_registry_incomplete", result["blockers"])
         self.assertIn("regional_provider_version_not_ready", result["blockers"])
         self.assertIn("regional_provider_training_not_authorized", result["blockers"])
@@ -232,6 +297,18 @@ class UnifiedSkinResultReleaseTests(unittest.TestCase):
         receipt = _receipt()
         receipt["classReleaseGates"]["underEye"]["methodVersion"] = "under-eye-per-class-release-gate-v2"
         with self.assertRaisesRegex(module.GateInputError, "current expected method"):
+            module.evaluate_release(receipt)
+
+    def test_grouped_gate_boolean_cannot_disagree_with_bound_evidence(self):
+        receipt = _receipt()
+        receipt["underEyeGroupedReleaseGate"]["providerProjectSummaryConsistent"] = True
+        with self.assertRaisesRegex(module.GateInputError, "does not match evidence"):
+            module.evaluate_release(receipt)
+
+    def test_grouped_gate_registry_cannot_swap_canonical_identity(self):
+        receipt = _receipt()
+        receipt["underEyeGroupedReleaseGate"]["canonicalSHA256"] = "a" * 64
+        with self.assertRaisesRegex(module.GateInputError, "registry identity changed"):
             module.evaluate_release(receipt)
 
     def test_expected_gate_method_registry_covers_every_task_registry_entry(self):

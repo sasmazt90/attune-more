@@ -20,9 +20,9 @@ EXPECTED_BLOBS = {
     "ungroupedModelVerdict": "437c97d23f6163ecc12c40dc52e4f12d60a840d9",
     "sourcePhotoReview": "80dbf3d4d89ec089a72db54a40b497d836b20fc7",
     "providerGroupedReproduction": "12d3bc76bdc41482828932e401d3df9738a6ace8",
-    "providerState": "e56d27cd2e51f3fd06eb116d723b8924e89f8a00",
+    "providerState": "c1099b9baa359c7161a2ea39df196baf7ffce85b",
     "groupedArchiveAuthorization": "24aff0aaa21026523b32ce257ec00725b3b25861",
-    "groupedReleaseGate": "a39f41d725846c04c2c92124d112644df4093eac",
+    "groupedReleaseGate": "d7cd632ced299fac8ac3962f20263d63082a791e",
     "mergedProductRecheck": "bbbe61b13145284d675af7e3e66d25ce439a7ba4",
     "expertReviewQueue": "bf4e5ab3e8d8462894b91133b514e968b238a448",
     "expertReviewDecisionsTemplate": "169b32cf4e83359dbb2ed5a72430999768819be1",
@@ -33,7 +33,7 @@ KNOWN_INELIGIBLE_MODEL_IDS = {REJECTED_UNGROUPED_MODEL_ID}
 EXPECTED_GROUPED_ARCHIVE_SHA256 = "8bf6b52fcdd8321c0be53301b4c53aa655b01f8268020c2384a3b95193056122"
 REVOKED_GROUPED_ARCHIVE_SHA256 = "41985daef4e2ba6336be5b67ada1c0001cd188a930df6ce29ef67cdf2999fbc8"
 EXPECTED_SOURCE_ARCHIVE_SHA256 = "6bff63b27720f2c1a9796b641b60879dbefcfde033b3515658cb91cbd4e32b99"
-EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = "9b5b8f1f43cb27b64a328092ed273b23ccbbc760e07d03b5ea76f70addc9cb0f"
+EXPECTED_GROUPED_GATE_CANONICAL_SHA256 = "924f50b2b5f730f76d28b773befbf172a679c58799d88dc77ed502dec5138388"
 EXPECTED_REVIEW_QUEUE_CANONICAL_SHA256 = "8784366d14ac86d6472f87c4f14ae7940e5c9344f2cfceeb30ef24b3f116c38d"
 
 
@@ -129,7 +129,7 @@ def _validate_grouped_release_gate(gate: dict[str, Any] | None) -> dict[str, boo
     _require(gate.get("schemaVersion"), 1, "grouped release gate schema changed")
     _require(
         gate.get("methodVersion"),
-        "under-eye-grouped-release-gate-v4",
+        "under-eye-grouped-release-gate-v5",
         "grouped release gate method changed",
     )
     _require(
@@ -154,18 +154,32 @@ def _validate_grouped_release_gate(gate: dict[str, Any] | None) -> dict[str, boo
     )
     _require(gate.get("exactArchiveAuthorized"), True, "exact grouped archive is not authorized")
     _require(gate.get("existingUploadTaskReusable"), False, "stale grouped upload task cannot be reused")
-    _require(gate.get("freshDirectUploadRequired"), True, "fresh direct grouped upload requirement changed")
+    _require(gate.get("freshDirectUploadRequired"), False, "completed grouped import cannot require a repeat upload")
+    _require(gate.get("archiveUploadAuthorized"), False, "completed grouped import cannot authorize a repeat upload")
+    _require(gate.get("groupedImportVerified"), True, "grouped import verification is missing")
+    _require(gate.get("providerUploadEvidenceVerified"), True, "provider upload evidence is not verified")
+    if not isinstance(gate.get("providerProjectSummaryConsistent"), bool):
+        raise GateInputError("provider project summary consistency flag is invalid")
+    if not isinstance(gate.get("versionGenerationAuthorized"), bool):
+        raise GateInputError("version generation authorization flag is invalid")
     _require(gate.get("testEvaluationAuthorized"), False, "grouped dataset gate cannot authorize final-test use")
     _require(gate.get("productActivationAllowed"), False, "grouped dataset gate cannot activate product output")
     _require(gate.get("roadmapAccepted"), False, "grouped dataset gate cannot accept the roadmap")
     flags = {
         "archive": gate.get("exactArchiveAuthorized") is True,
-        "import": gate.get("versionGenerationAuthorized") is True,
+        "import": gate.get("groupedImportVerified") is True,
+        "providerUpload": gate.get("providerUploadEvidenceVerified") is True,
+        "providerSummary": gate.get("providerProjectSummaryConsistent") is True,
+        "versionGeneration": gate.get("versionGenerationAuthorized") is True,
         "version": gate.get("augmentationFreeGroupedVersionVerified") is True,
         "providerExport": gate.get("providerExportIdentityVerified") is True,
         "training": gate.get("researchTrainingAuthorized") is True,
     }
-    if flags["version"] and not flags["import"]:
+    if flags["versionGeneration"] and not (
+        flags["import"] and flags["providerUpload"] and flags["providerSummary"]
+    ):
+        raise GateInputError("version generation requires verified import and consistent provider surfaces")
+    if flags["version"] and not flags["versionGeneration"]:
         raise GateInputError("grouped training authorization requires a verified import and version")
     return flags
 
@@ -258,12 +272,31 @@ def evaluate_release(
     _require(source.get("imageBytesChanged"), 0, "grouped image bytes changed")
     _require(source.get("annotationPayloadsChanged"), 0, "grouped annotations changed")
     _require(source.get("personIndependent"), False, "partial grouping cannot become person-independent")
-    _require(source.get("groupedProjectImages"), 0, "empty grouped project state changed")
-    _require(source.get("uploadStatus"), "created", "grouped upload status changed")
-    _require(source.get("uploadProgress"), None, "grouped upload progress changed")
+    _require(source.get("groupedProjectImages"), 399, "grouped provider image inventory changed")
+    _require(source.get("groupedProjectUnannotatedSummary"), 399, "provider summary label drift changed")
+    _require(source.get("uploadTaskId"), "jwquQEBFgx3HWd9ziIMn", "grouped upload task identity changed")
+    _require(source.get("uploadStatus"), "completed", "grouped upload status changed")
+    _require(source.get("uploadProgress"), {"current": 399, "total": 399}, "grouped upload progress changed")
+    _require(source.get("uploadCounts"), {
+        "uploaded": 399, "annotated": 399, "duplicates": 0,
+        "failedChunks": 0, "uploadErrors": 0, "annotationErrors": 0,
+    }, "grouped upload count evidence changed")
+    _require(source.get("annotationBoard"), {
+        "datasetImages": 399, "annotated": 399, "unannotated": 0, "percentLabeled": 100,
+    }, "grouped annotation-board evidence changed")
+    _require(source.get("completeDatasetSearch"), {
+        "pages": 5, "rows": 399, "uniqueImages": 399, "duplicateRows": 0,
+        "splits": {"train": 284, "valid": 77, "test": 38},
+        "classCounts": {"darkcircle": 382, "eyebag": 487},
+    }, "grouped complete dataset search changed")
+    _require(source.get("providerProjectSummaryConsistent"), False, "provider summary drift boundary changed")
+    _require(source.get("versions"), 0, "grouped version inventory changed")
+    _require(source.get("trainings"), 0, "grouped training inventory changed")
+    _require(source.get("evaluations"), 0, "grouped evaluation inventory changed")
     _require(source.get("candidateArchiveMatchesAuthorizedArchive"), True, "archive authorization boundary changed")
     _require(source.get("existingUploadTaskReusable"), False, "stale upload task cannot be reused")
-    _require(source.get("freshDirectUploadRequired"), True, "fresh direct upload requirement changed")
+    _require(source.get("freshDirectUploadRequired"), False, "completed import cannot require a repeat upload")
+    _require(source.get("repeatUploadAuthorized"), False, "repeat grouped upload cannot be authorized")
 
     model = receipt.get("ungroupedModel", {})
     _require(model.get("trainingId"), "d194569acd3ebe7cf8b7", "model training identity changed")
@@ -299,6 +332,9 @@ def evaluate_release(
     for field, grouped_field in (
         ("exactArchiveAuthorized", "archive"),
         ("groupedImportVerified", "import"),
+        ("providerUploadEvidenceVerified", "providerUpload"),
+        ("providerProjectSummaryConsistent", "providerSummary"),
+        ("versionGenerationAuthorized", "versionGeneration"),
         ("augmentationFreeGroupedVersionVerified", "version"),
         ("providerExportIdentityVerified", "providerExport"),
     ):
@@ -318,6 +354,12 @@ def evaluate_release(
         shared_training_blockers.append("exact_archive_authorization_missing")
     if not grouped_flags["import"]:
         shared_training_blockers.append("grouped_import_verification_missing")
+    if not grouped_flags["providerUpload"]:
+        shared_training_blockers.append("grouped_provider_upload_evidence_missing")
+    if not grouped_flags["providerSummary"]:
+        shared_training_blockers.append("provider_project_summary_inconsistent")
+    if not grouped_flags["versionGeneration"]:
+        shared_training_blockers.append("grouped_version_generation_not_authorized")
     if not grouped_flags["version"]:
         shared_training_blockers.append("grouped_version_verification_missing")
     if not grouped_flags["providerExport"]:
@@ -345,8 +387,8 @@ def evaluate_release(
     }
     roadmap_accepted = distinct_candidate and all(item["productActivationAllowed"] for item in class_decisions.values())
     return {
-        "schemaVersion": 5,
-        "methodVersion": "under-eye-per-class-release-gate-v5",
+        "schemaVersion": 6,
+        "methodVersion": "under-eye-per-class-release-gate-v6",
         "existingConcreteResultFlowPreserved": True,
         "classesRemainSeparate": True,
         "ungroupedModelAccepted": False,
@@ -355,6 +397,12 @@ def evaluate_release(
         "expertReviewQueueVerified": queue_verified,
         "expertSemanticProtocolVerified": protocol_verified,
         "groupedReleaseGateVerified": True,
+        "groupedReleaseGateMethod": "under-eye-grouped-release-gate-v5",
+        "groupedReleaseGateCanonicalSHA256": EXPECTED_GROUPED_GATE_CANONICAL_SHA256,
+        "groupedImportVerified": grouped_flags["import"],
+        "providerUploadEvidenceVerified": grouped_flags["providerUpload"],
+        "providerProjectSummaryConsistent": grouped_flags["providerSummary"],
+        "versionGenerationAuthorized": grouped_flags["versionGeneration"],
         "providerExportIdentityVerified": grouped_flags["providerExport"],
         "blindRetrainingAllowed": False,
         "classDecisions": class_decisions,
