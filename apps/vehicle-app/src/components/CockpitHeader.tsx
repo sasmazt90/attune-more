@@ -67,7 +67,7 @@ export const CockpitHeader: React.FC = () => {
 
 
           {/* Sürüş / Park Durumu */}
-          <span data-vehicle-status className={`flex items-center gap-2 rounded-full px-3 py-2 border text-xs ${isParked?'text-emerald-300 border-emerald-800':'text-amber-200 border-amber-700'}`}><Car className="w-3.5 h-3.5"/>{i18nNode(syncStatus!=='synced'?(syncStatus==='failed'?'ARAÇ DURUMU BELİRSİZ':'ARAÇ DURUMU DOĞRULANIYOR'):isParked?'PARK':'SÜRÜŞ')}</span>
+          <div className="inline-flex items-center gap-2"><span data-vehicle-status className={`flex items-center gap-2 rounded-full px-3 py-2 border text-xs ${isParked?'text-emerald-300 border-emerald-800':'text-amber-200 border-amber-700'}`}><Car className="w-3.5 h-3.5"/>{i18nNode(syncStatus!=='synced'?(syncStatus==='failed'?'ARAÇ DURUMU BELİRSİZ':'ARAÇ DURUMU DOĞRULANIYOR'):isParked?'PARK':'SÜRÜŞ')}</span>
           <InformationButton title={i18nText("Demo araç durumu")}><p>{i18nText("Bu Windows uygulaması gerçek araç API/CAN bağlantısına sahip değildir. Aşağıdaki demo kontrolü gerçek frontend/backend durumunu değiştirir. PARK doğrulanmadan işlemler açılmaz. Kamera ve mikrofonun native izinleri araç sensörlerinden bağımsızdır.")}</p>          <button
             onClick={toggleDrivingMode}
             disabled={syncStatus === 'loading' || syncStatus === 'updating'}
@@ -89,7 +89,7 @@ export const CockpitHeader: React.FC = () => {
               )}
             </span>
             <span className="text-[9px] bg-white/10 px-1.5 py-0.2 rounded text-slate-300 font-normal">{i18nText("Değiştir ")}</span>
-          </button></InformationButton>
+          </button></InformationButton></div>
         </div>
       </div>
 

@@ -272,7 +272,7 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">{i18nText("Kabin Kamerası")}</h2><InformationButton title={i18nText("Kabin Kamerası")}><p>{i18nText("Kamera yalnız görme ve cilt kontrolleri için kullanılır. Ham görüntü saklanmaz. Bu tercih tarayıcı/cihaz izni değildir; Başlat eyleminde gerçek izin istenir. Bilinçli olarak kapattığınız tercih korunur.")}</p></InformationButton></div>
+              <div className="flex items-center gap-2"><h2 className="text-base font-bold text-white">{i18nText("Kabin Kamerası")}</h2><InformationButton title={i18nText("Kabin Kamerası")}><p>{i18nText("Kamera yalnız görme ve cilt kontrolleri için kullanılır. Ham görüntü saklanmaz. Bu tercih tarayıcı/cihaz izni değildir; Başlat eyleminde gerçek izin istenir. Bilinçli olarak kapattığınız tercih korunur.")}</p></InformationButton></div>
             </div>
           </div>
 
@@ -308,7 +308,7 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">{i18nText("Kabin Mikrofonu")}</h2><InformationButton title={i18nText("Kabin Mikrofonu")}><p>{i18nText("Mikrofon yalnız görüşmeyi başlattığınızda kullanılır. Tarayıcı/cihaz izni ayrıca gerekir; bu tercih onu onaylamaz. Konuşma tanıma hizmeti sesi buluta aktarabilir. Aktarım Ruh Sağlığı ekranındaki hizmet onayına bağlıdır. Ham ses uygulamada saklanmaz.")}</p></InformationButton></div>
+              <div className="flex items-center gap-2"><h2 className="text-base font-bold text-white">{i18nText("Kabin Mikrofonu")}</h2><InformationButton title={i18nText("Kabin Mikrofonu")}><p>{i18nText("Mikrofon yalnız görüşmeyi başlattığınızda kullanılır. Tarayıcı/cihaz izni ayrıca gerekir; bu tercih onu onaylamaz. Konuşma tanıma hizmeti sesi buluta aktarabilir. Aktarım Ruh Sağlığı ekranındaki hizmet onayına bağlıdır. Ham ses uygulamada saklanmaz.")}</p></InformationButton></div>
             </div>
           </div>
 
@@ -342,7 +342,7 @@ export default function PrivacyPage() {
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-3"><h2 className="text-base font-bold text-white">{i18nText("Seans Hafızası")}</h2><InformationButton title={i18nText("Seans Hafızası")}><p>{i18nText("Tamamlanan görüşmenin kısa özeti, temaları, duygu eğilimi ve tarihi bu cihazda saklanır. Ham ses saklanmaz. Tam konuşma dökümü için aşağıdaki ayrı, varsayılan kapalı tercih gerekir. Kapatmak önceki kayıtları silmez. Görüşme başlatmak için saklama izni zorunlu değildir.")}</p></InformationButton></div>
+              <div className="flex items-center gap-2"><h2 className="text-base font-bold text-white">{i18nText("Seans Hafızası")}</h2><InformationButton title={i18nText("Seans Hafızası")}><p>{i18nText("Tamamlanan görüşmenin kısa özeti, temaları, duygu eğilimi ve tarihi bu cihazda saklanır. Ham ses saklanmaz. Tam konuşma dökümü için aşağıdaki ayrı, varsayılan kapalı tercih gerekir. Kapatmak önceki kayıtları silmez. Görüşme başlatmak için saklama izni zorunlu değildir.")}</p></InformationButton></div>
             </div>
           </div>
 
@@ -359,10 +359,10 @@ export default function PrivacyPage() {
       </section>
 
       <section className="rounded-2xl border border-white/10 bg-cockpit-surface p-6 space-y-3">
-        <div className="flex items-center justify-between gap-3"><h2 className="font-bold">{i18nText("Konuşma dökümü")}</h2><InformationButton title={i18nText("Konuşma dökümü saklama")}><p>{i18nText("Varsayılan kapalıdır. Açarsanız, ayrıca özet saklama tercihiniz açıkken tamamlanmış görüşmenin kullanıcı/asistan metinleri ve gerçek mesaj zamanları bu tarayıcıda aynı oturum kaydına eklenir. Ham mikrofon sesi saklanmaz. Bu tercih yeni bir backend veya dış sağlayıcı döküm kaydı oluşturmaz.")}</p><p>{i18nText("Görüşme hizmet onayı kapsamındaki yanıt/özet metin aktarımı ayrıdır. Yerel Sil eylemi dökümü ve özeti birlikte temizler; sağlayıcının tarihsel saklama veya silme durumunu doğrulamaz. Tercihi kapatmak eski kayıtları otomatik silmez.")}</p></InformationButton></div>
+        <div className="flex items-center gap-2"><h2 className="font-bold">{i18nText("Konuşma dökümü")}</h2><InformationButton title={i18nText("Konuşma dökümü saklama")}><p>{i18nText("Varsayılan kapalıdır. Açarsanız, ayrıca özet saklama tercihiniz açıkken tamamlanmış görüşmenin kullanıcı/asistan metinleri ve gerçek mesaj zamanları bu tarayıcıda aynı oturum kaydına eklenir. Ham mikrofon sesi saklanmaz. Bu tercih yeni bir backend veya dış sağlayıcı döküm kaydı oluşturmaz.")}</p><p>{i18nText("Görüşme hizmet onayı kapsamındaki yanıt/özet metin aktarımı ayrıdır. Yerel Sil eylemi dökümü ve özeti birlikte temizler; sağlayıcının tarihsel saklama veya silme durumunu doğrulamaz. Tercihi kapatmak eski kayıtları otomatik silmez.")}</p></InformationButton></div>
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveTranscript} aria-label={i18nText("Tam konuşma dökümünü bu cihazda sakla")} onChange={e=>{try{localStorage.setItem(STORAGE_KEYS.PRIVACY_MENTAL_TRANSCRIPT_ALLOWED,String(e.target.checked));setSaveTranscript(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Tam konuşma dökümünü bu cihazda sakla")}</label>
         <p className="text-xs text-slate-400">{i18nText("Fotoğraf saklama tercihi aşağıda Cilt Sağlığı için ayrıca yönetilir.")}</p>
-        <div className="flex items-center justify-between gap-3"><h2 className="font-bold">{i18nText("Görme ön değerlendirmesi")}</h2><InformationButton title={i18nText("Yön hizalama sonucu saklama")}><p>{i18nText("Varsayılan kapalıdır. Açarsanız tamamlanan yön hizalama denemeleri, görünürlük yanıtları, açı hataları, tarih ve hazırlık/doğrulama sınırları yalnız bu tarayıcıdaki geçmişe kaydedilir. Kamera karesi veya klinik keskinlik kaydı oluşturulmaz. Kapatmak eski kayıtları silmez; Sil ile tek kayıt kaldırılabilir.")}</p></InformationButton></div>
+        <div className="flex items-center gap-2"><h2 className="font-bold">{i18nText("Görme ön değerlendirmesi")}</h2><InformationButton title={i18nText("Yön hizalama sonucu saklama")}><p>{i18nText("Varsayılan kapalıdır. Açarsanız tamamlanan yön hizalama denemeleri, görünürlük yanıtları, açı hataları, tarih ve hazırlık/doğrulama sınırları yalnız bu tarayıcıdaki geçmişe kaydedilir. Kamera karesi veya klinik keskinlik kaydı oluşturulmaz. Kapatmak eski kayıtları silmez; Sil ile tek kayıt kaldırılabilir.")}</p></InformationButton></div>
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveVision} aria-label={i18nText("Yön hizalama sonuçlarını bu cihazda sakla")} onChange={e=>{try{localStorage.setItem(STORAGE_KEYS.PRIVACY_VISION_SAVE_ALLOWED,String(e.target.checked));setSaveVision(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Yön hizalama sonuçlarını bu cihazda sakla")}</label>
       </section>
 
