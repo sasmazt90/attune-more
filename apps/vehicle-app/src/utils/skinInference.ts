@@ -5,6 +5,7 @@ export class SkinInference {
   private worker = new Worker(new URL('./skinInference.worker.ts', import.meta.url));
   private sequence = 0;
   private closed = false;
+  private ready?: Promise<void>;
   private segmentationReady?: Promise<void>;
   onPhase?: (phase:string)=>void;
   private pending = new Map<number, { resolve: (value: any) => void; reject: (error: Error) => void; timer: ReturnType<typeof setTimeout>; isCurrent:()=>boolean }>();
@@ -31,6 +32,7 @@ export class SkinInference {
       else request.resolve(event.data);
     };
     this.worker.onerror = () => this.close();
+    this.worker.onmessageerror = () => this.close();
   }
 
   private request(type: string, frame?: ImageBitmap, alignment?: FaceAlignment, isCurrent:()=>boolean=()=>true): Promise<any> {
@@ -43,15 +45,20 @@ export class SkinInference {
       const timer = setTimeout(() => {
         this.pending.delete(id);
         reject(new Error('Cilt analiz motoru yanıt vermiyor'));
+        // A timed-out native worker cannot safely accept more requests.
+        // Terminate it; the page's retry creates a fresh model and worker.
+        this.close();
       }, (type === 'initialize' || type === 'segment' || type === 'initializeSegmentation') ? 30000 : 15000);
       this.pending.set(id, { resolve, reject, timer, isCurrent });
-      this.worker.postMessage({ id, type, frame, alignment }, frame ? [frame] : []);
+      try { this.worker.postMessage({ id, type, frame, alignment }, frame ? [frame] : []); }
+      catch (error) { clearTimeout(timer);this.pending.delete(id);frame?.close();reject(error instanceof Error?error:new Error('Cilt analiz motoru kapatıldı'));this.close(); }
     });
   }
 
-  async initialize(): Promise<void> {
+  initialize(): Promise<void> {
     // Prepare the on-device face model while the user reads instructions.
-    await this.request('initialize');
+    if(!this.ready)this.ready=this.request('initialize').then(()=>{});
+    return this.ready;
     // Background removal is disabled. Do not load its presentation-only model.
   }
 

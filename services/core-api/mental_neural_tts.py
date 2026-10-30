@@ -14,6 +14,8 @@ import tempfile
 from time import monotonic
 import wave
 from fastapi import HTTPException
+from starlette.concurrency import run_in_threadpool
+from owned_python_process import OwnedProcessTree
 
 MODEL_REPO = 'ResembleAI/chatterbox'
 SOURCE_REVISION = '5de7a54aa4e5e2baadb0182dde554908b48b85c2'
@@ -188,16 +190,7 @@ def configuration_path(speaker_profile=None):
     return os.getenv('ATTUNE_MENTAL_TTS_CONFIG', '')
 
 
-async def generate(text, language, permitted, disconnected, speaker_profile=None):
-    """One bounded subprocess; cancellation kills inference and discards all output."""
-    global _busy
-    if _busy:
-        raise HTTPException(429, 'NEURAL_TTS_BUSY')
-    if not permitted():
-        raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
-    path = configuration_path(speaker_profile)
-    if not path or not Path(path).is_file():
-        raise HTTPException(503, 'NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE')
+def verify_request_configuration(path, language, speaker_profile=None):
     # A request omitting speakerProfile must not bypass the female review gate.
     # Offline sample generation calls the worker directly and cannot activate it.
     try:
@@ -208,18 +201,39 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
         configuration = json.loads(raw_configuration)
         if not isinstance(configuration, dict):
             raise ValueError('INVALID_CONFIGURATION')
-        if configuration.get('conditioning') == 'female-calm-v1':
+        if speaker_profile or configuration.get('conditioning') == 'female-calm-v1':
             from mental_audio_identity import verify_speaker
-            verify_speaker(language, 'female-calm-v1')
+            verify_speaker(language, speaker_profile or 'female-calm-v1')
     except (OSError, ValueError, KeyError, TypeError):
         raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE') from None
+
+
+async def generate(text, language, permitted, disconnected, speaker_profile=None):
+    """One bounded subprocess; cancellation kills inference and discards all output."""
+    global _busy
+    if _busy:
+        raise HTTPException(429, 'NEURAL_TTS_BUSY')
+    if not permitted():
+        raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
+    path = configuration_path(speaker_profile)
+    if not path or not Path(path).is_file():
+        raise HTTPException(503, 'NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE')
     _busy = True
     process = None
+    owned = None
     task = None
     diagnostic = None
     started = monotonic()
     outcome = 'cancelled'
     try:
+        # Hashing the complete approved bundle can take seconds on Windows.
+        # Keep vehicle-state requests responsive, without skipping integrity or
+        # owner approval checks. Hold admission across verification as well.
+        await run_in_threadpool(verify_request_configuration, path, language, speaker_profile)
+        if not permitted():
+            raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
+        if await disconnected():
+            raise HTTPException(499, 'NEURAL_TTS_REQUEST_CANCELLED')
         executable = os.getenv('ATTUNE_MENTAL_TTS_PYTHON') or sys.executable
         env = {**os.environ, 'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1',
                'OMP_NUM_THREADS': '2', 'MKL_NUM_THREADS': '2', 'HF_HUB_DISABLE_TELEMETRY': '1'}
@@ -236,6 +250,7 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
         process = await asyncio.create_subprocess_exec(executable, str(worker),
             stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.DEVNULL, env=env)
+        owned = OwnedProcessTree(getattr(process, 'pid', None))
         payload = json.dumps({'config': path, 'language': language, 'text': text, **({'speakerProfile':speaker_profile} if speaker_profile else {})}, ensure_ascii=False).encode()
         task = asyncio.create_task(process.communicate(payload))
         started = monotonic()
@@ -268,7 +283,10 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
         raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE') from None
     finally:
         if process and process.returncode is None:
-            process.kill()
+            if owned and owned.root is not None:
+                await run_in_threadpool(owned.terminate)
+            else:
+                process.kill()
             await process.wait()
         if task:
             if not task.done():

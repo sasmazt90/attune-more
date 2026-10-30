@@ -38,7 +38,7 @@ import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference
 import { SkinSnapshot, snapshotRawSkinFrame as snapshotSkinFrame, snapshotAngleForRegion, assertCompleteFace } from '../../utils/skinSnapshot';
 import { measureSkinIndicators, SKIN_SIGN_CONTRACT, validSkinIndicators } from '../../utils/skinIndicators';
 import {skinTemporalSupport} from '../../utils/skinTemporalSupport';
-import { analyzeAppearance,attachAppearance,fuseRegionalOnServer } from '../../utils/appearanceMeasurements';
+import { analyzeAppearance,attachAppearance,fuseRegionalOnServer,prepareSkinAnalysis } from '../../utils/appearanceMeasurements';
 import { buildSkinViewModel, skinViewOrder, overviewFromResponse, validSkinOverview, effectiveSkinType, type SkinViewId } from '../../utils/skinOverview';
 import { SkinLocalAnalysis } from '../../utils/skinLocalMaps';
 import { SkinStartView } from '../../components/skin/SkinStartView';
@@ -194,7 +194,6 @@ export default function SkinPage() {
     initializationFailedRef.current = false;
     isMediaPipeLoadedRef.current = false;
     setIsMediaPipeLoaded(false);
-    let isMounted = true;
     let engine: SkinInference;
     try {
       engine = new SkinInference();
@@ -204,20 +203,7 @@ export default function SkinPage() {
       initializationFailedRef.current = true;
       return;
     }
-    engine.initialize().then(() => {
-      if (isMounted) {
-        isMediaPipeLoadedRef.current = true;
-        setIsMediaPipeLoaded(true);
-      }
-    }).catch(() => {
-      if (isMounted) {
-        initializationFailedRef.current = true;
-        setErrorMessage('Cilt analiz motoru başlatılamadı. Lütfen bağlantınızı kontrol edip tekrar deneyin.');
-        setScanState(previous => previous === 'CAMERA_ACTIVE' ? 'ERROR' : previous);
-      }
-    });
     return () => {
-      isMounted = false;
       engine.close();
       inferenceRef.current = null;
     };
@@ -511,7 +497,7 @@ export default function SkinPage() {
         return;
       }
     } else {
-      setErrorMessage('MediaPipe doğrulaması olmadan sağlık telemetrisi kaydedilemez.');
+      setErrorMessage('Yüz doğrulaması olmadan sağlık sonucu kaydedilemez.');
       setScanState('ERROR');
       return;
     }
@@ -671,6 +657,7 @@ export default function SkinPage() {
             curAlign.cameraMirrored = detectCameraMirrored(video, ctx, curAlign.faceTransform);
           } catch {
             if (!cancelled) {
+              initializationFailedRef.current=true;
               setErrorMessage('Cilt analiz motoru yanıt vermiyor. Lütfen yeniden deneyin.');
               setScanState('ERROR');
             }
@@ -766,7 +753,7 @@ export default function SkinPage() {
                     temporalSupport.current=[];captureState.index++; setAngleIndex(captureState.index); consecutiveValidFramesRef.current = 0;
                   } catch (error) {
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
-                    if(error instanceof Error&&error.message==='Yerel görünüm analizi tamamlanamadı.'){setErrorMessage(error.message);setScanState('ERROR');return;}
+                    if(error instanceof Error&&(error.name==='LocalAnalysisError'||error.message==='Yerel görünüm analizi tamamlanamadı.')){setErrorMessage(error.message);setScanState('ERROR');return;}
                     consecutiveValidFramesRef.current = 0;
                     setScanProgress(Math.round(captureState.index * 100 / 3));
                     setGuidanceText(error instanceof Error && error.message === 'INCOMPLETE_HEAD_FRAME' ? 'Alın ve çeneniz kadrajda kalacak şekilde biraz geriye gidin; bu poz yeniden alınacak.' : 'Bu poz güvenilir ölçülemedi veya önceki kareyle aynı. İstenen açıyı yeniden deneyin.');
@@ -845,8 +832,20 @@ export default function SkinPage() {
       return;
     }
 
+    let cameraRequested=false;
     try {
+      // Load CPU analysis models before allocating the GPU landmark runtime.
+      // Camera capture starts only after both independent stages are ready.
+      setPreparationPhase('MODEL');setGuidanceText('Attune.more analizi hazırlanıyor… İptal edebilirsiniz.');
+      await prepareSkinAnalysis(()=>mountedRef.current&&acquisition===acquisitionRef.current&&parkedRef.current&&isCameraAllowed()&&serviceAllowed('skin'));
+      const engine=inferenceRef.current;
+      if(!engine)throw new Error('Yüz analiz motoru hazır değil. Yeniden deneyin.');
+      try{await engine.initialize();}catch(error){initializationFailedRef.current=true;throw error;}
+      if(!mountedRef.current||acquisition!==acquisitionRef.current||!parkedRef.current||!isCameraAllowed())return;
+      isMediaPipeLoadedRef.current=true;setIsMediaPipeLoaded(true);
+      setPreparationPhase(null);
       const videoConstraints:MediaTrackConstraints & {resizeMode:ConstrainDOMString}={width:{ideal:1920},height:{ideal:1080},resizeMode:{ideal:'none'},facingMode:'user'};
+      cameraRequested=true;
       const stream = await navigator.mediaDevices.getUserMedia({
         video: videoConstraints
       });
@@ -860,6 +859,11 @@ export default function SkinPage() {
       setIsLiveVideo(true);
     } catch (err: any) {
       if (!mountedRef.current || acquisition !== acquisitionRef.current) return;
+      setPreparationPhase(null);
+      if(!cameraRequested){
+        setErrorMessage(err?.name==='LocalAnalysisError'?err.message:'Analiz hazırlığı tamamlanamadı. Yeniden deneyin.');
+        setScanState('ERROR');return;
+      }
       console.warn('Kamera erişimi sağlanamadı:', err);
       if (isDemo) {
         // Demo modda kamera erişilemezse videoRef beklemeksizin sentetik taramayı tamamlar

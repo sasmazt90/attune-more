@@ -42,6 +42,8 @@ async def lifespan(_app: FastAPI):
         yield
     finally:
         close_openai_client()
+        from local_native_process import native_analysis
+        await native_analysis.close()
 
 app = FastAPI(
     default_response_class=LocalizedJSONResponse,
@@ -511,9 +513,6 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
         raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
     if payload.language != current_language():
         raise HTTPException(422, 'TTS_LANGUAGE_MISMATCH')
-    if payload.speakerProfile:
-        from mental_audio_identity import verify_speaker
-        verify_speaker(payload.language, payload.speakerProfile)
     def permitted():
         return (vehicle_state.get('driverAuthenticated') is True
                 and vehicle_state.get('vehicleMoving') is False

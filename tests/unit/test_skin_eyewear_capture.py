@@ -19,7 +19,15 @@ def test_rejected_full_photo_never_runs_analysis_or_returns_zero(monkeypatch):
     _,identity=decode_photo(photo)
     payload=dict(processingConsent=True,photo=photo,photoId=identity,landmarks=[dict(x=.5,y=.5)]*478,meshes={'forehead':dict(points=[dict(x=1,y=1)]*3,edges=[[0,1]])},conditions={})
     monkeypatch.setattr(E,'classify_source',lambda *args:dict(status='EYEWEAR_PRESENT',version=E.VERSION,modelHash=E.MODEL_HASH));calls=[]
-    monkeypatch.setattr(L,'analyze_skin',lambda value:calls.append(value))
+    import appearance_analysis
+    from local_native_worker import skin_analysis
+    monkeypatch.setattr(appearance_analysis,'analyze_skin',lambda value:calls.append(value))
+    # Execute the same worker function in-process so the rejection fixture
+    # applies across the new process boundary; no successful model is faked.
+    async def boundary(operation,value,*_):
+        assert operation=='skin'
+        return skin_analysis(value)
+    monkeypatch.setattr(L.native_analysis,'run',boundary)
     response=post('/api/local-health/skin',payload,monkeypatch)
     assert response.status_code==409 and response.json()=={'detail':'SKIN_EYEWEAR_PRESENT'} and not calls
     assert not L._busy.locked()

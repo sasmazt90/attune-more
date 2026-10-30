@@ -7,6 +7,7 @@ import math
 from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from appearance_analysis import analyze_skin
+from local_native_process import native_analysis
 from experimental_acne_v5 import configuration as acne_preview_configuration,PreviewUnavailable,PreviewRejected
 
 router = APIRouter(prefix='/api/local-health')
@@ -112,6 +113,14 @@ def skin_geometry(value):
             if not isinstance(edge,list) or len(edge)!=2 or not all(isinstance(i,int) and not isinstance(i,bool) and 0<=i<len(mesh['points']) for i in edge):raise ValueError()
 
 
+@router.post('/skin/prepare')
+async def skin_prepare(request: Request):
+    value=await payload(request)
+    if _busy.locked():raise HTTPException(429,'LOCAL_ANALYSIS_BUSY')
+    async with _busy:
+        return await native_analysis.run('warm-skin',{},request,parked,90.)
+
+
 @router.post('/skin')
 async def skin(request: Request):
     value = await payload(request)
@@ -120,45 +129,7 @@ async def skin(request: Request):
     try:
         skin_geometry(value)
         async with _busy:
-            from native_material_budget import NativeRequestBudget,NativeRequestStopped
-            from camera_color import CameraProfileUnavailable
-            from product_dryness import analyze_product,DrynessModelUnavailable
-            scope=NativeRequestBudget()
-            def work():
-                # camera-correct pixels: raw YUV frame converted with the vehicle camera profile (+ colour correction)
-                from camera_color import load_profile,prepare,restore
-                source,color,client_id,analyzed_id=prepare(value,load_profile())
-                scope.check();eyewear=skin_capture_preflight(source);scope.check()
-                result=analyze_product(source,analyze_skin,scope.check)
-                if source.get('experimentalAcneV5', True) is not False:
-                    from acne_v5_product import replace_acne
-                    result=replace_acne(result,source,scope.check)
-                from local_skin_type import finalize_product_type
-                result=finalize_product_type(result)
-                from regional_attach import attach as attach_regional_map
-                result=attach_regional_map(result,source,scope.check)
-                return eyewear,restore(result,color,client_id,analyzed_id)
-            worker=asyncio.create_task(run_in_threadpool(work))
-            try:
-                while not worker.done():
-                    if not parked() or await request.is_disconnected():scope.cancel()
-                    await asyncio.wait({worker},timeout=.05)
-                eyewear,result=await worker
-            except asyncio.CancelledError:
-                scope.cancel()
-                try:await asyncio.shield(worker)
-                except (NativeRequestStopped,DrynessModelUnavailable):pass
-                raise
-            except NativeRequestStopped as error:
-                raise HTTPException(504 if str(error)=='LOCAL_ANALYSIS_TIMEOUT' else 409,str(error)) from None
-            except PreviewUnavailable as error:
-                raise HTTPException(503,str(error)) from None
-            except PreviewRejected as error:
-                raise HTTPException(422,str(error)) from None
-            except DrynessModelUnavailable:
-                raise HTTPException(503,'LOCAL_MODEL_OR_RESOURCE_UNAVAILABLE') from None
-            except CameraProfileUnavailable:
-                raise HTTPException(503,'CAMERA_PROFILE_UNAVAILABLE') from None
+            eyewear,result=await native_analysis.run('skin',value,request,parked,90.)
         result['captureScopeVersion']=eyewear['version']
         for rows in [*result.get('measurements',{}).values(),result.get('general',{}).get('measurements',[])]:
             for row in rows:
@@ -204,12 +175,14 @@ async def skin_regional_fuse(request: Request):
     """Three-angle regional skin map + findings from the per-photo regionalSkinMap objects returned by /skin.
     Only numbers travel here (no photo); the decision models run on the server, never in the client."""
     value = await payload(request)
-    from regional_attach import fuse_regional
     try:
         maps = value.get('maps')
         if not isinstance(maps, dict):
             raise ValueError('MAPS_REQUIRED')
-        out = await run_in_threadpool(fuse_regional, maps)
+        # Reuse the capture worker's verified models. Loading a second bundle
+        # in the API process wastes RAM and can exceed the fusion deadline.
+        async with _busy:
+            out = await native_analysis.run('skin-fuse',maps,request,parked,30.)
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return out
@@ -282,7 +255,8 @@ async def dental(request: Request):
         for capture in value['captures']:
             landmarks(capture.get('landmarks'))
             if capture.get('pose') not in ('FRONT','RIGHT','LEFT','BITE'):raise ValueError()
-        result = await dental_work(request,analyze_dental,value)
+        async with _busy:
+            result = await native_analysis.run('dental',value,request,parked,30.)
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return result
@@ -299,7 +273,9 @@ async def dental_upload(request: Request):
     from dental_analysis import DentalModelError
     try:
         if value.get('photoLandmarks') is not None:landmarks(value['photoLandmarks'])
-        result = await dental_work(request,analyze_upload,value)
+        if _busy.locked():raise HTTPException(429,'LOCAL_ANALYSIS_BUSY')
+        async with _busy:
+            result = await native_analysis.run('dental-upload',value,request,parked,30.)
         if not parked() or await request.is_disconnected():
             raise HTTPException(409, 'CANCELLED')
         return result

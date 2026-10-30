@@ -31,7 +31,7 @@ def test_snapshot_source_and_no_segmentation_preload():
  page=(root/'apps/vehicle-app/src/app/skin/page.tsx').read_text('utf8')
  assert '.segmentHead(' not in page
  inference=(root/'apps/vehicle-app/src/utils/skinInference.ts').read_text('utf8')
- initialize=inference.split('async initialize()')[1].split('private prepareSegmentation')[0]
+ initialize=inference.split('initialize(): Promise<void>')[1].split('private prepareSegmentation')[0]
  assert 'this.prepareSegmentation()' not in initialize
  snapshot=(root/'apps/vehicle-app/src/utils/skinSnapshot.ts').read_text('utf8')
  assert 'snapshotRawSkinFrame as snapshotSkinFrame' in page

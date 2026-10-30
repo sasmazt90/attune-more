@@ -69,5 +69,7 @@ def test_degrees_remain_independent_of_hosted_failure(monkeypatch):
   def run(self,*args):return [np.array([[3.]],np.float32)]
  monkeypatch.setattr(M,'load',lambda:dict(sessions={'degrees':dict(session=Session(),loadMs=0,metadata=dict(accepted=True,sha256='a'*64,version='preserved',targets=['redness'],acceptedTargets=['redness']),sessionMetadata=dict(modelHash='a'*64,modelVersion='preserved',modelId='degrees:preserved',fileHashVerified=True,sessionLoaded=True))}))
  monkeypatch.setattr(M,'infer_hosted_type',lambda *args:H.unavailable('HOSTED_TIMEOUT'))
+ from local_skin_type import unavailable
+ monkeypatch.setattr(M,'infer_local_type',lambda *args:unavailable('LOCAL_MODEL_UNAVAILABLE'))
  p=[dict(x=.2+(i%2)*.6,y=.2+(i%3)*.2) for i in range(468)];result=M.infer(np.zeros((320,320,3),np.uint8),p,True,True)
  assert result['degrees']['redness']['value']==60 and result['skinType']['value'] is None

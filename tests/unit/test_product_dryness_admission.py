@@ -52,47 +52,33 @@ def test_replace_has_one_support_and_unavailable_is_not_zero():
  with pytest.raises(ValueError):D.replace_dryness(old,native,'id')
  assert old['measurements']['chin'][0]['value']==5
 
-def test_normal_router_disconnect_drains_cooperative_worker(monkeypatch):
- import local_health as L,product_dryness as P
+@pytest.mark.parametrize('reason,status',[('disconnect',409),('deadline',504)])
+def test_normal_router_reaps_native_process_before_unlock(monkeypatch,reason,status):
+ import local_health as L
+ from local_native_process import NativeAnalysisProcess
  from fastapi import HTTPException
  monkeypatch.setattr(L,'parked',lambda:True);monkeypatch.setattr(L,'skin_geometry',lambda _:None)
  async def payload(_):return {}
- monkeypatch.setattr(L,'payload',payload);monkeypatch.setattr(L,'skin_capture_preflight',lambda _: {})
- events=[]
- def work(value,base,check):
-  try:
-   events.append('started')
-   while True:check();time.sleep(.005)
-  finally:events.append('drained')
- monkeypatch.setattr(P,'analyze_product',work)
- class Request:
-  async def is_disconnected(self):return bool(events)
- started=[]
+ monkeypatch.setattr(L,'payload',payload)
  async def run():
+  service=NativeAnalysisProcess();started=asyncio.Event();processes=[]
+  monkeypatch.setattr(L,'native_analysis',service)
+  async def work(*_):
+   service.process=await asyncio.create_subprocess_exec(getattr(sys,'_base_executable',sys.executable),'-c','import time;time.sleep(60)')
+   processes.append(service.process);started.set();await service.process.wait()
+  service.exchange=work
+  original=service.run
+  async def bounded(op,value,request,permitted,seconds):return await original(op,value,request,permitted,.3)
+  service.run=bounded
+  class Request:
+   async def receive(self):
+    await started.wait()
+    if reason=='disconnect':return {'type':'http.disconnect'}
+    await asyncio.Future()
   L._busy=asyncio.Lock()
-  with pytest.raises(HTTPException) as e:await L.skin(Request())
-  assert e.value.status_code==409 and events==['started','drained'] and not L._busy.locked()
- asyncio.run(run())
-
-
-def test_normal_router_deadline_drains_before_lock_release(monkeypatch):
- import local_health as L,product_dryness as P,native_material_budget as B
- from fastapi import HTTPException
- monkeypatch.setattr(L,'parked',lambda:True);monkeypatch.setattr(L,'skin_geometry',lambda _:None)
- async def payload(_):return {}
- monkeypatch.setattr(L,'payload',payload);monkeypatch.setattr(L,'skin_capture_preflight',lambda _: {})
- budget=B.NativeRequestBudget
- monkeypatch.setattr(B,'NativeRequestBudget',lambda:budget(.03));events=[]
- def work(value,base,check):
-  try:
-   events.append('started')
-   while True:check();time.sleep(.005)
-  finally:events.append('drained')
- monkeypatch.setattr(P,'analyze_product',work)
- class Request:
-  async def is_disconnected(self):return False
- async def run():
-  L._busy=asyncio.Lock()
-  with pytest.raises(HTTPException) as e:await L.skin(Request())
-  assert e.value.status_code==504 and events==['started','drained'] and not L._busy.locked()
+  task=asyncio.create_task(L.skin(Request()))
+  await started.wait();assert L._busy.locked()
+  with pytest.raises(HTTPException) as e:await task
+  assert e.value.status_code==status and not L._busy.locked()
+  assert processes[0].returncode is not None and service.process is None
  asyncio.run(run())

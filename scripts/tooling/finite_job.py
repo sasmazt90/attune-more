@@ -211,6 +211,12 @@ def run_job(argv, cwd, limits, *, env=None, stdout=None, stderr=None, cancel=Non
                 code = W.DWORD(); require(k.GetExitCodeProcess(pi.process, ctypes.byref(code)), 'Read owned process exit')
                 exit_code=int(code.value); reason='exit'
                 accounting = Accounting(); require(k.QueryInformationJobObject(job,1,ctypes.byref(accounting),ctypes.sizeof(accounting),None),'Query final job accounting')
+                # Process signalling can precede Job accounting on Windows.
+                # Allow only a short bounded drain before declaring orphans.
+                drain_until=time.monotonic()+.25
+                while accounting.ActiveProcesses and time.monotonic()<drain_until:
+                    time.sleep(.01)
+                    require(k.QueryInformationJobObject(job,1,ctypes.byref(accounting),ctypes.sizeof(accounting),None),'Drain final job accounting')
                 if accounting.ActiveProcesses:
                     reason='orphaned-descendants';exit_code=exit_code or 125
                 break

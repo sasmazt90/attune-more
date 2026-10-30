@@ -35,9 +35,7 @@ def decode_upload(data):
     except (OSError,ValueError,UnidentifiedImageError,Image.DecompressionBombError,Image.DecompressionBombWarning):raise UploadError('DECODE_FAILED') from None
 
 def upload_roi(image,points=None):
-    """Optional full-photo anatomy, otherwise colored intraoral support.
-    Full face and camera liveness are never prerequisites for partial uploads.
-    """
+    """Require anatomical mouth evidence; colour clustering alone is insufficient."""
     if points is not None:
         from dental_analysis import mouth_geometry,dental_pixels,dental_quality
         mouth,width,opening,_=mouth_geometry(points,image.shape)
@@ -51,42 +49,11 @@ def upload_roi(image,points=None):
         ys,xs=np.where(mouth)
         quality.update(geometrySource='detected-inner-mouth',sourceType='upload',motionGateApplied=False,fullFaceRequired=False,roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(xs.max()-xs.min()+1),height=int(ys.max()-ys.min()+1)),analysisScale=1)
         return mouth,tooth,gum,quality
-    h,w=image.shape[:2];factor=min(1,LIMITS['analysisMaxSide']/max(h,w))
-    small=cv2.resize(image,None,fx=factor,fy=factor,interpolation=cv2.INTER_AREA) if factor<1 else image.copy()
-    hsv=cv2.cvtColor(small,cv2.COLOR_BGR2HSV);gray=cv2.cvtColor(small,cv2.COLOR_BGR2GRAY)
-    enamel=(hsv[:,:,1]<110)&(hsv[:,:,2]>100)&(gray>90)
-    gingiva=(small[:,:,2].astype(float)>small[:,:,1]*1.12)&(hsv[:,:,1]>55)&(gray>35)
-    near=cv2.dilate(gingiva.astype('uint8'),np.ones((31,31),'uint8'))>0
-    candidate=cv2.morphologyEx((enamel&near).astype('uint8'),cv2.MORPH_CLOSE,np.ones((13,13),'uint8'))
-    count,labels,stats,_=cv2.connectedComponentsWithStats(candidate)
-    if count<2:raise UploadError('TEETH_NOT_VISIBLE_OR_NON_COLOR_IMAGE')
-    largest=1+int(np.argmax(stats[1:,4]));x,y,bw,bh,area=stats[largest]
-    if area<150 or bw/factor<100:raise UploadError('INSUFFICIENT_TOOTH_DETAIL')
-    # The fallback has no facial anatomy. A tall connected wall/window or skin
-    # patch near reddish pixels is not a visible tooth row. Require horizontal
-    # enamel/gingiva structure before allocating full-resolution masks. This
-    # rejects the recorded no-teeth portrait, rather than scoring its window.
-    if bw<bh:raise UploadError('TEETH_NOT_VISIBLE_OR_NON_COLOR_IMAGE')
-    # Include enamel adjacent to the selected cluster and colored gums, while avoiding remote white backgrounds.
-    support=cv2.dilate((labels==largest).astype('uint8'),np.ones((51,51),'uint8'))>0
-    ys,xs=np.where(support & (enamel|gingiva));margin=max(10,int(bw*.08))
-    x0=max(0,int((xs.min()-margin)/factor));y0=max(0,int((ys.min()-margin)/factor));x1=min(w,int((xs.max()+margin)/factor));y1=min(h,int((ys.max()+margin)/factor))
-    mouth=np.zeros((h,w),bool);mouth[y0:y1,x0:x1]=True
-    from dental_analysis import dental_pixels
-    tooth,glare,gum,tongue,source_gray=dental_pixels(image,mouth)
-    total=max(int(mouth.sum()),1);tooth_count=int(tooth.sum());fraction=tooth_count/total
-    interior=cv2.erode(tooth.astype('uint8'),np.ones((3,3),'uint8'))>0
-    lap=cv2.Laplacian(source_gray,cv2.CV_32F)
-    sharp=float(np.mean(lap[interior]**2)) if interior.any() else 0
-    light=float(source_gray[mouth].mean());reasons=[]
-    if tooth_count<150 or fraction<.15:reasons.append('TEETH_NOT_VISIBLE')
-    if light<45 or light>230:reasons.append('LIGHT_INVALID')
-    if sharp<12:reasons.append('BLURRY')
-    if glare.sum()/max(tooth_count+glare.sum(),1)>.12:reasons.append('SALIVA_OR_GLARE')
-    if tongue.sum()/total>.7:reasons.append('TONGUE_OCCLUSION')
-    if not gum.any() or np.mean(hsv[:,:,1]>35)<.04:reasons.append('NON_COLOR_INTRAORAL_PHOTO')
-    if reasons:raise UploadError(reasons[0])
-    return mouth,tooth,gum,dict(valid=True,reasons=[],geometrySource='local-colored-enamel-gingiva',sourceType='upload',motionGateApplied=False,fullFaceRequired=False,visibleToothPixels=tooth_count,toothFraction=fraction,sharpness=sharp,light=light,clippedPixels=int(glare.sum()),roi=dict(x=x0,y=y0,width=x1-x0,height=y1-y0),analysisScale=factor)
+    # Enamel/gingiva colours alone cannot establish anatomy: skin, hair and
+    # portrait backgrounds can satisfy them. Without an anchored mouth, return
+    # an unmeasured input error before the detector can generate candidates.
+    raise UploadError('MOUTH_ANATOMY_UNVERIFIED')
+
 
 def analyze_upload(payload,check=lambda:None):
     check()

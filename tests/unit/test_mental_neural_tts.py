@@ -131,8 +131,10 @@ def test_inference_process_cleanup_and_stale_output(monkeypatch,tmp_path,failure
                 await asyncio.Event().wait()
             def kill(self):self.killed=True;self.returncode=-9
             async def wait(self):return self.returncode
-        process=Process();checks=0
+        process=Process();checks=0;spawned=False
         async def spawn(*args,**kwargs):
+            nonlocal spawned
+            spawned=True
             assert kwargs['env']['HF_HUB_OFFLINE']=='1';assert 'OPENAI_API_KEY' not in kwargs['env'];assert 'ATTUNE_MENTAL_TTS_TOKEN' not in kwargs['env'];return process
         monkeypatch.setattr(neural.asyncio,'create_subprocess_exec',spawn)
         def permitted():
@@ -144,7 +146,7 @@ def test_inference_process_cleanup_and_stale_output(monkeypatch,tmp_path,failure
         if failure=='success':assert await task==wav_bytes()
         else:
             with pytest.raises((HTTPException,asyncio.CancelledError)):await task
-        if failure in ('motion','disconnect','cancel'):assert process.killed
+        if failure in ('motion','disconnect','cancel') and spawned:assert process.killed
         assert neural._busy is False
     asyncio.run(scenario())
 

@@ -20,6 +20,7 @@ import {SkinInference} from '../../utils/skinInference';
 import {StablePreviewCrop,SourceMotion,cameraCrop,Crop} from '../../utils/cameraStability';
 import {DentalCapture,DENTAL_POSES,DENTAL_GUIDANCE,assessDentalCapture,captureDental} from '../../utils/dentalCapture';
 import {DentalCaptureSession} from '../../utils/dentalCaptureSession';
+import {localAnalysisError} from '../../utils/localAnalysisError';
 import {dentalCameraErrorMessage} from '../../utils/dentalCameraError';
 import {saveDentalPhotos,verifyDentalPhotoPixels,DENTAL_PHOTO_PERMISSION} from '../../utils/dentalPhotoHistory';
 import {validateDentalResult,validateDentalView,dentalRecordMeasurements,dentalViewMeasured,DENTAL_POSE_LABELS} from '../../utils/dentalResult';
@@ -54,8 +55,8 @@ export default function DentalPage(){
  useEffect(()=>{if(!isParked&&phase!=='ready'){cancel();setNotice('Diş taraması yalnız PARK durumunda yapılır.');}},[isParked,phase,cancel]);
  /** Each analysis owns the sealed, immutable source list it was started with. */
  const analyze=async(run:number,sources:readonly DentalCapture[])=>{captures.current=sources;
-  setPhase('analysis');setNotice('Görünür diş yüzeyleri cihazda analiz ediliyor…');stream.current?.getTracks().forEach(track=>track.stop());inference.current?.close();const controller=new AbortController();abort.current=controller;const timer=setTimeout(()=>controller.abort(),30000);
-  try{const response=await fetch(localBackend('/api/local-health/dental'),{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:consent,captures:sources})});if(!response.ok)throw Error('Yerel diş analizi tamamlanamadı.');const value=await response.json();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
+  setPhase('analysis');setNotice('Görünür diş yüzeyleri cihazda analiz ediliyor…');stream.current?.getTracks().forEach(track=>track.stop());inference.current?.close();const controller=new AbortController();abort.current=controller;const timer=setTimeout(()=>controller.abort(),35000);
+  try{const response=await fetch(localBackend('/api/local-health/dental'),{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:consent,captures:sources})});if(!response.ok){const failure=await response.json().catch(()=>({}));throw localAnalysisError(response.status,failure.detail);}const value=await response.json();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
    validateDentalResult(value,sources as DentalCapture[],true);
    // Views the backend could not measure stay visible as "ölçülemedi"; only a
    // scan without any measured view is an error (never shown as healthy).
@@ -81,9 +82,9 @@ export default function DentalPage(){
    }finally{bitmap.close();}
    if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;
    if(controller.signal.aborted)throw new DOMException('Fotoğraf işlemi zaman aşımına uğradı.','AbortError');
-   setNotice('Görünür diş yüzeyleri cihazda analiz ediliyor…');deadline=setTimeout(()=>controller.abort(),30000);
+   setNotice('Görünür diş yüzeyleri cihazda analiz ediliyor…');deadline=setTimeout(()=>controller.abort(),35000);
    const response=await fetch(localBackend('/api/local-health/dental-upload'),{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,photo,photoLandmarks})});
-   const value=await response.json();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;if(!response.ok)throw Error(UPLOAD_REASONS[value.detail]||'Yerel fotoğraf analizi tamamlanamadı.');
+   const value=await response.json();if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;if(!response.ok)throw (UPLOAD_REASONS[value.detail]?Error(UPLOAD_REASONS[value.detail]):localAnalysisError(response.status,value.detail));
    const view=value.views?.[0];if(value.views?.length!==1||view.sourceType!=='upload'||view.sourceWidth!==value.source?.sourceWidth||view.sourceHeight!==value.source?.sourceHeight||!/^[a-f0-9]{64}$/.test(view.photoId))throw Error('Kaynak fotoğraf eşleşmesi doğrulanamadı.');
    validateDentalView(view,undefined,true);if(!dentalViewMeasured(view))throw Error('Fotoğraf ölçülemedi. Başka bir fotoğraf seçebilirsiniz.');
    const accepted={photo:value.normalizedPhoto,photoId:view.photoId,width:view.sourceWidth,height:view.sourceHeight,pose:view.pose,landmarks:[],conditions:{},sourceType:'upload' as const};await verifyDentalPhotoPixels([accepted]);if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;captures.current=[accepted];resultId.current=crypto.randomUUID();
