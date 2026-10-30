@@ -34,11 +34,24 @@ def execute(operation,value):
         from dental_upload import analyze_upload
         return analyze_upload(value)
     if operation=='warm-skin':
-        from regional_skin_v3 import load_runtime,model_manifest
+        import logging
         from product_dryness import runtime
-        from local_skin_type import load
-        load_runtime();runtime(lambda:None);load()
-        return {'ready':True,'models':model_manifest()}
+        # Dryness is required by the analysis path. Supplementary regional/type
+        # models retain the same unavailable fallbacks as an actual scan.
+        runtime(lambda:None)
+        models={}
+        try:
+            from regional_skin_v3 import load_runtime,model_manifest
+            load_runtime()
+            models=model_manifest()
+        except Exception as error:
+            logging.getLogger(__name__).warning('Regional preparation unavailable: %s',type(error).__name__)
+        try:
+            from local_skin_type import load
+            load()
+        except Exception as error:
+            logging.getLogger(__name__).warning('Skin type preparation unavailable: %s',type(error).__name__)
+        return {'ready':True,'models':models}
     raise ValueError('INVALID_OPERATION')
 
 def main():
