@@ -992,8 +992,8 @@ class Assessment:
                     self.wait(lambda: not permission_dialog(self.ui()), 15, label='actual OS denial dialog dismissed')
                     saw_dialog = True
                     break
-                # onPause intentionally destroys the WebView when the OS prompt
-                # opens. A closed page is not proof that no OS prompt exists.
+                # Safety/lifecycle transitions can close the page while a prompt
+                # is visible. A closed page is not proof that no OS prompt exists.
                 state = client.request('permission-state')
                 observation['state'] = state
                 assert state != 'UNEXPECTED_GRANT', 'Media was unexpectedly granted'

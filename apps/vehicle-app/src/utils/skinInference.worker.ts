@@ -18,7 +18,7 @@ self.onmessage = async (event: MessageEvent) => {
   try {
     if (type === 'initialize') {
       const model = await SkinAnalyzer.getFaceLandmarker();
-      if (!model) throw new Error('MediaPipe başlatılamadı');
+      if (!model) throw new Error('Yüz analiz motoru hazır değil. Yeniden deneyin.');
       self.postMessage({ id, ready: true });
       return;
     }

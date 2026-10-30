@@ -5,11 +5,11 @@ import {observeAppPlayback,speechMuted} from './playbackMeter';
 export type PlaybackGestureRequest=(play:()=>void)=>()=>void;
 
 /** Original AAC/M4A playback, independent of MP3-only streaming. No transcoding. */
-export async function playFixedSpeech(audio:HTMLAudioElement,clip:FixedClip,signal:AbortSignal,current:()=>boolean,observe:(stage:string)=>void=()=>{},ownsFocus=false):Promise<boolean>{
+export async function playFixedSpeech(audio:HTMLAudioElement,clip:FixedClip,signal:AbortSignal,current:()=>boolean,observe:(stage:string)=>void=()=>{},ownsFocus=false,requestGesture?:PlaybackGestureRequest):Promise<boolean>{
  const allowed=()=>{try{return !signal.aborted&&current()&&!document.hidden&&!speechMuted()&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
  if(!allowed())return false;
  const bytes=await verifiedClipBytes(clip,signal);if(!allowed())return false;
- return playAudioBytes(audio,bytes,clip.mimeType||'audio/mpeg',clip.durationSeconds||20,signal,current,observe,ownsFocus);
+ return playAudioBytes(audio,bytes,clip.mimeType||'audio/mpeg',clip.durationSeconds||20,signal,current,observe,ownsFocus,requestGesture);
 }
 
 /** Shared output lifecycle for original clips and newly generated PCM WAV. */

@@ -39,7 +39,7 @@ async function load(name) {
 (async () => {
   const module = await load('skinOverview'); await module.evaluate();
   const overview = module.namespace;
-  const mapModule = [...cache.values()].find(m => m.identifier.endsWith('/regionalSkinMap.ts'));
+  const mapModule = [...cache.values()].find(m => path.basename(m.identifier)==='regionalSkinMap.ts');
   const R = mapModule.namespace;
   const photoModule = await load('skinPhotoHistory'); await photoModule.evaluate();
   const P = photoModule.namespace;

@@ -16,7 +16,7 @@ const code=ts.transpileModule(['send','finish','updateContext','speakClosing'].m
   const input=['100k-cross','withdrawn-consent','94k-soft-close'].includes(scenario)?'final user statement '.padEnd(6000,'z'):'This is my final statement';
   let ordinary=0,analysis=0,neural=0,summary,phase,analysed;
   const settings={current:{parked:true,speechConsent:true,cloudConsent:true,voiceEnabled:true}};
-  const deps={runtime:{current:r},settings,historyPermission:{current:false},Date,AbortController,setTimeout,clearTimeout,
+  const deps={runtime:{current:r},settings,historyPermission:{current:false},mentalHistoryAllowed:()=>false,Date,AbortController,setTimeout,clearTimeout,
    valid:e=>r.epoch===e&&r.active,abortRecognition:no,cleanup:no,stopAudio:no,timing:no,getLocale:()=> 'en-US',getLanguage:()=> 'en',t:v=>v,
    serviceAllowed:()=>settings.current.speechConsent,checkCrisisTrigger:()=>({isCrisis:false}),spokenText:v=>v,isDemoMode:()=>false,isMentalSummarySavingAllowed:()=>false,
    canonicalMentalTheme:v=>v,append:m=>r.transcript.push(m),setPhase:v=>phase=v,setNotice:no,setActive:no,setSummary:v=>summary=v,setVoiceState:no,setVoiceNotice:no,

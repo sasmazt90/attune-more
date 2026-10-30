@@ -3,7 +3,7 @@ import {apiFetch as fetch} from './localBackend';
 import {getLocale,getLanguage,t} from '../i18n/core';
 
 import {contextWindowThrough} from './mentalContextWindow';
-import {serviceAllowed,useServiceAllowed} from './serviceConsent';
+import {serviceAllowed,useServiceAllowed,mentalHistoryAllowed,useMentalHistoryAllowed} from './serviceConsent';
 import {speechMuted} from './playbackMeter';
 import { spokenText } from './spokenText';
 import {canonicalMentalTheme} from '../i18n/mentalThemes';
@@ -51,7 +51,7 @@ export function useMentalConversation(parked: boolean) {
   const [voiceEnabled, setVoiceEnabled] = useState(!speechMuted());
   const [cloudConsent, setCloudConsent] = useState(false);
   const [speechConsent, setSpeechConsent] = useState(false);
-  const [historyConsent,setHistoryConsent]=useState(false);
+  const historyConsent=useMentalHistoryAllowed();
   const historyPermission=useRef(false);historyPermission.current=historyConsent;
   const speechSource = mentalSpeechEngine();
   const [history, setHistory] = useState<MentalHistoryItem[]>([]);
@@ -169,7 +169,11 @@ export function useMentalConversation(parked: boolean) {
         ?setTimeout(() => controller.abort(), crisis?30000:100000):undefined;
       try {
         if(r.structured&&!crisis){
-          const played=await playPreparedMental(text,assetIds||[],controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,audio=>{r.audio=audio;},stage=>{if(current()){timing(stage);if(stage==='playing'){setPhase('speaking');setVoiceState('speaking');}}});
+          const played=await playPreparedMental(text,assetIds||[],controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,audio=>{r.audio=audio;},stage=>{if(current()){timing(stage);if(stage==='playing'){setPhase('speaking');setVoiceState('speaking');}}},play=>{
+            if(!current())return()=>{};
+            pendingAudioPlay.current=play;setAudioNeedsGesture(true);
+            return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};
+          });
           if(played)end();else fail();return;
         }
         const clip=approvedMentalTemplate(getLanguage(),text);
@@ -281,7 +285,7 @@ export function useMentalConversation(parked: boolean) {
   }
   function start() {
     if (!settings.current.parked || runtime.current.active || !settings.current.speechConsent || !serviceAllowed('mental')) return;
-    if(structuredConversationEnabled()&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Chatterbox sesini seçin.'));return;}
+    if(structuredConversationEnabled()&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Attune.more sesini seçin.'));return;}
     cleanup(); const r = runtime.current;
     r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];r.memory=[];r.memoryThrough=0;r.pendingTurn=null;r.pendingSpeech=null;
     r.structured=structuredConversationEnabled();r.structuredState=r.structured?{language:getLanguage(),speakerProfile:'female-calm-v1',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
@@ -304,8 +308,8 @@ export function useMentalConversation(parked: boolean) {
       r.controller=controller;deadline=setTimeout(()=>controller.abort(),30000);
       const response = await fetch(API + '/analyze-session', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memory:r.memory, messages: completed.slice(r.memoryThrough).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text })), cloudConsent: settings.current.cloudConsent,
-          ...(r.structured?{engine:'structured-v1',noAdvice:!!r.structuredState?.listenOnly,historyConsent:historyPermission.current,
-            priorSessions:historyPermission.current&&settings.current.cloudConsent&&isMentalSummarySavingAllowed()?readMentalHistory().filter(h=>h.id!==r.id&&h.completed&&h.consented&&[2,3].includes(h.schemaVersion||0)).slice(-5).map(h=>({id:h.id,summaryText:h.summaryText.slice(0,2000),themes:h.themes.slice(0,12)})):[]}:{}) }), signal: controller.signal });
+          ...(r.structured?{engine:'structured-v1',noAdvice:!!r.structuredState?.listenOnly,historyConsent:mentalHistoryAllowed(),
+            priorSessions:mentalHistoryAllowed()&&settings.current.cloudConsent&&isMentalSummarySavingAllowed()?readMentalHistory().filter(h=>h.id!==r.id&&h.completed&&h.consented&&[2,3].includes(h.schemaVersion||0)).slice(-5).map(h=>({id:h.id,summaryText:h.summaryText.slice(0,2000),themes:h.themes.slice(0,12)})):[]}:{}) }), signal: controller.signal });
       if (!response.ok) throw new Error('Summary service');
       const data = await response.json();
       if (!r.mounted || r.epoch !== epoch || !settings.current.parked || !settings.current.speechConsent || !serviceAllowed('mental')) return;
@@ -382,6 +386,7 @@ export function useMentalConversation(parked: boolean) {
     notice:()=>setNotice('Dil veya ses değişti. Konuşma metni korundu; eski seslendirme yeniden başlatılmaz. Devam et ile sürdürebilirsiniz.'),
   });};window.addEventListener('attune-locale-media-cancel',changed);return()=>window.removeEventListener('attune-locale-media-cancel',changed);},[]);
   useEffect(()=>{actions.current.consent(serviceConsent);},[serviceConsent]);
+  useEffect(()=>{const changed=()=>{const previous=historyPermission.current;historyPermission.current=mentalHistoryAllowed();if(previous&&!historyPermission.current&&phaseRef.current==='ending')actions.current.cancel(t('Geçmiş işleme izni geri çekildi.'));};window.addEventListener('attune-service-consent',changed);window.addEventListener('storage',changed);return()=>{window.removeEventListener('attune-service-consent',changed);window.removeEventListener('storage',changed);};},[]);
   useEffect(()=>{const changed=()=>setVoiceEnabled(!speechMuted());window.addEventListener('attune-guidance-muted',changed);return()=>window.removeEventListener('attune-guidance-muted',changed);},[]);
   function changeCloud(value: boolean) { if (!value && (runtime.current.active || phase === 'ending')) cancel('Bulut aktarım izni geri çekildi. Görüşme kapatıldı.'); setCloudConsent(value); }
   function changeSpeech(value: boolean) { if (!value && runtime.current.active) cancel('Ses aktarım izni geri çekildi. Görüşme kapatıldı.'); setSpeechConsent(value); }
@@ -393,7 +398,7 @@ export function useMentalConversation(parked: boolean) {
     setSpeechConsent(value); setCloudConsent(value && !isDemoMode());
   }
   return { phase, active, messages, notice, voiceNotice, voiceState, audioNeedsGesture, playPendingAudio:()=>pendingAudioPlay.current?.(), textMode, voiceEnabled, setVoiceEnabled,
-    structuredMode:structuredConversationEnabled(),historyConsent,setHistoryConsent:(value:boolean)=>{historyPermission.current=value;if(!value&&phaseRef.current==='ending')cancel(t('Geçmiş işleme izni geri çekildi.'));setHistoryConsent(value);},
+    structuredMode:structuredConversationEnabled(),historyConsent,
     serviceConsent: speechConsent, setServiceConsent: changeServiceConsent,
     cloudConsent, setCloudConsent: changeCloud, speechConsent, setSpeechConsent: changeSpeech, speechSource,
     history, summary, provider, start, finish, send, pause, continueConversation, cancelConversation: () => cancel('Görüşme başlatma iptal edildi.'), cancelSummary: () => { cancel('Özet hazırlama iptal edildi. Görüşme geçmişe kaydedilmedi.'); setPhase('ready'); } };

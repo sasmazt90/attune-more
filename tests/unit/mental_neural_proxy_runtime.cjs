@@ -1,5 +1,7 @@
 /** Real Next route with explicit HTTP fixtures; never inference or secret in client output. */
 const {NextRequest}=require('next/server');require('./ts_loader.js');const assert=require('assert/strict');
+const transport=require.resolve('../../apps/vehicle-app/src/utils/mentalLocalTransport.ts');
+require.cache[transport]={id:transport,filename:transport,loaded:true,exports:{mentalLocalTransport:(url,init)=>global.fetch(url,init)}};
 const {POST}=require('../../apps/vehicle-app/src/app/api/mental-neural-speech/route.ts');
 const secret='noncredential-fixture-'.repeat(3);process.env.ATTUNE_MENTAL_TTS_TOKEN=secret;process.env.ATTUNE_MENTAL_TTS_BACKEND_URL='http://127.0.0.1:8150';let calls=[];
 const audio=()=>new Response(new Uint8Array(100),{headers:{'Content-Type':'audio/wav','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':'de-DE'}});

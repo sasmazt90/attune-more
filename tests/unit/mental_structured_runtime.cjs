@@ -12,7 +12,7 @@ const code=ts.transpileModule(names.map(n=>functions[n]).join('\n'),{compilerOpt
   const r={structured:true,structuredState:null,mounted:true,active:true,epoch:1,audioEpoch:0,turn:crisisLimit||scenario==='pending-limit'?39:0,id:'synthetic',startedAt:'2026-10-27',transcript:[],memory:[],memoryThrough:0,busy:false,failed:false};
   let analyses=0,turnCalls=0,neural=0,prepared=0,summary,phase,voiceNotice;
   const no=()=>{};
-  const deps={runtime:{current:r},settings:{current:{voiceEnabled:true,speechConsent:true,cloudConsent:true,parked:true}},historyPermission:{current:false},
+  const deps={runtime:{current:r},settings:{current:{voiceEnabled:true,speechConsent:true,cloudConsent:true,parked:true}},historyPermission:{current:false},mentalHistoryAllowed:()=>false,
    valid:e=>r.active&&r.epoch===e,serviceAllowed:()=>true,getLanguage:()=> 'en',getLocale:()=> 'en-US',t:x=>x,
    Date,AbortController,setTimeout,clearTimeout,
    abortRecognition:no,cleanup:no,stopAudio:()=>{r.audioEpoch++;r.audio=null;},canonicalMentalTheme:x=>x,timing:no,setVoiceNotice:v=>voiceNotice=v,setVoiceState:no,setPhase:v=>phase=v,setNotice:no,setActive:no,setSummary:v=>summary=v,

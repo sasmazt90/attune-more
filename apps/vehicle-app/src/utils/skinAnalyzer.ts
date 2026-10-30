@@ -550,9 +550,9 @@ export class SkinAnalyzer {
     let roiDefinitions: { id: string; nameTr: string; x: number; y: number; w: number; h: number }[];
 
     if (!alignment?.isMediaPipeActive || !lms || lms.length < 400) {
-      throw new Error(
-        'MEDIAPIPE_REQUIRED: Yüz analiz motoru (MediaPipe FaceLandmarker) aktif olmadan cilt analizi yapılamaz. İnternet bağlantısını kontrol edip tekrar deneyin.'
-      );
+      throw Object.assign(new Error(
+        'Yüz analiz motoru hazır değil. Yeniden deneyin.'
+      ),{code:'MEDIAPIPE_REQUIRED'});
     }
 
     // Landmark merkezli 6 ROI

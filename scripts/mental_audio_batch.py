@@ -15,7 +15,7 @@ import sys
 import tempfile
 import threading
 import base64
-import selectors
+import queue
 from concurrent.futures import ThreadPoolExecutor
 import wave
 from array import array
@@ -24,6 +24,7 @@ from time import perf_counter
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'services/core-api'))
 from mental_neural_tts import load_configuration, validate_wave, digest, SOURCE_REVISION, LIMITS, worker_progress
+from owned_python_process import OwnedProcessTree
 
 MANIFEST=ROOT/'apps/vehicle-app/public/audio/mental/v1/manifest.json'
 PUBLIC=ROOT/'apps/vehicle-app/public'
@@ -62,24 +63,33 @@ class ResidentWorker:
     def __init__(self, python, config, env):
         self.process=subprocess.Popen([python,str(ROOT/'services/core-api/mental_neural_batch_worker.py'),str(Path(config).resolve())],
             stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,env=env)
-        os.set_blocking(self.process.stdout.fileno(),False)
-        self.selector=selectors.DefaultSelector();self.selector.register(self.process.stdout,selectors.EVENT_READ)
+        self.owned=OwnedProcessTree(getattr(self.process,'pid',None))
+        self.reader=None
     def request(self,payload):
         request={k:payload[k] for k in ('text','language','seed')}
         self.process.stdin.write(json.dumps(request,ensure_ascii=False).encode()+b'\n');self.process.stdin.flush()
-        deadline=perf_counter()+LIMITS['workerSeconds'];raw=bytearray()
-        while b'\n' not in raw:
-            remaining=deadline-perf_counter()
-            if remaining<=0 or not self.selector.select(remaining):raise ValueError('BATCH_CLIP_DEADLINE')
-            block=os.read(self.process.stdout.fileno(),65536)
-            if not block:raise ValueError('BATCH_WORKER_FAILED')
-            raw.extend(block)
-            if len(raw)>12*1024*1024:raise ValueError('BATCH_OUTPUT_TOO_LARGE')
+        # Windows Python 3.11 cannot select anonymous subprocess pipes.
+        # A bounded reader is released by killing/reaping the child on failure.
+        response=queue.Queue(maxsize=1)
+        def read():
+            try:response.put(self.process.stdout.readline(12*1024*1024+1))
+            except Exception:response.put(b'')
+        self.reader=threading.Thread(target=read,daemon=True);self.reader.start()
+        try:raw=response.get(timeout=LIMITS['workerSeconds'])
+        except queue.Empty:
+            self.close();raise ValueError('BATCH_CLIP_DEADLINE') from None
+        self.reader.join()
+        if not raw:
+            self.close();raise ValueError('BATCH_WORKER_FAILED')
+        if len(raw)>12*1024*1024:
+            self.close();raise ValueError('BATCH_OUTPUT_TOO_LARGE')
         return base64.b64decode(json.loads(raw)['wav'],validate=True)
     def close(self):
-        self.selector.close()
-        if self.process.poll() is None:self.process.kill()
+        if self.process.poll() is None:
+            if self.owned.root is not None:self.owned.terminate()
+            else:self.process.kill()
         self.process.wait()
+        if self.reader is not None:self.reader.join(timeout=5)
         self.process.stdin.close();self.process.stdout.close()
 
 

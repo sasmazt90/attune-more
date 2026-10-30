@@ -100,6 +100,10 @@ def post(value, park=True):
 
 def test_regional_fuse_endpoint(monkeypatch):
     import regional_skin_v3 as R
+    import local_health, local_native_worker
+    async def in_process_boundary(operation, value, *args):
+        return local_native_worker.execute(operation, value)
+    monkeypatch.setattr(local_health.native_analysis, 'run', in_process_boundary)
     monkeypatch.setattr(R, 'fuse_maps', lambda maps: dict(version='stub', regions={}, skinType=dict(value=None, quality='insufficient')))
     assert post({'processingConsent': True, 'maps': {}}, park=False).status_code == 409
     assert post({'maps': {}}).status_code == 422                       # no processing consent

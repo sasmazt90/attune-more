@@ -125,7 +125,8 @@ const records=(...list)=>{map.set(HISTORY,JSON.stringify(list.map(id=>({id,regio
    STORAGE_KEYS:{LATEST_SKIN:LATEST,SKIN_HISTORY:HISTORY},isParked:true,loadSkinPhotos:P.loadSkinPhotos,
    snapshotFrames:{current:{}},snapshotRecord:{current:null},
    setSnapshots:v=>state.snapshots=v,setSelectedRegionId:v=>state.region=v,setAnalysisResult:v=>state.analysis=v,setScanState:v=>state.scan=v};
-  vm.runInNewContext(loaderSource,ctx)();await settle();
+  vm.runInNewContext(loaderSource,ctx)();
+  for(let i=0;i<100&&!state.snapshots;i++)await settle();
   return {...state,record:ctx.snapshotRecord.current};
  }
  await check('(b) after reload (no in-memory frames) view=latest and view=record&id show that record\'s own three photos',async()=>{

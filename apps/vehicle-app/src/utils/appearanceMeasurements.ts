@@ -7,6 +7,18 @@ import type { SkinIndicators, SkinMeasurement } from './skinIndicators';
 import { samplingSupportVersion,supportedAppearanceMethod } from './skinIndicators';
 import type { SkinLocalMap } from './skinLocalMaps';
 import {isSkinHostedProcessingAllowed} from './attuneMode';
+import {localAnalysisError} from './localAnalysisError';
+/** Model-only preparation; no camera pixels, bounded server process and abort. */
+export async function prepareSkinAnalysis(current:()=>boolean):Promise<void>{
+ const controller=new AbortController(),deadline=setTimeout(()=>controller.abort(),95000);
+ const stale=setInterval(()=>{if(!current())controller.abort();},100);
+ try{
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/prepare`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true})});
+  const value=await response.json();
+  if(!response.ok)throw localAnalysisError(response.status,value.detail);
+  if(!current()||value.ready!==true)throw Error('STALE_SOURCE');
+ }finally{clearTimeout(deadline);clearInterval(stale);}
+}
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
 export type MeasurementReceipt={status?:'measured'|'unavailable';reason?:string|null;coverage?:number|null;calibrationVersion?:string|null;localConfidence?:number|null};
 export type AppearanceMeasurement=MeasurementReceipt & {id:string;type:MeasurementKind;value:number|null;unit:string;methodVersion:string;modelVersion:string|null;modelHash:string|null;scoreDirection?:'higher-is-more-visible';normalizationVersion?:string;quality:'valid'|'invalid'|'insufficient';uncertainty:string[];region:string;evaluatedArea:Record<string,number>;captureConditions:Record<string,number|string>;limitationCode:string|null;referenceId:string|null;localMap:{key:string;photoId:string;region:string;criterion:string;coordinateSpace:'source-pixels'}|null;components:Record<string,any>};
@@ -19,13 +31,17 @@ export function isSagAppearanceOnly(value:Pick<AppearanceMeasurement,'components
 }
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
  const hostedConsent=isSkinHostedProcessingAllowed();
- const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),45000);
+ // Complete-bundle Windows request measured 56.73s after 31.83s preparation.
+ // Server reaps inference at 90s, before this transport deadline.
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),95000);
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
   const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({experimentalAcneV5:ACNE_V5_PREVIEW,requestId:crypto.randomUUID(),capturePreflight:{engine:'browser-mediapipe',faceCount:snapshot.captureFaceCount,quality:{isValid:qualityValid,avgLuminance:conditions.avgLuminance,blurScore:conditions.blurScore}},processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,rawFrame:snapshot.rawFrame,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});
   if(!response.ok){
    const detail=await response.json().catch(()=>({}));
-   throw Error(detail.detail==='SKIN_EYEWEAR_PRESENT'?'Cilt analizi için gözlüğünüzü çıkarın.':detail.detail==='SKIN_EYEWEAR_CHECK_UNCERTAIN'?'Göz çevresi yeterince doğrulanamadı; yeniden çekin.':'Yerel görünüm analizi tamamlanamadı.');
+   if(detail.detail==='SKIN_EYEWEAR_PRESENT')throw Error('Cilt analizi için gözlüğünüzü çıkarın.');
+   if(detail.detail==='SKIN_EYEWEAR_CHECK_UNCERTAIN')throw Error('Göz çevresi yeterince doğrulanamadı; yeniden çekin.');
+   throw localAnalysisError(response.status,detail.detail);
   }
   const result:AppearanceResponse=await response.json();
   if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent||result.photoId!==snapshot.photoId||result.sourceWidth!==snapshot.width||result.sourceHeight!==snapshot.height)throw Error('STALE_SOURCE');
@@ -37,7 +53,7 @@ export type RegionalFuseResponse={regionalSkinMap:Record<string,any>|null;region
 /** Three-angle regional map + findings: the per-photo regionalSkinMap numbers go to the server, which runs the
  * fusion and the finding decisions (thresholds live only on the server). No photo is sent. */
 export async function fuseRegionalOnServer(maps:Record<string,unknown>,current:()=>boolean):Promise<RegionalFuseResponse>{
- const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),35000);
  const stale=setInterval(()=>{if(!current())controller.abort();},100);
  try {
   const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/regional-fuse`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,maps})});

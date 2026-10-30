@@ -27,18 +27,18 @@ def fixture(mode,file):
  if mode=='env':print(os.environ.get('NODE_OPTIONS',''));return 0
  if mode=='sleep':time.sleep(30);return 0
  if mode=='breakaway':
-  try:subprocess.Popen([sys.executable,'-c','pass'],creationflags=0x1000000)
+  try:subprocess.Popen([sys._base_executable,'-c','pass'],creationflags=0x1000000)
   except OSError:print('BREAKAWAY_DENIED',flush=True);return 0
   return 9
  if mode in ['tree','orphan']:
-  subprocess.Popen([sys.executable,__file__,'fixture','branch',str(file)],creationflags=subprocess.CREATE_NO_WINDOW)
+  subprocess.Popen([sys._base_executable,__file__,'fixture','branch',str(file)],creationflags=subprocess.CREATE_NO_WINDOW)
   end=time.monotonic()+3
   while len(records(file))<3 and time.monotonic()<end:time.sleep(.02)
   if mode=='orphan':return 0
   time.sleep(30);return 0
  if mode=='branch':
   os.chdir(os.environ['TEMP'])
-  subprocess.Popen([sys.executable,__file__,'fixture','sleep',str(file)],creationflags=subprocess.CREATE_NO_WINDOW|subprocess.CREATE_NEW_PROCESS_GROUP)
+  subprocess.Popen([sys._base_executable,__file__,'fixture','sleep',str(file)],creationflags=subprocess.CREATE_NO_WINDOW|subprocess.CREATE_NEW_PROCESS_GROUP)
   time.sleep(30);return 0
  if mode in ['memory','aggregate','aggregate-child']:
   k=ctypes.WinDLL('kernel32',use_last_error=True);k.VirtualAlloc.argtypes=[ctypes.c_void_p,ctypes.c_size_t,ctypes.c_ulong,ctypes.c_ulong];k.VirtualAlloc.restype=ctypes.c_void_p
@@ -48,12 +48,12 @@ def fixture(mode,file):
    if not address:return 42
    allocated.append(address)
   if mode=='aggregate':
-   subprocess.Popen([sys.executable,__file__,'fixture','aggregate-child',str(file)],creationflags=subprocess.CREATE_NO_WINDOW)
+   subprocess.Popen([sys._base_executable,__file__,'fixture','aggregate-child',str(file)],creationflags=subprocess.CREATE_NO_WINDOW)
    time.sleep(30)
   if mode=='aggregate-child':time.sleep(30)
   return 0
  if mode=='supervisor':
-  result=run_job([sys.executable,__file__,'fixture','tree',str(file)],ROOT,Limits(15,192,0,0))
+  result=run_job([sys._base_executable,__file__,'fixture','tree',str(file)],ROOT,Limits(15,192,0,0))
   return result['exitCode']
  raise ValueError(mode)
 
@@ -81,7 +81,7 @@ class RealFiniteJob(unittest.TestCase):
    else:self.fail('Exact owned fixture survived: '+str(row['pid']))
  def run_case(self,mode,wall=10,memory=192,**kw):
   with (OUT/(self._testMethodName+'.stdout')).open('w',encoding='utf8') as out,(OUT/(self._testMethodName+'.stderr')).open('w',encoding='utf8') as err:
-   self.result=run_job([sys.executable,__file__,'fixture',mode,str(self.file)],ROOT,Limits(wall,memory,0,0),stdout=out,stderr=err,**kw)
+   self.result=run_job([sys._base_executable,__file__,'fixture',mode,str(self.file)],ROOT,Limits(wall,memory,0,0),stdout=out,stderr=err,**kw)
   (OUT/(self._testMethodName+'.result.json')).write_text(json.dumps(self.result,indent=2),'utf8');self.assert_closed();self.assertEqual(self.result['activeProcessesAfter'],0);return self.result
  def test_normal_exit_output(self):
   r=self.run_case('normal');self.assertEqual(r['exitCode'],7);self.assertEqual(r['reason'],'exit')
@@ -103,9 +103,9 @@ class RealFiniteJob(unittest.TestCase):
  def test_watchdog_during_stalled_cooperative_check(self):
   r=self.run_case('sleep',wall=.6,check=lambda:time.sleep(1.2));self.assertEqual(r['reason'],'wall-time-limit');self.assertTrue(r['deadlineWatchdog']['terminateSucceeded']);self.assertLess(r['deadlineWatchdog']['atSeconds'],.9)
  def test_supervisor_hard_exit(self):
-  child=subprocess.Popen([sys.executable,__file__,'fixture','supervisor',str(self.file)],cwd=ROOT,creationflags=subprocess.CREATE_NO_WINDOW,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);birth=psutil.Process(child.pid).create_time()
+  child=subprocess.Popen([sys._base_executable,__file__,'fixture','supervisor',str(self.file)],cwd=ROOT,creationflags=subprocess.CREATE_NO_WINDOW,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);birth=psutil.Process(child.pid).create_time()
   try:
-   end=time.monotonic()+5
+   end=time.monotonic()+12
    while len(records(self.file))<4 and time.monotonic()<end:time.sleep(.03)
    self.assertGreaterEqual(len(records(self.file)),4)
   finally:

@@ -22,3 +22,13 @@ vendor/*.tgz -text
 # Prevent Windows core.autocrlf from rewriting their committed LF bytes on checkout.
 docs/skin/evidence/** -text
 services/core-api/models/regional-skin-v3/params.json -text
+
+# Approved audio evidence pins raw manifest bytes on Windows too.
+apps/vehicle-app/public/audio/guidance/manifest.json -text
+apps/vehicle-app/public/audio/hearing-bank/instructions.json -text
+apps/vehicle-app/public/audio/hearing-bank/manifest.json -text
+apps/vehicle-app/public/audio/mental/v1/manifest.json -text
+docs/mental-structured/listening/README.md -text
+docs/mental-structured/listening/index.json -text
+apps/vehicle-app/public/audio/localized/v1/en/hearing/manifest.json -text
+apps/vehicle-app/public/audio/localized/v1/de/hearing/manifest.json -text

@@ -153,7 +153,8 @@ def test_legacy_derived_combination_is_never_treated_as_base_model():
 
 
 def test_normal_endpoint_finalizes_after_all_product_replacements(monkeypatch):
-    import asyncio, local_health as L, product_dryness as P, acne_v5_product as A
+    import local_health as L, product_dryness as P, acne_v5_product as A
+    from local_native_worker import skin_analysis
     monkeypatch.setattr(L, 'parked', lambda: True)
     monkeypatch.setattr(L, 'skin_geometry', lambda _: None)
     async def payload(_):
@@ -170,13 +171,7 @@ def test_normal_endpoint_finalizes_after_all_product_replacements(monkeypatch):
         return r
     monkeypatch.setattr(P, 'analyze_product', product)
     monkeypatch.setattr(A, 'replace_acne', acne)
-    class Request:
-        async def is_disconnected(self):
-            return False
-    async def run():
-        L._busy = asyncio.Lock()
-        return await L.skin(Request())
-    result = asyncio.run(run())
+    _, result = skin_analysis({'experimentalAcneV5': True})
     assert events == ['native-dry', 'acne']
     assert result['general']['skinType']['value'] is None and result['general']['skinType']['quality'] == 'insufficient'
     assert not result['general']['skinType']['decisionTrace']['complete']

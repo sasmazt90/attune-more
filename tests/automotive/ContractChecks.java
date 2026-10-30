@@ -73,6 +73,18 @@ public final class ContractChecks {
         check(!MediaPermissionPolicy.eligible(new String[]{MediaPermissionPolicy.VIDEO, MediaPermissionPolicy.AUDIO}, true, true, true, false), "deny unsupported combined request");
         check(!MediaPermissionPolicy.eligible(new String[0], true, true, true, true), "deny empty request");
         check(!MediaPermissionPolicy.eligible(null, true, true, true, true), "deny null request");
+        check(MediaPermissionPolicy.retainForSystemPrompt(true, true, true), "system prompt retains its initiating page");
+        check(!MediaPermissionPolicy.retainForSystemPrompt(false, true, true), "ordinary pause cannot retain page");
+        check(!MediaPermissionPolicy.retainForSystemPrompt(true, false, true), "cancelled request cannot retain page");
+        for (GatePolicy.Platform p : GatePolicy.Platform.values()) {
+            for (VehicleSnapshot s : new VehicleSnapshot[]{null, parked(100), parked(0), new VehicleSnapshot(10, true, false, "D", 100)}) {
+                boolean safe = gate(true, p, s, 2600) == GatePolicy.Reason.READY;
+                check(MediaPermissionPolicy.retainForSystemPrompt(true, true, safe) == safe,
+                    "permission prompt still follows platform, stale and moving gates");
+                check(!MediaPermissionPolicy.eligible(audio, true, false, false, true),
+                    "retaining prompt never permits a background media grant");
+            }
+        }
         VehicleDataProvider provider = new UnavailableVehicleProvider();
         final boolean[] notified = {false};
         provider.start(value -> { notified[0] = true; check(value == null, "release never fabricates vehicle state"); });
