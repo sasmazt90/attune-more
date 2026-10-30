@@ -169,7 +169,11 @@ export function useMentalConversation(parked: boolean) {
         ?setTimeout(() => controller.abort(), crisis?30000:100000):undefined;
       try {
         if(r.structured&&!crisis){
-          const played=await playPreparedMental(text,assetIds||[],controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,audio=>{r.audio=audio;},stage=>{if(current()){timing(stage);if(stage==='playing'){setPhase('speaking');setVoiceState('speaking');}}});
+          const played=await playPreparedMental(text,assetIds||[],controller.signal,()=>current()&&settings.current.voiceEnabled&&settings.current.speechConsent,audio=>{r.audio=audio;},stage=>{if(current()){timing(stage);if(stage==='playing'){setPhase('speaking');setVoiceState('speaking');}}},play=>{
+            if(!current())return()=>{};
+            pendingAudioPlay.current=play;setAudioNeedsGesture(true);
+            return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};
+          });
           if(played)end();else fail();return;
         }
         const clip=approvedMentalTemplate(getLanguage(),text);

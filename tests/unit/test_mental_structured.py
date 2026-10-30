@@ -333,7 +333,7 @@ def test_speaker_contract_blocks_missing_conditioning_before_generation(monkeypa
     assert client.post('/api/mental/neural-speech?language=en',json={**payload,'speakerProfile':'other'},headers=headers).status_code==422
 
 
-@pytest.mark.parametrize('script',['mental_structured_runtime.cjs','mental_prepared_audio_runtime.cjs','mental_limits_runtime.cjs'])
+@pytest.mark.parametrize('script',['mental_structured_runtime.cjs','mental_prepared_audio_runtime.cjs','mental_prepared_gesture_runtime.cjs','mental_limits_runtime.cjs'])
 def test_actual_frontend_closures(script):
     result=subprocess.run(['node','tests/unit/'+script],cwd=ROOT,text=True,capture_output=True,timeout=30)
     assert result.returncode==0,result.stdout+result.stderr
