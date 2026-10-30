@@ -18,6 +18,21 @@ FIXTURES = ROOT / 'tests/fixtures/dental-intraoral'
 MANIFEST = {v['file']: v for v in json.loads((FIXTURES / 'manifest.json').read_text())}
 
 
+@pytest.fixture
+def isolated_model_cache():
+    """Load the real model from cold, then restore process globals for other tests."""
+    import dental_analysis as dental
+    empty = dict(_session=None, _manifest=None, _model_identity=None, _model_runtime={})
+    previous = {key: getattr(dental, key) for key in empty}
+    try:
+        for key, value in empty.items():
+            setattr(dental, key, value)
+        yield
+    finally:
+        for key, value in previous.items():
+            setattr(dental, key, value)
+
+
 def photo(name):
     raw = (FIXTURES / name).read_bytes()
     assert hashlib.sha256(raw).hexdigest() == MANIFEST[name]['sha256']
@@ -31,7 +46,7 @@ def payload(image):
 
 
 @pytest.mark.parametrize('name', ['cdc-19464.jpg', 'cdc-19465.jpg', 'cdc-19466.jpg'])
-def test_real_partial_intraoral_photo_to_actual_pinned_model_result(name):
+def test_real_partial_intraoral_photo_to_actual_pinned_model_result(name, isolated_model_cache):
     image = photo(name)
     request = payload(image)
     assert 'photoLandmarks' not in request
