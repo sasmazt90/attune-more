@@ -49,10 +49,32 @@ def upload_roi(image,points=None):
         ys,xs=np.where(mouth)
         quality.update(geometrySource='detected-inner-mouth',sourceType='upload',motionGateApplied=False,fullFaceRequired=False,roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(xs.max()-xs.min()+1),height=int(ys.max()-ys.min()+1)),analysisScale=1)
         return mouth,tooth,gum,quality
-    # Enamel/gingiva colours alone cannot establish anatomy: skin, hair and
-    # portrait backgrounds can satisfy them. Without an anchored mouth, return
-    # an unmeasured input error before the detector can generate candidates.
-    raise UploadError('MOUTH_ANATOMY_UNVERIFIED')
+    from dental_intraoral import intraoral_region
+    from dental_analysis import dental_pixels
+    anchored = intraoral_region(image)
+    if anchored is None:
+        raise UploadError('MOUTH_ANATOMY_UNVERIFIED')
+    mouth, evidence = anchored
+    # Preserve the pre-existing partial-upload quality limits, after anatomical
+    # admission. In particular, visible anatomy cannot waive blur or glare.
+    tooth,glare,gum,tongue,gray=dental_pixels(image,mouth)
+    total=max(int(mouth.sum()),1);count=int(tooth.sum());fraction=count/total
+    interior=cv2.erode(tooth.astype('uint8'),np.ones((3,3),'uint8'))>0
+    lap=cv2.Laplacian(gray,cv2.CV_32F)
+    sharp=float(np.mean(lap[interior]**2)) if interior.any() else 0
+    light=float(gray[mouth].mean());reasons=[]
+    if count<150 or fraction<.15:reasons.append('TEETH_NOT_VISIBLE')
+    if light<45 or light>230:reasons.append('LIGHT_INVALID')
+    if sharp<12:reasons.append('BLURRY')
+    if glare.sum()/max(count+glare.sum(),1)>.12:reasons.append('SALIVA_OR_GLARE')
+    if tongue.sum()/total>.7:reasons.append('TONGUE_OCCLUSION')
+    if not gum.any():reasons.append('NON_COLOR_INTRAORAL_PHOTO')
+    if reasons:raise UploadError(reasons[0])
+    ys,xs=np.where(mouth)
+    return mouth,tooth,gum,dict(valid=True,reasons=[],geometrySource='verified-intraoral-crowns',
+        sourceType='upload',motionGateApplied=False,fullFaceRequired=False,anatomicalEvidence=evidence,
+        visibleToothPixels=count,toothFraction=fraction,sharpness=sharp,light=light,clippedPixels=int(glare.sum()),
+        roi=dict(x=int(xs.min()),y=int(ys.min()),width=int(np.ptp(xs)+1),height=int(np.ptp(ys)+1)),analysisScale=evidence['analysisScale'])
 
 
 def analyze_upload(payload,check=lambda:None):
