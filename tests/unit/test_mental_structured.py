@@ -310,15 +310,24 @@ def test_offline_audio_plan_wave_metrics_and_recipe(tmp_path):
     assert all(e['approvalStatus'] in ('pending-generation','synthesized-awaiting-listening-review') for e in samples)
 
 
-def test_speaker_contract_blocks_missing_conditioning_before_generation(monkeypatch):
+def test_speaker_contract_blocks_missing_conditioning_before_generation(monkeypatch, tmp_path):
     import mental_neural_tts
     monkeypatch.setenv('ATTUNE_MENTAL_TTS_TOKEN','m'*32)
     monkeypatch.delenv('ATTUNE_MENTAL_TTS_CONFIG',raising=False)
-    monkeypatch.setattr(mental_neural_tts,'generate_for_request',forbidden)
+    # Exercise the real async validation path; prohibit only worker creation.
+    monkeypatch.setattr(mental_neural_tts.asyncio,'create_subprocess_exec',forbidden)
+    monkeypatch.setitem(main.vehicle_state,'driverAuthenticated',True)
+    monkeypatch.setitem(main.vehicle_state,'vehicleMoving',False)
+    monkeypatch.setitem(main.vehicle_state,'vehicleParked',True)
     client=TestClient(main.app)
     payload={'text':'Your closing summary','language':'en','speechConsent':True,'speakerProfile':'official-default'}
     assert client.post('/api/mental/neural-speech?language=en',json=payload).status_code==401
     headers={'Authorization':'Bearer '+'m'*32}
+    response=client.post('/api/mental/neural-speech?language=en',json=payload,headers=headers)
+    assert response.status_code==503 and response.json()['detail']=='NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE'
+    config=tmp_path/'missing-conditioning.json'
+    config.write_text('{}',encoding='utf-8')
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_CONFIG',str(config))
     response=client.post('/api/mental/neural-speech?language=en',json=payload,headers=headers)
     assert response.status_code==503 and response.json()['detail']=='STRUCTURED_SPEAKER_UNAVAILABLE'
     assert client.post('/api/mental/neural-speech?language=en',json={**payload,'speakerProfile':'other'},headers=headers).status_code==422
