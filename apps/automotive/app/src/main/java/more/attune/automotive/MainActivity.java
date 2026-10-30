@@ -59,6 +59,7 @@ public final class MainActivity extends Activity {
     private WebView web;
     private PermissionRequest pendingPermission;
     private String[] pendingResources;
+    private boolean runtimePermissionInFlight, permissionResultReceived;
     private static final int MEDIA_PERMISSION = 31;
 
     private Resources localizedResources;
@@ -178,13 +179,19 @@ public final class MainActivity extends Activity {
         vehicleProvider.start(value -> { observation = value; render(); });
         main.post(watchdog);
     }
-    @Override public void onResume() { super.onResume(); foreground = true; render(); }
+    @Override public void onResume() {
+        super.onResume(); foreground = true; render();
+        if (permissionResultReceived) completePermission();
+    }
     @Override public void onPause() {
         foreground = false;
-        destroyWeb(); // Stop capture, JS, media, recognition and unsaved in-flight sessions.
+        // The OS permission Activity temporarily pauses us. Keep its initiating
+        // request alive, but never grant it before a fresh foreground gate check.
+        if (!waitingForSystemPermission()) destroyWeb();
         super.onPause();
     }
     @Override public void onStop() {
+        destroyWeb(); // A real background transition always stops all capture.
         main.removeCallbacks(watchdog);
         vehicleProvider.stop(); carRestrictions.stop(); observation = null; platform = GatePolicy.Platform.UNKNOWN;
         super.onStop();
@@ -210,6 +217,7 @@ public final class MainActivity extends Activity {
                 || !((BackendSimulationVehicleProvider) vehicleProvider).isUpdating()));
         simulation.setText(localizedString(observation != null && observation.parked ? R.string.simulate_driving : R.string.simulate_parked));
         if (!allowed) {
+            if (waitingForSystemPermission()) return;
             destroyWeb();
             placeholder.setVisibility(View.VISIBLE);
             placeholder.setText(localizedString(R.string.locked, localizedString(messageFor(reason))));
@@ -304,7 +312,11 @@ public final class MainActivity extends Activity {
         view.setWebChromeClient(new WebChromeClient() {
             @Override public void onPermissionRequest(PermissionRequest request) { handlePermission(request); }
             @Override public void onPermissionRequestCanceled(PermissionRequest request) {
-                if (pendingPermission == request) { pendingPermission = null; pendingResources = null; }
+                if (pendingPermission == request) {
+                    pendingPermission = null; pendingResources = null;
+                    runtimePermissionInFlight = false; permissionResultReceived = false;
+                    render();
+                }
             }
             @Override public boolean onShowFileChooser(WebView source, android.webkit.ValueCallback<Uri[]> callback, FileChooserParams params) {
                 // An external picker pauses the Activity. Do not promise a result after destroying
@@ -321,6 +333,11 @@ public final class MainActivity extends Activity {
 
     private boolean cameraPresent() { return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY); }
     private boolean microphonePresent() { return getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE); }
+    private boolean waitingForSystemPermission() {
+        return !destroyed && MediaPermissionPolicy.retainForSystemPrompt(
+            runtimePermissionInFlight, pendingPermission != null,
+            GatePolicy.evaluate(true, platform, observation, SystemClock.elapsedRealtime()) == GatePolicy.Reason.READY);
+    }
     private boolean permissionEligible(PermissionRequest request, String[] resources) {
         return web != null && webOrigin.contains(web.getUrl()) && MediaPermissionPolicy.eligible(resources,
             webOrigin.contains(request.getOrigin().toString()), ready(), cameraPresent(), microphonePresent());
@@ -335,12 +352,16 @@ public final class MainActivity extends Activity {
         }
         pendingPermission = request; pendingResources = resources.clone();
         if (permissions.isEmpty()) completePermission();
-        else requestPermissions(permissions.toArray(new String[0]), MEDIA_PERMISSION);
+        else {
+            runtimePermissionInFlight = true; permissionResultReceived = false;
+            requestPermissions(permissions.toArray(new String[0]), MEDIA_PERMISSION);
+        }
     }
     private void completePermission() {
         PermissionRequest request = pendingPermission;
         String[] resources = pendingResources;
         pendingPermission = null; pendingResources = null;
+        runtimePermissionInFlight = false; permissionResultReceived = false;
         if (request == null) return;
         if (!permissionEligible(request, resources)) { request.deny(); return; }
         for (String resource : resources) {
@@ -351,13 +372,19 @@ public final class MainActivity extends Activity {
     }
     @Override public void onRequestPermissionsResult(int code, String[] permissions, int[] results) {
         super.onRequestPermissionsResult(code, permissions, results);
-        if (code == MEDIA_PERMISSION) completePermission();
+        if (code == MEDIA_PERMISSION) {
+            permissionResultReceived = true;
+            if (foreground) completePermission();
+        }
     }
     @Override public void onBackPressed() { if (ready() && web != null && web.canGoBack()) web.goBack(); else super.onBackPressed(); }
     private void notice(int message) { Toast.makeText(this, localizedString(message), Toast.LENGTH_SHORT).show(); }
     private void destroyWeb() {
         localeReadPending = false;
-        if (pendingPermission != null) { pendingPermission.deny(); pendingPermission = null; pendingResources = null; }
+        runtimePermissionInFlight = false; permissionResultReceived = false;
+        PermissionRequest denied = pendingPermission;
+        pendingPermission = null; pendingResources = null;
+        if (denied != null) denied.deny();
         WebView old = web; web = null;
         if (old != null) {
             old.stopLoading(); old.onPause(); old.pauseTimers(); frame.removeView(old); old.removeAllViews(); old.destroy();
