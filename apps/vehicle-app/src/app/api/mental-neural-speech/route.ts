@@ -1,5 +1,6 @@
 import {NextRequest,NextResponse} from 'next/server';
 import limits from '../../../../../../shared/localization/neural-tts-limits.json';
+import {mentalLocalTransport} from '../../../utils/mentalLocalTransport';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const fail=(status:number,detail:string)=>NextResponse.json({detail},{status,headers:{'Cache-Control':'no-store'}});
@@ -42,7 +43,7 @@ export async function POST(request:NextRequest){
  try{
   if(request.signal.aborted)return fail(499,'SPEECH_CANCELLED');
   const target=new URL('/api/mental/neural-speech',backend);target.searchParams.set('language',payload.language);
-  const response=await fetch(target,{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(payload),signal:controller.signal});
+  const response=await mentalLocalTransport(target,{headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(payload),signal:controller.signal});
   if(!response.ok)return fail([401,403,409,422,429,503,504].includes(response.status)?response.status:503,'NEURAL_TTS_UNAVAILABLE');
   if(response.headers.get('content-type')?.split(';')[0]!=='audio/wav'||response.headers.get('x-tts-source')!=='chatterbox-multilingual-v3'||response.headers.get('x-tts-locale')!==({tr:'tr-TR',en:'en-US',de:'de-DE'}[payload.language]))return fail(502,'INVALID_TTS_RESPONSE');
   if(payload.speakerProfile&&response.headers.get('x-tts-speaker-profile')!==payload.speakerProfile)return fail(502,'INVALID_TTS_SPEAKER');
@@ -53,5 +54,5 @@ export async function POST(request:NextRequest){
   const bytes=new Uint8Array(size);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
   return new Response(bytes,{headers:{'Content-Type':'audio/wav','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':response.headers.get('x-tts-locale')!,...(payload.speakerProfile?{'X-TTS-Speaker-Profile':payload.speakerProfile}:{})}});
  }catch{return fail(controller.signal.aborted?504:503,'NEURAL_TTS_UNAVAILABLE');}
- finally{clearTimeout(deadline);request.signal.removeEventListener('abort',cancel);}
+ finally{controller.abort();clearTimeout(deadline);request.signal.removeEventListener('abort',cancel);}
 }

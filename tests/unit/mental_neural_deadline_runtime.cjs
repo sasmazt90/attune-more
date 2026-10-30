@@ -37,6 +37,8 @@ const active=ms=>[...timers].findLast(t=>t.active&&t.ms===ms);
  global.fetch=async(url,init)=>{active(limits.generationMilliseconds).callback();assert(init.signal.aborted);throw Error('aborted');};
  assert.equal(await client.mentalNeuralSpeech('No model inference',new AbortController().signal,()=>true,()=>{},()=>{}),false);
  assert.equal(checks,4);assert(![...timers].some(t=>t.active));
+ const transport=require.resolve('../../apps/vehicle-app/src/utils/mentalLocalTransport.ts');
+ require.cache[transport]={id:transport,filename:transport,loaded:true,exports:{mentalLocalTransport:(url,init)=>global.fetch(url,init)}};
  const {POST}=require('../../apps/vehicle-app/src/app/api/mental-neural-speech/route.ts');
  process.env.ATTUNE_MENTAL_TTS_TOKEN='noncredential-fixture-'.repeat(3);
  const request=signal=>new NextRequest('http://localhost:3360/api/mental-neural-speech',{method:'POST',signal,headers:{Host:'localhost:3360',Origin:'http://localhost:3360','Content-Type':'application/json'},body:JSON.stringify({text:'No inference fixture',language:'en',speechConsent:true})});
