@@ -4,6 +4,7 @@ Personal frames are never logged or stored by this API.
 import asyncio
 import json
 import math
+import os
 from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from appearance_analysis import analyze_skin
@@ -13,6 +14,12 @@ from experimental_acne_v5 import configuration as acne_preview_configuration,Pre
 router = APIRouter(prefix='/api/local-health')
 _busy = asyncio.Lock()
 parked = lambda: False
+
+
+def skin_analysis_seconds():
+    # Explicit deployment profile for slower CPU demonstration hosts. The
+    # standard budget and all consent/PARK/disconnect cancellation stay intact.
+    return 180. if os.getenv('ATTUNE_SKIN_ANALYSIS_PROFILE') == 'extended-cpu' else 90.
 
 
 @router.get('/skin/acne-v5-config')
@@ -118,7 +125,7 @@ async def skin_prepare(request: Request):
     value=await payload(request)
     if _busy.locked():raise HTTPException(429,'LOCAL_ANALYSIS_BUSY')
     async with _busy:
-        return await native_analysis.run('warm-skin',{},request,parked,90.)
+        return await native_analysis.run('warm-skin',{},request,parked,skin_analysis_seconds())
 
 
 @router.post('/skin')
@@ -129,7 +136,7 @@ async def skin(request: Request):
     try:
         skin_geometry(value)
         async with _busy:
-            eyewear,result=await native_analysis.run('skin',value,request,parked,90.)
+            eyewear,result=await native_analysis.run('skin',value,request,parked,skin_analysis_seconds())
         result['captureScopeVersion']=eyewear['version']
         for rows in [*result.get('measurements',{}).values(),result.get('general',{}).get('measurements',[])]:
             for row in rows:

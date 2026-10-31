@@ -5,6 +5,7 @@ import {getLocale,getLanguage,t} from '../i18n/core';
 import {contextWindowThrough} from './mentalContextWindow';
 import {serviceAllowed,useServiceAllowed,mentalHistoryAllowed,useMentalHistoryAllowed} from './serviceConsent';
 import {speechMuted} from './playbackMeter';
+import {speechRecognitionConstructor} from './speechRecognition';
 import { spokenText } from './spokenText';
 import {canonicalMentalTheme} from '../i18n/mentalThemes';
 import {mentalSystemSpeech} from '../i18n/systemSpeech';
@@ -119,7 +120,7 @@ export function useMentalConversation(parked: boolean) {
     if (!isMicrophoneAllowed() || !settings.current.speechConsent) {
       cancel('Sesli görüşme için mikrofon ve hizmet işleme izni gerekiyor.'); return;
     }
-    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SR = speechRecognitionConstructor('mental');
     if (!SR) { cancel('Bu tarayıcı seçilen dilde sesli görüşmeyi desteklemiyor.'); return; }
     const recognition = new SR(); r.recognition = recognition;
     recognition.lang = getLocale(); recognition.continuous = false; recognition.interimResults = false;

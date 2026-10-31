@@ -8,9 +8,11 @@ import { samplingSupportVersion,supportedAppearanceMethod } from './skinIndicato
 import type { SkinLocalMap } from './skinLocalMaps';
 import {isSkinHostedProcessingAllowed} from './attuneMode';
 import {localAnalysisError} from './localAnalysisError';
+// Match the opt-in backend deployment profile; never accept a request-supplied budget.
+const SKIN_TRANSPORT_MS=process.env.NEXT_PUBLIC_ATTUNE_SKIN_ANALYSIS_PROFILE==='extended-cpu'?185000:95000;
 /** Model-only preparation; no camera pixels, bounded server process and abort. */
 export async function prepareSkinAnalysis(current:()=>boolean):Promise<void>{
- const controller=new AbortController(),deadline=setTimeout(()=>controller.abort(),95000);
+ const controller=new AbortController(),deadline=setTimeout(()=>controller.abort(),SKIN_TRANSPORT_MS);
  const stale=setInterval(()=>{if(!current())controller.abort();},100);
  try{
   const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/prepare`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true})});
@@ -31,9 +33,8 @@ export function isSagAppearanceOnly(value:Pick<AppearanceMeasurement,'components
 }
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
  const hostedConsent=isSkinHostedProcessingAllowed();
- // Complete-bundle Windows request measured 56.73s after 31.83s preparation.
- // Server reaps inference at 90s, before this transport deadline.
- const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),95000);
+ // The server reaps inference five seconds before the transport deadline.
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),SKIN_TRANSPORT_MS);
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {
   const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({experimentalAcneV5:ACNE_V5_PREVIEW,requestId:crypto.randomUUID(),capturePreflight:{engine:'browser-mediapipe',faceCount:snapshot.captureFaceCount,quality:{isValid:qualityValid,avgLuminance:conditions.avgLuminance,blurScore:conditions.blurScore}},processingConsent:true,hostedProcessingConsent:hostedConsent,photo:snapshot.dataUrl,photoId:snapshot.photoId,rawFrame:snapshot.rawFrame,pose:snapshot.angle,meshes:snapshot.meshes,exclusions:snapshot.exclusions,landmarks:snapshot.landmarks,expressionObservation:expressionObservation(snapshot.expressionScores,snapshot.photoId),qualityValid,conditions,temporal})});

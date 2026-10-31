@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "baseline": "e23147b573446f1e23219712a0e0229cd9242638",
+  "platform": "real AAOS 15 / Anbox Cloud / NVIDIA L4",
+  "language": "tr",
+  "inputPolicy": "Controlled camera/audio must cross the actual Android media pipeline. No score, landmark, gate, ASR-result, or provider-response replacement.",
+  "common": {
+    "resultStatus": "NOT_TESTED",
+    "entry": "#health-centre-links a[href=/{module}]",
+    "consent": "[role=dialog] input[type=checkbox]",
+    "resultActionDiscovery": "button,a[href],summary,[role=button],input,select,[tabindex]",
+    "coverage": "Discover enabled and disabled controls in every result tab, carousel slide, modal and saved result; record expected and actual state, timestamp, and screenshot. No unseen control counts as PASS.",
+    "safety": ["PARK", "DRIVE", "missing vehicle state", "stale vehicle state", "background/resume"],
+    "viewports": [[1280,720],[1920,1080]]
+  },
+  "modules": {
+    "vision": {
+      "entryConsentCheckboxes": 3,
+      "input": "Three approved full-geometry camera views and synthetic spoken responses through Android microphone",
+      "progress": "[data-vision-stage][data-vision-trial]",
+      "processing": "Original MediaPipe face/eye gate and optotype scoring; explicitly opted-in real OpenAI transcription of Android-captured PCM/WebM, with a separate cloud-audio consent",
+      "complete": {"selector":"[data-letter-result]","trials":24,"trialsPerEye":12},
+      "results": ["[data-eye-result=RIGHT] details summary","[data-eye-result=LEFT] details summary","button[aria-haspopup=dialog]"],
+      "history": "[data-record-category=vision]"
+    },
+    "skin": {
+      "entryConsentCheckboxes": 1,
+      "input": "Approved FRONT/RIGHT/LEFT camera fixtures; original capture and quality gates",
+      "progress": "canvas[data-angle]",
+      "processing": "Three actual /api/local-health/skin POSTs; verified experimental acne-v5 model and current production models",
+      "complete": {"selector":"[data-skin-result]","successfulAngles":3},
+      "results": ["[data-skin-region-tab]","[data-skin-overview-finding]","[data-skin-type-card]","[data-skin-acne-subtypes] button","[data-skin-history-range]","[data-skin-open-recommendations]","[data-skin-findings-inconclusive]","[data-skin-findings-unmeasured]","previous/next finding and overview page controls"],
+      "history": "[data-record-category=skin]",
+      "limitation": "Experimental acne-v5 inference is not production clinical validation"
+    },
+    "dental": {
+      "entryConsentCheckboxes": 1,
+      "input": "Approved project dental media; FRONT/RIGHT/LEFT/BITE through camera",
+      "progress": "[data-dental-step]",
+      "processing": "Actual dental preprocessing/ONNX inference; original four-view validation",
+      "complete": {"selector":"[data-dental-result][data-dental-measured='4']"},
+      "results": ["overview/views tabs","[data-dental-pose-status]","button[aria-haspopup=dialog]","[data-dental-layer]","previous/next view arrows","carousel dots","[data-dental-measurement-note] when applicable","save numerical results checkbox/button","retry"],
+      "history": "[data-record-category=dental]"
+    },
+    "hearing": {
+      "entryConsentCheckboxes": 1,
+      "input": "Original stereo check and generated DIN audio; controlled responses entered through actual UI",
+      "processing": "Unmodified randomization, audio timing, 24-trial staircase and scoring",
+      "complete": {"selector":"[data-hearing-result]","validTrials":24},
+      "results": ["[data-din-scorecards]","service information dialog","threshold explanation","retry and applicable next steps"],
+      "history": "[data-record-category=hearing]",
+      "limitation": "Controlled engineering test; no calibrated human headset or clinical hearing acceptance"
+    },
+    "mental": {
+      "entryConsentCheckboxes": 4,
+      "input": "Synthetic non-personal multi-turn speech; actual Android microphone and ASR",
+      "progress": "[data-conversation-phase][data-voice-state]",
+      "processing": "Current structured-v1 conversation engine and approved recorded voice assets; real OpenAI audio transcription and session analysis; original session context; actual dynamically generated Chatterbox summary and full closing playback",
+      "complete": {"selector":"[data-conversation-phase=completed]","minimumUserTurns":2},
+      "results": ["completion dialog","[data-mental-current-summary]","[data-mental-history] button[aria-pressed]","theme information","service information","restart/retry where applicable"],
+      "history": "[data-record-category=mental]"
+    }
+  }
+}

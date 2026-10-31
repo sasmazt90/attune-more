@@ -35,6 +35,9 @@ jobs:
     - name: Run skin presentation localization contract
       run: npm run test:skin-presentation
 
+    - name: Verify opt-in cloud speech lifecycle and consent
+      run: node tests/unit/cloud_speech_runtime.cjs
+
     - name: Set up Python 3.11
       uses: actions/setup-python@v6
       with:

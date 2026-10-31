@@ -1,15 +1,22 @@
 'use client';
 import {useSyncExternalStore} from 'react';
+import {cloudSpeechEnabled,CLOUD_SPEECH_PERMISSION,CLOUD_SPEECH_COPY} from './speechProvider';
 
 export const SERVICE_CONSENT_KEY='attune_health_processing_v1';
-export const SERVICE_REQUIREMENTS={
+const BASE_SERVICE_REQUIREMENTS={
  skin:[['local','Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.']],
  dental:[['local','Diş fotoğraflarımın bu cihazda geçici işlenmesine izin veriyorum.']],
  hearing:[['local','Kulaklık sesleri ve yanıtlarımla yerel işitme testinin yapılmasına izin veriyorum.']],
  vision:[['local','Kamera görüntüsü ve konuşma yanıtlarımın göz görevi için geçici işlenmesine izin veriyorum.'],['speech','Attune.more sesli yönergelerini ve konuşma yanıtlarım için tarayıcı/cihaz konuşma tanıma hizmetini kullanmaya izin veriyorum; tanıma hizmeti sesi buluta aktarabilir.']],
  mental:[['recognition','Sesimin tarayıcı/cihaz konuşma tanıma hizmetinde metne çevrilmesine izin veriyorum; bu hizmet sesi buluta aktarabilir.'],['conversation','Konuşma metnimin Attune.more yanıtları, geçici oturum belleği ve özet için işlenmesine izin veriyorum.'],['speech-output-v2','Yanıt metninin seçtiğim dilde yerel Attune.more sesiyle veya açıkça seçtiğim tarayıcı/cihaz sesiyle okunmasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca sağlayıcı izni gerekir.']]
 } as const;
-export type HealthService=keyof typeof SERVICE_REQUIREMENTS;
+export type HealthService=keyof typeof BASE_SERVICE_REQUIREMENTS;
+const cloudRequirements=cloudSpeechEnabled()?[[CLOUD_SPEECH_PERMISSION,CLOUD_SPEECH_COPY] as const]:[];
+export const SERVICE_REQUIREMENTS:Record<HealthService,readonly (readonly [string,string])[]>={
+ ...BASE_SERVICE_REQUIREMENTS,
+ vision:[...BASE_SERVICE_REQUIREMENTS.vision,...cloudRequirements],
+ mental:[...BASE_SERVICE_REQUIREMENTS.mental,...cloudRequirements],
+};
 export const MENTAL_HISTORY_PERMISSION='prior-summaries-v1';
 export const MENTAL_HISTORY_COPY='İsteğe bağlı: İlgili önceki görüşme özetlerimin yeni Attune.more özetinde kullanılmasına izin veriyorum. Bu izin olmadan da görüşmeye başlayabilirim.';
 type ConsentDocument={version:1;services:Partial<Record<HealthService,{at:string;permissions:string[];optionalPermissions?:string[]}>>};

@@ -6,6 +6,7 @@ import {useTranslations} from '../../i18n/LanguageProvider';
 
 import {HealthStartCard,HEALTH_START_ACTION} from '../../components/HealthStartCard';
 import {speechMuted} from '../../utils/playbackMeter';
+import {speechRecognitionConstructor} from '../../utils/speechRecognition';
 import {serviceAllowed} from '../../utils/serviceConsent';
 import {HEALTH_MODULES} from '../../utils/healthModules';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -82,7 +83,7 @@ export default function SpokenLetterPage(){
  }
  function listen(){
   const a=r.current,s=a.session,epoch=a.epoch,f=flow.current,controlOnly=f.stage==='user-paused';if(!s||!current(epoch)||document.hidden||speechMuted()||!isMicrophoneAllowed()||a.recognition||a.restart||a.controller||a.audio?.paused===false||a.answerTimer||a.settleAnswer||a.muted||a.modal||(!controlOnly&&(!f.canAnswer||failure()||!measureSymbol())))return;
-  const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){recognitionFailure('unsupported');return;}
+  const SR=speechRecognitionConstructor('vision');if(!SR){recognitionFailure('unsupported');return;}
   const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang=getLocale();recognition.continuous=false;recognition.interimResults=true;recognition.maxAlternatives=3;const finalIndexes=new Set<number>();let accepted=false;
   // Identity callbacks survive a short blink; answer admission remains a
   // separate fresh-frame/stimulus gate. Persistent faults stop this instance.
