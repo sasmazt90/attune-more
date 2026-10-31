@@ -52,6 +52,21 @@ The test deployment bridges the existing app through restricted SSH tunnels;
 LXD and AMS administration are never exposed publicly. Use the actual property
 names in `apps/automotive/app/build.gradle` when reproducing a build.
 
+## Complete structured session summaries
+
+The structured Mental session analyzer requests a strict JSON schema derived
+from its existing `SessionAnalysis` contract. Plain JSON mode allowed a real
+provider response to omit `spokenSummary`, which correctly prevented saving a
+successful session but interrupted the spoken closing. Every schema field is
+required (nullable fields can still return null), and theme values use the
+existing stable vocabulary. Server validation remains authoritative and no
+missing content is fabricated or silently retried. The ordinary non-structured
+analyzer retains its previous JSON mode. The selected provider/model must support
+strict structured outputs; the real demonstration verified `gpt-4o-mini`.
+
+The provider contract follows the official
+[Structured Outputs guidance](https://developers.openai.com/api/docs/guides/structured-outputs).
+
 ## Validation boundary
 
 `tests/unit/cloud_speech_runtime.cjs` exercises cancellation, consent renewal,

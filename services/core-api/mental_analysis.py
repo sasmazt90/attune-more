@@ -1,7 +1,7 @@
 """Consent-gated summary context and strict additive structured-analysis contract."""
 from pydantic import BaseModel, Field, StrictBool, ConfigDict
 from typing import Literal
-from mental_themes import stable_session_themes
+from mental_themes import SESSION_THEME_KEYS, stable_session_themes
 
 
 def relevant_history(messages, records):
@@ -29,6 +29,22 @@ class SessionAnalysis(BaseModel):
     relatedSessionIds: list[str] = Field(default_factory=list,max_length=5)
     recurringThemes: list[str] = Field(default_factory=list,max_length=12)
     spokenSummary: str = Field(min_length=1,max_length=2000)
+
+
+def structured_analysis_response_format():
+    """Require the existing complete analysis contract at the provider boundary.
+
+    JSON mode alone permits missing fields, including the spoken closing. Keep
+    server validation authoritative; never synthesize missing provider output.
+    """
+    schema=SessionAnalysis.model_json_schema()
+    schema['additionalProperties']=False
+    schema['required']=list(schema['properties'])
+    for prop in schema['properties'].values():
+        prop.pop('default',None)
+    for name in ('themes','recurringThemes'):
+        schema['properties'][name]['items']={'type':'string','enum':list(SESSION_THEME_KEYS)}
+    return {'type':'json_schema','json_schema':{'name':'mental_session_analysis','strict':True,'schema':schema}}
 
 
 def validate_analysis(data, history, no_advice=False):

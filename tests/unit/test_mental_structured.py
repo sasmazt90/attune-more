@@ -281,9 +281,33 @@ def test_one_analysis_no_rewrite_and_uninvented_history(monkeypatch):
     assert 'spokenSummary' in calls[0]['messages'][-1]['content']
     assert 'at most 12 words and 100 characters' in calls[0]['messages'][-1]['content']
     assert 'keep full detail in summaryText' in calls[0]['messages'][-1]['content']
+    response_format=calls[0]['response_format']
+    assert response_format['type']=='json_schema' and response_format['json_schema']['strict'] is True
+    schema=response_format['json_schema']['schema']
+    assert schema['additionalProperties'] is False
+    assert set(schema['required'])==set(schema['properties'])
+    assert 'spokenSummary' in schema['required']
+    assert 'null' in [item.get('type') for item in schema['properties']['professionalSupportReason']['anyOf']]
     result=validate_analysis(analysis_fixture(),[],no_advice=True)
     assert not result['recommendations'] and not result['relatedSessionIds'] and not result['recurringThemes']
     with pytest.raises(ValueError):validate_analysis({**analysis_fixture(),'spokenSummary':''},[])
+
+
+def test_missing_provider_closing_is_not_fabricated_or_retried(monkeypatch):
+    import mental_provider
+    calls=[]
+    incomplete=analysis_fixture();del incomplete['spokenSummary']
+    class Chat:
+        def create(self,**kw):
+            calls.append(kw)
+            return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(incomplete)))])
+    monkeypatch.setattr(mental_provider,'get_openai_client',lambda *args:SimpleNamespace(chat=SimpleNamespace(completions=Chat())))
+    analyzer=OpenAICompatibleSessionAnalyzer('mock');analyzer.structured=True
+    from fastapi import HTTPException
+    with pytest.raises(HTTPException) as error:
+        analyzer.analyze_session([{'role':'user','content':'Synthetic work fatigue example.'}])
+    assert error.value.status_code==503 and error.value.detail=='PROVIDER_UNAVAILABLE'
+    assert len(calls)==1
 
 
 def test_history_consent_is_distinct_and_relevance_is_bounded(monkeypatch):
