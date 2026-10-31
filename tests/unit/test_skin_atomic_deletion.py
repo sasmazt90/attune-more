@@ -5,9 +5,11 @@ from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[2]
 
 def test_numeric_failure_preserves_photo_and_crash_recovery(tmp_path):
-    modules=['utils/attuneMode','utils/healthModules','utils/serviceConsent','utils/dentalPhotoHistory','utils/skinPhotoHistory','utils/healthRecords']
+    modules=['utils/attuneMode','utils/healthModules','utils/speechProvider','utils/serviceConsent','utils/dentalPhotoHistory','utils/skinPhotoHistory','utils/healthRecords']
     node="const fs=require('fs'),ts=require('typescript'),out={};for(const p of "+json.dumps(modules)+"){out[p.split('/').at(-1)]=ts.transpileModule(fs.readFileSync('apps/vehicle-app/src/'+p+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;}process.stdout.write(JSON.stringify(out));"
     sources=json.loads(subprocess.check_output(['node','-e',node],cwd=ROOT,text=True,encoding='utf8'))
+    # Mirror the default Next build-time environment in this raw-module harness.
+    sources['speechProvider']=sources['speechProvider'].replace('process.env.NEXT_PUBLIC_ATTUNE_SPEECH_PROVIDER','undefined')
     sources['healthModules']=sources['healthModules'].replace('require("../../../../shared/healthModules.json")',json.dumps({'default':json.loads((ROOT/'shared/healthModules.json').read_text('utf8'))}))
     with sync_playwright() as pw:
         def launch():
