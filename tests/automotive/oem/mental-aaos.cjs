@@ -24,7 +24,7 @@ try{
  await act('Start a new conversation after completed result',p.getByRole('button',{name:tr('Görüşmeyi Başlat'),exact:true}),()=>p.locator('[data-conversation-phase=listening]').waitFor());
  await act('Pause restarted conversation',p.getByRole('button',{name:tr('Duraklat'),exact:true}),()=>p.locator('[data-conversation-phase=paused]').waitFor());
  await act('Resume restarted conversation',p.getByRole('button',{name:tr('Devam et'),exact:true}),()=>p.locator('[data-conversation-phase=listening]').waitFor());
- await act('Finish empty restarted conversation',p.getByRole('button',{name:tr('Görüşmeyi Bitir'),exact:true}),()=>p.locator('[data-conversation-phase=completed]').waitFor());
+ await act('Finish empty restarted conversation',p.getByRole('button',{name:tr('Görüşmeyi Bitir'),exact:true}),()=>p.locator('[data-conversation-phase=completed]').waitFor({state:'attached'}));
  await observe('Empty retry is not saved',p.getByRole('dialog'));assert.equal(await p.evaluate(()=>JSON.parse(localStorage.getItem('togg_health_mental_history')||'[]').length),r.before+1);await p.getByRole('button',{name:tr('Tamam'),exact:true}).click();
  await deleteSynthetic(h,r.recordId,'mental');await p.locator('nav a[href="/"]').click();await observe('Clean cockpit ending',p.locator('main'));r.fullResultCoverage=true;r.remaining=[];
 }catch(e){error=e;console.error(String(e));process.exitCode=1;}finally{await h.close(error);}})().catch(e=>{console.error(String(e));process.exitCode=1;});
