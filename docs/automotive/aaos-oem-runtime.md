@@ -26,23 +26,35 @@ The debug shell declares Android's normal `MODIFY_AUDIO_SETTINGS` permission so
 WebView can route microphone audio. Camera and microphone runtime consent and
 the existing native PARK/background restrictions remain in force.
 
-## Isolated CPU Skin analysis profile
+## Bounded Skin preparation and cold-start fix
 
-The standard backend deadline remains 90 seconds and the frontend transport
-deadline remains 95 seconds. On a deliberately selected slow CPU demonstration
-runtime, set both:
+Analysis keeps its 90-second server and 95-second transport deadline. The former
+extended-cpu option has been removed. Preparation loads each unchanged checkpoint
+once through bounded, cancellable steps and warms inference before user pixels.
+The worker configures its CPU pools before imports, and the dryness memory guard
+samples physical RAM at most every 100 ms without skipping cancellation checks.
 
-```text
-ATTUNE_SKIN_ANALYSIS_PROFILE=extended-cpu
-NEXT_PUBLIC_ATTUNE_SKIN_ANALYSIS_PROFILE=extended-cpu
+Transformers import metadata is cached with exact export/backend parity and
+validated against the installed distribution version, registry code and RECORD
+hashes. A mismatch falls back to the original loader. When packaging a different
+pinned environment, generate its metadata once with:
+
+```sh
+python services/core-api/native_import_cache.py
 ```
 
-This gives the same worker up to 180 seconds and its transport 185 seconds.
-The frontend setting is a build-time setting. Request parameters cannot select
-the profile. Model math, image quality thresholds, inference order, and worker
-cancellation on movement, consent loss, disconnect, or timeout are unchanged.
-Do not enable this profile to conceal a stalled worker. Keep stage timing and
-real AAOS response evidence. Experimental acne-v5 remains explicitly experimental.
+No frames, predictions, weights or credentials are stored in that metadata.
+Three-angle fusion preserves an honestly insufficient regional classification
+without inventing a type or discarding otherwise valid measurements.
+
+## AAOS Vision output lifecycle
+
+Vision reuses the media element unlocked by the user's start interaction. This
+prevents later prompts from being rejected by Android WebView's autoplay gate.
+Cancellation, microphone/output exclusion and consent checks remain in place.
+The controller regression exercises repeated prompts in TR/EN/DE; real English
+AAOS validation completed two assessments with 48 valid responses. This is UI
+and integration evidence, not a clinical accuracy or physical-audio claim.
 
 ## Loopback origins
 

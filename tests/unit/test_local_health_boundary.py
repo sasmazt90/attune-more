@@ -44,14 +44,14 @@ def test_dental_model_failure_is_503_without_payload_echo(monkeypatch):
  assert result.status_code==503 and result.json()=={'detail':'LOCAL_MODEL_FAILURE'}
 
 
-def test_extended_cpu_preparation_requires_deployment_opt_in(monkeypatch):
+def test_skin_deadline_cannot_be_extended_by_request_or_environment(monkeypatch):
  budgets=[]
  async def prepared(operation,value,request,permitted,seconds):
   assert operation=='warm-skin' and permitted()
   budgets.append(seconds)
   return {'ready':True}
  monkeypatch.setattr(health.native_analysis,'run',prepared)
- for profile,expected in [(None,90.),('180',90.),('unbounded',90.),('extended-cpu',180.)]:
+ for profile,expected in [(None,90.),('180',90.),('unbounded',90.),('extended-cpu',90.)]:
   if profile is None:monkeypatch.delenv('ATTUNE_SKIN_ANALYSIS_PROFILE',raising=False)
   else:monkeypatch.setenv('ATTUNE_SKIN_ANALYSIS_PROFILE',profile)
   result=request('/api/local-health/skin/prepare',{'processingConsent':True,'timeout':999999})

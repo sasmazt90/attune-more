@@ -3,8 +3,49 @@ import contextlib
 import json
 import struct
 import sys
+import os
+
+# Configure bounded inference lanes before loading ONNX/Torch/OpenMP. Changing
+# the native thread pool after a different inference runtime has initialized it
+# creates an avoidable cold-start synchronization cost on Windows.
+if __name__=='__main__':
+    os.environ['OMP_NUM_THREADS']='2'
+    os.environ['MKL_NUM_THREADS']='2'
 
 MAX_MESSAGE=128*1024*1024
+SKIN_PREPARATION_STEPS=('dryness','skinmap','findings','acnes','regional','wrinkles','classifier','type')
+_prepared_steps=set()
+_regional_preparation_failed=False
+
+def prepare_skin_step(step):
+    """No user pixels: bounded checkpoint loading and inference warm-up."""
+    global _regional_preparation_failed
+    if step=='complete':
+        if _prepared_steps!=set(SKIN_PREPARATION_STEPS):raise ValueError('INCOMPLETE_SKIN_PREPARATION')
+        models={}
+        if not _regional_preparation_failed:
+            from regional_skin_v3 import load_runtime,model_manifest
+            load_runtime();models=model_manifest()
+        return {'ready':True,'step':step,'models':models}
+    if step not in SKIN_PREPARATION_STEPS:raise ValueError('INVALID_SKIN_PREPARATION_STEP')
+    if step not in _prepared_steps:
+        if step=='dryness':
+            from product_dryness import runtime
+            runtime(lambda:None)
+        else:
+            try:
+                if step=='type':
+                    from local_skin_type import load
+                    load()
+                else:
+                    from regional_skin_v3 import prepare_component
+                    prepare_component(step)
+            except Exception as error:
+                import logging
+                logging.getLogger(__name__).warning('Optional skin preparation unavailable (%s): %s',step,type(error).__name__)
+                if step!='type':_regional_preparation_failed=True
+        _prepared_steps.add(step)
+    return {'ready':False,'step':step}
 
 def skin_analysis(value, check=lambda:None):
     from camera_color import load_profile,prepare,restore
@@ -23,6 +64,8 @@ def skin_analysis(value, check=lambda:None):
     return eyewear,restore(result,color,client_id,analyzed_id)
 
 def execute(operation,value):
+    if operation=='prepare-skin-step':
+        return prepare_skin_step(value.get('step'))
     if operation=='skin':return skin_analysis(value)
     if operation=='skin-fuse':
         from regional_attach import fuse_regional

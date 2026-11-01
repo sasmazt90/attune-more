@@ -315,19 +315,46 @@ def decide_from_probs(probs: dict, ps: float, f: dict, tone: str, thr: dict, par
     return dict(state=state, sensitive=bool(sensitive) and state != 'unmeasured', reason=reason,
                 scores={**{k: round(v, 3) for k, v in probs.items()}, 'sensitive': round(ps, 3)}, views=view_count)
 
-_lock = threading.Lock(); _runtime = None
+_lock = threading.RLock(); _runtime = None
+_prepared = None
+
+def prepare_component(component):
+    """Load one unchanged checkpoint; publish the runtime only when complete."""
+    global _prepared
+    if component not in ('skinmap','findings','acnes','regional','wrinkles','classifier'):
+        raise ValueError('INVALID_REGIONAL_PREPARATION_COMPONENT')
+    with _lock:
+        if _runtime is not None:return
+        from native_import_cache import install
+        install()
+        if _prepared is None:
+            params=json.load(open(os.path.join(MODEL_DIR,'params.json')))
+            _prepared=dict(params=params,models={},decider=Decider(params))
+        if component=='classifier':
+            if 'k' not in _prepared:
+                kpath=os.path.join(MODEL_DIR,'k_classifier.json')
+                _prepared['k']=KClassifier(json.load(open(kpath)),os.environ.get('ATTUNE_DINOV2_DIR',os.path.join(MODEL_DIR,'dinov2-small'))) if os.path.exists(kpath) else None
+                if _prepared['k'] is not None:
+                    _prepared['k'].embed([np.zeros((224,224,3),np.uint8)])
+        elif component not in _prepared['models']:
+            import rfdetr
+            spec=_prepared['params']['detectors'][component]
+            model=getattr(rfdetr,spec['arch'])(pretrain_weights=os.path.join(MODEL_DIR,spec['weights']))
+            # Loading weights alone leaves lazy inference imports/kernels in the
+            # first photo's deadline. Warm the same eval path without photo data;
+            # discard the prediction, then publish the usable model.
+            from PIL import Image
+            model.predict(Image.new('RGB',(1024,1024)),threshold=spec['threshold'] if spec.get('role')=='wrinkle-mask' else .05)
+            _prepared['models'][component]=(model,spec)
 
 def load_runtime():
     """Lazily loads params + RF-DETR models (torch). Raises FileNotFoundError when the bundle is absent."""
     global _runtime
     with _lock:
         if _runtime is None:
-            params = json.load(open(os.path.join(MODEL_DIR, 'params.json')))
-            import rfdetr
-            models = {name: (getattr(rfdetr, spec['arch'])(pretrain_weights=os.path.join(MODEL_DIR, spec['weights'])), spec) for name, spec in params['detectors'].items()}
-            kpath = os.path.join(MODEL_DIR, 'k_classifier.json')
-            kc = KClassifier(json.load(open(kpath)), os.environ.get('ATTUNE_DINOV2_DIR', os.path.join(MODEL_DIR, 'dinov2-small'))) if os.path.exists(kpath) else None
-            _runtime = dict(params=params, models=models, decider=Decider(params), k=kc)
+            for component in ('skinmap','findings','acnes','regional','wrinkles','classifier'):
+                prepare_component(component)
+            _runtime = _prepared
         return _runtime
 
 def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pose: str = 'FRONT') -> dict:

@@ -17,9 +17,9 @@ parked = lambda: False
 
 
 def skin_analysis_seconds():
-    # Explicit deployment profile for slower CPU demonstration hosts. The
-    # standard budget and all consent/PARK/disconnect cancellation stay intact.
-    return 180. if os.getenv('ATTUNE_SKIN_ANALYSIS_PROFILE') == 'extended-cpu' else 90.
+    # The preparation protocol and CPU optimizations preserve the original
+    # deadline; neither a request nor an environment profile may extend it.
+    return 90.
 
 
 @router.get('/skin/acne-v5-config')
@@ -123,8 +123,13 @@ def skin_geometry(value):
 @router.post('/skin/prepare')
 async def skin_prepare(request: Request):
     value=await payload(request)
+    step=value.get('step')
+    if step is not None and step not in ('dryness','skinmap','findings','acnes','regional','wrinkles','classifier','type','complete'):
+        raise HTTPException(422,'INVALID_SKIN_PREPARATION_STEP')
     if _busy.locked():raise HTTPException(429,'LOCAL_ANALYSIS_BUSY')
     async with _busy:
+        if step is not None:
+            return await native_analysis.run('prepare-skin-step',{'step':step},request,parked,skin_analysis_seconds())
         return await native_analysis.run('warm-skin',{},request,parked,skin_analysis_seconds())
 
 
