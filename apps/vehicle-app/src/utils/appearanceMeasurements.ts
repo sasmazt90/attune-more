@@ -10,14 +10,17 @@ import {isSkinHostedProcessingAllowed} from './attuneMode';
 import {localAnalysisError} from './localAnalysisError';
 /** Model-only preparation; no camera pixels, bounded server process and abort. */
 export async function prepareSkinAnalysis(current:()=>boolean):Promise<void>{
+ for(const step of ['dryness','skinmap','findings','acnes','regional','wrinkles','classifier','type','complete']){
+ if(!current())throw Error('STALE_SOURCE');
  const controller=new AbortController(),deadline=setTimeout(()=>controller.abort(),95000);
  const stale=setInterval(()=>{if(!current())controller.abort();},100);
  try{
-  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/prepare`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true})});
+  const response=await fetch(`${LOCAL_API_BASE}/api/local-health/skin/prepare`,{method:'POST',headers:{'Content-Type':'application/json'},signal:controller.signal,body:JSON.stringify({processingConsent:true,step})});
   const value=await response.json();
   if(!response.ok)throw localAnalysisError(response.status,value.detail);
-  if(!current()||value.ready!==true)throw Error('STALE_SOURCE');
+  if(!current()||value.step!==step||value.ready!==(step==='complete'))throw Error('STALE_SOURCE');
  }finally{clearTimeout(deadline);clearInterval(stale);}
+ }
 }
 export type MeasurementKind='appearance_proxy'|'trained_prediction'|'longitudinal_measurement';
 export type MeasurementReceipt={status?:'measured'|'unavailable';reason?:string|null;coverage?:number|null;calibrationVersion?:string|null;localConfidence?:number|null};
@@ -31,8 +34,7 @@ export function isSagAppearanceOnly(value:Pick<AppearanceMeasurement,'components
 }
 export async function analyzeAppearance(snapshot:SkinSnapshot,qualityValid:boolean,conditions:Record<string,number>,temporal:unknown[],current:()=>boolean):Promise<AppearanceResponse>{
  const hostedConsent=isSkinHostedProcessingAllowed();
- // Complete-bundle Windows request measured 56.73s after 31.83s preparation.
- // Server reaps inference at 90s, before this transport deadline.
+ // The server reaps inference five seconds before the transport deadline.
  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),95000);
  const stale=setInterval(()=>{if(!current()||isSkinHostedProcessingAllowed()!==hostedConsent)controller.abort();},100);
  try {

@@ -87,7 +87,13 @@ export function validSkinOverview(value: SkinOverview | undefined, analysisId:st
   const hosted=type.inferenceKind==='hosted'&&type.provider==='roboflow'&&type.providerModelId==='skin-type-axavj/1'&&type.methodVersion==='hosted-roboflow-skin-type-axavj/1'&&type.modelHash===null;
   if(type.inferenceKind==='local-regional-bundle'){
     const map=value.findingsRegionalMap;
-    if(!regionalModelIdentity(map)||map?.version!=='regional-skin-v3'||type.methodVersion!==map.classifierVersion||type.modelHash!==map.models['k_classifier.json']||type.sourceModel!==map.version||type.value!==map.skinType?.value||map.skinType?.quality!=='valid')return false;
+    if(!regionalModelIdentity(map)||map?.version!=='regional-skin-v3'||type.methodVersion!==map.classifierVersion||type.modelHash!==map.models['k_classifier.json']||type.sourceModel!==map.version||type.value!==map.skinType?.value)return false;
+    // A verified three-angle fusion may honestly have insufficient regional
+    // evidence even when the FRONT-only classification was valid. Persist that
+    // unavailable result without inventing a type or discarding other measures.
+    if(type.quality==='valid'){
+      if(map.skinType?.quality!=='valid')return false;
+    }else if(type.quality!=='insufficient'||map.skinType?.quality!=='insufficient'||type.value!==null||!type.limitationCode||type.limitationCode!==map.skinType?.limitationCode)return false;
   }
   if(type.quality==='valid'?(type.value===null||!type.modelHash&&!hosted):type.value!==null)return false;
   return !!value.normalizationVersion && value.sourceTransform.coordinateSpace==='source-pixels' && value.sourceTransform.sourceWidth>=16 && value.sourceTransform.sourceHeight>=16 &&

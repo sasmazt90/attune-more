@@ -100,16 +100,29 @@ def analyze_staging(payload,head,encoder,check):
     check()
     return dict(native=native,candidate=candidate,support=merged,visible=visible,profile=dict(native=native_profile,halfSeconds=half_seconds,totalDrySeconds=time.monotonic()-started),halfContract=dict(factor=.5,metric=captured['metric']*.5,sourceFaceSpan=abs(payload['landmarks'][454]['x']-payload['landmarks'][234]['x'])*shape[1]*.5,cropOrigin=list(origin),pixelDensity=.5,originalSourceShape=list(shape)),crop=image,origin=origin)
 
+def _memory_guard(caller_check):
+    from product_dryness import DrynessModelUnavailable
+    import psutil
+    memory_checked_at=float('-inf')
+    def check():
+        nonlocal memory_checked_at
+        caller_check()
+        # Permission/deadline checks remain per operation. Windows physical RAM
+        # queries are expensive; sample them at most every 100 ms, rather than
+        # hundreds of times inside the same bounded crop batch.
+        now=time.monotonic()
+        if now-memory_checked_at>=.1:
+            if psutil.virtual_memory().available<400*2**20:raise DrynessModelUnavailable('LOCAL_MEMORY_RESERVE')
+            memory_checked_at=now
+    return check
+
+
 def analyze_product_candidate(value,base_analyzer,check,*,promoted=False):
     """Explicit dry-only callback seam; no normal selector imports this yet."""
     import hashlib,json
     import product_dryness as P,material_component_features as M
     from skin_measurement_contract import attach_result_receipts
-    import psutil
-    caller_check=check
-    def check():
-        caller_check()
-        if psutil.virtual_memory().available<400*2**20:raise P.DrynessModelUnavailable('LOCAL_MEMORY_RESERVE')
+    check=_memory_guard(check)
     started=time.monotonic();check();result=base_analyzer(value);check()
     def other(r):
         return dict(measurements={k:[x for x in v if x['id']!='dry'] for k,v in r['measurements'].items()},maps={k:v for k,v in r['maps'].items() if not k.endswith(':dry')},generalMeasurements=[x for x in r.get('general',{}).get('measurements',[]) if x['id']!='dry'],baseType=r.get('general',{}).get('skinType'),contours=r.get('contours'))

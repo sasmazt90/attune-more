@@ -618,3 +618,5 @@ def wipe_user_health_data():
 import local_health
 local_health.parked = lambda: vehicle_state["vehicleParked"] and not vehicle_state["vehicleMoving"]
 app.include_router(local_health.router)
+from speech_transcription import router as speech_transcription_router
+app.include_router(speech_transcription_router)

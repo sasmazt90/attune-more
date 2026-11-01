@@ -6,6 +6,7 @@ import {useTranslations} from '../../i18n/LanguageProvider';
 
 import {HealthStartCard,HEALTH_START_ACTION} from '../../components/HealthStartCard';
 import {speechMuted} from '../../utils/playbackMeter';
+import {speechRecognitionConstructor} from '../../utils/speechRecognition';
 import {serviceAllowed} from '../../utils/serviceConsent';
 import {HEALTH_MODULES} from '../../utils/healthModules';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -38,6 +39,7 @@ export default function SpokenLetterPage(){
  const [,redraw]=useState(0),[ready,setReady]=useState(false),[error,setError]=useState(''),[dialog,setDialog]=useState<string|null>(null),[result,setResult]=useState<LetterResult|null>(null);
  const [evidence,setEvidence]=useState<VisionEvidence|null>(null),[voice,setVoice]=useState<'quiet'|'loading'|'playing'|'listening'|'failed'>('quiet');
  const [answerNotice,setAnswerNotice]=useState('');
+ const playbackElement=useRef<HTMLAudioElement|null>(null);
  const answerDescription=describeAnswer;
  const video=useRef<HTMLVideoElement>(null),canvas=useRef<HTMLCanvasElement>(null),symbol=useRef<SVGSVGElement>(null),flow=useRef(new VisionFlow());
  const r=useRef({mounted:false,epoch:0,active:false,recognitionFailures:0,pendingPrompt:null as string|null,silenceReminders:new Set<string>(),speechActive:false,starting:false,stream:null as MediaStream|null,engine:null as VisionInference|null,raf:0,timer:null as ReturnType<typeof setInterval>|null,session:null as SpokenLetterSession|null,evidence:null as VisionEvidence|null,recognition:null as any,listeningStarted:false,answerTimer:null as ReturnType<typeof setTimeout>|null,settleAnswer:null as (()=>void)|null,audio:null as HTMLAudioElement|null,controller:null as AbortController|null,cancelSpeech:null as (()=>void)|null,url:null as string|null,restart:null as ReturnType<typeof setTimeout>|null,voiceGeneration:0,voiceTimeout:null as ReturnType<typeof setTimeout>|null,muted:false,modal:false,fault:'',faultSince:0,announcedFault:'',answerMemory:new VisionAnswerMemory(),clarifications:0,saving:false,mainInstructionGiven:false,nextPrompt:0,lastPrompt:'',prompted:new Set<string>(),conditionGate:new VisionResponseGate(),previewPoints:undefined as VisionEvidence['alignment']['landmarks']});
@@ -75,14 +77,16 @@ export default function SpokenLetterPage(){
   try{
    const clip=approvedClip(getLanguage(),'vision','vision:'+code);
    if(!clip)throw Error('APPROVED_VISION_RECORDING_UNAVAILABLE');
-   const audio=new Audio();a.audio=audio;audio.dataset.recordingId=clip.recordingId;
+   // Keep the element activated by the initial Start action for the session.
+   // Android WebView can reject a fresh element once transient activation ends.
+   const audio=playbackElement.current??(playbackElement.current=new Audio());a.audio=audio;audio.dataset.recordingId=clip.recordingId;
    const played=await playFixedSpeech(audio,clip,controller.signal,valid,name=>{if(valid()){timing(name);if(name==='playing')setVoice('playing');}},true);
    if(played&&valid()){stopSpeech();setVoice(a.listeningStarted?'listening':'quiet');onEnded();}else fail();
   }catch{fail();}
  }
  function listen(){
   const a=r.current,s=a.session,epoch=a.epoch,f=flow.current,controlOnly=f.stage==='user-paused';if(!s||!current(epoch)||document.hidden||speechMuted()||!isMicrophoneAllowed()||a.recognition||a.restart||a.controller||a.audio?.paused===false||a.answerTimer||a.settleAnswer||a.muted||a.modal||(!controlOnly&&(!f.canAnswer||failure()||!measureSymbol())))return;
-  const SR=(window as any).SpeechRecognition||(window as any).webkitSpeechRecognition;if(!SR){recognitionFailure('unsupported');return;}
+  const SR=speechRecognitionConstructor('vision');if(!SR){recognitionFailure('unsupported');return;}
   const recognition=new SR(),recognitionId=crypto.randomUUID(),id=s.presentationId,token=f.token();a.recognition=recognition;recognition.lang=getLocale();recognition.continuous=false;recognition.interimResults=true;recognition.maxAlternatives=3;const finalIndexes=new Set<number>();let accepted=false;
   // Identity callbacks survive a short blink; answer admission remains a
   // separate fresh-frame/stimulus gate. Persistent faults stop this instance.

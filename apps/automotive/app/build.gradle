@@ -1,5 +1,17 @@
 plugins { id 'com.android.application' }
 
+// Deployment overrides remain exact loopback origins in debug builds only.
+def debugOrigin = { String propertyName, String fallback ->
+    def value = providers.gradleProperty(propertyName).getOrElse(fallback)
+    def uri = new URI(value)
+    if (uri.scheme != 'http' || !(uri.host in ['localhost', '127.0.0.1']) ||
+        uri.userInfo != null || uri.query != null || uri.fragment != null ||
+        !(uri.path in ['', '/']) || uri.port < 1 || uri.port > 65535) {
+        throw new GradleException("${propertyName} must be an explicit HTTP loopback origin with a port")
+    }
+    return '"' + value + '"'
+}
+
 android {
     namespace 'more.attune.automotive'
     compileSdk 35
@@ -22,8 +34,8 @@ android {
             applicationIdSuffix '.debug'
             buildConfigField 'boolean', 'BACKEND_SIMULATION', 'true'
             // adb reverse connects to an isolated host instance of the existing app/API.
-            buildConfigField 'String', 'WEB_ORIGIN', '"http://localhost:3000"'
-            buildConfigField 'String', 'API_ORIGIN', '"http://localhost:8000"'
+            buildConfigField 'String', 'WEB_ORIGIN', debugOrigin('attuneDebugWebOrigin', 'http://localhost:3000')
+            buildConfigField 'String', 'API_ORIGIN', debugOrigin('attuneDebugApiOrigin', 'http://localhost:8000')
         }
         release {
             minifyEnabled false

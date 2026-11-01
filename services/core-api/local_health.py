@@ -4,6 +4,7 @@ Personal frames are never logged or stored by this API.
 import asyncio
 import json
 import math
+import os
 from fastapi import APIRouter, HTTPException, Request
 from starlette.concurrency import run_in_threadpool
 from appearance_analysis import analyze_skin
@@ -13,6 +14,12 @@ from experimental_acne_v5 import configuration as acne_preview_configuration,Pre
 router = APIRouter(prefix='/api/local-health')
 _busy = asyncio.Lock()
 parked = lambda: False
+
+
+def skin_analysis_seconds():
+    # The preparation protocol and CPU optimizations preserve the original
+    # deadline; neither a request nor an environment profile may extend it.
+    return 90.
 
 
 @router.get('/skin/acne-v5-config')
@@ -116,9 +123,14 @@ def skin_geometry(value):
 @router.post('/skin/prepare')
 async def skin_prepare(request: Request):
     value=await payload(request)
+    step=value.get('step')
+    if step is not None and step not in ('dryness','skinmap','findings','acnes','regional','wrinkles','classifier','type','complete'):
+        raise HTTPException(422,'INVALID_SKIN_PREPARATION_STEP')
     if _busy.locked():raise HTTPException(429,'LOCAL_ANALYSIS_BUSY')
     async with _busy:
-        return await native_analysis.run('warm-skin',{},request,parked,90.)
+        if step is not None:
+            return await native_analysis.run('prepare-skin-step',{'step':step},request,parked,skin_analysis_seconds())
+        return await native_analysis.run('warm-skin',{},request,parked,skin_analysis_seconds())
 
 
 @router.post('/skin')
@@ -129,7 +141,7 @@ async def skin(request: Request):
     try:
         skin_geometry(value)
         async with _busy:
-            eyewear,result=await native_analysis.run('skin',value,request,parked,90.)
+            eyewear,result=await native_analysis.run('skin',value,request,parked,skin_analysis_seconds())
         result['captureScopeVersion']=eyewear['version']
         for rows in [*result.get('measurements',{}).values(),result.get('general',{}).get('measurements',[])]:
             for row in rows:

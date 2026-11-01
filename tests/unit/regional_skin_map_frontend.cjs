@@ -165,6 +165,22 @@ async function load(name) {
   check(() => { const x=clone(response); x.general.regionalSkinMap.regions.forehead.fill='blue'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => { const x=clone(response); x.photoId='not-a-capture'; assert.equal(overview.overviewFromResponse(x).regionalSkinMap,undefined); });
   check(() => assert.equal(overview.overviewFromResponse({}),undefined));
+  // Multi-angle fusion can invalidate only the type while retaining measured
+  // appearance indicators. The unavailable result must keep its model identity.
+  const fused=clone(converted);
+  fused.findingsRegionalMap={version:'regional-skin-v3',classifierVersion:'verified-fixture',
+    models:Object.fromEntries(['params.json','k_classifier.json','skinmap.pt','findings.pt','acnes.pt','regional.pt','wrinkles.pt'].map(k=>[k,'f'.repeat(64)])),
+    skinType:{value:null,quality:'insufficient',limitationCode:'REGIONAL_V3_INSUFFICIENT_REGIONS'}};
+  fused.skinType={value:null,quality:'insufficient',confidence:null,methodVersion:'verified-fixture',
+    inferenceKind:'local-regional-bundle',sourceModel:'regional-skin-v3',modelHash:'f'.repeat(64),
+    limitationCode:'REGIONAL_V3_INSUFFICIENT_REGIONS'};
+  check(()=>assert(overview.validSkinOverview(fused,'analysis-fixture')));
+  for(const mutate of [x=>x.skinType.value='normal',x=>x.skinType.quality='valid',
+    x=>x.skinType.limitationCode=null,x=>x.findingsRegionalMap.skinType.limitationCode='OTHER',
+    x=>x.findingsRegionalMap.models['skinmap.pt']='bad',x=>x.skinType.methodVersion='other',
+    x=>x.skinType.sourceModel='other',x=>x.skinType.modelHash='a'.repeat(64)]){
+    check(()=>{const x=clone(fused);mutate(x);assert.equal(overview.validSkinOverview(x,'analysis-fixture'),false);});
+  }
   console.log(JSON.stringify({ checks, serverFixtures:4, replayAspectRatios:3, result:'pass', scope:'numeric-contract-converter-svg-layer-history-status-retained-photo-replay-and-storage-gate', modelAcceptance:false, cameraAcceptance:false }));
 })().catch(error => { console.error(error); process.exitCode=1; });
 
