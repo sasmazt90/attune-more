@@ -100,6 +100,8 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
     if (!snapshot || !base || currentRegion.id === 'overview') {
       return base;
     }
+    // A side profile keeps the accepted face context instead of magnifying a cheek mesh.
+    if(mode==='result'&&['rightCheek','leftCheek'].includes(currentRegion.id))return base;
 
     const targetMeshes = currentRegion.id === 'nose'
       ? ['forehead', 'nose', 'chin'].map(id => snapshot.meshes?.[id]).filter(Boolean)
@@ -132,6 +134,10 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
       boxH = boxW / targetAspect;
     } else {
       boxW = boxH * targetAspect;
+    }
+    if(mode==='result'){
+      const factor=Math.max(1,base.width*.72/boxW,base.height*.72/boxH);
+      boxW*=factor;boxH*=factor;
     }
     boxW = Math.min(snapshot.width, boxW);
     boxH = Math.min(snapshot.height, boxH);
@@ -208,7 +214,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
           </div>
         ) : (
           mode === 'start' ? (
-            <Image src="/assets/skin-preparation.png" alt={i18nText("Cilt taraması hazırlık görseli")} width={600} height={800} className="w-full h-auto" />
+            <Image src="/assets/skin-preparation-module-20261031.png" alt={i18nText("Cilt taraması hazırlık görseli")} width={1150} height={1170} className="w-full h-auto" />
           ) : snapshot ? (
             snapshot.visualError ? (
               <div role="alert" data-skin-segmentation-error className="min-h-64 p-6 flex items-center text-center text-sm text-amber-200">{i18nNode(snapshot.visualError)}</div>
@@ -216,6 +222,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
               <svg
                 data-skin-snapshot
                 data-snapshot-photoid={snapshot.photoId}
+                data-snapshot-angle={snapshot.angle}
                 data-local-analysis={snapshot.localAnalysis ? JSON.stringify(snapshot.localAnalysis) : undefined}
                 data-snapshot-width={snapshot.width}
                 data-snapshot-height={snapshot.height}
@@ -370,10 +377,10 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                 })()}
                 {mode === 'result' && selectedFinding && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
                   // Overview: every region where the finding was seen; a page: the finding merged over the page's regions.
-                  const occ = (findings || []).filter(x => x.id === selectedFinding && x.status === 'seen');
+                  const occ = (findings || []).filter(x => x.id === selectedFinding && x.status === 'seen' && (x.pose===snapshot.angle||markersOnPhoto(x,snapshot.angle).length>0));
                   const f = currentRegion.id === 'overview'
                     ? occ.length ? { ...occ[0], pose: undefined, markers: occ.flatMap(o => markersOnPhoto(o, snapshot.angle)) } : undefined
-                    : isFindingView(currentRegion.id) ? viewFindings(findings, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
+                    : isFindingView(currentRegion.id) ? viewFindings(occ, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
                   if (!f) return null;
                   const regions: PaintRegionId[] = currentRegion.id === 'overview' ? [...new Set(occ.map(o => o.region as PaintRegionId))]
                     : pageOutlines(currentRegion.id).filter(r => occ.some(x => x.region === r) || f.region === r);
@@ -396,7 +403,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                       {markersOnPhoto(f, snapshot.angle).filter(m => !markerType || markerSubtype(m) === markerType).map((m, i) => {
                         const r = Math.max(m.r || 0, fw / 34);
                         return (
-                          <g key={i} data-skin-finding-marker={i} data-skin-marker-type={f.id === 'acne' ? markerSubtype(m) : undefined}>
+                          <g key={i} data-skin-finding-marker={i} data-skin-marker-type={f.id === 'acne' ? markerSubtype(m) : undefined} pointerEvents="auto" role="button" tabIndex={0} aria-label={i18nText(FINDING_DEFS[f.id].label)} onClick={()=>{const c=callouts?.find(c=>c.id===f.id);if(c)onSelectFinding?.(c.key);}} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();const c=callouts?.find(c=>c.id===f.id);if(c)onSelectFinding?.(c.key);}}}>
                             <circle cx={m.x} cy={m.y} r={r * 1.25} fill="none" stroke={color} strokeWidth={fw / 110} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
                             <circle cx={m.x} cy={m.y} r={r} fill="none" stroke={color} strokeWidth={fw / 230} />
                             <circle cx={m.x} cy={m.y} r={fw / 260} fill={color} />

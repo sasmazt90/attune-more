@@ -35,7 +35,7 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
     return () => { ro.disconnect(); window.removeEventListener('resize', measure); };
   }, [photoRef, callouts?.length]);
 
-  const list = callouts || [];
+  const list = (callouts || []).filter(c=>!crop||(c.anchor.x>=crop.x&&c.anchor.x<=crop.x+crop.width&&c.anchor.y>=crop.y&&c.anchor.y<=crop.y+crop.height));
   if (!list.length) return <>{children}</>;
   // gutters only when the whole column (w) leaves at least MIN_PHOTO px for the photo between them
   const gutter = wide && !!box && box.w >= 2 * GUTTER + MIN_PHOTO;
@@ -44,7 +44,7 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
     return (
       <button key={c.key} type="button" aria-pressed={on} onClick={() => onSelect?.(c.key)} data-skin-callout={c.key} style={{ ...style, borderColor: on ? c.color : 'transparent', background: on ? `${c.color}26` : '#121b28' }}
         className={`min-h-[52px] rounded-full border-2 px-4 flex items-center gap-2.5 text-left text-[15px] leading-tight transition active:scale-[0.98] ${on ? 'text-white font-bold' : 'text-slate-200 font-semibold hover:bg-white/10'} ${c.sub ? 'whitespace-nowrap' : ''} ${extra}`}>
-        <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: c.color, boxShadow: on ? `0 0 10px ${c.color}` : undefined }} />
+        <span aria-hidden="true" className="min-w-6 h-6 shrink-0 rounded-full text-slate-950 text-sm font-bold flex items-center justify-center" style={{ background: c.color }}>{list.indexOf(c)+1}</span>
         <span>{text(c.label)}{c.sub && <span className="ml-1.5 font-semibold text-slate-300 tabular-nums">{text(c.sub)}</span>}</span>
       </button>
     );
@@ -73,6 +73,9 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
     <div className="w-full flex flex-col items-center gap-3" data-skin-callouts>
       <div ref={wrap} className="relative w-full flex justify-center" style={gutter ? { paddingLeft: GUTTER, paddingRight: GUTTER } : undefined} data-skin-callout-layout={gutter ? 'gutter' : 'row'}>
         {children}
+        {!gutter && box && crop && <svg aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none" data-skin-callout-connectors>
+          {list.map((c,i)=>{const x=box.left+(c.anchor.x-crop.x)/crop.width*box.pw,y=box.top+(c.anchor.y-crop.y)/crop.height*box.ph,bx=Math.max(box.left+14,Math.min(box.left+box.pw-14,x+28)),by=Math.max(box.top+14,Math.min(box.top+box.ph-14,y-28));return <g key={c.key} opacity={c.active?1:.8}><line x1={x} y1={y} x2={bx} y2={by} stroke={c.color} strokeWidth="2"/><circle cx={x} cy={y} r="4" fill={c.color}/><circle cx={bx} cy={by} r="12" fill={c.color}/><text x={bx} y={by+4} textAnchor="middle" fontSize="13" fontWeight="700" fill="#070b12">{i+1}</text></g>;})}
+        </svg>}
         {gutter && box && placed.length > 0 && <>
           <svg aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
             {placed.map(p => {

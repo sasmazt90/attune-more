@@ -329,6 +329,7 @@ export default function SkinPage() {
         return;
       }
       if (scanState !== 'COMPLETED') return;
+      if(document.querySelector('[role="dialog"]')||(e.target instanceof Element&&e.target.closest('input,textarea,select,[contenteditable="true"]')))return;
 
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -1025,6 +1026,8 @@ export default function SkinPage() {
 
         {photoNotice&&<p role="status" className="text-sm text-amber-200">{i18nNode(photoNotice)}</p>}
         <SkinResultView
+          captures={analysisResult?.captures}
+          snapshots={snapshots}
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}
           findings={validFindings((analysisResult as any)?.general?.findings) ? (analysisResult as any).general.findings.findings : undefined}

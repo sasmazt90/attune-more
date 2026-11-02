@@ -4,12 +4,13 @@ import {ArrowLeft,ArrowRight,CircleCheck,Minus,TriangleAlert,ScanLine} from 'luc
 import {useTranslations} from '../../i18n/LanguageProvider';
 import {InformationButton} from '../InformationButton';
 import {AccessibleDialog} from '../AccessibleDialog';
+import {HealthResultNavigation} from '../HealthResultNavigation';
 import {DENTAL_ACCUMULATION_LABEL,DENTAL_POSE_LABELS,DENTAL_QUALITY_REASONS,dentalViewMeasured} from '../../utils/dentalResult';
 import {DentalPhotoView,DENTAL_LAYER_COLORS,type DentalLayer} from './DentalPhotoView';
 import type {DentalCapture,DentalPose} from '../../utils/dentalCapture';
 import styles from './dental.module.css';
 
-type Photo=Pick<DentalCapture,'photo'|'width'|'height'>|undefined;
+type Photo=Pick<DentalCapture,'photo'|'width'|'height'|'photoId'>|undefined;
 type Slide={pose:DentalPose;view?:any;photo:Photo};
 const ORDER:DentalPose[]=['FRONT','RIGHT','LEFT','BITE'];
 const status=(v:any)=>!v?'missing':dentalViewMeasured(v)?'measured':'unmeasured';
@@ -36,11 +37,13 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
  const alignmentStatus=sourceType!=='upload'&&missingViews.includes('BITE')?t('Kapanış görünümü alınmadı'):!alignmentView?t('Kapanış görünümü alınmadı'):!dentalViewMeasured(alignmentView)?t('Ölçülemedi'):alignmentView.alignment?.quality!=='valid'?t(sourceType==='upload'?'Bu fotoğrafta iki diş sırası birlikte ayrılamadı.':'Diş konturları güvenilir ayrılamadı.'):'';
  const rowText=(row:any)=>row?.quality==='valid'&&Number.isFinite(row.value)?t(`${fmt(row.value)}° yön dağılımı · ${row.contourCount} kontur`):t('Konturlar güvenilir ayrılamadı.');
  const go=(i:number)=>{setIndex(i);setLayer(null);setTab(1);};
+ const change=(delta:number)=>{const current=tab===0?0:index+1,target=(current+delta+slides.length+1)%(slides.length+1);setTab(target===0?0:1);if(target>0)setIndex(target-1);setLayer(null);};
  const swipe=useSwipe(d=>{setIndex(i=>Math.max(0,Math.min(slides.length-1,i+d)));setLayer(null);});
  const s=slides[Math.min(index,slides.length-1)],v=s?.view,layers:DentalLayer[]=layer?[layer]:['caries','alignment']; // build-up marks only on request (dense, unvalidated)
  const statusIcon=(st:string)=>st==='measured'?<CircleCheck aria-hidden="true"/>:st==='missing'?<Minus aria-hidden="true"/>:<TriangleAlert aria-hidden="true"/>;
  const statusText=(st:string)=>t(st==='measured'?'Ölçüldü':st==='missing'?'Alınmadı':'Ölçülemedi');
  return <div className={styles.root} data-dental-result data-dental-measured={measured.length} data-dental-expected={expected}>
+  <HealthResultNavigation title={tab===0?'Genel bakış':pose(s?.pose||'FRONT')} previousLabel="Önceki diş görünümü" nextLabel="Sonraki diş görünümü" onPrevious={()=>change(-1)} onNext={()=>change(1)} index={tab===0?0:index+1} total={slides.length+1}/>
   <nav className={styles.tabs} aria-label={t('Sonuç sayfaları')}>{['Genel bakış','Görünümler'].map((name,i)=><button key={name} type="button" aria-current={tab===i?'page':undefined} onClick={()=>setTab(i)}>{t(name)}</button>)}</nav>
   {tab===0?<div data-dental-overview>
    <h2>{t(measured.length===expected?'Görünür diş yüzeyleri ölçüldü.':measured.length?'Bazı görünümler ölçülemedi.':'Görünümler ölçülemedi.')}</h2>
@@ -64,7 +67,7 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
   </div>:<div data-dental-views>
    <div {...swipe} aria-roledescription="carousel" aria-label={t('Diş görünümleri')}>
     {s&&<div className={styles.viewGrid} data-dental-slide={s.pose} data-dental-slide-status={status(v)}>
-     {s.photo&&v?<div className={styles.photo}><DentalPhotoView photo={s.photo} view={v} layers={dentalViewMeasured(v)?layers:[]}/></div>:<div className={styles.photoEmpty}>{t(!v?'Bu görünüm alınmadı.':'Bu kayıtta fotoğraf saklanmadı.')}</div>}
+     {s.photo&&v?<div className={styles.photo}><DentalPhotoView key={v.photoId} photo={s.photo} view={v} layers={dentalViewMeasured(v)?layers:[]}/></div>:<div className={styles.photoEmpty}>{t(!v?'Bu görünüm alınmadı.':'Bu kayıtta fotoğraf saklanmadı.')}</div>}
      <section className={styles.card}>
       <div className={styles.cardHead}><h3>{pose(s.pose)}</h3><span className={styles.label} style={{color:status(v)==='measured'?'var(--cyan)':'var(--warn)'}}>{statusIcon(status(v))}<span style={{marginLeft:6}}>{statusText(status(v))}</span></span></div>
       {!v?<p className={styles.warning}>{t(s.pose==='BITE'?'Kapanış görünümü atlandı; dizilim ölçülmedi.':'Bu görünüm alınmadı.')}</p>
@@ -77,7 +80,7 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
        </div></>}
      </section>
     </div>}
-    {slides.length>1&&<div className={styles.innerFooter}><button type="button" className={styles.arrow} disabled={index===0} aria-label={t('Önceki diş görünümü')} onClick={()=>{setIndex(i=>Math.max(0,i-1));setLayer(null);}}><ArrowLeft aria-hidden="true"/></button><div><span>{pose(s.pose)} · {fmt(index+1)} / {fmt(slides.length)}</span><div className={styles.dots}>{slides.map((x,i)=><button key={x.pose+i} type="button" aria-label={pose(x.pose)} aria-current={index===i?'true':undefined} onClick={()=>{setIndex(i);setLayer(null);}}><b/></button>)}</div></div><button type="button" className={styles.arrow} disabled={index===slides.length-1} aria-label={t('Sonraki diş görünümü')} onClick={()=>{setIndex(i=>Math.min(slides.length-1,i+1));setLayer(null);}}><ArrowRight aria-hidden="true"/></button></div>}
+    {slides.length>1&&<div className={styles.innerFooter}><button type="button" className={styles.arrow} aria-label={t('Önceki diş görünümü')} onClick={()=>change(-1)}><ArrowLeft aria-hidden="true"/></button><div><span>{pose(s.pose)} · {fmt(index+1)} / {fmt(slides.length)}</span><div className={styles.dots}>{slides.map((x,i)=><button key={x.pose+i} type="button" aria-label={pose(x.pose)} aria-current={index===i?'true':undefined} onClick={()=>{setIndex(i);setLayer(null);}}><b/></button>)}</div></div><button type="button" className={styles.arrow} aria-label={t('Sonraki diş görünümü')} onClick={()=>change(1)}><ArrowRight aria-hidden="true"/></button></div>}
    </div>
   </div>}
   {footer}

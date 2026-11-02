@@ -38,10 +38,11 @@ export default function DentalPage(){
  const {text:i18nText,node:i18nNode}=useTranslations();
  const {isParked}=useVehicle(),parked=useRef(isParked);parked.current=isParked;
  const consent=useServiceAllowed('dental');
- const [phase,setPhase]=useState<'ready'|'camera'|'analysis'|'result'|'error'>('ready'),[save,setSave]=useState(false),[notice,setNotice]=useState(''),[index,setIndex]=useState(0),[progress,setProgress]=useState(0),[crop,setCrop]=useState<Crop>({x:0,y:0,width:1,height:1}),[ratio,setRatio]=useState(4/3),[result,setResult]=useState<any>(),[shown,setShown]=useState(0);
+ const [phase,setPhase]=useState<'ready'|'camera'|'analysis'|'result'|'error'>('ready'),[notice,setNotice]=useState(''),[index,setIndex]=useState(0),[progress,setProgress]=useState(0),[crop,setCrop]=useState<Crop>({x:0,y:0,width:1,height:1}),[ratio,setRatio]=useState(4/3),[result,setResult]=useState<any>(),[shown,setShown]=useState(0);
  const [saveNote,setSaveNote]=useState<{text:string;error:boolean}|null>(null),[uploading,setUploading]=useState(false),[skipAvailable,setSkipAvailable]=useState(false),[skippedPoses,setSkippedPoses]=useState<string[]>([]);
  useLocaleSwitchLock('dental',phase==='camera'||phase==='analysis'||uploading);
- const saving=useRef(false),resultId=useRef(''),saveAllowed=useRef(save);saveAllowed.current=save;
+ // Save from the accepted-analysis boundary, never from a render/effect/history reopen.
+ const saving=useRef(new Set<string>()),resultId=useRef('');
  const [saved,setSaved]=useState(false),[saveBusy,setSaveBusy]=useState(false);
  const fileInput=useRef<HTMLInputElement>(null);
  const voice=useGuidance('dental',isParked);
@@ -63,6 +64,7 @@ export default function DentalPage(){
    if(!value.views.some(dentalViewMeasured)){setPhase('error');setNotice('Görünümlerin hiçbiri ölçülemedi. Daha iyi ışıkta ve sabit durarak yeniden tarayabilirsiniz.');return;}
    resultId.current=crypto.randomUUID();
    setResult(value);setShown(0);setPhase('result');setNotice('Görünür alan ön değerlendirmesi. Çürük adayları tanı veya şiddet yüzdesi değildir.');
+   void saveResult(run,resultId.current,value,sources);
   }catch(error){if(run===epoch.current){setPhase('error');setNotice((error as Error).name==='AbortError'?'Analiz zamanında tamamlanamadı. Geçici fotoğrafları temizleyip yeniden başlayabilirsiniz.':(error as Error).message);}}finally{clearTimeout(timer);}
  };
  const upload=async(file:File)=>{
@@ -89,6 +91,7 @@ export default function DentalPage(){
    validateDentalView(view,undefined,true);if(!dentalViewMeasured(view))throw Error('Fotoğraf ölçülemedi. Başka bir fotoğraf seçebilirsiniz.');
    const accepted={photo:value.normalizedPhoto,photoId:view.photoId,width:view.sourceWidth,height:view.sourceHeight,pose:view.pose,landmarks:[],conditions:{},sourceType:'upload' as const};await verifyDentalPhotoPixels([accepted]);if(run!==epoch.current||!parked.current||!serviceAllowed('dental'))return;captures.current=[accepted];resultId.current=crypto.randomUUID();
    delete value.normalizedPhoto;setResult(value);setShown(0);setPhase('result');setNotice('Tek fotoğrafın görünür yüzey sonucu. Çoklu açı doğrulaması yapılmadı.');
+   void saveResult(run,resultId.current,value,[accepted]);
   }catch(error){if(run===epoch.current){captures.current=[];setPhase('error');const message=(error as Error).name==='AbortError'?'Fotoğraf analizi zamanında tamamlanmadı. Başka fotoğraf seçebilirsiniz.':(error as Error).message;setNotice(message);if(!qualityGuidance(message))void voice.say('dental-file');}}
   finally{clearTimeout(deadline);if(run===epoch.current&&fileInput.current)fileInput.current.value='';}
  };
@@ -134,15 +137,15 @@ export default function DentalPage(){
    };frameTimer.current=setTimeout(loop,100);
   }catch(error){if(run===epoch.current){console.warn('Dental camera startup failed:',error);stop();setPhase('error');setNotice(dentalCameraErrorMessage(error));}}
  };
- const saveResult=async()=>{if(!saveAllowed.current||!result||!isParked||saved||saving.current)return;const run=epoch.current,id=resultId.current;if(!id)return;saving.current=true;setSaveBusy(true);setSaveNote(null);try{
-  const measurements=dentalRecordMeasurements(result);
-  await appendHealthRecord('dental',{id,timestamp:new Date().toISOString(),methodVersion:result.methodVersion,sourceType:result.sourceType||'camera',sourceAssociationVersion:'dental-source-identity-v1',measurements,missingViews:Array.isArray(result.missingViews)?result.missingViews:[],summaryText:'Görünür diş yüzeyleri · çürük adayları, birikim ve dizilim vekilleri; klinik tanı değildir.'},{},()=>run===epoch.current&&parked.current&&saveAllowed.current);
-  let photos=false,photoError=false;try{photos=await withRecordsLock(()=>saveDentalPhotos(id,captures.current.map(f=>({...f,landmarks:[],conditions:{}})),()=>run===epoch.current&&parked.current&&saveAllowed.current&&serviceAllowed('dental')));}catch{photoError=true;}
+ const saveResult=async(run:number,id:string,value:any,sources:readonly DentalCapture[])=>{const current=()=>run===epoch.current&&id===resultId.current&&parked.current&&serviceAllowed('dental');if(!id||!current()||saving.current.has(id)||!value?.views?.some(dentalViewMeasured))return;saving.current.add(id);setSaveBusy(true);setSaveNote(null);try{
+  validateDentalResult(value,[...sources],true);const measurements=dentalRecordMeasurements(value);
+  await appendHealthRecord('dental',{id,timestamp:new Date().toISOString(),methodVersion:value.methodVersion,sourceType:value.sourceType||'camera',sourceAssociationVersion:'dental-source-identity-v1',measurements,missingViews:Array.isArray(value.missingViews)?value.missingViews:[],summaryText:'Görünür diş yüzeyleri · çürük adayları, birikim ve dizilim vekilleri; klinik tanı değildir.'},{},current);
+  let photos=false,photoError=false;try{photos=await withRecordsLock(()=>saveDentalPhotos(id,sources.map(f=>({...f,landmarks:[],conditions:{}})),current));}catch{photoError=true;}
   // Photo storage permitted but nothing stored is a failure, not a numeric-only save.
   if(!photos&&!photoError&&localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true'&&run===epoch.current)photoError=true;
   if(run===epoch.current){setSaved(true);const text=photoError?'Sayısal sonuç kaydedildi; fotoğraf saklanamadı. Önceki kayıtlar korundu.':photos?'Sayısal sonuç ve izin verilen fotoğraflar yerel geçmişe kaydedildi.':'Yalnız sayısal ölçüm ve aday koordinatları yerel geçmişe kaydedildi.';setNotice(text);setSaveNote({text,error:photoError});}
- }catch(error){if(run===epoch.current){const text=(error as Error).message||'Sonuç kaydedilemedi.';setNotice(text);setSaveNote({text,error:true});}}finally{saving.current=false;if(run===epoch.current)setSaveBusy(false);}};
- const step=phase==='result'?4:Math.min(index,3),photos=captures.current.map(c=>({photo:c.photo,width:c.width,height:c.height}));
+ }catch(error){if(current()){const text=(error as Error).message||'Sonuç kaydedilemedi.';setNotice(text);setSaveNote({text,error:true});}}finally{if(current())setSaveBusy(false);}};
+ const step=phase==='result'?4:Math.min(index,3),photos=captures.current.map(c=>({photo:c.photo,photoId:c.photoId,width:c.width,height:c.height}));
  const actionsDisabled=!consent||!isParked;
  return <div className={`space-y-6 mx-auto ${phase==='ready'?'max-w-5xl':'max-w-6xl'}`} data-dental-page><div className="flex items-center gap-3"><h1 className="text-2xl font-bold">{i18nNode(HEALTH_MODULES.dental.name)}</h1><InformationButton title={i18nText("Görünür diş yüzeyleri")}><ul className="list-disc pl-5 space-y-3"><li>{i18nText("Fotoğraf yükleyebilir veya kamerada ön, sağ, sol ve rahat kapanış görünümlerini takip edebilirsiniz.")}</li><li>{i18nText("Ağzınızı zorlamadan ön dişlerinizi gösterin; dişlerinize ışık gelsin. Ağzınıza cisim sokmayın.")}</li><li>{i18nText("Fotoğraftaki işaretler görünür adayları gösterir. Görünmeyen diş yüzeyleri değerlendirilmez.")}</li><li>{i18nText("Birikim görünümü leke, yiyecek ve dolgu ile karışabilir. Dizilim yalnız güvenilir görünen konturlardan hesaplanır.")}</li><li>{i18nText("Fotoğraflar bu oturumda cihazınızda işlenir. Kayıt izni yalnız sayısal sonuç içindir.")}</li></ul></InformationButton></div>
   <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" aria-label={i18nText("Diş fotoğrafı seç")} className="sr-only" disabled={actionsDisabled} onChange={e=>{const file=e.target.files?.[0];if(file)void upload(file);}}/>
@@ -159,8 +162,8 @@ export default function DentalPage(){
    {phase==='analysis'&&<div className={styles.panel}><p role="status" className={styles.guide}>{i18nNode(notice)}</p><p className="animate-pulse">{i18nText("Yerel analiz sürüyor. İptal edebilirsiniz.")}</p><div className={styles.actions}><button type="button" className={styles.ghost} onClick={cancel}><X aria-hidden="true"/>{i18nText('İptal et')}</button></div></div>}
    {phase==='error'&&<div className={styles.panel}><p role="alert" className={styles.warning}>{i18nNode(notice)}</p><div className={styles.actions}><button type="button" className={styles.primary} disabled={actionsDisabled||!isCameraAllowed()} onClick={start}><RotateCcw aria-hidden="true"/>{i18nText('Yeniden tara')}</button><button type="button" className={styles.secondary} disabled={actionsDisabled} onClick={()=>fileInput.current?.click()}><Upload aria-hidden="true"/>{i18nText('Fotoğraf Yükle')}</button><button type="button" className={styles.ghost} onClick={cancel}>{i18nText('Kapat')}</button></div></div>}
    {phase==='result'&&result&&<><p role="status" className="sr-only">{i18nNode(notice)}</p><DentalResults views={result.views} photos={photos} missingViews={result.missingViews||[]} sourceType={result.sourceType} footer={<div className={styles.save}>
-    <label><input type="checkbox" checked={save} onChange={e=>setSave(e.target.checked)}/>{i18nText("Sayısal sonucu yerel geçmişime kaydet.")}</label>
-    <div className={styles.actions} style={{marginTop:0}}><button type="button" className={styles.primary} disabled={!save||!isParked||saved||saveBusy} onClick={saveResult}>{i18nText("Sonucu kaydet")}</button><Link className={styles.secondary} href={careHref('dental')}>{i18nText("Diş hekimi seçenekleri")}</Link><button type="button" className={styles.ghost} onClick={cancel}>{i18nText('Geçici görüntüleri temizle')}</button></div>
+    <p role="status" data-dental-auto-save={saved?'saved':saveBusy?'saving':'pending'}>{i18nText(saveBusy?'Sonuç kaydediliyor…':'Geçerli sayısal sonuçlar otomatik olarak yerel geçmişe kaydedilir.')}</p>
+    <div className={styles.actions} style={{marginTop:0}}><Link className={styles.primary} href={careHref('dental')}>{i18nText("Diş hekimi seçenekleri")}</Link><button type="button" className={styles.secondary} disabled={actionsDisabled||!isCameraAllowed()} onClick={start}><RotateCcw aria-hidden="true"/>{i18nText('Yeniden tara')}</button><button type="button" className={styles.ghost} onClick={cancel}>{i18nText('Geçici görüntüleri temizle')}</button></div>
     {saveNote&&<p className={`w-full text-sm ${saveNote.error?styles.warning:''}`} role={saveNote.error?'alert':undefined} data-dental-save-status data-dental-save-error={saveNote.error?'true':undefined}>{i18nNode(saveNote.text)}</p>}
    </div>}/></>}
   </section>}

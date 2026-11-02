@@ -5655,9 +5655,9 @@
     "de": "Obere Reihe"
   },
   "07dc38b9e5645c60": {
-    "tr": "Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Diş sonuçlarında ayrıca Kaydet onayı verilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.",
-    "en": "Off by default; separate from capture permission. Photo storage is managed separately below. Dental results also require confirmation with Save. Turning this off does not delete older records; use Delete or Delete All Local Data to remove them.",
-    "de": "Standardmäßig deaktiviert; von der Aufnahmeberechtigung getrennt. Die Fotospeicherung wird unten separat verwaltet. Zahnergebnisse erfordern zusätzlich die Bestätigung mit Speichern. Das Deaktivieren löscht ältere Einträge nicht; diese werden mit Löschen oder Alle lokalen Daten löschen entfernt."
+    "tr": "Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.",
+    "en": "Off by default; separate from capture permission. Photo storage is managed separately below. Turning this off does not delete older records; use Delete or Delete All Local Data to remove them.",
+    "de": "Standardmäßig deaktiviert; von der Aufnahmeberechtigung getrennt. Die Fotospeicherung wird unten separat verwaltet. Das Deaktivieren löscht ältere Einträge nicht; diese werden mit Löschen oder Alle lokalen Daten löschen entfernt."
   },
   "81e0e592a1a603c9": {
     "tr": "Varsayılan kapalıdır. Açarsanız tamamlanan yön hizalama denemeleri, görünürlük yanıtları, açı hataları, tarih ve hazırlık/doğrulama sınırları yalnız bu tarayıcıdaki geçmişe kaydedilir. Kamera karesi veya klinik keskinlik kaydı oluşturulmaz. Kapatmak eski kayıtları silmez; Sil ile tek kayıt kaldırılabilir.",
@@ -10693,5 +10693,75 @@
     "tr": "Bitiriliyor",
     "en": "Finalizing",
     "de": "Wird abgeschlossen"
+  },
+  "bb053a1331f64eb1": {
+    "tr": "Bu bölgedeki bulgular kesinleştirilemedi.",
+    "en": "Findings in this region are inconclusive.",
+    "de": "Die Befunde in dieser Region sind nicht eindeutig."
+  },
+  "c6cfb9cda07213ec": {
+    "tr": "Ölçülmedi",
+    "en": "Not measured",
+    "de": "Nicht gemessen"
+  },
+  "6ee806fc7727e89b": {
+    "tr": "Bu bölgede desteklenen bulgu yok.",
+    "en": "No supported finding in this region.",
+    "de": "Kein belegter Befund in dieser Region."
+  },
+  "3e8f98653bc056fe": {
+    "tr": "Bu taramada desteklenen bulgu yok.",
+    "en": "No supported finding in this scan.",
+    "de": "Kein belegter Befund in dieser Untersuchung."
+  },
+  "88c4ac9c66d395ad": {
+    "tr": "Geometri referans sırası (0–100)",
+    "en": "Geometry reference rank (0–100)",
+    "de": "Geometrischer Referenzrang (0–100)"
+  },
+  "890eebc3cf128635": {
+    "tr": "Belirginlik skoru (0–100)",
+    "en": "Visibility score (0–100)",
+    "de": "Sichtbarkeitswert (0–100)"
+  },
+  "5badd61b258f2092": {
+    "tr": "Göz köşesi eğiminin kayıtlı pozitif referanslar içindeki sırasıdır; hastalık olasılığı veya klinik şiddet değildir.",
+    "en": "Ranks the eye-corner tilt among stored positive references; it is not disease probability or clinical severity.",
+    "de": "Ordnet die Neigung der Augenwinkel unter gespeicherten positiven Referenzen ein; keine Krankheitswahrscheinlichkeit oder klinische Schwere."
+  },
+  "78c4625d130d61c9": {
+    "tr": "Sonuç kaydediliyor…",
+    "en": "Saving result…",
+    "de": "Ergebnis wird gespeichert…"
+  },
+  "4fa23b61f73ebdf7": {
+    "tr": "Geçerli sayısal sonuçlar otomatik olarak yerel geçmişe kaydedilir.",
+    "en": "Valid numerical results are saved automatically to local history.",
+    "de": "Gültige numerische Ergebnisse werden automatisch im lokalen Verlauf gespeichert."
+  },
+  "8a9495b00f170225": {
+    "tr": "Fotoğraf görünümü",
+    "en": "Photo view",
+    "de": "Fotoansicht"
+  },
+  "0a1e300ae2fbc6b1": {
+    "tr": "Detay görünümü",
+    "en": "Detail view",
+    "de": "Detailansicht"
+  },
+  "bb5b87b36defc530": {
+    "tr": "Tam görünüm",
+    "en": "Full view",
+    "de": "Vollansicht"
+  },
+  "a12dfa20aaeaef34": {
+    "tr": "Önceki bölge",
+    "en": "Previous region",
+    "de": "Vorherige Region"
+  },
+  "7a5c707313741741": {
+    "tr": "Sonraki bölge",
+    "en": "Next region",
+    "de": "Nächste Region"
   }
 }

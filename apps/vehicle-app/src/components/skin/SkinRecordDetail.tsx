@@ -14,11 +14,15 @@ import type {SkinSnapshot} from '../../utils/skinSnapshot';
 import type {SkinAngle} from '../../utils/skinMultiAngle';
 import {buildSkinViewModel, type SkinViewId, SKIN_TYPE_LABELS, skinTypeLabel} from '../../utils/skinOverview';
 import {isCriterionApplicableToRegion} from '../../utils/skinIndicators';
+import {FINDING_VIEW_ORDER,validFindings} from '../../utils/skinFindings';
+import {SkinResultView} from './SkinResultView';
+import {careHref} from '../../utils/healthModules';
 
 /** Numeric history is separate from explicitly permitted local source photos. */
 export function SkinRecordDetail({record}:{record:HealthRecord}){
  const {text:i18nText,node:i18nNode}=useTranslations();
- const regions:SkinViewId[]=[...(record.general?['overview' as const]:[]),...REGION_ORDER.filter(id=>Array.isArray(record.indicators?.[id]))];
+ const hasFindings=validFindings(record.general?.findings);
+ const regions:SkinViewId[]=hasFindings?FINDING_VIEW_ORDER:[...(record.general?['overview' as const]:[]),...REGION_ORDER.filter(id=>Array.isArray(record.indicators?.[id]))];
  const [index,setIndex]=useState(0);
  const [selectedCriterion,setSelectedCriterion]=useState<string|null>(null);
  const version=useSyncExternalStore(subscribeSkinSnapshots,skinSnapshotVersion,()=>0);
@@ -33,6 +37,10 @@ export function SkinRecordDetail({record}:{record:HealthRecord}){
  const selected=selectedCriterion&&isCriterionApplicableToRegion(selectedCriterion,id)?selectedCriterion:null;
  const previous=()=>{setIndex(v=>(v+regions.length-1)%regions.length);};
  const next=()=>{setIndex(v=>(v+1)%regions.length);};
+ if(hasFindings)return <div data-skin-record-carousel data-skin-record={record.id}>
+  {!snapshot&&<p className="text-sm text-slate-400">{i18nNode(photoError?'Kayıtlı fotoğraf açılamadı. Sayısal sonuçlar korunuyor.':'Bu kaydın fotoğrafı saklanmamış.')}</p>}
+  <SkinResultView key={record.id} currentRegion={region} snapshot={snapshot} snapshots={stored?.id===record.id?stored.frames:readSkinSnapshots(record.id)} captures={record.captures} findings={record.general.findings.findings} findingsResult={record.general.findings} scanAt={record.timestamp||record.date} onSelectView={v=>setIndex(regions.indexOf(v))} onPrev={previous} onNext={next} onNavigateToCare={()=>{window.location.href=careHref('skin');}}/>
+ </div>;
  const visibleIndicators=(region.indicators||[]).filter(v=>isCriterionApplicableToRegion(v.id,id));
  const skinTypeDisplay=skinTypeLabel(region.skinType as any)
   ? skinTypeLabel(region.skinType as any)!
