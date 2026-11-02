@@ -247,7 +247,7 @@ def model_candidates(image,mouth,check=lambda:None):
         with path.open('rb') as model_file:digest=hashlib.file_digest(model_file,'sha256').hexdigest()
         if digest!=manifest['modelHash']:raise DentalModelError('MODEL_HASH_MISMATCH')
         if manifest.get('classes')!=['D','d'] or manifest.get('inputSize')!=320 or manifest.get('confidenceThreshold')!=.35 or manifest.get('modelVersion')!='yolox-s-dental-from-scratch-v1':raise DentalModelError('MODEL_CONTRACT_MISMATCH')
-        options=ort.SessionOptions();options.intra_op_num_threads=2
+        options=ort.SessionOptions();options.intra_op_num_threads=2;options.add_session_config_entry('session.intra_op.allow_spinning','0')
         try:_session=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider'])
         except Exception as error:raise DentalModelError('MODEL_LOAD_FAILED') from error
         _manifest=manifest

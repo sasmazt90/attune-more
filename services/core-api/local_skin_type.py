@@ -128,6 +128,7 @@ def load() -> dict:
         options.intra_op_num_threads = 2
         options.inter_op_num_threads = 1
         options.enable_cpu_mem_arena = False
+        options.add_session_config_entry('session.intra_op.allow_spinning', '0')
         with _verified_model_source(path, config['sha256']) as source:
             start = time.perf_counter()
             session = ort.InferenceSession(source, sess_options=options, providers=['CPUExecutionProvider'])

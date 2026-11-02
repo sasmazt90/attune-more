@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import struct
+import subprocess
 import sys
 from time import monotonic
 from fastapi import HTTPException
@@ -36,7 +37,11 @@ class NativeAnalysisProcess:
             bootstrap='import sys,runpy;sys.path='+repr(sys.path)+';sys.prefix='+repr(sys.prefix)+';sys.exec_prefix='+repr(sys.exec_prefix)+';runpy.run_path('+repr(worker)+',run_name="__main__")'
             executable=getattr(sys,'_base_executable',sys.executable) if os.name=='nt' else sys.executable
             args=[executable,'-c',bootstrap] if os.name=='nt' else [executable,worker]
-            self.process=await asyncio.create_subprocess_exec(*args,stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=None,env=env)
+            # A user-started analysis has a fixed deadline. On a shared Windows host,
+            # background load must not spend it. The thread lanes stay bounded, so this
+            # changes who runs first, never what is computed.
+            flags=subprocess.ABOVE_NORMAL_PRIORITY_CLASS if os.name=='nt' else 0
+            self.process=await asyncio.create_subprocess_exec(*args,stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=None,env=env,creationflags=flags)
         process=self.process
         raw=json.dumps({'operation':operation,'value':value},allow_nan=False,separators=(',',':')).encode()
         if len(raw)>MAX_MESSAGE:raise HTTPException(413,'PHOTO_LIMIT')

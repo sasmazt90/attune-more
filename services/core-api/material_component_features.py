@@ -158,7 +158,7 @@ class OnnxMaterialEncoder:
             hashlib.sha256(path.read_bytes()).hexdigest()!=verified['onnxSHA256']):
             raise ValueError('UNVERIFIED_MATERIAL_ENCODER')
         if intra_op_threads not in [1,2,4] or batch_limit not in [1,4,8,16]:raise ValueError('UNBOUNDED_ENCODER_EXECUTION')
-        options=ort.SessionOptions();options.intra_op_num_threads=intra_op_threads;options.inter_op_num_threads=1;options.enable_cpu_mem_arena=cpu_mem_arena
+        options=ort.SessionOptions();options.intra_op_num_threads=intra_op_threads;options.inter_op_num_threads=1;options.enable_cpu_mem_arena=cpu_mem_arena;options.add_session_config_entry('session.intra_op.allow_spinning','0')
         self.session=ort.InferenceSession(str(path),options,providers=['CPUExecutionProvider'])
         self.hash=verified['onnxSHA256'];self.batch_limit=batch_limit;self.execution=dict(intraOpThreads=intra_op_threads,batchLimit=batch_limit,cpuMemoryArena=cpu_mem_arena);self.calls=0;self.encoded_crops=0
     def extract(self,crops,batch=16,check=None):
