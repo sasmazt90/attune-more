@@ -2,7 +2,8 @@
 No training, remote client, downloads, sebum/hydration or clinical claims.
 """
 from __future__ import annotations
-import copy, hashlib, json, math, threading, time
+import copy, hashlib, json, math, os, threading, time
+from contextlib import contextmanager
 from pathlib import Path
 import numpy as np
 from PIL import Image
@@ -60,6 +61,46 @@ def preprocess(bgr: np.ndarray) -> np.ndarray:
     return np.ascontiguousarray(((rgb - 0.5) / 0.5).transpose(2, 0, 1)[None])
 
 
+def _open_windows_model(path):
+    """Let ORT reopen the graph for reading while excluding writers and replacement."""
+    import ctypes
+    from ctypes import wintypes
+    import msvcrt
+
+    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+    create = kernel.CreateFileW
+    create.argtypes = (wintypes.LPCWSTR, wintypes.DWORD, wintypes.DWORD, wintypes.LPVOID,
+                       wintypes.DWORD, wintypes.DWORD, wintypes.HANDLE)
+    create.restype = wintypes.HANDLE
+    generic_read, share_read, open_existing = 0x80000000, 1, 3
+    handle = create(str(path), generic_read, share_read, None, open_existing, 0, None)
+    if handle == wintypes.HANDLE(-1).value:
+        raise ctypes.WinError(ctypes.get_last_error())
+    try:
+        fd = msvcrt.open_osfhandle(handle, os.O_RDONLY | os.O_BINARY)
+    except OSError:
+        kernel.CloseHandle(wintypes.HANDLE(handle))
+        raise
+    return os.fdopen(fd, 'rb')
+
+
+@contextmanager
+def _verified_model_source(path, expected):
+    if os.name == 'nt':
+        with _open_windows_model(path) as source:
+            digest = hashlib.sha256()
+            for chunk in iter(lambda: source.read(1 << 20), b''):
+                digest.update(chunk)
+            if digest.hexdigest() != expected:
+                raise ValueError('LOCAL_TYPE_HASH_MISMATCH')
+            yield str(path)
+    else:
+        data = path.read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected:
+            raise ValueError('LOCAL_TYPE_HASH_MISMATCH')
+        yield data
+
+
 def load() -> dict:
     global _CACHE
     raw = CONFIG.read_bytes()
@@ -82,17 +123,14 @@ def load() -> dict:
         path = (CONFIG.parent / config['file']).resolve()
         if not path.is_relative_to(CONFIG.parent.resolve()) or path.suffix != '.onnx':
             raise ValueError('LOCAL_TYPE_PATH_INVALID')
-        data = path.read_bytes()
-        actual = hashlib.sha256(data).hexdigest()
-        if actual != config['sha256']:
-            raise ValueError('LOCAL_TYPE_HASH_MISMATCH')
         import onnxruntime as ort
         options = ort.SessionOptions()
         options.intra_op_num_threads = 2
         options.inter_op_num_threads = 1
         options.enable_cpu_mem_arena = False
-        start = time.perf_counter()
-        session = ort.InferenceSession(data, sess_options=options, providers=['CPUExecutionProvider'])
+        with _verified_model_source(path, config['sha256']) as source:
+            start = time.perf_counter()
+            session = ort.InferenceSession(source, sess_options=options, providers=['CPUExecutionProvider'])
         if session.get_providers() != ['CPUExecutionProvider'] or session.get_inputs()[0].shape != [1, 3, 224, 224]:
             raise ValueError('LOCAL_TYPE_GRAPH_INVALID')
         _CACHE = dict(
@@ -100,7 +138,7 @@ def load() -> dict:
             config=config,
             session=session,
             loadMs=(time.perf_counter() - start) * 1000,
-            modelHash=actual,
+            modelHash=config['sha256'],
         )
         return _CACHE
 

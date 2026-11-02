@@ -1,4 +1,4 @@
-import copy, sys
+import copy, hashlib, os, sys
 from pathlib import Path
 import numpy as np
 import pytest
@@ -8,6 +8,26 @@ sys.path.insert(0, str(ROOT / 'services/core-api'))
 import local_skin_type as T
 
 NEG_METHODS = {'preserved', 'appearance-native-dry-2', 'appearance-cv-6', 'appearance-native-dry-3'}
+
+
+def test_verified_model_source_rejects_mismatch_and_releases_file(tmp_path):
+    path = tmp_path / 'model.onnx'
+    path.write_bytes(b'wrong graph')
+    expected = hashlib.sha256(b'approved graph').hexdigest()
+    with pytest.raises(ValueError, match='LOCAL_TYPE_HASH_MISMATCH'):
+        with T._verified_model_source(path, expected):
+            pytest.fail('Unverified source was admitted')
+    path.write_bytes(b'approved graph')
+    with T._verified_model_source(path, expected) as source:
+        if os.name == 'nt':
+            assert isinstance(source, str) and Path(source).read_bytes() == b'approved graph'
+            with pytest.raises(PermissionError):
+                path.write_bytes(b'changed')
+            with pytest.raises(PermissionError):
+                path.rename(tmp_path / 'replaced.onnx')
+        else:
+            assert source == b'approved graph'
+    path.write_bytes(b'new graph')
 
 
 def rows(oil=0, dry=0, redness=0):
