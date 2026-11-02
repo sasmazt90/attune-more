@@ -1,5 +1,6 @@
 const fs=require('node:fs'),crypto=require('node:crypto');
 const file='shared/localization/messages.json',catalog=JSON.parse(fs.readFileSync(file,'utf8'));
+const {normalize}=require('../localization/inventory.cjs');
 const rows=[
  ['Önceki bölge','Previous region','Vorherige Region'],
  ['Sonraki bölge','Next region','Nächste Region'],
@@ -15,7 +16,8 @@ const rows=[
  ['Fotoğraf görünümü','Photo view','Fotoansicht'],
  ['Detay görünümü','Detail view','Detailansicht'],
  ['Tam görünüm','Full view','Vollansicht'],
+ ['Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.','Off by default; separate from capture permission. Photo retention is managed separately below. Turning it off does not delete earlier records; use Delete or Delete All Local Data.','Standardmäßig aus; unabhängig von der Aufnahmeberechtigung. Die Fotospeicherung wird unten separat verwaltet. Das Ausschalten löscht frühere Einträge nicht; verwenden Sie Löschen oder Alle lokalen Daten löschen.'],
 ];
-for(const [tr,en,de] of rows){const key=Object.keys(catalog).find(k=>catalog[k].tr===tr)||crypto.createHash('sha256').update(tr).digest('hex').slice(0,16);catalog[key]={tr,en,de};}
+for(const [tr,en,de] of rows){const key=crypto.createHash('sha256').update(normalize(tr)).digest('hex').slice(0,16);for(const old of Object.keys(catalog))if(old!==key&&normalize(catalog[old].tr)===normalize(tr))delete catalog[old];catalog[key]={tr,en,de};}
 fs.writeFileSync(file,JSON.stringify(catalog,null,2)+'\n');
 console.log('Added/verified '+rows.length+' TR/EN/DE messages');

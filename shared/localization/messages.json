@@ -5654,11 +5654,6 @@
     "en": "Upper row",
     "de": "Obere Reihe"
   },
-  "07dc38b9e5645c60": {
-    "tr": "Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.",
-    "en": "Off by default; separate from capture permission. Photo storage is managed separately below. Turning this off does not delete older records; use Delete or Delete All Local Data to remove them.",
-    "de": "Standardmäßig deaktiviert; von der Aufnahmeberechtigung getrennt. Die Fotospeicherung wird unten separat verwaltet. Das Deaktivieren löscht ältere Einträge nicht; diese werden mit Löschen oder Alle lokalen Daten löschen entfernt."
-  },
   "81e0e592a1a603c9": {
     "tr": "Varsayılan kapalıdır. Açarsanız tamamlanan yön hizalama denemeleri, görünürlük yanıtları, açı hataları, tarih ve hazırlık/doğrulama sınırları yalnız bu tarayıcıdaki geçmişe kaydedilir. Kamera karesi veya klinik keskinlik kaydı oluşturulmaz. Kapatmak eski kayıtları silmez; Sil ile tek kayıt kaldırılabilir.",
     "en": "Off by default. If enabled, completed orientation-alignment trials, visibility responses, angular errors, dates and preparation/verification limits are saved only in this browser's history. No camera frame or clinical acuity record is created. Turning this off does not delete older records; Delete removes an individual record.",
@@ -10763,5 +10758,10 @@
     "tr": "Sonraki bölge",
     "en": "Next region",
     "de": "Nächste Region"
+  },
+  "e2c025c17bb67bc1": {
+    "tr": "Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.",
+    "en": "Off by default; separate from capture permission. Photo retention is managed separately below. Turning it off does not delete earlier records; use Delete or Delete All Local Data.",
+    "de": "Standardmäßig aus; unabhängig von der Aufnahmeberechtigung. Die Fotospeicherung wird unten separat verwaltet. Das Ausschalten löscht frühere Einträge nicht; verwenden Sie Löschen oder Alle lokalen Daten löschen."
   }
 }
