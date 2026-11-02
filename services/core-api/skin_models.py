@@ -59,7 +59,7 @@ def load():
     import onnxruntime as ort
     manifest=json.loads(MANIFEST.read_text('utf8'));assert manifest['classOrder']==CLASSES
     assert manifest['preprocessing']=={'RGB':True,'size':[224,224],'mean':[.485,.456,.406],'std':[.229,.224,.225],'cropVersion':'camera-crop-v1'}
-    sessions={};_SESSION_STATE.clear();options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1
+    sessions={};_SESSION_STATE.clear();options=ort.SessionOptions();options.intra_op_num_threads=2;options.inter_op_num_threads=1;options.enable_cpu_mem_arena=False;options.enable_mem_pattern=False
     for task,m in manifest.get('models',{}).items():
         if not m.get('accepted'):continue
         path=FOLDER/m['file'];assert path.resolve().parent==FOLDER.resolve() and path.suffix=='.onnx'

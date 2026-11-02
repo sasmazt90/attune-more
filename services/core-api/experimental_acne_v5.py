@@ -36,15 +36,15 @@ def load():
    if verpath.parent.resolve()!=base or netpath.parent.resolve()!=base:raise ValueError()
    if digest(verpath)!=V5_HASH or manifest['verifier']['sha256']!=V5_HASH or manifest['detector']['sourceStep0SHA256']!=STEP0_HASH:raise ValueError()
    if manifest['verifier']['threshold']!=THRESHOLD or manifest['detector']['confidenceThreshold']!=.30 or manifest['detector']['nms']!=.30:raise ValueError()
-   graph=netpath.read_bytes();actual=hashlib.sha256(graph).hexdigest()
+   actual=digest(netpath)
    if actual!=manifest['detector']['sha256']:raise ValueError()
    model=json.loads(verpath.read_text('utf8'))
    if model['threshold']!=THRESHOLD or model['featureVersion']!=FEATURE_VERSION:raise ValueError()
    mean=np.asarray(model['standardizer']['mean'],np.float64);scale=np.asarray(model['standardizer']['scale'],np.float64);coef=np.asarray(model['model']['coef'],np.float64);bias=float(model['model']['intercept'])
    if any(a.shape!=(1920,) or not np.isfinite(a).all() for a in [mean,scale,coef]) or np.any(scale<=0) or not math.isfinite(bias):raise ValueError()
    import onnxruntime as ort
-   opts=ort.SessionOptions();opts.graph_optimization_level=ort.GraphOptimizationLevel.ORT_DISABLE_ALL;opts.intra_op_num_threads=2;opts.inter_op_num_threads=1
-   session=ort.InferenceSession(graph,opts,providers=['CPUExecutionProvider']);del graph
+   opts=ort.SessionOptions();opts.graph_optimization_level=ort.GraphOptimizationLevel.ORT_DISABLE_ALL;opts.intra_op_num_threads=2;opts.inter_op_num_threads=1;opts.enable_cpu_mem_arena=False;opts.enable_mem_pattern=False
+   session=ort.InferenceSession(str(netpath),opts,providers=['CPUExecutionProvider'])
    if session.get_inputs()[0].name!='native_bgr_tile' or session.get_inputs()[0].shape!=[1,3,384,384] or [v.name for v in session.get_outputs()]!=['decoded_boxes','p2','p3','p4','p5']:raise ValueError()
    _loaded=dict(folder=str(base),session=session,manifest=manifest,mean=mean,scale=scale,coef=coef,bias=bias,graphHash=actual)
    return _loaded,(time.perf_counter()-started)*1000
@@ -105,7 +105,7 @@ def analyze(payload,check=lambda:None,*,with_context=False):
    if box[2]<=box[0] or box[3]<=box[1]:continue
    s=float(score[anchor]);boxes.append(box+[s]);metadata.append(dict(tile=tile_id,anchor=anchor,box=box,confidence=s))
   peaks.append(memory())
- selected=_nms(boxes,threshold=.30);lookup={tuple(v['box']+[v['confidence']]):v for v in metadata};nms_meta=[lookup[tuple(b)] for b in selected];inference_ms=(time.perf_counter()-infer0)*1000;check();support0=time.perf_counter();context=context_function()(payload)
+ selected=_nms(boxes,threshold=.30);lookup={tuple(v['box']+[v['confidence']]):v for v in metadata};nms_meta=[lookup[tuple(b)] for b in selected];inference_ms=(time.perf_counter()-infer0)*1000;check();support0=time.perf_counter();from appearance_analysis import get_cached_acne_context;cached_ctx=get_cached_acne_context(payload);context=cached_ctx if cached_ctx is not None else context_function()(payload)
  assigned,rejected=principled_accepted_boxes(selected,context['acne_envelopes'],context['acne_skin'],context['hair'],context['acne_exclusion'],photoid,context['scale'],context['origin'],visible_regions=list(payload['meshes']),landmarks=payload['landmarks'],source_shape=bgr.shape[:2],bgr=bgr)
  final=[b for rows in assigned.values() for b in rows];trace_lookup={tuple(round(x,4) for x in m['box'])+(round(m['confidence'],6),):m for m in metadata};F=[];identities=[]
  for box in final:

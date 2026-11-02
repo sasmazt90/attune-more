@@ -62,22 +62,23 @@ def _prob(folds: list, x: np.ndarray) -> float:
     return float(np.mean(ps))
 
 
-def photo_outputs(bgr: np.ndarray, landmarks_norm: list, view: str, embedder, model_dir: str, check=lambda: None):
+def photo_outputs(bgr: np.ndarray, landmarks_norm: list, view: str, embedder, model_dir: str, check=lambda: None, return_emb: bool = False):
     """(scores, severityTerms) for this photo, numbers only:
     scores = {finding id: {crop: probability}}; severityTerms = skin_findings_severity.row_terms(...)"""
     import skin_findings_severity as SV
     sp = specs(model_dir)
     if embedder is None:
-        return {}, {}
+        return ({}, {}, {}) if return_emb else ({}, {})
     needed = {c for s in sp.values() for c in s['crops']} | SV.needed_crops(model_dir)
     if not needed:
-        return {}, {}
+        return ({}, {}, {}) if return_emb else ({}, {})
     crops = crops_of(bgr, landmarks_norm, view, needed)
     if not crops:
-        return {}, {}
+        return ({}, {}, {}) if return_emb else ({}, {})
     check(); names = list(crops); emb = dict(zip(names, embedder.embed([crops[n] for n in names])))
     scores = {fid: {c: round(_prob(s['folds'], emb[c]), 4) for c in s['crops'] if c in emb} for fid, s in sp.items()}
-    return scores, SV.row_terms(view, emb, model_dir)
+    terms = SV.row_terms(view, emb, model_dir)
+    return (scores, terms, emb) if return_emb else (scores, terms)
 
 
 def manifest(model_dir: str) -> dict:
