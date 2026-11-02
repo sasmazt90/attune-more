@@ -305,7 +305,7 @@ def colour(bgr: np.ndarray, landmarks_norm: list):
     return np.mean(np.array(rows, np.float64), 0) if rows else None
 
 
-def features(bgr: np.ndarray, landmarks_norm: list, embedder, need=FINDINGS) -> dict:
+def features(bgr: np.ndarray, landmarks_norm: list, embedder, need=FINDINGS, precomputed_emb: dict | None = None) -> dict:
     """{finding id: feature vector in the saved order} for the findings that can be computed on this photo."""
     h, w = bgr.shape[:2]; out = {}
     if len(landmarks_norm) < 468:
@@ -317,17 +317,24 @@ def features(bgr: np.ndarray, landmarks_norm: list, embedder, need=FINDINGS) -> 
     dino = {'hoodedEyelids': ('lid_L', 'lid_R'), 'downturnedCorners': ('corner_L', 'corner_R')}
     want = [n for fid, ns in dino.items() if fid in need for n in ns]
     if want and embedder is not None:
-        cr = crops(bgr, landmarks_norm, want)
-        if all(n in cr for n in want):
-            names = list(cr); emb = dict(zip(names, np.asarray(embedder.embed([cr[n] for n in names]), np.float64)))
+        if precomputed_emb is not None and all(n in precomputed_emb for n in want):
+            emb = {n: np.asarray(precomputed_emb[n], np.float64) for n in want}
             g = geometry(landmarks_norm, w, h)
             for fid, (a, b) in dino.items():
                 if fid in need:
                     out[fid] = np.concatenate([g, (emb[a] + emb[b]) / 2])
+        else:
+            cr = crops(bgr, landmarks_norm, want)
+            if all(n in cr for n in want):
+                names = list(cr); emb = dict(zip(names, np.asarray(embedder.embed([cr[n] for n in names]), np.float64)))
+                g = geometry(landmarks_norm, w, h)
+                for fid, (a, b) in dino.items():
+                    if fid in need:
+                        out[fid] = np.concatenate([g, (emb[a] + emb[b]) / 2])
     return out
 
 
-def photo_scores(bgr: np.ndarray, landmarks_norm: list, view: str, embedder, model_dir: str) -> dict:
+def photo_scores(bgr: np.ndarray, landmarks_norm: list, view: str, embedder, model_dir: str, precomputed_emb: dict | None = None) -> dict:
     """{finding id: probability} for the FRONT photo; {} for any other view or when the models are missing.
     A finding whose features cannot be computed (no z for darkCircles, no embedder for the DINOv2 ones, eye band too
     small) is omitted, so the caller reports it as unmeasured rather than 'notSeen'."""
@@ -336,5 +343,5 @@ def photo_scores(bgr: np.ndarray, landmarks_norm: list, view: str, embedder, mod
     sp = specs(model_dir)
     if not sp:
         return {}
-    X = features(bgr, landmarks_norm, embedder, need=tuple(sp))
+    X = features(bgr, landmarks_norm, embedder, need=tuple(sp), precomputed_emb=precomputed_emb)
     return {fid: round(predict_proba(sp[fid], x), 4) for fid, x in X.items()}

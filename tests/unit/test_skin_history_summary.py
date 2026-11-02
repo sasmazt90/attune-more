@@ -77,7 +77,8 @@ page=F.viewFindings([acne(3),{id:'acne',region:'nose',status:'seen',countUnavail
 const r1=rec('r1','2026-10-18T10:00:00Z',[acne(6),st('acne','nose','notSeen')]), r0=rec('r0','2026-10-19T10:00:00Z',[st('acne','forehead','notSeen'),st('acne','nose','notSeen')]);
 const av=H.skinAverages([r1,r0,partial]).rows.find(x=>x.id==='acne');assert.deepEqual([av.value,av.used],[3,2]);
 // percent and score formats per language
-const m={kind:'severity',value:62};assert.equal(H.formatValue(m,'tr-TR'),'%62');assert.equal(H.formatValue(m,'en-US'),'62%');assert.equal(H.formatValue(m,'de-DE'),'62 %');
+const m={kind:'severity',value:62};for(const locale of ['tr-TR','en-US','de-DE'])assert.equal(H.formatValue(m,locale),'62 / 100');
+assert.equal(H.formatValue({kind:'area',value:62},'en-US'),'62%');
 assert.equal(H.formatValue({kind:'appearance',value:62},'de-DE'),'62');
 ''')
 

@@ -67,6 +67,6 @@ main p, main article { overflow-wrap: anywhere; }
   /* The card measures the viewport minus its existing padding/borders and any
    * sticky header. Preserve the image box ratio and object-contain artwork. */
   html:has(#attune-automotive-style) [data-health-start] [data-health-portrait] {
-    width: min(360px, calc(var(--health-portrait-height, calc(100dvh - 4rem - 2px)) * .75));
+    width: min(460px, calc(var(--health-portrait-height, calc(100dvh - 4rem - 2px)) * var(--health-portrait-ratio, .75)));
   }
 }

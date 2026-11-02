@@ -15,7 +15,23 @@ from skin_models import infer as infer_skin_models, infer_acne, infer_bags, sess
 from skin_measurement_contract import attach_result_receipts
 from skin_product_contract import apply_learned_general_degree, tone_separation_components
 from skimage.feature import local_binary_pattern
-from skimage.filters import gabor
+import threading
+from skimage.filters import gabor, gabor_kernel
+
+_ACNE_CONTEXT_CACHE = threading.local()
+
+def clear_cached_acne_context():
+    _ACNE_CONTEXT_CACHE.entry = None
+
+def get_cached_acne_context(payload):
+    entry = getattr(_ACNE_CONTEXT_CACHE, 'entry', None)
+    _ACNE_CONTEXT_CACHE.entry = None
+    if entry is None:
+        return None
+    key, ctx = entry
+    if key == (payload.get('photoId'), len(payload.get('landmarks', []))):  # exact source & landmark identity
+        return ctx
+    return None
 from acne_box_support import region_envelopes,accepted_boxes as filter_acne_boxes,box_area,VERSION as ACNE_SUPPORT_VERSION
 from skin_display_geometry import measured_line_paths
 from roboflow_skin_models import infer_lesion_large, infer_regional_oily_seg
@@ -394,8 +410,8 @@ def analyze_skin(payload, include_research_features=False):
     baseline_oil=oiliness_map(image,baseline_masks)
     baseline_blemish=blemish_map(image,baseline_masks) if include_research_features else None
     shine*=baseline_oil>0
-    bands=eye_skin_bands(points,gray.shape,scale,origin,bgr.shape)
     band_sides=eye_skin_bands(points,gray.shape,scale,origin,bgr.shape,by_side=True)
+    bands={k:band_sides['right'][k]|band_sides['left'][k] for k in band_sides['right']}
     overall=np.logical_or.reduce(list(masks.values()))&(exclusion==0)&~hair&~clipping&(gray>.12)
     detections,red_center=acne_candidates(red,gray,saturation,high,local_contrast,baseline_blemish,overall) if include_research_features else ([],np.zeros(gray.shape,np.float32))
     # A component has one owning anatomical region in this source. T-zone overlap
@@ -428,6 +444,13 @@ def analyze_skin(payload, include_research_features=False):
         poly=np.asarray([[(points[i]['x']*width-x0)*scale,(points[i]['y']*bgr.shape[0]-y0)*scale] for i in indices],np.float32)
         cv2.fillConvexPoly(acne_exclusion,cv2.convexHull(poly).astype(np.int32),255)
     acne_skin=(face_support>0)&(acne_exclusion==0)&~hair&~acne_clipping&(gray>.12)
+    if not include_research_features:
+        _ACNE_CONTEXT_CACHE.entry = (
+            (source_hash, len(points)),
+            dict(bgr=bgr, source_hash=source_hash, points=points, scale=scale, origin=origin, gray=gray,
+                 acne_envelopes=acne_envelopes, acne_skin=acne_skin, face_support=face_support,
+                 exclusion=exclusion, acne_exclusion=acne_exclusion, hair=hair, acne_clipping=acne_clipping),
+        )
     experimental_research_models=None
     if not include_research_features and payload.get('experimentalHostedSkinResearch') is True and payload.get('hostedResearchModelConsent') is True and payload.get('qualityValid') is True:
         rf_lesion=infer_lesion_large(bgr,True,experimental_opt_in=True)
@@ -585,7 +608,8 @@ def analyze_skin(payload, include_research_features=False):
                 return signal,None
             value,dark,known,dark_reason,dark_area,dark_components=eye_measurement('dark',100,dark_field)
             add('dark',value,'relative-color-index-0-100',dark,100,limitation=dark_reason,signal_mask=known,measurement_area=dark_area,components=dark_components)
-            lines_source,_=isolated_impulse_sampling(bgr)
+            sampled_bgr,impulses=isolated_impulse_sampling(bgr)
+            lines_source=sampled_bgr
             lines_image=cv2.resize(lines_source[y0:y1,x0:x1],None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
             lines_gray=cv2.cvtColor(lines_image,cv2.COLOR_BGR2GRAY).astype(np.float32)/255
             eye_axis=np.array([(points[263]['x']-points[33]['x'])*width,(points[263]['y']-points[33]['y'])*bgr.shape[0]])
@@ -594,13 +618,33 @@ def analyze_skin(payload, include_research_features=False):
             ortho_thetas=(roll_rad-np.pi/6,roll_rad,roll_rad+np.pi/6)
             rad_sig=np.zeros(gray.shape,np.float32)
             ortho_sig=np.zeros(gray.shape,np.float32)
+            max_ry=max_rx=0
             for frequency in LINE_FREQUENCIES:
-                for theta in radiating_thetas:
-                    real,imaginary=gabor(lines_gray,frequency=frequency,theta=theta)
-                    rad_sig=np.maximum(rad_sig,np.hypot(real,imaginary))
-                for theta in ortho_thetas:
-                    real,imaginary=gabor(lines_gray,frequency=frequency,theta=theta)
-                    ortho_sig=np.maximum(ortho_sig,np.hypot(real,imaginary))
+                for theta in radiating_thetas+ortho_thetas:
+                    kern=gabor_kernel(frequency,theta=theta)
+                    max_ry=max(max_ry,kern.shape[0]//2+1);max_rx=max(max_rx,kern.shape[1]//2+1)
+            gh,gw=lines_gray.shape
+            for side_bands in band_sides.values():
+                mask_s=side_bands['lines']
+                if not mask_s.any():continue
+                ys_s,xs_s=np.where(mask_s)
+                ya=int(ys_s.min())-max_ry if int(ys_s.min())>=max_ry else 0
+                yb=int(ys_s.max())+1+max_ry if int(ys_s.max())+1+max_ry<=gh else gh
+                xa=int(xs_s.min())-max_rx if int(xs_s.min())>=max_rx else 0
+                xb=int(xs_s.max())+1+max_rx if int(xs_s.max())+1+max_rx<=gw else gw
+                sub=lines_gray[ya:yb,xa:xb]
+                rad_sub=np.zeros(sub.shape,np.float32)
+                ortho_sub=np.zeros(sub.shape,np.float32)
+                for frequency in LINE_FREQUENCIES:
+                    for theta in radiating_thetas:
+                        real,imaginary=gabor(sub,frequency=frequency,theta=theta)
+                        rad_sub=np.maximum(rad_sub,np.hypot(real,imaginary))
+                    for theta in ortho_thetas:
+                        real,imaginary=gabor(sub,frequency=frequency,theta=theta)
+                        ortho_sub=np.maximum(ortho_sub,np.hypot(real,imaginary))
+                sub_mask=mask_s[ya:yb,xa:xb]
+                rad_sig[ya:yb,xa:xb][sub_mask]=rad_sub[sub_mask]
+                ortho_sig[ya:yb,xa:xb][sub_mask]=ortho_sub[sub_mask]
             ratio=rad_sig/np.maximum(ortho_sig,0.005)
             dir_gate=np.clip((ratio-1.22)/0.35,0.,1.)
             lines=np.clip((rad_sig-0.0125)/0.055,0.,1.)*dir_gate
@@ -635,7 +679,7 @@ def analyze_skin(payload, include_research_features=False):
             if region=='periorbital':
                 bag_anatomical=bag_support_mask(gray.shape,payload['meshes'][region],scale,origin)
                 contour_support=bag_anatomical&(exclusion==0)&~clipping&(gray>.12)&bands['bags']&~hair
-                sampled,impulses=isolated_impulse_sampling(bgr)
+                sampled=sampled_bgr
                 bag_image=cv2.resize(sampled[y0:y1,x0:x1],None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
                 contour_gray=cv2.cvtColor(bag_image,cv2.COLOR_BGR2GRAY).astype(np.float32)/255
             value,components,signal,lines,limitation=instant_proxy(contour_gray,contour_support,points,region,conditions,scale,origin,bgr.shape,hair,contour_context,contour_clipping,contour_exposure,boundary_geometry=(face_support>0) if region=='chin' else None,expression_observation=payload.get('expressionObservation'),photo_id=source_hash,capture_pose=payload['pose'])

@@ -8,9 +8,9 @@ import os
 # Configure bounded inference lanes before loading ONNX/Torch/OpenMP. Changing
 # the native thread pool after a different inference runtime has initialized it
 # creates an avoidable cold-start synchronization cost on Windows.
-if __name__=='__main__':
-    os.environ['OMP_NUM_THREADS']='2'
-    os.environ['MKL_NUM_THREADS']='2'
+os.environ['OMP_NUM_THREADS']='2'
+os.environ['MKL_NUM_THREADS']='2'
+os.environ['OPENBLAS_NUM_THREADS']='2'
 
 MAX_MESSAGE=128*1024*1024
 SKIN_PREPARATION_STEPS=('dryness','skinmap','findings','acnes','regional','wrinkles','classifier','type')
@@ -31,37 +31,63 @@ def prepare_skin_step(step):
     if step not in _prepared_steps:
         if step=='dryness':
             from product_dryness import runtime
-            runtime(lambda:None)
+            rt=runtime(lambda:None)
+            if isinstance(rt,tuple) and len(rt)==2:
+                with contextlib.suppress(Exception):
+                    import skin_eyewear
+                    skin_eyewear.session()
+                with contextlib.suppress(Exception):
+                    import skin_models
+                    skin_models.load()
         else:
             try:
                 if step=='type':
                     from local_skin_type import load
                     load()
                 else:
-                    from regional_skin_v3 import prepare_component
-                    prepare_component(step)
+                    import regional_skin_v3 as R
+                    R.prepare_component(step)
+                    if hasattr(R,'MODEL_DIR'):
+                        if step=='acnes':
+                            with contextlib.suppress(Exception):
+                                import experimental_acne_v5 as EAV5
+                                if EAV5.enabled():
+                                    EAV5.context_function()
+                        elif step=='classifier':
+                            with contextlib.suppress(Exception):
+                                import numpy as np,skin_findings_det as SFD,skin_findings_dino as SD,skin_findings_eye as SEYE,skin_findings_severity as SFS
+                                SFD.crop_landmarks(np.zeros((256,256,3),np.uint8))
+                                SFD.specs(R.MODEL_DIR);SD.specs(R.MODEL_DIR);SEYE.specs(R.MODEL_DIR);SFS.specs(R.MODEL_DIR)
+                                R.model_manifest()
             except Exception as error:
                 import logging
                 logging.getLogger(__name__).warning('Optional skin preparation unavailable (%s): %s',step,type(error).__name__)
                 if step!='type':_regional_preparation_failed=True
+        import gc;gc.collect()
         _prepared_steps.add(step)
     return {'ready':False,'step':step}
 
 def skin_analysis(value, check=lambda:None):
+    import gc
     from camera_color import load_profile,prepare,restore
     from local_health import skin_capture_preflight
-    from appearance_analysis import analyze_skin
+    from appearance_analysis import analyze_skin,clear_cached_acne_context
     from product_dryness import analyze_product
-    source,color,client_id,analyzed_id=prepare(value,load_profile())
-    check();eyewear=skin_capture_preflight(source);check()
-    result=analyze_product(source,analyze_skin,check)
-    if source.get('experimentalAcneV5',True) is not False:
-        from acne_v5_product import replace_acne
-        result=replace_acne(result,source,check)
-    from local_skin_type import finalize_product_type
-    from regional_attach import attach
-    result=attach(finalize_product_type(result),source,check)
-    return eyewear,restore(result,color,client_id,analyzed_id)
+    try:
+        source,color,client_id,analyzed_id=prepare(value,load_profile())
+        check();eyewear=skin_capture_preflight(source);check()
+        result=analyze_product(source,analyze_skin,check)
+        if source.get('experimentalAcneV5',True) is not False:
+            from acne_v5_product import replace_acne
+            result=replace_acne(result,source,check)
+        clear_cached_acne_context()
+        from local_skin_type import finalize_product_type
+        from regional_attach import attach
+        result=attach(finalize_product_type(result),source,check)
+        return eyewear,restore(result,color,client_id,analyzed_id)
+    finally:
+        clear_cached_acne_context()
+        gc.collect()
 
 def execute(operation,value):
     if operation=='prepare-skin-step':

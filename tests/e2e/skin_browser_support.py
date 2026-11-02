@@ -61,9 +61,9 @@ def seen_ids(findings, regions=None):
 def expected_findings(result):
     """Project the actual numeric record through production UI utilities; never invent a measured value."""
     script=r"""require('./tests/unit/ts_loader');const fs=require('fs'),F=require('./apps/vehicle-app/src/utils/skinFindings'),R=require('./apps/vehicle-app/src/utils/skinRecommendations');const record=JSON.parse(fs.readFileSync(0,'utf8'));
-    const item=f=>{const score=R.findingScore(f),count=F.countLabel(f),appearance=R.usesAppearance(f);return {id:f.id,score:score===undefined?null:Math.round(score),count,appearance,band:!!R.recommendationBand(f),text:score!==undefined?(appearance?String(Math.round(score)):'%'+Math.round(score)):appearance?'Görünüm skoru hesaplanamadı':count!==null?(count+' '+F.countUnit(count,F.FINDING_DEFS[f.id].unit,x=>x)).trim():(f.views||[]).map(v=>F.FINDING_VIEW_NAMES[v]).join(', ')};};
+    const item=f=>{const score=R.findingScore(f),count=F.countLabel(f),appearance=R.usesAppearance(f);return {id:f.id,score:score===undefined?null:Math.round(score),count,appearance,band:!!R.recommendationBand(f),text:score!==undefined?(appearance||f.severity!==undefined?Math.round(score)+' / 100':'%'+Math.round(score)):appearance?'Görünüm skoru hesaplanamadı':count!==null?(count+' '+F.countUnit(count,F.FINDING_DEFS[f.id].unit,x=>x)).trim():(f.views||[]).map(v=>F.FINDING_VIEW_NAMES[v]).join(', ')};};
     console.log(JSON.stringify({overview:F.overviewFindings(record.findings).map(item),views:Object.fromEntries(F.FINDING_VIEWS.map(v=>[v,F.viewFindings(record.findings,v).map(item)])),unavailable:F.unmeasuredFindings(record)}));"""
-    run=subprocess.run(['node','-e',script],input=json.dumps(result),text=True,capture_output=True,timeout=30)
+    run=subprocess.run(['node','-e',script],input=json.dumps(result),text=True,encoding='utf8',capture_output=True,timeout=30)
     assert run.returncode==0,run.stderr
     return json.loads(run.stdout)
 

@@ -1,6 +1,8 @@
 'use client';
 import {useTranslations} from '../../i18n/LanguageProvider';
 import type {DentalCapture} from '../../utils/dentalCapture';
+import React,{useEffect,useRef,useState} from 'react';
+export type DentalDisplayPhoto=Pick<DentalCapture,'photo'|'width'|'height'|'photoId'>;
 export type DentalLayer='caries'|'accumulation'|'alignment';
 export const DENTAL_LAYER_COLORS:Record<DentalLayer,string>={caries:'#fda4af',accumulation:'#36e4f1',alignment:'#c4b5fd'};
 const path=(points:number[][])=>points.map((p,j)=>`${j?'L':'M'}${p[0]} ${p[1]}`).join(' ')+'Z';
@@ -11,17 +13,21 @@ export function dentalCrop(view:any,width:number,height:number){
  const roi=view?.quality?.roi;
  if(!roi||![roi.x,roi.y,roi.width,roi.height].every(Number.isFinite)||roi.width<=0||roi.height<=0)return {x:0,y:0,width,height};
  const cx=roi.x+roi.width/2,cy=roi.y+roi.height/2;
- let w=Math.max(roi.width*1.7,roi.height*1.7*1.6),h=w/1.6;
+ let w=Math.max(roi.width*1.7,roi.height*1.7*1.6,Math.min(width,480)),h=w/1.6;
  if(w>width){w=width;h=Math.min(height,w/1.6);}if(h>height){h=height;w=Math.min(width,h*1.6);}
  const x=Math.min(Math.max(0,cx-w/2),width-w),y=Math.min(Math.max(0,cy-h/2),height-h);
  return {x,y,width:w,height:h};
 }
-export function DentalPhotoView({photo,view,layers}:{photo:Pick<DentalCapture,'photo'|'width'|'height'>;view:any;layers:DentalLayer[]}){
- const {text:t}=useTranslations(),crop=dentalCrop(view,photo.width,photo.height),stroke=crop.width/260;
- return <svg viewBox={`${crop.x} ${crop.y} ${crop.width} ${crop.height}`} role="img" aria-label={t('Gerçek diş fotoğrafı ve görünür adaylar')} data-dental-photo={view?.photoId} data-dental-crop={[crop.x,crop.y,crop.width,crop.height].map(Math.round).join(',')} preserveAspectRatio="xMidYMid slice">
+export function DentalPhotoView({photo,view,layers}:{photo:DentalDisplayPhoto;view:any;layers:DentalLayer[]}){
+ const {text:t}=useTranslations(),[detail,setDetail]=useState(false),[dpr,setDpr]=useState(1),[displayWidth,setDisplayWidth]=useState(0),svg=useRef<SVGSVGElement>(null);
+ const crop=detail?dentalCrop(view,photo.width,photo.height):{x:0,y:0,width:photo.width,height:photo.height},stroke=crop.width/260;
+ useEffect(()=>{const measure=()=>{setDpr(window.devicePixelRatio||1);setDisplayWidth(svg.current?.getBoundingClientRect().width||0);};measure();const observer=new ResizeObserver(measure);if(svg.current)observer.observe(svg.current);window.addEventListener('resize',measure);return()=>{observer.disconnect();window.removeEventListener('resize',measure);};},[photo.photoId,detail]);
+ if(photo.photoId!==view?.photoId||photo.width!==view?.sourceWidth||photo.height!==view?.sourceHeight)return <p role="alert">{t('Kaynak fotoğraf eşleşmesi doğrulanamadı.')}</p>;
+ return <><div className="flex gap-2 p-3" role="group" aria-label={t('Fotoğraf görünümü')}>{[false,true].map(mode=><button key={String(mode)} type="button" aria-pressed={detail===mode} onClick={()=>setDetail(mode)} className={`min-h-[52px] px-4 rounded-2xl font-bold ${detail===mode?'bg-cyan-300 text-slate-950':'bg-slate-800 text-white'}`}>{t(mode?'Detay görünümü':'Tam görünüm')}</button>)}</div>
+ <svg ref={svg} viewBox={`${crop.x} ${crop.y} ${crop.width} ${crop.height}`} style={{maxWidth:crop.width/dpr,margin:'0 auto',aspectRatio:crop.width/crop.height}} role="img" aria-label={t('Gerçek diş fotoğrafı ve görünür adaylar')} data-dental-photo={view?.photoId} data-dental-source-size={`${photo.width}x${photo.height}`} data-dental-pixel-scale={displayWidth*dpr/crop.width} data-dental-detail={detail} data-dental-crop={[crop.x,crop.y,crop.width,crop.height].map(Math.round).join(',')} preserveAspectRatio="xMidYMid meet">
   <image href={photo.photo} width={photo.width} height={photo.height}/>
   {layers.includes('accumulation')&&view?.accumulation?.quality==='valid'&&view.accumulation.candidates.map((c:any,i:number)=><path key={'a'+i} d={path(c.points)} fill={DENTAL_LAYER_COLORS.accumulation} fillOpacity=".28" stroke={DENTAL_LAYER_COLORS.accumulation} strokeWidth={stroke*.6} data-dental-mark="accumulation"/>)}
   {layers.includes('alignment')&&view?.alignment?.contours?.map((c:any,i:number)=><path key={'c'+i} d={path(c.points)} fill="none" stroke={DENTAL_LAYER_COLORS.alignment} strokeWidth={stroke*.7} data-dental-mark="alignment"/>)}
   {layers.includes('caries')&&view?.caries?.candidates?.map((c:any,i:number)=><g key={'k'+i} data-dental-mark="caries"><rect x={c.bounds.x} y={c.bounds.y} width={c.bounds.width} height={c.bounds.height} rx={stroke*2} fill="none" stroke={DENTAL_LAYER_COLORS.caries} strokeWidth={stroke*1.4}/><circle cx={c.bounds.x+c.bounds.width} cy={c.bounds.y} r={stroke*6} fill={DENTAL_LAYER_COLORS.caries}/><text x={c.bounds.x+c.bounds.width} y={c.bounds.y+stroke*2.6} textAnchor="middle" fontSize={stroke*7.5} fill="#031318" fontWeight="600">{i+1}</text></g>)}
- </svg>;
+ </svg></>;
 }

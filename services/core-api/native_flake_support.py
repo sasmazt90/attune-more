@@ -32,7 +32,7 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,c
         # The fine-source scale is the observed pixel grid, not an upsample.
         regions,_=cv2.MSER_create(5,max(1,int(round(4*metric*metric))),max(4,int(round(1500*metric*metric))),.25,.2).detectRegions(255-luma)
         for pts in regions:
-            region_envelope[pts[:,1],pts[:,0]]=True
+            if return_stages:region_envelope[pts[:,1],pts[:,0]]=True
             candidate_regions.append((pts,'stable-region',metric))
         for radius in p['radii']:
             sigma=max(.45,radius*metric);smooth=cv2.GaussianBlur(g,(0,0),sigma)
@@ -68,12 +68,16 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,c
         if check is not None and region_index%32==0:check()
         if interest is not None and not interest[pts[:,1],pts[:,0]].any():skipped+=1;continue
         processed+=1
-        x,y,w,h=cv2.boundingRect(pts);area=len(pts);local=np.zeros((h,w),bool);local[pts[:,1]-y,pts[:,0]-x]=True
+        area=len(pts)
+        if not return_stages and (area<max(1,int(round(p['minArea']*pixel_density**2))) or area>max(4,int(round(p['maxArea']*metric**2)))):continue
+        x,y,w,h=cv2.boundingRect(pts)
+        if not return_stages and (area/(w*h)<p['minFill'] or max(w,h)/max(1,min(w,h))>p['maxElongation'] or x==0 or y==0 or x+w==g.shape[1] or y+h==g.shape[0]):continue
+        local=np.zeros((h,w),bool);local[pts[:,1]-y,pts[:,0]-x]=True
         seed_count=int((seed[y:y+h,x:x+w]&local).sum()) if return_stages else 0
-        if return_stages:stages['seeded'][y:y+h,x:x+w][local]=1
-        if area<max(1,int(round(p['minArea']*pixel_density**2))) or area>max(4,int(round(p['maxArea']*metric**2))) or area/(w*h)<p['minFill'] or max(w,h)/max(1,min(w,h))>p['maxElongation']:continue
-        # An open region at the tile boundary has insufficient ring context.
-        if x==0 or y==0 or x+w==g.shape[1] or y+h==g.shape[0]:continue
+        if return_stages:
+            stages['seeded'][y:y+h,x:x+w][local]=1
+            if area<max(1,int(round(p['minArea']*pixel_density**2))) or area>max(4,int(round(p['maxArea']*metric**2))) or area/(w*h)<p['minFill'] or max(w,h)/max(1,min(w,h))>p['maxElongation']:continue
+            if x==0 or y==0 or x+w==g.shape[1] or y+h==g.shape[0]:continue
         if return_stages:stages['geometry'][y:y+h,x:x+w][local]=1
         pad=max(2,int(np.ceil(4*metric)));a=max(0,x-pad);b=max(0,y-pad);c=min(g.shape[1],x+w+pad);d=min(g.shape[0],y+h+pad)
         mask=np.zeros((d-b,c-a),bool);mask[pts[:,1]-b,pts[:,0]-a]=True
@@ -89,10 +93,11 @@ def proposal_tile(bgr,coordinate_scale=1.,return_stages=False,pixel_density=1.,c
         if return_stages:stages['edge'][y:y+h,x:x+w][local]=np.maximum(stages['edge'][y:y+h,x:x+w][local],intensity)
         # Only an actual compact dark core with surrounding angular bright
         # support is pore ringing. Mere proximity to a dark lip/shadow is not.
-        ys,xs=np.where(mask);xy=np.c_[xs+a,ys+b]
         neighbor=cv2.dilate(mask.astype(np.uint8),np.ones((odd(3*metric),)*2,np.uint8))>0
         candidates=set(int(v) for v in np.unique(dark_ids[b:d,a:c][neighbor]) if int(v) in pore_centers)
         pore_ring=False
+        if candidates:
+            ys,xs=np.where(mask);xy=np.c_[xs+a,ys+b]
         for core in candidates:
             center=pore_centers[core];distance=np.linalg.norm(xy-center,axis=1)
             nearby=xy[distance<=max(3,5*metric)]

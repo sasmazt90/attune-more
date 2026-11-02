@@ -7,7 +7,7 @@ import {
   type FindingViewId, type SkinFinding, type SkinFindingsHistoryEntry, type SkinFindingsResult
 } from '../../utils/skinFindings';
 import { usesAppearance } from '../../utils/skinRecommendations';
-import { compareMeasures, measureOf, scopeOf, type Measure } from '../../utils/skinHistorySummary';
+import { compareMeasures, measureOf, scopeOf, formatValue, type Measure } from '../../utils/skinHistorySummary';
 import { SkinDateRangeDialog, inDayRange, type DateRange } from './SkinDateRangeDialog';
 
 /** One finding of a page: title with arrows to the other findings, what it looks like, its score and its history. */
@@ -31,20 +31,20 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt, 
   return (
     <section className="rounded-[26px] bg-[#0f1724] px-5 pt-5 pb-6 flex flex-col gap-5" data-skin-finding-card={f.id} aria-live="polite">
       <div className="flex items-center justify-between gap-3">
-        {arrow(-1)}
+        {n>1&&arrow(-1)}
         <div className="min-w-0 flex flex-col items-center gap-1 text-center">
           <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color }} data-skin-finding-kicker>
             {text(FINDING_VIEW_NAMES[view])} · {index + 1} / {n}
           </span>
           <h2 className="text-[28px] leading-tight font-extrabold tracking-tight text-white">{text(def.label)}</h2>
         </div>
-        {arrow(1)}
+        {n>1&&arrow(1)}
       </div>
       <p className="text-[17px] leading-snug text-slate-300 text-center">{text(def.info)}</p>
       {usesAppearance(f)
         ? <AppearanceValue f={f} color={color} />
         : f.severity !== undefined
-        ? <ScoreBar value={f.severity} color={color} label={text('Belirginlik')} scale={[text('Hafif'), text('Orta'), text('Belirgin')]} />
+        ? <><ScoreBar value={f.severity} color={color} plain label={text(f.id==='downturnedCorners'?'Geometri referans sırası (0–100)':'Belirginlik skoru (0–100)')} scale={['0','50','100']} />{f.id==='downturnedCorners'&&<p className="text-sm text-slate-400">{text('Göz köşesi eğiminin kayıtlı pozitif referanslar içindeki sırasıdır; hastalık olasılığı veya klinik şiddet değildir.')}</p>}</>
         : f.areaPct !== undefined
           ? <ScoreBar value={f.areaPct} color={color} label={text(f.id === 'melasma' ? 'İşaretli leke kutularının kapladığı alan' : 'Kapladığı alan')} scale={['%0', '%50', '%100'].map(text)} />
           : countLabel(f) !== null
@@ -197,7 +197,7 @@ function History({ view, finding, current, history, scanAt, color }: { view: Fin
             {text(!now.exact ? 'Bu taramanın değeri önceki taramalarla karşılaştırılamıyor.' : all.length < 2 ? 'Geçmiş grafiği bir sonraki taramanızdan sonra burada görünür.' : 'Seçilen tarih aralığında yeterli tarama yok.')}
           </p>
         : <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img"
-            aria-label={text(isCount ? 'Sayı geçmişi' : now.kind === 'appearance' ? 'Görünüm skoru geçmişi' : 'Belirginlik geçmişi') + ': ' + pts.map(p => `${fmt(new Date(p.at))} ${isCount || now.kind === 'appearance' ? Math.round(p.v) : text(`%${Math.round(p.v)}`)}`).join(', ')}>
+            aria-label={text(isCount ? 'Sayı geçmişi' : now.kind === 'appearance' ? 'Görünüm skoru geçmişi' : 'Belirginlik geçmişi') + ': ' + pts.map(p => `${fmt(new Date(p.at))} ${formatValue({...now,value:p.v},locale)}`).join(', ')}>
             {[top, top / 2, 0].map(v => (
               <g key={v}>
                 <line x1={X0} x2={W - 8} y1={y(v)} y2={y(v)} stroke={v ? '#1a2533' : '#26313f'} />

@@ -329,6 +329,7 @@ export default function SkinPage() {
         return;
       }
       if (scanState !== 'COMPLETED') return;
+      if(document.querySelector('[role="dialog"]')||(e.target instanceof Element&&e.target.closest('input,textarea,select,[contenteditable="true"]')))return;
 
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -605,6 +606,8 @@ export default function SkinPage() {
     const loop = async () => {
       if (cancelled) return;
       if (!isCameraAllowed() || !parkedRef.current || mediaStream.getVideoTracks().every(t => t.readyState === 'ended')) {
+        setMediaStream(null);
+        setIsLiveVideo(false);
         setErrorMessage('Kamera kapatıldı. İzinleri kontrol edip yeniden deneyin.');
         setScanState('ERROR');
         return;
@@ -799,6 +802,8 @@ export default function SkinPage() {
     if (!isParked || scanState === 'CAMERA_ACTIVE') return;
     const acquisition = ++acquisitionRef.current;
     setErrorMessage(null);
+    setMediaStream(null);
+    setIsLiveVideo(false);
     snapshotFrames.current = {}; snapshotRecord.current = null; setSnapshots({});
     angleRuntime.current = { enabled: multiAngle, index: 0, captures: {} };
     setAngleIndex(0); setCompletedAngles([]);
@@ -975,6 +980,8 @@ export default function SkinPage() {
             <button
               onClick={() => {
                 setErrorMessage(null);
+                setMediaStream(null);
+                setIsLiveVideo(false);
                 if (initializationFailedRef.current) setInitializationEpoch(epoch => epoch + 1);
                 setScanState('READY');
               }}
@@ -1025,6 +1032,8 @@ export default function SkinPage() {
 
         {photoNotice&&<p role="status" className="text-sm text-amber-200">{i18nNode(photoNotice)}</p>}
         <SkinResultView
+          captures={analysisResult?.captures}
+          snapshots={snapshots}
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}
           findings={validFindings((analysisResult as any)?.general?.findings) ? (analysisResult as any).general.findings.findings : undefined}

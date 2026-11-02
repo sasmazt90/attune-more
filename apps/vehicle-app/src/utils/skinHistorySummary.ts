@@ -108,7 +108,8 @@ export function formatValue(m: { kind?: MetricKind; value?: number; atLeast?: bo
   if (m.value === undefined) return m.range || '—';
   const n = new Intl.NumberFormat(locale, { maximumFractionDigits: m.kind === 'count' ? 1 : 0 }).format(m.value);
   if (m.kind === 'count') return `${n}${m.atLeast ? '+' : ''}`;
-  if (m.kind === 'appearance') return n;   // a 0–100 score, not a percentage
+  if (m.kind === 'appearance') return n;
+  if (m.kind === 'severity') return `${n} / 100`; // reference rank / visibility score, not probability or area
   // percent sign as each language writes it: TR %62, EN 62%, DE 62 %
   return locale.startsWith('tr') ? `%${n}` : locale.startsWith('de') ? `${n} %` : `${n}%`;
 }

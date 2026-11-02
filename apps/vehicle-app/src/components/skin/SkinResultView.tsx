@@ -6,6 +6,8 @@ import { SkinRegionData } from '../../data/skinDemoFixture';
 import { SkinSnapshot } from '../../utils/skinSnapshot';
 import { SkinFacePanel } from './SkinFacePanel';
 import { SkinFindingsPanel } from './SkinFindingsPanel';
+import {HealthResultNavigation} from '../HealthResultNavigation';
+import {sourceBoundCallouts,findingSnapshot,type SkinCaptureIdentities,type SkinSourceFrames} from '../../utils/skinCalloutModel';
 import {
   FINDING_VIEW_NAMES, FINDING_VIEW_ORDER, isFindingView, seenCount, viewFindings,
   type AcneSubtype, type FindingViewId, type SkinFinding, type SkinFindingId, type SkinFindingsHistoryEntry
@@ -15,6 +17,8 @@ type View = 'overview' | FindingViewId;
 interface SkinResultViewProps {
   currentRegion: SkinRegionData;
   snapshot?: SkinSnapshot;
+  snapshots?: SkinSourceFrames;
+  captures?: SkinCaptureIdentities;
   findings?: SkinFinding[];
   /** general.findings of the record (status / unavailable list) */
   findingsResult?: unknown;
@@ -39,7 +43,7 @@ interface SkinResultViewProps {
 }
 
 /** Result screen ("face map"): page tabs, the photo with labels pointing at each finding, and the finding card. */
-export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, snapshot, findings, findingsResult, findingsHistory, scanAt, onSelectView, onRescan, onNavigateToCare, videoRef, isLiveVideo = false }) => {
+export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, snapshot: defaultSnapshot, snapshots, captures, findings, findingsResult, findingsHistory, scanAt, onSelectView, onRescan, onPrev, onNext, onNavigateToCare, videoRef, isLiveVideo = false }) => {
   const { text, locale } = useTranslations();
   const view: View = isFindingView(currentRegion.id) ? currentRegion.id : 'overview';
   const at = React.useMemo(() => scanAt || new Date().toISOString(), [scanAt]);
@@ -47,13 +51,14 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
   const [index, setIndex] = React.useState(0);
   /** Overview: null = skin-type map on the photo, else the finding shown on the whole face */
   const [overviewSel, setOverviewSel] = React.useState<SkinFindingId | null>(null);
+  const [sourceKey,setSourceKey]=React.useState<string|null>(null);
   const pending = React.useRef<SkinFindingId | null>(null);
   /** acne lesion type drawn alone on the photo (null = every acne circle) */
   const [acneType, setAcneType] = React.useState<AcneSubtype | null>(null);
   React.useEffect(() => { setAcneType(null); }, [view, index]);
   React.useEffect(() => {
     const i = pending.current ? items.findIndex(f => f.id === pending.current) : 0;
-    setIndex(Math.max(0, i)); pending.current = null; setOverviewSel(null);
+    setIndex(Math.max(0, i)); pending.current = null; setOverviewSel(null);setSourceKey(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view]);
   const goTo = (target: View, finding?: SkinFindingId) => {
@@ -61,8 +66,9 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
     pending.current = finding || null; onSelectView?.(target);
   };
   const selected = view === 'overview' ? overviewSel : items[Math.min(index, items.length - 1)]?.id || null;
-  // Findings are marked on the photo itself (areas and lesion circles of the selected finding); no text labels
-  // around or under the photo (product decision 2026-10-26).
+  const snapshot=findingSnapshot(findings,view,selected,snapshots,captures,defaultSnapshot,sourceKey);
+  const callouts=sourceBoundCallouts(findings,snapshot,captures,view,selected);
+  const selectFinding=(key:string)=>{const item=callouts.find(c=>c.key===key);if(!item)return;setSourceKey(key);if(view==='overview')setOverviewSel(item.id);else setIndex(Math.max(0,items.findIndex(f=>f.id===item.id)));};
   const when = new Date(at);
   return (
     <div className="w-full flex flex-col gap-5" data-skin-result>
@@ -92,13 +98,14 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] gap-6 xl:gap-10 items-start" data-skin-result-layout>
         <div className="min-w-0 flex flex-col items-center">
           <SkinFacePanel currentRegion={currentRegion} snapshot={snapshot} mode="result" videoRef={videoRef} isLiveVideo={isLiveVideo}
-            findings={findings} selectedFinding={selected}
+            findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={selectFinding}
             markerType={selected === 'acne' ? acneType : null} />
         </div>
-        <div className="min-w-0">
-          <SkinFindingsPanel view={view} findings={findings} findingsResult={findingsResult} history={findingsHistory} scanAt={at} skinType={currentRegion.skinType}
-            index={Math.min(index, Math.max(0, items.length - 1))} onIndex={setIndex} onGoToView={(v, f) => goTo(v, f)}
-            overviewSel={overviewSel} onOverviewSel={setOverviewSel} acneType={acneType} onAcneType={setAcneType}
+        <div className="min-w-0 flex flex-col gap-3">
+          <HealthResultNavigation title={view==='overview'?'Genel bakış':FINDING_VIEW_NAMES[view]} previousLabel="Önceki bölge" nextLabel="Sonraki bölge" onPrevious={onPrev} onNext={onNext} index={FINDING_VIEW_ORDER.indexOf(view)} total={FINDING_VIEW_ORDER.length}/>
+          <SkinFindingsPanel key={view} view={view} findings={findings} findingsResult={findingsResult} history={findingsHistory} scanAt={at} skinType={currentRegion.skinType}
+            index={Math.min(index, Math.max(0, items.length - 1))} onIndex={i=>{setIndex(i);setSourceKey(null);}} onGoToView={(v, f) => goTo(v, f)}
+            overviewSel={overviewSel} onOverviewSel={id=>{setOverviewSel(id);setSourceKey(null);}} acneType={acneType} onAcneType={setAcneType}
             onNavigateToCare={onNavigateToCare} onRescan={onRescan} />
         </div>
       </div>

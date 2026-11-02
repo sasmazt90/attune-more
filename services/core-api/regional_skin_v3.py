@@ -420,10 +420,10 @@ def analyze_photo(bgr: np.ndarray, landmarks_norm: list, check=lambda: None, pos
     finding_evidence, finding_boxes = SF.evidence_from_detections(ev_all, dets, cats, polys, sc, view, pose, inv=lambda x, y: ((x / k) + X0, (y / k) + Y0), src_scale=1 / k, Pc=Pc)
     # Saved DINOv2-crop finding classifiers (skin_findings_dino): probability per landmark crop of this photo
     import skin_findings_dino as SD
-    finding_scores, severity_terms = SD.photo_outputs(bgr, landmarks_norm, view, kc, MODEL_DIR, check)
+    finding_scores, severity_terms, dino_emb = SD.photo_outputs(bgr, landmarks_norm, view, kc, MODEL_DIR, check, return_emb=True)
     # Saved eye-area classifiers (skin_findings_eye; front photo only): probability per finding + geometry value
     import skin_findings_eye as SEYE
-    check(); eye_scores = SEYE.photo_scores(bgr, landmarks_norm, view, kc, MODEL_DIR) if kc is not None else {}
+    check(); eye_scores = SEYE.photo_scores(bgr, landmarks_norm, view, kc, MODEL_DIR, precomputed_emb=dino_emb) if kc is not None else {}
     eye_measures = {}
     if eye_scores.get('downturnedCorners') is not None:
         v = SEYE.downturned_percentile(bgr, landmarks_norm, MODEL_DIR, view)
