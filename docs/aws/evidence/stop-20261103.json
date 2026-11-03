@@ -1,0 +1,92 @@
+{
+  "requestedAt": "2026-11-03T16:24:56.951732+00:00",
+  "action": "StopInstances",
+  "force": false,
+  "hibernate": false,
+  "reason": "GPU capacity blocker after approved G6/G5/G6e start attempts; independent AAOS installation preserved",
+  "before": [
+    {
+      "id": "i-0b25450afc6633494",
+      "type": "g6e.2xlarge",
+      "state": "stopped"
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "type": "m8i.2xlarge",
+      "state": "running"
+    }
+  ],
+  "requestId": "4d8f0a25-a7d3-4db9-b6e6-56116b45b422",
+  "transitions": [
+    {
+      "InstanceId": "i-0b25450afc6633494",
+      "CurrentState": {
+        "Code": 80,
+        "Name": "stopped"
+      },
+      "PreviousState": {
+        "Code": 80,
+        "Name": "stopped"
+      }
+    },
+    {
+      "InstanceId": "i-0f4cca4e92e94c351",
+      "CurrentState": {
+        "Code": 64,
+        "Name": "stopping"
+      },
+      "PreviousState": {
+        "Code": 16,
+        "Name": "running"
+      }
+    }
+  ],
+  "verifiedAt": "2026-11-03T16:25:26.435221+00:00",
+  "describeRequestId": "45922c10-eca1-456f-b6ad-c2fb3de56039",
+  "instances": [
+    {
+      "id": "i-0b25450afc6633494",
+      "type": "g6e.2xlarge",
+      "state": "stopped",
+      "stateReason": "User initiated (2026-11-03 09:50:07 GMT)",
+      "volumes": [
+        "vol-0b484223201916460"
+      ],
+      "vpcId": "vpc-074768071df6b9266",
+      "subnetId": "subnet-0522052d105ce2ff3",
+      "securityGroups": [
+        "sg-023659b3a447ab759"
+      ]
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "type": "m8i.2xlarge",
+      "state": "stopped",
+      "stateReason": "User initiated (2026-11-03 16:24:57 GMT)",
+      "volumes": [
+        "vol-03e8094dfdad0112c"
+      ],
+      "vpcId": "vpc-074768071df6b9266",
+      "subnetId": "subnet-0522052d105ce2ff3",
+      "securityGroups": [
+        "sg-0476f580c44063a5d"
+      ]
+    }
+  ],
+  "costEstimate": {
+    "basis": "Conservative elapsed upper bound from successful AAOS StartInstances request to confirmed stopped; not a billed-cost observation",
+    "from": "2026-11-03T15:04:18.005326+00:00",
+    "to": "2026-11-03T16:25:26.435221+00:00",
+    "hours": 1.3523416375000001,
+    "aaosComputeUsd": 0.685854,
+    "activeIpv4Usd": 0.006762,
+    "incrementalEstimateUsd": 0.692615,
+    "allocatedExistingEbsUsd": 0.048279,
+    "estimateIncludingAllocatedEbsUsd": 0.740894,
+    "actualBilledCost": "UNAVAILABLE: Cost Explorer AccessDeniedException",
+    "webComputeUsd": 0,
+    "providerCallsObserved": 0,
+    "existingEbsMonthlyUsd": 25.704,
+    "excludes": "VAT, account-wide charges, actual internet egress, provider charges outside this execution"
+  }
+}

@@ -1,12 +1,12 @@
 {
-  "observedAt": "2026-11-03T16:16:36.704040+00:00",
+  "observedAt": "2026-11-03T16:25:26.435221+00:00",
   "scope": "Actual EC2/SSM installation observations; not health-module E2E acceptance",
   "account": "798886013428",
   "region": "eu-central-1",
   "aaos": {
     "instanceId": "i-0f4cca4e92e94c351",
     "type": "m8i.2xlarge",
-    "state": "running",
+    "state": "stopped",
     "boot": "Android 15 API 35; android.hardware.type.automotive present",
     "requestedMemoryMiB": 3072,
     "guestMemTotalKiB": 3050220,
@@ -15,7 +15,7 @@
     "apkSha256": "646f504b32b60ef9c670eef66e59a8923ddeb5ff9681c9e066ba6f78e54aa8b6",
     "cameraDeviceCount": 0,
     "microphoneFeature": true,
-    "audio": "PulseAudio sinks and loopback bridge active; physical input/output NOT_ACCEPTED",
+    "audio": "Installed and verified active before stop; physical input/output NOT_ACCEPTED",
     "tls": "Private CA validated; direct-IP HTTPS returns 401 without authentication",
     "backend": "BLOCKED: WEB stopped; native application keeps health operations closed"
   },
@@ -34,7 +34,41 @@
       "g6.2xlarge",
       "g5.2xlarge",
       "g6e.2xlarge"
-    ]
+    ],
+    "lastCapacityFailure": {
+      "at": "2026-11-03T16:24:22.333343+00:00",
+      "instanceId": "i-0b25450afc6633494",
+      "type": "g6e.2xlarge",
+      "priorState": "stopped",
+      "preservedResources": {
+        "VpcId": "vpc-074768071df6b9266",
+        "SubnetId": "subnet-0522052d105ce2ff3",
+        "SecurityGroups": [
+          {
+            "GroupId": "sg-023659b3a447ab759",
+            "GroupName": "attune-web-ai-sg"
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "AttachTime": "2026-11-03 09:44:53+00:00",
+              "DeleteOnTermination": true,
+              "Status": "attached",
+              "VolumeId": "vol-0b484223201916460",
+              "EbsCardIndex": 0
+            }
+          }
+        ],
+        "ImageId": "ami-04de259f26cbf4c1e"
+      },
+      "error": {
+        "Code": "InsufficientInstanceCapacity",
+        "Message": "Insufficient capacity."
+      },
+      "requestId": "b01cab3c-33cc-413f-8212-a401c2950dcd"
+    }
   },
   "localValidation": {
     "awsTestsPassed": 29,
@@ -136,11 +170,35 @@
     "providerCallsDuringResume": 0,
     "fixedTimeCutoff": false,
     "selectedG6e_2xlargeHourlyUsd": 2.8035,
-    "bothHostsWithActiveIpv4HourlyUsd": 3.32066
+    "bothHostsWithActiveIpv4HourlyUsd": 3.32066,
+    "finalSessionEstimate": {
+      "basis": "Conservative elapsed upper bound from successful AAOS StartInstances request to confirmed stopped; not a billed-cost observation",
+      "from": "2026-11-03T15:04:18.005326+00:00",
+      "to": "2026-11-03T16:25:26.435221+00:00",
+      "hours": 1.3523416375000001,
+      "aaosComputeUsd": 0.685854,
+      "activeIpv4Usd": 0.006762,
+      "incrementalEstimateUsd": 0.692615,
+      "allocatedExistingEbsUsd": 0.048279,
+      "estimateIncludingAllocatedEbsUsd": 0.740894,
+      "actualBilledCost": "UNAVAILABLE: Cost Explorer AccessDeniedException",
+      "webComputeUsd": 0,
+      "providerCallsObserved": 0,
+      "existingEbsMonthlyUsd": 25.704,
+      "excludes": "VAT, account-wide charges, actual internet egress, provider charges outside this execution"
+    }
   },
   "restrictions": {
     "newEc2VpcEbs": false,
     "dnsChanged": false,
     "mergedMain": false
+  },
+  "finalStop": {
+    "verifiedAt": "2026-11-03T16:25:26.435221+00:00",
+    "requestId": "4d8f0a25-a7d3-4db9-b6e6-56116b45b422",
+    "describeRequestId": "45922c10-eca1-456f-b6ad-c2fb3de56039",
+    "bothStopped": true,
+    "force": false,
+    "evidence": "stop-20261103.json"
   }
 }

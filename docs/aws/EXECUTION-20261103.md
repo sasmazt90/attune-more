@@ -1,5 +1,9 @@
 # Task 13 — actual EC2 installation progress, 2026-11-03
 
+**Final AWS API observation: both existing instances stopped at 16:25:26 UTC.**
+Normal Stop was requested at 16:24:56 UTC; no force stop or hibernation. See
+[`evidence/stop-20261103.json`](evidence/stop-20261103.json).
+
 This execution record supersedes the pre-start state in the preparation documents.
 Models, inference parameters and the verified Cloud staging bundles are unchanged.
 The user approved operation until completion or an unrecoverable blocker, with cost
@@ -78,6 +82,20 @@ sheets were visually reviewed; the requested platform assignments were retained.
 Mental files remain ordered 1–5; their spoken content has not yet been reviewed.
 The detailed private input manifest remains in the ignored execution directory.
 
+## Provider requirements (host audit still pending)
+
+| Component | Existing runtime requirements | Verification still needed |
+|---|---|---|
+| Mental OpenAI conversation | Server-only `OPENAI_API_KEY`; existing `OPENAI_MODEL` default `gpt-4o-mini`; per-session cloud consent | Key presence and actual provider response on WEB host |
+| Vision/Mental cloud ASR | Same server-only key; `ATTUNE_CLOUD_ASR_ENABLED=1`; exact trusted origins; consent; existing `gpt-transcribe` call | Real EN/DE audio and provider response |
+| Chatterbox V3 TTS | Verified local model/config/reference files and separate Python runtime; paired `ATTUNE_MENTAL_TTS_TOKEN` per frontend/backend; different tokens for WEB and AAOS | Actual generated speech and playback; no external provider API key needed for local inference |
+
+The provider audit must inspect `/etc/attune/api-web.env`, `api-aaos.env`,
+`web-web.env` and `web-aaos.env` for presence/ownership only. Keep files root-owned
+0600. Do not put provider keys in frontend bundles, chat, Git, Drive or logs.
+An inaccessible stopped host is not evidence that its secrets are missing; any
+missing setup must be consolidated after the first successful WEB boot.
+
 ## Validation and restart notes
 
 29 AWS preparation tests and the cloud routing/locale checks pass. Real SSM receipts
@@ -96,3 +114,26 @@ AWS Cost Explorer returns AccessDeniedException, so actual billed cost is unavai
 Use observed instance duration × $0.50716/h plus active IPv4 $0.005/h as the AAOS
 compute/network-address estimate. Existing 270 GiB gp3 storage remains approximately
 $25.704/month while stopped. Provider API calls during this resume: none.
+
+## Final cost and evidence delivery
+
+The last g6e retry at 16:24:22 UTC still returned InsufficientInstanceCapacity.
+Both instances were stopped normally; the API readback was completed at
+16:25:26 UTC. No WEB running compute was incurred. AAOS elapsed time from the
+successful start request to confirmed stop is approximately 81.14 minutes.
+The conservative duration-based estimate is **$0.69262 compute + active IPv4**,
+or **$0.74089 including an allocated share of the existing EBS storage**,
+before tax and unobserved transfer/account charges. These are estimates, not
+Cost Explorer billing totals. Existing EBS remains approximately $25.704/month.
+
+A 12.352-second 1280×800 H.264 recording shows the actual English AAOS native
+blocked screen. It is a diagnostic, not one of the ten requested successful
+module journeys. The 78,124-byte Drive download matches SHA-256
+`6a56bd4174824917b0ea8e91f2d97849716268eaa7e4c972e99aee11094650e3`.
+The video and report links are delivered privately in the task response.
+
+Automatic approval review rejected Drive upload of the application archive and
+of the private reference-input manifest. The source was transferred directly
+from its public immutable GitHub commit; the input manifest remains local.
+Those rejected uploads were not repeatedly attempted. No private input metadata,
+credentials, certificate keys or model binaries were added to this PR.

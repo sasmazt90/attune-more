@@ -17,11 +17,12 @@
       "type": "m8i.2xlarge",
       "rootGiB": 120,
       "volumeType": "gp3",
-      "reportedState": "running",
+      "reportedState": "stopped",
       "reportedNestedVirtualization": "enabled"
     }
   ],
   "provisioningAllowed": false,
   "startApproved": true,
-  "approvalScope": "until_completion_or_unrecoverable_blocker; monitor costs; normal Stop at completion"
+  "approvalScope": "until_completion_or_unrecoverable_blocker; monitor costs; normal Stop at completion",
+  "observedAt": "2026-11-03T16:25:26.435221+00:00"
 }
