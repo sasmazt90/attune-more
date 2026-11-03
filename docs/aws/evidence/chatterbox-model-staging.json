@@ -1,0 +1,37 @@
+{
+  "status": "VERIFIED",
+  "partsVerified": 98,
+  "archiveBytes": 3283572066,
+  "archiveSha256": "5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc",
+  "pinnedMembersVerified": 117,
+  "referenceAndConfigFiles": [
+    {
+      "path": "reference-and-runtime/LJ001-0001.wav",
+      "bytes": 425830,
+      "sha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+      "status": "VERIFIED"
+    },
+    {
+      "path": "reference-and-runtime/config-female-calm-v1.json",
+      "bytes": 1837,
+      "sha256": "19aff51ee132ce53274494357111efd2a354e8897e233ed860eddc1beef9bec2",
+      "status": "VERIFIED"
+    },
+    {
+      "path": "reference-and-runtime/config-official-default.json",
+      "bytes": 1679,
+      "sha256": "88c52526e846ebea5aae784f5f1999e7882f31bd16dea2d5f83ee9528d5a017b",
+      "status": "VERIFIED"
+    },
+    {
+      "path": "reference-and-runtime/official-model-metadata.txt",
+      "bytes": 1743,
+      "sha256": "88c617d2fc97e895cb942e98fa361f4d39f39d5a177d736a0e6cd43e73e82d43",
+      "status": "VERIFIED"
+    }
+  ],
+  "inference": "NOT_RUN",
+  "pythonEnvironment": "NOT_INSTALLED",
+  "verifiedAt": "2026-11-03T13:16:48.214156+00:00",
+  "runtimeScope": "Initial Task 13 Cloud runtime; files are local, not deployed to EC2 or assumed present in another runtime"
+}

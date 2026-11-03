@@ -102,3 +102,19 @@ kanıtlamaz; DNS değişikliği yetkilendirilmedi.
 4. Hazırlık tamamlandıktan sonra iki mevcut EC2 için tek nihai ücretli başlatma
    onayı iste. Onay henüz verilmedi. Start sonrası endpoint/secret ve gerçek
    WEB + AAOS15 kabulüne geç. Yeni PR/EC2, DNS değişikliği veya main merge yapma.
+
+## Ayrı ilk runtime'dan tamamlanan staging kanıtı
+
+[Chatterbox staging](evidence/chatterbox-model-staging.json): 98 parça, birleşik
+3,283,572,066-byte ZIP, 117 pinli üye ve dört referans/config dosyası tamamen
+byte/SHA-256 doğrulandı. Bu çalışma, yukarıdaki yeni runtime kaydıyla eşzamanlı
+olarak ilk Cloud runtime'da tamamlandı; yeni runtime'da binary bulunduğunu iddia etmez.
+İlk runtime staging yolu `/workspace/attune-staging/mental-runtime`, regional yolu
+`/workspace/attune-staging/regional-skin`. Git'e model byte'ları veya imzalı URL
+konmadı. Runtime'lar arasında bu yolların paylaşıldığı varsayılmamalı.
+
+İlk runtime'ın güncel network snapshot'ında hiçbir `oaiusercontent.com` hostname'i
+yok; ONNX binary transferi burada proxy 403 ve 32 MiB materialization sınırında
+kaldı. Yeni runtime'ın yukarıdaki parça 002 kanıtı korunur. İki ONNX'in kaynakları
+bulunmuş durumda; full restore/combined hash henüz tamamlanmadı. AWS kontrolleri,
+SG uygulaması veya fiyatlar bu son staging adımında tekrar çalıştırılmadı.

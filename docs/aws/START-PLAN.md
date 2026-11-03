@@ -47,7 +47,8 @@ istenir ve AWS API `stopped` kanıtı alınır. AWS stopping gecikmesi/ölçüm 
   uygulandı ve API ile doğrulandı. [Ek IAM policy](../../infra/aws/iam/existing-security-groups.json)
   kullanıcı tarafından eklendi; `configure_ingress.py` idempotent kontrol sağlar.
 - APK indirildi ve hash doğrulandı; WEB production build başarılı, regional Skin
-  paketi 24 parça + 31 üye hash'iyle doğrulandı. Kaynağı belirlenen iki Skin ONNX export'unun aktarımı, regional Skin ve
+  paketi 24 parça + 31 üye hash'iyle doğrulandı. Chatterbox için de
+  98 parça, birleşik ZIP, 117 pinli üye ve dört config/referans dosyası doğrulandı. Kaynağı belirlenen iki Skin ONNX export'unun aktarımı, regional Skin ve
   Chatterbox runtime paketi, güvenli canlı provider ayarları tamamlanmalı. Ayrıntılı
   model hash ve kaynaklar R2 raporunda. TLS/mTLS ve SSM/KVM/AAOS image kontrolü host
   açılmadan uygulanamaz; bunlar onaylı kurulumun ilk aşamasıdır.

@@ -106,7 +106,10 @@ rule ID'lerini receipt'te korur; önceden var olan kuralları silmez.
   Chatterbox ZIP ID `1rc2zoLLhozG_SD9S7GI-3YwciqpyeNHx`, 3,283,572,066 byte,
   SHA-256 `5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc`
   ve 98 parçalı alternatifini tanımlıyor. Tek ZIP binary fetch 256 MiB connector sınırında 413 döndü;
-  desteklenen 98 ayrı 32 MiB parça yoluyla staging sürüyor.
+  desteklenen 98 ayrı 32 MiB parça yoluyla staging tamamlandı.
+  98 parça, birleşik ZIP, 117 pinli üye ve dört referans/config dosyasının byte/hash
+  kontrolleri geçti: [Chatterbox staging kanıtı](evidence/chatterbox-model-staging.json).
+  Python ortamı/inference henüz çalıştırılmadı.
 - Cloud environment'da secret binding yok. Kullanıcı EC2 üzerindeki mevcut
   OpenAI anahtar konumunu bilmiyor ve onaylı boot sonrası secret/env varlığı kontrolünü
   istedi. Varsa kullanılır; yoksa kesin güvenli injection yolu bildirilir. Anahtar
