@@ -36,6 +36,7 @@ import { InformationButton } from '../../components/InformationButton';
 import { SkinInference } from '../../utils/skinInference';
 import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference, matchesSkinAngle, angleGuidance, captureSkinAngle, compareMultiAngle } from '../../utils/skinMultiAngle';
 import { SkinSnapshot, snapshotRawSkinFrame as snapshotSkinFrame, snapshotAngleForRegion, assertCompleteFace } from '../../utils/skinSnapshot';
+import {acquireCamera,demoCameraSource} from '../../utils/demoCamera';
 import { measureSkinIndicators, SKIN_SIGN_CONTRACT, validSkinIndicators } from '../../utils/skinIndicators';
 import {skinTemporalSupport} from '../../utils/skinTemporalSupport';
 import { analyzeAppearance,attachAppearance,fuseRegionalOnServer,prepareSkinAnalysis } from '../../utils/appearanceMeasurements';
@@ -453,6 +454,7 @@ export default function SkinPage() {
     setPreparationPhase(null);
     if (!validCapture()) return;
     const acceptedSnapshot = snapshotSkinFrame(canvas, alignToUse, 'FRONT');
+    acceptedSnapshot.inputSource=demoCameraSource();
     const indicators=measureSkinIndicators(ctx,acceptedSnapshot,qualToUse);
     try{
       await addLocalMaps(acceptedSnapshot,ctx,qualToUse.isValid,validCapture,undefined,indicators,{yaw:alignToUse.yaw,pitch:alignToUse.pitch,roll:alignToUse.roll,scaleRatio:alignToUse.scaleRatio,avgLuminance:qualToUse.avgLuminance,blurScore:qualToUse.blurScore});
@@ -640,6 +642,7 @@ export default function SkinPage() {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (ctx) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const inputSource=demoCameraSource();
           latestFrame.replace(video); // the same frame as raw YUV planes (server converts with the camera profile)
 
           // Gerçek hizalama ve kalite değerlendirmesi
@@ -742,8 +745,9 @@ export default function SkinPage() {
                     setPreparationPhase(null);
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     const snapshot = snapshotSkinFrame(canvas, curAlign, target);
+                    snapshot.inputSource=inputSource;
                     capture.indicators=measureSkinIndicators(ctx,snapshot,curQual);
-                    snapshot.rawFrame=await rawFrameOf(latestFrame.current(),canvas.width,canvas.height);
+                    snapshot.rawFrame=inputSource?undefined:await rawFrameOf(latestFrame.current(),canvas.width,canvas.height);
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     try { await addLocalMaps(snapshot,ctx,curQual.isValid,()=>!cancelled&&parkedRef.current&&isCameraAllowed(),capture.frameToken,capture.indicators,{...capture.pose,avgLuminance:curQual.avgLuminance,blurScore:curQual.blurScore}); } finally { delete snapshot.rawFrame; }
                     if(cancelled||!parkedRef.current||!isCameraAllowed())return;
@@ -851,7 +855,7 @@ export default function SkinPage() {
       setPreparationPhase(null);
       const videoConstraints:MediaTrackConstraints & {resizeMode:ConstrainDOMString}={width:{ideal:1920},height:{ideal:1080},resizeMode:{ideal:'none'},facingMode:'user'};
       cameraRequested=true;
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const stream = await acquireCamera({
         video: videoConstraints
       });
       if (!mountedRef.current || acquisition !== acquisitionRef.current || !parkedRef.current || !isCameraAllowed()) {

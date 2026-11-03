@@ -1,0 +1,60 @@
+name: AWS OEM preparation (no deployment)
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'infra/aws/**'
+      - 'scripts/aws/**'
+      - 'tests/aws/**'
+      - 'apps/vehicle-app/src/utils/demoCamera.ts'
+      - 'apps/vehicle-app/src/utils/localBackend.ts'
+      - 'apps/vehicle-app/src/utils/previewLocalApi.ts'
+      - 'apps/vehicle-app/next.config.mjs'
+      - 'apps/automotive/**'
+      - '.github/workflows/aws-oem-preparation.yml'
+permissions:
+  contents: read
+jobs:
+  preparation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+          cache: npm
+      - run: npm ci
+      - run: python -m pip install -r services/core-api/requirements.txt cfn-lint==1.59.0
+      - run: python -m pytest tests/aws tests/unit/test_preview_origin_policy.py -q
+      - run: node tests/aws/test_web_routing.mjs
+      - run: cfn-lint infra/aws/stack.json
+      - run: npm run typecheck
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_ATTUNE_SAME_ORIGIN_API: '1'
+          NEXT_PUBLIC_ATTUNE_REMOTE_CAPTURE: '1'
+          NEXT_PUBLIC_ATTUNE_ACNE_V5: '1'
+  cloud-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: ./.github/actions/setup-automotive-sdk
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - run: apps/automotive/gradlew --no-daemon --max-workers=2 -p apps/automotive :app:assembleCloudDemo :app:lintCloudDemo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: attune-cloud-demo-apk
+          path: apps/automotive/app/build/outputs/apk/cloudDemo/*.apk
+          if-no-files-found: error
+          retention-days: 7

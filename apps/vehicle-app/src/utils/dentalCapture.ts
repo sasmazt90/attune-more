@@ -25,7 +25,7 @@ export const DENTAL_SIDE_MAX_RADIANS=(DENTAL_SIDE_MAX_DEG*Math.PI)/180;
  *   handled once by the minimum mouth width, not by an absolute pixel floor. */
 export const DENTAL_GATES={maxPitchRad:.42,maxRollRad:.26,minLipOpening:.06,minMouthWidthPx:65,minEnamelPerMouthWidth2:.008,minEnamelColumnFraction:.30,version:'vehicle-capture-v2'} as const;
 export const DENTAL_GUIDANCE:Record<DentalPose,string>={FRONT:'Başınız karşıda. Ağzınızı rahatça açın; ön dişleriniz görünsün.',RIGHT:'Başınızı kendi sağınıza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun.',LEFT:'Başınızı kendi solunuza hafifçe çevirin (15°–45°); ağzınızı rahatça açık tutun.',BITE:'Başınız karşıda. Dişlerinizi doğal, rahat kapanışta tutun; ön dişleriniz görünsün. Zorlamayın.'};
-export type DentalCapture={sourceType?:'camera'|'upload';photo:string;photoId:string;width:number;height:number;pose:DentalPose;landmarks:{x:number;y:number;z?:number}[];conditions:Record<string,number>};
+export type DentalCapture={inputSource?:Omit<import('./demoCamera').DemoSource,'sequence'>;sourceType?:'camera'|'upload';photo:string;photoId:string;width:number;height:number;pose:DentalPose;landmarks:{x:number;y:number;z?:number}[];conditions:Record<string,number>};
 /** Dental uses measured rigid head rotation, not expression-dependent nose/chin ratios. */
 export function dentalPose(a:FaceAlignment){
  const m=a.faceTransform;

@@ -1,0 +1,15 @@
+[Unit]
+Description=Attune isolated %i Next.js demo
+After=network-online.target
+[Service]
+User=attune
+WorkingDirectory=/opt/attune/apps/vehicle-app
+EnvironmentFile=/etc/attune/web-%i.env
+Environment=NODE_ENV=production
+Environment=NEXT_TELEMETRY_DISABLED=1
+ExecStart=/opt/node/bin/node /opt/attune/node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port ${PORT}
+NoNewPrivileges=true
+PrivateTmp=true
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target

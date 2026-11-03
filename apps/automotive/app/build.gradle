@@ -31,6 +31,7 @@ android {
     bundle { language { enableSplit = false } }
     buildTypes {
         debug {
+            buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'false'
             applicationIdSuffix '.debug'
             buildConfigField 'boolean', 'BACKEND_SIMULATION', 'true'
             // adb reverse connects to an isolated host instance of the existing app/API.
@@ -38,13 +39,26 @@ android {
             buildConfigField 'String', 'API_ORIGIN', debugOrigin('attuneDebugApiOrigin', 'http://localhost:8000')
         }
         release {
+            buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'false'
             minifyEnabled false
             buildConfigField 'boolean', 'BACKEND_SIMULATION', 'false'
             // Intentionally unusable until an authorized provider and deployment are integrated.
             buildConfigField 'String', 'WEB_ORIGIN', '"https://attune.invalid"'
             buildConfigField 'String', 'API_ORIGIN', '"https://attune.invalid"'
         }
+        cloudDemo {
+            initWith debug
+            applicationIdSuffix '.clouddemo'
+            versionNameSuffix '-aws-demo'
+            matchingFallbacks = ['debug']
+            buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'true'
+            // These loopbacks terminate inside the AWS AVD and M8i host only.
+            // The M8i proxy authenticates to G6 over private mTLS.
+            buildConfigField 'String', 'WEB_ORIGIN', '"http://127.0.0.1:3000"'
+            buildConfigField 'String', 'API_ORIGIN', '"http://127.0.0.1:3000"'
+        }
     }
+    sourceSets { cloudDemo { res.srcDirs += 'src/debug/res' } }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17

@@ -1,0 +1,16 @@
+[Unit]
+Description=Attune isolated %i backend
+After=network-online.target
+[Service]
+User=attune
+WorkingDirectory=/opt/attune/services/core-api
+EnvironmentFile=/etc/attune/api-%i.env
+Environment=ATTUNE_LOAD_LOCAL_ENV=0
+ExecStart=/opt/attune-venv/bin/uvicorn main:app --host 127.0.0.1 --port ${PORT} --workers 1 --no-access-log
+KillMode=control-group
+TimeoutStopSec=30
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

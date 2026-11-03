@@ -5,6 +5,7 @@ import { cameraCrop, type Crop } from './cameraStability';
 /** Source photo contract. Numeric writers never receive it; the separate local
  * photo store requires explicit photo retention consent. */
 export interface SkinSnapshot {
+  inputSource?:Omit<import('./demoCamera').DemoSource,'sequence'>;
   experimentalAcneV5?:boolean;
   /** Raw YUV planes of the captured frame, only while /skin is in flight (never stored). */
   rawFrame?:import('./skinRawFrame').SkinRawFrame;

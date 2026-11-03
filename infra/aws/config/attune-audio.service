@@ -1,0 +1,12 @@
+[Unit]
+Description=Attune optional PCM audio transport (not calibrated)
+After=attune-aaos.service
+[Service]
+User=attune
+WorkingDirectory=/opt/attune/scripts/aws
+EnvironmentFile=/etc/attune/aaos.env
+ExecStart=/opt/attune-venv/bin/uvicorn audio_bridge:configured_app --factory --host 127.0.0.1 --port 6090 --workers 1 --no-access-log --ws-max-size 16384 --ws-max-queue 1
+NoNewPrivileges=true
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Attune real AAOS 15 demo (no automatic meeting shutdown)
+After=network-online.target caddy.service
+Wants=network-online.target
+[Service]
+Type=simple
+User=attune
+SupplementaryGroups=kvm
+EnvironmentFile=/etc/attune/aaos.env
+WorkingDirectory=/opt/attune
+ExecStart=/opt/attune/infra/aws/aaos/run.sh
+KillMode=control-group
+TimeoutStopSec=45
+Restart=no
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

@@ -249,6 +249,7 @@ public final class MainActivity extends Activity {
         web = view;
         view.resumeTimers(); view.onResume();
         WebSettings settings = view.getSettings();
+        if (BuildConfig.REMOTE_DEMO_CAPTURE) settings.setUserAgentString(settings.getUserAgentString() + " AttuneCloudDemo/1");
         settings.setJavaScriptEnabled(true); settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(false); settings.setAllowContentAccess(false);
         settings.setAllowFileAccessFromFileURLs(false); settings.setAllowUniversalAccessFromFileURLs(false);
