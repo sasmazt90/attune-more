@@ -1,21 +1,8 @@
 {
-  "status": "FAIL",
-  "catalogMessages": 2157,
+  "status": "PASS",
+  "catalogMessages": 2158,
   "inventoriedSources": 1870,
   "exemptions": 78,
   "scope": "Frontend JSX/accessibility/source literals and shared modules/guidance; backend API/mental/care/control plus health-module response/error presentation sources. Dynamic/private/provider text needs runtime review.",
-  "failures": [
-    {
-      "reason": "Missing message",
-      "id": "72278748133ac996",
-      "tr": "İptal",
-      "references": [
-        {
-          "file": "apps/vehicle-app/src/utils/demoCamera.ts",
-          "line": 18,
-          "kind": "StringLiteral"
-        }
-      ]
-    }
-  ]
+  "failures": []
 }
