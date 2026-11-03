@@ -46,7 +46,9 @@ https://{$AAOS_DOMAIN} {
     rewrite * /capture.html
     file_server
   }
-  redir / /vnc.html?autoconnect=1&resize=scale 302
+  handle / {
+    redir /vnc.html?autoconnect=1&resize=scale 302
+  }
   # noVNC is a real X11 emulator window, not a simulated AAOS page.
   handle {
     reverse_proxy 127.0.0.1:6080
