@@ -1,5 +1,10 @@
 # Kabul matrisi — sahte PASS yok
 
+> Güncel durum (2026-11-03 R2): önceki IAM okuma/Pricing engelleri kalktı.
+> [R2 preflight](PREFLIGHT-20261103-R2.md) ve [sayısal başlangıç paketi](START-PLAN.md)
+> önceki erişim/maliyet durumlarını günceller. Üç SG kuralı uygulandı/doğrulandı; model aktarımı ve canlı kabul bekliyor.
+
+
 Mevcut AWS hedefleri: WEB `i-0b25450afc6633494`, AAOS `i-0f4cca4e92e94c351`.
 2026-11-03 gerçek EC2 API çağrısı ikisini de `stopped` doğruladı. Bölge `eu-central-1`.
 [Canlı preflight](PREFLIGHT-20261103.md) kısmen tamamlandı; runtime kabul hücreleri değişmedi.

@@ -5,7 +5,14 @@ set -euo pipefail
 : "${ATTUNE_APK:?absolute cloudDemo APK path required}"
 : "${ATTUNE_AVD:=AttuneAws15}"
 : "${ATTUNE_AAOS_EVIDENCE:?private evidence directory required}"
+# Task 13 Vision acceptance uses a 3 GiB guest. Keep an explicit 8 GiB
+# diagnostic option; never silently turn a failed 3 GiB run into a larger guest.
+: "${ATTUNE_AAOS_MEMORY_MB:=3072}"
+[[ "$ATTUNE_AAOS_MEMORY_MB" == 3072 || "$ATTUNE_AAOS_MEMORY_MB" == 8192 ]] || {
+  echo 'ATTUNE_AAOS_MEMORY_MB must be 3072 or 8192' >&2; exit 1;
+}
 mkdir -p "$ATTUNE_AAOS_EVIDENCE"
+printf '%s\n' "$ATTUNE_AAOS_MEMORY_MB" > "$ATTUNE_AAOS_EVIDENCE/requested-memory-mb.txt"
 test -r /dev/kvm && test -w /dev/kvm
 "$ANDROID_HOME/emulator/emulator" -accel-check > "$ATTUNE_AAOS_EVIDENCE/kvm.txt" 2>&1
 export DISPLAY=:99
@@ -24,7 +31,7 @@ pactl info >/dev/null
 pactl list short sinks | rg -q "attune_out" || pactl load-module module-null-sink sink_name=attune_out rate=48000 channels=2
 pactl list short sinks | rg -q "attune_mic" || pactl load-module module-null-sink sink_name=attune_mic rate=48000 channels=1
 fi
-"$ANDROID_HOME/emulator/emulator" -avd "$ATTUNE_AVD" -port 5554 -no-snapshot -no-boot-anim -gpu swiftshader_indirect -memory 8192 -cores 4 > "$ATTUNE_AAOS_EVIDENCE/emulator.log" 2>&1 & pids+=("$!")
+"$ANDROID_HOME/emulator/emulator" -avd "$ATTUNE_AVD" -port 5554 -no-snapshot -no-boot-anim -gpu swiftshader_indirect -memory "$ATTUNE_AAOS_MEMORY_MB" -cores 4 > "$ATTUNE_AAOS_EVIDENCE/emulator.log" 2>&1 & pids+=("$!")
 adb="$ANDROID_HOME/platform-tools/adb"
 timeout 360 "$adb" -s emulator-5554 wait-for-device
 ready=0
@@ -34,6 +41,7 @@ for ((n=0;n<180;n++)); do
 done
 [[ "$ready" == 1 ]]
 "$adb" -s emulator-5554 shell getprop > "$ATTUNE_AAOS_EVIDENCE/guest-properties.txt"
+"$adb" -s emulator-5554 shell cat /proc/meminfo > "$ATTUNE_AAOS_EVIDENCE/guest-meminfo.txt"
 [[ "$("$adb" -s emulator-5554 shell getprop ro.build.version.sdk | tr -d '\r')" == 35 ]]
 "$adb" -s emulator-5554 shell pm list features > "$ATTUNE_AAOS_EVIDENCE/features.txt"
 rg -q 'android.hardware.type.automotive' "$ATTUNE_AAOS_EVIDENCE/features.txt"

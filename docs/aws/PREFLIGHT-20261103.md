@@ -1,3 +1,5 @@
+> Tarihsel ilk kontrol. Güncel sonuç: [R2 preflight](PREFLIGHT-20261103-R2.md).
+
 # Task 13 — canlı AWS devam kontrolü
 
 **Sonuç: OIDC/STS ve EC2 erişimi çalışıyor; eksik okuma yetkileri ve Pricing ağ izni nedeniyle BLOCKED.**

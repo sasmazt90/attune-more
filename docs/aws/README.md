@@ -1,5 +1,10 @@
 # Task 13 — AWS OEM demo hazırlığı (2026-11-03)
 
+> Güncel durum (2026-11-03 R2): önceki IAM okuma/Pricing engelleri kalktı.
+> [R2 preflight](PREFLIGHT-20261103-R2.md) ve [sayısal başlangıç paketi](START-PLAN.md)
+> önceki erişim/maliyet durumlarını günceller. Üç SG kuralı uygulandı/doğrulandı; model aktarımı ve canlı kabul bekliyor.
+
+
 **Durum: PREFLIGHT KISMEN DOĞRULANDI / BLOCKED. AWS deployment veya beş modül kabulü tamamlanmadı.**
 
 2026-11-03 devam oturumunda OIDC/STS ve EC2 erişimi çalıştı; iki instance stopped,

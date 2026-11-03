@@ -1,29 +1,61 @@
 # Mevcut iki EC2 için tek başlangıç paketi
 
-**Durum: TASLAK / BLOCKED — başlatma onayı değildir.**
+**2026-11-03 R2: maliyet hazır; model aktarımı/hazırlığı nedeniyle başlatma BEKLİYOR. Bu belge onay değildir.**
 
-2026-11-03 devam kontrolü: STS, iki stopped EC2, şifreli diskler, nested
-virtualization, kotalar ve Start/Stop dry-run yetkileri doğrulandı. Eksik IAM/ağ
-okumaları ve Pricing proxy reddi nedeniyle sayısal onay paketi hâlâ hazır değil.
-Aşağıdaki eski başlangıç tablosunu güncelleyen kanıt: [PREFLIGHT-20261103.md](PREFLIGHT-20261103.md).
-Canlı AWS inventory, güncel fiyatlar ve eksik model/servis varlıkları tamamlanmadan
-start istenmez veya uygulanmaz. Mevcut kaynaklar kullanıcı tarafından oluşturuldu;
-yeni EC2/VPC/subnet/volume/EIP/IAM kopyaları kapsam dışıdır.
+[Canlı R2 kontrolleri](PREFLIGHT-20261103-R2.md) · [API fiyat kanıtı](evidence/pricing-20261103.json).
+Hesap `798886013428`, bölge `eu-central-1`, rol `attune-codex-deployer`.
+Mevcut WEB `i-0b25450afc6633494` (g6.2xlarge) ve AAOS `i-0f4cca4e92e94c351`
+(m8i.2xlarge), ikisi de stopped. Yeni altyapı, DNS ve main merge yok.
 
-| Kalem | Başlatmadan önce doldurulacak kanıt | Şimdiki durum |
-|---|---|---|
-| Hesap/rol | STS Account ve seçilen yetkili rol | BLOCKED |
-| WEB | i-0b25450afc6633494, g6.2xlarge, Name, stopped | Kullanıcı beyanı; API BLOCKED |
-| AAOS | i-0f4cca4e92e94c351, m8i.2xlarge, Name, stopped, nested enabled | Kullanıcı beyanı; API BLOCKED |
-| Mevcut altyapı | SG/subnet/route/NACL/volume/profile ve gerekli yerinde düzeltmeler | BLOCKED |
-| Runtime | AMI/OS/CPU mimarisi, Python/Node/Caddy, KVM desteği | BLOCKED |
-| Model/sağlayıcı | Güncel manifest SHA/byte doğrulaması; canlı Mental/ASR/TTS izinleri | BLOCKED |
-| Saatlik compute | Tarihli Frankfurt Linux Shared On-Demand G6 + M8i fiyatları | BLOCKED |
-| Disk | Bildirilen 270 GiB gp3; gerçek IOPS/throughput/ek diskler | BLOCKED |
-| IP/ağ | Gerçek retained/aktif IPv4 adedi, var olan NAT/endpoint/egress maliyeti | BLOCKED |
-| Test toplamı | 2 saat compute + artımlı ağ/provider + vergi; kalıcı disk/IP ayrıca | BLOCKED |
-| Bütçe | Mevcut uyarı alıcısı ve aylık sınır; bütçe bir hard cap değildir | BLOCKED |
-| Yetki | İki ID ile sınırlı Start/Stop/SSM; yeni kaynak oluşturma yetkisi yok | BLOCKED |
+| Kalem | Canlı birim fiyat (USD) | İlk 2 saat (USD) |
+|---|---:|---:|
+| G6 Linux Shared On-Demand | 1.22249 / saat | 2.44498 |
+| M8i Linux Shared On-Demand | 0.50716 / saat | 1.01432 |
+| İki otomatik public IPv4 (boot sonrası tekrar doğrulanır) | 0.005 / IP-saat | 0.02000 |
+| Mevcut 270 GiB gp3 | 0.0952 / GiB-ay | 0.07140 ayrılmış pay |
+| Internet çıkışı, 10 GB planlama varsayımı | 0.09 / GB | en çok 0.90000 varsayımsal |
+| Toplam AWS tahmini, 10 GB dahil | | **4.45070** |
+
+Kasım 30 gün/720 saat: disk payı `270 × 0.0952 × 2 / 720`.
+Disk zaten mevcut; başlatmanın artımlı ücreti değildir. Diskler stopped durumda da
+**25.704 USD/ay** karşılığı ücretlenir. Temel artımlı compute + IP **3.47930 USD**;
+10 GB çıkışla **4.37930 USD**. İndirmelerin AWS inbound ücreti sıfır. Aynı AZ'deki
+private IP trafiği için transfer ücreti öngörülmez; public IP üzerinden hostlar arası
+trafik kullanılmaz. İki disk 3000 IOPS / 125 MiB/s dahil seviyede; ek performans ücreti yok.
+NAT ve VPC Endpoint yok; bu kaynakların saatlik ücreti yok. Yeni snapshot, EIP, LB,
+CloudWatch log ingestion veya ücretli SSM advanced tier açılmayacak. Account genelindeki
+başka harcamalar bu paket değildir; kredi/free tier ve vergi indirimi varsayılmadı.
+
+**Tek önerilen operasyonel bütçe: vergi hariç 6 USD / en çok 2 saat.** Bunun 5 USD'si
+AWS payı (4.45 USD senaryo + pay), 1 USD'si gerçek provider çağrıları için rezervdir.
+Provider rezervi fiyat teklifi değildir: güvenli mevcut provider yapılandırması ve
+model/ASR/TTS kullanımı doğrulanmadan maliyeti kesinleşmez veya çağrı başlatılmaz.
+Bütçe AWS tarafından uygulanan bir hard cap değildir; hesapta Budgets kaydı bulunmadı.
+Süre boot ile başlar, 115. dakikada durdurmaya geçilir, 120. dakikadan önce normal Stop
+istenir ve AWS API `stopped` kanıtı alınır. AWS stopping gecikmesi/ölçüm farkı olabilir.
+10 GB çıkış varsayımı aşılırsa test erken kesilir; fiyat tahmini gerçek kullanım sonrası
+ölçümle uzlaştırılır. Sağlayıcı kullanımı ayrıca izlenir; sessiz süre/bütçe uzatımı yok.
+
+## Tek paket içindeki teknik koşullar
+
+- NACL/IGW/NAT/endpoint/VPC DNS/profile/trust/SSM policy envanteri tamamlandı.
+- Start/Stop dry-run başarılı. SSM SendCommand iki ID ve AWS-RunShellScript belgesine
+  mevcut policy ile izinli; agent registration ve gerçek komut çalışması boot sonrası ölçülür.
+- Kullanıcının onayladığı 443 `/32` ve private 8443 kuralları
+  uygulandı ve API ile doğrulandı. [Ek IAM policy](../../infra/aws/iam/existing-security-groups.json)
+  kullanıcı tarafından eklendi; `configure_ingress.py` idempotent kontrol sağlar.
+- APK indirildi ve hash doğrulandı; WEB production build başarılı, regional Skin
+  paketi 24 parça + 31 üye hash'iyle doğrulandı. Kaynağı belirlenen iki Skin ONNX export'unun aktarımı, regional Skin ve
+  Chatterbox runtime paketi, güvenli canlı provider ayarları tamamlanmalı. Ayrıntılı
+  model hash ve kaynaklar R2 raporunda. TLS/mTLS ve SSM/KVM/AAOS image kontrolü host
+  açılmadan uygulanamaz; bunlar onaylı kurulumun ilk aşamasıdır.
+- DNS değişmeden HTTPS için başlatılan public IP'lere uygun demo TLS ve tarayıcı
+  güveni sağlanır; yerel testlerde hostname eşleme kullanılabilir. Geçersiz TLS'yi
+  atlamak kamera/mikrofonun güvenli bağlam koşulunu karşılamış sayılmaz.
+
+Başlatma sorusu yalnız teknik koşullar giderilince tek seferde bu **aynı paket** için
+sorulur. Kullanıcı şimdi yalnız mevcut SG değişikliklerini yetkilendirdi; bu paid start
+onayı olarak yorumlanmadı. `.aws-oem/approval.json` oluşturulmadı.
 
 ## Önerilen ilk pencere: en çok 2 saat
 

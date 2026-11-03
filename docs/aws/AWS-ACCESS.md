@@ -1,5 +1,10 @@
 # Codex Cloud → AWS erişimi
 
+> Güncel durum (2026-11-03 R2): önceki IAM okuma/Pricing engelleri kalktı.
+> [R2 preflight](PREFLIGHT-20261103-R2.md) ve [sayısal başlangıç paketi](START-PLAN.md)
+> önceki erişim/maliyet durumlarını günceller. Üç SG kuralı uygulandı/doğrulandı; model aktarımı ve canlı kabul bekliyor.
+
+
 2026-11-03 13:15 CET devam kontrolünde gerçek STS ve EC2 API erişimi doğrulandı.
 Hesap `798886013428`, assumed role `attune-codex-deployer`, manifest runtime alias
 `AWS`; bağlantı ayarındaki isimle CLI alias aynı olmak zorunda değildir. OIDC hazır,
