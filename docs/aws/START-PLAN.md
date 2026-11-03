@@ -1,6 +1,6 @@
 # Mevcut iki EC2 için tek başlangıç paketi
 
-> Güncel uygulama kaydı: [EXECUTION-20261103.md](EXECUTION-20261103.md). Ücretli start onaylıdır. WEB seçilen tipi g6e.2xlarge; canlı kapasite ve kabul durumu execution kanıtından okunur. Aşağıdaki ilk plan tarihsel referanstır.
+> Güncel uygulama kaydı: [EXECUTION-20261103.md](EXECUTION-20261103.md). Ücretli start onaylıdır. WEB seçilen tipi r7i.2xlarge; canlı kapasite ve kabul durumu execution kanıtından okunur. Aşağıdaki ilk plan tarihsel referanstır.
 
 Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-20261103.md).
 
@@ -8,7 +8,7 @@ Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-2026110
 
 [Canlı R2 kontrolleri](PREFLIGHT-20261103-R2.md) · [API fiyat kanıtı](evidence/pricing-20261103.json).
 Hesap `798886013428`, bölge `eu-central-1`, rol `attune-codex-deployer`.
-Mevcut WEB `i-0b25450afc6633494` kullanıcı onayıyla `g6e.2xlarge` seçilmiştir; AAOS
+Mevcut WEB `i-0b25450afc6633494` kullanıcı onayıyla `r7i.2xlarge` seçilmiştir; AAOS
 `i-0f4cca4e92e94c351` `m8i.2xlarge` olarak korunmuştur. Canlı durum için execution kanıtına bakın. Yeni altyapı, DNS ve main merge yok.
 
 | Kalem | Canlı birim fiyat (USD) | İlk 2 saat (USD) |

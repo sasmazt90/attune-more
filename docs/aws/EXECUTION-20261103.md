@@ -1,6 +1,8 @@
 # Task 13 — actual EC2 installation progress, 2026-11-03
 
-**Final AWS API observation: both existing instances stopped at 16:25:26 UTC.**
+> Superseded by the [CPU deployment continuation](EXECUTION-20261103-CPU.md). The stop below is the end of the earlier GPU-capacity attempt, not the latest instance state.
+
+**Historical AWS API observation: both existing instances stopped at 16:25:26 UTC.**
 Normal Stop was requested at 16:24:56 UTC; no force stop or hibernation. See
 [`evidence/stop-20261103.json`](evidence/stop-20261103.json).
 

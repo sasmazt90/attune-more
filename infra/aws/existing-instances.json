@@ -6,10 +6,10 @@
     {
       "id": "i-0b25450afc6633494",
       "name": "attune-web-ai",
-      "type": "g6e.2xlarge",
+      "type": "r7i.2xlarge",
       "rootGiB": 150,
       "volumeType": "gp3",
-      "reportedState": "stopped"
+      "reportedState": "running"
     },
     {
       "id": "i-0f4cca4e92e94c351",
@@ -17,12 +17,12 @@
       "type": "m8i.2xlarge",
       "rootGiB": 120,
       "volumeType": "gp3",
-      "reportedState": "stopped",
+      "reportedState": "running",
       "reportedNestedVirtualization": "enabled"
     }
   ],
   "provisioningAllowed": false,
   "startApproved": true,
   "approvalScope": "until_completion_or_unrecoverable_blocker; monitor costs; normal Stop at completion",
-  "observedAt": "2026-11-03T16:25:26.435221+00:00"
+  "observedAt": "2026-11-03T16:28:58.253843+00:00"
 }

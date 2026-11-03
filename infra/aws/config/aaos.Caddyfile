@@ -5,6 +5,7 @@
 }
 (private_app) {
   reverse_proxy https://{$WEB_PRIVATE_IP}:8443 {
+    header_up Host attune-internal
     transport http {
       tls_server_name attune-internal
       tls_trust_pool file /etc/attune/tls/server-ca.crt

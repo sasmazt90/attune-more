@@ -1,5 +1,7 @@
 # İşletim ve ücret sınırı
 
+> Güncel CPU deployment: [EXECUTION-20261103-CPU.md](EXECUTION-20261103-CPU.md). WEB r7i.2xlarge ve AAOS m8i.2xlarge başlatıldı. Ücretli çalışma onaylı; iki saatlik otomatik kesme yok. Aşağıdaki eski başlangıç/onay ifadeleri tarihsel kayıttır.
+
 > 3 Kasım final hazırlık güncellemesi: [doğrulanmış model/runtime paketleri ve onay sınırı](PREPARATION-20261103-FINAL.md). Önceki transfer engelleri giderildi; canlı kabul ve ücretli start onayı bekliyor. Aşağıdaki önceki runtime kayıtları tarihsel kanıttır.
 
 > Güncel durum (2026-11-03 R2): önceki IAM okuma/Pricing engelleri kalktı.

@@ -1,0 +1,56 @@
+{
+  "r7i-price-current-state": {
+    "at": "2026-11-03T16:57:34.604510+00:00",
+    "r7iLinuxOnDemandUsdHour": 0.6384,
+    "aaosPreviouslyVerifiedUsdHour": 0.50716,
+    "instances": [
+      {
+        "id": "i-0b25450afc6633494",
+        "type": "r7i.2xlarge",
+        "state": "running",
+        "launchTime": "2026-11-03T16:28:16+00:00"
+      },
+      {
+        "id": "i-0f4cca4e92e94c351",
+        "type": "m8i.2xlarge",
+        "state": "running",
+        "launchTime": "2026-11-03T16:28:46+00:00"
+      }
+    ]
+  },
+  "provider-process-check": {
+    "CommandId": "2a86d1f2-bad5-4277-93d2-a2da19218a2e",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T16:47:14.517Z",
+    "ExecutionEndDateTime": "2026-11-03T16:47:14.517Z",
+    "StandardOutputContent": "{\"services\": [{\"unit\": \"attune-api@web.service\", \"active\": \"active\", \"enabled\": \"enabled\", \"providerEnvironmentFileConfigured\": true, \"processOpenaiKeyPresent\": true, \"cloudAsrEnabled\": true}, {\"unit\": \"attune-api@aaos.service\", \"active\": \"active\", \"enabled\": \"enabled\", \"providerEnvironmentFileConfigured\": true, \"processOpenaiKeyPresent\": true, \"cloudAsrEnabled\": true}], \"providerFileRootOwned0600\": true, \"secretValuesLogged\": false}\n",
+    "StandardErrorContent": ""
+  },
+  "provider-error-diagnose": {
+    "CommandId": "36632365-0f73-4279-9db6-63f6f6624747",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T16:52:38.920Z",
+    "ExecutionEndDateTime": "2026-11-03T16:52:38.920Z",
+    "StandardOutputContent": "{\"status\": \"FAILED\", \"class\": \"AuthenticationError\", \"statusCode\": 401, \"type\": \"invalid_request_error\", \"code\": \"invalid_api_key\", \"param\": null}\n",
+    "StandardErrorContent": ""
+  },
+  "aaos-mtls-check-fixed": {
+    "CommandId": "39b1363e-de9c-4d59-a894-4971848afd0e",
+    "InstanceId": "i-0f4cca4e92e94c351",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T16:48:53.032Z",
+    "ExecutionEndDateTime": "2026-11-03T16:48:58.032Z",
+    "summary": {
+      "privateApiResponseObserved": true,
+      "aaosLoopbackApiResponseObserved": true,
+      "nativeParkObserved": true,
+      "vehicleSignals": "SIMULATED",
+      "physicalAcceptance": false
+    }
+  }
+}
