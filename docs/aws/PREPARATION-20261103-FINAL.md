@@ -44,7 +44,8 @@ Kanıtlar: [model dosyaları](evidence/model-verification-final.json),
 [TTS preflight](evidence/tts-runtime-preflight-final.json),
 [Android arşivleri](evidence/android-archives-final.json),
 [wheel manifesti](evidence/wheel-manifest-final.json),
-[runtime manifesti](evidence/runtime-manifest-final.json).
+[runtime manifesti](evidence/runtime-manifest-final.json),
+[application/model/kurulum paket hashleri](evidence/deployment-packages-final.json).
 
 Yerel doğrulama: 28 AWS hazırlık testi ve WEB routing/locale kontrolleri geçti.
 Shell/Python syntax ve whitespace kontrolleri geçti. Bu testler canlı AWS

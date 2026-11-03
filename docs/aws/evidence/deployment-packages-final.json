@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "11ea1037a58207b8e09ae22f3fc3a96453c0e6f2",
+  "packages": [
+    {
+      "file": "attune-application.tar.gz",
+      "bytes": 462889577,
+      "sha256": "a519fa5cb86964993ccd79072f519f7a1d08ad70cc125a0dbe27b45113107cb7",
+      "members": 28541,
+      "status": "VERIFIED"
+    },
+    {
+      "file": "attune-installation.tar.gz",
+      "bytes": 1043821204,
+      "sha256": "591f55490fba7dd7ec9ed15130c9d7536252a776f5db82c640b0b4827a65c6d2",
+      "members": 232,
+      "status": "VERIFIED"
+    },
+    {
+      "file": "attune-models.tar.gz",
+      "bytes": 1114907887,
+      "sha256": "78e3196e7ad937fde8d686f855d9c749d35e4b173caffb68f64450b6699e7735",
+      "members": 64,
+      "status": "VERIFIED"
+    }
+  ],
+  "chatterboxArchive": {
+    "path": "chatterbox.zip",
+    "bytes": 3283572066,
+    "sha256": "5e98c442627ad78ce22a9bff151b0badd2343f1392b590b42889a0beb679f3fc",
+    "status": "VERIFIED"
+  },
+  "androidArchives": "android-archives-final.json",
+  "runtimeScope": "Local current Cloud runtime; not uploaded or installed on EC2",
+  "liveAcceptance": "NOT_RUN"
+}
