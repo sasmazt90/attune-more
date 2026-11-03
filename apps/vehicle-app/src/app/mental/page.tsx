@@ -91,7 +91,7 @@ export default function MentalPage() {
 
       {!stats.mentions ? <p>{i18nText("Henüz tema verisi yok.")}</p> : <>
         <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label={i18nText("Görüşme tema payları")} className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{i18nNode(r.theme)}: %{i18nNode(r.percent)} ({i18nNode(r.count)}/{i18nNode(stats.mentions)}{i18nText(" tema kaydı)")}</button>)}</div></div>
-        <p className="text-xs">{i18nNode(stats.sessions)}{i18nText(" tamamlanmış izinli görüşme · ")}{i18nNode(stats.mentions)}{i18nText(" tema kaydı.")}</p>
+        <p className="text-xs">{i18nText(`${stats.sessions} tamamlanmış izinli görüşme`)} · {i18nText(`${stats.mentions} tema kaydı`)}.</p>
         {theme && <div data-selected-theme><h3 className="font-bold">{i18nNode(theme)}</h3>{c.history.filter(h => [2,3].includes(h.schemaVersion || 0) && h.completed && h.consented && h.themes.some(value=>canonicalMentalTheme(value)===theme)).map(h => <p className="text-sm mt-2" key={h.id}>{translateMood(h.summaryText)}</p>)}</div>}
       </>}
 

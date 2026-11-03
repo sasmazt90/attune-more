@@ -21,7 +21,7 @@ import { CameraPreview } from '../../components/CameraPreparation';
 import { VisionInference } from '../../utils/visionInference';
 import type { VisionEvidence } from '../../utils/visionTracking';
 import { VisionFlow, eyeInstruction } from '../../utils/visionFlow';
-import { LETTER_PATHS, LETTER_PROTOCOL, LETTER_METHOD, answerTransform, describeAnswer, LetterResult, RenderedSymbolGeometry, SpokenLetterSession, letterConditionFailure, parseLetterAnswer, respondToVisibleLetter, isLetterInstructionEcho } from '../../utils/spokenVision';
+import { LETTER_PATHS, LETTER_PROTOCOL, LETTER_METHOD, LETTER_VISIBILITY_STOP, answerTransform, describeAnswer, LetterResult, RenderedSymbolGeometry, SpokenLetterSession, letterConditionFailure, parseLetterAnswer, respondToVisibleLetter, isLetterInstructionEcho } from '../../utils/spokenVision';
 import {VisionJourney} from '../../components/vision/VisionJourney';
 import {VISION_ANSWER_SETTLE_MS,visionRecognitionChoice,visionRecognitionConfidence,type VisionComponentConfidence} from '../../utils/visionSpeechTurn';
 import {eyeObservation} from '../../utils/visionEyeState';
@@ -149,9 +149,10 @@ export default function SpokenLetterPage(){
  async function complete(cancelled=false){
   const a=r.current,s=a.session;if(!s)return;const epoch=a.epoch;s.suspendResponse();stopVoice();stage('user-paused');
   if(cancelled){stop();setDialog('Görev bitirildi. Tamamlanmamış sonuç kaydedilmedi.');return;}
-  const value:LetterResult={id:s.id,date:new Date().toISOString(),protocolVersion:LETTER_PROTOCOL,methodVersion:LETTER_METHOD,trials:s.ledger.map(t=>structuredClone(t)),deviceContext:{width:screen.width,height:screen.height,dpr:devicePixelRatio},profileVerification:'unverified',distanceMethod:'relative-head-anchors',physicalScale:null,completed:s.completed};
-  let notice='Görev tamamlandı. Saklama tercihi kapalı; geçmişe kayıt eklenmedi.';
-  if(isVisionSavingAllowed()&&!isDemoMode()&&!a.saving){a.saving=true;try{await appendHealthRecord('vision',value,{},()=>current(epoch)&&isVisionSavingAllowed());notice='Görev tamamlandı. Sonuç bu cihazdaki geçmişe kaydedildi.';}catch{notice='Görev tamamlandı ancak sonuç kaydedilemedi.';}finally{a.saving=false;}}
+  const value:LetterResult={id:s.id,date:new Date().toISOString(),protocolVersion:LETTER_PROTOCOL,methodVersion:LETTER_METHOD,trials:s.ledger.map(t=>structuredClone(t)),deviceContext:{width:screen.width,height:screen.height,dpr:devicePixelRatio},profileVerification:'unverified',distanceMethod:'relative-head-anchors',physicalScale:null,completed:s.completed,...(s.stoppedForVisibility?{stopReason:LETTER_VISIBILITY_STOP}:{})};
+  const stopped=s.stoppedForVisibility;
+  let notice=stopped?'Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Saklama tercihi kapalı; geçmişe kayıt eklenmedi.':'Görev tamamlandı. Saklama tercihi kapalı; geçmişe kayıt eklenmedi.';
+  if(isVisionSavingAllowed()&&!isDemoMode()&&!a.saving){a.saving=true;try{await appendHealthRecord('vision',value,{},()=>current(epoch)&&isVisionSavingAllowed());notice=stopped?'Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Yanıtlarınız bu cihazdaki geçmişe eksik sonuç olarak kaydedildi.':'Görev tamamlandı. Sonuç bu cihazdaki geçmişe kaydedildi.';}catch{notice=stopped?'Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Sonuç kaydedilemedi.':'Görev tamamlandı ancak sonuç kaydedilemedi.';}finally{a.saving=false;}}
   if(a.epoch!==epoch)return;stop();setResult(value);stage('result');setDialog(notice);
  }
  function scheduleListening(){
@@ -222,7 +223,7 @@ export default function SpokenLetterPage(){
     const t=s.trials[s.trials.length-1];window.dispatchEvent(new CustomEvent('attune-vision-size-diagnostic',{detail:{presentationId:t.presentationId,target:{letter:t.letter,transform:t.transform},parsed:t.answer,letterCorrect:t.letterCorrect,orientationCorrect:t.orientationCorrect,combinedCorrect:t.combinedCorrect,fragmentCount:a.answerMemory.fragmentCount,before,after:s.adaptationState,renderedGeometry:t.renderedGeometry}}));
    }}catch{/* Diagnostics must never interrupt an accepted response. */}
    stopVoice();setAnswerNotice('');flow.current.presentationId='';a.clarifications=0;
-   if(s.completed)void complete();else{stage('eye-check');inspect();}
+   if(s.completed||s.stoppedForVisibility)void complete();else{stage('eye-check');inspect();}
   }
   };
   const token=flow.current.token(),epoch=a.epoch;
@@ -284,7 +285,7 @@ export default function SpokenLetterPage(){
   <div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-3"><h1 className="text-2xl font-bold">{i18nNode(HEALTH_MODULES.vision.name)}</h1><InformationButton title={i18nText("Görme görevi ve hizmet bilgisi")}><p>{i18nText("Bu görev klinik görme keskinliği veya göz numarası ölçmez. Kamera pikselleri ve göz başlangıcı yalnız cihaz belleğinde değerlendirilir. Görüntü aynasızdır; sağ ve sol, kendi anatomik gözünüzdür. Mutlak uzaklık ölçülmez.")}</p></InformationButton></div>{f.stage==='result'&&<button onClick={()=>{setResult(null);setAnswerNotice('');flow.current.reset();refresh();}} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Yeni Analiz")}</button>}</div>
   {!isParked?<p>{i18nNode(syncStatus==='synced'?'Sürüş sırasında görev kapalıdır.':'Araç durumu doğrulanamadı; görev kapalıdır.')}</p>:<>
    {f.stage==='idle'&&<HealthStartCard module="vision" actions={<button onClick={()=>void start()} disabled={!ready||r.current.starting} className={HEALTH_START_ACTION}>{i18nText("Başlat")}</button>}/>}
-   {(active||f.stage==='result')&&<VisionJourney phase={f.stage==='result'?'result':f.stage==='preparing'?'prepare':'test'} eye={s?.eye||'LEFT'} completed={s?.trials.length||(f.stage==='result'?24:0)}/>}
+   {(active||f.stage==='result')&&<VisionJourney phase={f.stage==='result'?'result':f.stage==='preparing'?'prepare':'test'} eye={s?.eye||'LEFT'} completed={s?.trials.length??(result?result.trials.filter(t=>t.valid).length:0)}/>}
    {active&&<section className="grid md:grid-cols-2 gap-4 rounded-2xl bg-cockpit-surface border border-slate-800/90 p-4 md:p-6 w-full min-w-0 max-w-full">
     <div className="order-first md:order-none md:col-span-2 grid md:grid-cols-2 gap-4 min-w-0"><div className="hidden md:block" aria-hidden="true"/><div className="space-y-2 min-w-0">
      <p className="text-center font-semibold">{i18nNode(s?`${s.eye==='RIGHT'?'Sağ':'Sol'} göz · ${s.trials.length%12+1}/12`:'')}</p>
@@ -297,10 +298,11 @@ export default function SpokenLetterPage(){
      </div>
      {f.stage==='condition-paused'&&<p role="status" data-vision-condition className="text-sm text-amber-200 text-center">{i18nText("Koşullar düzelince görev otomatik devam eder. Geçersiz deneme puanlanmaz.")}</p>}
      {answerNotice&&<p role="status" data-vision-answer-notice className="text-sm text-slate-200 text-center">{i18nNode(answerNotice)}</p>}
+     {!!s?.notVisibleUsed&&<p role="status" data-vision-not-visible-used className="text-sm text-amber-200 text-center">{i18nText("“Göremiyorum” hakkınızı kullandınız. Bir harfi daha göremezseniz görev durur ve kalan harfler ölçülmez.")}</p>}
      {lastHeard&&<p className="text-sm text-slate-300 text-center break-words">{i18nText("Duyulan: “")}{lastHeard}”</p>}
 
      <div className="flex flex-wrap gap-3"><button onClick={()=>void start()} disabled={r.current.starting} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Yeni konumla yeniden başlat")}</button><button onClick={()=>f.stage==='user-paused'?resume():pause()} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nNode(f.stage==='user-paused'?'Devam et':'Duraklat')}</button><button onClick={()=>void complete(true)} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Bitir")}</button>{f.stage==='error'&&<button onClick={resume} className="min-h-11 rounded-xl border border-white/20 px-4">{i18nText("Tekrar dene")}</button>}</div>
-     <ul className="w-full max-w-lg list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-300"><li>{i18nText("Harf ve yönü herhangi bir sırada söyleyebilirsiniz.")}</li><li>{i18nText('Harf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.')}</li><li>{i18nText("Düz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.")}</li><li>{i18nText("“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.")}</li></ul>
+     <ul className="w-full max-w-lg list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-300"><li>{i18nText("Harf ve yönü herhangi bir sırada söyleyebilirsiniz.")}</li><li>{i18nText('Harf adını veya yaygın bir kod sözcüğünü söyleyin; örneğin E, Elma.')}</li><li>{i18nText("Düz, baş aşağı, sağa/sola yatmış, aynalı veya bunların birleşimini söyleyebilirsiniz.")}</li><li>{i18nText("“Tekrar”, “göremiyorum”, “duraklat”, “devam et” ve “bitir” komutlarını kullanabilirsiniz.")}</li><li>{i18nText("“Göremiyorum” yanıtı tüm değerlendirmede, iki göz için toplam bir kez kullanılabilir.")}</li></ul>
     </div>
    </section>}
    {error&&<p role="alert" className="text-amber-200">{i18nNode(error)}</p>}

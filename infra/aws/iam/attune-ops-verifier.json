@@ -1,0 +1,76 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadOnlyInventoryAndCommandResults",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeInstanceStatus",
+        "ec2:DescribeVolumes",
+        "ec2:DescribeAddresses",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSecurityGroupRules",
+        "ec2:DescribeNetworkInterfaces",
+        "ssm:DescribeInstanceInformation",
+        "ssm:DescribeSessions",
+        "ssm:GetCommandInvocation",
+        "ssm:ListCommands",
+        "ssm:ListCommandInvocations"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "eu-central-1"
+        }
+      }
+    },
+    {
+      "Sid": "LookUpOnDemandRates",
+      "Effect": "Allow",
+      "Action": "pricing:GetProducts",
+      "Resource": "*"
+    },
+    {
+      "Sid": "StartAndStopTheTwoExistingInstancesOnly",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:StartInstances",
+        "ec2:StopInstances"
+      ],
+      "Resource": [
+        "arn:aws:ec2:eu-central-1:798886013428:instance/i-0b25450afc6633494",
+        "arn:aws:ec2:eu-central-1:798886013428:instance/i-0f4cca4e92e94c351"
+      ]
+    },
+    {
+      "Sid": "RunShellCommandsOnTheTwoExistingInstancesOnly",
+      "Effect": "Allow",
+      "Action": "ssm:SendCommand",
+      "Resource": [
+        "arn:aws:ec2:eu-central-1:798886013428:instance/i-0b25450afc6633494",
+        "arn:aws:ec2:eu-central-1:798886013428:instance/i-0f4cca4e92e94c351",
+        "arn:aws:ssm:eu-central-1::document/AWS-RunShellScript"
+      ]
+    },
+    {
+      "Sid": "PortForwardToTheTwoExistingInstancesOnly",
+      "Effect": "Allow",
+      "Action": "ssm:StartSession",
+      "Resource": [
+        "arn:aws:ec2:eu-central-1:798886013428:instance/i-0b25450afc6633494",
+        "arn:aws:ec2:eu-central-1:798886013428:instance/i-0f4cca4e92e94c351",
+        "arn:aws:ssm:eu-central-1::document/AWS-StartPortForwardingSession"
+      ]
+    },
+    {
+      "Sid": "ManageOwnSessions",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:ResumeSession",
+        "ssm:TerminateSession"
+      ],
+      "Resource": "arn:aws:ssm:eu-central-1:798886013428:session/*"
+    }
+  ]
+}

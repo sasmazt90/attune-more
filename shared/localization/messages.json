@@ -27,7 +27,11 @@
   "6e3a654fc7c359b8": {
     "tr": "· {0} ölçüm boşluğu",
     "en": "· {0} measurement gaps",
-    "de": "· {0} Messlücken"
+    "de": "· {0} Messlücken",
+    "one": {
+      "en": "· {0} measurement gap",
+      "de": "· {0} Messlücke"
+    }
   },
   "c105a0ad3d44d703": {
     "tr": "· Bitiş:",
@@ -107,7 +111,11 @@
   "6d4aa43b37263003": {
     "tr": "{0} geçerli deneme",
     "en": "{0} valid trials",
-    "de": "{0} gültige Versuche"
+    "de": "{0} gültige Versuche",
+    "one": {
+      "en": "{0} valid trial",
+      "de": "{0} gültiger Versuch"
+    }
   },
   "19f0114be05d79ce": {
     "tr": "{0} geçerli deneme · {1} göremedi",
@@ -127,7 +135,11 @@
   "42f1556517c705a9": {
     "tr": "{0} geçerli yön yanıtı",
     "en": "{0} valid orientation responses",
-    "de": "{0} gültige Ausrichtungsantworten"
+    "de": "{0} gültige Ausrichtungsantworten",
+    "one": {
+      "en": "{0} valid orientation response",
+      "de": "{0} gültige Ausrichtungsantwort"
+    }
   },
   "6df636d63f056372": {
     "tr": "{0} geçmiş grafikleri",
@@ -137,17 +149,29 @@
   "246e65c5394164c3": {
     "tr": "{0} görünür aday",
     "en": "{0} visible candidates",
-    "de": "{0} sichtbare Kandidaten"
+    "de": "{0} sichtbare Kandidaten",
+    "one": {
+      "en": "{0} visible candidate",
+      "de": "{0} sichtbarer Kandidat"
+    }
   },
   "a54c322d2681d26e": {
     "tr": "{0} görüşme",
     "en": "{0} conversations",
-    "de": "{0} Gespräche"
+    "de": "{0} Gespräche",
+    "one": {
+      "en": "{0} conversation",
+      "de": "{0} Gespräch"
+    }
   },
   "c08224adeaaef4b3": {
     "tr": "{0} görüşme · {1}",
     "en": "{0} conversations · {1}",
-    "de": "{0} Gespräche · {1}"
+    "de": "{0} Gespräche · {1}",
+    "one": {
+      "en": "{0} conversation · {1}",
+      "de": "{0} Gespräch · {1}"
+    }
   },
   "d186bf29b71ef527": {
     "tr": "{0} göz · {1}/12",
@@ -8037,7 +8061,11 @@
   "2a7622127f2f7636": {
     "tr": "{0} bulgu kesinleştirilemedi",
     "en": "{0} findings could not be confirmed",
-    "de": "{0} Befunde nicht eindeutig"
+    "de": "{0} Befunde nicht eindeutig",
+    "one": {
+      "en": "{0} finding could not be confirmed",
+      "de": "{0} Befund nicht eindeutig"
+    }
   },
   "5f16f6278aad2e46": {
     "tr": "Nedenini gör",
@@ -9157,7 +9185,11 @@
   "b8f40e988d47e19a": {
     "tr": "{0} bulgu ölçülemedi",
     "en": "{0} findings could not be measured",
-    "de": "{0} Befunde konnten nicht gemessen werden"
+    "de": "{0} Befunde konnten nicht gemessen werden",
+    "one": {
+      "en": "{0} finding could not be measured",
+      "de": "{0} Befund konnte nicht gemessen werden"
+    }
   },
   "dbf0479c0474a225": {
     "tr": "Bu bulgu bu taramada ölçülemedi.",
@@ -9387,7 +9419,11 @@
   "a7cc7ee365230ada": {
     "tr": "{0} tarama · son {1}",
     "en": "{0} scans · last {1}",
-    "de": "{0} Scans · zuletzt {1}"
+    "de": "{0} Scans · zuletzt {1}",
+    "one": {
+      "en": "{0} scan · last {1}",
+      "de": "{0} Scan · zuletzt {1}"
+    }
   },
   "a2ae2906399fb278": {
     "tr": "+{0} bulgu",
@@ -9397,7 +9433,11 @@
   "d77a4ff7b529fc0b": {
     "tr": "{0} puan",
     "en": "{0} points",
-    "de": "{0} Punkte"
+    "de": "{0} Punkte",
+    "one": {
+      "en": "{0} point",
+      "de": "{0} Punkt"
+    }
   },
   "e17ccb1e9466019c": {
     "tr": "Yeni",
@@ -10682,7 +10722,11 @@
   "14d5baad9c561fd2": {
     "tr": "{0} geçerli harf/yön yanıtı",
     "en": "{0} valid letter/orientation responses",
-    "de": "{0} gültige Buchstaben-/Ausrichtungsantworten"
+    "de": "{0} gültige Buchstaben-/Ausrichtungsantworten",
+    "one": {
+      "en": "{0} valid letter/orientation response",
+      "de": "{0} gültige Buchstaben-/Ausrichtungsantwort"
+    }
   },
   "ed373091f39587e2": {
     "tr": "Bu görevde {0} sayının {1} tanesini doğru ayırt ettiniz.",
@@ -10798,5 +10842,58 @@
     "tr": "Tamamlanan görüşme turlarının özeti kaydedildi; yanıtı beklenen son mesaj dahil edilmedi.",
     "en": "The summary of your completed turns was saved; the last message, still awaiting a reply, was not included.",
     "de": "Die Zusammenfassung Ihrer abgeschlossenen Gesprächsrunden wurde gespeichert; die letzte, noch unbeantwortete Nachricht wurde nicht berücksichtigt."
+  },
+  "413468ef5e73787e": {
+    "tr": "Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Saklama tercihi kapalı; geçmişe kayıt eklenmedi.",
+    "en": "The task stopped: “I can't see it” was said a second time. The remaining letters were not measured. Saving is off, so nothing was added to history.",
+    "de": "Die Aufgabe wurde beendet: „Ich kann es nicht sehen“ wurde ein zweites Mal gesagt. Die übrigen Buchstaben wurden nicht gemessen. Das Speichern ist ausgeschaltet, daher wurde nichts zum Verlauf hinzugefügt."
+  },
+  "0be8f2b1e6e98882": {
+    "tr": "Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Yanıtlarınız bu cihazdaki geçmişe eksik sonuç olarak kaydedildi.",
+    "en": "The task stopped: “I can't see it” was said a second time. The remaining letters were not measured. Your answers were saved to history on this device as an incomplete result.",
+    "de": "Die Aufgabe wurde beendet: „Ich kann es nicht sehen“ wurde ein zweites Mal gesagt. Die übrigen Buchstaben wurden nicht gemessen. Ihre Antworten wurden im Verlauf auf diesem Gerät als unvollständiges Ergebnis gespeichert."
+  },
+  "e8c858ad415435cb": {
+    "tr": "Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Sonuç kaydedilemedi.",
+    "en": "The task stopped: “I can't see it” was said a second time. The remaining letters were not measured. The result could not be saved.",
+    "de": "Die Aufgabe wurde beendet: „Ich kann es nicht sehen“ wurde ein zweites Mal gesagt. Die übrigen Buchstaben wurden nicht gemessen. Das Ergebnis konnte nicht gespeichert werden."
+  },
+  "bebe6bce19df27e5": {
+    "tr": "“Göremiyorum” hakkınızı kullandınız. Bir harfi daha göremezseniz görev durur ve kalan harfler ölçülmez.",
+    "en": "You have used your one “I can't see it”. If you can't see another letter, the task stops and the remaining letters are not measured.",
+    "de": "Sie haben Ihr einmaliges „Ich kann es nicht sehen“ verwendet. Wenn Sie einen weiteren Buchstaben nicht sehen, wird die Aufgabe beendet und die übrigen Buchstaben werden nicht gemessen."
+  },
+  "f8be637b975f3768": {
+    "tr": "“Göremiyorum” yanıtı tüm değerlendirmede, iki göz için toplam bir kez kullanılabilir.",
+    "en": "“I can't see it” can be used once in the whole assessment, across both eyes.",
+    "de": "„Ich kann es nicht sehen“ kann in der gesamten Beurteilung einmal verwendet werden, für beide Augen zusammen."
+  },
+  "05a75f87af90526c": {
+    "tr": "Ölçülmeyen harf:",
+    "en": "Letters not measured:",
+    "de": "Nicht gemessene Buchstaben:"
+  },
+  "3e800015e77fc550": {
+    "tr": "Eksik sonuç: Görev, ikinci “göremiyorum” yanıtında durdu. Skorlar yalnız verilen yanıtları kapsar. Bu klinik bir değerlendirme değildir; görmenizle ilgili endişeniz varsa bir göz uzmanına danışın.",
+    "en": "Incomplete result: the task stopped at the second “I can't see it”. Scores cover only the answers given. This is not a clinical assessment. If you are concerned about your vision, please talk to an eye specialist.",
+    "de": "Unvollständiges Ergebnis: Die Aufgabe wurde beim zweiten „Ich kann es nicht sehen“ beendet. Die Werte beziehen sich nur auf die gegebenen Antworten. Dies ist keine klinische Beurteilung. Wenn Sie sich um Ihr Sehvermögen sorgen, sprechen Sie bitte mit einer Augenfachkraft."
+  },
+  "f54e82c18806e82a": {
+    "tr": "{0} tamamlanmış izinli görüşme",
+    "en": "{0} completed conversations with consent",
+    "de": "{0} abgeschlossene Gespräche mit Einwilligung",
+    "one": {
+      "en": "{0} completed conversation with consent",
+      "de": "{0} abgeschlossenes Gespräch mit Einwilligung"
+    }
+  },
+  "761f150fe8d4ce27": {
+    "tr": "{0} tema kaydı",
+    "en": "{0} theme records",
+    "de": "{0} Themeneinträge",
+    "one": {
+      "en": "{0} theme record",
+      "de": "{0} Themeneintrag"
+    }
   }
 }
