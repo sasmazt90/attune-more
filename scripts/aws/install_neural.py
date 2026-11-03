@@ -4,6 +4,8 @@ import argparse
 import hashlib
 import json
 import os
+import grp
+import stat
 from pathlib import Path
 import shutil
 import subprocess
@@ -14,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 POLICY = ROOT / 'tests/automotive/neural-runtime'
 
 
-def install(runtime, wheels):
+def install(runtime, wheels, service_group=None):
     if sys.version_info[:2] != (3, 11):
         raise ValueError('PYTHON_311_REQUIRED')
     runtime = runtime.resolve(strict=True)
@@ -62,11 +64,23 @@ def install(runtime, wheels):
     subprocess.run([python, str(ROOT / 'scripts/mental_tts/preflight.py'),
                     '--config', str(runtime / 'config.json'),
                     '--output', str(runtime / 'preflight.json')], check=True)
+    if service_group:
+        if os.geteuid() != 0:
+            raise ValueError('ROOT_REQUIRED_FOR_SERVICE_PERMISSIONS')
+        gid = grp.getgrnam(service_group).gr_gid
+        for path in [runtime, *runtime.rglob('*')]:
+            if path.is_symlink():
+                continue
+            mode = path.stat().st_mode
+            os.chown(path, 0, gid)
+            path.chmod((stat.S_IMODE(mode) & ~stat.S_IWGRP) | stat.S_IRGRP |
+                       (stat.S_IXGRP if path.is_dir() or mode & 0o111 else 0))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runtime', type=Path, required=True)
     parser.add_argument('--wheelhouse', type=Path, required=True)
+    parser.add_argument('--service-group', help='Root-only: grant this group read/traverse access after install')
     args = parser.parse_args()
-    install(args.runtime, args.wheelhouse)
+    install(args.runtime, args.wheelhouse, args.service_group)

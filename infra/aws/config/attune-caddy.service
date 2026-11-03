@@ -5,6 +5,7 @@ Wants=network-online.target
 [Service]
 User=caddy
 Group=caddy
+SupplementaryGroups=attune
 EnvironmentFile=/etc/attune/caddy.env
 ExecStartPre=/usr/local/bin/caddy validate --config /etc/attune/Caddyfile --adapter caddyfile
 ExecStart=/usr/local/bin/caddy run --config /etc/attune/Caddyfile --adapter caddyfile

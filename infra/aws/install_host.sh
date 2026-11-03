@@ -48,5 +48,15 @@ else
   /opt/attune-venv/bin/pip install --no-index --find-links "$ATTUNE_WHEELHOUSE" fastapi==0.135.4 starlette==1.3.1 "uvicorn[standard]"
   echo 'Install verified official SDK; review licenses; run prepare.sh as attune; provide aaos.env and TLS/mTLS files.'
 fi
+# Archives may retain the Cloud workspace's owner-only modes. Services run as attune.
+# Keep code/models owned by root and grant the service group read/traverse only.
+for tree in /opt/attune /opt/node /opt/python311 /opt/attune-venv; do
+  [[ -d "$tree" ]] || continue
+  chown -R root:attune "$tree"
+  chmod -R g+rX,g-w "$tree"
+done
+if [[ "$role" == web ]]; then
+  install -d -o attune -g attune -m 0700 /opt/attune/apps/vehicle-app/.next/cache
+fi
 systemctl daemon-reload
 # Operator validates certificates and hashes before explicitly enabling any service.

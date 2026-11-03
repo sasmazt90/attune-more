@@ -72,7 +72,10 @@ kanıt dosyaları binary varlığı yerine geçmez.
    Node/Python/Caddy'yi kur. Var olan runtime'ın üzerine yazmayı reddeder.
 5. `install_host.sh` için `ATTUNE_PYTHON311`, `ATTUNE_STAGING_ROOT`,
    `ATTUNE_WHEELHOUSE`, `ATTUNE_WHEEL_MANIFEST`, `ATTUNE_ASSET_MANIFEST` ayarla.
-   Bu betik servis başlatmaz. WEB üzerinde `install_neural.py` ile ayrı TTS venv kur.
+   Bu betik servis başlatmaz. WEB üzerinde `install_neural.py --service-group attune`
+   ile ayrı TTS venv kur. Staging üst dizinine attune grubunun traverse erişimini sağla;
+   arşivlerden kalan owner-only izinler servisi engellememeli. Kod/modeller root-owned
+   ve servis grubuna read-only kalır; yalnız Next cache ve uygulama veri dizinleri yazılabilir.
 6. SDK lisanslarını incele; mevcut `prepare.sh` akışıyla resmi API35 AAOS image'i
    ve AVD'yi kur. `/dev/kvm` yoksa yazılımsal emülasyona geçme. Guest 3072 MiB kalır.
 7. Gerçek public IP'lerle iki günlük demo sertifikalarını üret. Yalnız gerekli
