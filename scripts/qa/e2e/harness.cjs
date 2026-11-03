@@ -11,13 +11,13 @@ const catalog=Object.values(JSON.parse(fs.readFileSync(path.join(product,'shared
 const tr=text=>language==='tr'?text:catalog.find(v=>v.tr.trim()===text.trim())?.[language]||text;
 async function open(module,{camera,microphone}={}){
  const out=path.join(root,'runs',module+'-'+Date.now());fs.mkdirSync(out,{recursive:true});
- const r={module,started:new Date().toISOString(),language,platform:'WEB QA service / isolated headless Chrome',sourceCommit,buildId,boundary:'Isolated repair services. Headless browser is separately launched, not a capture of the shortcut browser window. Controlled project media; actual product inference. No physical, clinical or AAOS acceptance.',actions:[],inventory:[],responses:[],errors:[]};
+ const r={module,started:new Date().toISOString(),language,platform:'WEB QA service / isolated headless Chrome',sourceCommit,buildId,boundary:process.env.ATTUNE_QA_SCOPE||'Isolated repair services. Headless browser is separately launched, not a capture of the shortcut browser window. Controlled project media; actual product inference. No physical, clinical or AAOS acceptance.',actions:[],inventory:[],responses:[],errors:[]};
  const save=()=>fs.writeFileSync(path.join(out,'evidence.json'),JSON.stringify(r,null,2));save();
  const args=['--autoplay-policy=no-user-gesture-required','--auto-select-tab-capture-source-by-title=Attune.more','--auto-accept-this-tab-capture','--enable-usermedia-screen-capturing','--allow-http-screen-capture'];
  if(camera)args.push('--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+camera);
  if(microphone)args.push('--disable-audio-input','--use-fake-device-for-media-stream','--use-file-for-fake-audio-capture='+microphone+'%noloop');
- const b=await chromium.launch({headless:true,ignoreDefaultArgs:['--mute-audio'],executablePath:process.env.ATTUNE_QA_CHROME||'C:/Program Files/Google/Chrome/Application/chrome.exe',args});
- const c=await b.newContext({viewport:{width:1280,height:720},permissions:['camera','microphone'],acceptDownloads:true});
+ const b=await chromium.launch({headless:true,ignoreDefaultArgs:['--mute-audio'],executablePath:process.env.ATTUNE_QA_CHROME||'C:/Program Files/Google/Chrome/Application/chrome.exe',...(process.env.ATTUNE_QA_PROXY?{proxy:{server:process.env.ATTUNE_QA_PROXY}}:{}),args});
+ const c=await b.newContext({viewport:{width:1280,height:720},permissions:['camera','microphone'],acceptDownloads:true,...(process.env.ATTUNE_QA_HTTP_CREDENTIALS_FILE?{httpCredentials:JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_HTTP_CREDENTIALS_FILE,'utf8'))}:{})});
  // Observe only object creation for deterministic silent teardown. No audio,
  // recognition, inference or gate data is replaced during the assessment.
  await c.addInitScript(()=>{window.__taskAudioObjects=[];window.__taskContexts=[];for(const [name,list] of [['Audio',window.__taskAudioObjects],['AudioContext',window.__taskContexts]]){const Original=window[name];window[name]=new Proxy(Original,{construct(target,args,newTarget){const object=Reflect.construct(target,args,newTarget);list.push(object);return object;}});}});
@@ -52,7 +52,7 @@ async function open(module,{camera,microphone}={}){
   if(recording){try{await p.evaluate(async()=>{for(const a of window.__taskAudioObjects||[])a.pause();for(const a of document.querySelectorAll('audio,video'))a.pause();await Promise.allSettled((window.__taskContexts||[]).filter(x=>x.state==='running').map(x=>x.suspend()));await window.__stopBackgroundRecord();});await writes;await recording.session.detach();}catch(e){r.recordingError=String(e);}}
   await p.screenshot({path:path.join(out,'ending.png')}).catch(()=>{});r.finished=new Date().toISOString();save();await c.close();await b.close();console.log(JSON.stringify({out,result:r.result,coverage:r.fullResultCoverage,status:r.functionalStatus,error:r.error}));
  }
- try{assert((await c.request.get(origin+'/_next/static/'+r.buildId+'/_buildManifest.js')).ok());await p.goto(origin+'/');await p.locator('#attune-language').selectOption(language);await p.waitForFunction(()=>document.querySelector('[data-vehicle-status]')?.textContent==='PARK');await record();if(recordingEnabled)assert(r.recording.tracks.some(t=>t.kind==='audio'&&t.settings.suppressLocalAudioPlayback===true),'Local output suppression must be confirmed before any module is entered');}
+ try{await p.goto(origin+'/');assert(await p.evaluate(async asset=>(await fetch(asset)).ok,'/_next/static/'+r.buildId+'/_buildManifest.js'));await p.locator('#attune-language').selectOption(language);await p.waitForFunction(()=>document.querySelector('[data-vehicle-status]')?.textContent==='PARK');await record();if(recordingEnabled)assert(r.recording.tracks.some(t=>t.kind==='audio'&&t.settings.suppressLocalAudioPlayback===true),'Local output suppression must be confirmed before any module is entered');}
  catch(e){await close(e);throw e;}
  return {p,q:p,r,out,save,stamp,tr,record,seal,enter,close,act,observe,inventory};
 }

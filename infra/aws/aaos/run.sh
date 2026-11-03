@@ -40,6 +40,11 @@ for ((n=0;n<180;n++)); do
   sleep 2
 done
 [[ "$ready" == 1 ]]
+if [[ "${ATTUNE_AUDIO_ENABLED:-0}" == 1 ]]; then
+  # A PulseAudio source alone does not enable emulator microphone forwarding.
+  # Route the already configured, isolated attune_mic source into the guest.
+  "$adb" -s emulator-5554 emu avd hostmicon
+fi
 "$adb" -s emulator-5554 shell getprop > "$ATTUNE_AAOS_EVIDENCE/guest-properties.txt"
 "$adb" -s emulator-5554 shell cat /proc/meminfo > "$ATTUNE_AAOS_EVIDENCE/guest-meminfo.txt"
 [[ "$("$adb" -s emulator-5554 shell getprop ro.build.version.sdk | tr -d '\r')" == 35 ]]

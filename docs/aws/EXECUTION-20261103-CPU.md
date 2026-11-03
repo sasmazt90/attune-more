@@ -77,13 +77,26 @@ storage only; a subsequent real provider response is required for authentication
 
 ## Acceptance and cost
 
-0/10 required English full module E2E videos completed at this observation.
-The earlier native blocked-screen recording is diagnostic only. Actual module
-inference, complete results/history/session views, ordered Mental turns 1–5,
-ATT-T03-05, WEB Vision DE ASR, AAOS Vision 3 GiB, Mental partial-session and
-PARK/DRIVE transition acceptance remain open. Reference media retain the user's
-platform assignments. Reference replay must be distinguished from physical camera,
-microphone and hearing/listener acceptance.
+Four of ten English reference-replay videos are uploaded and downloaded back for
+byte/SHA-256 verification: WEB Dental, WEB Skin, WEB Mental and AAOS Mental.
+See [video manifest](evidence/english-e2e-videos-20261103.json) for URLs, mappings,
+recording boundaries and source provenance. Actual model/provider responses,
+complete result inspection and saved-history reopening were exercised. These are
+reference-media integration results, not physical-camera or human-listener acceptance.
+AAOS Mental has a disclosed recording gap before same-session result inspection.
+
+The emulator microphone was initially silent despite its Pulse source. Enabling
+`adb emu avd hostmicon` fixed actual ASR input; startup now applies it when the
+configured audio bridge is enabled. Both WEB and AAOS completed five ordered
+Mental UI turns with real ASR, LIVE_OPENAI replies, Chatterbox generation/playback
+and a saved LIVE_OPENAI summary. The original reference audio language is preserved;
+application UI and requested provider reply language are English.
+
+AAOS Dental is currently blocked: remote frames arrive, but the WebView preview
+is black and the active face model reports no face. No result is fabricated.
+AAOS Skin/Vision, both Hearing journeys, WEB Vision EN/DE ASR, ATT-T03-05,
+native PARK/DRIVE transitions and full partial-session persistence remain open.
+The earlier native blocked-screen recording is diagnostic only.
 
 AWS Pricing API returned R7i Linux On-Demand **$0.63840/hour**. With the previously
 verified M8i **$0.50716/hour** and two active IPv4 addresses **$0.01000/hour**, the

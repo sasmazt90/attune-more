@@ -22,8 +22,9 @@ const {open,root,fixtureRoot}=require('./harness.cjs');const {deleteSynthetic,re
  }
 
  const t=tr,report=r;r.steps=[];r.checks=[];
- const run=async code=>new (Object.getPrototypeOf(async function(){}).constructor)('page',code)(p);
- const shot=async name=>p.screenshot({path:path.join(h.out,name+'.png')});
+ const reviewHold=Math.max(0,Math.min(3000,Number(process.env.ATTUNE_QA_VISUAL_HOLD_MS)||0));
+ const run=async code=>{const result=await new (Object.getPrototypeOf(async function(){}).constructor)('page',code)(p);if(reviewHold&&code.includes('click'))await p.waitForTimeout(reviewHold);return result;};
+ const shot=async name=>{if(reviewHold)await p.waitForTimeout(reviewHold);return p.screenshot({path:path.join(h.out,name+'.png')});};
  const step=async(name,code)=>{await run(code);r.steps.push({name,seconds:h.stamp()});save();};
 async function active(){return await run("return await page.evaluate(()=>({view:document.querySelector('[data-skin-region-tab][aria-current=page]')?.getAttribute('data-skin-region-tab'),photo:document.querySelector('[data-skin-snapshot]')?.getAttribute('data-snapshot-photoid'),sourcePose:document.querySelector('[data-skin-snapshot]')?.getAttribute('data-snapshot-angle'),crop:document.querySelector('[data-skin-snapshot]')?.getAttribute('viewBox'),empty:document.querySelector('[data-skin-findings-empty]')?.getAttribute('data-skin-findings-empty'),card:document.querySelector('[data-skin-finding-card]')?.getAttribute('data-skin-finding-card'),callouts:document.querySelectorAll('[data-skin-callout]').length,connectors:document.querySelectorAll('[data-skin-callout-connectors] line').length}));");}
 const order=['overview','forehead','periorbital','rightCheek','leftCheek','chin'];

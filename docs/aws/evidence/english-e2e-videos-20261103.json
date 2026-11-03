@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-11-03T17:57:00Z",
+  "parentFolder": "https://drive.google.com/drive/folders/1QPfzJuIbAr6PY-Ubse25UFCvTDc2MmN9",
+  "videos": [
+    {
+      "platform": "WEB",
+      "module": "Dental",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
+      "videoStatus": "COMPLETE_REFERENCE_REPLAY",
+      "fullPhysicalAcceptance": "PARTIAL",
+      "inputMapping": {
+        "FRONT": "Male-Dental-4",
+        "RIGHT": "Male-Dental-1",
+        "LEFT": "Male-Dental-3",
+        "BITE": "Male-Dental-2"
+      },
+      "durationSeconds": 98.5,
+      "boundary": "Browser camera file replay; four real measured views, result cards/layers and saved photo history.",
+      "drive": {
+        "url": "https://drive.google.com/file/d/1vI-7jD-YCmA9L_Udnu1G7Z--IhloYi7H/view",
+        "bytes": 1688343,
+        "sha256": "1381706ed11b64da7d93afeac9560a028611a579c398cd646f402dac31dbbeb5",
+        "id": "1vI-7jD-YCmA9L_Udnu1G7Z--IhloYi7H",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "WEB",
+      "module": "Skin",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
+      "videoStatus": "COMPLETE_REFERENCE_REPLAY",
+      "fullPhysicalAcceptance": "PARTIAL",
+      "inputMapping": {
+        "FRONT": "Char16-2",
+        "RIGHT": "Char16-1",
+        "LEFT": "Char16-3"
+      },
+      "durationSeconds": 151.6,
+      "boundary": "Browser camera file replay; three real model responses, six anatomical result tabs, details, history and deletion.",
+      "drive": {
+        "id": "1KyrJwWBH0tw_i0d1MWyxx3YzxkbWnSxV",
+        "url": "https://drive.google.com/file/d/1KyrJwWBH0tw_i0d1MWyxx3YzxkbWnSxV/view",
+        "bytes": 3210152,
+        "sha256": "47a2ed325cc521b3545faf3035ad18cbba4e304a683c26958d51dbb0b35bf01a",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "WEB",
+      "module": "Mental",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
+      "videoStatus": "COMPLETE_REFERENCE_REPLAY",
+      "fullPhysicalAcceptance": "PARTIAL",
+      "inputMapping": {
+        "orderedAudio": [
+          "Mental-Health-1",
+          "Mental-Health-2",
+          "Mental-Health-3",
+          "Mental-Health-4",
+          "Mental-Health-5"
+        ]
+      },
+      "durationSeconds": 427.0,
+      "boundary": "Continuous UI conversation through actual browser microphone transport, real OpenAI ASR/replies/summary and local Chatterbox playback; supplied audio replay, not a live human microphone.",
+      "drive": {
+        "id": "10a0AjzMA3aFtcg7ljeW9zh-EfEusxuOQ",
+        "url": "https://drive.google.com/file/d/10a0AjzMA3aFtcg7ljeW9zh-EfEusxuOQ/view",
+        "bytes": 2662226,
+        "sha256": "0d4f0eba84f728cf20b7ad6faf4ffd74f3c152e1572e7ccd028b7e6de8ede802",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "AAOS",
+      "module": "Mental",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
+      "videoStatus": "COMPLETE_REFERENCE_REPLAY",
+      "fullPhysicalAcceptance": "PARTIAL",
+      "inputMapping": {
+        "orderedAudio": [
+          "Mental-Health-1",
+          "Mental-Health-2",
+          "Mental-Health-3",
+          "Mental-Health-4",
+          "Mental-Health-5"
+        ]
+      },
+      "durationSeconds": 488.25,
+      "boundary": "Actual Android 15 WebView/native screen and Pulse audio. Five turns continuous; same-session result inspection resumes in a second clip after recorder wait failure on hidden completion element. Reference audio replay, not a live human microphone.",
+      "drive": {
+        "id": "1XlC-vZsSOUPSjVpFZghFMAS6XWV_Yy8w",
+        "url": "https://drive.google.com/file/d/1XlC-vZsSOUPSjVpFZghFMAS6XWV_Yy8w/view",
+        "bytes": 8115607,
+        "sha256": "118f83ab9a55f185a07f3f64e6d0188b1fc0b0ffdce6a9ef985b8abf03363547",
+        "readbackVerified": true
+      }
+    }
+  ],
+  "remainingVideos": [
+    {
+      "platform": "AAOS",
+      "module": "Dental",
+      "status": "PENDING"
+    },
+    {
+      "platform": "AAOS",
+      "module": "Skin",
+      "status": "PENDING"
+    },
+    {
+      "platform": "AAOS",
+      "module": "Vision",
+      "status": "PENDING"
+    },
+    {
+      "platform": "AAOS",
+      "module": "Hearing",
+      "status": "PENDING"
+    },
+    {
+      "platform": "WEB",
+      "module": "Vision",
+      "status": "PENDING"
+    },
+    {
+      "platform": "WEB",
+      "module": "Hearing",
+      "status": "PENDING"
+    }
+  ],
+  "notes": [
+    "Model outputs and provider calls are real. No weight, inference threshold or calibration changes.",
+    "Original deployed product source is 9d96fd8 plus the identified deployment patches; do not represent a complete checkout of a later commit.",
+    "No secret values, raw transcripts or reference image files are included in this manifest."
+  ]
+}
