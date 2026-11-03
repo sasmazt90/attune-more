@@ -57,8 +57,8 @@
     "boundary": "Real Skin model and controlled DIN listener. Both journeys/results passed while commands overlapped; no human hearing or calibrated audio-quality claim."
   },
   "visionGermanAsr": {
-    "status": "PASS_PROVIDER_API_ONLY",
-    "ssmCommandId": "89990c0f-7989-4b58-919d-dea04749b6a2",
+    "status": "PASS_FULL_CONTROLLED_GERMAN_UI",
+    "ssmCommandId": "03c6c367-3a5b-4593-b5c5-2f4600a5eb4e",
     "results": [
       {
         "role": "web",
@@ -72,7 +72,11 @@
         "detail": null
       }
     ],
-    "boundary": "Controlled synthesized German audio; real OpenAI gpt-transcribe. Full German Vision UI completion is not established."
+    "boundary": "Controlled synthesized German Nicht erkennbar audio, unchanged parser and actual OpenAI ASR. Prior Ich sehe es nicht fixture was misrecognized as Ich nehme es nicht and failed; no physical voice/acuity claim.",
+    "validTrials": 48,
+    "assessments": 2,
+    "resultDetailsAndHistory": true,
+    "audioSha256": "31f6c725372672b3a8760c20b5ebfa22dc8620d8fed04c1538b0bf9721905881"
   },
   "mentalPartialSession": {
     "status": "PASS_ONE_TURN_REAL_PROVIDER_UI_RELOAD_PERSISTENCE",
@@ -81,5 +85,78 @@
     "realAsrConversationTtsSummary": true,
     "savedSummaryReopenedAfterReload": true,
     "boundary": "Reference Mental-Health-1 through browser microphone transport; not physical microphone acceptance."
+  },
+  "aaosVision3GiB": {
+    "status": "PASS_CONTROLLED_FULL_UI",
+    "ssmCommandId": "4b30fa6b-d4e0-4c37-be27-330103be23ad",
+    "androidApi": 35,
+    "configuredMemoryMiB": 3072,
+    "validTrials": 24,
+    "realOpenaiAsrResponses": 24,
+    "resultsAndHistory": true
+  },
+  "mentalSummaryCancellation": {
+    "status": "PASS_REAL_ONE_TURN_SUMMARY_CANCELLATION_NO_LATE_STORAGE",
+    "ssmCommandId": "d52cae4e-5af5-4efa-849e-a9c43cebf36f",
+    "realAsrConversationTts": true,
+    "summaryCancelledThroughUI": true,
+    "noNewRecordAfterFiveSecondsAndReload": true,
+    "boundary": "Actual user reference audio through controlled browser microphone; real provider. Summary cancellation deliberately prevents completion/storage."
+  },
+  "localizationRegression": {
+    "status": "PASS_AUTOMATED_REGRESSION",
+    "testCount": 17,
+    "scope": "TR/EN/DE catalogs/runtime, Hearing and Vision locale handling, Mental speech consent and Skin source/session provenance. Separate from live E2E."
+  },
+  "aaosDental": {
+    "status": "PARTIAL",
+    "flowStatus": "PASS_CONTROLLED_E2E_WITH_BITE_ALIGNMENT_UNMEASURED",
+    "ssmCommandId": "87bfb0f2-2c3f-4db0-acb6-3f3cdecbb62f",
+    "measuredViews": 3,
+    "expectedViews": 4,
+    "realApiStatus": 200,
+    "historyReopened": true,
+    "boundary": "Original Female-Dental-4 did not pass the unchanged bite gate; existing skip flow used. Bite alignment is unmeasured, never normal. All result/measurement-note/layer/history sections inspected. Prior observer body-read error was corrected to retain HTTP status independently; original incomplete harness result preserved."
+  },
+  "nativeGatesAfterFinalPatch": {
+    "scope": "Actual Android 15 native app; backend simulation and emulated VHAL, not a physical vehicle",
+    "checks": [
+      {
+        "name": "Initial PARK has native WebView",
+        "pass": true
+      },
+      {
+        "name": "Backend DRIVE destroys native WebView",
+        "pass": true
+      },
+      {
+        "name": "Backend PARK restores native WebView",
+        "pass": true
+      },
+      {
+        "name": "HOME backgrounds activity",
+        "pass": true
+      },
+      {
+        "name": "Foreground reopens gated WebView",
+        "pass": true
+      },
+      {
+        "name": "Native emulated VHAL driving blocks WebView",
+        "pass": true
+      },
+      {
+        "name": "Native PARK restores after VHAL driving",
+        "pass": true
+      }
+    ],
+    "runtime": {
+      "sdk": "35",
+      "memory": "MemTotal:        3050224 kB",
+      "display": "Physical size: 1280x800"
+    },
+    "status": "PASS",
+    "ssmCommandId": "ce357b08-c2ed-4f97-bfc1-36440e028575",
+    "observedAfterPatch": "a133830e83c057708f251b69325c3068f0a080f7"
   }
 }

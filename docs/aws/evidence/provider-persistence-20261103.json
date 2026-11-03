@@ -1,0 +1,25 @@
+{
+  "services": [
+    {
+      "unit": "attune-api@web.service",
+      "active": "active",
+      "enabled": "enabled",
+      "providerEnvironmentFileConfigured": true,
+      "processOpenaiKeyPresent": true,
+      "cloudAsrEnabled": true
+    },
+    {
+      "unit": "attune-api@aaos.service",
+      "active": "active",
+      "enabled": "enabled",
+      "providerEnvironmentFileConfigured": true,
+      "processOpenaiKeyPresent": true,
+      "cloudAsrEnabled": true
+    }
+  ],
+  "providerFileRootOwned0600": true,
+  "secretValuesLogged": false,
+  "ssmCommandId": "489678df-5ba4-4dd4-b4af-677b6164d0b7",
+  "observedAt": "2026-11-03T18:52:09.759Z",
+  "boundary": "Enabled systemd units load root-owned EBS-backed shared file. Service restart and actual authentication verified; separate EC2 Stop/Start cycle not performed."
+}

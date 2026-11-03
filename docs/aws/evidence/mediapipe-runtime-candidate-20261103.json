@@ -1,5 +1,5 @@
 {
-  "scope": "Isolated runtime benchmark only; deployed application model configuration unchanged",
+  "scope": "Same-model delegate comparison followed by explicitly approved AWS E2E production deployment",
   "rows": [
     {
       "delegate": "GPU",
@@ -25,7 +25,7 @@
     }
   ],
   "ssmCommandId": "75671dcc-5e07-4078-ba28-1c88b1a4a7a4",
-  "status": "APPROVED_DEPLOYMENT_IN_PROGRESS",
+  "status": "DEPLOYED_VERIFIED_REAL_CAMERA_MODEL_AND_ASR",
   "build": "Local production build with CPU selection passed",
   "selection": "NEXT_PUBLIC_ATTUNE_MEDIAPIPE_DELEGATE=CPU",
   "default": "GPU",
@@ -37,5 +37,13 @@
     "calibration",
     "camera freshness limit",
     "PARK/DRIVE gates"
+  ],
+  "deploymentSsmCommandId": "d9ceb331-c376-4f3d-a7fb-cc03b20068f2",
+  "observedWebVisionInferenceMs": 71.4,
+  "acceptedJourneys": [
+    "WEB Vision EN 48 valid trials",
+    "WEB Vision DE 48 valid trials",
+    "AAOS Vision 24 valid trials at 3072 MiB",
+    "AAOS Skin real model/results/history"
   ]
 }

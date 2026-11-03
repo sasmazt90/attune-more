@@ -1,6 +1,6 @@
 {
   "region": "eu-central-1",
-  "source": "AWS API observation 2026-11-03; user-approved existing instance type change",
+  "source": "AWS DescribeInstances after normal Stop on 2026-11-03",
   "observationStatus": "OBSERVED",
   "instances": [
     {
@@ -9,7 +9,7 @@
       "type": "r7i.2xlarge",
       "rootGiB": 150,
       "volumeType": "gp3",
-      "reportedState": "running"
+      "reportedState": "stopped"
     },
     {
       "id": "i-0f4cca4e92e94c351",
@@ -17,12 +17,13 @@
       "type": "m8i.2xlarge",
       "rootGiB": 120,
       "volumeType": "gp3",
-      "reportedState": "running",
+      "reportedState": "stopped",
       "reportedNestedVirtualization": "enabled"
     }
   ],
   "provisioningAllowed": false,
   "startApproved": true,
   "approvalScope": "until_completion_or_unrecoverable_blocker; monitor costs; normal Stop at completion",
-  "observedAt": "2026-11-03T16:28:58.253843+00:00"
+  "observedAt": "2026-11-03T19:09:19.201027+00:00",
+  "stopVerified": true
 }

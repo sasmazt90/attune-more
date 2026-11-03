@@ -1,6 +1,6 @@
 # CPU deployment continuation — 2026-11-03
 
-Observation at 16:57 UTC: both existing instances are running and SSM is online.
+Deployment and acceptance record — final shutdown evidence is recorded below when complete.
 The user explicitly approved WEB `r7i.2xlarge`; GPU capacity retries have ended.
 The original instance IDs, EBS volumes, VPC, subnet and Security Groups are retained.
 This record supersedes the stopped GPU-attempt state in EXECUTION-20261103.md.
@@ -22,13 +22,16 @@ English WAV (453,164 bytes; SHA-256 b373de69d69ef8459d52625bbe498fba3712987e7934
 through the Next.js proxy in 77.29 seconds. Speaker profile female-calm-v1 uses its
 existing approved reference and generation settings. The missing
 `ATTUNE_MENTAL_TTS_FEMALE_CONFIG=/opt/attune-neural/config-female-calm-v1.json`
-path was added to both API environment files. Playback acceptance remains separate. Model weights, thresholds,
-calibration and inference device settings remain unchanged.
+path was added to both API environment files. Playback acceptance remains separate. Model weights, thresholds and calibration remain unchanged. The user subsequently
+approved CPU MediaPipe execution only for the AWS E2E frontend build. Its GPU default
+remains unchanged outside that explicitly selected build.
 
 AAOS 15 / API 35 resumed on M8i with the verified APK and 3072 MiB AVD memory.
 The private mTLS API and AAOS loopback frontend return 200. The native application
-accepts PARK. Backend vehicle signals are simulated; native restrictions still
-need real transition acceptance. The emulator reports zero native camera devices.
+accepts PARK. Backend simulation and emulated VHAL PARK/DRIVE transitions passed
+on the actual native application, including WebView teardown/restoration and
+HOME/foreground handling. These are not physical-vehicle tests. The emulator
+reports zero native camera devices; assigned reference images use the real mTLS bridge.
 
 Strict Caddy SNI validation requires the private upstream Host to match
 `attune-internal`. The private Next.js upstream retains the AAOS application origin
@@ -77,29 +80,51 @@ storage only; a subsequent real provider response is required for authentication
 
 ## Acceptance and cost
 
-Six of ten English reference-replay videos are uploaded and downloaded back for
-byte/SHA-256 verification: WEB Dental, WEB Skin, WEB Mental, AAOS Mental, WEB Hearing and AAOS Hearing.
-See [video manifest](evidence/english-e2e-videos-20261103.json) for URLs, mappings,
-recording boundaries and source provenance. Actual model/provider responses,
-complete result inspection and saved-history reopening were exercised. These are
-reference-media integration results, not physical-camera or human-listener acceptance.
-AAOS Mental has a disclosed recording gap before same-session result inspection.
+English reference-input video delivery is tracked in the
+[verified manifest](evidence/english-e2e-videos-20261103.json), including file IDs,
+byte counts, SHA-256 readback, mappings and source provenance. Recordings use the
+real AWS application, Android 15 WebView, original models and configured providers.
+They do not establish physical-camera, calibrated human-hearing or clinical acceptance.
+AAOS Mental has a disclosed recording gap before inspecting the same session's saved results.
 
 The emulator microphone was initially silent despite its Pulse source. Enabling
 `adb emu avd hostmicon` fixed actual ASR input; startup now applies it when the
 configured audio bridge is enabled. Both WEB and AAOS completed five ordered
 Mental UI turns with real ASR, LIVE_OPENAI replies, Chatterbox generation/playback
-and a saved LIVE_OPENAI summary. The original reference audio language is preserved;
-application UI and requested provider reply language are English.
+and saved LIVE_OPENAI summaries. The original reference audio language is preserved;
+application UI and requested provider reply language are English. The one-turn partial
+session also passed real ASR/reply/TTS/summary and reopening after page reload.
+A separate actual one-turn conversation passed summary cancellation: no late record
+after five seconds or page reload.
 
-AAOS Dental is currently blocked: remote frames arrive, but the WebView preview
-is black and the active face model reports no face. No result is fabricated.
-AAOS Skin/Vision, WEB Vision EN/DE completion and full partial-session persistence remain open.
-Both Hearing DIN journeys completed with controlled responses and real audio/scoring.
-Native backend DRIVE and emulated VHAL driving destroyed the WebView; PARK restored
-it, and HOME/foreground transitions passed. WEB Skin and AAOS Hearing also passed
-with 57 seconds of overlapping execution; see [native/concurrency evidence](evidence/native-concurrency-20261103.json).
-These are emulator/controlled-input checks, not physical vehicle or human hearing acceptance.
+The approved CPU frontend delegate resolved software-GPU face/camera stalls.
+WEB Vision EN and DE each completed two assessments (48 valid trials per language),
+using actual OpenAI ASR. AAOS Vision completed 24 valid trials at 3072 MiB with
+actual Android microphone capture. The first German synthesized phrase was
+misrecognized and failed; the existing supported command “Nicht erkennbar” then
+completed the full UI flow. No parser, freshness threshold or model was relaxed.
+AAOS Skin completed its three real responses and all six anatomical result tabs,
+recommendations, unmeasured findings and saved history; the final recording adds
+explicit scrolling for the narrow native display.
+
+The remote camera adapter incorrectly emitted `ended` during intentional
+`MediaStreamTrack.stop()`. Dental then aborted before analysis. The adapter now
+preserves native stop semantics; unexpected transport loss and the unchanged
+750 ms freshness limit still emit `ended`. Three lifecycle regressions passed;
+the old implementation fails the intentional-stop case. Production build and
+actual Dental flow passed on the patched build: HTTP 200, three measured views,
+all result cards/layers/measurement notes and saved-history reopening. The assigned
+female bite photo did not satisfy the unchanged capture gate. Existing skip was
+used; bite alignment remains unmeasured. The AAOS Dental acceptance status is
+PARTIAL, although its complete recorded flow correctly presents that limitation.
+An initial WebView response-body observer failure was preserved and corrected to
+record HTTP status independently; no model output was substituted.
+
+Both Hearing DIN journeys use controlled listener responses and real generated
+audio/scoring. Native backend DRIVE and emulated VHAL driving destroyed the WebView;
+PARK restored it. WEB Skin and AAOS Hearing also passed with 57.128 seconds of
+overlapping execution. See [additional acceptance evidence](evidence/native-concurrency-20261103.json).
+Neither emulated vehicle signals nor controlled DIN inputs establish physical acceptance.
 The earlier native blocked-screen recording is diagnostic only.
 
 AWS Pricing API returned R7i Linux On-Demand **$0.63840/hour**. With the previously
@@ -109,10 +134,32 @@ Existing EBS remains approximately $25.704/month. Cost Explorer access is denied
 these are rates and duration-based estimates, not billed totals. The earlier AAOS
 session estimate was $0.69262 compute/IPv4 before the current restart.
 
-The current session has not been stopped yet. Both instances must receive normal
-Stop and an AWS API `stopped` readback when work completes or cannot progress.
-There is no two-hour automatic cutoff. No new infrastructure or DNS changes occurred.
+Both instances received normal Stop (no Force/hibernate). WEB was confirmed stopped
+at 2026-11-03T19:07:43.341397+00:00; the final DescribeInstances readback at
+2026-11-03T19:09:19.201027+00:00 confirms **both stopped**. API request ID:
+`2b682cf1-53f8-4a53-ae84-285eca146f03`. See [Stop evidence](evidence/final-stop-20261103.json).
+Original volumes, subnet and Security Groups are retained. No new infrastructure,
+DNS changes or main merge occurred.
+
+Current-session paid runtime to Stop request: WEB 2.6478 hours,
+AAOS 2.6707 hours. Compute plus IPv4 estimate is
+$3.0714 for this session, or
+**$3.7640 including the earlier AAOS session**.
+EBS, transfer, OpenAI and tax are excluded; EBS continues while stopped.
+Actual AWS/provider billing was not available. See [cost calculation](evidence/final-cost-20261103.json).
+
+All ten English recordings are uploaded and downloaded back with byte/SHA-256
+verification. Controlled-input acceptance: **9 PASS, 1 PARTIAL (AAOS Dental bite)**.
+Outstanding: physical camera/microphone, calibrated human hearing, physical vehicle,
+full bite alignment with a valid input, and a separate EC2 Stop/Start-cycle test.
+The enabled systemd/secret/AAOS boot configuration is persistent, but no completed
+Stop/Start acceptance cycle is claimed. Demo IP/TLS must be reviewed before a future restart.
 
 Validation: 36 local AWS preparation/origin tests and the Node routing/locale checks passed, including shared provider-file
 privacy and symlink handling. Live installation/proxy observations above are separate
 from automated tests and do not establish end-to-end health-module acceptance.
+
+Final implementation validation: all GitHub jobs passed for `a133830e83c057708f251b69325c3068f0a080f7`;
+local lifecycle regressions (3), deployment/wrapper tests (13) and locale/consent/source
+regressions (17) passed. These automated checks remain distinct from the live
+controlled-input evidence above. Final docs-only HEAD is reported in PR #22.

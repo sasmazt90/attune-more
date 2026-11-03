@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-11-03T18:13:00Z",
+  "observedAt": "2026-11-03T19:09:40Z",
   "parentFolder": "https://drive.google.com/drive/folders/1QPfzJuIbAr6PY-Ubse25UFCvTDc2MmN9",
   "videos": [
     {
@@ -11,7 +11,7 @@
       "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
       "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
       "videoStatus": "COMPLETE_REFERENCE_REPLAY",
-      "fullPhysicalAcceptance": "PARTIAL",
+      "fullPhysicalAcceptance": "NOT_RUN",
       "inputMapping": {
         "FRONT": "Male-Dental-4",
         "RIGHT": "Male-Dental-1",
@@ -26,7 +26,8 @@
         "sha256": "1381706ed11b64da7d93afeac9560a028611a579c398cd646f402dac31dbbeb5",
         "id": "1vI-7jD-YCmA9L_Udnu1G7Z--IhloYi7H",
         "readbackVerified": true
-      }
+      },
+      "automaticE2E": "PASS"
     },
     {
       "platform": "WEB",
@@ -36,7 +37,7 @@
       "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
       "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
       "videoStatus": "COMPLETE_REFERENCE_REPLAY",
-      "fullPhysicalAcceptance": "PARTIAL",
+      "fullPhysicalAcceptance": "NOT_RUN",
       "inputMapping": {
         "FRONT": "Char16-2",
         "RIGHT": "Char16-1",
@@ -50,7 +51,8 @@
         "bytes": 3210152,
         "sha256": "47a2ed325cc521b3545faf3035ad18cbba4e304a683c26958d51dbb0b35bf01a",
         "readbackVerified": true
-      }
+      },
+      "automaticE2E": "PASS"
     },
     {
       "platform": "WEB",
@@ -60,7 +62,7 @@
       "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
       "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
       "videoStatus": "COMPLETE_REFERENCE_REPLAY",
-      "fullPhysicalAcceptance": "PARTIAL",
+      "fullPhysicalAcceptance": "NOT_RUN",
       "inputMapping": {
         "orderedAudio": [
           "Mental-Health-1",
@@ -78,7 +80,8 @@
         "bytes": 2662226,
         "sha256": "0d4f0eba84f728cf20b7ad6faf4ffd74f3c152e1572e7ccd028b7e6de8ede802",
         "readbackVerified": true
-      }
+      },
+      "automaticE2E": "PASS"
     },
     {
       "platform": "AAOS",
@@ -88,7 +91,7 @@
       "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
       "deploymentPatchCommit": "2e36559222c03a5ae5bfa4939adf4052df22b8e5",
       "videoStatus": "COMPLETE_REFERENCE_REPLAY",
-      "fullPhysicalAcceptance": "PARTIAL",
+      "fullPhysicalAcceptance": "NOT_RUN",
       "inputMapping": {
         "orderedAudio": [
           "Mental-Health-1",
@@ -106,7 +109,8 @@
         "bytes": 8115607,
         "sha256": "118f83ab9a55f185a07f3f64e6d0188b1fc0b0ffdce6a9ef985b8abf03363547",
         "readbackVerified": true
-      }
+      },
+      "automaticE2E": "PASS"
     },
     {
       "platform": "WEB",
@@ -131,7 +135,8 @@
         "bytes": 2288942,
         "sha256": "25833787dc379dacdd163023565045aad820388dd6b07521c4adb5304d468909",
         "readbackVerified": true
-      }
+      },
+      "fullPhysicalAcceptance": "NOT_RUN"
     },
     {
       "platform": "AAOS",
@@ -156,34 +161,123 @@
         "bytes": 1244495,
         "sha256": "7341eb6ec545052ff2f8b7781d63c77a154ec205b42b627965b59df355646dcb",
         "readbackVerified": true
-      }
-    }
-  ],
-  "remainingVideos": [
-    {
-      "platform": "AAOS",
-      "module": "Dental",
-      "status": "PENDING"
-    },
-    {
-      "platform": "AAOS",
-      "module": "Skin",
-      "status": "PENDING"
-    },
-    {
-      "platform": "AAOS",
-      "module": "Vision",
-      "status": "PENDING"
+      },
+      "fullPhysicalAcceptance": "NOT_RUN"
     },
     {
       "platform": "WEB",
       "module": "Vision",
-      "status": "PENDING"
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "a0aafd44bdad2c415ca856a5a545b470d9444ec2",
+      "videoStatus": "COMPLETE_CONTROLLED_INPUT_E2E",
+      "automaticE2E": "PASS",
+      "fullPhysicalAcceptance": "NOT_RUN",
+      "inputMapping": {
+        "FRONT": "Female-Vision-1",
+        "RIGHT_EYE_TEST": "Female-Vision-3",
+        "LEFT_EYE_TEST": "Female-Vision-2",
+        "speech": "Controlled synthesized English not-visible command"
+      },
+      "durationSeconds": 354.5,
+      "boundary": "Two real assessments, 48 valid trials; CPU MediaPipe, actual OpenAI ASR, eye tables, saved history, referral and deletion; no physical vision claim.",
+      "drive": {
+        "id": "1F68gWi8CsWuNw1UMDgOH7xMu3tY9LTxv",
+        "url": "https://drive.google.com/file/d/1F68gWi8CsWuNw1UMDgOH7xMu3tY9LTxv/view",
+        "bytes": 3373257,
+        "sha256": "e218b7161a1bbc5b1b59f4e56512f6bda2f43d833606e16c900a7e2dab22021f",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "AAOS",
+      "module": "Vision",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "a0aafd44bdad2c415ca856a5a545b470d9444ec2",
+      "videoStatus": "COMPLETE_CONTROLLED_INPUT_E2E",
+      "automaticE2E": "PASS",
+      "fullPhysicalAcceptance": "NOT_RUN",
+      "inputMapping": {
+        "FRONT": "Male-Vision-1",
+        "RIGHT_EYE_TEST": "Male-Vision-3",
+        "LEFT_EYE_TEST": "Male-Vision-2",
+        "speech": "Controlled synthesized English not-visible command through Pulse/emulator microphone"
+      },
+      "durationSeconds": 211,
+      "boundary": "Actual Android 15 / 3072 MiB; real mTLS remote-camera transport, CPU MediaPipe and 24 OpenAI ASR responses; both eye result tables and history. No native camera HAL or physical acuity claim.",
+      "drive": {
+        "id": "1EwBUY7tXxVrEQAVAV8t_6bSyd9ORUqgF",
+        "url": "https://drive.google.com/file/d/1EwBUY7tXxVrEQAVAV8t_6bSyd9ORUqgF/view",
+        "bytes": 2320970,
+        "sha256": "b4c3582c362de7eccd8eb6d2f658d29e8a5b5550d0d9aa1397b948acaa84fd93",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "AAOS",
+      "module": "Skin",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "a0aafd44bdad2c415ca856a5a545b470d9444ec2",
+      "videoStatus": "COMPLETE_CONTROLLED_INPUT_E2E",
+      "automaticE2E": "PASS",
+      "fullPhysicalAcceptance": "NOT_RUN",
+      "inputMapping": {
+        "FRONT": "Char49-2",
+        "RIGHT": "Char49-1",
+        "LEFT": "Char49-3"
+      },
+      "durationSeconds": 308.25,
+      "boundary": "Actual Android 15 WebView, authenticated remote-reference camera, three real model responses. All six regions, callouts, recommendations, uncertainty details and history shown with explicit full-page scrolling. Pairing credential visually masked; no physical camera claim.",
+      "drive": {
+        "id": "1rHeLm16CFMytA4IULRqpJpzbG8hFg21L",
+        "url": "https://drive.google.com/file/d/1rHeLm16CFMytA4IULRqpJpzbG8hFg21L/view",
+        "bytes": 8286294,
+        "sha256": "da15227bed663cabfb35aafb2a266346915e95941afc43e86009d31a184ab7e7",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "AAOS",
+      "module": "Dental",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "a133830e83c057708f251b69325c3068f0a080f7",
+      "videoStatus": "COMPLETE_FLOW_WITH_PARTIAL_MEASUREMENTS",
+      "automaticE2E": "PARTIAL",
+      "flowStatus": "PASS",
+      "fullPhysicalAcceptance": "NOT_RUN",
+      "inputMapping": {
+        "FRONT": "Female-Dental-2",
+        "RIGHT": "Female-Dental-1",
+        "LEFT": "Female-Dental-3",
+        "BITE_ATTEMPTED": "Female-Dental-4"
+      },
+      "durationSeconds": 205.25,
+      "boundary": "Actual Android 15 and real remote camera/model/backend. Three measured views; supplied bite input fails unchanged gate, so existing skip leaves alignment unmeasured. All cards, measurement note, overlays, photo detail and saved-history result inspected. Pairing credential visually masked.",
+      "drive": {
+        "id": "1t3LwuRS2c1anQhdYHefQk239Z07vGjJk",
+        "url": "https://drive.google.com/file/d/1t3LwuRS2c1anQhdYHefQk239Z07vGjJk/view",
+        "bytes": 4539095,
+        "sha256": "5f010b713b38767bf7745ab3a301025981d4d4b429b199882da2db06eadaa413",
+        "readbackVerified": true
+      }
     }
   ],
+  "remainingVideos": [],
   "notes": [
     "Model outputs and provider calls are real. No weight, inference threshold or calibration changes.",
     "Original deployed product source is 9d96fd8 plus the identified deployment patches; do not represent a complete checkout of a later commit.",
     "No secret values, raw transcripts or reference image files are included in this manifest."
-  ]
+  ],
+  "acceptanceSummary": {
+    "PASS": 9,
+    "PARTIAL": 1,
+    "scope": "Controlled-input application/model/provider E2E; physical acceptance NOT_RUN"
+  }
 }

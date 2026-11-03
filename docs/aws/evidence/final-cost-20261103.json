@@ -1,0 +1,40 @@
+{
+  "basis": "AWS Pricing API rates and observed durations; estimates, not actual billed amounts",
+  "currentSession": [
+    {
+      "instanceId": "i-0b25450afc6633494",
+      "type": "r7i.2xlarge",
+      "start": "2026-11-03T16:28:16+00:00",
+      "stopRequestedAt": "2026-11-03T19:07:08.040249+00:00",
+      "secondsToStopRequest": 9532.04,
+      "computeUsdPerHour": 0.6384,
+      "ipv4UsdPerHour": 0.005,
+      "estimatedComputeAndIpv4Usd": 1.70359
+    },
+    {
+      "instanceId": "i-0f4cca4e92e94c351",
+      "type": "m8i.2xlarge",
+      "start": "2026-11-03T16:28:46+00:00",
+      "stopRequestedAt": "2026-11-03T19:09:00.474653+00:00",
+      "secondsToStopRequest": 9614.475,
+      "computeUsdPerHour": 0.50716,
+      "ipv4UsdPerHour": 0.005,
+      "estimatedComputeAndIpv4Usd": 1.36782
+    }
+  ],
+  "currentSessionComputeAndIpv4Usd": 3.07141,
+  "priorAaosSessionEstimateUsd": 0.69262,
+  "totalTaskComputeAndIpv4EstimateUsd": 3.76403,
+  "existingEbsUsdPerMonth": 25.704,
+  "billedAwsTotal": null,
+  "openaiBilledTotal": null,
+  "billingUnavailableReason": "Cost Explorer AccessDenied; provider billing not available through configured runtime",
+  "excluded": [
+    "EBS attribution",
+    "internet transfer",
+    "OpenAI usage",
+    "tax"
+  ],
+  "chatterbox": "Runs locally; its compute is included in EC2 runtime",
+  "stoppingInterval": "Estimate ends at Stop request; API-confirmed stopped times are separately retained."
+}
