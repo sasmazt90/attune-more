@@ -57,6 +57,13 @@ priority on Windows, and its ONNX Runtime and OpenMP lanes sleep while waiting
 instead of spinning. Neither changes a computed value; thread counts stay fixed in
 `local_native_worker.py` because the Torch thread count does change numeric output.
 
+A worker above normal can take CPU time from a QEMU left at normal. When the host is
+saturated, vehicle observations then pass the 2.5-second limit and the gate closes the
+WebView. The closure is the correct, safe behaviour and the limit stays as it is, but
+it ends the AAOS session, so `scripts/qa/aaos/aaos_session.py` starts the AVD's QEMU at
+the same priority as the worker. This is specific to running the emulator and the
+backend on one machine.
+
 Below 400 MiB of available RAM the dryness reserve guard stops the analysis with
 HTTP 503 `LOCAL_MEMORY_RESERVE`, which the UI reports as a memory condition the user
 can act on. Neither the deadline nor the reserve is an environment option.

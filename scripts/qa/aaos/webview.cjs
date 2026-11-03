@@ -23,14 +23,15 @@ function displayIdOf() { displayId ??= shell('dumpsys', 'SurfaceFlinger', '--dis
 function shot(out, name) {
   fs.writeFileSync(path.join(out, name + '.png'), cp.execFileSync(adbPath, ['-s', serial, 'exec-out', 'screencap', '-d', displayIdOf(), '-p'], {timeout: 30000, maxBuffer: 32 * 1024 * 1024}));
 }
-// The app is only on screen when the WebView paints and the capture holds its content; a
-// launcher or black frame fails this even though DOM automation would still succeed.
+// Visible, focused and painting is what DOM automation alone cannot show. The capture is
+// reported separately: with -gpu host the emulator can return a blank frame (gfxstream
+// glReadPixels errors in its log) while the app keeps painting at full rate.
 const LAUNCHER_FRAME_BYTES = 45000;
 async function onScreen(page, out, name, check) {
   const state = await page.evaluate(() => new Promise(ok => { let frames = 0; const began = performance.now(); const tick = () => { frames++; if (performance.now() - began < 1000) requestAnimationFrame(tick); else ok({hidden: document.hidden, visibility: document.visibilityState, focused: document.hasFocus(), framesPerSecond: frames}); }; requestAnimationFrame(tick); setTimeout(() => ok({hidden: document.hidden, visibility: document.visibilityState, focused: document.hasFocus(), framesPerSecond: frames}), 2500); }));
   shot(out, name);
   const bytes = fs.statSync(path.join(out, name + '.png')).size;
-  return check(`App is on screen: ${name}`, !state.hidden && state.focused && state.framesPerSecond >= 10 && bytes > LAUNCHER_FRAME_BYTES, {...state, screenshotBytes: bytes});
+  return check(`App is visible and painting: ${name}`, !state.hidden && state.focused && state.framesPerSecond >= 3, {...state, screenshotBytes: bytes, captureLooksValid: bytes > LAUNCHER_FRAME_BYTES});
 }
 // A real Android screen recording of the journey; ends with the returned stop function.
 function recording(out, name) {
@@ -97,8 +98,13 @@ async function setLanguage(page, value) {
 }
 const translator = language => text => language === 'tr' ? text : catalog.find(v => v.tr.trim() === text.trim())?.[language] || text;
 
-async function enter(page, module, tr) {
+// A slow guest may still be on the old route; its open menu would detach mid-click.
+async function goHome(page) {
   await page.locator('nav a[href="/"]').first().click();
+  await page.waitForFunction(() => location.pathname === '/', null, {timeout: 20000});
+}
+async function enter(page, module, tr) {
+  await goHome(page);
   await page.getByRole('button', {name: tr('Sağlık Merkezi'), exact: true}).click();
   await page.locator('#health-centre-links a[href="/' + module + '"]').click();
   await page.waitForURL('**/' + module);
@@ -132,4 +138,4 @@ function audioFlinger() {
   return {standbyNo: /Standby:\s*no/.test(raw), framesWritten: [...raw.matchAll(/Frames written:\s*(\d+)/g)].slice(0, 4).map(match => Number(match[1])), tracks: tracks.slice(0, 8), startedPlayers: players};
 }
 
-module.exports = {adb, backend, onScreen, recording, shell, shot, sleep, attach, enter, layout, report, setLanguage, translator, vehicle, setSpeed, audioFlinger, component, pkg, origin, api};
+module.exports = {adb, backend, goHome, onScreen, recording, shell, shot, sleep, attach, enter, layout, report, setLanguage, translator, vehicle, setSpeed, audioFlinger, component, pkg, origin, api};

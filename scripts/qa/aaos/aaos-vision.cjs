@@ -122,5 +122,6 @@ const EYE = {tr: [/Sağ göz\s*[·•]/, /Sol göz\s*[·•]/], en: [/Right eye\
     save();
     await session?.browser.close().catch(() => {});
     console.log(JSON.stringify({out, status: r.status, checks: r.checks.length, failed: r.checks.filter(item => !item.pass).map(item => item.what), error: r.error}));
+    process.exit(process.exitCode || 0);
   }
 })();

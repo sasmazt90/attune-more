@@ -15,6 +15,8 @@ import sys
 import time
 import urllib.request
 
+import psutil
+
 COMPONENT_CLASS = 'more.attune.automotive.MainActivity'
 
 
@@ -39,6 +41,15 @@ def web_ready(config, package):
     return any(t.get('url', '').startswith(config['webOrigin']) and t.get('title', '').startswith('Attune') for t in targets)
 
 
+def match_worker_priority(launcher_pid):
+    """The Skin worker runs above normal on Windows. Below it, this AVD's QEMU loses its vCPUs
+    on a saturated host: vehicle observations pass the 2.5 s limit and the gate closes the page."""
+    emulators = [p for p in psutil.Process(launcher_pid).children(recursive=True) if p.name().startswith('qemu-system')]
+    for emulator in emulators:
+        emulator.nice(psutil.ABOVE_NORMAL_PRIORITY_CLASS)
+    return [emulator.pid for emulator in emulators]
+
+
 def boot(arguments, config):
     if config['serial'] in devices(config):
         raise SystemExit(f"{config['serial']} is already running; preserved")
@@ -60,6 +71,7 @@ def boot(arguments, config):
     else:
         raise SystemExit('AVD did not finish booting')
     report['bootSeconds'] = round(time.time() - report['bootStarted'], 1)
+    report['aboveNormalPids'] = match_worker_priority(process.pid)
     # CarLauncher initialises user 10 after sys.boot_completed.
     time.sleep(15)
     for port in ('3000', '8000'):

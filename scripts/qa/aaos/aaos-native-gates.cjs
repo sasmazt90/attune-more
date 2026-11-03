@@ -117,5 +117,6 @@ async function waitForDump(test, seconds) {
     fs.writeFileSync(path.join(out, 'assertions.json'), JSON.stringify(r, null, 1));
     await session?.browser.close().catch(() => {});
     console.log(JSON.stringify({out, status: r.status, checks: r.checks.length, failed: r.checks.filter(item => !item.pass).map(item => item.what), error: r.error}));
+    process.exit(process.exitCode || 0);
   }
 })();

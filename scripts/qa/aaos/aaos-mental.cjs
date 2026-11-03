@@ -94,7 +94,7 @@ const RECOGNIZER = `(()=>{window.__qaUtterances=[];window.__qaRecognitions=0;
     await completion.getByRole('button', {name: tr('Tamam'), exact: true}).click();
     W.shot(out, 'completed');
     // A re-render or a return to the module must not write a second record.
-    await page.locator('nav a[href="/"]').first().click();
+    await W.goHome(page);
     await page.getByRole('button', {name: tr('Sağlık Merkezi'), exact: true}).click();
     await page.locator('#health-centre-links a[href="/mental"]').click();
     await page.waitForURL('**/mental');
@@ -102,16 +102,19 @@ const RECOGNIZER = `(()=>{window.__qaUtterances=[];window.__qaRecognitions=0;
     check('Returning to the module adds no duplicate', (await count()) === before.length + 1);
 
     await page.getByRole('link', {name: tr('Sağlık Geçmişim'), exact: true}).click();
+    await page.waitForFunction(() => location.pathname === '/profile', null, {timeout: 20000});
     const row = page.locator(`[data-record-id="${record.id}"]`);
-    await row.getByRole('button', {name: tr('Sonucu Aç'), exact: true}).click();
+    await row.waitFor();
     const dialog = page.getByRole('dialog');
-    await dialog.waitFor();
+    await row.getByRole('button', {name: tr('Sonucu Aç'), exact: true}).click();
+    await dialog.waitFor({timeout: 45000});
     check('History reopens the saved summary', (await dialog.innerText()).includes(record.summaryText.slice(0, 30)));
     W.shot(out, 'reopen');
     await page.getByRole('button', {name: tr('Sonuç penceresini kapat'), exact: true}).click();
     await dialog.waitFor({state: 'hidden'});
     check('Reopening adds no duplicate', (await count()) === before.length + 1);
 
+    await W.goHome(page);
     await page.getByRole('button', {name: tr('Sağlık Merkezi'), exact: true}).click();
     await page.locator('#health-centre-links a[href="/mental"]').click();
     await page.waitForURL('**/mental');
@@ -195,5 +198,6 @@ const RECOGNIZER = `(()=>{window.__qaUtterances=[];window.__qaRecognitions=0;
     fs.writeFileSync(path.join(out, 'assertions.json'), JSON.stringify(r, null, 1));
     await session?.browser.close().catch(() => {});
     console.log(JSON.stringify({out, status: r.status, checks: r.checks.length, failed: r.checks.filter(item => !item.pass).map(item => item.what), error: r.error}));
+    process.exit(process.exitCode || 0);
   }
 })();

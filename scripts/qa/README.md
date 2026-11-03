@@ -46,6 +46,11 @@ build's content security policy and the Android debug shell expect.
 | `perf/runtime_variant.py` | Runtime options applied from outside the product, one process per variant |
 | `perf/pose_profile.py` | Slowest functions of one pose on the exact worker path |
 | `perf/ballast.py` | Memory-only or CPU-only load, to separate the two causes |
+| `perf/bench_series.py` | Tagged API benchmarks under the sampler, one after another |
+| `perf/report_e2e_run.py` | Attributes a browser run: API timeline plus resource trace |
+| `perf/output_parity.py` | Compares the worker output of two checkouts field by field |
+| `perf/skin_recovery.py` | A cancelled or vehicle-stopped analysis leaves no orphan or late result |
+| `perf/guard_probe.py` | The reserve guard on the real worker path, without exhausting the host |
 
 ## Journeys
 
@@ -55,11 +60,15 @@ build's content security policy and the Android debug shell expect.
 | `e2e/vision-journey.cjs`, `e2e/hearing-journey.cjs` | Real browser, two complete assessments |
 | `e2e/mental-lifecycle.cjs`, `e2e/mental-boundaries.cjs` | Real browser, **mocked provider** |
 | `e2e/*-boundaries.cjs` | Interruption boundaries; dispatched events are labelled in the evidence |
+| `e2e/dental-journey.cjs` | Cross-module regression through the shared native worker |
+| `e2e/module-i18n.cjs` | TR/EN/DE entry surfaces; reports any leftover source-language sentence |
 | `aaos/aaos_session.py` | Boots the read-only AVD and installs the debug shell |
 | `aaos/aaos-native-gates.cjs` | PARK/DRIVE, stale data, background, Back, keys, permissions |
 | `aaos/aaos-hearing.cjs` | Real WebView, real PCM into the guest mixer, synthetic listener |
 | `aaos/aaos-vision.cjs` | Unmodified no-camera boundary, then **injected camera and recognizer** |
 | `aaos/aaos-mental.cjs` | Unmodified no-ASR boundary, then **scripted recognizer and mocked provider** |
+| `aaos/aaos-language-sync.cjs` | Native toolbar language after real navigations from the shell's Home button |
+| `aaos/gate_probe.py` | Watches the AAOS WebView while the host runs other work |
 
 A journey result only speaks for its boundary. Injected or mocked layers are named in the
 evidence and never count as camera, microphone, speech-service, provider or human-listening
