@@ -31,7 +31,7 @@ pactl info >/dev/null
 pactl list short sinks | rg -q "attune_out" || pactl load-module module-null-sink sink_name=attune_out rate=48000 channels=2
 pactl list short sinks | rg -q "attune_mic" || pactl load-module module-null-sink sink_name=attune_mic rate=48000 channels=1
 fi
-"$ANDROID_HOME/emulator/emulator" -avd "$ATTUNE_AVD" -port 5554 -no-snapshot -no-boot-anim -gpu swiftshader_indirect -memory "$ATTUNE_AAOS_MEMORY_MB" -cores 4 > "$ATTUNE_AAOS_EVIDENCE/emulator.log" 2>&1 & pids+=("$!")
+"$ANDROID_HOME/emulator/emulator" -avd "$ATTUNE_AVD" -port 5554 -no-snapshot -no-boot-anim -gpu swiftshader -memory "$ATTUNE_AAOS_MEMORY_MB" -cores 4 > "$ATTUNE_AAOS_EVIDENCE/emulator.log" 2>&1 & pids+=("$!")
 adb="$ANDROID_HOME/platform-tools/adb"
 timeout 360 "$adb" -s emulator-5554 wait-for-device
 ready=0

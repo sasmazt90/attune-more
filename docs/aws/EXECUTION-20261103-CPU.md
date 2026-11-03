@@ -77,8 +77,8 @@ storage only; a subsequent real provider response is required for authentication
 
 ## Acceptance and cost
 
-Four of ten English reference-replay videos are uploaded and downloaded back for
-byte/SHA-256 verification: WEB Dental, WEB Skin, WEB Mental and AAOS Mental.
+Six of ten English reference-replay videos are uploaded and downloaded back for
+byte/SHA-256 verification: WEB Dental, WEB Skin, WEB Mental, AAOS Mental, WEB Hearing and AAOS Hearing.
 See [video manifest](evidence/english-e2e-videos-20261103.json) for URLs, mappings,
 recording boundaries and source provenance. Actual model/provider responses,
 complete result inspection and saved-history reopening were exercised. These are
@@ -94,8 +94,12 @@ application UI and requested provider reply language are English.
 
 AAOS Dental is currently blocked: remote frames arrive, but the WebView preview
 is black and the active face model reports no face. No result is fabricated.
-AAOS Skin/Vision, both Hearing journeys, WEB Vision EN/DE ASR, ATT-T03-05,
-native PARK/DRIVE transitions and full partial-session persistence remain open.
+AAOS Skin/Vision, WEB Vision EN/DE completion and full partial-session persistence remain open.
+Both Hearing DIN journeys completed with controlled responses and real audio/scoring.
+Native backend DRIVE and emulated VHAL driving destroyed the WebView; PARK restored
+it, and HOME/foreground transitions passed. WEB Skin and AAOS Hearing also passed
+with 57 seconds of overlapping execution; see [native/concurrency evidence](evidence/native-concurrency-20261103.json).
+These are emulator/controlled-input checks, not physical vehicle or human hearing acceptance.
 The earlier native blocked-screen recording is diagnostic only.
 
 AWS Pricing API returned R7i Linux On-Demand **$0.63840/hour**. With the previously

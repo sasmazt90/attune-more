@@ -15,7 +15,7 @@ async function open(module,{camera,microphone}={}){
  const save=()=>fs.writeFileSync(path.join(out,'evidence.json'),JSON.stringify(r,null,2));save();
  const args=['--autoplay-policy=no-user-gesture-required','--auto-select-tab-capture-source-by-title=Attune.more','--auto-accept-this-tab-capture','--enable-usermedia-screen-capturing','--allow-http-screen-capture'];
  if(camera)args.push('--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+camera);
- if(microphone)args.push('--disable-audio-input','--use-fake-device-for-media-stream','--use-file-for-fake-audio-capture='+microphone+'%noloop');
+ if(microphone)args.push('--disable-audio-input','--use-fake-device-for-media-stream','--use-file-for-fake-audio-capture='+microphone+(process.env.ATTUNE_QA_AUDIO_LOOP==='1'?'':'%noloop'));
  const b=await chromium.launch({headless:true,ignoreDefaultArgs:['--mute-audio'],executablePath:process.env.ATTUNE_QA_CHROME||'C:/Program Files/Google/Chrome/Application/chrome.exe',...(process.env.ATTUNE_QA_PROXY?{proxy:{server:process.env.ATTUNE_QA_PROXY}}:{}),args});
  const c=await b.newContext({viewport:{width:1280,height:720},permissions:['camera','microphone'],acceptDownloads:true,...(process.env.ATTUNE_QA_HTTP_CREDENTIALS_FILE?{httpCredentials:JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_HTTP_CREDENTIALS_FILE,'utf8'))}:{})});
  // Observe only object creation for deterministic silent teardown. No audio,

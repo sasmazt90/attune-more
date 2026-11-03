@@ -1,13 +1,14 @@
 import { FaceLandmarker, HandLandmarker, FilesetResolver } from '@mediapipe/tasks-vision';
 import { VisionTracker } from './visionTracking';
 import type { Eye } from './spokenVision';
+import { MEDIA_PIPE_DELEGATE } from './mediaPipeRuntime';
 let face:FaceLandmarker,hand:HandLandmarker,tracker=new VisionTracker(),delegate:'CPU'|'GPU'='GPU';
 let canvas:OffscreenCanvas,ctx:OffscreenCanvasRenderingContext2D;
 self.onmessage=async(event:MessageEvent)=>{
  const {id,type,frame,frameTime,eye}=event.data;
  try{
   if(type==='initialize'){
-   delegate=event.data.delegate==='CPU'?'CPU':'GPU';
+   delegate=event.data.delegate==='CPU'?'CPU':MEDIA_PIPE_DELEGATE;
    const files=await FilesetResolver.forVisionTasks('/mediapipe/wasm');
    face=await FaceLandmarker.createFromOptions(files,{baseOptions:{modelAssetPath:'/mediapipe/models/face_landmarker.task',delegate},runningMode:'IMAGE',numFaces:2,outputFaceBlendshapes:true});
    hand=await HandLandmarker.createFromOptions(files,{baseOptions:{modelAssetPath:'/mediapipe/models/hand_landmarker.task',delegate},runningMode:'IMAGE',numHands:2});

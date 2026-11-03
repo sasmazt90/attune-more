@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-11-03T17:57:00Z",
+  "observedAt": "2026-11-03T18:13:00Z",
   "parentFolder": "https://drive.google.com/drive/folders/1QPfzJuIbAr6PY-Ubse25UFCvTDc2MmN9",
   "videos": [
     {
@@ -107,6 +107,56 @@
         "sha256": "118f83ab9a55f185a07f3f64e6d0188b1fc0b0ffdce6a9ef985b8abf03363547",
         "readbackVerified": true
       }
+    },
+    {
+      "platform": "WEB",
+      "module": "Hearing",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "840d44a",
+      "videoStatus": "COMPLETE_CONTROLLED_AUTOMATION",
+      "automaticE2E": "PASS",
+      "physicalHumanAcceptance": "NOT_RUN",
+      "inputMapping": {
+        "listener": "Controlled DIN responses alternating correct and incorrect triples through actual UI",
+        "trialsPerAssessment": 24,
+        "completedAssessments": 2
+      },
+      "durationSeconds": 158.317241,
+      "boundary": "Real audio generation, left/right channel presentation, actual application scoring, result details and saved history. Automated confirmations do not establish headphone channel calibration or human hearing. DIN path; pure-tone audiogram-specific tabs are not part of this result.",
+      "drive": {
+        "id": "1Y0jbae2YWnOO53nc2k26_SopjMAIB-Q5",
+        "url": "https://drive.google.com/file/d/1Y0jbae2YWnOO53nc2k26_SopjMAIB-Q5/view",
+        "bytes": 2288942,
+        "sha256": "25833787dc379dacdd163023565045aad820388dd6b07521c4adb5304d468909",
+        "readbackVerified": true
+      }
+    },
+    {
+      "platform": "AAOS",
+      "module": "Hearing",
+      "language": "en",
+      "recordedDate": "2026-11-03",
+      "sourceCommit": "9d96fd845ae7f5eaabf3099c853ac568fe854353",
+      "deploymentPatchCommit": "840d44a",
+      "videoStatus": "COMPLETE_CONTROLLED_AUTOMATION",
+      "automaticE2E": "PASS",
+      "physicalHumanAcceptance": "NOT_RUN",
+      "inputMapping": {
+        "listener": "Controlled DIN responses alternating correct and incorrect triples through actual UI",
+        "trialsPerAssessment": 24,
+        "completedAssessments": 1
+      },
+      "durationSeconds": 83,
+      "boundary": "Real audio generation, left/right channel presentation, actual application scoring, result details and saved history. Automated confirmations do not establish headphone channel calibration or human hearing. DIN path; pure-tone audiogram-specific tabs are not part of this result.",
+      "drive": {
+        "id": "1unVuVsfqF9JHbV0SUX18V8lsWqHz_pP1",
+        "url": "https://drive.google.com/file/d/1unVuVsfqF9JHbV0SUX18V8lsWqHz_pP1/view",
+        "bytes": 1244495,
+        "sha256": "7341eb6ec545052ff2f8b7781d63c77a154ec205b42b627965b59df355646dcb",
+        "readbackVerified": true
+      }
     }
   ],
   "remainingVideos": [
@@ -126,18 +176,8 @@
       "status": "PENDING"
     },
     {
-      "platform": "AAOS",
-      "module": "Hearing",
-      "status": "PENDING"
-    },
-    {
       "platform": "WEB",
       "module": "Vision",
-      "status": "PENDING"
-    },
-    {
-      "platform": "WEB",
-      "module": "Hearing",
       "status": "PENDING"
     }
   ],

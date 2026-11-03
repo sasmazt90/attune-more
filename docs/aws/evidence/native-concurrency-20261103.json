@@ -1,0 +1,85 @@
+{
+  "nativeGates": {
+    "scope": "Actual Android 15 native app; backend simulation and emulated VHAL, not a physical vehicle",
+    "checks": [
+      {
+        "name": "Initial PARK has native WebView",
+        "pass": true
+      },
+      {
+        "name": "Backend DRIVE destroys native WebView",
+        "pass": true
+      },
+      {
+        "name": "Backend PARK restores native WebView",
+        "pass": true
+      },
+      {
+        "name": "HOME backgrounds activity",
+        "pass": true
+      },
+      {
+        "name": "Foreground reopens gated WebView",
+        "pass": true
+      },
+      {
+        "name": "Native emulated VHAL driving blocks WebView",
+        "pass": true
+      },
+      {
+        "name": "Native PARK restores after VHAL driving",
+        "pass": true
+      }
+    ],
+    "runtime": {
+      "sdk": "35",
+      "memory": "MemTotal:        3050228 kB",
+      "display": "Physical size: 1280x800"
+    },
+    "status": "PASS",
+    "ssmCommandId": "1759625a-574b-494d-8b10-85253808e08d"
+  },
+  "ATT-T03-05": {
+    "status": "PASS_CONTROLLED_CONCURRENT_JOURNEYS",
+    "webSkin": {
+      "CommandId": "7b6b7480-c53c-4d10-a79c-4ad762401bfa",
+      "Status": "Success",
+      "ExecutionStartDateTime": "2026-11-03T18:02:33.192Z",
+      "ExecutionEndDateTime": "2026-11-03T18:05:05.192Z"
+    },
+    "aaosHearing": {
+      "CommandId": "79476d30-249a-4fc3-9e86-403377b3e36e",
+      "Status": "Success",
+      "ExecutionStartDateTime": "2026-11-03T18:02:05.320Z",
+      "ExecutionEndDateTime": "2026-11-03T18:03:30.320Z"
+    },
+    "overlapSeconds": 57.128,
+    "boundary": "Real Skin model and controlled DIN listener. Both journeys/results passed while commands overlapped; no human hearing or calibrated audio-quality claim."
+  },
+  "visionGermanAsr": {
+    "status": "PASS_PROVIDER_API_ONLY",
+    "ssmCommandId": "89990c0f-7989-4b58-919d-dea04749b6a2",
+    "results": [
+      {
+        "role": "web",
+        "status": 200,
+        "seconds": 0.77,
+        "provider": "openai",
+        "model": "gpt-transcribe",
+        "transcriptNonempty": true,
+        "transcriptCharacters": 18,
+        "audioSha256": "57198142f5022310442b4d3a9c6987e8cc4db492ade9bca8e59da50aac97f93c",
+        "detail": null
+      }
+    ],
+    "boundary": "Controlled synthesized German audio; real OpenAI gpt-transcribe. Full German Vision UI completion is not established."
+  },
+  "mentalPartialSession": {
+    "status": "PASS_ONE_TURN_REAL_PROVIDER_UI_RELOAD_PERSISTENCE",
+    "ssmCommandId": "19949258-8c76-4d8e-b8a0-00a409237436",
+    "singleCompletedTurn": true,
+    "realAsrConversationTtsSummary": true,
+    "savedSummaryReopenedAfterReload": true,
+    "boundary": "Reference Mental-Health-1 through browser microphone transport; not physical microphone acceptance."
+  }
+}
