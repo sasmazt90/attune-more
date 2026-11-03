@@ -1,9 +1,10 @@
-const fs=require('fs'),path=require('path'),assert=require('assert/strict');const {open,root,fixtureRoot}=require('./harness.cjs');
+const fs=require('fs'),path=require('path'),assert=require('assert/strict');const {open,root,fixtureRoot,language}=require('./harness.cjs');
+const EYE={tr:[/Sağ göz\s*[·•]/,/Sol göz\s*[·•]/],en:[/Right eye\s*[·•]/,/Left eye\s*[·•]/],de:[/Rechtes Auge\s*[·•]/,/Linkes Auge\s*[·•]/]}[language];
 const {deleteSynthetic,referral}=require('./result-coverage.cjs');
 (async()=>{
  const frames=Object.fromEntries(['Front','Right','Left'].map(k=>[k,fs.readFileSync(path.join(fixtureRoot,'vision-native-input/vision'+k+'.y4m'))]));
  const camera=path.join(root,'runtime/vision-camera.y4m');fs.writeFileSync(camera,frames.Front);const fd=fs.openSync(camera,'r+');
- const h=await open('vision',{camera,microphone:path.join(fixtureRoot,'synthetic-speech/vision-not-visible.wav')});const {p,q,r,tr,save,act,observe,inventory}=h;r.states=[];let error;
+ const h=await open('vision',{camera,microphone:path.join(fixtureRoot,language==='tr'?'synthetic-speech/vision-not-visible-tr.wav':'synthetic-speech/vision-not-visible.wav')});const {p,q,r,tr,save,act,observe,inventory}=h;r.states=[];let error;
  async function info(button,label){await act(label,button,()=>p.getByRole('button',{name:tr('Bilgi penceresini kapat'),exact:true}).waitFor());const d=p.getByRole('dialog').filter({has:p.getByRole('button',{name:tr('Bilgi penceresini kapat'),exact:true})});await observe(label+' text',d);await act(label+' close',d.getByRole('button',{name:tr('Bilgi penceresini kapat'),exact:true}),()=>d.waitFor({state:'hidden'}));}
  async function details(root,label){
   await inventory(label,root);
@@ -17,7 +18,7 @@ const {deleteSynthetic,referral}=require('./result-coverage.cjs');
   while(Date.now()<end){
    const state=await p.locator('[data-vision-stage]').evaluate(e=>({stage:e.dataset.visionStage,trial:e.dataset.visionTrial,text:e.innerText,voice:e.querySelector('[data-vision-voice]')?.getAttribute('data-vision-voice'),readiness:e.querySelector('[data-vision-readiness]')?.textContent,evidence:JSON.parse(document.querySelector('canvas[data-vision-evidence]')?.getAttribute('data-vision-evidence')||'null')}));
    state.seconds=h.stamp();r.states.push(state);save();if(state.stage==='result'){completed=true;r.result=true;break;}if(state.stage==='error')throw Error(state.text);
-   let target='Front';if(!['idle','preparing'].includes(state.stage)){if(/Right eye\s*[·•]/.test(state.text))target='Right';else if(/Left eye\s*[·•]/.test(state.text))target='Left';}
+   let target='Front';if(!['idle','preparing'].includes(state.stage)){if(EYE[0].test(state.text))target='Right';else if(EYE[1].test(state.text))target='Left';}
    if(target!==pose){fs.writeSync(fd,frames[target],0,frames[target].length,0);pose=target;r.states.push({cameraSwitch:pose,seconds:h.stamp()});}
    if(state.trial&&state.trial!==lastTrial){lastTrial=state.trial;lastProgress=Date.now();console.log('Vision presentation',lastTrial);}
    if(Date.now()-lastProgress>120000)throw Error('Actual camera/voice gate stalled for 120 seconds');await p.waitForTimeout(600);

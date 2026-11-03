@@ -281,6 +281,11 @@ public final class MainActivity extends Activity {
                 if (OriginPolicy.isHttps(url) || (BuildConfig.DEBUG && (webOrigin.contains(url) || apiOrigin.contains(url)))) return null;
                 return new WebResourceResponse("text/plain", "UTF-8", 403, "Blocked", java.util.Collections.emptyMap(), new ByteArrayInputStream(new byte[0]));
             }
+            @Override public void onPageStarted(WebView source, String url, android.graphics.Bitmap favicon) {
+                // A navigation can drop a pending evaluateJavascript callback. Without this the
+                // native labels would keep their language until the WebView is recreated.
+                if (source == web) localeReadPending = false;
+            }
             @Override public void onPageFinished(WebView source, String url) {
                 if (source != web || !ready() || !webOrigin.contains(url)) return;
                 try (java.io.InputStream stream = getAssets().open("automotive.css")) {

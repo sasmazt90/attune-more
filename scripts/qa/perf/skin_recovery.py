@@ -108,7 +108,8 @@ def main():
     outcome.update(status=status, detail=payload.get('detail'), seconds=seconds)
     check('DRIVE during a pose stops it: 409, no result', status == 409 and payload.get('detail') == 'CANCELLED', outcome)
     check('DRIVE kills the worker', wait_until(lambda: before[0] not in workers(), 15), workers())
-    status, payload, _, _ = post(BASE, '/api/local-health/skin', raw, 20)
+    # The gate answers before reading a body, so a small request is enough.
+    status, payload, _, _ = post(BASE, '/api/local-health/skin', dict(processingConsent=True), 20)
     check('Analysis stays refused while moving', status == 409 and payload.get('detail') == 'PARK_REQUIRED', dict(status=status, detail=payload.get('detail')))
     speed(0)
     prepare()

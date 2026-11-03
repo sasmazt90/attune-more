@@ -10,15 +10,17 @@ const W = require('./webview.cjs');
   const {out, r, check} = W.report('hearing-' + language);
   r.boundary = 'Real Android WebView, real Web Audio output into the guest mixer, native gates. Synthetic listener; no physical speaker or human listening.';
   const tr = W.translator(language);
-  let session;
+  let session, stopRecording;
   try {
     session = await W.attach();
     const {page} = session;
+    if (process.env.ATTUNE_QA_RECORD === '1') stopRecording = W.recording(out, 'hearing-' + language);
     page.on('pageerror', error => r.errors.push(String(error)));
     await W.setLanguage(page, language);
     await W.enter(page, 'hearing', tr);
     const shape = await W.layout(page);
     check('Entry fits 1280x720 without sideways scroll', !shape.overflow, shape);
+    await W.onScreen(page, out, 'entry', check);
     const before = await page.evaluate(() => JSON.parse(localStorage.getItem('attune_hearing_history_v1') || '[]').map(row => row.id));
     await page.evaluate(() => {
       window.__qaPcm = [];
@@ -81,14 +83,14 @@ const W = require('./webview.cjs');
     check('Guest mixer active during DIN output', r.mixerDuringDigits.some(m => m.standbyNo || m.startedPlayers.length), r.mixerDuringDigits);
     const cards = await page.locator('[data-din-scorecards]').innerText();
     check('Localized score cards', ['Doğru sayı', 'Tam üçlü', 'Geçerli deneme'].every(title => cards.includes(tr(title))), cards);
-    W.shot(out, 'result');
+    await W.onScreen(page, out, 'result', check);
     await page.getByRole('link', {name: tr('Sağlık Geçmişim'), exact: true}).click();
     const saved = page.locator(`[data-record-id="${row.id}"]`);
     await saved.getByRole('button', {name: tr('Sonucu Aç'), exact: true}).click();
     const dialog = page.getByRole('dialog');
     await dialog.waitFor();
     check('Reopened saved DIN result', (await dialog.innerText()).length > 40);
-    W.shot(out, 'reopen');
+    await W.onScreen(page, out, 'reopen', check);
     await page.getByRole('button', {name: tr('Sonuç penceresini kapat'), exact: true}).click();
     await dialog.waitFor({state: 'hidden'});
     await saved.getByRole('button', {name: new RegExp(tr('Sil') + '|' + tr('sil'), 'i')}).click();
@@ -105,6 +107,7 @@ const W = require('./webview.cjs');
     process.exitCode = 1;
     try { W.shot(out, 'failure'); } catch {}
   } finally {
+    if (stopRecording) await stopRecording().catch(error => { r.recordingError = String(error); });
     r.finished = new Date().toISOString();
     require('node:fs').writeFileSync(out + '/assertions.json', JSON.stringify(r, null, 1));
     await session?.browser.close().catch(() => {});

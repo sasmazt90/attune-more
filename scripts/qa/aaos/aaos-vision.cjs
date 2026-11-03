@@ -38,12 +38,13 @@ const EYE = {tr: [/Sağ göz\s*[·•]/, /Sol göz\s*[·•]/], en: [/Right eye\
     await W.enter(page, 'vision', tr);
     const shape = await W.layout(page);
     check('Entry fits 1280x720 without sideways scroll', !shape.overflow, shape);
-    W.shot(out, 'entry');
+    await W.onScreen(page, out, 'entry', check);
     const before = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]').map(item => item.id), HISTORY);
 
     await page.getByRole('button', {name: tr('Başlat'), exact: true}).click();
-    await page.getByRole('alert').first().waitFor({timeout: 20000});
-    const alert = await page.getByRole('alert').first().innerText();
+    const message = page.getByRole('alert').filter({hasText: /\S/}).first();
+    await message.waitFor({timeout: 20000});
+    const alert = await message.innerText();
     check('No camera device: start stops with an honest error, nothing scored', alert.includes(tr('Kamera görüntüsü alınamadı. Kamera izinlerini ve cihazı kontrol edin.')), alert);
     check('No record from the failed start', (await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]').length, HISTORY)) === before.length);
     W.shot(out, 'no-camera-boundary');
@@ -68,7 +69,12 @@ const EYE = {tr: [/Sağ göz\s*[·•]/, /Sol göz\s*[·•]/], en: [/Right eye\
       const state = await stage.evaluate(e => ({stage: e.dataset.visionStage, trial: e.dataset.visionTrial, text: e.innerText.slice(0, 1400), voice: e.querySelector('[data-vision-voice]')?.getAttribute('data-vision-voice')}));
       if (state.stage === 'result') break;
       if (state.stage === 'error') throw Error('Vision error stage: ' + state.text.slice(0, 500));
-      if (state.trial && state.trial !== last) { last = state.trial; lastProgress = Date.now(); r.states.push({trial: state.trial, at: new Date().toISOString(), target: current}); save(); }
+      if (state.stage === 'idle' && r.states.length) throw Error('Task returned to idle: ' + await page.evaluate(() => document.querySelector('canvas[hidden]')?.dataset.visionFailure || 'no failure recorded'));
+      if (state.trial && state.trial !== last) {
+        last = state.trial; lastProgress = Date.now();
+        const health = await page.evaluate(() => { const e = JSON.parse(document.querySelector('canvas[hidden]')?.dataset.visionEvidence || 'null'); return e && {inferenceMs: Math.round(e.inferenceMs), delegate: e.delegate, blocker: e.conditions?.blocker || null}; });
+        r.states.push({trial: state.trial, at: new Date().toISOString(), target: current, ...health}); save();
+      }
       let target = 'Front';
       if (!['idle', 'preparing'].includes(state.stage)) { if (EYE[language][0].test(state.text)) target = 'Right'; else if (EYE[language][1].test(state.text)) target = 'Left'; }
       if (target !== current) { current = target; await page.evaluate(value => { window.__qaVision.target = value; }, target); }
@@ -78,7 +84,7 @@ const EYE = {tr: [/Sağ göz\s*[·•]/, /Sol göz\s*[·•]/], en: [/Right eye\
     check('24-trial assessment reached the result stage', (await stage.getAttribute('data-vision-stage')) === 'result');
     const notice = page.getByRole('dialog');
     if (await notice.count()) await notice.getByRole('button', {name: tr('Tamam'), exact: true}).click();
-    W.shot(out, 'result');
+    await W.onScreen(page, out, 'result', check);
     const records = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]'), HISTORY);
     const created = records.filter(item => !before.includes(item.id));
     check('Exactly one saved record', created.length === 1, created.length);

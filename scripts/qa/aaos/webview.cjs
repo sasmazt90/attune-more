@@ -17,7 +17,39 @@ const sleep = ms => new Promise(ok => setTimeout(ok, ms));
 
 function adb(...args) { return cp.execFileSync(adbPath, ['-s', serial, ...args], {encoding: 'utf8', timeout: 45000, maxBuffer: 32 * 1024 * 1024}).trim(); }
 const shell = (...args) => adb('shell', ...args);
-function shot(out, name) { fs.writeFileSync(path.join(out, name + '.png'), cp.execFileSync(adbPath, ['-s', serial, 'exec-out', 'screencap', '-p'], {timeout: 30000, maxBuffer: 32 * 1024 * 1024})); }
+let displayId;
+// AAOS exposes several displays; screencap needs the main one or it prints a warning instead of a PNG.
+function displayIdOf() { displayId ??= shell('dumpsys', 'SurfaceFlinger', '--display-id').match(/Display (\d+)/)[1]; return displayId; }
+function shot(out, name) {
+  fs.writeFileSync(path.join(out, name + '.png'), cp.execFileSync(adbPath, ['-s', serial, 'exec-out', 'screencap', '-d', displayIdOf(), '-p'], {timeout: 30000, maxBuffer: 32 * 1024 * 1024}));
+}
+// The app is only on screen when the WebView paints and the capture holds its content; a
+// launcher or black frame fails this even though DOM automation would still succeed.
+const LAUNCHER_FRAME_BYTES = 45000;
+async function onScreen(page, out, name, check) {
+  const state = await page.evaluate(() => new Promise(ok => { let frames = 0; const began = performance.now(); const tick = () => { frames++; if (performance.now() - began < 1000) requestAnimationFrame(tick); else ok({hidden: document.hidden, visibility: document.visibilityState, focused: document.hasFocus(), framesPerSecond: frames}); }; requestAnimationFrame(tick); setTimeout(() => ok({hidden: document.hidden, visibility: document.visibilityState, focused: document.hasFocus(), framesPerSecond: frames}), 2500); }));
+  shot(out, name);
+  const bytes = fs.statSync(path.join(out, name + '.png')).size;
+  return check(`App is on screen: ${name}`, !state.hidden && state.focused && state.framesPerSecond >= 10 && bytes > LAUNCHER_FRAME_BYTES, {...state, screenshotBytes: bytes});
+}
+// A real Android screen recording of the journey; ends with the returned stop function.
+function recording(out, name) {
+  const device = '/sdcard/attune-qa-recording.mp4';
+  const child = cp.spawn(adbPath, ['-s', serial, 'shell', 'screenrecord', '--display-id', displayIdOf(), '--bit-rate', '1200000', '--time-limit', '175', device], {windowsHide: true, stdio: 'ignore'});
+  return async () => {
+    try { shell('pkill', '-2', 'screenrecord'); } catch {}
+    await sleep(1500);
+    child.kill();
+    cp.execFileSync(adbPath, ['-s', serial, 'pull', device, path.join(out, name + '.mp4')], {timeout: 60000, stdio: 'ignore'});
+    shell('rm', '-f', device);
+  };
+}
+// Stops or restarts only the QA backend this checkout owns.
+function backend(action) {
+  const runtime = process.env.ATTUNE_QA_RUNTIME_CONFIG, workdir = process.env.ATTUNE_QA_SERVICE_DIR;
+  const python = JSON.parse(fs.readFileSync(runtime, 'utf8').replace(/^\uFEFF/, '')).python;
+  cp.execFileSync(python, [path.join(repository, 'scripts/qa/qa_services.py'), action, '--workdir', workdir, '--runtime-config', runtime], {timeout: 180000, stdio: 'ignore'});
+}
 async function vehicle() { return (await fetch(api + '/api/vehicle/state')).json(); }
 async function setSpeed(speedKmH) { return (await fetch(api + '/api/vehicle/speed', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({speedKmH})})).json(); }
 
@@ -100,4 +132,4 @@ function audioFlinger() {
   return {standbyNo: /Standby:\s*no/.test(raw), framesWritten: [...raw.matchAll(/Frames written:\s*(\d+)/g)].slice(0, 4).map(match => Number(match[1])), tracks: tracks.slice(0, 8), startedPlayers: players};
 }
 
-module.exports = {adb, shell, shot, sleep, attach, enter, layout, report, setLanguage, translator, vehicle, setSpeed, audioFlinger, component, pkg, origin, api};
+module.exports = {adb, backend, onScreen, recording, shell, shot, sleep, attach, enter, layout, report, setLanguage, translator, vehicle, setSpeed, audioFlinger, component, pkg, origin, api};

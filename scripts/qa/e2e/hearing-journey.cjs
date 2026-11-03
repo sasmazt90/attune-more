@@ -5,7 +5,7 @@ const assert=require('assert/strict');const {open}=require('./harness.cjs');cons
   const beforeIds=await p.evaluate(()=>JSON.parse(localStorage.getItem('attune_hearing_history_v1')||'[]').map(x=>x.id));
   await act('Start sound preparation',p.getByRole('button',{name:tr('Ses hazırlığını başlat'),exact:true}));
   for(const [button,checkbox] of [['Sol kanalı dinle','Yalnız sol kulağımda duydum.'],['Sağ kanalı dinle','Yalnız sağ kulağımda duydum.']]){await act(button,p.getByRole('button',{name:tr(button),exact:true}));await p.getByRole('checkbox',{name:tr(checkbox),exact:true}).check();}
-  await act('Start original English DIN sequence',p.getByRole('button',{name:tr('Gürültüde seçilen dilin sayıları'),exact:true}));let seed=await p.evaluate(()=>window.__observedDinSeed);assert.equal(typeof seed,'number');const run={seed,trials:[]};r.assessments.push(run);
+  await act('Start original English DIN sequence',p.getByRole('button',{name:tr(r.language==='tr'?'Gürültüde Türkçe sayılar':'Gürültüde seçilen dilin sayıları'),exact:true}));let seed=await p.evaluate(()=>window.__observedDinSeed);assert.equal(typeof seed,'number');const run={seed,trials:[]};r.assessments.push(run);
   const random=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;},answer=p.getByRole('textbox',{name:tr('Üç sayı yanıtı'),exact:true});
   for(let i=0;i<24;i++){
    await answer.waitFor();await p.waitForFunction(()=>{const e=document.querySelector('input[inputmode=numeric]');return e&&!e.disabled;},null,{timeout:45000});const digits=Array.from({length:3},()=>Math.floor(random()*10));random();const response=i%2?digits.map(x=>(x+1)%10):digits;

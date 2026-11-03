@@ -24,7 +24,7 @@ async function waitForDump(test, seconds) {
 
 (async () => {
   const {out, r, check} = W.report('native-gates');
-  let session, reverseRemoved = false;
+  let session, backendStopped = false;
   try {
     r.runtime = {release: W.shell('getprop', 'ro.build.version.release'), sdk: W.shell('getprop', 'ro.build.version.sdk'), automotive: W.shell('pm', 'list', 'features').includes('android.hardware.type.automotive'), display: W.shell('wm', 'size'), apk: W.shell('sha256sum', W.shell('pm', 'path', W.pkg).split(':')[1]).split(' ')[0]};
     check('Real AAOS 15 runtime at 1280x720', r.runtime.sdk === '35' && r.runtime.automotive && r.runtime.display.includes('1280x720'), r.runtime);
@@ -33,7 +33,7 @@ async function waitForDump(test, seconds) {
     check('Backend reports PARK', parkedState.vehicleParked && !parkedState.vehicleMoving, {gear: parkedState.gear});
     let result = await waitForDump(hasWebView, 20);
     check('PARK opens the WebView', result.ok);
-    W.shot(out, 'parked');
+    await W.onScreen(session.page, out, 'parked', check);
 
     await session.page.evaluate(() => { window.__qaLoaded = true; });
     await W.setSpeed(75);
@@ -47,14 +47,15 @@ async function waitForDump(test, seconds) {
     session = await W.attach();
     check('The WebView after DRIVE is a new instance', !(await session.page.evaluate(() => window.__qaLoaded === true)));
 
-    W.adb('reverse', '--remove', 'tcp:8000');
-    reverseRemoved = true;
+    // A real outage: removing the adb reverse listener would leave the pooled keep-alive stream alive.
+    W.backend('stop-backend');
+    backendStopped = true;
     result = await waitForDump(xml => !hasWebView(xml), 15);
     check('Lost vehicle data closes the WebView (fail closed, 2.5 s freshness)', result.ok, visibleText(result.xml).slice(-4));
     W.shot(out, 'stale');
-    W.adb('reverse', 'tcp:8000', 'tcp:8000');
-    reverseRemoved = false;
-    result = await waitForDump(hasWebView, 25);
+    W.backend('start-backend');
+    backendStopped = false;
+    result = await waitForDump(hasWebView, 30);
     check('Fresh vehicle data reopens the WebView', result.ok);
     await session.browser.close().catch(() => {});
 
@@ -102,7 +103,7 @@ async function waitForDump(test, seconds) {
     r.cameraService = W.shell('dumpsys', 'media.camera').split('\n').filter(line => line.includes('Number of camera devices')).slice(0, 1);
     r.cameraBoundary = {camera, note: 'The Google AAOS 15 x86_64 image exposes no camera service; camera journeys are BLOCKED here, not PASS.'};
     check('No camera device: getUserMedia(video) is refused, not faked', !camera.ok, {camera, service: r.cameraService});
-    W.shot(out, 'final');
+    await W.onScreen(page, out, 'final', check);
     r.status = r.checks.every(item => item.pass) ? 'PASS' : 'FAIL';
   } catch (error) {
     r.status = 'FAIL';
@@ -110,8 +111,8 @@ async function waitForDump(test, seconds) {
     process.exitCode = 1;
     try { W.shot(out, 'failure'); } catch {}
   } finally {
+    if (backendStopped) W.backend('start-backend');
     await W.setSpeed(0).catch(() => {});
-    if (reverseRemoved) W.adb('reverse', 'tcp:8000', 'tcp:8000');
     r.finished = new Date().toISOString();
     fs.writeFileSync(path.join(out, 'assertions.json'), JSON.stringify(r, null, 1));
     await session?.browser.close().catch(() => {});

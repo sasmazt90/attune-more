@@ -31,13 +31,18 @@ const RECOGNIZER = `(()=>{window.__qaUtterances=[];window.__qaRecognitions=0;
     r.platformSpeech = unmodified;
     const state = await double.install(page);
     await W.enter(page, 'mental', tr);
-    if (unmodified.speechRecognition === 'undefined' && unmodified.webkit === 'undefined') {
-      await page.getByRole('button', {name: tr('Görüşmeyi Başlat'), exact: true}).click();
-      await page.locator('[data-conversation-phase=error]').waitFor({timeout: 8000});
-      const notice = await page.locator('section').first().innerText();
-      check('Without platform ASR the default build refuses honestly and saves nothing', notice.includes(tr('Bu tarayıcı seçilen dilde sesli görüşmeyi desteklemiyor.')), notice.slice(0, 220));
-      W.shot(out, 'no-platform-asr');
-    } else r.platformNote = 'WebView exposes a recognizer object; a scripted one replaces it for determinism.';
+    // Unmodified platform recognizer: a real microphone grant, no script, no provider.
+    W.shell('pm', 'grant', '--user', W.shell('am', 'get-current-user'), W.pkg, 'android.permission.RECORD_AUDIO');
+    const baseline = await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]').length, HISTORY);
+    await page.getByRole('button', {name: tr('Görüşmeyi Başlat'), exact: true}).click();
+    await page.waitForFunction(() => ['error', 'listening'].includes(document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase')), null, {timeout: 15000}).catch(() => {});
+    await page.waitForTimeout(4000);
+    const realPhase = await page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase');
+    r.platformRecognizer = {phase: realPhase, text: (await page.locator('main').innerText()).slice(0, 320)};
+    check('Platform recognizer boundary recorded; it never fabricates speech', await page.locator('[data-chat-author=USER]').count() === 0, r.platformRecognizer);
+    W.shot(out, 'platform-recognizer');
+    if (realPhase === 'listening') { await page.getByRole('button', {name: tr('Görüşmeyi Bitir'), exact: true}).click().catch(() => {}); await page.waitForTimeout(1000); }
+    check('No record from the platform recognizer boundary', (await page.evaluate(key => JSON.parse(localStorage.getItem(key) || '[]').length, HISTORY)) === baseline);
 
     await page.addInitScript(RECOGNIZER);
     await page.evaluate(RECOGNIZER);
@@ -48,6 +53,7 @@ const RECOGNIZER = `(()=>{window.__qaUtterances=[];window.__qaRecognitions=0;
     await W.enter(page, 'mental', tr);
     const shape = await W.layout(page);
     check('Module fits 1280x720 without sideways scroll', !shape.overflow, shape);
+    await W.onScreen(page, out, 'entry', check);
     const before = await ids();
     const say = text => page.evaluate(value => window.__qaUtterances.push(value), text);
     const phase = () => page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase');
@@ -72,7 +78,7 @@ const RECOGNIZER = `(()=>{window.__qaUtterances=[];window.__qaRecognitions=0;
     await turn('I felt calm today and took a short break.', 1);
     await turn('I want to keep a steady pace tomorrow.', 2);
     check('Two conversation turns reached listening again', await page.locator('[data-chat-author=USER]').count() === 2);
-    W.shot(out, 'conversation');
+    await W.onScreen(page, out, 'conversation', check);
     await finish.click();
     await waitPhase('completed');
     check('Completed session saved exactly once, automatically', (await count()) === before.length + 1 && state.analyzeCalls === 1, {records: await count(), analyzeCalls: state.analyzeCalls});
