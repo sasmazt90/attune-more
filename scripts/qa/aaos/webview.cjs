@@ -5,6 +5,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const cp = require('node:child_process');
+const os = require('node:os');
 const {chromium} = require(process.env.ATTUNE_QA_PLAYWRIGHT || 'playwright');
 
 const config = JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_AAOS_CONFIG, 'utf8').replace(/^﻿/, ''));
@@ -96,6 +97,28 @@ async function attach(timeout = 120000) {
   throw Error('WebView not attachable: ' + String(last));
 }
 
+// A journey that ended early can leave its hooks, injected devices and a running task in this
+// WebView. Every journey starts from a fresh document so none of that decides its result.
+async function startClean(page) {
+  await page.goto(origin + '/');
+  await page.locator('#attune-language').waitFor();
+  await page.waitForFunction(() => document.querySelector('[data-vehicle-status]')?.textContent === 'PARK', null, {timeout: 30000});
+}
+function guestLoad(withTop = false) {
+  const row = {};
+  try { row.load = shell('cat', '/proc/loadavg').split(' ').slice(0, 3).join(' '); row.memAvailableKb = Number(shell('grep', 'MemAvailable', '/proc/meminfo').match(/\d+/)[0]); } catch (error) { row.error = String(error).slice(0, 120); }
+  if (withTop) try { row.top = shell('top', '-H', '-b', '-n', '1', '-m', '10', '-o', '%CPU,CMD,NAME').split('\n').filter(line => /^\s*\d+(\.\d+)?\s/.test(line)).map(line => line.trim().slice(0, 56)); } catch {}
+  return row;
+}
+// Host CPU since the previous call and free memory: other applications decide part of an AVD result.
+let hostBefore = null;
+function hostLoad() {
+  const now = os.cpus().reduce((all, cpu) => { const total = Object.values(cpu.times).reduce((a, b) => a + b, 0); return {idle: all.idle + cpu.times.idle, total: all.total + total}; }, {idle: 0, total: 0});
+  const busy = hostBefore && now.total > hostBefore.total ? Math.round(100 - 100 * (now.idle - hostBefore.idle) / (now.total - hostBefore.total)) : null;
+  hostBefore = now;
+  return {busyPercent: busy, freeMiB: Math.round(os.freemem() / 1048576)};
+}
+
 async function setLanguage(page, value) {
   await page.locator('#attune-language').selectOption(value);
   await page.waitForFunction(v => document.documentElement.lang === v, value);
@@ -143,4 +166,4 @@ function audioFlinger() {
   return {standbyNo: /Standby:\s*no/.test(raw), framesWritten: [...raw.matchAll(/Frames written:\s*(\d+)/g)].slice(0, 4).map(match => Number(match[1])), tracks: tracks.slice(0, 8), startedPlayers: players};
 }
 
-module.exports = {adb, backend, goHome, onScreen, recording, shell, shot, sleep, attach, enter, layout, report, setLanguage, translator, vehicle, setSpeed, audioFlinger, component, pkg, origin, api};
+module.exports = {adb, backend, goHome, guestLoad, hostLoad, onScreen, recording, shell, shot, sleep, startClean, attach, enter, layout, report, setLanguage, translator, vehicle, setSpeed, audioFlinger, component, pkg, origin, api};

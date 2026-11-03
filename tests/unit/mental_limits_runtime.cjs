@@ -20,7 +20,7 @@ const code=ts.transpileModule(['send','finish','updateContext','speakClosing'].m
    valid:e=>r.epoch===e&&r.active,abortRecognition:no,cleanup:no,stopAudio:no,timing:no,getLocale:()=> 'en-US',getLanguage:()=> 'en',t:v=>v,
    serviceAllowed:()=>settings.current.speechConsent,checkCrisisTrigger:()=>({isCrisis:false}),spokenText:v=>v,isDemoMode:()=>false,isMentalSummarySavingAllowed:()=>false,
    canonicalMentalTheme:v=>v,append:m=>r.transcript.push(m),setPhase:v=>phase=v,setNotice:no,setActive:no,setSummary:v=>summary=v,setVoiceState:no,setVoiceNotice:no,
-   API:'fixture',speak:async()=>{r.busy=false;},pendingAudioPlay:{current:null},setAudioNeedsGesture:no,
+   API:'fixture',closingTranscript:require('../../apps/vehicle-app/src/utils/mentalSessionClose.ts').closingTranscript,setMessages:no,speak:async()=>{r.busy=false;},pendingAudioPlay:{current:null},setAudioNeedsGesture:no,
    mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;assert(current());assert.equal(options.speakerProfile,'female-calm-v1');return true;},
    fetch:async(url,options)=>{
     const body=JSON.parse(options.body);

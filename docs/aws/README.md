@@ -12,7 +12,7 @@ GitHub API ve `git fetch origin main` ile doğrulanan ana dal:
 `codex/aws-oem-demo-20261103`, ayrı Cloud worktree `/workspace/attune-aws`.
 PR #21 başlangıçta açık, başı `c7f2168306797e4c0856d4f1dd7dbcd33f0d0f04`.
 Bu PR'ın dalına, Windows Latest/Original kurulumlarına veya ana dala yazılmadı.
-PR #21 başı `c7f2168306797e4c0856d4f1dd7dbcd33f0d0f04`, yalnız AWS çalışma
+PR #21'in son başı `22c735825c0bb86de8996b0647d44108d1047c0b`, yalnız AWS çalışma
 dalına uzlaştırıldı; main veya PR #21 dalına merge/push yapılmadı. Ayrıntılar
 [RECONCILIATION.md](RECONCILIATION.md). Yeni PR #21 commit gelirse tekrar karşılaştırılır.
 

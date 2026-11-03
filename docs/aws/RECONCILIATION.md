@@ -1,7 +1,7 @@
 # PR #21 → Task 13 AWS uzlaştırması
 
-İncelenen PR #21 başı: `c7f2168306797e4c0856d4f1dd7dbcd33f0d0f04`.
-`cad318d`, `885cfdc`, `c7f2168` yalnız `codex/aws-oem-demo-20261103` dalına alındı.
+İncelenen son PR #21 başı: `22c735825c0bb86de8996b0647d44108d1047c0b`.
+`cad318d`, `885cfdc`, `c7f2168`, `7d07ae7`, `22c7358` yalnız `codex/aws-oem-demo-20261103` dalına alındı.
 Main ve Claude'un dalı değiştirilmedi; PR #22 Draft kalır.
 
 | PR #21 değişikliği | AWS karşılığı |
@@ -10,6 +10,8 @@ Main ve Claude'un dalı değiştirilmedi; PR #22 Draft kalır.
 | Windows worker/QEMU above-normal priority | Windows koşulu korunur; Linux nice/CPU politikası uydurulmaz, iki hostta gerçek yük altında ölçülür |
 | LOCAL_MEMORY_RESERVE 503 ve TR/EN/DE mesajı | Ayrı hata kodu ve mesaj AWS sürümünde korunur; 400 MiB reserve değişmez |
 | Native localeReadPending reset | cloudDemo MainActivity içine uzlaştırıldı; cloud işareti ve gate davranışı korunur |
+| Mental pending reply sırasında bitirme | Tamamlanmış turlar korunur; yalnız yanıtsız son mesaj düşürülür, late reply epoch ile reddedilir; saklama/DRIVE izinleri korunur |
+| AAOS Vision QA iyileştirmeleri | Temiz doküman, guest/host load ölçümü ve fixture pacing kaynakları alındı; injected kamera/recognizer gerçek giriş kabulü değildir |
 | QA harness | Kaynak ve sentetik/mocked sınırları korunur; yerel PASS AWS PASS'e taşınmaz |
 
 AWS QA için `infra/aws/aaos/qa-config.example.json` yalnız M8i üzerinde kullanılır.
@@ -19,6 +21,11 @@ Next BUILD_ID değeridir; `ATTUNE_QA_SHA` kurulan commit'tir. ADB devtools local
 kalır. Bu config'te QA helper yerel backend başlatamaz; lifecycle deneyi gerekiyorsa
 G6'daki doğru systemd birimi SSM ile ayrı, gözlenebilir işlemle yönetilir.
 Windows `aaos_session.py` AWS boot için kullanılmaz; `infra/aws/aaos/run.sh` kullanılır.
+
+PR #21'deki guest boot settle ölçümü QA Windows launcher'ına aittir; AWS boot sonrası
+`guestLoad`/`hostLoad` ile gerçek yükün sakinleştiği ayrıca gözlenir. Cloud camera
+eşleştirmesi, QA fixture'ının getUserMedia monkeypatch'iyle atlanmaz. Cloud Vision
+canlı giriş kabulünde fixture/scripted recognizer kullanılmaz.
 
 PR #21 Mental mock sağlayıcısı, scripted recognizer ve injected kamera testleri
 yalnız harness sınırını doğrular. Bunlar tam OEM kabulü değildir. Vision'daki önceki

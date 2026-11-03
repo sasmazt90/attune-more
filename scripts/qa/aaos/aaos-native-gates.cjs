@@ -71,6 +71,7 @@ async function waitForDump(test, seconds) {
 
     session = await W.attach();
     const {page} = session;
+    await W.startClean(page);
     await W.setLanguage(page, 'tr');
     const tr = W.translator('tr');
     await W.enter(page, 'hearing', tr);
