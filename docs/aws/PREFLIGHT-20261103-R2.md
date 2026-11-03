@@ -1,5 +1,7 @@
 # Task 13 — izin güncellemesi sonrası gerçek AWS kontrolü
 
+Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-20261103.md).
+
 3 Kasım 2026, PR #22; başlangıç HEAD `7a26c134db7f8ca4a5c02357023865250f1bddd9`.
 [Makinece okunur kanıt](evidence/live-preflight-20261103-r2.json),
 [Pricing API ürün/term kanıtı](evidence/pricing-20261103.json),

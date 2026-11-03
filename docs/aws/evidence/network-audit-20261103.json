@@ -1,0 +1,136 @@
+{
+  "observedAt": "2026-11-03T13:01:35.877410+00:00",
+  "scope": "Cloud executor HTTPS only; no credential/provider inference, no EC2 connectivity assertion",
+  "results": [
+    {
+      "host": "sdmntprnortheu.oaiusercontent.com",
+      "transport": "REACHED",
+      "http": 400
+    },
+    {
+      "host": "sdmntprpolandcentral.oaiusercontent.com",
+      "transport": "REACHED",
+      "http": 400
+    },
+    {
+      "host": "sdmntprcentralus.oaiusercontent.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "sdmntprsoutheastus3.oaiusercontent.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "sdmntpreastus2.oaiusercontent.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "sdmntprukwest.oaiusercontent.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "api.openai.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "dl.google.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "github.com",
+      "transport": "REACHED",
+      "http": 200
+    },
+    {
+      "host": "release-assets.githubusercontent.com",
+      "transport": "REACHED",
+      "http": 404
+    },
+    {
+      "host": "nodejs.org",
+      "transport": "REACHED",
+      "http": 200
+    },
+    {
+      "host": "pypi.org",
+      "transport": "REACHED",
+      "http": 200
+    },
+    {
+      "host": "files.pythonhosted.org",
+      "transport": "REACHED",
+      "http": 404
+    },
+    {
+      "host": "download.pytorch.org",
+      "transport": "REACHED",
+      "http": 403
+    },
+    {
+      "host": "download-r2.pytorch.org",
+      "transport": "REACHED",
+      "http": 404
+    },
+    {
+      "host": "archive.ubuntu.com",
+      "transport": "REACHED",
+      "http": 200
+    },
+    {
+      "host": "security.ubuntu.com",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "huggingface.co",
+      "transport": "REACHED",
+      "http": 200
+    },
+    {
+      "host": "cas-bridge.xethub.hf.co",
+      "transport": "REACHED",
+      "http": 403
+    },
+    {
+      "host": "cdn-lfs.huggingface.co",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "transfer.xethub.hf.co",
+      "transport": "REACHED",
+      "http": 403
+    },
+    {
+      "host": "us.aws.cdn.hf.co",
+      "transport": "REACHED",
+      "http": 200
+    },
+    {
+      "host": "ssm.eu-central-1.amazonaws.com",
+      "transport": "REACHED",
+      "http": 400
+    },
+    {
+      "host": "ssmmessages.eu-central-1.amazonaws.com",
+      "transport": "REACHED",
+      "http": 400
+    },
+    {
+      "host": "attune.sasmaz.digital",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "host": "aaos.sasmaz.digital",
+      "transport": "BLOCKED_OR_UNREACHABLE",
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ]
+}

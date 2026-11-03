@@ -1,5 +1,7 @@
 # Mevcut iki EC2 için tek başlangıç paketi
 
+Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-20261103.md).
+
 **2026-11-03 R2: maliyet hazır; model aktarımı/hazırlığı nedeniyle başlatma BEKLİYOR. Bu belge onay değildir.**
 
 [Canlı R2 kontrolleri](PREFLIGHT-20261103-R2.md) · [API fiyat kanıtı](evidence/pricing-20261103.json).

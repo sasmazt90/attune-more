@@ -1,5 +1,7 @@
 # Task 13 — AWS OEM demo hazırlığı (2026-11-03)
 
+Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-20261103.md).
+
 > Güncel durum (2026-11-03 R2): önceki IAM okuma/Pricing engelleri kalktı.
 > [R2 preflight](PREFLIGHT-20261103-R2.md) ve [sayısal başlangıç paketi](START-PLAN.md)
 > önceki erişim/maliyet durumlarını günceller. Üç SG kuralı uygulandı/doğrulandı; model aktarımı ve canlı kabul bekliyor.
