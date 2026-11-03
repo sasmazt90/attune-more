@@ -26,7 +26,12 @@
         "cloudformation:ValidateTemplate",
         "cloudformation:DescribeStacks",
         "cloudformation:ListStackResources",
-        "ssm:DescribeInstanceInformation"
+        "ssm:DescribeInstanceInformation",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeNetworkAcls",
+        "ec2:DescribeInternetGateways",
+        "ec2:DescribeVpcEndpoints"
       ],
       "Resource": "*",
       "Condition": {
@@ -41,6 +46,20 @@
       "Action": [
         "pricing:GetProducts",
         "budgets:ViewBudget"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ExistingHostRoleAudit",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetInstanceProfile",
+        "iam:GetRole",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListRolePolicies",
+        "iam:GetRolePolicy",
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion"
       ],
       "Resource": "*"
     }

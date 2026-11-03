@@ -1,0 +1,26 @@
+{
+  "region": "eu-central-1",
+  "source": "owner message; not independently verified",
+  "observationStatus": "BLOCKED",
+  "instances": [
+    {
+      "id": "i-0b25450afc6633494",
+      "name": "attune-web-ai",
+      "type": "g6.2xlarge",
+      "rootGiB": 150,
+      "volumeType": "gp3",
+      "reportedState": "stopped"
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "name": "attune-aaos-demo",
+      "type": "m8i.2xlarge",
+      "rootGiB": 120,
+      "volumeType": "gp3",
+      "reportedState": "stopped",
+      "reportedNestedVirtualization": "enabled"
+    }
+  ],
+  "provisioningAllowed": false,
+  "startApproved": false
+}

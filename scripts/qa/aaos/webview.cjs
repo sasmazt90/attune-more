@@ -10,8 +10,12 @@ const {chromium} = require(process.env.ATTUNE_QA_PLAYWRIGHT || 'playwright');
 const config = JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_AAOS_CONFIG, 'utf8').replace(/^﻿/, ''));
 const serial = config.serial, pkg = config.package, adbPath = config.adb, port = config.devtoolsPort || 19226;
 const component = pkg + '/more.attune.automotive.MainActivity';
-const origin = 'http://localhost:3000', api = 'http://127.0.0.1:8000';
+const origin = config.webOrigin || 'http://localhost:3000', api = config.apiOrigin || 'http://127.0.0.1:8000';
 const repository = path.resolve(__dirname, '../../..');
+if (config.runtime === 'aws-existing') {
+  if (pkg !== 'more.attune.automotive.prototype.clouddemo' || origin !== 'http://127.0.0.1:3000' || api !== origin) throw Error('Invalid cloudDemo same-origin configuration');
+  cp.execFileSync('python3', [path.join(repository, 'scripts/aws/host_identity.py'), '--role', 'aaos'], {timeout: 10000, stdio: 'pipe'});
+}
 const catalog = Object.values(JSON.parse(fs.readFileSync(path.join(repository, 'shared/localization/messages.json'), 'utf8')));
 const sleep = ms => new Promise(ok => setTimeout(ok, ms));
 
@@ -47,6 +51,7 @@ function recording(out, name) {
 }
 // Stops or restarts only the QA backend this checkout owns.
 function backend(action) {
+  if (config.runtime === 'aws-existing') throw Error('AWS backend lifecycle requires the reviewed G6 SSM/systemd operation; local QA backend launch is disabled.');
   const runtime = process.env.ATTUNE_QA_RUNTIME_CONFIG, workdir = process.env.ATTUNE_QA_SERVICE_DIR;
   const python = JSON.parse(fs.readFileSync(runtime, 'utf8').replace(/^\uFEFF/, '')).python;
   cp.execFileSync(python, [path.join(repository, 'scripts/qa/qa_services.py'), action, '--workdir', workdir, '--runtime-config', runtime], {timeout: 180000, stdio: 'ignore'});
@@ -57,7 +62,7 @@ async function setSpeed(speedKmH) { return (await fetch(api + '/api/vehicle/spee
 function report(name) {
   const out = path.join(process.env.ATTUNE_QA_OUT, 'aaos-' + name + '-' + Date.now());
   fs.mkdirSync(out, {recursive: true});
-  const r = {module: name, platform: 'AAOS 15 native shell + Android WebView (emulator)', started: new Date().toISOString(), checks: [], errors: [], status: 'RUNNING',
+  const r = {runtime: config.runtime || 'local-qa', boundary: 'Harness evidence only; scripted inputs and mocked providers are not live OEM acceptance', module: name, platform: 'AAOS 15 native shell + Android WebView (emulator)', started: new Date().toISOString(), checks: [], errors: [], status: 'RUNNING',
     sourceCommit: process.env.ATTUNE_QA_SHA || cp.execFileSync('git', ['-C', repository, 'rev-parse', 'HEAD'], {encoding: 'utf8'}).trim(),
     buildId: process.env.ATTUNE_QA_BUILD_ID || fs.readFileSync(path.join(repository, 'apps/vehicle-app/.next/BUILD_ID'), 'utf8').trim()};
   const save = () => fs.writeFileSync(path.join(out, 'assertions.json'), JSON.stringify(r, null, 1));

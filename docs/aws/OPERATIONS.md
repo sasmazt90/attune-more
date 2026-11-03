@@ -1,47 +1,54 @@
 # İşletim ve ücret sınırı
 
-## Ücretsiz hazırlık
+## Mevcut kaynak incelemesi — oluşturma yok
 
-1. `python scripts/aws/preflight.py --identity-alias <gerçek-alias> --output .aws-oem/account.json`
-2. `cfn-lint infra/aws/stack.json`; sonra hesabın `ValidateTemplate` API'si.
-3. Aynı Frankfurt AZ'sinde G6 ve M8i offerings, nested virtualization özelliği,
-   Ubuntu x86_64 AMI owner/root device, G/VT ve Standard kota boşluğu doğrulanır.
-   AMI kimliği veya kapasite sonucu tahmin edilmez.
-4. Model manifestindeki path, byte, SHA-256 listesiyle `verify_assets.py` çalıştırılır.
-   Kaynak klasör Git modeli + ayrı onaylı ağırlıklardır. Arşivden farklı isimli
-   ağırlık seçerek eşdeğer saymak yasaktır. CPU yürütme korunur; CUDA aktif edilmez.
-5. `scripts/aws/build_bundle.sh` Next ve ayrı cloudDemo APK üretir. Android SDK
-   lisansları operatör tarafından incelenir. AWS/KVM'e ihtiyaç duymayan build CI'de
-   de çalışır; emulator boot kabulü bundan ayrı tutulur.
+1. `python scripts/aws/inventory.py --identity-alias <gerçek-alias> --output .aws-oem/existing.json`
+2. `python scripts/aws/preflight.py --identity-alias <gerçek-alias> --output .aws-oem/account.json`
+3. Hesap/instance Name/type eşleşmesi; mevcut AMI/OS, subnet/VPC/private IP, route/NACL,
+   SG ingress/egress, ortak SG kullanımı, profile/role/policy, SSM ve volume özellikleri
+   incelenir. İki hedef yalnız `i-0b25450afc6633494` ve `i-0f4cca4e92e94c351`.
+   Hiçbir bilgi eksikse tahmini kimlik yazılmaz. Duran SSM ajanının offline olması normaldir.
+4. 150 + 120 GiB gp3 doğrulanır; encryption/IOPS/throughput ve ek diskler kaydedilir.
+   Şifrelenmemiş disk yerinde şifrelenemez; bu durumda kopya volume/snapshot oluşturmadan
+   BLOCKED raporlanır. Mevcut shared SG/IAM policy değiştirmeden etki analizi yapılır.
+5. Model manifestindeki path/byte/SHA-256 ile `verify_assets.py`; ardından
+   `scripts/aws/build_bundle.sh`. Ağırlık ikamesi, yeni CUDA yolu, eşik/thread değişikliği yok.
+   `install_host.sh` öncesi bundle, Node22.20.0, Python3.11, Caddy2.10.2 sağlanır.
+6. Eksik SG kuralları için `cfn-lint infra/aws/stack.json`. Şablon yalnız mevcut SG'lere
+   opt-in ingress ekler. Zaten var olan kural için parametre `no` kalır. 443 source CIDR
+   ve 8443 için yalnız gerçek AAOS SG seçilir; SG'ler başka workload ile paylaşılıyorsa
+   kural eklenmez. CloudFormation eski provisioning stack'ine UPDATE/IMPORT yapılmaz.
+   Yeni altyapı, replacement, EIP allocation, disk resize veya resource deletion yok.
+   Gerekirse ayrı rules stack'in DescribeChangeSet ve DescribeStacks JSON'u alınır:
+   `python scripts/aws/check_changeset.py changeset.json stack.json`.
+   Araç yalnız denetler; hiçbir change set yürütmez. Parametreler canlı inventory ile ayrıca karşılaştırılır.
+7. IMDSv2 veya mevcut rol/policy eksiği canlı değerlerle düzeltme planına yazılır.
+   Yetki bağlandıktan sonra yalnız bu task kapsamındaki mevcut kaynakta gerekli
+   yerinde değişiklik yapılır; shared kaynak, SCP veya eksik yetki BLOCKED bırakılır.
+   Hazır bir stack olması, mevcut kaynakların bu stack'e import edilmesi anlamına gelmez.
 
-## Henüz verilmemiş tek ücretli onayın içeriği
+## Başlatmadan önce tek maliyet ve test paketi
 
-- Hesap ID/rol, `eu-central-1`, doğrulanmış AZ ve AMI kimlikleri.
-- `g6.2xlarge` + `m8i.2xlarge`, 150 + 100 GiB gp3, iki EIP.
-- AWS API'den tarihli Linux On-Demand, gp3 ve IPv4 fiyatları.
-- İlk test önerisi en çok **2 saat**; bu bir onay değildir.
-- Bütçe email alıcısı ve aylık USD uyarı tutarı. Bütçe aksiyonu/shutdown yok.
-- Başarısız launch/boot sonrası iki instance'ı durdurma; EBS/EIP saklama veya
-  silme kararını açıkça içeren temizlik. Stop EBS/EIP ücretini bitirmez.
-- DNS değişiklikleri bu onaya otomatik dahil değildir.
+[START-PLAN.md](START-PLAN.md) doldurulur. Şu an fiyatlar, IAM/ağ, var olan public IP
+sayısı, bütçe ve disk özellikleri API'den okunamadı; sayısal toplam **BLOCKED**.
+Kullanıcının mevcut EBS ve varsa EIP kaynakları stopped durumda da ücret doğurabilir.
+Bu task kaynak oluşturmadı; AWS hesabının toplam harcaması sıfır olarak gösterilmez.
 
-Maliyetler bilinmeden onay istenmez. Mevcut durumda hesap/fiyatlar BLOCKED;
-harcama tutarı uydurulmadı. Bu task sıfır AWS kaynağı oluşturdu; tüm AWS hesabının
-harcaması okunmadığı için hesap faturası sıfır denemez.
+Model/servis hazırlıkları bitince önerilen ilk test penceresi **en çok 2 saat**.
+İki EC2'nin tarihli Linux On-Demand fiyatı, gerçek gp3 toplamı (bildirilen 270 GiB),
+IP/EIP adedi, IOPS/throughput, egress/provider tüketimi ve vergi ayrı gösterilir.
+Mevcut EIP varsayılmaz. 25 oturum/ay için compute `25 × h × (G + M)`, kalıcı disk
+`270 × E`, retained IPv4 `adet × 730 × I`; geçici public IPv4 yalnız aktif saatlerde.
+`cost.py` fiyatları ve aktif/retained IP sayılarını zorunlu argüman olarak alır:
 
-25 aylık oturum için, oturum süresi `h`, G6 saatlik `G`, M8i `M`, gp3 GB/ay `E`
-ve public IPv4 saatlik `I` ise:
+```bash
+python scripts/aws/cost.py --g6 <dated-rate> --m8i <dated-rate> --ebs-gb-month <dated-rate> --ipv4-hour <dated-rate> --retained-ipv4-count <observed-count> --active-ipv4-count <observed-count> --storage-gb 270 --hours 2
+```
 
-`25 × h × (G + M) + 250 × E + 2 × 730 × I`
+## Başlatma onayı sonrası kurulum sırası
 
-Buna internet egress, snapshot, API/provider tüketimi ve vergi eklenir.
-EBS/iki EIP, compute duruyorken kalır. İşlem betiği varsayılan model fiyatı
-kullanmaz: `python scripts/aws/cost.py --g6 <AWS-rate> --m8i <AWS-rate> --ebs-gb-month <AWS-rate> --hours 2`.
-
-## Onay sonrası kurulum sırası
-
-1. Değişiklik setinde `infra/aws/stack.json` kaynaklarını ve parametrelerini incele.
-   CloudFormation create/execute ücret doğurur: şu anda çalıştırılmadı.
+1. Taze inventory ve kullanıcı onayıyla yalnız iki mevcut stopped instance başlatılır.
+   Yeni EC2/VPC oluşturulmaz. AMI/OS desteklenmiyorsa replacement yapmak yerine BLOCKED.
 2. SSM ile **bu task instance'larında** OS/runtime ve hash'i doğrulanmış kaynak
    bundle'ını `/opt/attune` altına kur. Node22.20.0/npm10.9.3, ayrı Python3.11
    runtime ve Caddy2.10.2 gerekir; Ubuntu24.04'ün Python3.12'siyle sessiz değişim yok.
@@ -81,18 +88,22 @@ kullanmaz: `python scripts/aws/cost.py --g6 <AWS-rate> --m8i <AWS-rate> --ebs-gb
 
 ## Toplantı başlat/durdur
 
-`democtl.py` yalnız tam iki instance ID'sini ve task tag/type eşleşmesini kabul eder.
+`democtl.py` yalnız kullanıcı tarafından verilen iki sabit ID ve bunların Name/type eşleşmesini kabul eder.
+Elle oluşturulan instance'larda henüz olmayan Task etiketlerine güvenmez.
 Start için mevcut kullanıcı onayını temsil eden özel JSON makbuz gerekir:
 `account`, `region`, `instanceIds`, `paidStartApproved`, `expiresAt` (timezone ile),
-`maximumSessionHours`, `approvalReference`. Bu belgeyi üretmek kullanıcı onayı yerine
+`maximumSessionHours`, `approvalReference`, `estimatedSessionUsd`, `testScope`,
+`configurationReviewed`, `inventorySha256` (canlı inventory dosyasının SHA-256 değeri).
+Start için en fazla 30 dakika önce alınmış tam OBSERVED inventory gerekir; bu
+kayıttaki ağ/IAM bulguları ayrıca incelenmelidir. API okuması başlı başına hazır olma kanıtı değildir. Bu belgeyi üretmek kullanıcı onayı yerine
 geçmez; onay olmadan `true` yazılmaz. Makbuzlar `.aws-oem` içinde kalır.
 
 ```bash
-python scripts/aws/democtl.py status --instances <web-id> <aaos-id> --receipt .aws-oem/status.json
-python scripts/aws/democtl.py start --instances <web-id> <aaos-id> --approval .aws-oem/approval.json --receipt .aws-oem/start.json
+python scripts/aws/democtl.py status --receipt .aws-oem/status.json
+python scripts/aws/democtl.py start --inventory .aws-oem/existing.json --approval .aws-oem/approval.json --receipt .aws-oem/start.json
 python scripts/aws/smoke.py --web https://attune.sasmaz.digital --aaos https://aaos.sasmaz.digital --output .aws-oem/smoke.json
 # Toplantı bittikten sonra, aktif işlerin bittiği doğrulanarak:
-python scripts/aws/democtl.py stop --instances <web-id> <aaos-id> --receipt .aws-oem/stop.json
+python scripts/aws/democtl.py stop --receipt .aws-oem/stop.json
 ```
 
 `smoke.py` parolayı ATTUNE_DEMO_USER/PASSWORD ortamından alır; argümanda veya logda
@@ -105,7 +116,7 @@ sunumu otomatik sonlandırmaz. Operatör bütçe süresini takip eder.
 
 Hedefler uygun alt alan adlarıdır fakat IONOS yetkili zone envanteri okunmadı;
 mevcut kayıt durumu BLOCKED. Ana siteye dokunulmaz. Endpoint'ler önce doğrulanır.
-Hazır olduğunda incelenecek taslak yalnız `attune` A → Web EIP ve `aaos` A → Aaos EIP,
+Hazır olduğunda incelenecek taslak yalnız `attune` A → mevcut doğrulanmış Web adresi ve `aaos` A → mevcut doğrulanmış AAOS adresi,
 TTL önerisi 300; mevcut kayıt varsa üzerine yazmadan bildirilir. TLS için gerekiyorsa
-DNS-01 TXT veya CAA değişikliği tam değerleriyle ayrıca gösterilir. EIP/sertifika
-elde edilmeden bir DNS değeri veya canlı URL üretilmiş gibi raporlanmaz.
+DNS-01 TXT veya CAA değişikliği tam değerleriyle ayrıca gösterilir. Mevcut adres/sertifika
+doğrulanmadan bir DNS değeri veya canlı URL üretilmiş gibi raporlanmaz.

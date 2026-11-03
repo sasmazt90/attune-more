@@ -1,7 +1,9 @@
 # Task 13 — AWS OEM demo hazırlığı (2026-11-03)
 
 **Durum: HAZIRLIK / BLOCKED. AWS deployment veya beş modül kabulü tamamlanmadı.**
-Ücretli kaynak oluşturulmadı/başlatılmadı. DNS değiştirilmedi. Kullanıcı son mesajında ücretli başlatmayı açıkça yasakladı.
+Kullanıcı mevcut iki EC2 instance oluşturduğunu ve durdurduğunu bildirdi. Bu çalışma
+AWS kaynağı oluşturmadı/başlatmadı, DNS değiştirmedi. Yeni VPC/EC2/kopya kaynak
+oluşturmak yasak. Başlatma öncesi tek maliyet ve test kapsamı bildirimi/onayı beklenir.
 
 ## Başlangıç ve koruma
 
@@ -10,7 +12,9 @@ GitHub API ve `git fetch origin main` ile doğrulanan ana dal:
 `codex/aws-oem-demo-20261103`, ayrı Cloud worktree `/workspace/attune-aws`.
 PR #21 başlangıçta açık, başı `c7f2168306797e4c0856d4f1dd7dbcd33f0d0f04`.
 Bu PR'ın dalına, Windows Latest/Original kurulumlarına veya ana dala yazılmadı.
-PR #21 birleşirse mevcut main ile uzlaştırma ve ilgili testlerin tekrarı zorunlu.
+PR #21 başı `c7f2168306797e4c0856d4f1dd7dbcd33f0d0f04`, yalnız AWS çalışma
+dalına uzlaştırıldı; main veya PR #21 dalına merge/push yapılmadı. Ayrıntılar
+[RECONCILIATION.md](RECONCILIATION.md). Yeni PR #21 commit gelirse tekrar karşılaştırılır.
 
 Drive proje kökü, AG arşivi, CED handoff ve Claude arşiv klasörleri okundu.
 Eski handoff'un model adları/hash'leri güncel Git manifestleriyle birebir aynı değil:
@@ -33,21 +37,29 @@ flowchart LR
   APK -->|AWS içi adb reverse loopback| M8i
 ```
 
-CloudFormation şablonu: `infra/aws/stack.json`. G6 8 vCPU/32 GiB/L4; M8i
-2xlarge 8 vCPU/32 GiB, `NestedVirtualization=enabled`. M8i 8 Standard vCPU
-ayrıca doğrulanmalı. 150 + 100 GiB şifreli gp3, iki kalıcı Elastic IP,
-VPC/IGW/subnet, yalnız 443 genel giriş; 8443 yalnız M8i güvenlik grubundan G6'ya.
-SSH, ADB, VNC, emulator/gRPC portları internete açılmaz. IMDSv2 zorunlu.
-SSM yönetimi, proje/task/owner/cost-center etiketleri ve aylık bütçe bildirimleri
-şablonda yer alır. Bütçe account-wide seçilmiştir; etiket aktivasyonu beklenmez.
-Bütçe bir harcama tavanı değildir; otomatik durdurma yoktur.
+Mevcut hedefler (kullanıcı beyanı; AWS API doğrulaması BLOCKED):
 
-İki makinenin public IP'si yalnız HTTPS erişimi ve outbound internet için kullanılır;
-uygulamalar arası veri özel VPC IP'si üzerinde mTLS ile taşınır. NAT Gateway,
-ALB ve 24/7 ek yönetim sunucusu planlanmadı. EIP değişmeyen DNS hedefidir.
-Şablon bare host oluşturur; AMI ve AZ tahmin edilmez, parametre olarak doğrulanır.
-`install_host.sh` işletim sistemi hazırlığıdır; sertifika, model ve ayarlar hazır
-olmadan servis başlatmaz. Tam otomatik deployment kabulü yapılmadı.
+| Rol | Instance | Tip | Disk | Durum |
+|---|---|---|---|---|
+| WEB + AI | `i-0b25450afc6633494` / `attune-web-ai` | g6.2xlarge | 150 GiB gp3 | Stopped bildirildi |
+| AAOS | `i-0f4cca4e92e94c351` / `attune-aaos-demo` | m8i.2xlarge | 120 GiB gp3 | Stopped, nested virtualization enabled bildirildi |
+
+`infra/aws/existing-instances.json` bu beyanı saklar. `scripts/aws/inventory.py`
+mevcut SG/subnet/VPC/volume/AMI/route/NACL/IP/profile/policy bağlantılarını salt
+okunur inceler. Name/type/hesap yanlışsa durur; başka instance aramaz.
+Şifreleme, IMDSv2, gerçek nested virtualization, kota, SSM, bütçe ve özel ağ
+bağlantısı gözlem olmadan başarılı sayılmaz. Ortak SG/IAM kaynaklarına körlemesine
+kural veya policy eklenmez; eksikler mevcut kaynak üzerinde incelenir.
+
+`infra/aws/stack.json` artık yalnız mevcut iki SG'ye **eksik olduğu doğrulanmış**
+443 veya private 8443 ingress kuralı ekleyebilir; tüm eklemeler varsayılan kapalı.
+EC2, launch template, VPC, subnet, volume, EIP veya IAM kaynak tanımı yoktur.
+Önceki provisioning şablonuyla oluşturulmuş bir stack'e UPDATE yapılmaz: kaldırılan
+kaynakların silinmesine yol açabilir. Import veya replacement yok; gerekiyorsa ayrı
+additive rules change set'i, `check_changeset.py` ve canlı parametre incelemesi kullanılır.
+Mevcut EIP/IP/SG kimlikleri öğrenilmeden değer veya DNS hedefi tahmin edilmez.
+`install_host.sh` IMDSv2 üzerinden doğru mevcut EC2/region/type kimliğini doğrular;
+laptopta veya başka EC2'de kurulum yapmaz ve servisleri başlatmaz.
 
 ## Uygulama ve oturumlar
 
@@ -78,7 +90,7 @@ değil AWS guest→M8i reverse tüneline bağlar; M8i→G6 mTLS olur. Release or
 ## Kamera köprüsü — deneysel, kabul bekliyor
 
 `NEXT_PUBLIC_ATTUNE_REMOTE_CAPTURE=1` ve `AttuneCloudDemo/1` APK işareti birlikte
-olduğunda Skin/Dental acquisition açıkça uzak demo kaynağını seçer. İşaret bir
+olduğunda Skin/Dental/Vision acquisition açıkça uzak demo kaynağını seçer. İşaret bir
 kimlik doğrulama mekanizması değildir; ingress kimlik doğrulaması/mTLS ayrı zorunlu.
 AAOS eşleştirme kodu üretir; gönderici HTTPS `/capture` sayfasında kodu ve ayrıca
 kamera/işleme iznini verir. Kamera iznindeki aygıt seçimi UGREEN'i belirler.
@@ -93,7 +105,8 @@ ister. Bu kamera süresidir, EC2 otomatik kapatma değildir.
 
 Skin/Dental mevcut görüntü hash'i, poz, yüz/kalite/gözlük/işleme onayı ve geç sonuç
 kontrollerinden geçer. Kaynak oturum kimliği `inputSource` ile görüntüye eklenir.
-PNG köprüsü native YUV/HAL gibi gösterilmez; remote Skin capture `browser-rgb`
+Vision da aynı açık eşleştirmeli akışı kullanır; gerçek göz/mesafe/geometri ve 750 ms
+kontrolleri korunur. PNG köprüsü native YUV/HAL gibi gösterilmez; remote Skin capture `browser-rgb`
 yolunu kullanır. Kaynak kare renk/parite etkisi gerçek kamera ile ayrıca ölçülmeli.
 Hiçbir analiz sonucu köprüde üretilmez veya değiştirilmez. Taşıma testleri gerçek
 Skin/Dental çıkarım kanıtı değildir. Tarayıcı PNG encode hızı ve ağ gecikmesi 750 ms

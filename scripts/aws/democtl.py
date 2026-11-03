@@ -4,18 +4,9 @@ import argparse
 import datetime as dt
 import json
 from pathlib import Path
-from preflight import REGION, TYPES, select_identity
-
-
-def validate_instances(instances, ids):
-    if len(ids)!=2 or len(set(ids))!=2 or {i['InstanceId'] for i in instances} != set(ids):
-        raise ValueError('Exactly the two recorded task instances are required')
-    if sorted(i['InstanceType'] for i in instances)!=sorted(TYPES):
-        raise ValueError('Instance types differ from the Task 13 plan')
-    for instance in instances:
-        tags={t['Key']:t['Value'] for t in instance.get('Tags',[])}
-        if tags.get('Project')!='Attune.more' or tags.get('Task')!='13' or tags.get('Environment')!='oem-demo':
-            raise ValueError('Refusing to operate on unrelated resources')
+from preflight import select_identity
+from targets import IDS, REGION, validate_instances
+import hashlib
 
 
 def validate_approval(approval, account, ids, now=None):
@@ -29,10 +20,30 @@ def validate_approval(approval, account, ids, now=None):
         raise ValueError('Bounded approval receipt required')
 
 
+def validate_start_inventory(raw, approval, account, instances, now=None):
+    now=now or dt.datetime.now(dt.timezone.utc)
+    inventory=json.loads(raw)
+    observed=dt.datetime.fromisoformat(inventory['observedAt'])
+    if observed.tzinfo is None or not 0 <= (now-observed).total_seconds() <= 1800:
+        raise ValueError('Inventory must be observed within the last 30 minutes')
+    if inventory.get('status')!='OBSERVED' or inventory.get('region')!=REGION or set(inventory.get('targetIds',[]))!=set(IDS):
+        raise ValueError('Complete inventory of exactly the existing targets is required')
+    if inventory['checks']['account'].get('value')!=account or any(c['status']!='OBSERVED' for c in inventory['checks'].values()):
+        raise ValueError('Inventory account/checks are not verified')
+    if approval.get('inventorySha256')!=hashlib.sha256(raw).hexdigest() or approval.get('configurationReviewed') is not True:
+        raise ValueError('Approval must identify the reviewed inventory and configuration')
+    if not approval.get('testScope') or not isinstance(approval.get('estimatedSessionUsd'),(float,int)) or not 0 < approval['estimatedSessionUsd'] < float('inf'):
+        raise ValueError('A concrete cost estimate and test scope must be presented before start')
+    validate_instances(instances)
+    if any(i['State']['Name']!='stopped' for i in instances):
+        raise ValueError('Both existing instances must be stopped before this start')
+
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('action',choices=['status','start','stop'])
-    p.add_argument('--instances',nargs=2,required=True)
+    p.add_argument('--instances',nargs=2,default=list(IDS))
+    p.add_argument('--inventory',type=Path,help='Fresh reviewed inventory required for start')
     p.add_argument('--identity-alias')
     p.add_argument('--approval',type=Path)
     p.add_argument('--receipt',type=Path,required=True)
@@ -46,6 +57,8 @@ def main():
     if args.action=='start':
         if not args.approval:raise ValueError('Paid start requires an existing explicit approval receipt')
         approval=json.loads(args.approval.read_text());validate_approval(approval,account,args.instances)
+        if not args.inventory:raise ValueError('Reviewed existing-resource inventory required')
+        validate_start_inventory(args.inventory.read_bytes(), approval, account, instances)
         ec2.start_instances(InstanceIds=args.instances)
         ec2.get_waiter('instance_running').wait(InstanceIds=args.instances,WaiterConfig={'Delay':10,'MaxAttempts':60})
         ec2.get_waiter('instance_status_ok').wait(InstanceIds=args.instances,WaiterConfig={'Delay':10,'MaxAttempts':60})

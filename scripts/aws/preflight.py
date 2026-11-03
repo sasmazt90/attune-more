@@ -6,8 +6,8 @@ import json
 import os
 from pathlib import Path
 
-REGION = 'eu-central-1'
-TYPES = ('g6.2xlarge', 'm8i.2xlarge')
+from targets import REGION, TARGETS
+TYPES = tuple(t['type'] for t in TARGETS.values())
 
 
 def select_identity(alias):
@@ -26,17 +26,21 @@ def select_identity(alias):
     os.environ['AWS_CONFIG_FILE'] = matches[0]['config_file']
 
 
-def price_per_hour(products):
+def price_per_unit(products, unit):
     prices = set()
     for raw in products:
         product = json.loads(raw)
         for term in product.get('terms', {}).get('OnDemand', {}).values():
             for dimension in term.get('priceDimensions', {}).values():
-                if dimension['unit'] == 'Hrs':
+                if dimension['unit'] == unit:
                     prices.add(float(dimension['pricePerUnit']['USD']))
     if len(prices) != 1:
-        raise ValueError('Expected exactly one Linux shared On-Demand hourly price')
+        raise ValueError('Expected exactly one matching On-Demand unit price')
     return prices.pop()
+
+
+def price_per_hour(products):
+    return price_per_unit(products, 'Hrs')
 
 
 def collect(session):
@@ -72,6 +76,15 @@ def collect(session):
         check('price_'+typ, lambda filters=filters: price_per_hour([
             p for page in pricing.get_paginator('get_products').paginate(ServiceCode='AmazonEC2',Filters=filters)
             for p in page['PriceList']]))
+    for name, service, unit, attributes in [
+        ('price_gp3_gb_month', 'AmazonEC2', 'GB-Mo', {'regionCode':REGION, 'volumeApiName':'gp3', 'productFamily':'Storage'}),
+        ('price_ipv4_in_use', 'AmazonVPC', 'Hrs', {'regionCode':REGION, 'usagetype':'EUC1-PublicIPv4:InUseAddress'}),
+        ('price_ipv4_idle', 'AmazonVPC', 'Hrs', {'regionCode':REGION, 'usagetype':'EUC1-PublicIPv4:IdleAddress'}),
+    ]:
+        filters=[{'Type':'TERM_MATCH','Field':key,'Value':value} for key,value in attributes.items()]
+        check(name, lambda service=service, filters=filters, unit=unit: price_per_unit([
+            p for page in pricing.get_paginator('get_products').paginate(ServiceCode=service,Filters=filters)
+            for p in page['PriceList']], unit))
     report['provisioningAuthorized'] = False
     return report
 

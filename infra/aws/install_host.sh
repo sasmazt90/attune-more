@@ -6,6 +6,7 @@ set -euo pipefail
 role="${1:?Usage: install_host.sh web|aaos}"
 [[ "$role" == web || "$role" == aaos ]]
 [[ -d /opt/attune/.git && -d /opt/node/bin ]]
+python3 /opt/attune/scripts/aws/host_identity.py --role "$role"
 id attune >/dev/null 2>&1 || useradd --create-home --shell /bin/bash attune
 install -d -o attune -g attune -m 0700 /var/lib/attune /var/lib/attune/evidence
 install -d -m 0750 -o root -g caddy /etc/attune /etc/attune/tls

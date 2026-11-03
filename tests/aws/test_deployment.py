@@ -82,16 +82,19 @@ def test_capture_bounds():
 
 
 def instances():
-    tags=[{'Key':k,'Value':v} for k,v in {'Project':'Attune.more','Task':'13','Environment':'oem-demo'}.items()]
-    return [{'InstanceId':'i-web','InstanceType':'g6.2xlarge','Tags':tags},
-            {'InstanceId':'i-aaos','InstanceType':'m8i.2xlarge','Tags':tags}]
+    from targets import TARGETS
+    return [{'InstanceId':key,'InstanceType':value['type'],'State':{'Name':'stopped'},
+             'Tags':[{'Key':'Name','Value':value['name']}]} for key,value in TARGETS.items()]
 
 
 def test_operations_reject_unrelated_instance():
-    values=instances();validate_instances(values,['i-web','i-aaos'])
+    from targets import IDS
+    values=instances();validate_instances(values,IDS)
     values[1]['Tags']=[]
-    with pytest.raises(ValueError):validate_instances(values,['i-web','i-aaos'])
-    with pytest.raises(ValueError):validate_instances(instances(),['i-web','i-web'])
+    with pytest.raises(ValueError):validate_instances(values,IDS)
+    with pytest.raises(ValueError):validate_instances(instances(),[IDS[0],IDS[0]])
+    values=instances();values[0]['InstanceId']='i-other'
+    with pytest.raises(ValueError):validate_instances(values,['i-other',IDS[1]])
 
 
 def test_paid_start_requires_matching_unexpired_approval():
@@ -103,10 +106,10 @@ def test_paid_start_requires_matching_unexpired_approval():
 
 
 def test_cost_retains_disk_and_ip_charge_while_stopped():
-    r=estimate(1,0.5,0.1,0)
+    r=estimate(1,0.5,0.1,0,ipv4_hour=.005,retained_ipv4_count=2,active_ipv4_count=2)
     assert r['monthly_compute']==0
-    assert r['monthly_subtotal']==32.3
-    with pytest.raises(ValueError):estimate(1,.5,.1,-2)
+    assert r['monthly_subtotal']==34.3
+    with pytest.raises(ValueError):estimate(1,.5,.1,-2,ipv4_hour=.005,retained_ipv4_count=0,active_ipv4_count=2)
 
 
 def test_price_rejects_ambiguous_products():
@@ -115,19 +118,18 @@ def test_price_rejects_ambiguous_products():
 
 def test_infrastructure_has_no_public_admin_ports_or_dns():
     stack=json.loads((ROOT/'infra/aws/stack.json').read_text())
+    assert stack['Resources']
     for r in stack['Resources'].values():
-        assert not r['Type'].startswith('AWS::Route53')
-        if r['Type']=='AWS::EC2::SecurityGroup':
-            for ingress in r['Properties']['SecurityGroupIngress']:
-                assert ingress['FromPort']==ingress['ToPort']==443
-    cpu=stack['Resources']['AaosTemplate']['Properties']['LaunchTemplateData']['CpuOptions']
-    assert cpu['NestedVirtualization']=='enabled'
-    for name in ['WebInstance','AaosInstance','WebAddress','AaosAddress']:
-        assert 'DemoBudget' in stack['Resources'][name]['DependsOn']
-    for key in ['WebTemplate','AaosTemplate']:
-        launch=stack['Resources'][key]['Properties']['LaunchTemplateData']
-        assert launch['MetadataOptions']['HttpTokens']=='required'
-        assert launch['BlockDeviceMappings'][0]['Ebs']['Encrypted'] is True
+        assert r['Type']=='AWS::EC2::SecurityGroupIngress'
+        assert r['Properties']['FromPort']==r['Properties']['ToPort']
+        assert r['Properties']['FromPort'] in (443,8443)
+        assert stack['Parameters'][r['Condition']]['Default']=='no'
+        assert r['DeletionPolicy']==r['UpdateReplacePolicy']=='Retain'
+        if r['Properties']['FromPort']==8443:
+            assert 'SourceSecurityGroupId' in r['Properties'] and 'CidrIp' not in r['Properties']
+    from targets import IDS
+    assert stack['Parameters']['WebInstanceId']['AllowedValues']==[IDS[0]]
+    assert stack['Parameters']['AaosInstanceId']['AllowedValues']==[IDS[1]]
 
 
 def test_audio_rejects_invalid_pcm():

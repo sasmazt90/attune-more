@@ -1,34 +1,63 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Task 13 preparation. No DNS or automatic shutdown. Creating this stack incurs charges.",
+  "Description": "Task 13 EXISTING hosts only. Optional missing ingress rules; never import, create or replace EC2/VPC/EBS/EIP/IAM resources. Default: all changes disabled.",
+  "Metadata": {
+    "Workflow": "Run inventory.py first. Do not update a stack created from the former provisioning template. Only a separate additive rules stack after reviewed change set; no existing-resource import."
+  },
   "Parameters": {
-    "Owner": {
+    "WebInstanceId": {
+      "Type": "AWS::EC2::Instance::Id",
+      "Default": "i-0b25450afc6633494",
+      "AllowedValues": [
+        "i-0b25450afc6633494"
+      ]
+    },
+    "AaosInstanceId": {
+      "Type": "AWS::EC2::Instance::Id",
+      "Default": "i-0f4cca4e92e94c351",
+      "AllowedValues": [
+        "i-0f4cca4e92e94c351"
+      ]
+    },
+    "WebSecurityGroupId": {
+      "Type": "AWS::EC2::SecurityGroup::Id",
+      "Description": "Existing, audited web SG; never create a replacement"
+    },
+    "AaosSecurityGroupId": {
+      "Type": "AWS::EC2::SecurityGroup::Id",
+      "Description": "Existing, audited AAOS SG; never create a replacement"
+    },
+    "MeetingIpv4Cidr": {
       "Type": "String",
-      "MinLength": 1
+      "Description": "Explicit reviewed meeting source CIDR; no default public exposure",
+      "AllowedPattern": "(\\d{1,3}\\.){3}\\d{1,3}/\\d{1,2}"
     },
-    "AvailabilityZone": {
-      "Type": "AWS::EC2::AvailabilityZone::Name"
-    },
-    "WebAmi": {
-      "Type": "AWS::EC2::Image::Id",
-      "Description": "Verified Frankfurt x86_64 Ubuntu 24.04 /dev/sda1 AMI"
-    },
-    "AaosAmi": {
-      "Type": "AWS::EC2::Image::Id",
-      "Description": "Verified Frankfurt x86_64 Ubuntu 24.04 /dev/sda1 AMI"
-    },
-    "DemoClientCidr": {
+    "AddWebHttps": {
       "Type": "String",
-      "AllowedPattern": "(\\d{1,3}\\.){3}\\d{1,3}/\\d{1,2}",
-      "Description": "Review the client IPv4 CIDR; 0.0.0.0/0 is possible only behind TLS and authentication"
+      "Default": "no",
+      "AllowedValues": [
+        "no",
+        "yes"
+      ],
+      "Description": "yes only after inventory proves this rule missing and its existing SG unshared"
     },
-    "BudgetEmail": {
+    "AddAaosHttps": {
       "Type": "String",
-      "AllowedPattern": ".+@.+\\..+"
+      "Default": "no",
+      "AllowedValues": [
+        "no",
+        "yes"
+      ],
+      "Description": "yes only after inventory proves this rule missing and its existing SG unshared"
     },
-    "MonthlyBudgetUsd": {
-      "Type": "Number",
-      "MinValue": 1
+    "AddPrivateApi": {
+      "Type": "String",
+      "Default": "no",
+      "AllowedValues": [
+        "no",
+        "yes"
+      ],
+      "Description": "yes only after inventory proves this rule missing and its existing SG unshared"
     }
   },
   "Rules": {
@@ -43,936 +72,102 @@
               "eu-central-1"
             ]
           },
-          "AssertDescription": "Only Frankfurt is authorized for this task"
+          "AssertDescription": "Frankfurt only"
         }
       ]
     }
   },
+  "Conditions": {
+    "AddWebHttps": {
+      "Fn::Equals": [
+        {
+          "Ref": "AddWebHttps"
+        },
+        "yes"
+      ]
+    },
+    "AddAaosHttps": {
+      "Fn::Equals": [
+        {
+          "Ref": "AddAaosHttps"
+        },
+        "yes"
+      ]
+    },
+    "AddPrivateApi": {
+      "Fn::Equals": [
+        {
+          "Ref": "AddPrivateApi"
+        },
+        "yes"
+      ]
+    }
+  },
   "Resources": {
-    "Vpc": {
-      "Type": "AWS::EC2::VPC",
-      "Properties": {
-        "CidrBlock": "10.83.0.0/24",
-        "EnableDnsSupport": true,
-        "EnableDnsHostnames": true,
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "Gateway": {
-      "Type": "AWS::EC2::InternetGateway",
-      "Properties": {
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "GatewayAttachment": {
-      "Type": "AWS::EC2::VPCGatewayAttachment",
-      "Properties": {
-        "VpcId": {
-          "Ref": "Vpc"
-        },
-        "InternetGatewayId": {
-          "Ref": "Gateway"
-        }
-      }
-    },
-    "Subnet": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "Vpc"
-        },
-        "CidrBlock": "10.83.0.0/25",
-        "AvailabilityZone": {
-          "Ref": "AvailabilityZone"
-        },
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "Routes": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "Vpc"
-        },
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "InternetRoute": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "Routes"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "Gateway"
-        }
-      },
-      "DependsOn": "GatewayAttachment"
-    },
-    "RouteAssociation": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "SubnetId": {
-          "Ref": "Subnet"
-        },
-        "RouteTableId": {
-          "Ref": "Routes"
-        }
-      }
-    },
-    "WebSecurity": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "HTTPS only; internal mTLS peer rule added separately",
-        "VpcId": {
-          "Ref": "Vpc"
-        },
-        "SecurityGroupIngress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 443,
-            "ToPort": 443,
-            "CidrIp": {
-              "Ref": "DemoClientCidr"
-            }
-          }
-        ],
-        "SecurityGroupEgress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 443,
-            "ToPort": 443,
-            "CidrIp": "0.0.0.0/0"
-          },
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 80,
-            "ToPort": 80,
-            "CidrIp": "0.0.0.0/0"
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "AaosSecurity": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "HTTPS only; internal mTLS peer rule added separately",
-        "VpcId": {
-          "Ref": "Vpc"
-        },
-        "SecurityGroupIngress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 443,
-            "ToPort": 443,
-            "CidrIp": {
-              "Ref": "DemoClientCidr"
-            }
-          }
-        ],
-        "SecurityGroupEgress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 443,
-            "ToPort": 443,
-            "CidrIp": "0.0.0.0/0"
-          },
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 80,
-            "ToPort": 80,
-            "CidrIp": "0.0.0.0/0"
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "PrivateApiIngress": {
+    "WebHttps": {
       "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "AddWebHttps",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
       "Properties": {
         "GroupId": {
-          "Ref": "WebSecurity"
+          "Ref": "WebSecurityGroupId"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": 443,
+        "ToPort": 443,
+        "CidrIp": {
+          "Ref": "MeetingIpv4Cidr"
+        },
+        "Description": "Attune Task 13 reviewed missing rule"
+      }
+    },
+    "AaosHttps": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "AddAaosHttps",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "GroupId": {
+          "Ref": "AaosSecurityGroupId"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": 443,
+        "ToPort": 443,
+        "CidrIp": {
+          "Ref": "MeetingIpv4Cidr"
+        },
+        "Description": "Attune Task 13 reviewed missing rule"
+      }
+    },
+    "PrivateApi": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "AddPrivateApi",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "GroupId": {
+          "Ref": "WebSecurityGroupId"
         },
         "IpProtocol": "tcp",
         "FromPort": 8443,
         "ToPort": 8443,
         "SourceSecurityGroupId": {
-          "Ref": "AaosSecurity"
-        }
-      }
-    },
-    "PrivateApiEgress": {
-      "Type": "AWS::EC2::SecurityGroupEgress",
-      "Properties": {
-        "GroupId": {
-          "Ref": "AaosSecurity"
+          "Ref": "AaosSecurityGroupId"
         },
-        "IpProtocol": "tcp",
-        "FromPort": 8443,
-        "ToPort": 8443,
-        "DestinationSecurityGroupId": {
-          "Ref": "WebSecurity"
-        }
-      }
-    },
-    "HostRole": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "ec2.amazonaws.com"
-              },
-              "Action": "sts:AssumeRole"
-            }
-          ]
-        },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      }
-    },
-    "HostProfile": {
-      "Type": "AWS::IAM::InstanceProfile",
-      "Properties": {
-        "Roles": [
-          {
-            "Ref": "HostRole"
-          }
-        ]
-      }
-    },
-    "WebTemplate": {
-      "Type": "AWS::EC2::LaunchTemplate",
-      "Properties": {
-        "LaunchTemplateData": {
-          "ImageId": {
-            "Ref": "WebAmi"
-          },
-          "InstanceType": "g6.2xlarge",
-          "IamInstanceProfile": {
-            "Arn": {
-              "Fn::GetAtt": [
-                "HostProfile",
-                "Arn"
-              ]
-            }
-          },
-          "SecurityGroupIds": [
-            {
-              "Ref": "WebSecurity"
-            }
-          ],
-          "MetadataOptions": {
-            "HttpTokens": "required",
-            "HttpEndpoint": "enabled",
-            "HttpPutResponseHopLimit": 1
-          },
-          "BlockDeviceMappings": [
-            {
-              "DeviceName": "/dev/sda1",
-              "Ebs": {
-                "VolumeSize": 150,
-                "VolumeType": "gp3",
-                "Encrypted": true,
-                "DeleteOnTermination": true
-              }
-            }
-          ],
-          "TagSpecifications": [
-            {
-              "ResourceType": "instance",
-              "Tags": [
-                {
-                  "Key": "Project",
-                  "Value": "Attune.more"
-                },
-                {
-                  "Key": "Task",
-                  "Value": "13"
-                },
-                {
-                  "Key": "Owner",
-                  "Value": {
-                    "Ref": "Owner"
-                  }
-                },
-                {
-                  "Key": "Environment",
-                  "Value": "oem-demo"
-                },
-                {
-                  "Key": "CostCenter",
-                  "Value": "attune-oem"
-                },
-                {
-                  "Key": "Role",
-                  "Value": "web"
-                }
-              ]
-            },
-            {
-              "ResourceType": "volume",
-              "Tags": [
-                {
-                  "Key": "Project",
-                  "Value": "Attune.more"
-                },
-                {
-                  "Key": "Task",
-                  "Value": "13"
-                },
-                {
-                  "Key": "Owner",
-                  "Value": {
-                    "Ref": "Owner"
-                  }
-                },
-                {
-                  "Key": "Environment",
-                  "Value": "oem-demo"
-                },
-                {
-                  "Key": "CostCenter",
-                  "Value": "attune-oem"
-                },
-                {
-                  "Key": "Role",
-                  "Value": "web"
-                }
-              ]
-            }
-          ]
-        },
-        "TagSpecifications": [
-          {
-            "ResourceType": "launch-template",
-            "Tags": [
-              {
-                "Key": "Project",
-                "Value": "Attune.more"
-              },
-              {
-                "Key": "Task",
-                "Value": "13"
-              },
-              {
-                "Key": "Owner",
-                "Value": {
-                  "Ref": "Owner"
-                }
-              },
-              {
-                "Key": "Environment",
-                "Value": "oem-demo"
-              },
-              {
-                "Key": "CostCenter",
-                "Value": "attune-oem"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "WebInstance": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "LaunchTemplate": {
-          "LaunchTemplateId": {
-            "Ref": "WebTemplate"
-          },
-          "Version": {
-            "Fn::GetAtt": [
-              "WebTemplate",
-              "LatestVersionNumber"
-            ]
-          }
-        },
-        "SubnetId": {
-          "Ref": "Subnet"
-        },
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      },
-      "DependsOn": [
-        "InternetRoute",
-        "DemoBudget"
-      ]
-    },
-    "WebAddress": {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "Domain": "vpc",
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      },
-      "DependsOn": [
-        "DemoBudget"
-      ]
-    },
-    "WebAddressAssociation": {
-      "Type": "AWS::EC2::EIPAssociation",
-      "Properties": {
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "WebAddress",
-            "AllocationId"
-          ]
-        },
-        "InstanceId": {
-          "Ref": "WebInstance"
-        }
-      }
-    },
-    "AaosTemplate": {
-      "Type": "AWS::EC2::LaunchTemplate",
-      "Properties": {
-        "LaunchTemplateData": {
-          "ImageId": {
-            "Ref": "AaosAmi"
-          },
-          "InstanceType": "m8i.2xlarge",
-          "IamInstanceProfile": {
-            "Arn": {
-              "Fn::GetAtt": [
-                "HostProfile",
-                "Arn"
-              ]
-            }
-          },
-          "SecurityGroupIds": [
-            {
-              "Ref": "AaosSecurity"
-            }
-          ],
-          "MetadataOptions": {
-            "HttpTokens": "required",
-            "HttpEndpoint": "enabled",
-            "HttpPutResponseHopLimit": 1
-          },
-          "BlockDeviceMappings": [
-            {
-              "DeviceName": "/dev/sda1",
-              "Ebs": {
-                "VolumeSize": 100,
-                "VolumeType": "gp3",
-                "Encrypted": true,
-                "DeleteOnTermination": true
-              }
-            }
-          ],
-          "TagSpecifications": [
-            {
-              "ResourceType": "instance",
-              "Tags": [
-                {
-                  "Key": "Project",
-                  "Value": "Attune.more"
-                },
-                {
-                  "Key": "Task",
-                  "Value": "13"
-                },
-                {
-                  "Key": "Owner",
-                  "Value": {
-                    "Ref": "Owner"
-                  }
-                },
-                {
-                  "Key": "Environment",
-                  "Value": "oem-demo"
-                },
-                {
-                  "Key": "CostCenter",
-                  "Value": "attune-oem"
-                },
-                {
-                  "Key": "Role",
-                  "Value": "aaos"
-                }
-              ]
-            },
-            {
-              "ResourceType": "volume",
-              "Tags": [
-                {
-                  "Key": "Project",
-                  "Value": "Attune.more"
-                },
-                {
-                  "Key": "Task",
-                  "Value": "13"
-                },
-                {
-                  "Key": "Owner",
-                  "Value": {
-                    "Ref": "Owner"
-                  }
-                },
-                {
-                  "Key": "Environment",
-                  "Value": "oem-demo"
-                },
-                {
-                  "Key": "CostCenter",
-                  "Value": "attune-oem"
-                },
-                {
-                  "Key": "Role",
-                  "Value": "aaos"
-                }
-              ]
-            }
-          ],
-          "CpuOptions": {
-            "NestedVirtualization": "enabled"
-          }
-        },
-        "TagSpecifications": [
-          {
-            "ResourceType": "launch-template",
-            "Tags": [
-              {
-                "Key": "Project",
-                "Value": "Attune.more"
-              },
-              {
-                "Key": "Task",
-                "Value": "13"
-              },
-              {
-                "Key": "Owner",
-                "Value": {
-                  "Ref": "Owner"
-                }
-              },
-              {
-                "Key": "Environment",
-                "Value": "oem-demo"
-              },
-              {
-                "Key": "CostCenter",
-                "Value": "attune-oem"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "AaosInstance": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "LaunchTemplate": {
-          "LaunchTemplateId": {
-            "Ref": "AaosTemplate"
-          },
-          "Version": {
-            "Fn::GetAtt": [
-              "AaosTemplate",
-              "LatestVersionNumber"
-            ]
-          }
-        },
-        "SubnetId": {
-          "Ref": "Subnet"
-        },
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      },
-      "DependsOn": [
-        "InternetRoute",
-        "DemoBudget"
-      ]
-    },
-    "AaosAddress": {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "Domain": "vpc",
-        "Tags": [
-          {
-            "Key": "Project",
-            "Value": "Attune.more"
-          },
-          {
-            "Key": "Task",
-            "Value": "13"
-          },
-          {
-            "Key": "Owner",
-            "Value": {
-              "Ref": "Owner"
-            }
-          },
-          {
-            "Key": "Environment",
-            "Value": "oem-demo"
-          },
-          {
-            "Key": "CostCenter",
-            "Value": "attune-oem"
-          }
-        ]
-      },
-      "DependsOn": [
-        "DemoBudget"
-      ]
-    },
-    "AaosAddressAssociation": {
-      "Type": "AWS::EC2::EIPAssociation",
-      "Properties": {
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "AaosAddress",
-            "AllocationId"
-          ]
-        },
-        "InstanceId": {
-          "Ref": "AaosInstance"
-        }
-      }
-    },
-    "DemoBudget": {
-      "Type": "AWS::Budgets::Budget",
-      "Properties": {
-        "Budget": {
-          "BudgetName": {
-            "Fn::Sub": "${AWS::StackName}-monthly"
-          },
-          "BudgetLimit": {
-            "Amount": {
-              "Ref": "MonthlyBudgetUsd"
-            },
-            "Unit": "USD"
-          },
-          "BudgetType": "COST",
-          "TimeUnit": "MONTHLY"
-        },
-        "NotificationsWithSubscribers": [
-          {
-            "Notification": {
-              "NotificationType": "ACTUAL",
-              "ComparisonOperator": "GREATER_THAN",
-              "Threshold": 50,
-              "ThresholdType": "PERCENTAGE"
-            },
-            "Subscribers": [
-              {
-                "SubscriptionType": "EMAIL",
-                "Address": {
-                  "Ref": "BudgetEmail"
-                }
-              }
-            ]
-          },
-          {
-            "Notification": {
-              "NotificationType": "ACTUAL",
-              "ComparisonOperator": "GREATER_THAN",
-              "Threshold": 80,
-              "ThresholdType": "PERCENTAGE"
-            },
-            "Subscribers": [
-              {
-                "SubscriptionType": "EMAIL",
-                "Address": {
-                  "Ref": "BudgetEmail"
-                }
-              }
-            ]
-          },
-          {
-            "Notification": {
-              "NotificationType": "FORECASTED",
-              "ComparisonOperator": "GREATER_THAN",
-              "Threshold": 100,
-              "ThresholdType": "PERCENTAGE"
-            },
-            "Subscribers": [
-              {
-                "SubscriptionType": "EMAIL",
-                "Address": {
-                  "Ref": "BudgetEmail"
-                }
-              }
-            ]
-          }
-        ]
+        "Description": "Attune Task 13 reviewed missing rule"
       }
     }
   },
   "Outputs": {
     "WebInstanceId": {
       "Value": {
-        "Ref": "WebInstance"
-      }
-    },
-    "WebPublicIp": {
-      "Value": {
-        "Ref": "WebAddress"
-      }
-    },
-    "WebPrivateIp": {
-      "Value": {
-        "Fn::GetAtt": [
-          "WebInstance",
-          "PrivateIp"
-        ]
+        "Ref": "WebInstanceId"
       }
     },
     "AaosInstanceId": {
       "Value": {
-        "Ref": "AaosInstance"
-      }
-    },
-    "AaosPublicIp": {
-      "Value": {
-        "Ref": "AaosAddress"
-      }
-    },
-    "AaosPrivateIp": {
-      "Value": {
-        "Fn::GetAtt": [
-          "AaosInstance",
-          "PrivateIp"
-        ]
+        "Ref": "AaosInstanceId"
       }
     }
   }

@@ -1,4 +1,5 @@
 'use client';
+import {acquireCamera} from '../../utils/demoCamera';
 import {useLocaleSwitchLock} from '../../i18n/useLocaleSwitchLock';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
@@ -53,7 +54,7 @@ export default function VisionPage() {
     const r=runtime.current,epoch=r.epoch;
     const current=()=>r.mounted&&r.epoch===epoch&&parked.current&&isCameraAllowed();
     try {
-      const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});
+      const stream=await acquireCamera({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});
       if(!current()){stream.getTracks().forEach(t=>t.stop());return;}
       r.stream=stream;setCameraLive(true);
       const engine=new SkinInference();r.engine=engine;await engine.initialize();if(!current())return;setModelActive(true);

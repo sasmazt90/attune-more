@@ -1,4 +1,5 @@
 'use client';
+import {acquireCamera} from '../../utils/demoCamera';
 import {useLocaleSwitchLock} from '../../i18n/useLocaleSwitchLock';
 import {getLanguage,getLocale} from '../../i18n/core';
 import {apiFetch as fetch} from '../../utils/localBackend';
@@ -261,7 +262,7 @@ export default function SpokenLetterPage(){
  async function start(){
   if(!parked.current||r.current.starting)return;stop();if(canvas.current){delete canvas.current.dataset.visionFailure;delete canvas.current.dataset.visionAnswer;}setAnswerNotice('');setDialog(null);setError('');setResult(null);if(!isCameraAllowed()||!isMicrophoneAllowed()||!serviceAllowed('vision')){setError('Kamera ve mikrofon izinlerini Gizlilik ekranından açın.');return;}
   const a=r.current;a.recognitionFailures=0;a.starting=true;a.active=true;a.muted=false;a.fault='';a.announcedFault='';a.session=new SpokenLetterSession();flow.current.start(a.session.id);refresh();const epoch=a.epoch;
-  try{const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});if(!current(epoch)){stream.getTracks().forEach(t=>t.stop());return;}a.stream=stream;refresh();
+  try{const stream=await acquireCamera({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});if(!current(epoch)){stream.getTracks().forEach(t=>t.stop());return;}a.stream=stream;refresh();
    const engine=new VisionInference();a.engine=engine;await engine.initialize();if(!current(epoch))return;if(!video.current)throw Error('PREVIEW');video.current.srcObject=stream;await video.current.play();void speak('prepare',()=>inspect());
    let last=-1;const analysis=document.createElement('canvas');const inferenceFailure=(error:unknown)=>{if(current(epoch)){if(canvas.current)canvas.current.dataset.visionFailure=JSON.stringify({stage:'frame',message:error instanceof Error?error.message:'UNKNOWN',atMs:performance.now()});stop();setError('Kamera değerlendirmesi kesildi. Görev kaydedilmedi; tekrar deneyebilirsiniz.');}};const loop=async()=>{
     if(!current(epoch))return;const v=video.current,c=canvas.current;if(!v||!c||stream.getVideoTracks().some(t=>t.readyState!=='live'))throw Error('CAMERA_ENDED');

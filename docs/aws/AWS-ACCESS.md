@@ -41,6 +41,7 @@ sohbete veya Git'e anahtar yazmayın; bağlantı kurulana kadar kontroller BLOCK
 - `cloudformation.eu-central-1.amazonaws.com`
 - `ssm.eu-central-1.amazonaws.com`
 - `budgets.amazonaws.com`
+- `iam.amazonaws.com` (mevcut instance profile, role ve policy salt okunur incelemesi)
 
 Federasyon kurulumunun gerçekten istediği ek kimlik adresleri varsa yalnız onları
 ekleyin; örneğin Identity Center kullanılıyorsa ilgili SSO/OIDC endpoint'leri.
@@ -58,6 +59,7 @@ proxy/TLS kontrolünü kaldırmak veya ağ politikasını dosyadan değiştirmek
 ## Bağlantı hazır olduğunda
 
 ```bash
+python scripts/aws/inventory.py --identity-alias GERCEK_ALIAS --output .aws-oem/existing.json
 python scripts/aws/preflight.py --identity-alias GERCEK_ALIAS --output .aws-oem/account.json
 # Geçici STS Secrets yöntemi kullanılıyorsa --identity-alias verilmez.
 ```
@@ -65,8 +67,13 @@ python scripts/aws/preflight.py --identity-alias GERCEK_ALIAS --output .aws-oem/
 Bu yalnız okuma yapar. EC2 offerings sonucu gerçek anda kapasite rezervasyonu
 sağlamaz. G/VT `L-DB2E81BA` ve Standard `L-1216C47A` ayrı sorgulanır;
 mevcut running/pending kullanım da hesaba katılır. IAM kısıtları, SCP/permissions
-boundary ve gerçek `RunInstances` dry-run kontrolü onaydan önce ayrıca değerlendirilir.
+boundary ayrıca değerlendirilir. `RunInstances` kullanılmaz; hedefler zaten mevcut.
+Onaydan önce yalnız bu iki instance için `StartInstances` DryRun izni değerlendirilebilir;
+bu gerçek start değildir ve kapasiteyi garanti etmez.
 
 Ücretli izinler farklı, görev kaynaklarına bağlı deployment rolünde hazırlanmalı;
-mevcut readonly role sessizce genişletilmez. İlk kaynak yaratma/başlatma ancak
-kullanıcının tek, somut maliyet ve süre paketini onaylamasından sonra yapılabilir.
+mevcut readonly role sessizce genişletilmez. Yeni kaynak
+yaratma yetkisi verilmez. `no-new-infrastructure.json` ek deny guardrail olarak
+kullanılabilir; bu policy tek başına hiçbir Allow vermez. Mevcut iki instance için
+start/stop ayrı dar role bağlanır. Başlatma ancak tek, somut maliyet ve test kapsamı
+paketi bildirildikten ve kullanıcı onayından sonra yapılır.

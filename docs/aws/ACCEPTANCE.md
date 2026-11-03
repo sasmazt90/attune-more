@@ -1,6 +1,7 @@
 # Kabul matrisi — sahte PASS yok
 
-AWS kaynak kimlikleri: **yok; oluşturulmadı**. Bölge hedefi `eu-central-1`.
+Mevcut AWS hedefleri: WEB `i-0b25450afc6633494`, AAOS `i-0f4cca4e92e94c351`.
+Kullanıcı ikisini Stopped bildirdi; bağımsız API doğrulaması **BLOCKED**. Bölge `eu-central-1`.
 WEB hedefi `https://attune.sasmaz.digital`, AAOS hedefi `https://aaos.sasmaz.digital`.
 Bunlar **canlı demo URL'si değildir**. DNS/TLS/hesap doğrulaması yapılmadı.
 
@@ -29,7 +30,7 @@ matristeki hiçbir AWS/AI/AAOS hücresini PASS'e dönüştürmez. Ekran görünt
 ## Açık sınırlar
 
 - AWS kimliği, izinler, actual quotas, AZ/capacity, güncel fiyat ve harcama: BLOCKED.
-- İlk ücretli kaynak için onay yok; kullanıcı açıkça başlatılmamasını istedi.
+- Yeni kaynak oluşturmak yasak. Mevcut sunucuları başlatmadan önce maliyet/test kapsamı bildirimi ve onayı bekleniyor.
 - IONOS kayıt okuması ve tam DNS değişiklik onayı yok.
 - Canlı TLS/mTLS sertifika doğrulaması ve toplantı parola rotasyonu koşul.
 - Model arşivleri Drive'da bulundu; mevcut kod manifestiyle tamamı eşleşmiş değil.
@@ -43,7 +44,7 @@ matristeki hiçbir AWS/AI/AAOS hücresini PASS'e dönüştürmez. Ekran görünt
 
 ## Hesap erişimi sonrası sıralama
 
-Readonly preflight → gerçek maliyet/kapasite/izin değerlendirmesi → tek somut ücret
+Mevcut kaynak inventory + readonly preflight → mevcut SG/subnet/volume/IAM eksiklerinin incelenmesi → gerçek maliyet/kapasite/izin değerlendirmesi → tek somut ücret
 onayı → iki host/TLS/model kurulum → gerçek AAOS boot/input → gerçek kamera + model
 çıktısı → ses/provider sınırları → beş modül tam kabul → DNS ayrı onayı → durdurma
 ve kalan EBS/EIP ücretlerinin kaydı. Bir aşama geçilmeden sonraki aşama başarılı

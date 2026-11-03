@@ -7,6 +7,8 @@ on:
       - 'scripts/aws/**'
       - 'tests/aws/**'
       - 'apps/vehicle-app/src/utils/demoCamera.ts'
+      - 'apps/vehicle-app/src/app/vision/**'
+      - 'scripts/qa/aaos/webview.cjs'
       - 'apps/vehicle-app/src/utils/localBackend.ts'
       - 'apps/vehicle-app/src/utils/previewLocalApi.ts'
       - 'apps/vehicle-app/next.config.mjs'
