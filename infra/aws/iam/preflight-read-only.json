@@ -31,7 +31,9 @@
         "ec2:DescribeRouteTables",
         "ec2:DescribeNetworkAcls",
         "ec2:DescribeInternetGateways",
-        "ec2:DescribeVpcEndpoints"
+        "ec2:DescribeVpcEndpoints",
+        "ec2:DescribeNatGateways",
+        "ec2:DescribeVpcAttribute"
       ],
       "Resource": "*",
       "Condition": {

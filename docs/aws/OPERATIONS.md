@@ -1,5 +1,9 @@
 # İşletim ve ücret sınırı
 
+Güncel canlı preflight (2026-11-03): [PREFLIGHT-20261103.md](PREFLIGHT-20261103.md).
+Kimlik ve EC2 erişimi artık doğrulandı; kalan IAM okuma ve Pricing ağ engelleri
+giderilmeden ücretli başlangıç paketi tamamlanamaz.
+
 ## Mevcut kaynak incelemesi — oluşturma yok
 
 1. `python scripts/aws/inventory.py --identity-alias <gerçek-alias> --output .aws-oem/existing.json`

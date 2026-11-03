@@ -1,6 +1,11 @@
 # Mevcut iki EC2 için tek başlangıç paketi
 
 **Durum: TASLAK / BLOCKED — başlatma onayı değildir.**
+
+2026-11-03 devam kontrolü: STS, iki stopped EC2, şifreli diskler, nested
+virtualization, kotalar ve Start/Stop dry-run yetkileri doğrulandı. Eksik IAM/ağ
+okumaları ve Pricing proxy reddi nedeniyle sayısal onay paketi hâlâ hazır değil.
+Aşağıdaki eski başlangıç tablosunu güncelleyen kanıt: [PREFLIGHT-20261103.md](PREFLIGHT-20261103.md).
 Canlı AWS inventory, güncel fiyatlar ve eksik model/servis varlıkları tamamlanmadan
 start istenmez veya uygulanmaz. Mevcut kaynaklar kullanıcı tarafından oluşturuldu;
 yeni EC2/VPC/subnet/volume/EIP/IAM kopyaları kapsam dışıdır.

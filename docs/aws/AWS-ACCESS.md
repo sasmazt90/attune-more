@@ -1,8 +1,11 @@
 # Codex Cloud → AWS erişimi
 
-Bu sohbetin ortamında 2026-11-03 kontrolünde `outbound_identities=[]`,
-`secrets=[]`, `runtime_variables=[]`. AWS hesap/quota/price/IAM gözlemi yok.
-Kullanıcının G/VT 8 vCPU onayı beyanı kaydedildi; API doğrulaması BLOCKED.
+2026-11-03 13:15 CET devam kontrolünde gerçek STS ve EC2 API erişimi doğrulandı.
+Hesap `798886013428`, assumed role `attune-codex-deployer`, manifest runtime alias
+`AWS`; bağlantı ayarındaki isimle CLI alias aynı olmak zorunda değildir. OIDC hazır,
+ancak IAM/ağ envanter yetkileri ve Pricing hostname izni eksik. Güncel kanıt ve
+tam erişim eksikleri: [PREFLIGHT-20261103.md](PREFLIGHT-20261103.md).
+Bu oturumda yeni anahtar veya AWS kaynağı oluşturulmadı.
 
 ## Tercih edilen bağlantı
 
@@ -37,7 +40,7 @@ sohbete veya Git'e anahtar yazmayın; bağlantı kurulana kadar kontroller BLOCK
 - `sts.eu-central-1.amazonaws.com`
 - `ec2.eu-central-1.amazonaws.com`
 - `servicequotas.eu-central-1.amazonaws.com`
-- `pricing.us-east-1.amazonaws.com` (Frankfurt fiyatları bu API bölgesinden sorgulanır)
+- `api.pricing.us-east-1.amazonaws.com` (boto3 Pricing endpoint; Frankfurt fiyatları bu API bölgesinden sorgulanır)
 - `cloudformation.eu-central-1.amazonaws.com`
 - `ssm.eu-central-1.amazonaws.com`
 - `budgets.amazonaws.com`

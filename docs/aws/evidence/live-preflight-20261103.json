@@ -1,0 +1,199 @@
+{
+  "observedAt": "2026-11-03T12:15:31.072271+00:00",
+  "sourceCommit": "7233e9c2c3246575e184df3d29701bd802654399",
+  "region": "eu-central-1",
+  "account": "798886013428",
+  "role": "attune-codex-deployer",
+  "runtimeAlias": "AWS",
+  "authentication": "STS_GET_CALLER_IDENTITY_SUCCESS",
+  "status": "BLOCKED",
+  "mutations": [],
+  "instances": [
+    {
+      "id": "i-0b25450afc6633494",
+      "type": "g6.2xlarge",
+      "state": "stopped",
+      "az": "eu-central-1c",
+      "cpuOptions": {
+        "CoreCount": 4,
+        "ThreadsPerCore": 2
+      },
+      "imdsTokens": "required",
+      "profile": "arn:aws:iam::798886013428:instance-profile/attune-ec2-ssm-role"
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "type": "m8i.2xlarge",
+      "state": "stopped",
+      "az": "eu-central-1c",
+      "cpuOptions": {
+        "CoreCount": 4,
+        "ThreadsPerCore": 2,
+        "NestedVirtualization": "enabled"
+      },
+      "imdsTokens": "required",
+      "profile": "arn:aws:iam::798886013428:instance-profile/attune-ec2-ssm-role"
+    }
+  ],
+  "volumes": [
+    {
+      "VolumeId": "vol-0b484223201916460",
+      "Size": 150,
+      "VolumeType": "gp3",
+      "Encrypted": true,
+      "Iops": 3000,
+      "Throughput": 125
+    },
+    {
+      "VolumeId": "vol-03e8094dfdad0112c",
+      "Size": 120,
+      "VolumeType": "gp3",
+      "Encrypted": true,
+      "Iops": 3000,
+      "Throughput": 125
+    }
+  ],
+  "inventoryChecks": {
+    "account": {
+      "status": "OBSERVED"
+    },
+    "reservations": {
+      "status": "OBSERVED"
+    },
+    "volumes": {
+      "status": "OBSERVED"
+    },
+    "securityGroups": {
+      "status": "OBSERVED"
+    },
+    "subnets": {
+      "status": "OBSERVED"
+    },
+    "vpcs": {
+      "status": "OBSERVED"
+    },
+    "images": {
+      "status": "OBSERVED"
+    },
+    "addresses": {
+      "status": "OBSERVED"
+    },
+    "routeTables": {
+      "status": "OBSERVED"
+    },
+    "networkAcls": {
+      "status": "BLOCKED",
+      "reason": "UnauthorizedOperation"
+    },
+    "internetGateways": {
+      "status": "BLOCKED",
+      "reason": "UnauthorizedOperation"
+    },
+    "vpcEndpoints": {
+      "status": "BLOCKED",
+      "reason": "UnauthorizedOperation"
+    },
+    "groupInterfaces": {
+      "status": "OBSERVED"
+    },
+    "ssm": {
+      "status": "OBSERVED"
+    },
+    "profile:i-0b25450afc6633494": {
+      "status": "BLOCKED",
+      "reason": "AccessDenied"
+    },
+    "profile:i-0f4cca4e92e94c351": {
+      "status": "BLOCKED",
+      "reason": "AccessDenied"
+    }
+  },
+  "accountChecks": {
+    "identity": {
+      "status": "OBSERVED",
+      "value": "798886013428"
+    },
+    "g_vt_quota": {
+      "status": "OBSERVED",
+      "value": 8.0
+    },
+    "standard_quota": {
+      "status": "OBSERVED",
+      "value": 16.0
+    },
+    "existing_usage": {
+      "status": "OBSERVED",
+      "value": []
+    },
+    "price_g6.2xlarge": {
+      "status": "BLOCKED",
+      "reason": "ProxyConnectionError"
+    },
+    "price_m8i.2xlarge": {
+      "status": "BLOCKED",
+      "reason": "ProxyConnectionError"
+    },
+    "price_gp3_gb_month": {
+      "status": "BLOCKED",
+      "reason": "ProxyConnectionError"
+    },
+    "price_ipv4_in_use": {
+      "status": "BLOCKED",
+      "reason": "ProxyConnectionError"
+    },
+    "price_ipv4_idle": {
+      "status": "BLOCKED",
+      "reason": "ProxyConnectionError"
+    }
+  },
+  "targetAzOffersBothTypes": true,
+  "targetAvailabilityZoneState": "available",
+  "ssmManagedInstanceCount": 0,
+  "associatedElasticIpCount": 0,
+  "dryRun": {
+    "startDryRun": {
+      "awsCode": "DryRunOperation",
+      "authorization": "VERIFIED",
+      "operationExecuted": false
+    },
+    "stopDryRun": {
+      "awsCode": "DryRunOperation",
+      "authorization": "VERIFIED",
+      "operationExecuted": false
+    }
+  },
+  "additionalReadChecks": {
+    "deployerRole": {
+      "status": "BLOCKED",
+      "reason": "AccessDenied"
+    },
+    "ssmRole": {
+      "status": "BLOCKED",
+      "reason": "AccessDenied"
+    },
+    "ssmAttachedPolicies": {
+      "status": "BLOCKED",
+      "reason": "AccessDenied"
+    },
+    "availabilityZones": {
+      "status": "OBSERVED"
+    },
+    "natGateways": {
+      "status": "BLOCKED",
+      "reason": "UnauthorizedOperation"
+    },
+    "vpcDnsSupport": {
+      "status": "BLOCKED",
+      "reason": "UnauthorizedOperation"
+    },
+    "budgets": {
+      "status": "OBSERVED"
+    }
+  },
+  "pricingNetwork": {
+    "sdkEndpoint": "https://api.pricing.us-east-1.amazonaws.com",
+    "configuredHostname": "pricing.us-east-1.amazonaws.com",
+    "proxyConnectStatus": 403
+  },
+  "acceptance": "NOT_RUN"
+}

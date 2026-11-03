@@ -1,6 +1,11 @@
 # Task 13 — AWS OEM demo hazırlığı (2026-11-03)
 
-**Durum: HAZIRLIK / BLOCKED. AWS deployment veya beş modül kabulü tamamlanmadı.**
+**Durum: PREFLIGHT KISMEN DOĞRULANDI / BLOCKED. AWS deployment veya beş modül kabulü tamamlanmadı.**
+
+2026-11-03 devam oturumunda OIDC/STS ve EC2 erişimi çalıştı; iki instance stopped,
+nested virtualization, disk ve kotalar API üzerinden doğrulandı. Kalan yetki ve
+Pricing ağ engellerinin güncel kaydı [PREFLIGHT-20261103.md](PREFLIGHT-20261103.md).
+Aşağıdaki önceki hazırlık anlatımının erişim durumu bu kayıtla güncellenmiştir.
 Kullanıcı mevcut iki EC2 instance oluşturduğunu ve durdurduğunu bildirdi. Bu çalışma
 AWS kaynağı oluşturmadı/başlatmadı, DNS değiştirmedi. Yeni VPC/EC2/kopya kaynak
 oluşturmak yasak. Başlatma öncesi tek maliyet ve test kapsamı bildirimi/onayı beklenir.
