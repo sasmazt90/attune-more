@@ -216,7 +216,7 @@ def check_tts(report, deep):
 
 
 def check_assets(report, deep):
-    evidence = Path('/var/lib/attune/evidence/assets.json')
+    evidence = Path('/var/lib/attune/evidence/all-models-verified.json')
     try:
         assets = json.loads(evidence.read_text())['assets']
     except (OSError, ValueError, KeyError):
@@ -242,7 +242,7 @@ def check_inference(report):
     env = read_env(ENV_ROOT / 'api-web.env')
     origin = env.get('ATTUNE_TRUSTED_ORIGINS', '').split(',')[0].strip()
     status = http_status('http://127.0.0.1:8000/api/local-health/skin/prepare', '-X', 'POST', '-H', 'Origin: ' + origin,
-                         '-H', 'Content-Type: application/json', '--data', '{"step":"complete"}', timeout=120)
+                         '-H', 'Content-Type: application/json', '--data', '{"step":"complete","processingConsent":true}', timeout=120)
     # 429 means a real analysis currently holds the worker, which is also a live model runtime.
     report.add('inference', 'Skin model worker responds', status in ('200', '429'), 'HTTP ' + status)
 

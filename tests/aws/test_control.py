@@ -133,3 +133,52 @@ def test_certificate_close_to_expiry_warns_without_blocking(monkeypatch, tmp_pat
     host_ready.check_certificates(report)
     payload = report.payload()
     assert payload['ready'] is True and any(c['id'] == 'tls-renewal' for c in payload['checks'])
+
+
+def test_restart_config_uses_hostnames_never_public_addresses():
+    import stable_host
+    text = json.dumps(stable_host.ORIGINS)
+    assert not re.search(r'\d+\.\d+\.\d+\.\d+', text)
+    assert stable_host.ORIGINS['web']['api-web.env']['ATTUNE_TRUSTED_ORIGINS'] == 'https://attune.sasmaz.digital'
+    assert stable_host.ORIGINS['web']['capture.env']['ATTUNE_CAPTURE_SENDER_ORIGIN'] == 'https://aaos.sasmaz.digital'
+    assert stable_host.ORIGINS['aaos']['aaos.env']['ATTUNE_AUDIO_ORIGIN'] == 'https://aaos.sasmaz.digital'
+
+
+def test_env_update_replaces_only_named_keys_and_keeps_secrets():
+    import stable_host
+    old = 'PORT=8000\nOPENAI_API_KEY=keep-me\nATTUNE_TRUSTED_ORIGINS=https://18.153.100.39\n# note\n'
+    new = stable_host.updated_env(old, {'ATTUNE_TRUSTED_ORIGINS': 'https://attune.sasmaz.digital'})
+    assert new == 'PORT=8000\nOPENAI_API_KEY=keep-me\nATTUNE_TRUSTED_ORIGINS=https://attune.sasmaz.digital\n# note\n'
+    assert stable_host.updated_env(new, {'ATTUNE_TRUSTED_ORIGINS': 'https://attune.sasmaz.digital'}) == new
+    assert 'NEW=1' in stable_host.updated_env('PORT=1\n', {'NEW': '1'})
+
+
+@pytest.mark.skipif(not shutil.which('openssl'), reason='openssl required')
+def test_issued_chain_is_long_lived_constrained_and_destroys_the_ca_key(tmp_path):
+    import stable_host
+
+    def run(*args, cwd=None):
+        return subprocess.run(['openssl', *args], capture_output=True, text=True, cwd=cwd, check=True).stdout
+
+    requests = {}
+    for name, leaf in stable_host.LEAVES.items():
+        run('genpkey', '-algorithm', 'EC', '-pkeyopt', 'ec_paramgen_curve:P-256', '-out', str(tmp_path / (name + '.key')))
+        requests[name] = run('req', '-new', '-key', str(tmp_path / (name + '.key')), '-subj', '/CN=' + leaf['dns'])
+    workspace = tmp_path / 'tmpfs'
+    workspace.mkdir()
+    bundle = stable_host.sign_all(requests, workspace=str(workspace))
+    assert list(workspace.iterdir()) == []
+    assert 'PRIVATE KEY' not in json.dumps(bundle)
+    (tmp_path / 'ca.crt').write_text(bundle['ca'])
+    constraints = run('x509', '-in', str(tmp_path / 'ca.crt'), '-noout', '-ext', 'nameConstraints')
+    assert 'attune.sasmaz.digital' in constraints and 'aaos.sasmaz.digital' in constraints
+    for name, leaf in stable_host.LEAVES.items():
+        path = tmp_path / (name + '.crt')
+        path.write_text(bundle['certificates'][name])
+        purpose = 'sslclient' if leaf['usage'] == 'clientAuth' else 'sslserver'
+        run('verify', '-CAfile', str(tmp_path / 'ca.crt'), '-purpose', purpose, str(path))
+        run('x509', '-in', str(path), '-noout', '-checkend', str(365 * 2 * 86400))
+        assert leaf['dns'] in run('x509', '-in', str(path), '-noout', '-ext', 'subjectAltName')
+        assert not re.search(r'IP Address', run('x509', '-in', str(path), '-noout', '-ext', 'subjectAltName'))
+    with pytest.raises(ValueError):
+        stable_host.sign_all({'web': requests['web']}, workspace=str(workspace))

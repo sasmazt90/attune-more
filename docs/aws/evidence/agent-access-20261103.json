@@ -1,0 +1,361 @@
+{
+  "scope": "Dry-run and refused-call permission checks. Nothing was changed.",
+  "limit": "Start and Stop outside the pair cannot be proven live: the account has no other instance and EC2 rejects made-up IDs as malformed before authorizing. Checked against the policy files instead.",
+  "agVerification": "attune-ag was exercised by Claude on this PC. Antigravity must still confirm its own access from its own terminal.",
+  "profiles": [
+    {
+      "profile": "attune-claude",
+      "arn": "arn:aws:sts::798886013428:assumed-role/attune-ops-control/claude",
+      "account": "798886013428",
+      "observedAt": "2026-11-03T22:14:30.7400509Z",
+      "passed": 18,
+      "failed": 0,
+      "checks": [
+        {
+          "check": "Read instance inventory",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read instance state",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read Security Groups",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read SSM node status",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read SSM command history",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Start WEB instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Start AAOS instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Stop WEB instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Stop AAOS instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Edit HTTPS rule on Security Group (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Run a command on an instance outside the pair",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Create an instance (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Terminate an Attune instance (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Allocate an Elastic IP (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "List IAM users",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Create an IAM access key",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "List S3 buckets",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Read Secrets Manager",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "profile": "attune-desktop",
+      "arn": "arn:aws:sts::798886013428:assumed-role/attune-ops-control/desktop",
+      "account": "798886013428",
+      "observedAt": "2026-11-03T22:15:38.4216168Z",
+      "passed": 18,
+      "failed": 0,
+      "checks": [
+        {
+          "check": "Read instance inventory",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read instance state",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read Security Groups",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read SSM node status",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read SSM command history",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Start WEB instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Start AAOS instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Stop WEB instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Stop AAOS instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Edit HTTPS rule on Security Group (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Run a command on an instance outside the pair",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Create an instance (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Terminate an Attune instance (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Allocate an Elastic IP (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "List IAM users",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Create an IAM access key",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "List S3 buckets",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Read Secrets Manager",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "profile": "attune-ag",
+      "arn": "arn:aws:sts::798886013428:assumed-role/attune-ops-verifier/antigravity",
+      "account": "798886013428",
+      "observedAt": "2026-11-03T22:16:43.6558982Z",
+      "passed": 18,
+      "failed": 0,
+      "checks": [
+        {
+          "check": "Read instance inventory",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read instance state",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read Security Groups",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read SSM node status",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Read SSM command history",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Start WEB instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Start AAOS instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Stop WEB instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Stop AAOS instance (dry run)",
+          "expected": "allowed",
+          "actual": "allowed",
+          "pass": true
+        },
+        {
+          "check": "Edit HTTPS rule on Security Group (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Run a command on an instance outside the pair",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Create an instance (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Terminate an Attune instance (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Allocate an Elastic IP (dry run)",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "List IAM users",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Create an IAM access key",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "List S3 buckets",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        },
+        {
+          "check": "Read Secrets Manager",
+          "expected": "denied",
+          "actual": "denied",
+          "pass": true
+        }
+      ]
+    }
+  ]
+}

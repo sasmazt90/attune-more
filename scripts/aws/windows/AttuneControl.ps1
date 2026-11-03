@@ -24,6 +24,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version 2.0
+# Same number and date formatting whatever the Windows display language is.
+[Threading.Thread]::CurrentThread.CurrentCulture = [Globalization.CultureInfo]::InvariantCulture
+# Host output can hold characters outside the Windows code page, which would crash the AWS CLI.
+$env:PYTHONUTF8 = '1'
 
 $Region = 'eu-central-1'
 $Account = '798886013428'
@@ -107,6 +111,13 @@ function Get-Instances {
     $found
 }
 
+# AWS omits this field while an instance is stopped; strict mode treats a missing field as an error.
+function Get-PublicIp($instance) {
+    $field = $instance.PSObject.Properties['PublicIpAddress']
+    if ($field) { return $field.Value }
+    $null
+}
+
 function Get-InstanceOf($instances, [string]$role) {
     $id = ($Targets | Where-Object { $_.Role -eq $role }).Id
     $instances | Where-Object { $_.InstanceId -eq $id }
@@ -114,7 +125,8 @@ function Get-InstanceOf($instances, [string]$role) {
 
 function Get-RunningHours($instance, [datetime]$until) {
     $launch = ([datetime]$instance.LaunchTime).ToUniversalTime()
-    [math]::Max(0, ($until.ToUniversalTime() - $launch).TotalHours)
+    # A plain 0 selects the integer overload, which rounds the result to whole hours.
+    [math]::Max([double]0, ($until.ToUniversalTime() - $launch).TotalHours)
 }
 
 function Get-StopTime($instance) {
@@ -371,7 +383,7 @@ function Restart-FailedUnits($report, [string]$role) {
 function Test-PublicHttps($instances) {
     $rows = @()
     foreach ($pair in @(@{ Role = 'web'; Domain = $WebDomain }, @{ Role = 'aaos'; Domain = $AaosDomain })) {
-        $ip = (Get-InstanceOf $instances $pair.Role).PublicIpAddress
+        $ip = Get-PublicIp (Get-InstanceOf $instances $pair.Role)
         $resolved = $null
         try { $resolved = @([Net.Dns]::GetHostAddresses($pair.Domain) | ForEach-Object { $_.IPAddressToString }) } catch { }
         $dnsOk = $resolved -and ($resolved -contains $ip)
@@ -457,7 +469,7 @@ function Invoke-Start {
     $Result.checks = @($web, $aaos)
     Write-Step 'Checking the addresses from this PC'
     $instances = Get-Instances
-    $Result.instances = @($instances | ForEach-Object { [ordered]@{ id = $_.InstanceId; state = $_.State.Name; publicIp = $_.PublicIpAddress } })
+    $Result.instances = @($instances | ForEach-Object { [ordered]@{ id = $_.InstanceId; state = $_.State.Name; publicIp = (Get-PublicIp $_) } })
     $rows = @(Test-PublicHttps $instances)
     $Result.urls = $rows
     Write-Urls $rows
@@ -508,11 +520,12 @@ function Invoke-Stop {
 function Invoke-Status {
     Connect-Aws
     $instances = Get-Instances
-    $Result.instances = @($instances | ForEach-Object { [ordered]@{ id = $_.InstanceId; state = $_.State.Name; publicIp = $_.PublicIpAddress } })
+    $Result.instances = @($instances | ForEach-Object { [ordered]@{ id = $_.InstanceId; state = $_.State.Name; publicIp = (Get-PublicIp $_) } })
     Write-Step 'Instances'
     foreach ($instance in $instances) {
         $target = $Targets | Where-Object { $_.Id -eq $instance.InstanceId }
-        $ip = if ($instance.PublicIpAddress) { "  public IP $($instance.PublicIpAddress)" } else { '' }
+        $publicIp = Get-PublicIp $instance
+        $ip = if ($publicIp) { "  public IP $publicIp" } else { '' }
         Write-Line "  $($target.Role.ToUpper()): $($target.Name) ($($target.Type)): $($instance.State.Name)$ip"
     }
     Set-CostEstimate $instances
