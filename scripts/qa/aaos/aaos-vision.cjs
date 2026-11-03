@@ -10,7 +10,8 @@ const W = require('./webview.cjs');
 const {CAMERA, DIAGNOSTICS, RECOGNIZER, WORDS} = require('./vision-injection.cjs');
 
 const HISTORY = 'togg_health_vision_history';
-const PLAN = (process.env.ATTUNE_QA_VISION_PLAN || 'correct,correct,wrong-letter,not-visible').split(',');
+// The product allows one 'not visible' per assessment, so the default plan uses it once.
+const PLAN = process.env.ATTUNE_QA_VISION_PLAN ? process.env.ATTUNE_QA_VISION_PLAN.split(',') : Array.from({length: 24}, (_, trial) => trial === 5 ? 'not-visible' : ['correct', 'correct', 'wrong-letter'][trial % 3]);
 const DELEGATE = process.env.ATTUNE_QA_VISION_DELEGATE || '';
 const CAMERA_WIDTH = Number(process.env.ATTUNE_QA_VISION_CAMERA_WIDTH || 640), CAMERA_FPS = Number(process.env.ATTUNE_QA_VISION_CAMERA_FPS || 5);
 // A probe stops after this many seconds of assessment and reports frames only.

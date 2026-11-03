@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        // Vehicle displays where system bars leave little height; 1280x800 hardware gives only 517 px.
+        short: { raw: '(min-width: 768px) and (max-height: 640px)' },
+      },
       colors: {
         togg: {
           turquoise: '#00C2E7',

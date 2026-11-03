@@ -71,7 +71,7 @@ export default function ProfilePage() {
               <span className="text-slate-500">•</span>
               <span className="text-slate-300 font-medium text-sm">{isDemo ? <>{profile.user.displayName}{i18nText(' (örnek kimlik)')}</> : i18nText('Yerel kullanıcı')}</span>
               {isDemo && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-950/80 border border-togg-turquoise/30 text-togg-turquoise lowercase font-mono">{i18nText("demo veri ")}</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-950/80 border border-togg-turquoise/30 text-togg-turquoise lowercase font-mono">{i18nText("demo veri ")}</span>
               )}
             </div>
             <p className="text-xs text-slate-400">

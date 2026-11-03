@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-cockpit-bg text-cockpit-text flex flex-col antialiased selection:bg-togg-turquoise selection:text-togg-darkBlue">
         <LanguageProvider><VehicleContextProvider>
           <CockpitHeader />
-          <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8">
+          <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 short:p-3">
             <ReminderNotice />
             <HealthConsentGate>{children}</HealthConsentGate>
           </main>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {useLayoutEffect,useRef,type ReactNode} from 'react';
 import {Camera,Eye,Headphones,HeartPulse,Mic,Scan,Sun,Volume2} from 'lucide-react';
 export type PreparationModule='skin'|'vision'|'dental'|'hearing'|'mental';
-export const HEALTH_START_CARD='bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 shadow-2xl w-full';
+export const HEALTH_START_CARD='bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 short:p-4 short:rounded-2xl shadow-2xl w-full';
 export const HEALTH_START_ACTION='min-h-11 w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#00d2eb] hover:bg-[#00e5ff] text-slate-950 font-bold text-base shadow-[0_0_25px_rgba(0,210,235,0.4)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-wider';
 export const HEALTH_START_SECONDARY='min-h-11 w-full sm:w-auto px-6 py-3.5 rounded-full border border-togg-turquoise/40 text-togg-turquoise font-bold disabled:opacity-40';
 export const HEALTH_START_PORTRAITS={skin:'/assets/skin-preparation-module-20261031.png',dental:'/assets/dental-preparation-module-20261031.png'};
@@ -38,12 +38,13 @@ export function HealthStartCard({module,actions,framed=true,footer}:{module:Prep
   return()=>{observer?.disconnect();window.removeEventListener('resize',resize);viewport?.removeEventListener('resize',resize);};
  },[framed]);
  return <div ref={card} className={framed?HEALTH_START_CARD:undefined} data-health-start={module}>
-  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-   <div className="lg:col-span-6 flex justify-center min-w-0"><div className={`relative w-full ${restored?'max-w-[460px] aspect-[115/117]':'max-w-[360px] aspect-[3/4]'} rounded-2xl overflow-hidden`} style={restored?{'--health-portrait-ratio':115/117} as React.CSSProperties:undefined} data-health-portrait={module}><Image src={module==='skin'||module==='dental'?HEALTH_START_PORTRAITS[module]:`/assets/${module}-preparation-approved-v3.png`} alt={i18nText(c.alt)} fill sizes="(min-width: 1024px) 460px, (max-width: 480px) 90vw, 460px" className="object-contain" priority/></div></div>
-   <div className="lg:col-span-6 space-y-6 max-w-md min-w-0">
-    <div className="space-y-1.5"><h2 className="text-3xl font-extrabold text-white tracking-tight">{i18nNode(c.title)}</h2>{c.description&&<p className="text-sm text-slate-300 leading-relaxed">{i18nNode(c.description)}</p>}</div>
-    <div className="space-y-3.5 pt-1">{c.items.map(([Icon,text])=><div key={text} className="flex items-center gap-3 text-sm text-slate-200"><div className="w-8 h-8 rounded-full bg-togg-turquoise/15 border border-togg-turquoise/30 flex items-center justify-center text-togg-turquoise shrink-0"><Icon className="w-4 h-4"/></div><span>{i18nNode(text)}</span></div>)}</div>
-    {actions&&<div className="flex flex-wrap gap-3 pt-2" data-health-start-actions>{i18nNode(actions)}</div>}{i18nNode(footer)}
+  <div className="grid grid-cols-1 lg:grid-cols-12 short:grid-cols-12 gap-8 short:gap-4 items-center">
+   <div className="lg:col-span-6 short:col-span-4 flex justify-center min-w-0"><div className={`relative w-full ${restored?'max-w-[460px] aspect-[115/117]':'max-w-[360px] aspect-[3/4]'} rounded-2xl overflow-hidden`} style={restored?{'--health-portrait-ratio':115/117} as React.CSSProperties:undefined} data-health-portrait={module}><Image src={module==='skin'||module==='dental'?HEALTH_START_PORTRAITS[module]:`/assets/${module}-preparation-approved-v3.png`} alt={i18nText(c.alt)} fill sizes="(min-width: 1024px) 460px, (max-width: 480px) 90vw, 460px" className="object-contain" priority/></div></div>
+   {/* The start action moves up on short displays, so it is visible without scrolling. */}
+   <div className="lg:col-span-6 short:col-span-8 space-y-6 short:space-y-0 max-w-md short:max-w-none min-w-0 short:flex short:flex-col short:gap-3">
+    <div className="space-y-1.5"><h2 className="text-3xl short:text-2xl font-extrabold text-white tracking-tight">{i18nNode(c.title)}</h2>{c.description&&<p className="text-sm text-slate-300 leading-relaxed">{i18nNode(c.description)}</p>}</div>
+    <div className="space-y-3.5 short:space-y-0 short:grid short:grid-cols-2 short:gap-2 short:order-2 pt-1 short:pt-0">{c.items.map(([Icon,text])=><div key={text} className="flex items-center gap-3 text-sm text-slate-200"><div className="w-8 h-8 rounded-full bg-togg-turquoise/15 border border-togg-turquoise/30 flex items-center justify-center text-togg-turquoise shrink-0"><Icon className="w-4 h-4"/></div><span>{i18nNode(text)}</span></div>)}</div>
+    {actions&&<div className="flex flex-wrap gap-3 pt-2 short:pt-0 short:order-1" data-health-start-actions>{i18nNode(actions)}</div>}{footer&&<div className="short:order-3">{i18nNode(footer)}</div>}
    </div>
   </div>
  </div>;

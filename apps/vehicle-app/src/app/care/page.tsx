@@ -181,7 +181,7 @@ function CareContent() {
       <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 shadow-2xl space-y-5">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-[11px] font-semibold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-xs font-semibold tracking-wider uppercase">
               <CalendarCheck className="w-3.5 h-3.5" />
               <span>{i18nText("Uzman Erişimi • Akıllı Hekim Erişimi")}</span>
             </div>
@@ -209,7 +209,7 @@ function CareContent() {
                   {i18nNode(HEALTH_MODULES[referralContext.sourceModule.toLowerCase() as HealthModule]?.name||'Sağlık sonucu')} → {i18nNode(referralContext.specialty)}
                 </span>
                 <span className="text-slate-400 mx-1.5">•</span>
-                <span className="text-slate-300 text-[11px]">{i18nNode(referralContext.reasonSummary)}</span>
+                <span className="text-slate-300 text-xs">{i18nNode(referralContext.reasonSummary)}</span>
               </div>
             </div>
 
@@ -218,7 +218,7 @@ function CareContent() {
                 localStorage.removeItem('togg_active_referral_context');
                 setReferralContext(null);
               }}
-              className="text-[11px] text-slate-400 hover:text-white underline shrink-0 self-end sm:self-auto"
+              className="text-xs text-slate-400 hover:text-white underline shrink-0 self-end sm:self-auto"
             >{i18nText("Bağlamı Kaldır ")}</button>
           </div>
         )}
@@ -273,11 +273,11 @@ function CareContent() {
             {/* Sol: Doktor Bilgileri & Rozetler */}
             <div className="space-y-3 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/60 text-[10px] font-semibold tracking-wider uppercase">{i18nText("Uzman seçeneği ")}</span>
-                <span className="px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 text-[10px] font-mono">
+                <span className="px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/60 text-xs font-semibold tracking-wider uppercase">{i18nText("Uzman seçeneği ")}</span>
+                <span className="px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-800 text-xs font-mono">
                   {i18nNode(featuredSlot.isOnline === null ? 'Uzman seçeneği' : featuredSlot.isOnline ? 'Online Görüşme' : 'Yüz Yüze Muayene')}
                 </span>
-                <span className="px-2 py-0.5 rounded bg-white/5 text-slate-400 text-[10px] font-mono">
+                <span className="px-2 py-0.5 rounded bg-white/5 text-slate-400 text-xs font-mono">
                   {i18nNode(featuredSlot.sourceBadge)}
                 </span>
               </div>
@@ -312,7 +312,7 @@ function CareContent() {
             {/* Sağ: Önerilen Saat ve Birincil CTA */}
             <div className="flex lg:flex-col items-center lg:items-end justify-between gap-4 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-white/10">
               <div className="text-left lg:text-right space-y-0.5">
-                <div className="text-[11px] text-slate-400 uppercase tracking-wider font-mono">{i18nText("Listelenen Saat")}</div>
+                <div className="text-xs text-slate-400 uppercase tracking-wider font-mono">{i18nText("Listelenen Saat")}</div>
                 <div className="text-lg md:text-xl font-bold text-white font-mono">{i18nNode(featuredSlot.displayTime)}</div>
               </div>
 
@@ -354,12 +354,12 @@ function CareContent() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-base font-bold text-white">{i18nNode(slot.providerName)}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 font-mono">
+                    <span className="text-xs px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 font-mono">
                       {i18nNode(slot.isOnline === null ? 'Uzman seçeneği' : slot.isOnline ? 'Online' : 'Yüz Yüze')}
                     </span>
                   </div>
 
-                  <p className="text-[10px] text-slate-400">{i18nNode(slot.sourceBadge)}</p>
+                  <p className="text-xs text-slate-400">{i18nNode(slot.sourceBadge)}</p>
                   <p className="text-xs text-slate-400 flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                     <span>{i18nNode(slot.clinicName)} • {i18nNode(slot.locationLabel)}</span>
@@ -414,7 +414,7 @@ function CareContent() {
               </div>
 
               {referralContext && (
-                <div className="bg-togg-darkBlue/40 border border-togg-turquoise/40 p-3 rounded-xl text-[11px] text-togg-turquoise">{i18nText("ℹ️ Randevu talebine ")}<strong>{i18nNode(referralContext.specialty)}</strong>{i18nText(" ön değerlendirme özeti bu cihazda hazırlanır. Harici sayfaya otomatik aktarılmaz. ")}</div>
+                <div className="bg-togg-darkBlue/40 border border-togg-turquoise/40 p-3 rounded-xl text-xs text-togg-turquoise">{i18nText("ℹ️ Randevu talebine ")}<strong>{i18nNode(referralContext.specialty)}</strong>{i18nText(" ön değerlendirme özeti bu cihazda hazırlanır. Harici sayfaya otomatik aktarılmaz. ")}</div>
               )}
 
               <label className="flex items-start gap-3 pt-2 cursor-pointer select-none">

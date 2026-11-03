@@ -136,7 +136,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                       x={padX - 16}
                       y={y + 4}
                       textAnchor="end"
-                      className="text-[10px] fill-slate-500 font-mono"
+                      className="text-xs fill-slate-500 font-mono"
                     >
                       {i18nNode(level > 0 ? `+${level}%` : `${level}%`)}
                     </text>
@@ -187,7 +187,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                           x="20"
                           y="14"
                           textAnchor="middle"
-                          className="text-[11px] font-bold fill-slate-950 font-mono"
+                          className="text-xs font-bold fill-slate-950 font-mono"
                         >
                           {i18nNode(p.value > 0 ? `+${p.value}%` : `${p.value}%`)}
                         </text>
@@ -197,7 +197,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                         x={cx}
                         y={cy - 10}
                         textAnchor="middle"
-                        className="text-[10px] font-mono fill-slate-300 font-semibold"
+                        className="text-xs font-mono fill-slate-300 font-semibold"
                       >
                         {i18nNode(p.value > 0 ? `+${p.value}%` : `${p.value}%`)}
                       </text>
@@ -207,7 +207,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
                       x={cx}
                       y={height - 8}
                       textAnchor="middle"
-                      className="text-[11px] fill-slate-400 font-medium"
+                      className="text-xs fill-slate-400 font-medium"
                     >
                       {i18nNode(p.date)}
                     </text>
@@ -219,7 +219,7 @@ export const SkinTrendModal: React.FC<SkinTrendModalProps> = ({ region, onClose,
             <div className="py-8 text-center space-y-2">
               <Info className="w-7 h-7 text-slate-500 mx-auto" />
               <p className="text-xs text-slate-300 font-medium">{i18nText("Henüz yeterli geçmiş ölçüm yok. ")}</p>
-              <p className="text-[11px] text-slate-500 max-w-xs mx-auto">{i18nText("Zaman içindeki görsel değişim grafiğini görüntüleyebilmek için en az 2 karşılaştırılabilir takip taraması gereklidir. ")}</p>
+              <p className="text-xs text-slate-500 max-w-xs mx-auto">{i18nText("Zaman içindeki görsel değişim grafiğini görüntüleyebilmek için en az 2 karşılaştırılabilir takip taraması gereklidir. ")}</p>
             </div>
           )}
         </div>

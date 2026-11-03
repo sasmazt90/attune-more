@@ -56,11 +56,11 @@ export const CockpitHeader: React.FC = () => {
   const itemClass=(active:boolean)=>`flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all min-h-touch ${active?'bg-togg-turquoise/15 text-togg-turquoise border border-togg-turquoise/30 font-bold':'text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-transparent'}`;
   const dropdownClass=(active:boolean)=>`flex items-center justify-start text-left gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all min-h-touch w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-togg-turquoise ${active?'bg-togg-turquoise/15 text-togg-turquoise border border-togg-turquoise/30 font-bold':'text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-transparent'}`;
   return (
-    <header data-cockpit-header className="border-b border-white/10 bg-[#050b14]/95 backdrop-blur-md md:sticky top-0 z-50">
+    <header data-cockpit-header className="border-b border-white/10 bg-[#050b14]/95 backdrop-blur-md md:sticky top-0 z-50 short:flex short:flex-wrap short:items-center short:gap-x-2">
       {/* Üst Telemetri ve Güvenlik Durum Çubuğu */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-2 border-b border-white/5 text-xs">
-        <div className="flex items-center gap-4">
-          <Link href="/" aria-label={i18nText(PRODUCT_NAME)} className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-2 border-b border-white/5 text-xs short:contents">
+        <div className="flex items-center gap-4 short:order-1 short:pl-3">
+          <Link href="/" aria-label={i18nText(PRODUCT_NAME)} className="flex items-center gap-3 min-h-11 hover:opacity-90 transition-opacity">
             <Image
               src="/brand/attune-more/icon.svg"
               width={20}
@@ -78,7 +78,7 @@ export const CockpitHeader: React.FC = () => {
         </div>
 
         {/* Sensörler, Batarya ve Araç Durumu Butonu */}
-        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3 min-w-0"><LanguageSelector/><PlaybackWave/><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={i18nText(guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat')} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3 min-w-0 short:order-3 short:gap-1.5 short:pr-3 short:ml-auto"><LanguageSelector/><PlaybackWave/><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={i18nText(guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat')} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
 
 
           {/* Sürüş / Park Durumu */}
@@ -103,13 +103,13 @@ export const CockpitHeader: React.FC = () => {
                   <strong>{i18nText("SÜRÜŞ")}</strong> • {i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</>
               )}
             </span>
-            <span className="text-[9px] bg-white/10 px-1.5 py-0.2 rounded text-slate-300 font-normal">{i18nText("Değiştir ")}</span>
+            <span className="text-xs bg-white/10 px-1.5 py-0.2 rounded text-slate-300 font-normal">{i18nText("Değiştir ")}</span>
           </button></InformationButton></div>
         </div>
       </div>
 
-      <nav ref={navigation} aria-label={i18nText("Ana sekmeler")} className="relative px-3 sm:px-6 py-1.5">
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5">
+      <nav ref={navigation} aria-label={i18nText("Ana sekmeler")} className="relative px-3 sm:px-6 py-1.5 short:order-2 short:px-1 short:py-1">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5 short:gap-1">
           <Link href="/" aria-current={pathname==='/'?'page':undefined} className={itemClass(pathname==='/')}><Activity className="w-3.5 h-3.5 shrink-0"/>{i18nText("Kokpit")}</Link>
           <div className="relative min-w-0">
             <button ref={trigger} type="button" aria-expanded={open} aria-controls="health-centre-links" className={itemClass(healthActive)+' w-full'} onClick={()=>setOpen(v=>!v)} onKeyDown={e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(true);requestAnimationFrame(()=>{const links=panel.current?.querySelectorAll<HTMLAnchorElement>('a');links?.[e.key==='ArrowDown'?0:links.length-1]?.focus();});}}}><HeartPulse className="w-3.5 h-3.5 shrink-0"/>{i18nText("Sağlık Merkezi")}</button>

@@ -232,7 +232,7 @@ export default function PrivacyPage() {
       <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 shadow-2xl space-y-3">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-[11px] font-semibold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-xs font-semibold tracking-wider uppercase">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>{i18nText("Yerel Gizlilik ve Veri Güvenliği")}</span>
             </div>
@@ -277,7 +277,7 @@ export default function PrivacyPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{i18nText("Uygulama İzni")}</span>
+            <span className="text-xs text-slate-400">{i18nText("Uygulama İzni")}</span>
             <button
               onClick={handleToggleCamera}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
@@ -313,7 +313,7 @@ export default function PrivacyPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{i18nText("Uygulama İzni")}</span>
+            <span className="text-xs text-slate-400">{i18nText("Uygulama İzni")}</span>
             <button
               onClick={handleToggleMic}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
@@ -347,7 +347,7 @@ export default function PrivacyPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{i18nText("Yerel Saklama")}</span>
+            <span className="text-xs text-slate-400">{i18nText("Yerel Saklama")}</span>
             <button
               onClick={() => handleToggleMentalSaving(!saveMentalSummaries)}
               className="text-xs font-semibold text-togg-turquoise hover:underline"

@@ -24,7 +24,7 @@ Environment for the journeys:
 | `ATTUNE_QA_AAOS_CONFIG` | Path to `aaos-config.json` |
 | `ATTUNE_QA_VISION_SPEECH` | Microphone fixture for `e2e/vision-journey.cjs`; German comes from `e2e/make-german-speech.ps1` |
 | `ATTUNE_QA_VISION_CAMERA_FPS`, `ATTUNE_QA_VISION_CAMERA_WIDTH` | Injected AAOS camera; defaults 5 fps and 640 wide |
-| `ATTUNE_QA_VISION_PLAN` | AAOS recognizer answers per trial; default `correct,correct,wrong-letter,not-visible` |
+| `ATTUNE_QA_VISION_PLAN` | AAOS recognizer answers per trial; default 24 answers with one `not-visible`, the most the product allows per assessment |
 | `ATTUNE_QA_VISION_PROBE_SECONDS` | Stops AAOS Vision after this long and reports frames only; a probe is never a PASS |
 
 ## Services

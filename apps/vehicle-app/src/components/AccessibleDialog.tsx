@@ -59,9 +59,9 @@ export function AccessibleDialog({ title, onClose, children, className }: {
       if (previous?.isConnected) previous.focus({ preventScroll: true });
     };
   }, [mounted]);
-  return mounted ? createPortal(<div onClick={onClose} style={{ margin: 0 }} className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+  return mounted ? createPortal(<div onClick={onClose} style={{ margin: 0 }} className="fixed inset-0 z-[60] flex items-center justify-center p-4 short:p-2 bg-black/80 backdrop-blur-sm">
     <div ref={panel} role="dialog" aria-modal="true" aria-label={i18nText(title)} tabIndex={-1}
-      onClick={event => event.stopPropagation()} className={`max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain ${className}`}>
+      onClick={event => event.stopPropagation()} className={`max-h-[calc(100dvh-2rem)] short:max-h-[calc(100dvh-1rem)] overflow-y-auto overscroll-contain ${className}`}>
       {i18nNode(children)}
     </div>
   </div>, document.body) : null;

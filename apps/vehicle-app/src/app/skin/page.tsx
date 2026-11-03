@@ -941,7 +941,7 @@ export default function SkinPage() {
           <AlertTriangle className="w-10 h-10 animate-pulse" />
         </div>
         <div className="space-y-2">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Sürüş Emniyeti Devrede • ")}{i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</span>
+          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Sürüş Emniyeti Devrede • ")}{i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</span>
           <h1 className="text-2xl font-extrabold text-white">{i18nText("Cilt Sağlığı Kilitlendi")}</h1>
           <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">{i18nText("Cilt analizi kamera odaklanması ve yüz hizalaması gerektirdiğinden, sürüş güvenliğiniz için araç hareket halindeyken kullanılamaz. ")}</p>
         </div>
@@ -974,7 +974,7 @@ export default function SkinPage() {
             <AlertTriangle className="w-8 h-8" />
           </div>
           <div className="space-y-2">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Analiz Motoru Bildirimi ")}</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Analiz Motoru Bildirimi ")}</span>
             <h2 className="text-2xl font-extrabold text-white">{i18nText("Cilt Sağlığı Başlatılamadı")}</h2>
             <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
               {i18nNode(errorMessage || 'Cilt analiz motoru kullanılamıyor. Lütfen kamera iznini ve bağlantınızı kontrol edip tekrar deneyin.')}

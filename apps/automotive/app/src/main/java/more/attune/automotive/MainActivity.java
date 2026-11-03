@@ -54,6 +54,7 @@ public final class MainActivity extends Activity {
     private GatePolicy.Platform platform = GatePolicy.Platform.UNKNOWN;
     private boolean foreground, pageFailed, destroyed;
     private FrameLayout frame;
+    private static final int WIDE_TOOLBAR_DP = 1000;
     private TextView status, placeholder;
     private Button back, home, simulation;
     private WebView web;
@@ -146,12 +147,23 @@ public final class MainActivity extends Activity {
         });
         if (BuildConfig.BACKEND_SIMULATION) toolbar.addView(simulation);
         scroll.addView(toolbar);
-        root.addView(scroll);
         status = new TextView(this);
         status.setTextColor(Color.rgb(226, 232, 240));
         status.setTextSize(14);
         status.setPadding(dp(12), dp(4), dp(12), dp(8));
-        root.addView(status);
+        // Wide displays keep the status beside the buttons, which returns its row to the WebView.
+        // Narrow ones keep it on its own row, so scrolling the buttons can never hide it.
+        LinearLayout controls = new LinearLayout(this);
+        if (getResources().getConfiguration().screenWidthDp >= WIDE_TOOLBAR_DP) {
+            controls.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            controls.addView(scroll);
+            controls.addView(status, new LinearLayout.LayoutParams(0, -2, 1));
+        } else {
+            controls.setOrientation(LinearLayout.VERTICAL);
+            controls.addView(scroll);
+            controls.addView(status);
+        }
+        root.addView(controls);
         frame = new FrameLayout(this);
         placeholder = new TextView(this);
         placeholder.setTextColor(Color.WHITE);

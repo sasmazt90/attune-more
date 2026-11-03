@@ -118,7 +118,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
               </ul>
             )}
             {inconclusive && <SkinInconclusiveDialog regionId={inconclusive.regionId} causes={inconclusive.causes} onClose={() => setInconclusive(null)} />}
-            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 font-mono" data-skin-type-model={currentRegion.skinType?.methodVersion || 'local-vit+regional-v3'}>
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400 font-mono" data-skin-type-model={currentRegion.skinType?.methodVersion || 'local-vit+regional-v3'}>
               <span>{i18nText(regional ? "Bölgesel cilt haritası (yerel model)" : "Bölgesel Kural + Yerel ONNX (local-vit-dima806)")}</span>
               <span>{i18nText("Model/vekil tahmini · Klinik tanı değildir")}</span>
             </div>
@@ -139,7 +139,7 @@ export const SkinRegionSummary: React.FC<SkinRegionSummaryProps> = ({
               return <div key={indicator.id} data-skin-indicator={indicator.id} data-criterion-model={modelBadge.code} role={onSelectCriterion?'button':undefined} tabIndex={onSelectCriterion?0:undefined} aria-pressed={onSelectCriterion?selectedCriterion===indicator.id:undefined} onClick={()=>onSelectCriterion?.(indicator.id)} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();onSelectCriterion?.(indicator.id);}}} className={`rounded-2xl border bg-slate-900/60 p-4 space-y-3 ${selectedCriterion===indicator.id?'border-togg-turquoise ring-1 ring-togg-turquoise/40':'border-sky-400/15'}`}>
                 <div className="space-y-1">
                   <div className="text-sm text-slate-300">{i18nNode(indicator.label)}</div>
-                  <div className="text-[11px] text-slate-400 font-mono" data-criterion-model-label>{i18nText(modelBadge.label)}</div>
+                  <div className="text-xs text-slate-400 font-mono" data-criterion-model-label>{i18nText(modelBadge.label)}</div>
                 </div>
                 <SkinIndicatorValue indicator={indicator}/>
                 {delta!==undefined&&<p className="text-xs text-sky-300">{i18nText("Referansa göre ")}{i18nNode(delta>0?'+':'')}{i18nNode(delta)} {i18nNode(geometry?'× 10⁻³ kontur farkı':indicator.unit)}</p>}

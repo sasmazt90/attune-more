@@ -218,14 +218,32 @@ async function auditExpandables(page, record, directory) {
   }
 }
 
+/** Presses the module's start action on Chrome's fake camera and microphone. Reaches the
+ * preparation and live screens only: no face is present, so no analysis or result runs. */
+async function auditActive(page, record, directory) {
+  const start = page.locator('main [data-health-start-actions] button:not([disabled])').first();
+  if (!(await start.count())) return;
+  await start.click({ timeout: 4000 }).catch(() => {});
+  await page.waitForTimeout(3500);
+  record.active = await page.evaluate(measurePage);
+  record.active.dialog = await page.evaluate(measureDialog);
+  await shot(page, directory, 'active-top');
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await page.waitForTimeout(120);
+  await shot(page, directory, 'active-bottom');
+}
+
 async function main() {
   fs.mkdirSync(OUT, { recursive: true });
-  const browser = await chromium.launch({ headless: true, executablePath: process.env.ATTUNE_QA_CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+  const browser = await chromium.launch({
+    headless: true, executablePath: process.env.ATTUNE_QA_CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    args: ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required'],
+  });
   const results = [];
   for (const shell of (process.env.ATTUNE_AUDIT_SHELLS || 'aaos,web').split(',')) {
     for (const viewport of VIEWPORTS) {
       for (const lang of LANGS) {
-        const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
+        const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1, permissions: ['camera', 'microphone'] });
         const page = await context.newPage();
         page.setDefaultTimeout(8000);
         await page.goto(ORIGIN + '/', { waitUntil: 'load' });
@@ -251,6 +269,10 @@ async function main() {
               await auditDialogs(page, record, directory);
               await page.evaluate(() => scrollTo(0, 0));
               await auditExpandables(page, record, directory);
+              if (route.service && process.env.ATTUNE_AUDIT_ACTIVE !== '0') {
+                await page.evaluate(() => scrollTo(0, 0));
+                await auditActive(page, record, directory);
+              }
             }
           } catch (error) {
             record.error = String(error).slice(0, 300);
