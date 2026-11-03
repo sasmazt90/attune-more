@@ -587,7 +587,10 @@
           }
         ]
       },
-      "DependsOn": "InternetRoute"
+      "DependsOn": [
+        "InternetRoute",
+        "DemoBudget"
+      ]
     },
     "WebAddress": {
       "Type": "AWS::EC2::EIP",
@@ -617,7 +620,10 @@
             "Value": "attune-oem"
           }
         ]
-      }
+      },
+      "DependsOn": [
+        "DemoBudget"
+      ]
     },
     "WebAddressAssociation": {
       "Type": "AWS::EC2::EIPAssociation",
@@ -811,7 +817,10 @@
           }
         ]
       },
-      "DependsOn": "InternetRoute"
+      "DependsOn": [
+        "InternetRoute",
+        "DemoBudget"
+      ]
     },
     "AaosAddress": {
       "Type": "AWS::EC2::EIP",
@@ -841,7 +850,10 @@
             "Value": "attune-oem"
           }
         ]
-      }
+      },
+      "DependsOn": [
+        "DemoBudget"
+      ]
     },
     "AaosAddressAssociation": {
       "Type": "AWS::EC2::EIPAssociation",

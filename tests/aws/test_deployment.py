@@ -122,6 +122,8 @@ def test_infrastructure_has_no_public_admin_ports_or_dns():
                 assert ingress['FromPort']==ingress['ToPort']==443
     cpu=stack['Resources']['AaosTemplate']['Properties']['LaunchTemplateData']['CpuOptions']
     assert cpu['NestedVirtualization']=='enabled'
+    for name in ['WebInstance','AaosInstance','WebAddress','AaosAddress']:
+        assert 'DemoBudget' in stack['Resources'][name]['DependsOn']
     for key in ['WebTemplate','AaosTemplate']:
         launch=stack['Resources'][key]['Properties']['LaunchTemplateData']
         assert launch['MetadataOptions']['HttpTokens']=='required'
