@@ -24,7 +24,7 @@ with socket.socket() as sock:
     sock.bind(('127.0.0.1',0));port=sock.getsockname()[1]
 origin=f'http://127.0.0.1:{port}'
 app=create_app(parked,{origin},{origin})
-compile_script="""const fs=require('fs'),ts=require('typescript');let s=fs.readFileSync('apps/vehicle-app/src/utils/demoCamera.ts','utf8');s=s.replace("import {isCameraAllowed} from './attuneMode';", 'const isCameraAllowed=()=>true;');process.stdout.write(ts.transpileModule(s,{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);"""
+compile_script="""const fs=require('fs'),ts=require('typescript');let s=fs.readFileSync('apps/vehicle-app/src/utils/demoCamera.ts','utf8');s=s.replace("import {isCameraAllowed} from './attuneMode';", 'const isCameraAllowed=()=>true;');s=s.replace("import {translateText} from '../i18n/core';", 'const translateText=value=>value;');process.stdout.write(ts.transpileModule(s,{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText);"""
 js=subprocess.check_output(['node','-e',compile_script],cwd=ROOT,text=True)
 @app.get('/')
 def index():
