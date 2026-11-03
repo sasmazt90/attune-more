@@ -1,0 +1,1038 @@
+{
+ "scope": "Gate measurement only. Thresholds unchanged. Not a dental or clinical assessment.",
+ "photos": [
+  {
+   "photo": "Female-Dental-1.png",
+   "size": [
+    1447,
+    1087
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. A\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131n; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.556,
+     "mouthWidth": 214,
+     "visibleFraction": 0.781,
+     "enamelArea": 0.247,
+     "light": 115,
+     "sharp": 414,
+     "glare": 0,
+     "tongue": 0.27,
+     "rotation": {
+      "yaw": -0.2,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.556,
+     "mouthWidth": 214,
+     "visibleFraction": 0.781,
+     "enamelArea": 0.247,
+     "light": 115,
+     "sharp": 414,
+     "glare": 0,
+     "tongue": 0.27,
+     "rotation": {
+      "yaw": -0.2,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    },
+    "LEFT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi solunuza hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.556,
+     "mouthWidth": 214,
+     "visibleFraction": 0.781,
+     "enamelArea": 0.247,
+     "light": 115,
+     "sharp": 414,
+     "glare": 0,
+     "tongue": 0.27,
+     "rotation": {
+      "yaw": -0.2,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin.",
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. Di\u015flerinizi do\u011fal, rahat kapan\u0131\u015fta tutun; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn. Zorlamay\u0131n."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.556,
+     "mouthWidth": 214,
+     "visibleFraction": 0.781,
+     "enamelArea": 0.247,
+     "light": 115,
+     "sharp": 414,
+     "glare": 0,
+     "tongue": 0.27,
+     "rotation": {
+      "yaw": -0.2,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  },
+  {
+   "photo": "Female-Dental-2.png",
+   "size": [
+    1448,
+    1086
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.526,
+     "mouthWidth": 232,
+     "visibleFraction": 0.766,
+     "enamelArea": 0.343,
+     "light": 119,
+     "sharp": 526,
+     "glare": 0,
+     "tongue": 0.244,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    },
+    "RIGHT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi sa\u011f\u0131n\u0131za hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.526,
+     "mouthWidth": 232,
+     "visibleFraction": 0.766,
+     "enamelArea": 0.343,
+     "light": 119,
+     "sharp": 526,
+     "glare": 0,
+     "tongue": 0.244,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    },
+    "LEFT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi solunuza hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.526,
+     "mouthWidth": 232,
+     "visibleFraction": 0.766,
+     "enamelArea": 0.343,
+     "light": 119,
+     "sharp": 526,
+     "glare": 0,
+     "tongue": 0.244,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.526,
+     "mouthWidth": 232,
+     "visibleFraction": 0.766,
+     "enamelArea": 0.343,
+     "light": 119,
+     "sharp": 526,
+     "glare": 0,
+     "tongue": 0.244,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.2,
+      "roll": -0.0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  },
+  {
+   "photo": "Female-Dental-3.png",
+   "size": [
+    1448,
+    1086
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. A\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131n; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.625,
+     "mouthWidth": 186,
+     "visibleFraction": 0.697,
+     "enamelArea": 0.184,
+     "light": 118,
+     "sharp": 316,
+     "glare": 0,
+     "tongue": 0.319,
+     "rotation": {
+      "yaw": 0.4,
+      "pitch": -0.1,
+      "roll": -0.0
+     }
+    },
+    "RIGHT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi sa\u011f\u0131n\u0131za hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.625,
+     "mouthWidth": 186,
+     "visibleFraction": 0.697,
+     "enamelArea": 0.184,
+     "light": 118,
+     "sharp": 316,
+     "glare": 0,
+     "tongue": 0.319,
+     "rotation": {
+      "yaw": 0.4,
+      "pitch": -0.1,
+      "roll": -0.0
+     }
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.625,
+     "mouthWidth": 186,
+     "visibleFraction": 0.697,
+     "enamelArea": 0.184,
+     "light": 118,
+     "sharp": 316,
+     "glare": 0,
+     "tongue": 0.319,
+     "rotation": {
+      "yaw": 0.4,
+      "pitch": -0.1,
+      "roll": -0.0
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin.",
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. Di\u015flerinizi do\u011fal, rahat kapan\u0131\u015fta tutun; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn. Zorlamay\u0131n."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.625,
+     "mouthWidth": 186,
+     "visibleFraction": 0.697,
+     "enamelArea": 0.184,
+     "light": 118,
+     "sharp": 316,
+     "glare": 0,
+     "tongue": 0.319,
+     "rotation": {
+      "yaw": 0.4,
+      "pitch": -0.1,
+      "roll": -0.0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  },
+  {
+   "photo": "Female-Dental-4.png",
+   "size": [
+    1447,
+    1087
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0.471,
+      "confirmed": false
+     },
+     "opening": 0.353,
+     "mouthWidth": 240,
+     "visibleFraction": 0.761,
+     "enamelArea": 0.342,
+     "light": 141,
+     "sharp": 206,
+     "glare": 0,
+     "tongue": 0.037,
+     "rotation": {
+      "yaw": 0,
+      "pitch": -0.2,
+      "roll": 0
+     }
+    },
+    "RIGHT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi sa\u011f\u0131n\u0131za hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0.471,
+      "confirmed": false
+     },
+     "opening": 0.353,
+     "mouthWidth": 240,
+     "visibleFraction": 0.761,
+     "enamelArea": 0.342,
+     "light": 141,
+     "sharp": 206,
+     "glare": 0,
+     "tongue": 0.037,
+     "rotation": {
+      "yaw": 0,
+      "pitch": -0.2,
+      "roll": 0
+     }
+    },
+    "LEFT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi solunuza hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0.471,
+      "confirmed": false
+     },
+     "opening": 0.353,
+     "mouthWidth": 240,
+     "visibleFraction": 0.761,
+     "enamelArea": 0.342,
+     "light": 141,
+     "sharp": 206,
+     "glare": 0,
+     "tongue": 0.037,
+     "rotation": {
+      "yaw": 0,
+      "pitch": -0.2,
+      "roll": 0
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0.471,
+      "confirmed": false
+     },
+     "opening": 0.353,
+     "mouthWidth": 240,
+     "visibleFraction": 0.761,
+     "enamelArea": 0.342,
+     "light": 141,
+     "sharp": 206,
+     "glare": 0,
+     "tongue": 0.037,
+     "rotation": {
+      "yaw": 0,
+      "pitch": -0.2,
+      "roll": 0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  },
+  {
+   "photo": "Male-Dental-1.png",
+   "size": [
+    1446,
+    1087
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. A\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131n; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.698,
+     "mouthWidth": 187,
+     "visibleFraction": 0.849,
+     "enamelArea": 0.355,
+     "light": 120,
+     "sharp": 420,
+     "glare": 0,
+     "tongue": 0.261,
+     "rotation": {
+      "yaw": -0.4,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.698,
+     "mouthWidth": 187,
+     "visibleFraction": 0.849,
+     "enamelArea": 0.355,
+     "light": 120,
+     "sharp": 420,
+     "glare": 0,
+     "tongue": 0.261,
+     "rotation": {
+      "yaw": -0.4,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    },
+    "LEFT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi solunuza hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.698,
+     "mouthWidth": 187,
+     "visibleFraction": 0.849,
+     "enamelArea": 0.355,
+     "light": 120,
+     "sharp": 420,
+     "glare": 0,
+     "tongue": 0.261,
+     "rotation": {
+      "yaw": -0.4,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin.",
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. Di\u015flerinizi do\u011fal, rahat kapan\u0131\u015fta tutun; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn. Zorlamay\u0131n."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.698,
+     "mouthWidth": 187,
+     "visibleFraction": 0.849,
+     "enamelArea": 0.355,
+     "light": 120,
+     "sharp": 420,
+     "glare": 0,
+     "tongue": 0.261,
+     "rotation": {
+      "yaw": -0.4,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  },
+  {
+   "photo": "Male-Dental-2.png",
+   "size": [
+    1448,
+    1086
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 1,
+      "touching": 0.941,
+      "confirmed": true
+     },
+     "opening": 0.19,
+     "mouthWidth": 233,
+     "visibleFraction": 0.82,
+     "enamelArea": 0.791,
+     "light": 161,
+     "sharp": 230,
+     "glare": 0,
+     "tongue": 0,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": 0,
+      "roll": 0
+     }
+    },
+    "RIGHT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi sa\u011f\u0131n\u0131za hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0.941,
+      "confirmed": true
+     },
+     "opening": 0.19,
+     "mouthWidth": 233,
+     "visibleFraction": 0.82,
+     "enamelArea": 0.791,
+     "light": 161,
+     "sharp": 230,
+     "glare": 0,
+     "tongue": 0,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": 0,
+      "roll": 0
+     }
+    },
+    "LEFT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi solunuza hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0.941,
+      "confirmed": true
+     },
+     "opening": 0.19,
+     "mouthWidth": 233,
+     "visibleFraction": 0.82,
+     "enamelArea": 0.791,
+     "light": 161,
+     "sharp": 230,
+     "glare": 0,
+     "tongue": 0,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": 0,
+      "roll": 0
+     }
+    },
+    "BITE": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 1,
+      "touching": 0.941,
+      "confirmed": true
+     },
+     "opening": 0.19,
+     "mouthWidth": 233,
+     "visibleFraction": 0.82,
+     "enamelArea": 0.791,
+     "light": 161,
+     "sharp": 230,
+     "glare": 0,
+     "tongue": 0,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": 0,
+      "roll": 0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": true,
+     "reasons": []
+    }
+   }
+  },
+  {
+   "photo": "Male-Dental-3.png",
+   "size": [
+    1446,
+    1087
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. A\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131n; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.679,
+     "mouthWidth": 180,
+     "visibleFraction": 0.86,
+     "enamelArea": 0.378,
+     "light": 117,
+     "sharp": 307,
+     "glare": 0,
+     "tongue": 0.243,
+     "rotation": {
+      "yaw": 0.3,
+      "pitch": -0.1,
+      "roll": 0.1
+     }
+    },
+    "RIGHT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi sa\u011f\u0131n\u0131za hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.679,
+     "mouthWidth": 180,
+     "visibleFraction": 0.86,
+     "enamelArea": 0.378,
+     "light": 117,
+     "sharp": 307,
+     "glare": 0,
+     "tongue": 0.243,
+     "rotation": {
+      "yaw": 0.3,
+      "pitch": -0.1,
+      "roll": 0.1
+     }
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.679,
+     "mouthWidth": 180,
+     "visibleFraction": 0.86,
+     "enamelArea": 0.378,
+     "light": 117,
+     "sharp": 307,
+     "glare": 0,
+     "tongue": 0.243,
+     "rotation": {
+      "yaw": 0.3,
+      "pitch": -0.1,
+      "roll": 0.1
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin.",
+      "Ba\u015f\u0131n\u0131z kar\u015f\u0131da. Di\u015flerinizi do\u011fal, rahat kapan\u0131\u015fta tutun; \u00f6n di\u015fleriniz g\u00f6r\u00fcns\u00fcn. Zorlamay\u0131n."
+     ],
+     "contact": {
+      "enamel": 0.967,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.679,
+     "mouthWidth": 180,
+     "visibleFraction": 0.86,
+     "enamelArea": 0.378,
+     "light": 117,
+     "sharp": 307,
+     "glare": 0,
+     "tongue": 0.243,
+     "rotation": {
+      "yaw": 0.3,
+      "pitch": -0.1,
+      "roll": 0.1
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  },
+  {
+   "photo": "Male-Dental-4.png",
+   "size": [
+    1447,
+    1087
+   ],
+   "faceFound": true,
+   "frontend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": [],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.534,
+     "mouthWidth": 206,
+     "visibleFraction": 0.84,
+     "enamelArea": 0.46,
+     "light": 128,
+     "sharp": 348,
+     "glare": 0,
+     "tongue": 0.197,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    },
+    "RIGHT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi sa\u011f\u0131n\u0131za hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.534,
+     "mouthWidth": 206,
+     "visibleFraction": 0.84,
+     "enamelArea": 0.46,
+     "light": 128,
+     "sharp": 348,
+     "glare": 0,
+     "tongue": 0.197,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    },
+    "LEFT": {
+     "valid": false,
+     "reasons": [
+      "Ba\u015f\u0131n\u0131z\u0131 kendi solunuza hafif\u00e7e \u00e7evirin (15\u00b0\u201345\u00b0); a\u011fz\u0131n\u0131z\u0131 rahat\u00e7a a\u00e7\u0131k tutun."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.534,
+     "mouthWidth": 206,
+     "visibleFraction": 0.84,
+     "enamelArea": 0.46,
+     "light": 128,
+     "sharp": 348,
+     "glare": 0,
+     "tongue": 0.197,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "Di\u015flerinizi hafif\u00e7e birle\u015ftirin; \u00f6n di\u015fleriniz birbirine de\u011fsin."
+     ],
+     "contact": {
+      "enamel": 1,
+      "touching": 0,
+      "confirmed": false
+     },
+     "opening": 0.534,
+     "mouthWidth": 206,
+     "visibleFraction": 0.84,
+     "enamelArea": 0.46,
+     "light": 128,
+     "sharp": 348,
+     "glare": 0,
+     "tongue": 0.197,
+     "rotation": {
+      "yaw": -0.0,
+      "pitch": -0.1,
+      "roll": 0
+     }
+    }
+   },
+   "backend": {
+    "FRONT": {
+     "valid": true,
+     "reasons": []
+    },
+    "RIGHT": {
+     "valid": true,
+     "reasons": []
+    },
+    "LEFT": {
+     "valid": true,
+     "reasons": []
+    },
+    "BITE": {
+     "valid": false,
+     "reasons": [
+      "NATURAL_BITE_REQUIRED"
+     ]
+    }
+   }
+  }
+ ],
+ "columnAnalysis": [
+  {
+   "photo": "Female-Dental-4.png",
+   "mouthWidthPx": 241,
+   "lipOpening": 0.352,
+   "columns": {
+    "contact": 56,
+    "gapTooLong": 32,
+    "noEnamelAcrossMidline": 31,
+    "tooFewEnamel": 4
+   },
+   "contactColumnFraction": 0.4706,
+   "requiredContactColumnFraction": 0.6,
+   "pixelsInsideTooLongGaps": {
+    "pinkLike": 419,
+    "tooSaturated": 53,
+    "tooDarkLum": 16,
+    "other": 0
+   }
+  },
+  {
+   "photo": "Male-Dental-2.png",
+   "mouthWidthPx": 232,
+   "lipOpening": 0.191,
+   "columns": {
+    "contact": 111,
+    "gapTooLong": 7,
+    "noEnamelAcrossMidline": 0,
+    "tooFewEnamel": 0
+   },
+   "contactColumnFraction": 0.9407,
+   "requiredContactColumnFraction": 0.6,
+   "pixelsInsideTooLongGaps": {
+    "pinkLike": 75,
+    "tooSaturated": 0,
+    "tooDarkLum": 0,
+    "other": 3
+   }
+  }
+ ],
+ "conclusion": "Female-Dental-4 shows a closed natural bite with discoloured enamel and brown lesions at the central incisal edges. Only the incisal-contact rule fails, in both gates. Discoloured enamel is classified as non-enamel. This is a gate limitation on this kind of tooth, not image quality or capture conditions. Thresholds were not changed. All four Male-Dental views pass both gates for their intended pose."
+}

@@ -22,7 +22,8 @@ $powershell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powersh
 $items = @(
     @{ Name = 'START ATTUNE.MORE'; Arguments = '-Action Start -OpenBrowser'; Icon = 'imageres.dll,101'; About = 'Start both AWS instances and verify every Attune.more service' },
     @{ Name = 'STOP ATTUNE.MORE'; Arguments = '-Action Stop'; Icon = 'imageres.dll,100'; About = 'Stop both AWS instances and show the session cost' },
-    @{ Name = 'STATUS ATTUNE.MORE'; Arguments = '-Action Status'; Icon = 'imageres.dll,76'; About = 'Show instance state, service health and cost without changing anything' }
+    @{ Name = 'STATUS ATTUNE.MORE'; Arguments = '-Action Status'; Icon = 'imageres.dll,76'; About = 'Show instance state, service health and cost without changing anything' },
+    @{ Name = 'LOGIN ATTUNE.MORE'; Arguments = '-Action ShowLogin'; Icon = 'imageres.dll,77'; About = 'Show the web page login. Needs the instances running.' }
 )
 foreach ($item in $items) {
     $shortcut = $shell.CreateShortcut((Join-Path $desktop ($item.Name + '.lnk')))

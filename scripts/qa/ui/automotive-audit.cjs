@@ -9,6 +9,7 @@
  * ATTUNE_AUDIT_OUT      Output directory
  * ATTUNE_AUDIT_LANGS    Comma list (default: en,de,tr)
  * ATTUNE_AUDIT_VIEWPORTS Comma list of viewport names (default: all)
+ * ATTUNE_AUDIT_SHELLS   Comma list of aaos,web (default: both)
  * ATTUNE_AUDIT_SEED     Optional JSON of localStorage entries, for result and history states
  */
 const fs = require('fs');
@@ -24,6 +25,7 @@ const SEED = process.env.ATTUNE_AUDIT_SEED ? JSON.parse(fs.readFileSync(process.
 
 // "source" separates sizes taken from project evidence from ones added for wide or bar-heavy cars.
 const VIEWPORTS = [
+  { name: 'aaos-real-1280x517', width: 1280, height: 517, source: 'measured in the AAOS 15 WebView on the 1280x800 emulator, 2026-11-03' },
   { name: 'compact-800x480', width: 800, height: 480, source: 'project evidence 2026-10-28' },
   { name: 'wide-short-1024x400', width: 1024, height: 400, source: 'project evidence 2026-10-28' },
   { name: 'compact-1024x600', width: 1024, height: 600, source: 'project evidence 2026-10-28' },
@@ -46,11 +48,9 @@ const ROUTES = [
   { id: 'privacy', path: '/privacy' },
 ];
 
-const TOUCH_MIN = 44;
-const TEXT_MIN = 12;
-
 /** Runs in the page. Reports the facts a reviewer would otherwise estimate by eye. */
 function measurePage() {
+  const TEXT_MIN = 12;
   const visible = el => {
     const r = el.getBoundingClientRect();
     const s = getComputedStyle(el);
@@ -108,7 +108,7 @@ function measureDialog() {
   const r = panel.getBoundingClientRect();
   const buttons = [...panel.querySelectorAll('button,a[href]')].filter(b => b.getClientRects().length);
   const inView = el => { const b = el.getBoundingClientRect(); return b.top >= r.top - 1 && b.bottom <= Math.min(r.bottom, innerHeight) + 1; };
-  const closer = buttons.find(b => /kapat|close|schließ|schliess|tamam|^ok$|vazgeç|cancel|abbrechen/i.test(`${b.getAttribute('aria-label') || ''} ${b.innerText || ''}`));
+  const closer = buttons.find(b => /kapat|close|schließ|schliess|tamam|^ok$|vazgeç|cancel|abbrechen|şimdi değil|not now|nicht jetzt/i.test(`${b.getAttribute('aria-label') || ''} ${b.innerText || ''}`));
   const enabled = buttons.filter(b => !b.disabled);
   const primary = enabled[enabled.length - 1] || null;
   const nestedScrollers = [...panel.querySelectorAll('*')].filter(el => { const s = getComputedStyle(el); return ['auto', 'scroll'].includes(s.overflowY) && el.scrollHeight > el.clientHeight + 1; }).length;
@@ -163,6 +163,7 @@ async function auditDialogs(page, record, directory) {
   const count = Math.min(await triggers.count(), 6);
   for (let i = 0; i < count; i++) {
     const trigger = page.locator('main [aria-haspopup="dialog"]:visible').nth(i);
+    await trigger.scrollIntoViewIfNeeded().catch(() => {});
     const before = await page.evaluate(() => scrollY);
     await trigger.click({ timeout: 4000 }).catch(() => {});
     await page.waitForTimeout(250);
@@ -221,7 +222,7 @@ async function main() {
   fs.mkdirSync(OUT, { recursive: true });
   const browser = await chromium.launch({ headless: true, executablePath: process.env.ATTUNE_QA_CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
   const results = [];
-  for (const shell of ['aaos', 'web']) {
+  for (const shell of (process.env.ATTUNE_AUDIT_SHELLS || 'aaos,web').split(',')) {
     for (const viewport of VIEWPORTS) {
       for (const lang of LANGS) {
         const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });

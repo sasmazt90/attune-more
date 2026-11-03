@@ -241,10 +241,22 @@ def check_assets(report, deep):
 def check_inference(report):
     env = read_env(ENV_ROOT / 'api-web.env')
     origin = env.get('ATTUNE_TRUSTED_ORIGINS', '').split(',')[0].strip()
-    status = http_status('http://127.0.0.1:8000/api/local-health/skin/prepare', '-X', 'POST', '-H', 'Origin: ' + origin,
-                         '-H', 'Content-Type: application/json', '--data', '{"step":"complete","processingConsent":true}', timeout=120)
-    # 429 means a real analysis currently holds the worker, which is also a live model runtime.
-    report.add('inference', 'Skin model worker responds', status in ('200', '429'), 'HTTP ' + status)
+    # Loads the real model worker, the same warm-up the Skin page requests.
+    code, out, err = run('curl', '-sS', '--max-time', '120', '-w', '\n%{http_code}', '-X', 'POST', '-H', 'Origin: ' + origin,
+                         '-H', 'Content-Type: application/json', '--data', '{"processingConsent":true}',
+                         'http://127.0.0.1:8000/api/local-health/skin/prepare', timeout=130)
+    body, _, status = out.rpartition('\n')
+    if status == '429':
+        # A real analysis holds the worker, which also shows a live model runtime.
+        report.add('inference', 'Skin model worker responds', True, 'busy with a running analysis')
+        return
+    try:
+        value = json.loads(body)
+    except ValueError:
+        value = {}
+    models = value.get('models') if isinstance(value, dict) else None
+    ready = status == '200' and value.get('ready') is True and bool(models)
+    report.add('inference', 'Skin model worker loads its models', ready, '{} models ready'.format(len(models)) if ready else 'HTTP {} {}'.format(status, err))
 
 
 def check_web(report, deep):

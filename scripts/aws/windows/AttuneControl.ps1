@@ -11,7 +11,7 @@
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('Start', 'Stop', 'Status')][string]$Action = 'Status',
+    [ValidateSet('Start', 'Stop', 'Status', 'ShowLogin')][string]$Action = 'Status',
     [string]$AwsProfile = 'attune-desktop',
     [string]$LoginProfile = 'attune-operator',
     # Also hashes every model file and generates real Chatterbox speech. Adds several minutes.
@@ -19,7 +19,9 @@ param(
     [switch]$OpenBrowser,
     [switch]$NoPause,
     # For unattended runs: allow this PC's new public IP without asking.
-    [switch]$AllowIpChange
+    [switch]$AllowIpChange,
+    # Root-readable login record on the WEB host.
+    [string]$LoginFile = '/var/lib/attune/qa/access.json'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -440,6 +442,52 @@ function Write-Urls($rows) {
     }
 }
 
+function New-Der([int]$tag, [byte[]]$content) {
+    $length = $content.Length
+    $prefix = if ($length -lt 128) { @($length) } elseif ($length -lt 256) { @(0x81, $length) } else { @(0x82, ($length -shr 8), ($length -band 255)) }
+    [byte[]](@($tag) + $prefix + $content)
+}
+
+function Get-PublicKeyPem($rsa) {
+    $key = $rsa.ExportParameters($false)
+    $integer = { param([byte[]]$value) if ($value[0] -ge 0x80) { $value = [byte[]](@(0) + $value) }; New-Der 2 $value }
+    $sequence = New-Der 0x30 ([byte[]]((& $integer $key.Modulus) + (& $integer $key.Exponent)))
+    $algorithm = [byte[]](0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00)
+    $der = New-Der 0x30 ([byte[]]($algorithm + (New-Der 3 ([byte[]](@(0) + $sequence)))))
+    "-----BEGIN PUBLIC KEY-----`n" + [Convert]::ToBase64String($der, 'InsertLineBreaks').Replace("`r", '') + "`n-----END PUBLIC KEY-----`n"
+}
+
+function Invoke-ShowLogin {
+    Connect-Aws
+    $web = Get-InstanceOf (Get-Instances) 'web'
+    if ($web.State.Name -ne 'running') { throw 'The WEB instance must be running. Press START first.' }
+    # Encrypted to a key that exists only in this window, so SSM history holds ciphertext only.
+    $rsa = New-Object Security.Cryptography.RSACryptoServiceProvider 2048
+    try {
+        $pem = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((Get-PublicKeyPem $rsa)))
+        $reply = Invoke-HostCommand $web.InstanceId @(
+            'set -e', 'key=$(mktemp)', "trap 'rm -f `"`$key`"' EXIT", "printf %s '$pem' | base64 -d > `"`$key`"",
+            "openssl pkeyutl -encrypt -pubin -inkey `"`$key`" -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha1 -in '$LoginFile' | base64 -w0"
+        ) 60
+        # /bin/sh has no pipefail, so a failed read reaches here as empty output.
+        if ($reply.Status -ne 'Success' -or -not $reply.Out.Trim()) { throw "Could not read the login record: $($reply.Err)" }
+        $plain = [Text.Encoding]::UTF8.GetString($rsa.Decrypt([Convert]::FromBase64String($reply.Out.Trim()), $true)).Trim()
+    } finally { $rsa.Dispose() }
+    Write-Host ''
+    Write-Line 'Web page login. Shown only in this window and not saved anywhere by this tool.' White
+    $record = $null
+    try { $record = $plain | ConvertFrom-Json } catch { }
+    if ($record -and $record.PSObject.Properties['password']) {
+        $name = @('username', 'user') | Where-Object { $record.PSObject.Properties[$_] } | Select-Object -First 1
+        if ($name) { Write-Line "  User:     $($record.$name)" Green }
+        Write-Line "  Password: $($record.password)" Green
+    } else {
+        Write-Line "  $plain" Green
+    }
+    $Result.status = 'READY'
+    'SHOWN'
+}
+
 function Invoke-Start {
     Connect-Aws
     Write-Step 'Checking the two instances'
@@ -561,8 +609,14 @@ try {
         'Start' { Invoke-Start }
         'Stop' { Invoke-Stop }
         'Status' { Invoke-Status }
+        'ShowLogin' { Invoke-ShowLogin }
     }
     $Result.status = $status
+    if ($status -eq 'SHOWN') {
+        # Nothing to summarize, and the report must not hold the login.
+        if (-not $NoPause) { Write-Host ''; [void](Read-Host 'Press Enter to close this window') }
+        exit 0
+    }
     $message = switch ($status) {
         'READY' { 'All checks passed. Remember to press STOP when you finish.' }
         'STOPPED' { 'Both instances are confirmed stopped by AWS. Your data and settings are kept.' }
