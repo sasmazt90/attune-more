@@ -4,7 +4,7 @@ const {deleteSynthetic,referral}=require('./result-coverage.cjs');
 (async()=>{
  const frames=Object.fromEntries(['Front','Right','Left'].map(k=>[k,fs.readFileSync(path.join(fixtureRoot,'vision-native-input/vision'+k+'.y4m'))]));
  const camera=path.join(root,'runtime/vision-camera.y4m');fs.writeFileSync(camera,frames.Front);const fd=fs.openSync(camera,'r+');
- const h=await open('vision',{camera,microphone:path.join(fixtureRoot,language==='tr'?'synthetic-speech/vision-not-visible-tr.wav':'synthetic-speech/vision-not-visible.wav')});const {p,q,r,tr,save,act,observe,inventory}=h;r.states=[];let error;
+ const h=await open('vision',{camera,microphone:process.env.ATTUNE_QA_VISION_SPEECH||path.join(fixtureRoot,language==='tr'?'synthetic-speech/vision-not-visible-tr.wav':'synthetic-speech/vision-not-visible.wav')});const {p,q,r,tr,save,act,observe,inventory}=h;r.states=[];let error;
  async function info(button,label){await act(label,button,()=>p.getByRole('button',{name:tr('Bilgi penceresini kapat'),exact:true}).waitFor());const d=p.getByRole('dialog').filter({has:p.getByRole('button',{name:tr('Bilgi penceresini kapat'),exact:true})});await observe(label+' text',d);await act(label+' close',d.getByRole('button',{name:tr('Bilgi penceresini kapat'),exact:true}),()=>d.waitFor({state:'hidden'}));}
  async function details(root,label){
   await inventory(label,root);

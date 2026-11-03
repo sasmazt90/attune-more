@@ -22,6 +22,10 @@ Environment for the journeys:
 | `ATTUNE_QA_RECORD` | `0` disables tab recording (its encoder would disturb a performance run) |
 | `ATTUNE_QA_CAPTURE_DIR` | Stores the Skin request bodies for `skin_api_bench.py`; contains photos, never archive it |
 | `ATTUNE_QA_AAOS_CONFIG` | Path to `aaos-config.json` |
+| `ATTUNE_QA_VISION_SPEECH` | Microphone fixture for `e2e/vision-journey.cjs`; German comes from `e2e/make-german-speech.ps1` |
+| `ATTUNE_QA_VISION_CAMERA_FPS`, `ATTUNE_QA_VISION_CAMERA_WIDTH` | Injected AAOS camera; defaults 5 fps and 640 wide |
+| `ATTUNE_QA_VISION_PLAN` | AAOS recognizer answers per trial; default `correct,correct,wrong-letter,not-visible` |
+| `ATTUNE_QA_VISION_PROBE_SECONDS` | Stops AAOS Vision after this long and reports frames only; a probe is never a PASS |
 
 ## Services
 
@@ -51,6 +55,7 @@ build's content security policy and the Android debug shell expect.
 | `perf/output_parity.py` | Compares the worker output of two checkouts field by field |
 | `perf/skin_recovery.py` | A cancelled or vehicle-stopped analysis leaves no orphan or late result |
 | `perf/guard_probe.py` | The reserve guard on the real worker path, without exhausting the host |
+| `perf/service_latency.py` | Frontend clip and backend vehicle latency from the host while other work runs |
 
 ## Journeys
 
@@ -65,10 +70,19 @@ build's content security policy and the Android debug shell expect.
 | `aaos/aaos_session.py` | Boots the read-only AVD and installs the debug shell |
 | `aaos/aaos-native-gates.cjs` | PARK/DRIVE, stale data, background, Back, keys, permissions |
 | `aaos/aaos-hearing.cjs` | Real WebView, real PCM into the guest mixer, synthetic listener |
-| `aaos/aaos-vision.cjs` | Unmodified no-camera boundary, then **injected camera and recognizer** |
+| `aaos/aaos-hearing-boundaries.cjs` | HOME and DRIVE during a scored DIN trial |
+| `aaos/aaos-vision.cjs` | Unmodified no-camera boundary, then **injected camera and a recognizer answering from the on-screen letter**, plus frame diagnostics in `frames.jsonl` |
 | `aaos/aaos-mental.cjs` | Unmodified no-ASR boundary, then **scripted recognizer and mocked provider** |
 | `aaos/aaos-language-sync.cjs` | Native toolbar language after real navigations from the shell's Home button |
 | `aaos/gate_probe.py` | Watches the AAOS WebView while the host runs other work |
+
+Every AAOS journey starts from a fresh document, so hooks or a running task left by an earlier
+journey cannot decide its result. `aaos_session.py` reports ready only after the guest's load
+settles: a fresh AAOS guest stays near load 30 for minutes after boot. Boot AAOS Vision runs with
+`--memory 3072` and host CPU to spare: at 2 GiB a long session swaps and inference passes the
+750 ms freshness gate (749 ms per frame, against 302 ms on a fresh 3 GiB guest). The injected
+camera paints only as fast as the app reads, because canvas capture shares the guest's GPU path
+with inference.
 
 A journey result only speaks for its boundary. Injected or mocked layers are named in the
 evidence and never count as camera, microphone, speech-service, provider or human-listening

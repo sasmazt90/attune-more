@@ -50,6 +50,19 @@ def match_worker_priority(launcher_pid):
     return [emulator.pid for emulator in emulators]
 
 
+def settle(config, target, limit=480):
+    """A fresh AAOS guest stays near load 30 for minutes after boot. A journey started in that
+    window measures the boot, not the app, so the session reports ready only after it passes."""
+    began = time.monotonic()
+    load = None
+    while time.monotonic() - began < limit:
+        load = float(adb(config, 'shell', 'cat', '/proc/loadavg', check=False).split()[0])
+        if load < target:
+            break
+        time.sleep(10)
+    return dict(seconds=round(time.monotonic() - began), load=load, target=target)
+
+
 def boot(arguments, config):
     if config['serial'] in devices(config):
         raise SystemExit(f"{config['serial']} is already running; preserved")
@@ -97,6 +110,7 @@ def boot(arguments, config):
                 time.sleep(1)
             report['webviewReady'] = web_ready(config, package)
             report['webviewReadySeconds'] = round(time.time() - report['bootStarted'], 1)
+    report['settle'] = settle(config, arguments.settle_load)
     (arguments.out / 'session.json').write_text(json.dumps(report, indent=1), 'utf8')
     print(json.dumps(report))
 
@@ -123,6 +137,7 @@ def main():
     parser.add_argument('--memory', type=int, default=2048)
     parser.add_argument('--cores', type=int, default=3)
     parser.add_argument('--no-launch', action='store_true')
+    parser.add_argument('--settle-load', type=float, default=4.0)
     arguments = parser.parse_args()
     config = json.loads(arguments.config.read_text('utf8'))
     config.setdefault('adb', str(Path(config['sdk']) / 'platform-tools/adb.exe'))

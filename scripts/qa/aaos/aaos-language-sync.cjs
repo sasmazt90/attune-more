@@ -15,6 +15,7 @@ function tapHome(xml) {
   const {out, r, check, save} = W.report('language-sync');
   const session = await W.attach();
   const {page} = session;
+  await W.startClean(page);
   r.rounds = [];
   try {
     await W.setLanguage(page, 'tr');

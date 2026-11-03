@@ -16,6 +16,28 @@ const W = require('./webview.cjs');
     const {page} = session;
     if (process.env.ATTUNE_QA_RECORD === '1') stopRecording = W.recording(out, 'hearing-' + language);
     page.on('pageerror', error => r.errors.push(String(error)));
+    await W.startClean(page);
+    // Separates a slow clip download from a player or guidance failure, without touching the app.
+    await page.evaluate(() => {
+      const T = window.__qaTimeline = [], note = (kind, detail) => T.push({at: Math.round(performance.now()), kind, ...detail});
+      window.addEventListener('attune-guidance-event', e => note('guidance', {id: e.detail.id, event: e.detail.event}));
+      window.addEventListener('attune-voice-unavailable', () => note('voice-unavailable', {hidden: document.hidden}));
+      window.addEventListener('attune-audio-focus', () => note('audio-focus', {until: Number(localStorage.getItem('attune_hearing_audio_focus') || 0) - Date.now()}));
+      const real = window.fetch.bind(window);
+      window.fetch = async (input, options) => {
+        const url = String(input?.url || input), started = performance.now();
+        if (!/audio|hearing|digit/i.test(url)) return real(input, options);
+        try {
+          const response = await real(input, options);
+          note('fetch', {url: url.slice(-60), status: response.status, headersMs: Math.round(performance.now() - started)});
+          return response;
+        } catch (error) { note('fetch-error', {url: url.slice(-60), name: error.name, ms: Math.round(performance.now() - started)}); throw error; }
+      };
+      try { new PerformanceObserver(list => { for (const e of list.getEntries()) if (e.duration > 300) note('long-task', {ms: Math.round(e.duration)}); }).observe({entryTypes: ['longtask']}); } catch {}
+    });
+    const timeline = () => page.evaluate(() => ({events: window.__qaTimeline, downloads: performance.getEntriesByType('resource').filter(e => /audio|hearing|digit/i.test(e.name)).map(e => ({url: e.name.slice(-60), at: Math.round(e.startTime), waitMs: Math.round(e.responseStart - e.startTime), totalMs: Math.round(e.duration), bytes: e.encodedBodySize}))}));
+    r.readTimeline = timeline;
+    r.guestAtStart = W.guestLoad();
     await W.setLanguage(page, language);
     await W.enter(page, 'hearing', tr);
     const shape = await W.layout(page);
@@ -106,10 +128,15 @@ const W = require('./webview.cjs');
     r.error = String(error);
     process.exitCode = 1;
     try { W.shot(out, 'failure'); } catch {}
+    try { r.failureText = (await session.page.locator('main').innerText()).slice(0, 600); r.guestAtFailure = W.guestLoad(); } catch {}
+    try { r.logcat = W.shell('logcat', '-d', '-t', '400', '-v', 'time').split('\n').filter(line => /audio|mediacodec|chromium|lowmemory|lmkd/i.test(line) && /\s[EWF]\//.test(line)).slice(-40); } catch {}
   } finally {
     if (stopRecording) await stopRecording().catch(error => { r.recordingError = String(error); });
+    try { if (r.readTimeline) r.timeline = await r.readTimeline(); } catch {}
+    delete r.readTimeline;
     r.finished = new Date().toISOString();
     require('node:fs').writeFileSync(out + '/assertions.json', JSON.stringify(r, null, 1));
+    await session?.page.goto(W.origin + '/').catch(() => {});
     await session?.browser.close().catch(() => {});
     console.log(JSON.stringify({out, status: r.status, checks: r.checks.length, failed: r.checks.filter(item => !item.pass).map(item => item.what), error: r.error}));
     process.exit(process.exitCode || 0);
