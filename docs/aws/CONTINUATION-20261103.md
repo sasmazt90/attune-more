@@ -1,5 +1,7 @@
 # Task 13 — yeni Cloud runtime devam kaydı
 
+> 3 Kasım final hazırlık güncellemesi: [doğrulanmış model/runtime paketleri ve onay sınırı](PREPARATION-20261103-FINAL.md). Önceki transfer engelleri giderildi; canlı kabul ve ücretli start onayı bekliyor. Aşağıdaki önceki runtime kayıtları tarihsel kanıttır.
+
 3 Kasım 2026. PR #22'nin önceki CDC commit'i `5a82147` bu dala fast-forward
 alındı. Önceki IAM, kota ve Pricing kontrolleri yeniden çalıştırılmadı.
 Kullanıcı yeni Cloud ortamına geçmeden önce commit/push istediği için çalışma

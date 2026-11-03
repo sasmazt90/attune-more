@@ -1,8 +1,10 @@
 # Mevcut iki EC2 için tek başlangıç paketi
 
+> 3 Kasım final hazırlık güncellemesi: [doğrulanmış model/runtime paketleri ve onay sınırı](PREPARATION-20261103-FINAL.md). Önceki transfer engelleri giderildi; canlı kabul ve ücretli start onayı bekliyor. Aşağıdaki önceki runtime kayıtları tarihsel kanıttır.
+
 Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-20261103.md).
 
-**2026-11-03 R2: maliyet hazır; model aktarımı/hazırlığı nedeniyle başlatma BEKLİYOR. Bu belge onay değildir.**
+**2026-11-03 final: model/runtime hazırlığı tamamlandı; ücretli başlatma kullanıcı onayını BEKLİYOR. Bu belge onay değildir.**
 
 [Canlı R2 kontrolleri](PREFLIGHT-20261103-R2.md) · [API fiyat kanıtı](evidence/pricing-20261103.json).
 Hesap `798886013428`, bölge `eu-central-1`, rol `attune-codex-deployer`.
