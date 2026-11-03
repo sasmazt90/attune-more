@@ -19,6 +19,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { checkCrisisTrigger } from '@packages/safety/crisisDetector';
 import { isMicrophoneAllowed, isMentalSummarySavingAllowed, isMentalTranscriptSavingAllowed, isDemoMode } from './attuneMode';
 import { MentalHistoryItem, readMentalHistory, saveMentalHistory } from './mentalHistory';
+import { closingTranscript } from './mentalSessionClose';
 import { prepareHealthRecords } from './healthRecords';
 import { localBackend } from './localBackend';
 
@@ -297,9 +298,10 @@ export function useMentalConversation(parked: boolean) {
   async function finish() {
     const r = runtime.current;
     if (!r.active) return;
-    const failed = r.failed || r.transcript.some(m => !m.completed);
-    const completed = r.transcript.filter(m => m.completed);
+    const {failed,completed,discardedPending} = closingTranscript(r.transcript,r.pendingTurn?.user.id,r.failed);
+    // Bumping the epoch cancels the pending reply; a late response finds it expired.
     const epoch = ++r.epoch; r.active = false; r.busy = false; r.pendingTurn=null;r.pendingSpeech=null;cleanup(); setActive(false); setPhase('ending');
+    if (discardedPending) { r.transcript = completed; setMessages(completed); }
     if (failed || !completed.some(m => m.sender === 'USER')) { setPhase(failed ? 'error' : 'completed'); setNotice('Boş, iptal edilmiş veya başarısız görüşme geçmişe kaydedilmedi.'); return; }
     const controller = new AbortController(); r.controller = controller;
     let deadline:ReturnType<typeof setTimeout>|undefined;
@@ -327,7 +329,7 @@ export function useMentalConversation(parked: boolean) {
         if (isMentalTranscriptSavingAllowed()) { item.transcriptConsented = true; item.transcript = completed.map(m => ({ id:m.id, turn:m.turn, sender:m.sender, text:spokenText(m.text), timestamp:m.timestamp })); }
         const records = await saveMentalHistory(item, () => r.mounted && r.epoch === epoch && settings.current.parked && settings.current.speechConsent && serviceAllowed('mental'));
         if (!r.mounted || r.epoch !== epoch || !settings.current.parked || !settings.current.speechConsent || !serviceAllowed('mental')) return;
-        setHistory(records); setNotice('Tamamlanan görüşmenin tek özeti kaydedildi.');
+        setHistory(records); setNotice(discardedPending?'Tamamlanan görüşme turlarının özeti kaydedildi; yanıtı beklenen son mesaj dahil edilmedi.':'Tamamlanan görüşmenin tek özeti kaydedildi.');
       } else setNotice('Özet hazır. Kalıcı saklama izni kapalı; geçmişe kayıt eklenmedi.');
       setSummary(item);
       if(r.structured){clearTimeout(deadline);await speakClosing(data.spokenSummary,epoch);}
