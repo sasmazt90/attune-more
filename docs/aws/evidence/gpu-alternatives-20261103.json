@@ -1,0 +1,128 @@
+{
+  "observedAt": "2026-11-03T16:17:32.041419+00:00",
+  "instanceId": "i-0b25450afc6633494",
+  "state": "stopped",
+  "currentType": "g6.2xlarge",
+  "az": "eu-central-1c",
+  "alternatives": [
+    {
+      "type": "g5.2xlarge",
+      "vcpu": 8,
+      "ramMiB": 32768,
+      "gpu": {
+        "Gpus": [
+          {
+            "Name": "A10G",
+            "Manufacturer": "NVIDIA",
+            "Count": 1,
+            "LogicalGpuCount": 1,
+            "GpuPartitionSize": 1.0,
+            "Workloads": [
+              "ml-ai",
+              "graphics"
+            ],
+            "MemoryInfo": {
+              "SizeInMiB": 22888
+            }
+          }
+        ],
+        "TotalGpuMemoryInMiB": 22888
+      },
+      "architecture": [
+        "x86_64"
+      ],
+      "bootModes": [
+        "legacy-bios",
+        "uefi"
+      ],
+      "offeredInExistingAZ": true,
+      "hourlyUsd": 1.5156,
+      "capacity": "UNKNOWN_UNTIL_START"
+    },
+    {
+      "type": "g6e.2xlarge",
+      "vcpu": 8,
+      "ramMiB": 65536,
+      "gpu": {
+        "Gpus": [
+          {
+            "Name": "L40S",
+            "Manufacturer": "NVIDIA",
+            "Count": 1,
+            "LogicalGpuCount": 1,
+            "GpuPartitionSize": 1.0,
+            "Workloads": [
+              "ml-ai",
+              "graphics"
+            ],
+            "MemoryInfo": {
+              "SizeInMiB": 45776
+            }
+          }
+        ],
+        "TotalGpuMemoryInMiB": 45776
+      },
+      "architecture": [
+        "x86_64"
+      ],
+      "bootModes": [
+        "legacy-bios",
+        "uefi"
+      ],
+      "offeredInExistingAZ": true,
+      "hourlyUsd": 2.8035,
+      "capacity": "UNKNOWN_UNTIL_START"
+    }
+  ],
+  "gVtQuotaVcpu": 8.0,
+  "modifiedTo": "g5.2xlarge",
+  "startError": {
+    "Code": "InsufficientInstanceCapacity",
+    "Message": "Insufficient capacity."
+  },
+  "startRequestId": "67d6c03d-2e48-4ea2-91cc-4fb0ff34a260",
+  "g6eAttempt": {
+    "at": "2026-11-03T16:18:29.488699+00:00",
+    "instanceId": "i-0b25450afc6633494",
+    "previousType": "g5.2xlarge",
+    "selectedType": "g6e.2xlarge",
+    "authorization": "User approved g5.2xlarge then g6e.2xlarge using existing resources",
+    "preserved": {
+      "VpcId": "vpc-074768071df6b9266",
+      "SubnetId": "subnet-0522052d105ce2ff3",
+      "SecurityGroups": [
+        {
+          "GroupId": "sg-023659b3a447ab759",
+          "GroupName": "attune-web-ai-sg"
+        }
+      ],
+      "BlockDeviceMappings": [
+        {
+          "DeviceName": "/dev/sda1",
+          "Ebs": {
+            "AttachTime": "2026-11-03 09:44:53+00:00",
+            "DeleteOnTermination": true,
+            "Status": "attached",
+            "VolumeId": "vol-0b484223201916460",
+            "EbsCardIndex": 0
+          }
+        }
+      ],
+      "ImageId": "ami-04de259f26cbf4c1e"
+    },
+    "typeChanged": true,
+    "startError": {
+      "Code": "InsufficientInstanceCapacity",
+      "Message": "Insufficient capacity."
+    },
+    "requestId": "e4f817f1-f2fa-471c-a94b-8f36dda31897"
+  },
+  "compatibility": {
+    "g5.2xlarge": "x86_64, same 32 GiB RAM and 8 vCPU as original G6; A10G; existing EBS/HVM/UEFI architecture supported",
+    "g6e.2xlarge": "x86_64, 64 GiB RAM, 8 vCPU; L40S; same EBS/HVM/UEFI architecture supported",
+    "preparedRuntime": "torch 2.9.1+cpu, torchvision 0.24.1+cpu, onnxruntime 1.26.0 and separate TTS torch 2.6.0+cpu. No CUDA driver dependency in these pinned CPU wheels. GPU acceleration is NOT validated or enabled by changing instance type.",
+    "modelChanges": false,
+    "liveHostValidation": "BLOCKED: no candidate reached running state",
+    "quotaRequest16Vcpu": "User reports request pending; not canceled or modified"
+  }
+}

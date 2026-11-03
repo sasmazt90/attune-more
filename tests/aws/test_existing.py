@@ -25,7 +25,7 @@ def hosts():
 
 
 def test_install_refuses_laptop_wrong_host_role_region_and_type():
-    doc={'instanceId':IDS[0],'region':REGION,'instanceType':'g6.2xlarge'}
+    doc={'instanceId':IDS[0],'region':REGION,'instanceType':'g6e.2xlarge'}
     verify(doc,'web')
     for bad,role in [({},'web'),(doc,'aaos'),({**doc,'region':'us-east-1'},'web'),({**doc,'instanceType':'g6.xlarge'},'web')]:
         with pytest.raises(ValueError):verify(bad,role)

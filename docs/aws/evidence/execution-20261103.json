@@ -21,12 +21,20 @@
   },
   "web": {
     "instanceId": "i-0b25450afc6633494",
-    "type": "g6.2xlarge",
+    "type": "g6e.2xlarge",
     "state": "stopped",
     "startFailure": "InsufficientInstanceCapacity",
-    "approvedAlternative": "g6.4xlarge",
-    "typeChangeFailure": "UnauthorizedOperation: ec2:ModifyInstanceAttribute missing on attune-codex-deployer",
-    "typeChanged": false
+    "typeChangeFailure": "Initial IAM denial resolved; subsequent approved g5 and g6e changes succeeded",
+    "typeChanged": true,
+    "approvedAlternatives": [
+      "g5.2xlarge",
+      "g6e.2xlarge"
+    ],
+    "capacityFailures": [
+      "g6.2xlarge",
+      "g5.2xlarge",
+      "g6e.2xlarge"
+    ]
   },
   "localValidation": {
     "awsTestsPassed": 29,
@@ -66,7 +74,14 @@
       "native PARK/DRIVE transitions",
       "real camera/microphone/audio, results/history/session acceptance",
       "private WEB-AAOS mTLS handshake"
-    ]
+    ],
+    "diagnosticVideo": {
+      "status": "BLOCKED_NOT_E2E_PASS",
+      "language": "English",
+      "bytes": 78124,
+      "sha256": "6a56bd4174824917b0ea8e91f2d97849716268eaa7e4c972e99aee11094650e3",
+      "driveReadBackSha256Verified": true
+    }
   },
   "secretAudit": "WEB not started; provider-secret presence unknown. No missing-key assertion made.",
   "ssm": [
@@ -119,7 +134,9 @@
     "webG6_2xlargeHourlyUsd": 1.22249,
     "approvedG6_4xlargeHourlyUsd": 1.65466,
     "providerCallsDuringResume": 0,
-    "fixedTimeCutoff": false
+    "fixedTimeCutoff": false,
+    "selectedG6e_2xlargeHourlyUsd": 2.8035,
+    "bothHostsWithActiveIpv4HourlyUsd": 3.32066
   },
   "restrictions": {
     "newEc2VpcEbs": false,

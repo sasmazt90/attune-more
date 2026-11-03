@@ -1,7 +1,7 @@
 """Owner-supplied existing resources. Never infer or discover replacement targets."""
 REGION = 'eu-central-1'
 TARGETS = {
-    'i-0b25450afc6633494': {'role': 'web', 'name': 'attune-web-ai', 'type': 'g6.2xlarge', 'rootGiB': 150},
+    'i-0b25450afc6633494': {'role': 'web', 'name': 'attune-web-ai', 'type': 'g6e.2xlarge', 'rootGiB': 150},
     'i-0f4cca4e92e94c351': {'role': 'aaos', 'name': 'attune-aaos-demo', 'type': 'm8i.2xlarge', 'rootGiB': 120},
 }
 IDS = tuple(TARGETS)

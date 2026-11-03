@@ -1,15 +1,15 @@
 # Mevcut iki EC2 için tek başlangıç paketi
 
-> 3 Kasım final hazırlık güncellemesi: [doğrulanmış model/runtime paketleri ve onay sınırı](PREPARATION-20261103-FINAL.md). Önceki transfer engelleri giderildi; canlı kabul ve ücretli start onayı bekliyor. Aşağıdaki önceki runtime kayıtları tarihsel kanıttır.
+> Güncel uygulama kaydı: [EXECUTION-20261103.md](EXECUTION-20261103.md). Ücretli start onaylıdır. WEB seçilen tipi g6e.2xlarge; canlı kapasite ve kabul durumu execution kanıtından okunur. Aşağıdaki ilk plan tarihsel referanstır.
 
 Son runtime ve taşınma kaydı: [CONTINUATION-20261103.md](CONTINUATION-20261103.md).
 
-**2026-11-03 final: model/runtime hazırlığı tamamlandı; ücretli başlatma kullanıcı onayını BEKLİYOR. Bu belge onay değildir.**
+**2026-11-03 uygulama: ücretli başlatma onaylıdır; iki saatlik sınır yoktur. Güncel GPU tipi ve kapasite/kurulum durumu için [gerçek yürütme kaydı](EXECUTION-20261103.md) esas alınır. Aşağıdaki G6 fiyat tablosu ilk planın tarihsel referansıdır.**
 
 [Canlı R2 kontrolleri](PREFLIGHT-20261103-R2.md) · [API fiyat kanıtı](evidence/pricing-20261103.json).
 Hesap `798886013428`, bölge `eu-central-1`, rol `attune-codex-deployer`.
-Mevcut WEB `i-0b25450afc6633494` (g6.2xlarge) ve AAOS `i-0f4cca4e92e94c351`
-(m8i.2xlarge), ikisi de stopped. Yeni altyapı, DNS ve main merge yok.
+Mevcut WEB `i-0b25450afc6633494` kullanıcı onayıyla `g6e.2xlarge` seçilmiştir; AAOS
+`i-0f4cca4e92e94c351` `m8i.2xlarge` olarak korunmuştur. Canlı durum için execution kanıtına bakın. Yeni altyapı, DNS ve main merge yok.
 
 | Kalem | Canlı birim fiyat (USD) | İlk 2 saat (USD) |
 |---|---:|---:|
@@ -30,7 +30,7 @@ NAT ve VPC Endpoint yok; bu kaynakların saatlik ücreti yok. Yeni snapshot, EIP
 CloudWatch log ingestion veya ücretli SSM advanced tier açılmayacak. Account genelindeki
 başka harcamalar bu paket değildir; kredi/free tier ve vergi indirimi varsayılmadı.
 
-**Tek önerilen operasyonel bütçe: vergi hariç 6 USD / en çok 2 saat.** Bunun 5 USD'si
+**İlk planın tarihsel bütçe referansı: vergi hariç 6 USD / 2 saat. Güncel kapsamda süre veya bütçe sınırı değildir.** Bunun 5 USD'si
 AWS payı (4.45 USD senaryo + pay), 1 USD'si gerçek provider çağrıları için rezervdir.
 Provider rezervi fiyat teklifi değildir: güvenli mevcut provider yapılandırması ve
 model/ASR/TTS kullanımı doğrulanmadan maliyeti kesinleşmez veya çağrı başlatılmaz.

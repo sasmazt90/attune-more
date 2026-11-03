@@ -29,20 +29,36 @@ monitoring and normal Stop afterwards; there is no two-hour automatic cutoff.
   archive was uploaded to Drive. The installed application source is `11ea103`,
   with the separately documented deployment configuration corrections applied.
 
-## WEB capacity and authorization blocker
+## WEB capacity and selected 8-vCPU type
 
-Repeated actual `StartInstances` calls for existing `g6.2xlarge` returned
-`InsufficientInstanceCapacity` in `eu-central-1c`. The user subsequently approved
-changing that same instance to `g6.4xlarge` and attempting to start it. AWS denied
-`ModifyInstanceAttribute` because `attune-codex-deployer` lacks that action on
-`arn:aws:ec2:eu-central-1:798886013428:instance/i-0b25450afc6633494`.
-No type change occurred. No replacement infrastructure was created.
+Repeated actual `StartInstances` calls for `g6.2xlarge` returned
+`InsufficientInstanceCapacity` in `eu-central-1c`. An initially approved g6.4xlarge
+change was blocked by IAM and never applied. The user then selected 8-vCPU
+alternatives because the observed G/VT quota is 8 vCPU; their separate 16-vCPU
+quota request remains pending and was not modified or canceled.
 
-Current AWS pricing: g6.2xlarge $1.22249/h; g6.4xlarge $1.65466/h; g5.2xlarge
-$1.51560/h; g5.4xlarge $2.03081/h; g4dn.2xlarge $0.94000/h. All are listed in the
-existing AZ. **An offering is not an available-capacity guarantee.** g6.4xlarge
-retains the same L4 GPU and increases CPU/RAM to 16 vCPU / 64 GiB, adding $0.43217/h.
-The alternative has not been launched or capacity-verified.
+After IAM permission became available, the existing WEB instance was changed to
+`g5.2xlarge`, then to `g6e.2xlarge`, in the user's approved order. **Both actual
+start calls returned InsufficientInstanceCapacity.** Its selected type is now
+`g6e.2xlarge`; it has not reached running. The original EBS volume, VPC, subnet and
+Security Group are preserved. No new EC2, VPC or EBS was created.
+
+| Authorized alternative | AZ offering | vCPU / RAM | GPU | AWS USD/hour |
+|---|---|---|---|---:|
+| g5.2xlarge | eu-central-1c | 8 / 32 GiB | A10G, API memory 22,888 MiB | 1.51560 |
+| g6e.2xlarge | eu-central-1c | 8 / 64 GiB | L40S, API memory 45,776 MiB | 2.80350 |
+
+Both support the existing x86_64/EBS/UEFI platform. The prepared backend uses
+`torch==2.9.1+cpu`, `torchvision==0.24.1+cpu` and `onnxruntime==1.26.0`; the isolated
+TTS runtime uses torch/torchaudio 2.6.0+cpu. These wheels have no CUDA driver
+requirement. A type change does not enable or validate GPU acceleration. No weights,
+thresholds, calibration, precision or inference device settings were changed.
+Live runtime compatibility remains unverified until an instance actually boots.
+
+An AZ offering is not a capacity guarantee. Actual API errors and prices are in
+`evidence/gpu-alternatives-20261103.json`. The g6e + AAOS hourly compute and two
+active IPv4 addresses would total **$3.32066/hour**, before storage, transfer,
+provider use and tax; the stopped WEB instance has incurred no running compute.
 
 ## Acceptance status
 

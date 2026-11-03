@@ -1,12 +1,12 @@
 {
   "region": "eu-central-1",
-  "source": "owner message; not independently verified",
-  "observationStatus": "BLOCKED",
+  "source": "AWS API observation 2026-11-03; user-approved existing instance type change",
+  "observationStatus": "OBSERVED",
   "instances": [
     {
       "id": "i-0b25450afc6633494",
       "name": "attune-web-ai",
-      "type": "g6.2xlarge",
+      "type": "g6e.2xlarge",
       "rootGiB": 150,
       "volumeType": "gp3",
       "reportedState": "stopped"
@@ -17,10 +17,11 @@
       "type": "m8i.2xlarge",
       "rootGiB": 120,
       "volumeType": "gp3",
-      "reportedState": "stopped",
+      "reportedState": "running",
       "reportedNestedVirtualization": "enabled"
     }
   ],
   "provisioningAllowed": false,
-  "startApproved": false
+  "startApproved": true,
+  "approvalScope": "until_completion_or_unrecoverable_blocker; monitor costs; normal Stop at completion"
 }
