@@ -43,7 +43,7 @@ def load():
    mean=np.asarray(model['standardizer']['mean'],np.float64);scale=np.asarray(model['standardizer']['scale'],np.float64);coef=np.asarray(model['model']['coef'],np.float64);bias=float(model['model']['intercept'])
    if any(a.shape!=(1920,) or not np.isfinite(a).all() for a in [mean,scale,coef]) or np.any(scale<=0) or not math.isfinite(bias):raise ValueError()
    import onnxruntime as ort
-   opts=ort.SessionOptions();opts.graph_optimization_level=ort.GraphOptimizationLevel.ORT_DISABLE_ALL;opts.intra_op_num_threads=2;opts.inter_op_num_threads=1;opts.enable_cpu_mem_arena=False;opts.enable_mem_pattern=False
+   opts=ort.SessionOptions();opts.graph_optimization_level=ort.GraphOptimizationLevel.ORT_DISABLE_ALL;opts.intra_op_num_threads=2;opts.inter_op_num_threads=1;opts.enable_cpu_mem_arena=False;opts.enable_mem_pattern=False;opts.add_session_config_entry('session.intra_op.allow_spinning','0')
    session=ort.InferenceSession(str(netpath),opts,providers=['CPUExecutionProvider'])
    if session.get_inputs()[0].name!='native_bgr_tile' or session.get_inputs()[0].shape!=[1,3,384,384] or [v.name for v in session.get_outputs()]!=['decoded_boxes','p2','p3','p4','p5']:raise ValueError()
    _loaded=dict(folder=str(base),session=session,manifest=manifest,mean=mean,scale=scale,coef=coef,bias=bias,graphHash=actual)

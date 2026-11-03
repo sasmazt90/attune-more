@@ -60,3 +60,9 @@ def test_cleartext_is_limited_to_debug_loopback():
     assert debug.find('base-config').get('cleartextTrafficPermitted') == 'false'
     assert {e.text for e in debug.iter('domain')} == {'localhost', '127.0.0.1'}
     assert all(e.get('includeSubdomains') == 'false' for e in debug.iter('domain'))
+
+def test_native_language_read_survives_a_navigation():
+    source = (APP / 'src/main/java/more/attune/automotive/MainActivity.java').read_text('utf8')
+    started = source[source.index('public void onPageStarted'):source.index('public void onPageFinished')]
+    # A dropped evaluateJavascript callback must not freeze the native labels.
+    assert 'localeReadPending = false' in started

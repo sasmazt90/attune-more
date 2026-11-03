@@ -47,6 +47,30 @@ No frames, predictions, weights or credentials are stored in that metadata.
 Three-angle fusion preserves an honestly insufficient regional classification
 without inventing a type or discarding otherwise valid measurements.
 
+## Skin deadline on a shared host
+
+The 90-second budget assumes the analysis can get CPU time. On the 4-core, 15 W
+development laptop, the HTTP 504 reproduces with ample free RAM and almost no
+paging: three competing busy processes next to the AAOS emulator are enough, and
+memory pressure alone is not. The native worker therefore runs at above-normal
+priority on Windows, and its ONNX Runtime and OpenMP lanes sleep while waiting
+instead of spinning. Neither changes a computed value; thread counts stay fixed in
+`local_native_worker.py` because the Torch thread count does change numeric output.
+
+A worker above normal can take CPU time from a QEMU left at normal. When the host is
+saturated, vehicle observations then pass the 2.5-second limit and the gate closes the
+WebView. The closure is the correct, safe behaviour and the limit stays as it is, but
+it ends the AAOS session, so `scripts/qa/aaos/aaos_session.py` starts the AVD's QEMU at
+the same priority as the worker. This is specific to running the emulator and the
+backend on one machine.
+
+Below 400 MiB of available RAM the dryness reserve guard stops the analysis with
+HTTP 503 `LOCAL_MEMORY_RESERVE`, which the UI reports as a memory condition the user
+can act on. Neither the deadline nor the reserve is an environment option.
+
+`scripts/qa/README.md` holds the launcher, resource monitor and journeys used to
+reproduce these measurements.
+
 ## AAOS Vision output lifecycle
 
 Vision reuses the media element unlocked by the user's start interaction. This
