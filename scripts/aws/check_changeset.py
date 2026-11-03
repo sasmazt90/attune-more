@@ -12,6 +12,8 @@ def validate(change_set, stack):
         raise ValueError('Only a separate CREATE rules stack is permitted; never UPDATE/IMPORT the old infrastructure stack')
     if change_set.get('Status') != 'CREATE_COMPLETE' or change_set.get('ExecutionStatus') != 'AVAILABLE':
         raise ValueError('Change set must be complete and available for inspection')
+    if change_set.get('NextToken'):
+        raise ValueError('Read every change-set page before review; partial evidence is refused')
     changes=change_set.get('Changes', [])
     if not changes:
         raise ValueError('No missing rules to apply')

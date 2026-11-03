@@ -84,6 +84,7 @@ def test_only_additive_rules_on_a_new_stack_pass_offline_gate():
         with pytest.raises(ValueError):validate(bad,stack)
     with pytest.raises(ValueError):validate(change,{**stack,'StackStatus':'UPDATE_COMPLETE'})
     with pytest.raises(ValueError):validate({**change,'ImportExistingResources':True},stack)
+    with pytest.raises(ValueError):validate({**change,'NextToken':'more-resources'},stack)
 
 
 def test_non_eip_addresses_are_not_billed_as_retained():
