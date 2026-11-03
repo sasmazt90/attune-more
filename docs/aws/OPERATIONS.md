@@ -105,6 +105,12 @@ Start için mevcut kullanıcı onayını temsil eden özel JSON makbuz gerekir:
 `account`, `region`, `instanceIds`, `paidStartApproved`, `expiresAt` (timezone ile),
 `maximumSessionHours`, `approvalReference`, `estimatedSessionUsd`, `testScope`,
 `configurationReviewed`, `inventorySha256` (canlı inventory dosyasının SHA-256 değeri).
+Task 13 kapsam genişletmesinde kullanıcı sabit süre sınırını kaldırdı. Bu onay
+`executionPolicy: until_completion_or_unrecoverable_blocker`,
+`noFixedDurationLimit: true`, `monitorCosts: true`, `maximumSessionHours: null`
+ile temsil edilir; eski 2 saat/6 USD hesabı bir bütçe referansıdır. Otomatik kesme
+yoktur. İş bitince veya ilerlemeyi engelleyen kalıcı engelde normal Stop uygulanır.
+
 Start için en fazla 30 dakika önce alınmış tam OBSERVED inventory gerekir; bu
 kayıttaki ağ/IAM bulguları ayrıca incelenmelidir. API okuması başlı başına hazır olma kanıtı değildir. Bu belgeyi üretmek kullanıcı onayı yerine
 geçmez; onay olmadan `true` yazılmaz. Makbuzlar `.aws-oem` içinde kalır.

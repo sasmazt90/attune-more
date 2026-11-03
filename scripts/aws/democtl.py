@@ -16,8 +16,14 @@ def validate_approval(approval, account, ids, now=None):
         raise ValueError('Approval has expired or lacks timezone')
     if approval.get('account')!=account or approval.get('region')!=REGION or set(approval.get('instanceIds',[]))!=set(ids) or approval.get('paidStartApproved') is not True:
         raise ValueError('Approval does not match account/region/resources')
-    if not 0<approval.get('maximumSessionHours',0)<=4 or not approval.get('approvalReference'):
-        raise ValueError('Bounded approval receipt required')
+    completion_scoped = (approval.get('executionPolicy') == 'until_completion_or_unrecoverable_blocker'
+                         and approval.get('noFixedDurationLimit') is True
+                         and approval.get('monitorCosts') is True
+                         and approval.get('maximumSessionHours') is None)
+    hours = approval.get('maximumSessionHours', 0)
+    bounded = isinstance(hours, (int, float)) and not isinstance(hours, bool) and 0 < hours <= 4
+    if not (bounded or completion_scoped) or not approval.get('approvalReference'):
+        raise ValueError('Explicit bounded or completion-scoped approval receipt required')
 
 
 def validate_start_inventory(raw, approval, account, instances, now=None):
@@ -62,7 +68,7 @@ def main():
         ec2.start_instances(InstanceIds=args.instances)
         ec2.get_waiter('instance_running').wait(InstanceIds=args.instances,WaiterConfig={'Delay':10,'MaxAttempts':60})
         ec2.get_waiter('instance_status_ok').wait(InstanceIds=args.instances,WaiterConfig={'Delay':10,'MaxAttempts':60})
-        print('EC2 ready only. Run the bounded application/AAOS smoke before the meeting. No automatic shutdown is scheduled.')
+        print('EC2 ready only. Follow the approved execution/stop policy. No automatic shutdown is scheduled.')
     elif args.action=='stop':
         ec2.stop_instances(InstanceIds=args.instances)
         ec2.get_waiter('instance_stopped').wait(InstanceIds=args.instances,WaiterConfig={'Delay':10,'MaxAttempts':60})

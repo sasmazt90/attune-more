@@ -1,6 +1,7 @@
 {
   auto_https disable_redirects
   admin off
+  default_sni {$AAOS_DOMAIN}
 }
 (private_app) {
   reverse_proxy https://{$WEB_PRIVATE_IP}:8443 {

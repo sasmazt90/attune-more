@@ -3,6 +3,7 @@
 {
   auto_https disable_redirects
   admin off
+  default_sni {$WEB_DOMAIN}
 }
 https://{$WEB_DOMAIN} {
   tls /etc/attune/tls/web.crt /etc/attune/tls/web.key

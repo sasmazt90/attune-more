@@ -105,6 +105,23 @@ def test_paid_start_requires_matching_unexpired_approval():
         with pytest.raises(ValueError):validate_approval({**receipt,**changes},'123',['a','b'],now)
 
 
+
+def test_completion_scoped_paid_approval_requires_explicit_policy_and_cost_monitoring():
+    now = dt.datetime(2026, 11, 3, tzinfo=dt.timezone.utc)
+    receipt = {'expiresAt': '2026-11-04T00:00:00+00:00', 'account': '123',
+               'region': 'eu-central-1', 'instanceIds': ['a', 'b'],
+               'paidStartApproved': True, 'approvalReference': 'user-expanded-scope',
+               'executionPolicy': 'until_completion_or_unrecoverable_blocker',
+               'noFixedDurationLimit': True, 'monitorCosts': True,
+               'maximumSessionHours': None}
+    validate_approval(receipt, '123', ['a', 'b'], now)
+    for changes in [{'monitorCosts': False}, {'noFixedDurationLimit': False},
+                    {'executionPolicy': 'unlimited'}, {'maximumSessionHours': True},
+                    {'paidStartApproved': False}, {'approvalReference': ''}]:
+        with pytest.raises(ValueError):
+            validate_approval({**receipt, **changes}, '123', ['a', 'b'], now)
+
+
 def test_cost_retains_disk_and_ip_charge_while_stopped():
     r=estimate(1,0.5,0.1,0,ipv4_hour=.005,retained_ipv4_count=2,active_ipv4_count=2)
     assert r['monthly_compute']==0
