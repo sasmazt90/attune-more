@@ -52,5 +52,65 @@
       "vehicleSignals": "SIMULATED",
       "physicalAcceptance": false
     }
+  },
+  "provider-auth-recheck": {
+    "CommandId": "12b87602-916f-4941-a866-45f6def6d881",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T17:02:38.314Z",
+    "ExecutionEndDateTime": "2026-11-03T17:02:39.314Z",
+    "StandardOutputContent": "{\"providerFileRootOwned0600\": true, \"services\": [{\"role\": \"web\", \"fileAndProcessCredentialMatch\": true, \"enabled\": true}, {\"role\": \"aaos\", \"fileAndProcessCredentialMatch\": true, \"enabled\": true}], \"authentication\": {\"status\": \"SUCCESS\", \"httpStatus\": 200}}\n",
+    "StandardErrorContent": ""
+  },
+  "provider-real-smoke-after-replace": {
+    "CommandId": "5d48578e-b849-47a7-87b6-c0162bffcdd9",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T17:02:56.226Z",
+    "ExecutionEndDateTime": "2026-11-03T17:02:59.226Z",
+    "StandardOutputContent": "[{\"role\": \"web\", \"status\": 200, \"seconds\": 1.81, \"provider\": \"openai\", \"model\": \"gpt-transcribe\", \"transcriptNonempty\": true, \"transcriptCharacters\": 135, \"audioSha256\": \"0c69b4b8eea5ba517de8d140b10ff544ac85dc3bcb6242496904d15b7ef14080\", \"detail\": null}, {\"role\": \"aaos\", \"status\": 200, \"seconds\": 1.17, \"provider\": \"openai\", \"model\": \"gpt-transcribe\", \"transcriptNonempty\": true, \"transcriptCharacters\": 135, \"audioSha256\": \"0c69b4b8eea5ba517de8d140b10ff544ac85dc3bcb6242496904d15b7ef14080\", \"detail\": null}]\n",
+    "StandardErrorContent": ""
+  },
+  "mental-live-smoke": {
+    "CommandId": "d98bd9c7-97cd-4bce-9d36-1a0dcf77978b",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T17:03:19.102Z",
+    "ExecutionEndDateTime": "2026-11-03T17:03:24.102Z",
+    "StandardOutputContent": "[{\"role\": \"web\", \"inputSource\": \"Mental-Health-1 actual ASR\", \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true, \"replyCharacters\": 195, \"errorCode\": null, \"detail\": null, \"partialSessionAnalysis\": {\"httpStatus\": 200, \"summaryNonempty\": true, \"providerType\": \"LIVE_OPENAI\", \"errorCode\": null, \"detail\": null}}, {\"role\": \"aaos\", \"inputSource\": \"Mental-Health-1 actual ASR\", \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true, \"replyCharacters\": 182, \"errorCode\": null, \"detail\": null, \"partialSessionAnalysis\": {\"httpStatus\": 200, \"summaryNonempty\": true, \"providerType\": \"LIVE_OPENAI\", \"errorCode\": null, \"detail\": null}}]\n",
+    "StandardErrorContent": ""
+  },
+  "mental-five-turns": {
+    "CommandId": "095aeda5-f91d-46f3-a4fa-2ce335b57477",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T17:09:35.418Z",
+    "ExecutionEndDateTime": "2026-11-03T17:09:59.418Z",
+    "StandardOutputContent": "[{\"role\": \"web\", \"scope\": \"Actual ordered reference-audio ASR and conversation API integration; UI and playback not tested\", \"turns\": [{\"reference\": \"Mental-Health-1\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-2\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-3\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-4\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-5\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}], \"analysis\": {\"httpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"summaryNonempty\": true}, \"completedTurns\": 5}, {\"role\": \"aaos\", \"scope\": \"Actual ordered reference-audio ASR and conversation API integration; UI and playback not tested\", \"turns\": [{\"reference\": \"Mental-Health-1\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-2\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-3\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-4\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}, {\"reference\": \"Mental-Health-5\", \"asrHttpStatus\": 200, \"transcriptNonempty\": true, \"conversationHttpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"replyNonempty\": true}], \"analysis\": {\"httpStatus\": 200, \"providerType\": \"LIVE_OPENAI\", \"summaryNonempty\": true}, \"completedTurns\": 5}]\n",
+    "StandardErrorContent": ""
+  },
+  "tts-live-smoke-fixed": {
+    "CommandId": "05737c63-1cb9-4ed1-b205-2f60f12df253",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T17:08:17.698Z",
+    "ExecutionEndDateTime": "2026-11-03T17:09:34.698Z",
+    "StandardOutputContent": "{\"status\": 200, \"bytes\": 453164, \"sha256\": \"b373de69d69ef8459d52625bbe498fba3712987e793467b448ce55e0785168c9\", \"audioSeconds\": 9.44, \"ttsSource\": \"chatterbox-multilingual-v3\", \"locale\": \"en-US\", \"speakerProfile\": \"female-calm-v1\", \"seconds\": 77.29, \"playbackTested\": false}\n",
+    "StandardErrorContent": ""
+  },
+  "web-asr-build": {
+    "CommandId": "92b4ab22-d019-426f-9a1f-f506e35c9657",
+    "InstanceId": "i-0b25450afc6633494",
+    "Status": "Success",
+    "ResponseCode": 0,
+    "ExecutionStartDateTime": "2026-11-03T17:11:43.765Z",
+    "ExecutionEndDateTime": "2026-11-03T17:12:04.765Z",
+    "StandardOutputContent": "   Collecting build traces ...\n\nRoute (app)                                 Size  First Load JS\n\u250c \u25cb /                                    2.69 kB         315 kB\n\u251c \u25cb /_not-found                            986 B         104 kB\n\u251c \u0192 /api/mental-neural-speech              130 B         103 kB\n\u251c \u25cb /care                                8.62 kB         259 kB\n\u251c \u25cb /dental                              13.9 kB         463 kB\n\u251c \u25cb /hearing                             15.5 kB         460 kB\n\u251c \u0192 /localized-manifest                    130 B         103 kB\n\u251c \u25cb /manifest.webmanifest                  130 B         103 kB\n\u251c \u25cb /mental                              98.5 kB         544 kB\n\u251c \u25cb /privacy                             8.63 kB         269 kB\n\u251c \u25cb /profile                             5.91 kB         431 kB\n\u251c \u25cb /skin                                26.7 kB         456 kB\n\u2514 \u25cb /vision                              15.5 kB         465 kB\n+ First Load JS shared by all             103 kB\n  \u251c chunks/18-25b11e3a132b87ef.js        46.5 kB\n  \u251c chunks/87c73c54-24122e7b92478d00.js  54.2 kB\n  \u2514 other shared chunks (total)          2.05 kB\n\n\n\u25cb  (Static)   prerendered as static content\n\u0192  (Dynamic)  server-rendered on demand\n\n",
+    "StandardErrorContent": ""
   }
 }

@@ -7,7 +7,7 @@ set -euo pipefail
 mkdir -p "$ATTUNE_BUNDLE_OUTPUT"
 python3 scripts/aws/verify_assets.py --root "$ATTUNE_ASSET_ROOT" --manifest "$ATTUNE_ASSET_MANIFEST" --output "$ATTUNE_BUNDLE_OUTPUT/assets.json"
 npm ci
-export NEXT_PUBLIC_ATTUNE_SAME_ORIGIN_API=1 NEXT_PUBLIC_ATTUNE_REMOTE_CAPTURE=1 NEXT_PUBLIC_ATTUNE_ACNE_V5=1 NEXT_TELEMETRY_DISABLED=1
+export NEXT_PUBLIC_ATTUNE_SAME_ORIGIN_API=1 NEXT_PUBLIC_ATTUNE_REMOTE_CAPTURE=1 NEXT_PUBLIC_ATTUNE_ACNE_V5=1 NEXT_PUBLIC_ATTUNE_SPEECH_PROVIDER=openai NEXT_TELEMETRY_DISABLED=1
 npm run build
 apps/automotive/gradlew --no-daemon --max-workers=2 -p apps/automotive :app:assembleCloudDemo :app:lintCloudDemo
 cp apps/automotive/app/build/outputs/apk/cloudDemo/app-cloudDemo.apk "$ATTUNE_BUNDLE_OUTPUT/"

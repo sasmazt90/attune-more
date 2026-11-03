@@ -16,8 +16,13 @@ copied to the emulator host or to the APK.
 All 52 application model assets passed the final manifest checks on WEB. Step0
 and Skin ONNX files were restored with the repository tool; the 31-member Regional
 package and 117-member Chatterbox archive were verified. Backend dependency checks,
-production frontend build and TR/EN/DE TTS asset preflight passed. TTS asset preflight
-is not evidence of successful speech synthesis or playback. Model weights, thresholds,
+production frontend build and TR/EN/DE TTS asset preflight passed. TTS asset preflight alone
+is not speech/playback acceptance. Subsequent actual generation returned a 9.44-second
+English WAV (453,164 bytes; SHA-256 b373de69d69ef8459d52625bbe498fba3712987e793467b448ce55e0785168c9)
+through the Next.js proxy in 77.29 seconds. Speaker profile female-calm-v1 uses its
+existing approved reference and generation settings. The missing
+`ATTUNE_MENTAL_TTS_FEMALE_CONFIG=/opt/attune-neural/config-female-calm-v1.json`
+path was added to both API environment files. Playback acceptance remains separate. Model weights, thresholds,
 calibration and inference device settings remain unchanged.
 
 AAOS 15 / API 35 resumed on M8i with the verified APK and 3072 MiB AVD memory.
@@ -34,16 +39,28 @@ Strict Caddy SNI validation requires the private upstream Host to match
 Both API units load `/etc/attune/provider.env` after their role environment file.
 The shared file is root-owned mode 0600 and both running API processes have a
 nonempty key. Values were never emitted. Enabled systemd units and the EBS-backed
-file persist across Stop/Start; an actual subsequent restart-cycle acceptance has
-not yet been performed. Public IPs and short-lived demo TLS certificates still
+file persist across Stop/Start; an actual subsequent EC2 Stop/Start-cycle acceptance has
+not yet been performed (both systemd services were restarted successfully). Public IPs and short-lived demo TLS certificates still
 require review after an EC2 restart.
 
-The user entered the key interactively on WEB. Actual reference-audio ASR requests
-returned 502 from both backends. A direct provider call identified HTTP 401,
-`invalid_api_key` (SSM command `36632365-0f73-4279-9db6-63f6f6624747`). Authentication
-has therefore failed. No Mental or ASR provider acceptance is claimed. The provider
-error message and credential were not logged. The user reported possible repeated
-pasting and was given the secure replacement command below.
+The first credential failed actual provider authentication with HTTP 401,
+`invalid_api_key`. After the user securely replaced it and restarted both units,
+the real OpenAI models endpoint returned HTTP 200. Each running process was
+verified to match the file in memory, reporting booleans only. The valid key was
+not modified. No credential or provider error message was logged.
+
+Both backend endpoints then transcribed the supplied Mental-Health-1 audio using
+the unchanged `gpt-transcribe` request (HTTP 200, 135 transcript characters).
+That actual transcript produced a nonempty LIVE_OPENAI conversation reply on each
+backend; one completed turn also produced a real LIVE_OPENAI partial-session analysis.
+Both roles also completed Mental-Health-1 through Mental-Health-5 in order, with
+real ASR, five LIVE_OPENAI replies and a final LIVE_OPENAI summary. These establish
+provider integration at the API boundary, not microphone playback, full five-turn
+UI/session acceptance or any of the ten videos.
+
+The AWS frontend build now explicitly sets `NEXT_PUBLIC_ATTUNE_SPEECH_PROVIDER=openai`
+to select the existing consent-gated cloud recognizer. Backend ASR enablement alone
+does not select that browser path. The production rebuild passed on WEB.
 
 In an interactive Session Manager terminal on the existing WEB host:
 

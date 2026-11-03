@@ -40,6 +40,7 @@ jobs:
           NEXT_PUBLIC_ATTUNE_SAME_ORIGIN_API: '1'
           NEXT_PUBLIC_ATTUNE_REMOTE_CAPTURE: '1'
           NEXT_PUBLIC_ATTUNE_ACNE_V5: '1'
+          NEXT_PUBLIC_ATTUNE_SPEECH_PROVIDER: 'openai'
   cloud-apk:
     runs-on: ubuntu-latest
     timeout-minutes: 20
