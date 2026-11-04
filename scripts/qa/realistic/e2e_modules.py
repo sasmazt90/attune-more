@@ -865,6 +865,9 @@ def phase(page):
     return node.first.get_attribute('data-conversation-phase') if node.count() else None
 
 
+FULL_TURN_WORDS = [25, 24, 14, 30, 27]
+
+
 def mental(run):
     page = run.page
     set_english(run)
@@ -944,6 +947,10 @@ def mental(run):
     run.report['record'] = {k: record.get(k) for k in ('id', 'date', 'summaryText', 'themes', 'moodTrend', 'providerType', 'transcriptConsented', 'completed')}
     transcript = record.get('transcript') or []
     run.report['transcript'] = [{'sender': m.get('sender'), 'text': m.get('text')} for m in transcript]
+    # Word counts of the five clips when heard in full. Recognition can differ by a word or two, so this allows 15 %.
+    heard = [len(m['text'].split()) for m in transcript if m.get('sender') == 'USER']
+    run.report['wordsHeardPerTurn'] = heard
+    run.check('No spoken turn was cut short', len(heard) == len(FULL_TURN_WORDS) and all(h >= w * .85 for h, w in zip(heard, FULL_TURN_WORDS)), {'heard': heard, 'full': FULL_TURN_WORDS})
     english = [record.get('summaryText') or ''] + [m['text'] for m in transcript if m.get('sender') == 'AI']
     run.check('Summary and replies are in English, with no Turkish letters', not any(TURKISH.search(t) for t in english), [t[:90] for t in english if TURKISH.search(t)][:3])
     run.check('Each turn played a spoken reply', all(t['speechEndToPlaybackSeconds'] is not None for t in turns), None)

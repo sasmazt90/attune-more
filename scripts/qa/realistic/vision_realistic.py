@@ -289,6 +289,8 @@ class Journey:
         link.scroll_into_view_if_needed()
         page.wait_for_timeout(1500)
         page.screenshot(path=str(self.out / 'referral-offer.png'))
+        # The page remembers a region the person chose earlier. This journey checks the first visit.
+        page.evaluate("localStorage.removeItem('attune.care.region.v1')")
         link.click()
         page.wait_for_url('**/care**')
         filters = page.locator('[data-care-filters]')

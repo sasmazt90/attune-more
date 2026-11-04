@@ -22,11 +22,17 @@ Expect the role `attune-ops-verifier`, session `antigravity`. If sign-in has exp
 Start and stop with the installed tool, using your profile:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "$env:LOCALAPPDATA\AttuneMore\bin\AttuneControl.ps1" -Action Start -AwsProfile attune-ag -NoPause
-powershell -NoProfile -ExecutionPolicy Bypass -File "$env:LOCALAPPDATA\AttuneMore\bin\AttuneControl.ps1" -Action Stop -AwsProfile attune-ag -NoPause
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\AttuneMore\bin\AttuneControl.ps1" -Action Start -AwsProfile attune-ag -NoPause
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\AttuneMore\bin\AttuneControl.ps1" -Action Stop -AwsProfile attune-ag -NoPause
 ```
 
 The hosts cost about $1.16 per hour. Stop them when you are not testing.
+
+The addresses are now `https://attunemore.sasmaz.digital` and `https://aaos.attunemore.sasmaz.digital`, with browser-trusted
+certificates. Your browser needs no bypass, and if it asks for one, that is a finding. START keeps the DNS records current from this
+PC, using the IONOS key saved for this Windows user. If you work as another Windows user, START reports the key as missing and stops
+before starting anything. Never copy or print that key. Your role cannot change the Security Groups, so your source address must
+already be allowed.
 
 ## What to review
 
@@ -43,6 +49,10 @@ The hosts cost about $1.16 per hour. Stop them when you are not testing.
 | Automotive UX | Check the real WebView, not a resized browser. Text readable, nothing covered. | `ui-measurements.md`, the AAOS videos |
 | Skin labels | Do they match the owner's two references on real results? Is any label on the wrong spot or the wrong photo? Compare the stored result with what is drawn. | `skin-label-evidence.md`, `SkinFindingCallouts.tsx`, `skinCalloutLayout.ts`, `skinCalloutModel.ts`; rerun with `run_e2e.sh <web or aaos> callouts <name>` after a Skin run |
 | Readiness | Does READY fail on an empty OpenAI account, without printing any response text? | `scripts/aws/host_ready.py`, `tests/aws/test_control.py` |
+| DNS and certificates | Can START write anything other than the two A records and the short-lived challenge TXT records? Could it ever publish a home address? Does HTTPS work with no bypass after a real Stop and Start? | `scripts/aws/windows/AttuneDomain.ps1`, `tests/aws/test_domain_flow.py`, `docs/aws/OPERATIONS-CONTROL.md` |
+| Acne counting (QA-25) | Are the recovered lesions real? The rule shows a region with 2 marked lesions even when the region classifier passed over it. Look for false positives on your own photos, and for regions it now over-reports. | `docs/qa/QA-25-ACNE-TRACE.md`, `services/core-api/skin_findings_v1.py`, `scripts/qa/realistic/skin_acne_trace.py` |
+| Camera (QA-38) | Longer frame limits replaced 750 ms. Does anything stale reach an analysis? Does leaving PARK still end the session at once? | `scripts/aws/capture_bridge.py`, `apps/vehicle-app/src/utils/demoCamera.ts`, `tests/aws/test_deployment.py` |
+| Mental speech (QA-36, QA-02) | Is a turn still cut short? Does the pause between the two spoken parts feel acceptable, compared with waiting longer for all of it? | `apps/vehicle-app/src/utils/speechRecognition.ts`, `mentalNeuralSpeech.ts`, `mental-performance.md` |
 
 ## What the owner asked for on Skin labels
 
@@ -67,13 +77,14 @@ finding numbers, and a one-row top bar on all screens.
 ## Known limits to judge, not to assume fine
 
 - Every Skin accuracy figure on record comes from synthetic characters, on a set also used to choose the method.
-- No record of explicit owner approval was found for most Skin models. `regional.pt` is probably the R1 model the
-  acceptance gate rejected. These are open owner decisions, listed in the contract.
+- The owner approved the configured Skin models on 2026-11-04, as product configuration and not for accuracy. See
+  `docs/qa/SKIN-OWNER-APPROVAL-20261104.md`. Do not reopen model selection over an old research label. A demonstrated
+  defect or a concrete wrong result is still a finding.
 - All recordings use reference photos, synthesized speech and scripted listeners. No physical camera, microphone or
   person. No clinical accuracy is claimed anywhere.
 - AAOS runs on an emulator with simulated vehicle data.
 - Claude reads likely Skin and Dental misses from the photos in the findings register. That is one reader's judgement, not ground truth.
-- A spoken clip can be cut at a pause, and it happened on a different platform in different runs. Worth your own look.
+- After STOP, the DNS records keep the last address until the next START. AWS may give that address to another customer meanwhile.
 
 ## Reporting
 
