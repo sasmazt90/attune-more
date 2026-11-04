@@ -27,6 +27,8 @@ Only for a newly demonstrated technical defect, or concrete evidence of an incor
 
 Hashes were read on the WEB host on the deployed build, 2026-11-04T09:41:04Z. All 52 model files matched the verified record, and the runtime reported the same hashes for the 27 regional-pipeline files it loaded. The V5 detector, verifier and source Step0 hashes below were reported by the running analysis (`status: measured`). Source Step0 SHA-256: `18e94a9579a3c0dd548c3357899ba20f316a0d01bf2fdbfbc6eed4288a26d655`. Combined V5 model hash: `b8200e999c6c744247d264de70df5280900e08f0ba5130479425a6dac92d13f5`.
 
+The later release candidates did not change any of these files. A full re-hash on `f7d861e` found the same 52 files with the same hashes.
+
 Both platforms run Skin inference on the WEB host. AAOS reaches it over the private mTLS connection, so the model files on the AAOS host are not used. That host still holds an older copy of the V5 manifest and verifier, and they were not changed.
 
 ### V5 acne pipeline: the acne heading

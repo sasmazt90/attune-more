@@ -35,7 +35,17 @@ Boxes alone never make a person positive. Without a positive person decision, no
 
 ## Results on the owner's photographs
 
-This table is from the direct trace, which uses Python landmarks on the supplied photos. The application's own results are in the acceptance report, and can differ slightly because the browser supplies the landmarks.
+The first table is what the application itself reported on the release candidate, with landmarks from the browser and frames through each platform's camera path. "Before" is the previous candidate, `4bb51b3`.
+
+| Region | Character 49 on AAOS, before | After | Character 11 on WEB, before | After |
+|---|---|---|---|---|
+| Forehead | 1 | **5** | 4 | 4 |
+| Right cheek | 5 | 5 | 4 | 5 |
+| Left cheek | 5 | 6 | 2 | 2 |
+| Chin | Not shown | **4** | Not shown | **3** |
+| Nose | Not shown | Not shown | Not shown | Not shown |
+
+The next table is the direct trace, which uses Python landmarks on the supplied photos. It is the one the close-ups come from. The two can differ slightly, because detection varies with the crop.
 
 | Region | Character 49 before | After | Character 11 before | After |
 |---|---|---|---|---|
