@@ -200,10 +200,10 @@ class Aaos:
         # An override lasts only as long as the session that set it.
         if not getattr(self, 'emulation', None):
             self.emulation = page.context.new_cdp_session(page)
+        # Setting the same size again does nothing, even when something else has cleared it, so clear it first.
+        self.emulation.send('Emulation.clearDeviceMetricsOverride')
         if width:
             self.emulation.send('Emulation.setDeviceMetricsOverride', {'width': width, 'height': height, 'deviceScaleFactor': 1, 'mobile': False})
-        else:
-            self.emulation.send('Emulation.clearDeviceMetricsOverride')
         page.wait_for_timeout(300)
 
     def close(self):
