@@ -1,4 +1,5 @@
 import {canonicalMentalTheme} from '../i18n/mentalThemes';
+import {getLanguage,t,type Language} from '../i18n/core';
 import { appendHealthRecord, readHealthRecords, prepareHealthRecords } from './healthRecords';
 import { STORAGE_KEYS, isMentalSummarySavingAllowed, isMentalTranscriptSavingAllowed } from './attuneMode';
 
@@ -23,9 +24,10 @@ export interface MentalHistoryItem {
   structuredFlow?:{contentVersion:'v1';speakerProfile:'official-default'|'female-calm-v1';seed?:number;selections:string[]};
 }
 
-const MOOD_LABELS: Record<string, string> = { STRESSED: 'Gergin', TIRED: 'Yorgun', RELAXED: 'Rahat', NEUTRAL: 'Nötr' };
-export function translateMood(text: string): string {
-  return text.replace(/\b(STRESSED|TIRED|RELAXED|NEUTRAL)\b/gi, code => MOOD_LABELS[code.toUpperCase()]);
+const MOOD_LABELS: Record<string, string> = { STRESSED: 'gergin', TIRED: 'yorgun', RELAXED: 'rahat', NEUTRAL: 'nötr' };
+/** Provider mood codes only, in the display language. "stressed" in a summary is prose, not a code. */
+export function translateMood(text: string, language: Language = getLanguage()): string {
+  return text.replace(/\b(STRESSED|TIRED|RELAXED|NEUTRAL)\b/g, code => t(MOOD_LABELS[code], language));
 }
 
 export function mentalThemeStats(history: MentalHistoryItem[]) {

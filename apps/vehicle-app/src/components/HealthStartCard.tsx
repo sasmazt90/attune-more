@@ -8,7 +8,7 @@ export type PreparationModule='skin'|'vision'|'dental'|'hearing'|'mental';
 export const HEALTH_START_CARD='bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 short:p-4 short:rounded-2xl shadow-2xl w-full';
 export const HEALTH_START_ACTION='min-h-11 w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#00d2eb] hover:bg-[#00e5ff] text-slate-950 font-bold text-base shadow-[0_0_25px_rgba(0,210,235,0.4)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-wider';
 export const HEALTH_START_SECONDARY='min-h-11 w-full sm:w-auto px-6 py-3.5 rounded-full border border-togg-turquoise/40 text-togg-turquoise font-bold disabled:opacity-40';
-export const HEALTH_START_PORTRAITS={skin:'/assets/skin-preparation-module-20261031.png',dental:'/assets/dental-preparation-module-20261031.png'};
+export const HEALTH_START_PORTRAITS={skin:'/assets/skin-preparation-module-20261031.png',dental:'/assets/dental-preparation-module-20261031.png',vision:'/assets/vision-preparation-module-20261031.png',hearing:'/assets/hearing-preparation-module-20261031.png',mental:'/assets/mental-preparation-module-20261031.png'};
 const CONTENT={
  skin:{title:'Cilt Analizi',description:'Gözlüğünüzü çıkarın. Kameraya doğru bakın ve başınızı sabit tutun.',alt:'Başı ve omuzları tam görünen doğal portrede temsili cilt hazırlık ağı',items:[[Eye,'Yüz hizasını koruyun'],[Sun,'İyi ışık koşulu sağlayın'],[Scan,'Net görüntü elde edin']]},
  dental:{title:'Diş Analizi',description:'Kamera görünümlerini izleyebilir veya diş fotoğrafı yükleyebilirsiniz.',alt:'Dik başlı doğal gülümsemede, görünen diş eğrisini izleyen temsili hazırlık ağı',items:[[Camera,'Ön, sağ, sol ve rahat kapanış görünümü'],[Sun,'Dişleriniz iyi ışıkta net görünsün'],[Scan,'Ağzınıza cisim sokmadan rahatça gülümseyin']]},
@@ -20,7 +20,6 @@ const CONTENT={
 export function HealthStartCard({module,actions,framed=true,footer}:{module:PreparationModule;actions?:ReactNode;framed?:boolean;footer?:ReactNode}){
  const {text:i18nText,node:i18nNode}=useTranslations();
  const c=CONTENT[module];
- const restored=module==='skin'||module==='dental';
  const card=useRef<HTMLDivElement>(null);
  useLayoutEffect(()=>{
   const header=document.querySelector<HTMLElement>('[data-cockpit-header]'),viewport=window.visualViewport;
@@ -39,7 +38,7 @@ export function HealthStartCard({module,actions,framed=true,footer}:{module:Prep
  },[framed]);
  return <div ref={card} className={framed?HEALTH_START_CARD:undefined} data-health-start={module}>
   <div className="grid grid-cols-1 lg:grid-cols-12 short:grid-cols-12 gap-8 short:gap-4 items-center">
-   <div className="lg:col-span-6 short:col-span-4 flex justify-center min-w-0"><div className={`relative w-full ${restored?'max-w-[460px] aspect-[115/117]':'max-w-[360px] aspect-[3/4]'} rounded-2xl overflow-hidden`} style={restored?{'--health-portrait-ratio':115/117} as React.CSSProperties:undefined} data-health-portrait={module}><Image src={module==='skin'||module==='dental'?HEALTH_START_PORTRAITS[module]:`/assets/${module}-preparation-approved-v3.png`} alt={i18nText(c.alt)} fill sizes="(min-width: 1024px) 460px, (max-width: 480px) 90vw, 460px" className="object-contain" priority/></div></div>
+   <div className="lg:col-span-6 short:col-span-4 flex justify-center min-w-0"><div className="relative w-full max-w-[460px] aspect-[115/117] rounded-2xl overflow-hidden" style={{'--health-portrait-ratio':115/117} as React.CSSProperties} data-health-portrait={module}><Image src={HEALTH_START_PORTRAITS[module]} alt={i18nText(c.alt)} fill sizes="(min-width: 1024px) 460px, (max-width: 480px) 90vw, 460px" className="object-contain" priority/></div></div>
    {/* The start action moves up on short displays, so it is visible without scrolling. */}
    <div className="lg:col-span-6 short:col-span-8 space-y-6 short:space-y-0 max-w-md short:max-w-none min-w-0 short:flex short:flex-col short:gap-3">
     <div className="space-y-1.5"><h2 className="text-3xl short:text-2xl font-extrabold text-white tracking-tight">{i18nNode(c.title)}</h2>{c.description&&<p className="text-sm text-slate-300 leading-relaxed">{i18nNode(c.description)}</p>}</div>

@@ -4,11 +4,11 @@ import {cloudSpeechEnabled,CLOUD_SPEECH_PERMISSION,CLOUD_SPEECH_COPY} from './sp
 
 export const SERVICE_CONSENT_KEY='attune_health_processing_v1';
 const BASE_SERVICE_REQUIREMENTS={
- skin:[['local','Yüz görüntümün ve görünüm göstergelerimin bu cihazda geçici işlenmesine izin veriyorum.']],
- dental:[['local','Diş fotoğraflarımın bu cihazda geçici işlenmesine izin veriyorum.']],
- hearing:[['local','Kulaklık sesleri ve yanıtlarımla yerel işitme testinin yapılmasına izin veriyorum.']],
- vision:[['local','Kamera görüntüsü ve konuşma yanıtlarımın göz görevi için geçici işlenmesine izin veriyorum.'],['speech','Attune.more sesli yönergelerini ve konuşma yanıtlarım için tarayıcı/cihaz konuşma tanıma hizmetini kullanmaya izin veriyorum; tanıma hizmeti sesi buluta aktarabilir.']],
- mental:[['recognition','Sesimin tarayıcı/cihaz konuşma tanıma hizmetinde metne çevrilmesine izin veriyorum; bu hizmet sesi buluta aktarabilir.'],['conversation','Konuşma metnimin Attune.more yanıtları, geçici oturum belleği ve özet için işlenmesine izin veriyorum.'],['speech-output-v2','Yanıt metninin seçtiğim dilde yerel Attune.more sesiyle veya açıkça seçtiğim tarayıcı/cihaz sesiyle okunmasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca sağlayıcı izni gerekir.']]
+ skin:[['local','Attune.more\'nun yüz görüntümü ve görünüm göstergelerimi geçici olarak işlemesine izin veriyorum.']],
+ dental:[['local','Attune.more\'nun diş fotoğraflarımı geçici olarak işlemesine izin veriyorum.']],
+ hearing:[['local','Attune.more\'nun kulaklık sesleri ve yanıtlarımla işitme testi yapmasına izin veriyorum.']],
+ vision:[['local','Attune.more\'nun kamera görüntümü ve konuşma yanıtlarımı göz görevi için geçici olarak işlemesine izin veriyorum.'],['speech','Attune.more\'nun sesli yönerge vermesine ve konuşma yanıtlarımı tanımasına izin veriyorum. Tanıma için sesim buluta aktarılabilir.']],
+ mental:[['recognition','Attune.more\'nun sesimi metne çevirmesine izin veriyorum. Bunun için sesim buluta aktarılabilir.'],['conversation','Attune.more\'nun konuşma metnimi yanıtlar, geçici oturum belleği ve özet için işlemesine izin veriyorum.'],['speech-output-v2','Attune.more\'nun yanıtlarını seçtiğim dilde kendi sesiyle veya seçtiğim tarayıcı ya da cihaz sesiyle okumasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca izin istenir.']]
 } as const;
 export type HealthService=keyof typeof BASE_SERVICE_REQUIREMENTS;
 const cloudRequirements=cloudSpeechEnabled()?[[CLOUD_SPEECH_PERMISSION,CLOUD_SPEECH_COPY] as const]:[];

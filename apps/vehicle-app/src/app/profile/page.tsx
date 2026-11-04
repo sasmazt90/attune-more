@@ -1,4 +1,5 @@
 'use client';
+import {X as CloseIcon} from 'lucide-react';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
 import { HEALTH_MODULES,HEALTH_MODULE_IDS } from '../../utils/healthModules';
@@ -111,7 +112,7 @@ export default function ProfilePage() {
                 aria-label={i18nText("Pencereyi kapat")}
                 className="w-11 shrink-0 text-slate-400 hover:text-white text-xs"
               >
-                ✕
+                <CloseIcon className="w-5 h-5 mx-auto" aria-hidden="true"/>
               </button>
             </div>
 

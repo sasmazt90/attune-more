@@ -299,7 +299,7 @@ class CreateSessionPayload(BaseModel):
 
 class AppointmentMatchPayload(BaseModel):
     specialty: str = Field(min_length=1,max_length=120)
-    preferredCity: Optional[str] = Field(default="İstanbul",max_length=120)
+    preferredCity: Optional[str] = Field(default=None,max_length=120)
     maxTravelTimeMin: Optional[int] = 30
     useBrowserAgent: Optional[bool] = True
     availableWindows: List[dict] = Field(default_factory=list,max_length=30)
@@ -578,7 +578,11 @@ async def match_appointments(payload: AppointmentMatchPayload, request: Request)
         raise HTTPException(409, "PARK_REQUIRED")
     if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
     specialty = payload.specialty
-    city = payload.preferredCity or "İstanbul"
+    # Region comes from the user's explicit choice; language or a default city never stands in.
+    city = (payload.preferredCity or "").strip()
+    if not city:
+        return {"status": "REGION_REQUIRED", "specialty": specialty, "city": None, "providerType": None, "sourceBadge": None,
+                "handoffNote": None, "liveSearchUrl": None, "matchedSlots": [], "currentTravelBufferMin": None}
     # Reject invalid manual windows before any provider/network side effect.
     try: available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
     except ValueError: raise HTTPException(422,'INVALID_MATCH_WINDOW') from None

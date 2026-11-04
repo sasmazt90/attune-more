@@ -25,6 +25,7 @@ import {
   Info
 } from 'lucide-react';
 import { readMentalHistory } from '../../utils/mentalHistory';
+import { CARE_APPOINTMENTS_KEY, CARE_REGION_KEY } from '../../utils/careAppointments';
 import { STORAGE_KEYS, isDemoMode,SKIN_HOSTED_PROCESSING_PERMISSION,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
 import { localBackend } from '../../utils/localBackend';
 
@@ -190,7 +191,7 @@ export default function PrivacyPage() {
     let local = true;
     const healthKeys = [DENTAL_PHOTO_DELETE_PENDING,SKIN_PHOTO_DELETE_PENDING,'attune_skin_appearance_reference_v1','attune_skin_appearance_single_reference_v1',RECORD_JOURNAL, 'attune_dental_history_v1', 'attune_dental_latest_v1', 'attune_hearing_history_v1', 'attune_hearing_latest_v1', 'attune_skin_geometry_reference_v1', STORAGE_KEYS.SKIN_SIGNS_BASELINE, STORAGE_KEYS.SKIN_SINGLE_SIGNS_BASELINE, 'togg_health_vision_history', STORAGE_KEYS.LATEST_VISION, STORAGE_KEYS.LATEST_SKIN,
       STORAGE_KEYS.SKIN_BASELINE, STORAGE_KEYS.SKIN_BASELINE_META, STORAGE_KEYS.SKIN_MULTI_BASELINE, STORAGE_KEYS.SKIN_REMINDER, STORAGE_KEYS.SKIN_HISTORY, STORAGE_KEYS.LATEST_MENTAL, STORAGE_KEYS.MENTAL_HISTORY,
-      STORAGE_KEYS.REFERRAL_CONTEXT, STORAGE_KEYS.DEMO_SKIN_RESULT, STORAGE_KEYS.DEMO_REFERRAL];
+      STORAGE_KEYS.REFERRAL_CONTEXT, STORAGE_KEYS.DEMO_SKIN_RESULT, STORAGE_KEYS.DEMO_REFERRAL, CARE_APPOINTMENTS_KEY, CARE_REGION_KEY];
     try { await withRecordsLock(async () => {
     await clearSkinPhotos();await clearDentalPhotos();clearSkinSnapshots();
     for (const key of healthKeys) {

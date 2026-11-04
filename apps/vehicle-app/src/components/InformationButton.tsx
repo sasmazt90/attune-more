@@ -1,4 +1,5 @@
 'use client';
+import {Info as InfoIcon,X as CloseIcon} from 'lucide-react';
 import {useTranslations} from '../i18n/LanguageProvider';
 
 
@@ -10,9 +11,9 @@ export function InformationButton({ title, children }: { title: string; children
  const {text:i18nText,node:i18nNode}=useTranslations();
   const [open, setOpen] = useState(false);
   return <>
-    <button type="button" aria-label={i18nText(`${title} hakkında bilgi`)} aria-haspopup="dialog" onClick={() => setOpen(true)} className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full border border-white/20 text-togg-turquoise focus-visible:outline focus-visible:outline-2 focus-visible:outline-togg-turquoise"><span aria-hidden="true">ⓘ</span></button>
+    <button type="button" aria-label={i18nText(`${title} hakkında bilgi`)} aria-haspopup="dialog" onClick={() => setOpen(true)} className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full border border-white/20 text-togg-turquoise focus-visible:outline focus-visible:outline-2 focus-visible:outline-togg-turquoise"><InfoIcon className="w-5 h-5" aria-hidden="true"/></button>
     {open && <AccessibleDialog title={i18nText(title)} onClose={() => setOpen(false)} className="w-full max-w-lg rounded-2xl border border-white/20 bg-cockpit-surface p-5 space-y-4">
-      <div className="flex items-start justify-between gap-3"><h2 className="text-lg font-bold">{i18nNode(title)}</h2><button type="button" aria-label={i18nText("Bilgi penceresini kapat")} onClick={() => setOpen(false)} className="min-h-11 min-w-11 rounded-xl border border-white/20">✕</button></div>
+      <div className="flex items-start justify-between gap-3"><h2 className="text-lg font-bold">{i18nNode(title)}</h2><button type="button" aria-label={i18nText("Bilgi penceresini kapat")} onClick={() => setOpen(false)} className="min-h-11 min-w-11 rounded-xl border border-white/20"><CloseIcon className="w-5 h-5 mx-auto" aria-hidden="true"/></button></div>
       <div className="space-y-3 text-sm leading-relaxed text-slate-300 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-3">{informationContent(i18nNode(children))}</div>
     </AccessibleDialog>}
   </>;

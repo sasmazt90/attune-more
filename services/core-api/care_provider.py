@@ -42,7 +42,7 @@ def verified_source_slot_time(node, source_timezone="Europe/Istanbul"):
 
 class CareSearchProvider(ABC):
     @abstractmethod
-    def search_slots(self, specialty: str, city: str = "İstanbul") -> Dict[str, Any]:
+    def search_slots(self, specialty: str, city: str) -> Dict[str, Any]:
         pass
 
 
@@ -52,7 +52,7 @@ class DemoCareSearchProvider(CareSearchProvider):
     Asla gerçek hekim veya hastane adı kullanmaz.
     Açıkça 'DEMO' veri rozeti taşır.
     """
-    def search_slots(self, specialty: str, city: str = "İstanbul") -> Dict[str, Any]:
+    def search_slots(self, specialty: str, city: str) -> Dict[str, Any]:
         spec_slug = specialty.lower().replace(" ", "-")
         now = datetime.now()
 
@@ -138,7 +138,7 @@ class BrowserCareSearchProvider(CareSearchProvider):
       ASLA uydurma datetime üretilmez; 'LIVE_PROVIDER_ONLY' statüsü verilir.
     - Sadece DOM'dan gerçek müsaitlik zamanı okunabildiğinde 'LIVE_AVAILABILITY' verilir.
     """
-    def search_slots(self, specialty: str, city: str = "İstanbul") -> Dict[str, Any]:
+    def search_slots(self, specialty: str, city: str) -> Dict[str, Any]:
         query_encoded = urllib.parse.quote(specialty, safe="")
         city_encoded = urllib.parse.quote(city, safe="")
         target_url = f"https://www.doktortakvimi.com/arama?q={query_encoded}&loc={city_encoded}"
@@ -395,7 +395,7 @@ def public_handoff_result(specialty, city, status="PUBLIC_HANDOFF"):
 
 class PublicCareSearchProvider(CareSearchProvider):
     def __init__(self, status="PUBLIC_HANDOFF"): self.status=status
-    def search_slots(self, specialty, city="İstanbul"):
+    def search_slots(self, specialty, city):
         return public_handoff_result(specialty, city, self.status)
 
 # Code-owned registry: future partnership adapters must enforce their real transport
@@ -405,7 +405,7 @@ PARTNER_CARE_ADAPTERS = {}
 
 class PartnerCareSearchProvider(CareSearchProvider):
     def __init__(self, client): self.client=client
-    def search_slots(self, specialty, city="İstanbul"):
+    def search_slots(self, specialty, city):
         try:
             result = self.client.search_slots(specialty=specialty, city=city, timeout_seconds=8)
             if not isinstance(result,dict) or not isinstance(result.get('slots'),list):

@@ -1,4 +1,5 @@
 'use client';
+import {Loader2} from 'lucide-react';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
 import React, { useEffect, useState, useId } from 'react';
@@ -481,6 +482,11 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                 )}
               </svg>
             )
+          ) : mode === 'scan' ? (
+            <div data-skin-camera-waiting role="status" className="min-h-64 flex flex-col items-center justify-center gap-3 p-8 text-center text-sm text-slate-300">
+              <Loader2 className="w-6 h-6 animate-spin text-togg-turquoise" aria-hidden="true" />
+              {i18nText("Kamera görüntüsü bekleniyor…")}
+            </div>
           ) : (
             <div data-skin-photo-empty className="min-h-64 flex items-center justify-center p-8 text-center text-sm text-slate-400">
               {i18nText("Bu kayıtta yüz fotoğrafı yok. Yalnız sayısal sonuçlar saklandı.")}

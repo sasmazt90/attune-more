@@ -96,7 +96,7 @@ def test_dom_time_requires_complete_timestamp_and_explicit_source_timezone():
     assert cp.verified_source_slot_time(Node('2026-02-30T09:00')) is None
 
 def test_missing_partner_configuration_preserves_public_handoff_no_demo():
-    result=cp.get_care_provider(config={'ATTUNE_CARE_PROVIDER':'partner'}).search_slots('Dermatoloji')
+    result=cp.get_care_provider(config={'ATTUNE_CARE_PROVIDER':'partner'}).search_slots('Dermatoloji','İstanbul')
     assert result['status']=='CONFIGURATION_REQUIRED' and result['slots']
     assert all(row['sourceType']=='PUBLIC_SEARCH_ONLY' for row in result['slots'])
     assert isinstance(cp.get_care_provider(False,config={}),cp.PublicCareSearchProvider)
@@ -109,14 +109,14 @@ def test_partner_failure_never_invents_demo_or_time(error,status):
         calls=0
         def search_slots(self,**kwargs):
             self.calls+=1;assert kwargs['timeout_seconds']==8;raise error()
-    client=Client();result=cp.PartnerCareSearchProvider(client).search_slots('Dermatoloji')
+    client=Client();result=cp.PartnerCareSearchProvider(client).search_slots('Dermatoloji','İstanbul')
     assert result['status']==status and client.calls==1
     assert all(row['dateTime'] is None and row['sourceType']=='PUBLIC_SEARCH_ONLY' for row in result['slots'])
 
 def test_partner_empty_not_conflated_with_network_or_demo():
     class Client:
         def search_slots(self,**kwargs): return dict(status='SUCCESS',slots=[])
-    out=cp.PartnerCareSearchProvider(Client()).search_slots('Dermatoloji')
+    out=cp.PartnerCareSearchProvider(Client()).search_slots('Dermatoloji','İstanbul')
     assert out['status']=='EMPTY_RESULT' and out['slots']==[]
 
 def route_scope():
@@ -150,19 +150,19 @@ def test_route_rejects_invalid_inputs_before_provider(route,monkeypatch,change,c
     def forbidden(*args,**kwargs): pytest.fail('provider called before validation')
     monkeypatch.setattr(cp,'get_care_provider',forbidden)
     with TestClient(route['app']) as client:
-        assert client.post('/api/care/match',json={'specialty':'Dermatoloji',**change}).status_code==code
+        assert client.post('/api/care/match',json={'specialty':'Dermatoloji','preferredCity':'İstanbul',**change}).status_code==code
 
 def test_actual_route_driving_blocks_before_provider(route,monkeypatch):
     route['vehicle_state']['vehicleMoving']=True
     monkeypatch.setattr(cp,'get_care_provider',lambda *args:pytest.fail('driving provider request'))
     with TestClient(route['app']) as client:
-        assert client.post('/api/care/match',json={'specialty':'Dermatoloji'}).status_code==409
+        assert client.post('/api/care/match',json={'specialty':'Dermatoloji','preferredCity':'İstanbul'}).status_code==409
 
 def test_route_discards_result_after_disconnect_or_vehicle_change(route,monkeypatch):
     class RequestState:
         calls=0
         async def is_disconnected(self): self.calls+=1;return self.calls>1
-    payload=route['AppointmentMatchPayload'](specialty='Dermatoloji')
+    payload=route['AppointmentMatchPayload'](specialty='Dermatoloji',preferredCity='İstanbul')
     with pytest.raises(HTTPException,match='CANCELLED'):
         asyncio.run(route['match_appointments'](payload,RequestState()))
     class Provider:

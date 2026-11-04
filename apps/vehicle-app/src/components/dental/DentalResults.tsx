@@ -1,4 +1,5 @@
 'use client';
+import {X as CloseIcon} from 'lucide-react';
 import {useRef,useState,type TouchEvent} from 'react';
 import {ArrowLeft,ArrowRight,CircleCheck,Minus,TriangleAlert,ScanLine} from 'lucide-react';
 import {useTranslations} from '../../i18n/LanguageProvider';
@@ -86,7 +87,7 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
   {footer}
   <p className={styles.disclaimer}>{t('Tıbbi teşhis içermez; ön değerlendirme amaçlıdır.')}</p>
   {noteOpen&&<AccessibleDialog title={t('Ölçüm notu')} onClose={()=>setNoteOpen(false)} className="w-full max-w-lg rounded-2xl border border-white/20 bg-cockpit-surface p-5 space-y-4">
-   <div className="flex items-start justify-between gap-3"><h2 className="text-lg font-bold">{t('Ölçüm notu')}</h2><button type="button" aria-label={t('Bilgi penceresini kapat')} onClick={()=>setNoteOpen(false)} className="min-h-11 min-w-11 rounded-xl border border-white/20">✕</button></div>
+   <div className="flex items-start justify-between gap-3"><h2 className="text-lg font-bold">{t('Ölçüm notu')}</h2><button type="button" aria-label={t('Bilgi penceresini kapat')} onClick={()=>setNoteOpen(false)} className="min-h-11 min-w-11 rounded-xl border border-white/20"><CloseIcon className="w-5 h-5 mx-auto" aria-hidden="true"/></button></div>
    <ul className="list-disc pl-5 space-y-3 text-sm text-slate-300">{unmeasured.map(x=><li key={x.pose}><strong>{pose(x.pose)}</strong>{': '}{!x.view?t(x.pose==='BITE'?'Kapanış görünümü atlandı.':'Bu görünüm alınmadı.'):(x.view.quality?.reasons||[]).map((r:string)=>t(DENTAL_QUALITY_REASONS[r]||'Fotoğraf koşulları uygun değildi.')).join(' ')}</li>)}</ul>
    <p className="text-sm text-slate-300">{t('Daha iyi ışıkta ve sabit durarak yeniden tararsanız bu görünümler için de sonuç alabilirsiniz.')}</p>
   </AccessibleDialog>}
