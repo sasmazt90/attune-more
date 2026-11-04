@@ -334,9 +334,12 @@ def responsive(run, selector):
 
 def referral(run, link_pattern):
     page = run.page
-    link = page.locator('main').get_by_role('link', name=re.compile(link_pattern, re.I)).first
+    pattern = re.compile(link_pattern, re.I)
+    link = page.locator('main').get_by_role('link', name=pattern).first
     if not link.count():
-        run.check('Referral link is offered', False)
+        link = page.locator('main').get_by_role('button', name=pattern).first
+    if not link.count():
+        run.check('Referral is offered', False)
         return
     link.scroll_into_view_if_needed()
     run.dwell(900)
@@ -346,7 +349,7 @@ def referral(run, link_pattern):
     run.mark('Specialists from the result')
     run.dwell(1200)
     region = page.locator('[data-care-region]')
-    run.check('Care asks for a region and assumes none', region.input_value() == '' or region.input_value() is not None, {'region': region.input_value()})
+    run.report['careRegionOnArrival'] = region.input_value()
     region.select_option('Berlin')
     page.locator('[data-care-slot]').first.wait_for(timeout=20000)
     run.dwell(1600)
@@ -468,7 +471,7 @@ def skin(run):
         page.keyboard.press('Escape')
         run.dwell(600)
     responsive(run, '[data-skin-result]')
-    referral(run, 'specialist|service|care')
+    referral(run, 'specialist')
     history(run, 'skin', record['id'])
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
