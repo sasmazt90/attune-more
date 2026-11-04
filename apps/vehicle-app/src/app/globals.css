@@ -56,10 +56,13 @@ main p, main article { overflow-wrap: anywhere; }
   [data-health-portrait] { width: 100%; max-width: none; aspect-ratio: auto; height: calc(100dvh - 11rem); max-height: 26rem; min-height: 11rem; }
 }
 
-/* Keep a dialog's main decision reachable while its text scrolls. */
+/* Keep a dialog's main decision reachable while its text scrolls. Chromium holds a sticky element inside
+   the scroller's padding, and text scrolling through that gap showed below the buttons. So the buttons
+   carry the bottom spacing themselves and reach the dialog's edge. */
+[role="dialog"]:has(> [data-dialog-actions]) { padding-bottom: 0 !important; }
 [role="dialog"] > [data-dialog-actions] {
   position: sticky; bottom: 0; z-index: 1; background-color: var(--dialog-background, #0b1526);
-  padding-block: .5rem;
+  padding-block: .5rem 1rem;
 }
 
 /* Keep the title and close control reachable while a short dialog scrolls. */
