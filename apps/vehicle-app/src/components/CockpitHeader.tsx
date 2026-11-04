@@ -69,7 +69,7 @@ export const CockpitHeader: React.FC = () => {
               aria-hidden="true"
               className="h-5 w-auto object-contain"
             />
-            <span className="font-extrabold text-white tracking-wide text-sm flex items-center">
+            <span data-header-wordmark className="font-extrabold text-white tracking-wide text-sm flex items-center">
               <ProductWordmark />
             </span>
           </Link>
@@ -78,7 +78,7 @@ export const CockpitHeader: React.FC = () => {
         </div>
 
         {/* Sensörler, Batarya ve Araç Durumu Butonu */}
-        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3 min-w-0 md:order-3 md:gap-1.5 md:pr-3 md:ml-auto"><LanguageSelector/><PlaybackWave/><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={i18nText(guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat')} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3 min-w-0 md:order-3 md:gap-1.5 md:pr-3 md:ml-auto"><LanguageSelector/><span data-header-wave><PlaybackWave/></span><button type="button" className="min-h-11 min-w-11 rounded-full border border-white/20 inline-flex items-center justify-center" aria-label={i18nText(guidanceMuted?'Seslendirmeyi aç':'Seslendirmeyi kapat')} aria-pressed={guidanceMuted} onClick={()=>{const next=!guidanceMuted;setGuidanceMuted(next);muteGuidance(next);}}>{guidanceMuted?<VolumeX className="h-4 w-4"/>:<Volume2 className="h-4 w-4"/>}</button>
 
 
           {/* Sürüş / Park Durumu */}
@@ -110,14 +110,14 @@ export const CockpitHeader: React.FC = () => {
 
       <nav ref={navigation} aria-label={i18nText("Ana sekmeler")} className="relative px-3 sm:px-6 py-1.5 md:order-2 md:px-1 md:py-1">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5 md:gap-1">
-          <Link href="/" aria-current={pathname==='/'?'page':undefined} className={itemClass(pathname==='/')}><Activity className="w-3.5 h-3.5 shrink-0"/>{i18nText("Kokpit")}</Link>
+          <Link href="/" aria-current={pathname==='/'?'page':undefined} className={itemClass(pathname==='/')}><Activity className="w-3.5 h-3.5 shrink-0"/><span data-tab-label>{i18nText("Kokpit")}</span></Link>
           <div className="relative min-w-0">
-            <button ref={trigger} type="button" aria-expanded={open} aria-controls="health-centre-links" className={itemClass(healthActive)+' w-full'} onClick={()=>setOpen(v=>!v)} onKeyDown={e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(true);requestAnimationFrame(()=>{const links=panel.current?.querySelectorAll<HTMLAnchorElement>('a');links?.[e.key==='ArrowDown'?0:links.length-1]?.focus();});}}}><HeartPulse className="w-3.5 h-3.5 shrink-0"/>{i18nText("Sağlık Merkezi")}</button>
+            <button ref={trigger} type="button" aria-expanded={open} aria-controls="health-centre-links" className={itemClass(healthActive)+' w-full'} onClick={()=>setOpen(v=>!v)} onKeyDown={e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();setOpen(true);requestAnimationFrame(()=>{const links=panel.current?.querySelectorAll<HTMLAnchorElement>('a');links?.[e.key==='ArrowDown'?0:links.length-1]?.focus();});}}}><HeartPulse className="w-3.5 h-3.5 shrink-0"/><span data-tab-label>{i18nText("Sağlık Merkezi")}</span></button>
             {open&&<div ref={panel} id="health-centre-links" onKeyDown={move} style={{maxHeight:menuMaxHeight}} className="absolute top-full right-0 sm:left-0 sm:right-auto mt-2 w-56 max-w-[calc(100vw-2rem)] overflow-y-auto overscroll-contain rounded-xl border border-white/20 bg-[#0b1424] shadow-2xl p-2 z-[60]" aria-label={i18nText("Sağlık modülleri")}>
               {HEALTH_CENTRE_MENU_IDS.map(id=><Link key={id} href={HEALTH_MODULES[id].route} aria-current={pathname===HEALTH_MODULES[id].route?'page':undefined} onClick={()=>close()} className={dropdownClass(pathname===HEALTH_MODULES[id].route)}><span className="w-[18px] shrink-0 inline-flex"><HealthModuleIcon module={id}/></span><span className="min-w-0 break-words">{i18nNode(HEALTH_MODULES[id].name)}</span></Link>)}
             </div>}
           </div>
-          {navItems.slice(1).map(item=>{const Icon=item.icon;return <Link key={item.href} href={item.href} aria-current={pathname===item.href?'page':undefined} className={itemClass(pathname===item.href)}><Icon className="w-3.5 h-3.5 shrink-0"/>{i18nNode(item.label)}</Link>;})}
+          {navItems.slice(1).map(item=>{const Icon=item.icon;return <Link key={item.href} href={item.href} aria-current={pathname===item.href?'page':undefined} className={itemClass(pathname===item.href)}><Icon className="w-3.5 h-3.5 shrink-0"/><span data-tab-label>{i18nNode(item.label)}</span></Link>;})}
         </div>
       </nav>
       {syncError && <p role="alert" className="px-6 py-2 text-xs text-amber-200">{i18nNode(syncError)}</p>}

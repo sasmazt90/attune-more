@@ -56,6 +56,15 @@ main p, main article { overflow-wrap: anywhere; }
   header[data-cockpit-header] > nav > div > a, header[data-cockpit-header] > nav > div > * > a, header[data-cockpit-header] > nav > div > * > button { padding-inline: .5rem; }
 }
 
+/* Below 1000 px one row fits only if inactive tabs show their icon. The current tab keeps its name, and every tab keeps
+ * an accessible name, because the text is hidden visually and not removed. */
+@media (min-width: 768px) and (max-width: 999px) {
+  [data-header-wordmark], [data-header-wave] { display: none; }
+  header[data-cockpit-header] > nav > div > a, header[data-cockpit-header] > nav > div > * > a, header[data-cockpit-header] > nav > div > * > button { padding-inline: .5rem; min-width: 2.75rem; }
+  header[data-cockpit-header] [data-tab-label] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  header[data-cockpit-header] [aria-current="page"] > [data-tab-label] { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+}
+
 /* Short vehicle displays: less vertical rhythm and wider dialogs, so text wraps less. */
 @media (min-width: 768px) and (max-height: 640px) {
   main .space-y-6 > :not([hidden]) ~ :not([hidden]) { margin-top: .75rem; }

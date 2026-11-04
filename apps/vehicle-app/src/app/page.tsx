@@ -33,7 +33,7 @@ export default function CockpitDashboard() {
   return (
     <div className="space-y-6">
       {/* 1. Hero Karşılama ve Durum Alanı (İlk Viewport Üst %35-40) */}
-      <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 short:p-4 relative overflow-hidden shadow-2xl">
+      <section className={`bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 short:p-4 relative overflow-hidden shadow-2xl ${isDemo||!isParked ? 'xshort:p-2' : 'xshort:hidden'}`}>
         <div className="absolute top-0 right-0 w-96 h-96 bg-togg-turquoise/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-cyan-900/20 rounded-full blur-2xl pointer-events-none" />
 
@@ -48,7 +48,7 @@ export default function CockpitDashboard() {
               )}
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-1 xshort:hidden">
               <div className="flex items-center gap-2"><h1 className="text-3xl md:text-4xl short:text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
                 <ProductWordmark />
               </h1><InformationButton title={i18nText("Attune.more kokpiti")}><ul className="list-disc pl-5 space-y-3"><li>{i18nText("Kişisel sağlık ve iyi oluş modülleri ön değerlendirme amaçlı olup, kontroller yalnız park halinde kullanılabilir.")}</li><li>{i18nText("Bu uygulama klinik tanı sağlamaz.")}</li></ul></InformationButton></div>
