@@ -44,6 +44,26 @@ The hosts cost about $1.16 per hour. Stop them when you are not testing.
 | Skin labels | Do they match the owner's two references on real results? Is any label on the wrong spot or the wrong photo? Compare the stored result with what is drawn. | `skin-label-evidence.md`, `SkinFindingCallouts.tsx`, `skinCalloutLayout.ts`, `skinCalloutModel.ts`; rerun with `run_e2e.sh <web or aaos> callouts <name>` after a Skin run |
 | Readiness | Does READY fail on an empty OpenAI account, without printing any response text? | `scripts/aws/host_ready.py`, `tests/aws/test_control.py` |
 
+## What the owner asked for on Skin labels
+
+Their brief of 2026-11-04 gave these final criteria. The two reference images came as chat attachments and are not in the repository, so
+ask the owner for them.
+
+- No long dripping lines and no numbered endpoint markers. Actual finding names are displayed.
+- All findings are visible by default. Only the selected finding is visible after selection, in sync with its card.
+- No label overflow in TR, EN or DE. No callout collision or off-screen placement.
+- Consistent WEB and AAOS behaviour, and no changes to the underlying analysis results.
+- Never transfer a finding onto the wrong photograph or facial region, and never invent coordinates.
+
+The owner then corrected the layout from a screenshot: region arrows either side of the photo, no repeated title on the right, proportional
+finding numbers, and a one-row top bar on all screens.
+
+## Checks Claude could not finish
+
+- **A full download of the videos back from Drive, hashed.** The files are private and Claude's browser is not signed in to Google. Sizes
+  match through the Drive API, and hashes match on the Drive for desktop copy. Please download them and compare with `videos.md`.
+- Your own AWS access. See above.
+
 ## Known limits to judge, not to assume fine
 
 - Every Skin accuracy figure on record comes from synthetic characters, on a set also used to choose the method.
