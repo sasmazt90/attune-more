@@ -170,6 +170,19 @@ def check_modules(report, base, prefix, *curl_args):
     report.add(prefix + '-modules', 'Five health modules reachable ({})'.format(prefix), not missing, ', '.join(missing) or 'all 200')
 
 
+def provider_credit(key, base):
+    """Listing models still succeeds with no credit left, so only a real call can show it. It uses one token.
+    The response is read for its error code and never reported."""
+    payload = json.dumps({'model': 'gpt-4o-mini', 'messages': [{'role': 'user', 'content': 'ok'}], 'max_tokens': 1})
+    try:
+        done = subprocess.run(['curl', '-sS', '--max-time', '20', '-w', '\n%{http_code}', '-H', '@-', '-H', 'Content-Type: application/json', '--data', payload, base + '/chat/completions'],
+                              input='Authorization: Bearer ' + key + '\n', capture_output=True, text=True, timeout=25)
+    except (OSError, subprocess.TimeoutExpired):
+        return 'unreachable', False
+    body, _, http = done.stdout.rpartition('\n')
+    return http.strip(), http.strip() in ('402', '429') and bool(re.search('insufficient_quota|credit_balance_exhausted|billing_', body))
+
+
 def check_provider(report):
     provider = read_env(ENV_ROOT / 'provider.env')
     path = ENV_ROOT / 'provider.env'
@@ -192,6 +205,14 @@ def check_provider(report):
         except (OSError, subprocess.TimeoutExpired):
             http = 'unreachable'
         report.add('provider-auth', 'OpenAI accepts the stored key', http == '200', 'HTTP ' + http)
+        http, exhausted = provider_credit(key, base)
+        if exhausted:
+            report.add('provider-credit', 'OpenAI account has credit', False, 'No credit left. Speech recognition and conversation will fail until it is topped up.')
+        elif http == '200':
+            report.add('provider-credit', 'OpenAI account has credit', True, 'A real call succeeded')
+        else:
+            # A rate limit or a passing outage is not a statement about the account.
+            report.warn('provider-credit', 'OpenAI account has credit', 'Could not confirm: HTTP ' + http)
 
 
 def check_tts(report, deep):
