@@ -35,7 +35,7 @@ def open_context(playwright, camera, width, height, credentials):
         executable_path='/usr/bin/google-chrome', headless=True, ignore_default_args=['--mute-audio'],
         args=['--no-sandbox', '--disable-dev-shm-usage', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--use-file-for-fake-video-capture=' + str(camera),
               '--host-resolver-rules=MAP {} 127.0.0.1'.format(HOST), '--autoplay-policy=no-user-gesture-required'])
-    context = browser.new_context(http_credentials=credentials, ignore_https_errors=True, viewport={'width': width, 'height': height}, permissions=['camera', 'microphone'])
+    context = browser.new_context(http_credentials=credentials, viewport={'width': width, 'height': height}, permissions=['camera', 'microphone'])
     page = context.new_page()
     page.set_default_timeout(25000)
     return browser, context, page

@@ -98,6 +98,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%USERPROFILE%\AttuneMore\bi
 
 **Known limits.**
 
+- Certificates are public record. Issuing them lists both names in public Certificate Transparency logs. Access does not change: the Security Groups still decide who can reach the hosts.
 - After STOP the records keep the last address, because AWS releases it and DNS is only written at START. Until the next START, that address could be given to another AWS customer. Elastic IPs would remove this, at about $7.30 per month for two, and need the owner's approval.
 - HTTPS stays limited to one source address by the Security Groups. START offers to update it when this PC's address changes. Other devices need their own rule.
 - Browser data is per origin, so records saved under the old address are not visible at the new one.

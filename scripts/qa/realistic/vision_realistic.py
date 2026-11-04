@@ -526,7 +526,7 @@ class Web:
             args=['--no-sandbox', '--disable-dev-shm-usage', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required',
                   '--host-resolver-rules=MAP {} 127.0.0.1'.format(self.HOST), '--window-size=1280,800', '--window-position=0,0', '--app=https://' + self.HOST,
                   '--disable-features=Translate,TranslateUI', '--disable-infobars', '--lang=en-US', '--no-first-run'],
-            http_credentials={'username': credentials['username'], 'password': credentials['password']}, ignore_https_errors=True,
+            http_credentials={'username': credentials['username'], 'password': credentials['password']},
             viewport={'width': args.web_width, 'height': args.web_height}, permissions=['camera', 'microphone'], timezone_id=args.timezone, locale='en-US')
         context.add_init_script(self.CAMERA.replace('__FRAMES__', json.dumps(frames)))
         return (context.pages[0] if context.pages else context.new_page()), context.close

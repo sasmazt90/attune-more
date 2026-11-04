@@ -67,7 +67,7 @@ def main():
         else:
             credentials = json.loads((QA / 'access.json').read_text())
             env = {**os.environ, 'DISPLAY': ':99'}
-            context = playwright.chromium.launch_persistent_context(args.profile, executable_path='/usr/bin/google-chrome', headless=False, env=env, ignore_https_errors=True,
+            context = playwright.chromium.launch_persistent_context(args.profile, executable_path='/usr/bin/google-chrome', headless=False, env=env,
                                                                     http_credentials={'username': credentials['username'], 'password': credentials['password']},
                                                                     args=['--no-sandbox', '--host-resolver-rules=MAP {} 127.0.0.1'.format(HOST)], viewport={'width': 1280, 'height': 800})
             page = context.pages[0] if context.pages else context.new_page()

@@ -120,7 +120,7 @@ class Web:
         credentials = json.loads((QA / 'access.json').read_text())
         # A kept profile, as a person's browser would be, so saved records carry between journeys.
         context = playwright.chromium.launch_persistent_context(args.profile, executable_path='/usr/bin/google-chrome', headless=False, env=env, ignore_default_args=['--mute-audio', '--enable-automation'], args=launch,
-                                                                http_credentials={'username': credentials['username'], 'password': credentials['password']}, ignore_https_errors=True,
+                                                                http_credentials={'username': credentials['username'], 'password': credentials['password']},
                                                                 viewport={'width': 1280, 'height': 800}, permissions=['camera', 'microphone'], timezone_id=args.timezone, locale='en-US')
         context.add_init_script(TIMING)
         context.add_init_script(SEED_OBSERVER)
@@ -1109,10 +1109,53 @@ def go(run, route):
         page.goto(target, wait_until='networkidle')
 
 
+# On a carousel a Start action can be off to the side, so this scrolls to each one the way the arrows would.
+COMPACT = """async()=>{const header=document.querySelector('[data-cockpit-header]');const links=['skin','dental','vision','hearing','mental'].map(m=>document.querySelector(`main a[href="/${m}"]`)).filter(Boolean);
+const inView=e=>{const b=e.getBoundingClientRect();return b.top>=0&&b.bottom<=innerHeight;};const out={size:[innerWidth,innerHeight],header:Math.round(header.getBoundingClientRect().height),actions:links.length,inFirstScreen:links.filter(inView).length,reachable:0,sideways:document.documentElement.scrollWidth>innerWidth+1};
+for(const link of links){link.scrollIntoView({inline:'center',block:'nearest',behavior:'instant'});await new Promise(r=>setTimeout(r,120));const b=link.getBoundingClientRect(),hit=document.elementFromPoint(b.left+b.width/2,b.top+b.height/2);if(b.left>=0&&b.right<=innerWidth&&b.top>=0&&b.bottom<=innerHeight&&hit&&(hit===link||link.contains(hit)))out.reachable++;}
+return out;}"""
+COMPACT_SIZES = [(1280, 564), (1280, 517), (1024, 600), (1024, 400), (800, 480)]
+
+
+def compact_cockpit(run, page):
+    """Header and Start actions on the shortest displays, in each language."""
+    found = []
+    for size in COMPACT_SIZES:
+        for language in ('en', 'de', 'tr'):
+            page.locator('#attune-language').select_option(language)
+            page.wait_for_timeout(350)
+            page.locator('nav a[href="/"]').first.click()
+            page.wait_for_timeout(350)
+            run.adapter.emulate(page, *size)
+            page.wait_for_timeout(350)
+            row = {'language': language, **page.evaluate(COMPACT)}
+            row['namedTabs'] = page.evaluate("[...document.querySelectorAll('[data-cockpit-header] nav > div > a,[data-cockpit-header] nav > div > div > button')].filter(e=>(e.textContent||'').trim()).length")
+            found.append(row)
+            if language == 'de':
+                run.shot('compact-{}x{}'.format(*size))
+            page.evaluate('window.scrollTo(0,0)')
+    run.adapter.emulate(page)
+    page.locator('#attune-language').select_option('en')
+    page.wait_for_timeout(500)
+    run.report['compact'] = found
+    wrong = [r for r in found if tuple(r['size']) not in COMPACT_SIZES]
+    run.check('The small sizes were really applied', not wrong, [r['size'] for r in wrong][:4])
+    run.check('The header is one row on every compact display', all(r['header'] <= 64 for r in found), [(r['language'], r['size'], r['header']) for r in found if r['header'] > 64][:6])
+    run.check('Every Start action is in the first screen height', all(r['inFirstScreen'] == r['actions'] == 5 for r in found), [(r['language'], r['size'], r['inFirstScreen']) for r in found if r['inFirstScreen'] != 5][:6])
+    run.check('Every Start action can be reached and pressed', all(r['reachable'] == 5 for r in found), [(r['language'], r['size'], r['reachable']) for r in found if r['reachable'] != 5][:6])
+    run.check('No sideways overflow on compact displays', not [r for r in found if r['sideways']], [(r['language'], r['size']) for r in found if r['sideways']][:6])
+    run.check('Every tab keeps its name, even when only its icon shows', all(r['namedTabs'] == 4 for r in found), [(r['language'], r['size'], r['namedTabs']) for r in found if r['namedTabs'] != 4][:6])
+
+
 def ui(run):
     page = run.page
     run.adapter.home(page)
     rows = []
+    shown = {}
+
+    def keep_text(language, state):
+        # Rendered wording, saved so each language can be read.
+        shown.setdefault(language, {})[state] = page.locator('main').inner_text()[:3000]
     page.wait_for_function("document.querySelector('[data-vehicle-status]')?.textContent==='PARK'")
     run.report['viewport'] = page.evaluate('[innerWidth,innerHeight]')
     for language, health, privacy in (('en', 'Health Center', 'Privacy & Permissions'), ('de', None, None), ('tr', None, None)):
@@ -1121,6 +1164,7 @@ def ui(run):
         page.locator('nav a[href="/"]').first.click()
         page.wait_for_timeout(1000)
         run.shot('{}-cockpit'.format(language))
+        keep_text(language, 'cockpit')
         rows.append({'language': language, 'state': 'cockpit', **page.evaluate(MEASURE), **page.evaluate(COVERED), **page.evaluate(HERO)})
         for route in ('skin', 'dental', 'vision', 'hearing', 'mental'):
             consent = page.evaluate("()=>{const v=localStorage.getItem('attune_health_processing_v1');localStorage.removeItem('attune_health_processing_v1');window.dispatchEvent(new Event('attune-service-consent'));return v;}")
@@ -1130,6 +1174,7 @@ def ui(run):
             if dialog.count():
                 fit = page.evaluate(DIALOG_FIT)
                 rows.append({'language': language, 'state': route + ' consent', **fit})
+                shown.setdefault(language, {})[route + ' consent'] = dialog.last.inner_text()[:3000]
                 run.shot('{}-{}-consent'.format(language, route))
                 dialog.last.evaluate('e=>{e.scrollTop=e.scrollHeight;}')
                 page.wait_for_timeout(350)
@@ -1140,12 +1185,14 @@ def ui(run):
                 dialog.last.locator('[data-dialog-actions] button').first.click()
                 page.wait_for_timeout(900)
             run.shot('{}-{}'.format(language, route))
+            keep_text(language, route)
             rows.append({'language': language, 'state': route, **page.evaluate(MEASURE), **page.evaluate(COVERED)})
             info = page.locator('main [aria-haspopup="dialog"]:visible')
             if info.count() and language == 'en':
                 info.first.click()
                 page.wait_for_timeout(600)
                 rows.append({'language': language, 'state': route + ' information', **(page.evaluate(DIALOG_FIT) or {})})
+                shown.setdefault(language, {})[route + ' information'] = page.locator('[role=dialog]').last.inner_text()[:3000]
                 run.shot('{}-{}-info'.format(language, route))
                 page.keyboard.press('Escape')
                 page.wait_for_timeout(350)
@@ -1153,9 +1200,13 @@ def ui(run):
             go(run, route)
             page.wait_for_timeout(900)
             run.shot('{}-{}'.format(language, route))
+            keep_text(language, route)
             rows.append({'language': language, 'state': route, **page.evaluate(MEASURE), **page.evaluate(COVERED)})
     page.locator('#attune-language').select_option('en')
     run.report['states'] = rows
+    (run.out / 'rendered-text.json').write_text(json.dumps(shown, ensure_ascii=False, indent=1), encoding='utf8')
+    run.adapter.home(page)
+    compact_cockpit(run, page)
     run.check('No sideways overflow in any state', not [r for r in rows if r.get('sideways')], [r['state'] for r in rows if r.get('sideways')][:6])
     dialogs = [r for r in rows if 'fits' in r]
     run.check('Every dialog fits the screen', all(r['fits'] for r in dialogs), [(r['language'], r['state']) for r in dialogs if not r['fits']][:6])
