@@ -1,26 +1,41 @@
 # Skin model selection and measurement contract (QA-31, task 18.9)
 
-**Status: in progress.** This version is a source and record audit. It does not prove runtime execution. Nothing here
-changes a model, threshold or calibration. Runtime columns are filled from the release-candidate Skin runs on WEB and
-AAOS, and each status then becomes final.
+**Status: runtime verified on the release candidate, accuracy not verified.** Nothing here changes a model, threshold
+or calibration. The audit did find two places where the AWS deployment was not running what the records describe, and
+both were corrected. Runtime values come from `skin-contract-runtime.json`, saved per platform with the recordings.
 
-## The three findings the owner needs to see
+## What the runtime check found
 
-1. **No record of explicit owner approval exists for most indicators.** What the records hold is "selected" or
-   "configured". Explicit owner approval was found only for the rebuild of the finding models from the same research
-   recipes, and for the downturned-corner threshold 0.668 (`CODEX_HANDOFF.md`, 2026-10-26). This audit does not treat
-   anything else as approved.
+**Two defects, both fixed in this release:**
+
+1. **The V5 acne chain never ran on AWS.** Its verifier is checked by SHA-256, and git stored it with converted line
+   endings, so the hash passed on Windows and failed on every Linux host. V5 reported
+   `EXPERIMENTAL_ACNE_V5_MODEL_UNAVAILABLE`, and the acne heading stayed unmeasured. All earlier AWS recordings have this
+   gap. The file now keeps its exact bytes, with a test. V5 now runs: hashes match, 9 tiles, status `measured`.
+2. **Python MediaPipe was missing on the host.** The handoff record requires it for the acne and redness findings.
+   Without it they used client landmarks instead of the research recipe, and redness had no measure ("Score not
+   calculated"). It is now installed, without replacing OpenCV. Redness now reports area, intensity and score.
+
+Both change Skin numbers compared with earlier AWS runs, because they restore what was configured. **This is a change
+the owner should know about:** V5 still carries `accepted:false` in its own manifest.
+
+**Three open decisions for the owner:**
+
+1. **No record of explicit owner approval exists for most indicators.** The records hold "selected" or "configured".
+   Explicit approval was found only for the rebuild of the finding models from the same research recipes, and for the
+   downturned-corner threshold 0.668 (`CODEX_HANDOFF.md`, 2026-10-26). This audit does not treat anything else as
+   approved.
 2. **The acceptance gate and the runtime disagree.** The gate rejected the learned candidates, yet five RF-DETR weights
    run in the product. Most significant is `regional.pt`, named `regional-r1-v2`: the R1 RF-DETR Small record has dry
-   F1 0.215, oily F1 0.279, `accepted:false`. Identity is probable, not proven: the receipt has no immutable hash. The
-   gate judged it as a standalone detector, and the runtime uses it as one input to a separate classifier. That may be
-   legitimate, but no record says someone decided it. **Owner decision needed.**
-3. **Acne has two independent paths.** The V5 chain produces the `acne` heading (`accepted:false`, enabled by default
-   in code). RF-DETR plus a logistic classifier produces the acne finding, its count and subtypes. They can disagree,
-   and "the acne model" is ambiguous until the runtime shows which one each screen displays.
+   F1 0.215, oily F1 0.279, `accepted:false`. Identity is probable, not proven, because the receipt has no immutable
+   hash. The gate judged it as a standalone detector, and the runtime uses it as one input to a separate classifier.
+   That may be legitimate, but no record says someone decided it.
+3. **Acne has two independent paths.** V5 produces the `acne` heading. RF-DETR plus a logistic classifier produces the
+   acne finding, its count and subtypes, which is what the result cards show. They can disagree. In the Character 49
+   dry run, V5 kept 6 candidates and the finding path counted 11.
 
 Also, the internal record of 2026-11-01 says the RF-DETR research candidate is not the active product classifier. The
-code contradicts this: `findings.pt` scores directly decide mole, melasma and rosacea (`skin_findings_v1.py:31-35`).
+code and runtime contradict this: `findings.pt` scores directly decide mole, melasma and rosacea.
 
 ## Candidates
 
@@ -39,54 +54,61 @@ code contradicts this: `findings.pt` scores directly decide mole, melasma and ro
 ## Indicator matrix
 
 SHA values are prefixes; full values are in `docs/aws/evidence/model-verification-final.json` and Drive
-`r2-Skin-model-reconciliation.json`. **WEB and AAOS columns read "pending" until the release-candidate runs.** No
-accuracy figure below comes from real labelled photographs of the target use: all finding figures are from synthetic
-characters, on a test set also used to choose the method.
+`r2-Skin-model-reconciliation.json`. WEB and AAOS were read from each platform's real responses on the release
+candidate. Both platforms use the same model files through separate API processes. No accuracy figure below comes from
+real labelled photographs of the target use: all finding figures are from synthetic characters, on a test set also
+used to choose the method.
+
+A status of MATCH would need both an approval on record and runtime proof. Runtime proof now exists for every row marked
+**ran** below. Rows stay NOT VERIFIED where no approval record was found, because the audit may not invent one.
 
 | Indicator | Original approved model/version | Actual WEB model | Actual AAOS model | Artifact SHA | Approved measurement method | Approved threshold/calibration | Actual inference evidence | UI result | Accuracy evidence | Status | Required correction |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Acne heading | No approval found. V5 configured, `accepted:false` | Pending | Pending | `9c87475d`, `0d7bf03c` | Unique accepted box pixels / visible anatomical support x100 | Verifier 0.15628, detector 0.30, NMS 0.30 | Pending `acneRuntime` | Appearance score | None on real labelled photos | NOT VERIFIED | Owner confirms V5 |
-| Acne finding, count | Recipe rebuild approved by owner | Pending | Pending | `findings-v2/acne.json` `21bf8c71`, `findings.pt` `c8d94801`, `acnes.pt` `5db24d92` | Detector feature fusion LR; counted boxes score >= 0.35; each region counted from one photo | About 0.599 | Pending `findings.models` | Count on card | Synthetic: P 0.86, R 1.00, only 6 positives | NOT VERIFIED | Runtime proof; QA-25 |
-| Blackheads, whiteheads | No separate approval found | Pending | Pending | `acnes.pt` `5db24d92`, `findings.pt` `c8d94801` | Detector classes inside the acne count | Score >= 0.35 | Pending | "Acne types" section | Not validated on real labels | NOT VERIFIED | Runtime proof |
-| Acne subtypes | No separate approval found | Pending | Pending | `acnes.pt` `5db24d92` | Papule, pustule, nodule detector classes; rows sum to total | Score >= 0.35 | Pending | "Acne types" section | "Subtype split not validated" on record | NOT VERIFIED | Runtime proof |
-| Post-acne marks | Recipe rebuild approved by owner | Pending | Pending | `findings-v2/acneMarks.json` `beb5ad94`, severity `c6a9088c`, DINOv2 `ae1e99fc` | DINOv2 crop LR, FRONT + 20 degrees | Saved in spec | Pending | Prominence | Synthetic, 22 people: P 0.83, R 0.83 | NOT VERIFIED | Runtime proof |
-| Pigmentation, dark spots | Heading stays unavailable by contract | Pending | Pending | none | No accepted local detector | n/a | Pending; expected `ACCEPTED_PIGMENTATION_LOCAL_DETECTOR_NOT_AVAILABLE` | Not measured | None | NOT EXECUTED | None; must not be derived from tone |
-| Melasma | Frozen threshold on record | Pending | Pending | `findings.pt` `c8d94801` | `Gunes Lekesi` detector score | 0.54 | Pending | Box area on cheek | Synthetic: P 0.83, R 0.56 | NOT VERIFIED | Runtime proof |
-| Unspecified spots | No accepted method | Pending | Pending | none | None | n/a | Expected `NOT_VALIDATED` | Not measured | Never reached 80% precision | NOT EXECUTED | None |
-| Redness heading | `skin-focused` degrees, `accepted:true`, whole-face only | Pending | Pending | `65936939` | Ridge on EfficientNet features, ordinal x20 | Ordinal normalization | Pending | Score | Own validation; camera domain not accepted | NOT VERIFIED | Runtime proof |
-| Redness finding | Recipe rebuild approved by owner | Pending | Pending | `findings-v2/redness.json` `2b455387` | Detector LR and light-corrected a* mask | About 0.536 | Pending | Area and tone difference | Synthetic: P 0.86, R 0.97 | NOT VERIFIED | Runtime proof |
-| Wrinkles, fine lines heading | Analytic method on record, no learned approval | Pending | Pending | `wrinkles.pt` `ba5c5278` masks features only | Directional line and texture | Method constants | Pending | Index | Not expert-validated | NOT VERIFIED | Runtime proof |
-| Crow's feet, forehead lines | Recipe rebuild approved by owner | Pending | Pending | `crowsFeet.json` `04a54caf`, `foreheadLines.json` `db0705de`, severity files | DINOv2 crop LR | Saved in spec | Pending | Prominence | Synthetic: P 0.94, R 0.81; P 0.86, R 0.85 | NOT VERIFIED | Runtime proof |
+| Acne heading | No approval found. V5 configured, `accepted:false` | ran | ran | `9c87475d`, `0d7bf03c` | Unique accepted box pixels / visible anatomical support x100 | Verifier 0.15628, detector 0.30, NMS 0.30 | `acneRuntime`: measured, 9 tiles | Appearance score | None on real labelled photos | NOT VERIFIED | Owner confirms V5 |
+| Acne finding, count | Recipe rebuild approved by owner | ran | ran | `findings-v2/acne.json` `21bf8c71`, `findings.pt` `c8d94801`, `acnes.pt` `5db24d92` | Detector feature fusion LR; counted boxes score >= 0.35; each region counted from one photo | About 0.599 | `findings.models` hash match | Count on card | Synthetic: P 0.86, R 1.00, only 6 positives | NOT VERIFIED | Runtime proof; QA-25 |
+| Blackheads, whiteheads | No separate approval found | ran | ran | `acnes.pt` `5db24d92`, `findings.pt` `c8d94801` | Detector classes inside the acne count | Score >= 0.35 | Runtime receipt | "Acne types" section | Not validated on real labels | NOT VERIFIED | Runtime proof |
+| Acne subtypes | No separate approval found | ran | ran | `acnes.pt` `5db24d92` | Papule, pustule, nodule detector classes; rows sum to total | Score >= 0.35 | Runtime receipt | "Acne types" section | "Subtype split not validated" on record | NOT VERIFIED | Runtime proof |
+| Post-acne marks | Recipe rebuild approved by owner | ran | ran | `findings-v2/acneMarks.json` `beb5ad94`, severity `c6a9088c`, DINOv2 `ae1e99fc` | DINOv2 crop LR, FRONT + 20 degrees | Saved in spec | Runtime receipt | Prominence | Synthetic, 22 people: P 0.83, R 0.83 | NOT VERIFIED | Runtime proof |
+| Pigmentation, dark spots | Heading stays unavailable by contract | ran | ran | none | No accepted local detector | n/a | `ACCEPTED_PIGMENTATION_LOCAL_DETECTOR_NOT_AVAILABLE` | Not measured | None | NOT EXECUTED | None; must not be derived from tone |
+| Melasma | Frozen threshold on record | ran | ran | `findings.pt` `c8d94801` | `Gunes Lekesi` detector score | 0.54 | Runtime receipt | Box area on cheek | Synthetic: P 0.83, R 0.56 | NOT VERIFIED | Runtime proof |
+| Unspecified spots | No accepted method | ran | ran | none | None | n/a | `NOT_VALIDATED` | Not measured | Never reached 80% precision | NOT EXECUTED | None |
+| Redness heading | `skin-focused` degrees, `accepted:true`, whole-face only | ran | ran | `65936939` | Ridge on EfficientNet features, ordinal x20 | Ordinal normalization | Runtime receipt | Score | Own validation; camera domain not accepted | NOT VERIFIED | Runtime proof |
+| Redness finding | Recipe rebuild approved by owner | ran | ran | `findings-v2/redness.json` `2b455387` | Detector LR and light-corrected a* mask | About 0.536 | Runtime receipt | Area and tone difference | Synthetic: P 0.86, R 0.97 | NOT VERIFIED | Runtime proof |
+| Wrinkles, fine lines heading | Analytic method on record, no learned approval | ran | ran | `wrinkles.pt` `ba5c5278` masks features only | Directional line and texture | Method constants | Runtime receipt | Index | Not expert-validated | NOT VERIFIED | Runtime proof |
+| Crow's feet, forehead lines | Recipe rebuild approved by owner | ran | ran | `crowsFeet.json` `04a54caf`, `foreheadLines.json` `db0705de`, severity files | DINOv2 crop LR | Saved in spec | Runtime receipt | Prominence | Synthetic: P 0.94, R 0.81; P 0.86, R 0.85 | NOT VERIFIED | Runtime proof |
 | Pores | **None.** `Genis Gozenek` class exists in `findings.pt`; pores candidate marked exploratory | No product output found | No product output found | none active | None | n/a | Source search only | Not shown | None | NOT EXECUTED | Owner decides whether pores is required |
-| Oiliness heading | Analytic method on record | Pending | Pending | none | Share of supported area above highlight threshold | 0.12 | Pending | Area percent | Proxy, not sebum | NOT VERIFIED | Runtime proof |
-| Dryness heading | `appearance-native-dry-3` selected as normal path | Pending | Pending | head `7f13c7cb`, encoder `a93e5445` | Dual-scale calibrated material fields | 0.50 / 0.04 | Pending | Area percent | Limited reviewed negatives; no clean-skin claim | NOT VERIFIED | Runtime proof |
-| Flaking finding | Recipe rebuild approved by owner | Pending | Pending | `flaking.json` `6affd88f`, measures `04bcd877` | DINOv2 LR, flake texture rank | Saved in spec | Pending | Rank | Synthetic: P 0.92, R 0.78 | NOT VERIFIED | Runtime proof |
-| Skin type | ViT `local-vit-dima806-5aace4f-v1`; regional fusion may govern (reconciliation decision) | Pending | Pending | `99b4c2fa` | ViT dry, normal, oily; regional rule can override | `combination-regional-user-v2…` | Pending | Type name | Publisher: accuracy 0.65 on 1,529 samples, not our product | NOT VERIFIED | Runtime proof |
-| Mixed skin type | Naming rule "product owner" in code | Pending | Pending | `params.json` `5d1dc44d`, `k_classifier.json` `a7ab0b05` | Oily somewhere plus dry or normal elsewhere gives combination | Needs at least 3 measured regions including forehead or nose | Pending | Type name | Three-class regional: normal F1 0.49 | NOT VERIFIED | Runtime proof with mixed input |
-| Regional T-zone, cheek | Regional v3 configured. See finding 2 | Pending | Pending | `regional.pt` `b23cd0ed`, `skinmap.pt` `bc4e8aab`, `k_classifier.json` `a7ab0b05` | RF-DETR evidence and DINOv2 LR per region; uncertain stays `unmeasured` | Per-tone thresholds in `params.json` | Pending | Region map | Synthetic validation: oily F1 0.74, dry 0.71, normal 0.49 | NOT VERIFIED | Owner decision; verify uncertain never shows normal |
-| Periorbital | Not validated for regional typing, on record | Pending | Pending | none for the region | Excluded from regional decision | n/a | Pending | Separate eye items | "Periorbital not validated" | NOT VERIFIED | Runtime proof |
-| Dark circles | Recipe rebuild approved by owner | Pending | Pending | `darkCircles.json` `03a1e3eb` | Color and geometry LR, FRONT | About 0.857 | Pending | Prominence | Synthetic: P 0.89, R 0.46 | NOT VERIFIED | Runtime proof |
-| Eye bags | Recipe rebuild approved by owner | Pending | Pending | `eyeBags.json` `90e8d945` | DINOv2 crop LR | Saved in spec | Pending | Prominence | Synthetic: P 0.89, R 0.44 | NOT VERIFIED | Runtime proof |
-| Hooded eyelids | Recipe rebuild approved by owner | Pending | Pending | `hoodedEyelids.json` `64714164` | Geometry and DINOv2 PCA LR | About 0.638 | Pending | Prominence | Synthetic: P 0.83, R 0.79 | NOT VERIFIED | Runtime proof |
-| Downturned corners | **Threshold approved by owner, 2026-10-26** | Pending | Pending | `downturnedCorners.json` `dec94ef7` | Geometry and DINOv2 PCA LR; displayed value is a reference rank | 0.668 | Pending | Rank | Synthetic: P 0.82, R 0.51 | NOT VERIFIED | Runtime proof; threshold value must read 0.668 |
-| Mole | Frozen threshold on record | Pending | Pending | `findings.pt` `c8d94801` | `Riskli Ben` detector score | 0.58 | Pending | Marked count | Synthetic: P 1.00, R 0.30 | NOT VERIFIED | Runtime proof |
-| Rosacea | Frozen threshold on record | Pending | Pending | `findings.pt` `c8d94801` | `Rozasea` detector score | 0.69 | Pending | Area, tone difference | Synthetic: P 1.00, R 0.82 | NOT VERIFIED | Runtime proof |
-| Eczema, psoriasis tendency | Recipe rebuild approved by owner | Pending | Pending | `eczema.json` `f4c54d2e` | DINOv2 LR | Saved in spec | Pending | Area, tone difference | Synthetic: P 0.85, R 0.69 | NOT VERIFIED | Runtime proof |
-| Cold sore | Recipe rebuild approved by owner | Pending | Pending | `coldSore.json` `a271536d` | DINOv2 lip crop LR | Saved in spec | Pending | Count | Synthetic: P 1.00, R 0.54 | NOT VERIFIED | Runtime proof |
-| Tone | Color proxy, separated from pigmentation by contract | Pending | Pending | none | Color distribution | Method constants | Pending | Index | Not a pigment diagnosis | NOT VERIFIED | Runtime proof |
-| Sag | Geometry; same-person comparison only | Pending | Pending | none | Contour and fold geometry | Method constants | Pending | Ratio or change | No generic severity | NOT VERIFIED | Runtime proof |
+| Oiliness heading | Analytic method on record | ran | ran | none | Share of supported area above highlight threshold | 0.12 | Runtime receipt | Area percent | Proxy, not sebum | NOT VERIFIED | Runtime proof |
+| Dryness heading | `appearance-native-dry-3` selected as normal path | ran | ran | head `7f13c7cb`, encoder `a93e5445` | Dual-scale calibrated material fields | 0.50 / 0.04 | Runtime receipt | Area percent | Limited reviewed negatives; no clean-skin claim | NOT VERIFIED | Runtime proof |
+| Flaking finding | Recipe rebuild approved by owner | ran | ran | `flaking.json` `6affd88f`, measures `04bcd877` | DINOv2 LR, flake texture rank | Saved in spec | Runtime receipt | Rank | Synthetic: P 0.92, R 0.78 | NOT VERIFIED | Runtime proof |
+| Skin type | ViT `local-vit-dima806-5aace4f-v1`; regional fusion may govern (reconciliation decision) | ran | ran | `99b4c2fa` | ViT dry, normal, oily; regional rule can override | `combination-regional-user-v2…` | Runtime receipt | Type name | Publisher: accuracy 0.65 on 1,529 samples, not our product | NOT VERIFIED | Runtime proof |
+| Mixed skin type | Naming rule "product owner" in code | ran | ran | `params.json` `5d1dc44d`, `k_classifier.json` `a7ab0b05` | Oily somewhere plus dry or normal elsewhere gives combination | Needs at least 3 measured regions including forehead or nose | Runtime receipt | Type name | Three-class regional: normal F1 0.49 | NOT VERIFIED | Runtime proof with mixed input |
+| Regional T-zone, cheek | Regional v3 configured. See finding 2 | ran | ran | `regional.pt` `b23cd0ed`, `skinmap.pt` `bc4e8aab`, `k_classifier.json` `a7ab0b05` | RF-DETR evidence and DINOv2 LR per region; uncertain stays `unmeasured` | Per-tone thresholds in `params.json` | Runtime receipt | Region map | Synthetic validation: oily F1 0.74, dry 0.71, normal 0.49 | NOT VERIFIED | Owner decision; verify uncertain never shows normal |
+| Periorbital | Not validated for regional typing, on record | ran | ran | none for the region | Excluded from regional decision | n/a | Runtime receipt | Separate eye items | "Periorbital not validated" | NOT VERIFIED | Runtime proof |
+| Dark circles | Recipe rebuild approved by owner | ran | ran | `darkCircles.json` `03a1e3eb` | Color and geometry LR, FRONT | About 0.857 | Runtime receipt | Prominence | Synthetic: P 0.89, R 0.46 | NOT VERIFIED | Runtime proof |
+| Eye bags | Recipe rebuild approved by owner | ran | ran | `eyeBags.json` `90e8d945` | DINOv2 crop LR | Saved in spec | Runtime receipt | Prominence | Synthetic: P 0.89, R 0.44 | NOT VERIFIED | Runtime proof |
+| Hooded eyelids | Recipe rebuild approved by owner | ran | ran | `hoodedEyelids.json` `64714164` | Geometry and DINOv2 PCA LR | About 0.638 | Runtime receipt | Prominence | Synthetic: P 0.83, R 0.79 | NOT VERIFIED | Runtime proof |
+| Downturned corners | **Threshold approved by owner, 2026-10-26** | ran | ran | `downturnedCorners.json` `dec94ef7` | Geometry and DINOv2 PCA LR; displayed value is a reference rank | 0.668 | Runtime receipt | Rank | Synthetic: P 0.82, R 0.51 | NOT VERIFIED | Runtime proof; threshold value must read 0.668 |
+| Mole | Frozen threshold on record | ran | ran | `findings.pt` `c8d94801` | `Riskli Ben` detector score | 0.58 | Runtime receipt | Marked count | Synthetic: P 1.00, R 0.30 | NOT VERIFIED | Runtime proof |
+| Rosacea | Frozen threshold on record | ran | ran | `findings.pt` `c8d94801` | `Rozasea` detector score | 0.69 | Runtime receipt | Area, tone difference | Synthetic: P 1.00, R 0.82 | NOT VERIFIED | Runtime proof |
+| Eczema, psoriasis tendency | Recipe rebuild approved by owner | ran | ran | `eczema.json` `f4c54d2e` | DINOv2 LR | Saved in spec | Runtime receipt | Area, tone difference | Synthetic: P 0.85, R 0.69 | NOT VERIFIED | Runtime proof |
+| Cold sore | Recipe rebuild approved by owner | ran | ran | `coldSore.json` `a271536d` | DINOv2 lip crop LR | Saved in spec | Runtime receipt | Count | Synthetic: P 1.00, R 0.54 | NOT VERIFIED | Runtime proof |
+| Tone | Color proxy, separated from pigmentation by contract | ran | ran | none | Color distribution | Method constants | Runtime receipt | Index | Not a pigment diagnosis | NOT VERIFIED | Runtime proof |
+| Sag | Geometry; same-person comparison only | ran | ran | none | Contour and fold geometry | Method constants | Runtime receipt | Ratio or change | No generic severity | NOT VERIFIED | Runtime proof |
 
-## Runtime proof to collect on the release candidate
+## How the runtime proof was taken
 
-For each platform, from the real Skin response and the host:
+`scripts/qa/realistic/skin_contract_readback.py` reads the API responses saved during the recorded run on each platform
+and writes `skin-contract-runtime.json`:
 
-1. `all-models-verified.json` hashes against the files the API process actually reads.
-2. `findings.models` in the fused result, plus the regional manifest from `model_manifest()`.
-3. `acneRuntime`: `onnxSHA256`, verifier hash, `tileCount`, `detectorForwardCount`, timing, `nonAcnePreservation`.
-4. `activeCriterionMethods`: per criterion and region, method, model version, hash, status and reason.
-5. `general.modelInference`, including skin type provider and hash.
-6. The environment of both API processes, by variable name and state only: V5 on, hosted research off.
-7. No uncertain region shown as normal.
+1. Model hashes reported by the running worker, compared with the files on disk.
+2. `acneRuntime`: chain hashes, tile count, detector forward count, timing and the proof that non-acne results stayed
+   unchanged.
+3. `activeCriterionMethods`: per criterion, method, model version, hash, status and reason.
+4. Skin type from the local model and from regional fusion, and the state of each region.
+5. Every finding with its status, count and score.
+
+Uncertain regions: the code keeps them as `unmeasured`, and a run with no measured region would show none as normal.
+All five regions were measured in these runs, so that branch was not exercised live. Unit tests cover it.
 
 ## Lookup trail
 

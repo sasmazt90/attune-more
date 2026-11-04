@@ -1009,7 +1009,81 @@ def care(run):
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
 
-JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care}
+# ---------------------------------------------------------------- Visual states on the real page
+
+COVERED = """()=>{const bars=[...document.querySelectorAll('[data-cockpit-header]')].map(e=>e.getBoundingClientRect());
+ const seen=e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&c.visibility!=='hidden'&&c.display!=='none';};
+ const small=[...document.querySelectorAll('main button,main a[href],main summary,main select')].filter(seen).filter(e=>{const r=e.getBoundingClientRect();return Math.min(r.width,r.height)<43.5;}).map(e=>(e.innerText||e.getAttribute('aria-label')||e.tagName).slice(0,28));
+ const tiny=[...document.querySelectorAll('main *')].filter(e=>seen(e)&&[...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim())&&parseFloat(getComputedStyle(e).fontSize)<12).length;
+ const glyphs=[...document.querySelectorAll('main *')].filter(e=>[...e.childNodes].some(n=>n.nodeType===3&&/[\\u24D8\\u2715\\uFFFD]/.test(n.textContent))).length;
+ return {smallTargets:small.slice(0,6),smallCount:small.length,tinyText:tiny,unsafeGlyphs:glyphs};}"""
+DIALOG_FIT = """()=>{const p=[...document.querySelectorAll('[role=dialog]')].pop();if(!p)return null;const r=p.getBoundingClientRect();
+ const actions=p.querySelector('[data-dialog-actions]');const a=actions?actions.getBoundingClientRect():null;
+ // Text is a peek when it shows in the gap below the pinned buttons.
+ const peek=a?[...p.querySelectorAll('p,label,li,span,h1,h2,h3,summary')].filter(e=>!actions.contains(e)&&e.getClientRects().length).filter(e=>{const b=e.getBoundingClientRect();return b.bottom>a.bottom+1&&b.top<r.bottom-1&&b.height>0;}).map(e=>(e.innerText||'').slice(0,40)):[];
+ return {width:Math.round(r.width),height:Math.round(r.height),fits:r.top>=-1&&r.bottom<=innerHeight+1,sharePct:Math.round(100*r.width*r.height/(innerWidth*innerHeight)),actionsInView:a?a.top>=r.top-1&&a.bottom<=r.bottom+1:null,textBelowActions:peek.slice(0,4),scrollable:p.scrollHeight>p.clientHeight+1};}"""
+HERO = """()=>{const cards=[...document.querySelectorAll('main a[href],main button')].filter(e=>/skin|dental|vision|hearing|mental|health/i.test(e.getAttribute('href')||e.innerText||''));
+ const inView=cards.filter(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}).length;return {actions:cards.length,fullyInFirstScreen:inView};}"""
+
+
+def ui(run):
+    page = run.page
+    run.adapter.home(page)
+    rows = []
+    page.wait_for_function("document.querySelector('[data-vehicle-status]')?.textContent==='PARK'")
+    run.report['viewport'] = page.evaluate('[innerWidth,innerHeight]')
+    for language, health, privacy in (('en', 'Health Center', 'Privacy & Permissions'), ('de', None, None), ('tr', None, None)):
+        page.locator('#attune-language').select_option(language)
+        page.wait_for_timeout(700)
+        page.locator('nav a[href="/"]').first.click()
+        page.wait_for_timeout(1000)
+        run.shot('{}-cockpit'.format(language))
+        rows.append({'language': language, 'state': 'cockpit', **page.evaluate(MEASURE), **page.evaluate(COVERED), **page.evaluate(HERO)})
+        for route in ('skin', 'dental', 'vision', 'hearing', 'mental'):
+            consent = page.evaluate("()=>{const v=localStorage.getItem('attune_health_processing_v1');localStorage.removeItem('attune_health_processing_v1');window.dispatchEvent(new Event('attune-service-consent'));return v;}")
+            page.goto(page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2] + '/' + route, wait_until='networkidle')
+            page.wait_for_timeout(1200)
+            dialog = page.locator('[role=dialog]')
+            if dialog.count():
+                fit = page.evaluate(DIALOG_FIT)
+                rows.append({'language': language, 'state': route + ' consent', **fit})
+                run.shot('{}-{}-consent'.format(language, route))
+                dialog.last.evaluate('e=>{e.scrollTop=e.scrollHeight;}')
+                page.wait_for_timeout(350)
+                run.shot('{}-{}-consent-scrolled'.format(language, route))
+                rows.append({'language': language, 'state': route + ' consent scrolled', **page.evaluate(DIALOG_FIT)})
+                for box in dialog.last.get_by_role('checkbox').all():
+                    box.check()
+                dialog.last.locator('[data-dialog-actions] button').first.click()
+                page.wait_for_timeout(900)
+            run.shot('{}-{}'.format(language, route))
+            rows.append({'language': language, 'state': route, **page.evaluate(MEASURE), **page.evaluate(COVERED)})
+            info = page.locator('main [aria-haspopup="dialog"]:visible')
+            if info.count() and language == 'en':
+                info.first.click()
+                page.wait_for_timeout(600)
+                rows.append({'language': language, 'state': route + ' information', **(page.evaluate(DIALOG_FIT) or {})})
+                run.shot('{}-{}-info'.format(language, route))
+                page.keyboard.press('Escape')
+                page.wait_for_timeout(350)
+        for route in ('care', 'history', 'privacy'):
+            page.goto(page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2] + '/' + route, wait_until='networkidle')
+            page.wait_for_timeout(900)
+            run.shot('{}-{}'.format(language, route))
+            rows.append({'language': language, 'state': route, **page.evaluate(MEASURE), **page.evaluate(COVERED)})
+    page.locator('#attune-language').select_option('en')
+    run.report['states'] = rows
+    run.check('No sideways overflow in any state', not [r for r in rows if r.get('sideways')], [r['state'] for r in rows if r.get('sideways')][:6])
+    dialogs = [r for r in rows if 'fits' in r]
+    run.check('Every dialog fits the screen', all(r['fits'] for r in dialogs), [(r['language'], r['state']) for r in dialogs if not r['fits']][:6])
+    run.check('Dialog actions stay in view', all(r['actionsInView'] is not False for r in dialogs), [(r['language'], r['state']) for r in dialogs if r['actionsInView'] is False][:6])
+    run.check('No consent text shows below the pinned buttons', not [r for r in dialogs if r.get('textBelowActions')], [(r['language'], r['state'], r['textBelowActions']) for r in dialogs if r.get('textBelowActions')][:4])
+    run.check('No undersized controls or tiny text', not [r for r in rows if r.get('smallCount') or r.get('tinyText')], [(r['language'], r['state'], r.get('smallTargets'), r.get('tinyText')) for r in rows if r.get('smallCount') or r.get('tinyText')][:6])
+    run.check('No font-dependent glyphs', not [r for r in rows if r.get('unsafeGlyphs')], [(r['language'], r['state']) for r in rows if r.get('unsafeGlyphs')][:6])
+    run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
+
+
+JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care, 'ui': ui}
 
 
 def main():

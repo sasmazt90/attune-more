@@ -196,7 +196,7 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
                     if is_driving
                     else "4. Araç park halinde. Sakin, sıcak, yargılamayan bir sohbet kur. Kullanıcının gerçek sözleri ve önceki konuşma bağlamıyla ilgili kısa yanıt ver; genellikle tek doğal takip sorusu sor. "
                     "Kullanıcı istemedikçe numaralı tavsiye listesi, buyurganlık, yapay neşe veya tekrar üretme. Kullanıcı hakkında geçmiş, kimlik, duygu veya niyet uydurma. Belirsiz ayrılma/ara verme sözlerinde tek kısa netleştirme sorusu sor; dinlenmek istediği sonucunu çıkarma. Görüşmeyi sen duraklatamazsın; bekleme veya bitirme durumuna geçtiğini iddia etme. Kullanıcı açıkça ara vermek isterse Duraklat düğmesini kullanabileceğini söyle. "
-                    "Konuşulabilir sade metin kullan; Markdown, yıldızlar ve başlıklar yazma. Genellikle 2 kısa cümle yeterli. "
+                    "Konuşulabilir sade metin kullan; Markdown, yıldızlar ve başlıklar yazma. En fazla 2 kısa cümle kullan ve toplam 25 kelimeyi geçme; yanıt sesli okunacak. "
                     "Bir yanıtta en fazla tek takip sorusu sor; aynı cümlede iki soru birleştirme. Kullanıcı yalnız paylaşım istiyorsa soru sormak zorunda değilsin. "
                     "Tekrar eden stres/uyku durumunda klinik psikolog desteğini nazikçe önerebilirsin.\n"
                 )
