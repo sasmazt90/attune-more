@@ -174,6 +174,8 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
 
   const regionalReplay=!localMap?retainedRegionalSkinReplay(snapshot,currentRegion.id,selectedCriterion):undefined;
   const regionalLayers=regionalReplay?.layers||[];
+  // The frame the photo is really drawn in. Labels and the panel's shape must use the same one, or a label lands on the wrong spot.
+  const viewCrop=regionalReplay?.viewBox??displayCrop;
   const layerColour={blue:'#3b82f6',green:'#22c55e',lightgrey:'#cbd5e1'} as const;
 
   const linePaths = React.useMemo(() => {
@@ -203,15 +205,15 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <SkinFindingCallouts callouts={mode === 'result' ? callouts : undefined} crop={displayCrop} photoRef={panel} active={selectedFinding || null} onSelect={onSelectFinding} keepOut={features} face={faceRect}>
+      <SkinFindingCallouts callouts={mode === 'result' ? callouts : undefined} crop={viewCrop} photoRef={panel} active={selectedFinding || null} onSelect={onSelectFinding} keepOut={features} face={faceRect}>
       {/* Natural portrait pixels; fixed aspect ratio prevents height jumps across region tabs. */}
       <div
         className={`relative w-full ${isLiveVideo && mode === 'scan' || snapshot ? 'max-w-[480px]' : 'max-w-[360px]'} rounded-2xl overflow-hidden select-none`}
         ref={panel}
-        style={displayCrop ? { aspectRatio: displayCrop.width / displayCrop.height, maxWidth: mode === 'result' ? `min(560px, max(240px, calc((100dvh - var(--skin-photo-offset)) * ${(displayCrop.width / displayCrop.height).toFixed(3)})))` : 460 } : isLiveVideo && mode === 'scan' ? { aspectRatio: videoRatio * crop.width / crop.height, maxWidth: `min(480px,${65 * videoRatio * crop.width / crop.height}vh)` } : undefined}
+        style={viewCrop ? { aspectRatio: viewCrop.width / viewCrop.height, maxWidth: mode === 'result' ? `min(560px, max(240px, calc((100dvh - var(--skin-photo-offset)) * ${(viewCrop.width / viewCrop.height).toFixed(3)})))` : 460 } : isLiveVideo && mode === 'scan' ? { aspectRatio: videoRatio * crop.width / crop.height, maxWidth: `min(480px,${65 * videoRatio * crop.width / crop.height}vh)` } : undefined}
         data-face-panel
         data-preview-crop={isLiveVideo && mode === 'scan' ? JSON.stringify(crop) : snapshot?.previewCrop ? JSON.stringify(snapshot.previewCrop) : undefined}
-        data-source-pixel-width={displayCrop?.width}
+        data-source-pixel-width={viewCrop?.width}
         data-display-dpr={dpr}
       >
         {/* Actual decoded video dimensions keep landmarks aligned without cropping. */}

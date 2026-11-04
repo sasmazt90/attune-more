@@ -117,6 +117,13 @@ def test_labels_have_no_fixed_english_width_and_are_not_cut():
     assert 'truncate' not in panel[start:], 'a finding name on a card is never cut short'
 
 
+def test_labels_use_the_frame_the_photo_is_drawn_in():
+    # T-zone and Lips draw the regional replay's frame. A label placed from another crop pointed at the wrong spot.
+    source = (ROOT / 'apps/vehicle-app/src/components/skin/SkinFacePanel.tsx').read_text('utf8')
+    assert 'regionalReplay?.viewBox??displayCrop' in source
+    assert 'crop={viewCrop}' in source and 'aspectRatio: viewCrop.width / viewCrop.height' in source
+
+
 def test_callout_strings_are_translated():
     catalog = json.loads((ROOT / 'shared/localization/messages.json').read_text('utf8'))
     rows = {row.get('en'): row for row in catalog.values()}
