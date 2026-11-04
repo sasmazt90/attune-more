@@ -145,6 +145,9 @@ class Journey:
             self.recorder.wait(timeout=30)
 
     def read_shown(self, page):
+        height = page.evaluate("Math.round(document.querySelector('[data-cockpit-header]')?.getBoundingClientRect().height||0)")
+        if height:
+            self.report['headerTallest'] = max(self.report.get('headerTallest', 0), height)
         value = page.evaluate(READ_LETTER)
         if not value or not value.get('d'):
             return None
@@ -379,6 +382,7 @@ class Journey:
                 adapter.enter(page, self)
                 completed = self.assessment(page, adapter.pair)
                 self.check('Assessment reached the result screen', completed)
+                self.check('The header stayed one row during the test', 0 < self.report.get('headerTallest', 0) <= 64, self.report.get('headerTallest'))
                 dialog = page.get_by_role('dialog')
                 if dialog.count():
                     self.report['completionNotice'] = dialog.inner_text()

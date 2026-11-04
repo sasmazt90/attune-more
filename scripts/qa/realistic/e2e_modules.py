@@ -63,6 +63,13 @@ class Run:
     def mark(self, label):
         self.report['timeline'].append({'second': round(time.time() - self.started, 1), 'label': label})
         print(round(time.time() - self.started), label, flush=True)
+        # An active scan once added a header row that no fixed screen measurement saw, so every marked state is read.
+        try:
+            width, height = self.page.evaluate("[innerWidth,Math.round(document.querySelector('[data-cockpit-header]')?.getBoundingClientRect().height||0)]")
+            if width >= 768 and height:
+                self.report.setdefault('headerHeights', []).append({'state': label, 'height': height})
+        except Exception:
+            pass
         self.save()
 
     def check(self, what, passed, detail=None):
@@ -1498,6 +1505,9 @@ def main():
         run.start_recording()
         try:
             JOURNEYS[args.module](run)
+            heights = run.report.get('headerHeights', [])
+            if heights:
+                run.check('The header stayed one row in every marked state', all(h['height'] <= 64 for h in heights), [h for h in heights if h['height'] > 64][:4])
         except Exception as error:
             run.report['status'] = 'ERROR'
             run.report['failure'] = str(error)[:900]
