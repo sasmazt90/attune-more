@@ -202,7 +202,7 @@ function CareContent() {
         </div>
       )}
 
-      <section data-care-filters className="rounded-2xl border border-white/10 bg-cockpit-surface p-4 space-y-3">
+      <section data-care-filters className="rounded-2xl border border-white/10 bg-cockpit-surface p-4 short:p-3 space-y-3 short:space-y-2">
         <div className="flex flex-wrap items-end gap-3">
           <label className="text-sm font-medium">{i18nText("Bölge")}
             <select data-care-region value={region} onChange={e => { setRegion(e.target.value); writeCareRegion(e.target.value); }} className="mt-1 block min-h-11 rounded-lg border border-white/20 bg-slate-900 px-3 text-base">
@@ -222,6 +222,15 @@ function CareContent() {
               </button>
             ))}
           </div>
+          <details data-care-time-window className="text-sm [&[open]]:basis-full">
+            <summary className="min-h-11 flex items-center cursor-pointer font-medium text-slate-200">{i18nText("Zaman aralığı ve süre")}</summary>
+            <div className="flex flex-wrap gap-3 items-end pt-2">
+              <label>{i18nText("Uygun zaman başlangıcı")}<input type="datetime-local" value={availableStart} onChange={e=>setAvailableStart(e.target.value)} className="block mt-1 min-h-11 bg-slate-900 rounded-lg px-2 border border-white/20 max-w-full"/></label>
+              <label>{i18nText("Uygun zaman bitişi")}<input type="datetime-local" value={availableEnd} min={availableStart} onChange={e=>setAvailableEnd(e.target.value)} className="block mt-1 min-h-11 bg-slate-900 rounded-lg px-2 border border-white/20 max-w-full"/></label>
+              <label>{i18nText("Görüşme süresi")}<select value={duration} onChange={e=>setDuration(Number(e.target.value))} className="block mt-1 min-h-11 bg-slate-900 px-2 rounded-lg border border-white/20">{[30,45,60].map(v=><option key={v} value={v}>{i18nNode(v)}{i18nText(" dakika")}</option>)}</select></label>
+              <p data-care-timezone className="text-slate-300">{i18nText("Saatler bu cihazın saat diliminde gösterilir: ")}{timezone}</p>
+            </div>
+          </details>
         </div>
         <div role="group" aria-label={i18nText("Branş")} className="flex flex-wrap gap-2">
           {CARE_SPECIALTIES.map((spec) => (
@@ -235,15 +244,6 @@ function CareContent() {
             </button>
           ))}
         </div>
-        <details data-care-time-window className="text-sm">
-          <summary className="min-h-11 flex items-center cursor-pointer font-medium text-slate-200">{i18nText("Zaman aralığı ve süre")}</summary>
-          <div className="flex flex-wrap gap-3 items-end pt-2">
-            <label>{i18nText("Uygun zaman başlangıcı")}<input type="datetime-local" value={availableStart} onChange={e=>setAvailableStart(e.target.value)} className="block mt-1 min-h-11 bg-slate-900 rounded-lg px-2 border border-white/20 max-w-full"/></label>
-            <label>{i18nText("Uygun zaman bitişi")}<input type="datetime-local" value={availableEnd} min={availableStart} onChange={e=>setAvailableEnd(e.target.value)} className="block mt-1 min-h-11 bg-slate-900 rounded-lg px-2 border border-white/20 max-w-full"/></label>
-            <label>{i18nText("Görüşme süresi")}<select value={duration} onChange={e=>setDuration(Number(e.target.value))} className="block mt-1 min-h-11 bg-slate-900 px-2 rounded-lg border border-white/20">{[30,45,60].map(v=><option key={v} value={v}>{i18nNode(v)}{i18nText(" dakika")}</option>)}</select></label>
-            <p data-care-timezone className="text-slate-300">{i18nText("Saatler bu cihazın saat diliminde gösterilir: ")}{timezone}</p>
-          </div>
-        </details>
       </section>
 
       {provider && (
@@ -268,7 +268,7 @@ function CareContent() {
         {filteredSlots.length > 0 && (
           <div className="grid gap-3 md:grid-cols-2 short:grid-cols-2">
             {filteredSlots.map((slot) => (
-              <article key={slot.id} data-care-slot className="rounded-2xl border border-white/10 bg-cockpit-surface p-4 flex flex-col justify-between gap-3">
+              <article key={slot.id} data-care-slot className="rounded-2xl border border-white/10 bg-cockpit-surface p-4 short:p-3 flex flex-col short:flex-row short:items-end justify-between gap-3">
                 <div className="space-y-1 min-w-0">
                   <h3 className="text-lg font-bold break-words">{i18nNode(slot.providerName)}</h3>
                   <p className="text-sm text-slate-300">{i18nNode(slot.specialty)}</p>
@@ -279,7 +279,7 @@ function CareContent() {
                 </div>
                 <button
                   onClick={() => handleSelectSlot(slot)}
-                  className="self-end min-h-11 px-5 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold inline-flex items-center gap-2"
+                  className="self-end shrink-0 min-h-11 px-5 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold inline-flex items-center gap-2"
                 >
                   <span>{i18nText("Randevuyu incele")}</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />

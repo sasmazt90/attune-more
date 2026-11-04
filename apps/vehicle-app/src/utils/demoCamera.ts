@@ -16,6 +16,10 @@ export async function acquireCamera(constraints:MediaStreamConstraints):Promise<
   const instruction=document.createElement('p');instruction.textContent=translateText('aaos.sasmaz.digital/capture sayfasına bu eşleştirme kodunu girin.');
   const code=document.createElement('textarea');code.readOnly=true;code.value=pair.senderKey;code.style.width='100%';
   const cancel=document.createElement('button');cancel.textContent=translateText('İptal');
+  // Demo-only pairing step, in the application's colours.
+  dialog.style.cssText='background:#0c1424;color:#f3f7fc;border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:20px;width:min(32rem,90vw)';
+  code.style.cssText='width:100%;margin:12px 0;padding:10px;border-radius:10px;background:#05090f;color:#f3f7fc;border:1px solid rgba(255,255,255,.2)';
+  cancel.style.cssText='min-height:44px;min-width:44px;padding:0 16px;border-radius:12px;border:1px solid rgba(255,255,255,.2)';
   dialog.append(label,instruction,code,cancel);document.body.append(dialog);dialog.showModal();
   const canvas=document.createElement('canvas'),context=canvas.getContext('2d');
   const ws=new WebSocket(`${location.protocol==='https:'?'wss:':'ws:'}//${location.host}/bridge/receiver`);ws.binaryType='arraybuffer';

@@ -36,6 +36,8 @@ MEASURE = """()=>{const h=document.querySelector('[data-cockpit-header]'),r=h?h.
 TIMING = """window.__qaTimings=[];window.addEventListener('attune-speech-timing',e=>window.__qaTimings.push(e.detail));"""
 # Reads the value the page drew for its random generator. Values are unchanged.
 SEED_OBSERVER = """(()=>{const original=crypto.getRandomValues.bind(crypto);crypto.getRandomValues=function(a){const r=original(a);if(a instanceof Uint32Array&&a.length===1)window.__observedDinSeed=a[0];return r;};})();"""
+# The camera pairing code is a short-lived credential. It stays out of recordings.
+MASK_PAIRING = """(()=>{const hide=()=>document.querySelectorAll('dialog textarea').forEach(e=>e.style.webkitTextSecurity='disc');new MutationObserver(hide).observe(document,{childList:true,subtree:true});})();"""
 # Heard levels in dBFS peak for the scripted listener. It responds to real audio on the tested channel.
 LISTENER = {250: -50, 500: -55, 1000: -60, 2000: -60, 4000: -55, 8000: -50}
 RIGHT_EAR_OFFSET = 5
@@ -114,12 +116,13 @@ class Web:
             launch += ['--use-fake-device-for-media-stream', '--use-file-for-fake-video-capture=' + str(self.camera)]
         env = {**os.environ, 'PULSE_SOURCE': 'attune_mic_source', 'PULSE_SINK': 'attune_out', 'DISPLAY': args.display, 'TZ': args.timezone}
         credentials = json.loads((QA / 'access.json').read_text())
-        browser = playwright.chromium.launch(executable_path='/usr/bin/google-chrome', headless=False, env=env, ignore_default_args=['--mute-audio', '--enable-automation'], args=launch)
-        context = browser.new_context(http_credentials={'username': credentials['username'], 'password': credentials['password']}, ignore_https_errors=True,
-                                      viewport={'width': 1280, 'height': 800}, permissions=['camera', 'microphone'], timezone_id=args.timezone, locale='en-US')
+        # A kept profile, as a person's browser would be, so saved records carry between journeys.
+        context = playwright.chromium.launch_persistent_context(args.profile, executable_path='/usr/bin/google-chrome', headless=False, env=env, ignore_default_args=['--mute-audio', '--enable-automation'], args=launch,
+                                                                http_credentials={'username': credentials['username'], 'password': credentials['password']}, ignore_https_errors=True,
+                                                                viewport={'width': 1280, 'height': 800}, permissions=['camera', 'microphone'], timezone_id=args.timezone, locale='en-US')
         context.add_init_script(TIMING)
         context.add_init_script(SEED_OBSERVER)
-        return context.new_page(), browser.close
+        return (context.pages[0] if context.pages else context.new_page()), context.close
 
     def home(self, page):
         page.goto('https://' + HOST, wait_until='networkidle')
@@ -155,6 +158,8 @@ class Aaos:
         page = next(p for c in browser.contexts for p in c.pages if p.url.startswith('http://127.0.0.1:3000'))
         page.add_init_script(TIMING)
         page.add_init_script(SEED_OBSERVER)
+        page.add_init_script(MASK_PAIRING)
+        page.evaluate(MASK_PAIRING)
         return page, browser.close
 
     def home(self, page):
@@ -195,14 +200,17 @@ def allow_local_storage(run):
     page.get_by_role('link', name='Privacy & Permissions', exact=True).click()
     page.locator('input[type=checkbox]').first.wait_for()
     page.wait_for_timeout(600)
-    turned_on = []
-    for box in page.locator('main input[type=checkbox]').all():
-        label = box.evaluate("e=>(e.closest('label')||e.parentElement).innerText")
-        if re.search(r'(store|save|keep)', label, re.I) and not re.search(r'cloud|roboflow|hosted', label, re.I) and box.is_enabled() and not box.is_checked():
-            box.check()
-            turned_on.append(label[:70])
-            page.wait_for_timeout(120)
+    turned_on, refused = [], []
+    # Some preferences depend on another one, so a second pass catches those.
+    for _ in range(2):
+        for box in page.locator('main input[type=checkbox]').all():
+            label = box.evaluate("e=>(e.closest('label')||e.parentElement).innerText")
+            if re.search(r'(store|save|keep)', label, re.I) and not re.search(r'cloud|roboflow|hosted', label, re.I) and box.is_enabled() and not box.is_checked():
+                box.click()
+                page.wait_for_timeout(250)
+                (turned_on if box.is_checked() else refused).append(label[:70])
     run.report['storagePreferencesTurnedOn'] = turned_on
+    run.report['storagePreferencesRefused'] = sorted(set(refused) - set(turned_on))
     page.locator('nav a[href="/"]').first.click()
     page.wait_for_timeout(600)
 
@@ -400,7 +408,7 @@ def skin(run):
     while time.time() < deadline and not page.locator('[data-skin-result]').count():
         text = page.locator('main').inner_text()
         leaked += page.locator('[data-skin-photo-empty]').count()
-        match = re.search(r'Stage (\d)/3: (Front|Right|Left)', text)
+        match = re.search(r'Stage (\d)/3: (?:Anatomical )?(Front|Right|Left)', text, re.I)
         if match and match[2].upper() != pose:
             pose = match[2].upper()
             run.adapter.set_pose(page, pose)
@@ -517,11 +525,18 @@ def dental(run):
     (run.out / 'record.json').write_text(json.dumps(strip_large(record), indent=1, ensure_ascii=False))
     forward = page.get_by_role('button', name=re.compile('next dental view', re.I)).first
     slides = {}
-    for i in range(4):
+    # Overview, then the four views.
+    for i in range(5):
         slide = page.locator('[data-dental-slide]').first
-        name = slide.get_attribute('data-dental-slide') if slide.count() else str(i)
+        name = slide.get_attribute('data-dental-slide') if slide.count() else 'OVERVIEW'
         slides[name] = slide.get_attribute('data-dental-slide-status') if slide.count() else None
+        run.mark('Dental ' + name)
         run.shot('view-' + str(name))
+        detail = page.get_by_role('button', name='Detail view', exact=True)
+        if detail.count() and detail.first.is_visible():
+            detail.first.click()
+            run.dwell(1400)
+            run.shot('view-' + str(name) + '-detail')
         for layer in page.locator('[data-dental-layer]').all():
             if layer.is_visible():
                 layer.click()
@@ -532,10 +547,11 @@ def dental(run):
             run.report['biteConfidenceNote'] = page.locator('[data-dental-bite-confidence]').count() == 1
             run.report['biteAlignmentText'] = slide.inner_text()[:600]
             run.dwell(2000)
-        if i < 3 and forward.count() and forward.is_enabled():
+        if i < 4 and forward.count() and forward.is_enabled():
             forward.click()
             run.dwell(1200)
     run.report['slides'] = slides
+    run.check('All four view results were shown', all(slides.get(p) == 'measured' for p in ('FRONT', 'RIGHT', 'LEFT', 'BITE')), slides)
     walk(run, '[data-dental-result]', 'result')
     open_info(run, '[data-dental-result]', 'result')
     responsive(run, '[data-dental-result]')
@@ -588,6 +604,13 @@ def hearing_prepare(run, output=None):
         listen = page.get_by_role('button', name=re.compile(button.replace('Listen to ', ''), re.I)).first
         listen.wait_for()
         if output:
+            # Spoken guidance plays first. Only the channel sample may set the path gain.
+            quiet = time.time()
+            limit = time.time() + 30
+            while time.time() < limit and time.time() - quiet < .6:
+                if max(output.levels) > -75:
+                    quiet = time.time()
+                page.wait_for_timeout(50)
             output.reset_peak()
         listen.click()
         page.wait_for_timeout(1600)
@@ -690,6 +713,7 @@ def tone(run):
     leak = {'leftSampleOnRight': gains['left'][1], 'rightSampleOnLeft': gains['right'][0]}
     separated = gains['left'][0] - gains['left'][1] > 20 and gains['right'][1] - gains['right'][0] > 20
     run.report['audioPath'] = {'gainDb': round(gain, 1), 'channelSeparated': separated, **leak}
+    run.check('Channel sample level is plausible', abs(gain) < 20, {'gainDb': round(gain, 1)})
     run.check('Channel samples reached the correct channel', separated, run.report['audioPath'])
     page.get_by_role('button', name=re.compile('pure.?tone', re.I)).first.click()
     run.mark('Pure-tone test started')
@@ -805,8 +829,8 @@ def mental(run):
         page.wait_for_timeout(1200)
         users = page.locator('[data-chat-author=USER]').count()
         ais = page.locator('[data-chat-author=AI]').count()
-        said = time.time()
         subprocess.Popen(['paplay', '--device=attune_mic', str(clip)]).wait()
+        said = time.time()
         run.mark('Turn {} spoken'.format(number))
         page.wait_for_function('n=>document.querySelectorAll("[data-chat-author=USER]").length>n', arg=users, timeout=120000)
         heard = time.time()
@@ -845,6 +869,12 @@ def mental(run):
     run.dwell(2000)
     run.mark('Summary')
     run.shot('summary')
+    notice = page.get_by_role('dialog')
+    if notice.count():
+        run.report['completionNotice'] = notice.inner_text()[:300]
+        run.dwell(1500)
+        notice.get_by_role('button', name=re.compile('^(OK|Done)$', re.I)).first.click()
+        run.dwell(800)
     run.report['record'] = {k: record.get(k) for k in ('id', 'date', 'summaryText', 'themes', 'moodTrend', 'providerType', 'transcriptConsented', 'completed')}
     transcript = record.get('transcript') or []
     run.report['transcript'] = [{'sender': m.get('sender'), 'text': m.get('text')} for m in transcript]
@@ -861,7 +891,121 @@ def mental(run):
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
 
-JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental}
+# ---------------------------------------------------------------- Specialists and appointments
+
+def care(run):
+    page = run.page
+    set_english(run)
+    page.evaluate("()=>{localStorage.removeItem('attune.care.region.v1');localStorage.removeItem('attune.care.appointments.v1');}")
+    requests = []
+    page.on('request', lambda r: requests.append(json.loads(r.post_data or '{}')) if r.url.split('?')[0].endswith('/api/care/match') else None)
+    page.get_by_role('link', name='Specialists & Appointments', exact=True).click()
+    page.locator('[data-care-filters]').wait_for()
+    run.dwell(1500)
+    run.mark('Specialists page')
+    run.shot('care-no-region')
+    run.check('No region is assumed', page.locator('[data-care-region]').input_value() == '' and page.locator('[data-care-region-required]').count() == 1)
+    run.check('No search runs without a region', not requests, requests[:1])
+    run.report['layout'] = {'care': page.evaluate(MEASURE)}
+    run.check('First viewport has no sideways overflow', not run.report['layout']['care']['sideways'])
+    page.locator('[data-care-region]').select_option('Berlin')
+    page.get_by_role('button', name='Dermatology', exact=True).click()
+    slot = page.locator('[data-care-slot]').first
+    slot.wait_for(timeout=20000)
+    run.dwell(1200)
+    run.mark('Options for specialty and region')
+    run.shot('care-results')
+    run.check('Search used the chosen region, in the English interface', requests[-1].get('preferredCity') == 'Berlin', {k: requests[-1].get(k) for k in ('specialty', 'preferredCity', 'timeZone')})
+    run.report['deviceTimeZone'] = page.evaluate('Intl.DateTimeFormat().resolvedOptions().timeZone')
+    run.check('The device time zone is sent', requests[-1].get('timeZone') == run.report['deviceTimeZone'], requests[-1].get('timeZone'))
+    text = page.locator('main').inner_text()
+    run.check('The page says no appointment is booked here', 'No appointment is booked here' in text)
+    run.check('No technical labels on the page', not re.search(r'PUBLIC_|LIVE_|providerType|sourceId|Smart Doctor Access', text), None)
+    page.locator('[data-care-region]').select_option('İstanbul')
+    page.locator('[data-care-slot]').first.wait_for(timeout=20000)
+    run.dwell(800)
+    run.check('Region change searches that region', requests[-1].get('preferredCity') == 'İstanbul')
+    page.locator('[data-care-region]').select_option('Berlin')
+    slot = page.locator('[data-care-slot]').first
+    page.wait_for_timeout(1500)
+    slot.get_by_role('button', name='Review appointment', exact=True).click()
+    dialog = page.get_by_role('dialog')
+    dialog.wait_for()
+    run.dwell(1200)
+    run.shot('care-consent')
+    dialog.get_by_role('checkbox').check()
+    dialog.get_by_role('button', name='Confirm and continue').click()
+    run.dwell(1200)
+    run.mark('Referral ready')
+    run.shot('care-handoff')
+    run.check('No appointment is claimed yet', not page.evaluate("JSON.parse(localStorage.getItem('attune.care.appointments.v1')||'[]').length"))
+    link = page.locator('[data-care-open-provider]')
+    run.report['providerLink'] = link.get_attribute('href')
+    if run.args.platform == 'web':
+        with page.context.expect_page() as popup:
+            link.click()
+        popup.value.close()
+    else:
+        link.click()
+        page.wait_for_timeout(1800)
+        # The native shell asks before leaving the app. Stay in the app.
+        subprocess.run([ADB, '-s', 'emulator-5554', 'shell', 'input', 'keyevent', '4'], stdin=subprocess.DEVNULL, check=False)
+    page.locator('[data-care-return]').wait_for()
+    run.dwell(1500)
+    run.mark('Back from the provider')
+    run.shot('care-return')
+    run.check('Opening the provider saved nothing', not page.evaluate("JSON.parse(localStorage.getItem('attune.care.appointments.v1')||'[]').length"))
+    run.check('The user is asked whether they booked', page.locator('[data-care-return]').inner_text().find('Did you book') >= 0)
+    page.locator('[data-care-return-yes]').click()
+    form = page.get_by_role('dialog')
+    form.wait_for()
+    run.dwell(800)
+    run.check('The form has no meeting link field', form.locator('input[type=url]').count() == 0 and not re.search(r'link|url', form.inner_text(), re.I))
+    form.locator('[data-appointment-provider]').fill('Dr. Weber Praxis')
+    form.locator('[data-appointment-time]').fill('2030-03-05T14:30')
+    form.locator('[data-appointment-address]').fill('Hauptstr. 1, Berlin')
+    run.dwell(800)
+    run.shot('care-form')
+    form.locator('[data-appointment-save]').click()
+    row = page.locator('[data-appointment-row]')
+    row.first.wait_for()
+    run.dwell(1200)
+    run.mark('Appointment saved')
+    run.shot('care-saved')
+    shown = row.first.inner_text()
+    run.report['savedRow'] = shown
+    run.check('The saved row shows the entered local time', re.search(r'2:30|14:30', shown) is not None and '2030' in shown, shown[:120])
+    run.check('No UTC on the saved row', 'UTC' not in shown)
+    page.reload(wait_until='networkidle')
+    row = page.locator('[data-appointment-row]')
+    row.first.wait_for()
+    run.check('The appointment survives a refresh', row.count() == 1)
+    row.first.locator('[data-appointment-edit]').click()
+    form = page.get_by_role('dialog')
+    form.wait_for()
+    form.locator('[data-appointment-type=ONLINE]').check()
+    run.dwell(500)
+    run.check('An online appointment has no address field', form.locator('[data-appointment-address]').count() == 0)
+    form.locator('[data-appointment-save]').click()
+    page.wait_for_timeout(800)
+    stored = page.evaluate("JSON.parse(localStorage.getItem('attune.care.appointments.v1')||'[]')")
+    run.check('Editing keeps one record and drops the address', len(stored) == 1 and stored[0]['type'] == 'ONLINE' and 'address' not in stored[0], stored)
+    run.shot('care-edited')
+    page.locator('[data-appointment-delete]').first.click()
+    confirm = page.get_by_role('dialog')
+    confirm.wait_for()
+    run.dwell(800)
+    run.shot('care-delete')
+    run.check('Deleting says the provider booking is not cancelled', 'not cancelled' in confirm.inner_text())
+    confirm.locator('[data-appointment-delete-confirm]').click()
+    page.locator('[data-appointments-empty]').wait_for()
+    page.reload(wait_until='networkidle')
+    page.locator('[data-appointments-empty]').wait_for()
+    run.check('The deleted appointment stays deleted after a refresh', not page.evaluate("JSON.parse(localStorage.getItem('attune.care.appointments.v1')||'[]').length"))
+    run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
+
+
+JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care}
 
 
 def main():
@@ -879,6 +1023,7 @@ def main():
     parser.add_argument('--display', default=':99')
     parser.add_argument('--video-size', default='1280x800')
     parser.add_argument('--timezone', default='Europe/Berlin')
+    parser.add_argument('--profile', default=str(QA / 'profile-web'))
     parser.add_argument('--pose-file', default=str(QA / 'camera-pose.txt'))
     parser.add_argument('--pair-file', default=str(QA / 'camera-pair.json'))
     args = parser.parse_args()

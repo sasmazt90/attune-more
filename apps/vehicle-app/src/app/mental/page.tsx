@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import { useMentalConversation } from '../../utils/useMentalConversation';
 import { mentalThemeStats, translateMood } from '../../utils/mentalHistory';
+import { formatPercent } from '../../i18n/core';
 import { isDemoMode, STORAGE_KEYS } from '../../utils/attuneMode';
 import { RecordHistory } from '../../components/RecordHistory';
 import { spokenText } from '../../utils/spokenText';
@@ -90,7 +91,7 @@ export default function MentalPage() {
       <div className="flex items-center gap-2"><h2 className="font-bold">{i18nText("Seans temaları")}</h2><InformationButton title={i18nText("Seans temaları")}><p>{i18nText("Bu grafik tanı veya ölçülmüş stres düzeyi değildir; tamamlanmış ve saklama izinli görüşmelerdeki tema paylarını gösterir. Çok temalı görüşmeler her farklı temaya bir kez katkı verir; yüzdeler toplamı 100 olacak şekilde yuvarlanır. Tamamlanma ve izin bilgisi doğrulanamayan eski kayıtlar grafiğe katılmaz.")}</p></InformationButton></div>
 
       {!stats.mentions ? <p>{i18nText("Henüz tema verisi yok.")}</p> : <>
-        <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label={i18nText("Görüşme tema payları")} className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{i18nNode(r.theme)}: %{i18nNode(r.percent)} ({i18nNode(r.count)}/{i18nNode(stats.mentions)}{i18nText(" tema kaydı)")}</button>)}</div></div>
+        <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label={i18nText("Görüşme tema payları")} className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{i18nNode(r.theme)}: {formatPercent(r.percent)} ({i18nNode(r.count)}/{i18nNode(stats.mentions)}{i18nText(" tema kaydı)")}</button>)}</div></div>
         <p className="text-xs">{i18nText(`${stats.sessions} tamamlanmış izinli görüşme`)} · {i18nText(`${stats.mentions} tema kaydı`)}.</p>
         {theme && <div data-selected-theme><h3 className="font-bold">{i18nNode(theme)}</h3>{c.history.filter(h => [2,3].includes(h.schemaVersion || 0) && h.completed && h.consented && h.themes.some(value=>canonicalMentalTheme(value)===theme)).map(h => <p className="text-sm mt-2" key={h.id}>{translateMood(h.summaryText)}</p>)}</div>}
       </>}

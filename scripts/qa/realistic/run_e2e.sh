@@ -6,9 +6,12 @@ PLATFORM=$1; MODULE=$2; NAME=$3; RECORD=${4:-}
 Q=/var/lib/attune/qa
 I=/opt/attune-staging/inputs
 R=/opt/attune/scripts/qa/realistic
+# Dry runs only: a dev folder overrides the deployed scripts. Final recordings have no dev folder.
+[ -d $Q/dev ] && R=$Q/dev
 OUT=/var/lib/attune/evidence/$NAME
 A=/opt/android-sdk/platform-tools/adb
 U=$(id -u attune)
+CAPTURE=()
 mkdir -p "$OUT" "$Q/realistic"; chown -R attune:attune "$OUT" "$Q/realistic"
 P="runuser -u attune -- env XDG_RUNTIME_DIR=/run/user/$U HOME=/home/attune PULSE_RUNTIME_PATH=/run/user/$U/pulse"
 loginctl enable-linger attune 2>/dev/null
@@ -30,11 +33,14 @@ if [ "$PLATFORM" = web ]; then
 else
   # A vehicle is in a real time zone. The emulator image defaults to UTC, which would show UTC times.
   $A -s emulator-5554 shell cmd alarm set-timezone Europe/Berlin </dev/null >/dev/null 2>&1 || $A -s emulator-5554 shell setprop persist.sys.timezone Europe/Berlin </dev/null >/dev/null 2>&1
-  $A -s emulator-5554 shell pm grant com.attune.more.automotive android.permission.RECORD_AUDIO </dev/null >/dev/null 2>&1
+  $A -s emulator-5554 shell pm grant more.attune.automotive.prototype.clouddemo android.permission.RECORD_AUDIO </dev/null >/dev/null 2>&1
+  # Record exactly the emulator's 1280x800 display at native size.
+  ORIGIN=$(DISPLAY=:99 xwininfo -root -tree 2>/dev/null | grep 'Android Emulator' | head -1 | sed -E 's/.*\+([0-9]+)\+([0-9]+)$/\1,\2/')
+  CAPTURE=(--display ":99+${ORIGIN:-0,0}" --video-size 1280x800)
 fi
 
 y4m() { # source png, target y4m
-  ffmpeg -loglevel error -y -i "$1" -pix_fmt yuv420p -f yuv4mpegpipe "$2" </dev/null; chown attune:attune "$2"
+  ffmpeg -loglevel error -y -i "$1" -vf crop=1446:1080 -pix_fmt yuv420p -f yuv4mpegpipe "$2" </dev/null; chown attune:attune "$2"
 }
 SENDER=
 start_sender() { # prefix, poses
@@ -42,11 +48,16 @@ start_sender() { # prefix, poses
   /opt/attune-venv/bin/python $R/reference_camera_sender.py --prefix "$1" --poses "$2" > "$OUT/sender.log" 2>&1 &
   SENDER=$!
 }
+# A camera has one frame size, and the bridge accepts at most 1080 rows. Supplied photos are 1446 to 1448
+# wide and 1086 or 1087 high, so every frame is centre-cropped to 1446x1080. Pixels are never scaled.
+CROP=crop=1446:1080
+fit() { ffmpeg -loglevel error -y -i "$1" -vf "$CROP" "$2" </dev/null; }
 pngs() { # prefix, FRONT file, RIGHT file, LEFT file, [BITE file]
-  cp "$2" "$1FRONT.png"; cp "$3" "$1RIGHT.png"; cp "$4" "$1LEFT.png"; [ -n "${5:-}" ] && cp "$5" "$1BITE.png"; chown attune:attune "$1"*.png
+  fit "$2" "$1FRONT.png"; fit "$3" "$1RIGHT.png"; fit "$4" "$1LEFT.png"; [ -n "${5:-}" ] && fit "$5" "$1BITE.png"; chown attune:attune "$1"*.png
 }
 EXTRA=()
 case "$PLATFORM-$MODULE" in
+  *-care) EXTRA=(--input-map '{"appointment":"Scripted example; no real booking was made"}') ;;
   web-skin)
     y4m $Q/inputs/Char11-2.png $Q/e2e-skin-FRONT.y4m; y4m $Q/inputs/Char11-1.png $Q/e2e-skin-RIGHT.y4m; y4m $Q/inputs/Char11-3.png $Q/e2e-skin-LEFT.y4m
     EXTRA=(--frames "$Q/e2e-skin-POSE.y4m" --poses FRONT,RIGHT,LEFT --input-map '{"FRONT":"Char11-2","RIGHT":"Char11-1","LEFT":"Char11-3"}') ;;
@@ -67,6 +78,7 @@ case "$PLATFORM-$MODULE" in
   *-tone) EXTRA=(--input-map '{"listener":"Scripted, responds to real audio on the tested channel at set digital levels."}') ;;
 esac
 cp -f $R/*.py $Q/realistic/; chown -R attune:attune $Q/realistic
+echo "harness $R $(sha256sum $R/e2e_modules.py | cut -c1-16)"
 cd $Q/realistic
 ENVIRONMENT="DISPLAY=:99 XDG_RUNTIME_DIR=/run/user/$U HOME=/home/attune PULSE_RUNTIME_PATH=/run/user/$U/pulse TZ=Europe/Berlin"
 if [ "$MODULE" = vision ]; then
@@ -79,9 +91,9 @@ if [ "$MODULE" = vision ]; then
     done
     chown attune:attune $Q/web-vision-*.jpg
   fi
-  runuser -u attune -- env $ENVIRONMENT PYTHONPATH=$Q/realistic /opt/attune-venv/bin/python vision_realistic.py --platform "$PLATFORM" --scenario full --clips $Q/vision-speech/en --out "$OUT" $RECORD
+  runuser -u attune -- env $ENVIRONMENT PYTHONPATH=$Q/realistic /opt/attune-venv/bin/python vision_realistic.py --platform "$PLATFORM" --scenario full --clips $Q/vision-speech/en --out "$OUT" "${CAPTURE[@]}" $RECORD
 else
-  runuser -u attune -- env $ENVIRONMENT PYTHONPATH=$Q/realistic /opt/attune-venv/bin/python e2e_modules.py --module "$MODULE" --platform "$PLATFORM" --out "$OUT" "${EXTRA[@]}" $RECORD
+  runuser -u attune -- env $ENVIRONMENT PYTHONPATH=$Q/realistic /opt/attune-venv/bin/python e2e_modules.py --module "$MODULE" --platform "$PLATFORM" --out "$OUT" "${EXTRA[@]}" "${CAPTURE[@]}" $RECORD
 fi
 STATUS=$?
 [ -n "$SENDER" ] && { kill $SENDER 2>/dev/null; wait $SENDER 2>/dev/null; }

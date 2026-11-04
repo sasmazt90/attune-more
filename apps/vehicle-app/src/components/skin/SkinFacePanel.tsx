@@ -1,4 +1,5 @@
 'use client';
+import {VIDEO_POSTER} from '../../utils/videoPoster';
 import {Loader2} from 'lucide-react';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
@@ -206,7 +207,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
         {/* Actual decoded video dimensions keep landmarks aligned without cropping. */}
         {isLiveVideo && mode === 'scan' ? (
           <div data-skin-preview-source className="absolute" style={{ width: `${100 / crop.width}%`, height: `${100 / crop.height}%`, left: `${-100 * crop.x / crop.width}%`, top: `${-100 * crop.y / crop.height}%` }}>
-            <video ref={videoRef} onLoadedMetadata={updateVideoRatio} onLoadedData={updateVideoRatio} autoPlay playsInline muted className="w-full h-full object-fill" data-skin-live-video />
+            <video poster={VIDEO_POSTER} ref={videoRef} onLoadedMetadata={updateVideoRatio} onLoadedData={updateVideoRatio} autoPlay playsInline muted className="w-full h-full object-fill" data-skin-live-video />
             {landmarks && (
               <svg data-skin-live-landmarks viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none" aria-label={i18nText("Gerçek yüz noktaları")}>
                 {landmarks.map((point, index) => <circle key={index} cx={point.x * 100} cy={point.y * 100} r=".15" fill="#67e8f9" />)}

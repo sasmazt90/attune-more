@@ -19,7 +19,7 @@ export DISPLAY=:99
 pids=()
 cleanup() { for pid in "${pids[@]}"; do kill "$pid" 2>/dev/null || true; done; wait || true; }
 trap cleanup EXIT INT TERM
-Xvfb :99 -screen 0 1280x800x24 -nolisten tcp & pids+=("$!")
+Xvfb :99 -screen 0 2100x1100x24 -nolisten tcp & pids+=("$!")
 for ((n=0;n<50;n++)); do xdpyinfo -display :99 >/dev/null 2>&1 && break; sleep .1; done
 xdpyinfo -display :99 >/dev/null
 # Isolated PulseAudio devices for optional browser PCM transport.

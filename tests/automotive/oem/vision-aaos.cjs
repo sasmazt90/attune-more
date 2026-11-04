@@ -1,3 +1,4 @@
+// NOT VALID since the one-answer limit: this answers "I can't see it" on every trial. Use scripts/qa/realistic/vision_realistic.py.
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');const {open,root}=require('./aaos-harness.cjs');
 const {deleteSynthetic,referral}=require('./result-coverage.cjs');
 (async()=>{

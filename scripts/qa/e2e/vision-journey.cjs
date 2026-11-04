@@ -1,3 +1,4 @@
+// NOT VALID since the one-answer limit: this answers "I can't see it" on every trial. Use scripts/qa/realistic/vision_realistic.py.
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');const {open,root,fixtureRoot,language}=require('./harness.cjs');
 const EYE={tr:[/Sağ göz\s*[·•]/,/Sol göz\s*[·•]/],en:[/Right eye\s*[·•]/,/Left eye\s*[·•]/],de:[/Rechtes Auge\s*[·•]/,/Linkes Auge\s*[·•]/]}[language];
 const {deleteSynthetic,referral}=require('./result-coverage.cjs');

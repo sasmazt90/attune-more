@@ -62,7 +62,13 @@ build's content security policy and the Android debug shell expect.
 | Script | Boundary |
 |---|---|
 | `e2e/skin-journey.cjs` | Real browser and inference: three poses, fusion, results, history, delete |
-| `e2e/vision-journey.cjs`, `e2e/hearing-journey.cjs` | Real browser, two complete assessments |
+| `e2e/hearing-journey.cjs` | Real browser, two complete assessments |
+| `e2e/vision-journey.cjs`, `tests/automotive/oem/vision-aaos.cjs` | **Not valid since the one-answer limit.** They answer "I can't see it" on every trial, so the assessment now stops at the second. Use `realistic/vision_realistic.py`. |
+| `realistic/e2e_modules.py`, `realistic/run_e2e.sh` | Recorded English journeys on the hosts: Skin, Dental, Hearing digits-in-noise and pure-tone, Mental |
+| `realistic/vision_realistic.py` | Recorded Vision journey with real ASR and per-trial scoring |
+| `realistic/persistence_check.py` | Saved records through refresh, re-entry, host restart and delete |
+| `realistic/tts_distribution.py` | Mental speech generation timing: cold, normal, after a cancelled request |
+| `realistic/skin_contract_readback.py` | Skin models and methods that actually ran, with hashes compared to disk |
 | `e2e/mental-lifecycle.cjs`, `e2e/mental-boundaries.cjs` | Real browser, **mocked provider** |
 | `e2e/*-boundaries.cjs` | Interruption boundaries; dispatched events are labelled in the evidence |
 | `e2e/dental-journey.cjs` | Cross-module regression through the shared native worker |

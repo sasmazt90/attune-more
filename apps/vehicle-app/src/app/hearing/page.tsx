@@ -41,6 +41,7 @@ export default function HearingPage(){
 
  const [thresholds,setThresholds]=useState<ToneThreshold[]>([]),[stage,setStage]=useState(''),[results,setResults]=useState<Record<string,any>|null>(null),[answer,setAnswer]=useState(''),[tripletIndex,setTripletIndex]=useState(0),[digitReady,setDigitReady]=useState(false);
  useLocaleSwitchLock('hearing',!['idle','result','paused'].includes(phase));
+ useEffect(()=>{if(phase==='result')window.scrollTo({top:0,behavior:'instant'});},[phase]);
  const [previousDin,setPreviousDin]=useState<DinRecord|undefined>();
  useEffect(()=>{if(phase!=='result'||!results||results.thresholds)return;let live=true;void prepareHealthRecords('hearing').then(records=>{if(live)setPreviousDin((records as DinRecord[]).filter(r=>r.id!==results.id&&!(r as {thresholds?:unknown}).thresholds&&r.methodVersion===results.methodVersion).sort((a,b)=>Date.parse(b.timestamp||'')-Date.parse(a.timestamp||''))[0]);}).catch(()=>{});return()=>{live=false;};},[phase,results]);
  useEffect(()=>{if(phase!=='result'||!results?.thresholds)return;let live=true;const refresh=()=>{void prepareHealthRecords('hearing').then(records=>{if(live)setPreviousResult(previousHearingRecord(results as ToneRecord,records));}).catch(()=>{if(live)setPreviousResult(undefined);});};refresh();window.addEventListener('attune-records',refresh);window.addEventListener('storage',refresh);return()=>{live=false;window.removeEventListener('attune-records',refresh);window.removeEventListener('storage',refresh);};},[phase,results]);

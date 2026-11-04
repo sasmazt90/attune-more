@@ -14,6 +14,8 @@ apps/vehicle-app/public/audio/vision-speech/** -text
 apps/vehicle-app/public/audio/vision-speech/manifest.json whitespace=cr-at-eol
 # User-pinned model/head/parity hashes identify exact package bytes on every OS.
 services/core-api/models/dryness-calibrated-v3/** -text whitespace=cr-at-eol
+# The V5 verifier is checked by SHA-256 at load. Any other bytes make the model unavailable.
+services/core-api/models/acne-v5-preview/*.json -text whitespace=cr-at-eol
 # Vendored package manifests pin exact bytes, including upstream license/source.
 vendor/braces/** -text whitespace=cr-at-eol
 vendor/*.tgz -text

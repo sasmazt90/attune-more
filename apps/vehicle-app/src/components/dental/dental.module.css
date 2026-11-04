@@ -87,7 +87,7 @@
  .journey:has(>[aria-current=step]:last-child):not(:has(.skipped)){display:none}
  .capture{grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:8px}
  .panel{padding:10px;border-radius:16px}
- .preview{width:min(100%,calc((100dvh - 11rem)*var(--preview-ratio,1.33)));margin-inline:auto}
+ .preview{width:min(100%,calc((100dvh - 15.5rem)*var(--preview-ratio,1.33)));margin-inline:auto}
  .hold{margin:6px 0 4px}
  .tabs button{min-height:44px;padding:6px 14px}
 }
