@@ -33,6 +33,11 @@ def test_v5_manifest_bytes_and_declared_hash():
     assert json.loads(raw)['verifier']['sha256'] == HASH
 
 
+def test_deploy_records_exactly_these_hashes():
+    source = (ROOT / 'scripts/aws/deploy_host.py').read_text('utf8')
+    assert source.count(HASH) == 1 and source.count(MANIFEST_HASH) == 1
+
+
 def test_git_stores_these_files_without_conversion():
     for name in ('manifest.json', 'verifier-v5.json'):
         path = 'services/core-api/models/acne-v5-preview/' + name

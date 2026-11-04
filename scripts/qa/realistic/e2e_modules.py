@@ -8,6 +8,7 @@ Run on the host as the attune user, through run_e2e.sh.
 """
 import argparse
 import datetime as dt
+import hashlib
 import json
 import math
 import os
@@ -139,6 +140,9 @@ class Web:
     def resize(self, page, width, height):
         page.set_viewport_size({'width': width, 'height': height})
 
+    def emulate(self, page, width=1280, height=800):
+        page.set_viewport_size({'width': width, 'height': height})
+
     def close(self):
         if self.handle:
             self.handle.close()
@@ -190,6 +194,16 @@ class Aaos:
 
     def resize(self, page, width, height):
         pass
+
+    def emulate(self, page, width=None, height=None):
+        """Other vehicle sizes inside the real WebView, with its native stylesheet. No size means the real display."""
+        client = page.context.new_cdp_session(page)
+        if width:
+            client.send('Emulation.setDeviceMetricsOverride', {'width': width, 'height': height, 'deviceScaleFactor': 1, 'mobile': False})
+        else:
+            client.send('Emulation.clearDeviceMetricsOverride')
+        client.detach()
+        page.wait_for_timeout(300)
 
     def close(self):
         pass
@@ -447,15 +461,26 @@ def skin(run):
     record = records[0]
     run.report['record'] = {'id': record.get('id'), 'date': record.get('date') or record.get('timestamp')}
     (run.out / 'record.json').write_text(json.dumps(strip_large(record), indent=1, ensure_ascii=False))
+    # Overview: every located finding first, then each finding alone, then all of them again.
     overview = page.locator('[data-skin-overview-finding]')
-    for i in range(min(overview.count(), 12)):
-        overview.nth(i).click()
-        run.dwell(1500)
-    callouts = page.locator('[data-skin-callout]').count()
-    run.report['calloutsOverview'] = callouts
+    run.report['calloutsOverview'] = page.locator('[data-skin-callout]').count()
     layout = page.locator('[data-skin-callout-layout]')
     run.report['calloutLayout'] = layout.first.get_attribute('data-skin-callout-layout') if layout.count() else None
     run.shot('result-callouts')
+    run.check('Overview opens with no finding selected', page.locator('[data-skin-overview-finding][aria-pressed=true]').count() == 0)
+    alone = {}
+    for i in range(min(overview.count(), 12)):
+        overview.nth(i).click()
+        run.dwell(1800)
+        finding = overview.nth(i).get_attribute('data-skin-overview-finding')
+        alone[finding] = page.locator('[data-skin-finding-layer]').evaluate_all('e=>e.map(x=>x.dataset.skinFindingLayer)')
+        run.shot('result-selected-' + finding)
+    run.report['overviewSelections'] = alone
+    run.check('Selecting a card leaves only that finding on the photo', all(v in ([k], []) for k, v in alone.items()), alone)
+    if overview.count():
+        overview.nth(min(overview.count(), 12) - 1).click()
+        run.dwell(1500)
+    run.check('Deselecting restores the overview', page.locator('[data-skin-overview-finding][aria-pressed=true]').count() == 0)
     views = 0
     next_region = page.get_by_role('button', name=re.compile('next region', re.I)).first
     if next_region.count():
@@ -1109,6 +1134,7 @@ def ui(run):
     run.check('Dialog actions stay in view', all(r['actionsInView'] is not False for r in dialogs), [(r['language'], r['state']) for r in dialogs if r['actionsInView'] is False][:6])
     run.check('No consent text shows below the pinned buttons', not [r for r in dialogs if r.get('textBelowActions')], [(r['language'], r['state'], r['textBelowActions']) for r in dialogs if r.get('textBelowActions')][:4])
     run.check('No undersized controls or tiny text', not [r for r in rows if r.get('smallCount') or r.get('tinyText')], [(r['language'], r['state'], r.get('smallTargets'), r.get('tinyText')) for r in rows if r.get('smallCount') or r.get('tinyText')][:6])
+    run.check('The header is one row', page.evaluate('innerWidth') < 1024 or all(r.get('header', 0) <= 64 for r in rows), [(r['language'], r['state'], r.get('header')) for r in rows if r.get('header', 0) > 64][:4])
     cockpit = [r for r in rows if r['state'] == 'cockpit']
     run.check('Every module Start action is in the first screen', all(r['fullyInFirstScreen'] == r['actions'] == 5 for r in cockpit), [(r['language'], r['fullyInFirstScreen'], r['heroPx'], r['heroSharePct']) for r in cockpit])
     run.check('No font-dependent glyphs', not [r for r in rows if r.get('unsafeGlyphs')], [(r['language'], r['state']) for r in rows if r.get('unsafeGlyphs')][:6])
@@ -1191,7 +1217,155 @@ def camera(run):
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
 
-JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care, 'ui': ui, 'camera': camera}
+# ---------------------------------------------------------------- Skin finding labels on real results
+
+CALLOUT_SIZES = {'web': [(1280, 517), (800, 480), (1024, 400), (1024, 600), (1280, 720), (1280, 800), (1920, 720), (1440, 900), (390, 844)],
+                 'aaos': [None, (1280, 517), (800, 480), (1024, 400), (1024, 600), (1280, 720)]}
+CALLOUT_READ = """()=>{const panel=document.querySelector('[data-face-panel]'),photo=panel?panel.getBoundingClientRect():null,svg=document.querySelector('[data-skin-snapshot]'),vb=svg?svg.viewBox.baseVal:null;
+ const pills=[...document.querySelectorAll('[data-skin-callout]')].map(b=>{const p=b.querySelector('[data-skin-callout-pill]').getBoundingClientRect(),t=b.querySelector('[data-skin-callout-text]'),r=document.createRange();r.selectNodeContents(t);const tr=r.getBoundingClientRect(),br=b.getBoundingClientRect(),a=b.dataset.skinCalloutAnchor.split(',').map(Number),ring=document.querySelector('[data-skin-callout-ring="'+b.dataset.skinCallout+'"]');
+  return {key:b.dataset.skinCallout,id:b.dataset.skinCalloutFinding,text:t.innerText,lines:new Set([...r.getClientRects()].map(x=>Math.round(x.top))).size,textInside:tr.left>=p.left-.5&&tr.right<=p.right+.5&&tr.top>=p.top-.5&&tr.bottom<=p.bottom+.5,inPhoto:photo?br.left>=photo.left-.5&&br.right<=photo.right+.5&&br.top>=photo.top-.5&&br.bottom<=photo.bottom+.5:false,inViewport:br.left>=-.5&&br.right<=innerWidth+.5,width:Math.round(br.width),height:Math.round(br.height),box:[br.left,br.top,br.right,br.bottom],anchor:a,ringOffset:ring&&vb&&photo?Math.hypot(parseFloat(ring.getAttribute('cx'))-(a[0]-vb.x)/vb.width*photo.width,parseFloat(ring.getAttribute('cy'))-(a[1]-vb.y)/vb.height*photo.height):null,fontPx:parseFloat(getComputedStyle(t).fontSize),pressed:b.getAttribute('aria-pressed')==='true'};});
+ let overlaps=0;for(let i=0;i<pills.length;i++)for(let j=i+1;j<pills.length;j++){const a=pills[i].box,b=pills[j].box;if(a[0]<b[2]-.5&&b[0]<a[2]-.5&&a[1]<b[3]-.5&&b[1]<a[3]-.5)overlaps++;}
+ return {viewport:[innerWidth,innerHeight],layout:document.querySelector('[data-skin-callout-layout]')?.dataset.skinCalloutLayout||'none',photo:photo?[Math.round(photo.width),Math.round(photo.height)]:null,angle:svg?.dataset.snapshotAngle||null,
+  layers:[...document.querySelectorAll('[data-skin-finding-layer]')].map(e=>e.dataset.skinFindingLayer).sort(),markers:[...document.querySelectorAll('[data-skin-finding-layer]')].flatMap(l=>[...l.querySelectorAll('[data-skin-finding-marker]')].map(m=>[l.dataset.skinFindingLayer,Number(m.dataset.skinMarkerX),Number(m.dataset.skinMarkerY)])),
+  skinMap:!!document.querySelector('[data-skin-type-overlay]'),pressedCards:[...document.querySelectorAll('[data-skin-overview-finding][aria-pressed=true]')].map(e=>e.dataset.skinOverviewFinding),focused:document.querySelector('[data-skin-finding-focused=true]')?.dataset.skinFindingCard||null,pills:pills,overlaps,lines:[...document.querySelectorAll('[data-skin-callout-path]')].map(p=>Math.round(p.getTotalLength())),sideways:document.documentElement.scrollWidth>innerWidth+1,unlocated:(document.querySelector('[data-skin-unlocated]')?.dataset.skinUnlocated||'').split(' ').filter(Boolean)};}"""
+VIEW_SCOPE = {'forehead': ('forehead', 'nose'), 'periorbital': ('periorbital',), 'rightCheek': ('rightCheek',), 'leftCheek': ('leftCheek',), 'chin': ('chin',)}
+
+
+def expected_layers(rows, view, angle, selected):
+    """What the stored result allows on this photo. A real marker of this photo, or a finding decided on this photo."""
+    out = {}
+    for f in rows:
+        if f.get('status') != 'seen' or (view != 'overview' and f['region'] not in VIEW_SCOPE[view]) or (selected and f['id'] != selected):
+            continue
+        marks = [(m['x'], m['y']) for m in f.get('markers') or [] if (m.get('pose') or f.get('pose')) == angle]
+        counted = f['id'] in ('acne', 'mole', 'spots')
+        if marks or (f.get('pose') == angle and not counted):
+            entry = out.setdefault(f['id'], set())
+            entry.update(marks)
+    return out
+
+
+def callouts(run):
+    page = run.page
+    set_english(run)
+    stored = page.evaluate("JSON.parse(localStorage.getItem('togg_health_skin_history')||'[]')")
+    record = stored[0]
+    rows = record['general']['findings']['findings']
+    before = hashlib.sha256(json.dumps(stored, sort_keys=True).encode()).hexdigest()
+    base = page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2]
+    run.report['record'] = {'id': record['id'], 'seen': [[f['id'], f['region'], f.get('pose'), len(f.get('markers') or [])] for f in rows if f.get('status') == 'seen']}
+    states, wrong = [], []
+
+    def problem(state, what, detail=None):
+        wrong.append({'state': state, 'what': what, 'detail': detail})
+
+    def read(name, view, selected, shot=False):
+        page.wait_for_timeout(450)
+        m = page.evaluate(CALLOUT_READ)
+        m.update(state=name, view=view, selected=selected)
+        states.append(m)
+        if m['angle']:
+            want = expected_layers(rows, view, m['angle'], selected)
+            if m['layers'] != sorted(want):
+                problem(name, 'drawn findings differ from the stored result', {'drawn': m['layers'], 'stored': sorted(want), 'photo': m['angle']})
+            for finding, x, y in m['markers']:
+                if (x, y) not in want.get(finding, ()):
+                    problem(name, 'a marker is not in the stored result', [finding, x, y])
+            for finding, marks in want.items():
+                drawn = {(x, y) for f, x, y in m['markers'] if f == finding}
+                if drawn != marks:
+                    problem(name, 'stored markers are missing', [finding, sorted(marks - drawn)])
+        for p in m['pills']:
+            if not p['textInside']:
+                problem(name, 'label text leaves its background', p['text'])
+            if p['lines'] > 2:
+                problem(name, 'label has more than two lines', p['text'])
+            if not p['inViewport']:
+                problem(name, 'label leaves the screen', p['text'])
+            if m['layout'] == 'photo' and not p['inPhoto']:
+                problem(name, 'label leaves the photo', p['text'])
+            if p['fontPx'] < 12:
+                problem(name, 'label text is too small', p['fontPx'])
+            if min(p['width'], p['height']) < 44:
+                problem(name, 'label is too small to touch', [p['width'], p['height']])
+            if p['ringOffset'] is not None and p['ringOffset'] > 1:
+                problem(name, 'the ring is not on the measured spot', p['ringOffset'])
+            if selected and p['id'] != selected:
+                problem(name, 'another finding keeps a label', p['id'])
+            if not selected and p['pressed']:
+                problem(name, 'a label is marked selected by default', p['id'])
+        if m['overlaps']:
+            problem(name, 'labels overlap', m['overlaps'])
+        if m['sideways']:
+            problem(name, 'the page scrolls sideways')
+        limit = max(96, .4 * max(m['photo'] or [0]))
+        if any(length > limit * 1.15 for length in m['lines']):
+            problem(name, 'a line is long', m['lines'])
+        if shot:
+            run.shot(name)
+        return m
+
+    for size in CALLOUT_SIZES[run.args.platform]:
+        label = 'real' if size is None else '{}x{}'.format(*size)
+        if size:
+            run.adapter.emulate(page, *size)
+        page.goto('{}/skin?view=record&id={}'.format(base, record['id']), wait_until='networkidle')
+        dialog = page.get_by_role('dialog')
+        page.wait_for_timeout(800)
+        if dialog.count():
+            for box in dialog.last.get_by_role('checkbox').all():
+                box.check()
+            dialog.last.locator('[data-dialog-actions] button').first.click()
+        page.locator('[data-skin-snapshot]').wait_for()
+        for language in ('en', 'de', 'tr'):
+            page.locator('#attune-language').select_option(language)
+            page.wait_for_timeout(700)
+            page.locator('[data-skin-region-tab="overview"]').click()
+            name = '{}-{}'.format(label, language)
+            small = size in (None, (800, 480), (1024, 400), (1280, 517))
+            first = read(name + '-overview', 'overview', None, shot=small or language == 'en')
+            if first['pressedCards']:
+                problem(name, 'a card is selected by default', first['pressedCards'])
+            for card in page.locator('[data-skin-overview-finding]').evaluate_all('e=>e.map(x=>x.dataset.skinOverviewFinding)'):
+                page.locator('[data-skin-overview-finding="{}"]'.format(card)).click()
+                m = read('{}-selected-{}'.format(name, card), 'overview', card, shot=(small or language == 'en') and card in ('redness', 'acne'))
+                if m['pressedCards'] != [card]:
+                    problem(m['state'], 'the card and the photo disagree', m['pressedCards'])
+                if m['layers'] not in ([card], []):
+                    problem(m['state'], 'another finding is still drawn', m['layers'])
+                page.locator('[data-skin-overview-finding="{}"]'.format(card)).click()
+                back = read('{}-deselected-{}'.format(name, card), 'overview', None)
+                if back['layers'] != first['layers'] or back['pressedCards']:
+                    problem(back['state'], 'deselecting did not restore the overview', back['layers'])
+            for view in VIEW_SCOPE:
+                page.locator('[data-skin-region-tab="{}"]'.format(view)).click()
+                m = read('{}-page-{}'.format(name, view), view, None, shot=size is None and language == 'en')
+                if m['focused']:
+                    problem(m['state'], 'a selection carried over from another view', m['focused'])
+                pills = page.locator('[data-skin-callout]')
+                if pills.count():
+                    finding = pills.first.get_attribute('data-skin-callout-finding')
+                    pills.first.click()
+                    picked = read('{}-page-{}-selected'.format(name, view), view, finding)
+                    if picked['focused'] != finding:
+                        problem(picked['state'], 'the card and the photo disagree', picked['focused'])
+                    page.locator('[data-skin-callout]').first.click()
+                    read('{}-page-{}-deselected'.format(name, view), view, None)
+    run.adapter.emulate(page)
+    after = page.evaluate("JSON.parse(localStorage.getItem('togg_health_skin_history')||'[]')")
+    run.report['states'] = [{k: v for k, v in s.items() if k != 'markers'} for s in states]
+    run.report['problems'] = wrong[:80]
+    run.report['layouts'] = {k: sum(1 for s in states if s['layout'] == k) for k in {s['layout'] for s in states}}
+    run.check('Stored results are unchanged by the labels', before == hashlib.sha256(json.dumps(after, sort_keys=True).encode()).hexdigest())
+    run.check('Every drawn finding and marker is in the stored result, on its own photo', not [w for w in wrong if 'stored' in w['what'] or 'ring' in w['what']], [w for w in wrong if 'stored' in w['what'] or 'ring' in w['what']][:4])
+    run.check('Default overview: all located findings, nothing selected', not [w for w in wrong if 'default' in w['what']], [w for w in wrong if 'default' in w['what']][:4])
+    run.check('Selecting shows only that finding and highlights its card; deselecting restores', not [w for w in wrong if w['what'] in ('the card and the photo disagree', 'another finding is still drawn', 'another finding keeps a label', 'deselecting did not restore the overview', 'a selection carried over from another view')], [w for w in wrong if 'disagree' in w['what'] or 'still' in w['what'] or 'keeps' in w['what'] or 'restore' in w['what']][:4])
+    run.check('No label overflow, overlap or off-screen placement in EN, DE or TR', not [w for w in wrong if w['what'].startswith('label') or w['what'] == 'labels overlap' or 'sideways' in w['what']], [w for w in wrong if w['what'].startswith('label') or w['what'] == 'labels overlap' or 'sideways' in w['what']][:6])
+    run.check('Lines stay short', not [w for w in wrong if 'line is long' in w['what']], [w for w in wrong if 'line is long' in w['what']][:4])
+    run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
+
+
+JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care, 'ui': ui, 'camera': camera, 'callouts': callouts}
 
 
 def main():

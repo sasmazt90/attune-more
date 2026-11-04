@@ -55,6 +55,7 @@ import { LatestVideoFrame, rawFrameOf } from '../../utils/skinRawFrame';
 export default function SkinPage() {
  const {text:i18nText,node:i18nNode}=useTranslations();
   const resultPersisted=useRef(false);
+  const [resultNotSaved,setResultNotSaved]=useState(false);
   const storageAllowed=()=>serviceAllowed('skin')&&localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
   const temporalSupport=useRef<ReturnType<typeof skinTemporalSupport>[]>([]);
   const localAnalysis=useRef<SkinLocalAnalysis|null>(null);
@@ -491,7 +492,7 @@ export default function SkinPage() {
     // Current-session measurements never read/write personal reference keys.
     if (validSkinIndicators(indicators) && validSkinOverview(finalResult.general,finalResult.id) && SkinAnalyzer.canPersistResult(finalResult)) {
       try {
-        resultPersisted.current=storageAllowed();
+        resultPersisted.current=storageAllowed();setResultNotSaved(!resultPersisted.current);
         if(resultPersisted.current)await appendHealthRecord('skin', finalResult, {}, () => validCapture() && storageAllowed());
         if (!validCapture()) return;
       } catch (e) {
@@ -563,7 +564,7 @@ export default function SkinPage() {
       }
       if (!validSkinIndicators(indicators) || !validSkinOverview(finalResult.general,finalResult.id) || !SkinAnalyzer.canPersistResult(finalResult)) throw new Error('Invalid metrics');
       // Numeric history never contains pixels; photo retention has separate consent.
-      resultPersisted.current=storageAllowed();
+      resultPersisted.current=storageAllowed();setResultNotSaved(!resultPersisted.current);
       if(resultPersisted.current)await appendHealthRecord('skin', finalResult, {}, () => validCapture() && storageAllowed());
       if (!validCapture()) return;
       rememberSkinSnapshots(finalResult.id,snapshotFrames.current); await persistPhotos(finalResult.id,snapshotFrames.current,validCapture); if(!validCapture())return; setSelectedRegionId(finalResult.general ? 'overview' : 'forehead'); snapshotRecord.current = finalResult.id; setSnapshots({ ...snapshotFrames.current });
@@ -805,6 +806,7 @@ export default function SkinPage() {
   const startCamera = async () => {
     if (!isParked || scanState === 'CAMERA_ACTIVE') return;
     const acquisition = ++acquisitionRef.current;
+    setResultNotSaved(false);
     setErrorMessage(null);
     setMediaStream(null);
     setIsLiveVideo(false);
@@ -1037,6 +1039,7 @@ export default function SkinPage() {
         {photoNotice&&<p role="status" className="text-sm text-amber-200">{i18nNode(photoNotice)}</p>}
         <SkinResultView
           captures={analysisResult?.captures}
+          notSaved={resultNotSaved}
           snapshots={snapshots}
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}

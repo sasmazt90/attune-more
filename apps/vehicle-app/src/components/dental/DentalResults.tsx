@@ -5,7 +5,7 @@ import {ArrowLeft,ArrowRight,CircleCheck,Minus,TriangleAlert,ScanLine} from 'luc
 import {useTranslations} from '../../i18n/LanguageProvider';
 import {InformationButton} from '../InformationButton';
 import {AccessibleDialog} from '../AccessibleDialog';
-import {HealthResultNavigation} from '../HealthResultNavigation';
+import {HealthPhotoNavigation,ResultArrow} from '../HealthResultNavigation';
 import {DENTAL_ACCUMULATION_LABEL,DENTAL_POSE_LABELS,DENTAL_QUALITY_REASONS,dentalViewMeasured} from '../../utils/dentalResult';
 import {DentalPhotoView,DENTAL_LAYER_COLORS,type DentalLayer} from './DentalPhotoView';
 import type {DentalCapture,DentalPose} from '../../utils/dentalCapture';
@@ -44,8 +44,10 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
  const statusIcon=(st:string)=>st==='measured'?<CircleCheck aria-hidden="true"/>:st==='missing'?<Minus aria-hidden="true"/>:<TriangleAlert aria-hidden="true"/>;
  const statusText=(st:string)=>t(st==='measured'?'Ölçüldü':st==='missing'?'Alınmadı':'Ölçülemedi');
  return <div className={styles.root} data-dental-result data-dental-measured={measured.length} data-dental-expected={expected}>
-  <HealthResultNavigation title={tab===0?'Genel bakış':pose(s?.pose||'FRONT')} previousLabel="Önceki diş görünümü" nextLabel="Sonraki diş görünümü" onPrevious={()=>change(-1)} onNext={()=>change(1)} index={tab===0?0:index+1} total={slides.length+1}/>
-  <nav className={styles.tabs} aria-label={t('Sonuç sayfaları')}>{['Genel bakış','Görünümler'].map((name,i)=><button key={name} type="button" aria-current={tab===i?'page':undefined} onClick={()=>setTab(i)}>{t(name)}</button>)}</nav>
+  <div className="flex flex-wrap items-center justify-between gap-3">
+   <nav className={styles.tabs} aria-label={t('Sonuç sayfaları')}>{['Genel bakış','Görünümler'].map((name,i)=><button key={name} type="button" aria-current={tab===i?'page':undefined} onClick={()=>setTab(i)}>{t(name)}</button>)}</nav>
+   {tab===0&&<div role="group" aria-label={t('Sonuç sayfaları')} className="flex gap-2" data-health-result-navigation><ResultArrow direction="previous" label="Önceki diş görünümü" onClick={()=>change(-1)}/><ResultArrow direction="next" label="Sonraki diş görünümü" onClick={()=>change(1)}/></div>}
+  </div>
   {tab===0?<div data-dental-overview>
    <h2>{t(measured.length===expected?'Görünür diş yüzeyleri ölçüldü.':measured.length?'Bazı görünümler ölçülemedi.':'Görünümler ölçülemedi.')}</h2>
    <p className={styles.lead}>{t('İşaretleri fotoğraf üzerinde Görünümler sekmesinde inceleyebilirsiniz.')}</p>
@@ -68,7 +70,7 @@ export function DentalResults({views,photos,missingViews=[],sourceType,footer}:{
   </div>:<div data-dental-views>
    <div {...swipe} aria-roledescription="carousel" aria-label={t('Diş görünümleri')}>
     {s&&<div className={styles.viewGrid} data-dental-slide={s.pose} data-dental-slide-status={status(v)}>
-     {s.photo&&v?<div className={styles.photo}><DentalPhotoView key={v.photoId} photo={s.photo} view={v} layers={dentalViewMeasured(v)?layers:[]}/></div>:<div className={styles.photoEmpty}>{t(!v?'Bu görünüm alınmadı.':'Bu kayıtta fotoğraf saklanmadı.')}</div>}
+     <HealthPhotoNavigation previousLabel="Önceki diş görünümü" nextLabel="Sonraki diş görünümü" onPrevious={()=>change(-1)} onNext={()=>change(1)}>{s.photo&&v?<div className={`${styles.photo} w-full`}><DentalPhotoView key={v.photoId} photo={s.photo} view={v} layers={dentalViewMeasured(v)?layers:[]}/></div>:<div className={`${styles.photoEmpty} w-full`}>{t(!v?'Bu görünüm alınmadı.':'Bu kayıtta fotoğraf saklanmadı.')}</div>}</HealthPhotoNavigation>
      <section className={styles.card}>
       <div className={styles.cardHead}><h3>{pose(s.pose)}</h3><span className={styles.label} style={{color:status(v)==='measured'?'var(--cyan)':'var(--warn)'}}>{statusIcon(status(v))}<span style={{marginLeft:6}}>{statusText(status(v))}</span></span></div>
       {!v?<p className={styles.warning}>{t(s.pose==='BITE'?'Kapanış görünümü atlandı; dizilim ölçülmedi.':'Bu görünüm alınmadı.')}</p>

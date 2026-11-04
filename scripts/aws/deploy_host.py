@@ -38,6 +38,13 @@ SKIN_RUNTIME_PACKAGES = ['mediapipe==0.10.32', 'absl-py==2.5.1', 'sounddevice==0
 SPEECH_DROP_IN = Path('/etc/systemd/system/attune-api@.service.d/speech.conf')
 SPEECH_ENVIRONMENT = '[Service]\nEnvironment=ATTUNE_MENTAL_TTS_RESIDENT=1\nEnvironment=ATTUNE_MENTAL_TTS_THREADS=4\n'
 AAOS_RESTARTS = ['attune-audio']
+ASSET_RECORD = Path('/var/lib/attune/evidence/all-models-verified.json')
+# The acne V5 verifier and manifest used to be stored with converted line endings, which made V5 refuse to load.
+# These are the exact bytes its loader requires (tests/unit/test_model_bytes_exact.py). Nothing else may change here.
+CORRECTED_ASSETS = {
+    'services/core-api/models/acne-v5-preview/verifier-v5.json': '0d7bf03ca4d9898ef1b2e78c6d54d61be6aff580329b20b78a9232f79cfd43bb',
+    'services/core-api/models/acne-v5-preview/manifest.json': 'a9f939deb312cfc957d8456fc865e1d3a6f21a5d4e0ba227b94bedb1413a8fe0',
+}
 
 
 def ensure_skin_runtime():
@@ -50,6 +57,31 @@ def ensure_skin_runtime():
     after = run(python, '-c', 'import cv2,mediapipe;from mediapipe.tasks.python import vision;print(cv2.__version__)').strip()
     if before != after:
         raise RuntimeError('OpenCV changed from {} to {}'.format(before, after))
+
+
+def refresh_asset_record():
+    """The readiness check compares model files with this record, which still held the converted files.
+    An entry changes only when the file on disk has exactly the pinned hash; any other difference still fails."""
+    if not ASSET_RECORD.exists():
+        return
+    record = json.loads(ASSET_RECORD.read_text())
+    changed = False
+    for item in record.get('assets', []):
+        expected = CORRECTED_ASSETS.get(item.get('path'))
+        if not expected:
+            continue
+        path = ROOT / item['path']
+        data = path.read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected:
+            raise RuntimeError('{} does not have the pinned hash'.format(item['path']))
+        if item.get('sha256') != expected or item.get('bytes') != len(data):
+            item['sha256'], item['bytes'] = expected, len(data)
+            changed = True
+    if changed:
+        temporary = ASSET_RECORD.with_suffix('.tmp')
+        temporary.write_text(json.dumps(record, indent=1))
+        shutil.copystat(ASSET_RECORD, temporary)
+        temporary.replace(ASSET_RECORD)
 
 
 def run(*args, cwd=None, env=None, timeout=900):
@@ -103,6 +135,7 @@ def deploy_web(commit):
     cache.mkdir(parents=True, exist_ok=True)
     run('chown', '-R', 'attune:attune', str(cache))
     ensure_skin_runtime()
+    refresh_asset_record()
     SPEECH_DROP_IN.parent.mkdir(parents=True, exist_ok=True)
     SPEECH_DROP_IN.write_text(SPEECH_ENVIRONMENT)
     run('systemctl', 'daemon-reload')

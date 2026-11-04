@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs one recorded journey on the host. Usage: run_e2e.sh <web|aaos> <skin|dental|din|tone|mental|vision|care|ui|camera> <output name> [--record]
+# Runs one recorded journey on the host. Usage: run_e2e.sh <web|aaos> <skin|dental|din|tone|mental|vision|care|ui|camera|callouts> <output name> [--record]
 # Inputs are the reference files prepared on the host; the report states which ones were used.
 set -u
 PLATFORM=$1; MODULE=$2; NAME=$3; RECORD=${4:-}
@@ -61,6 +61,7 @@ pngs() { # prefix, FRONT file, RIGHT file, LEFT file, [BITE file]
 EXTRA=()
 case "$PLATFORM-$MODULE" in
   *-care) EXTRA=(--input-map '{"appointment":"Scripted example; no real booking was made"}') ;;
+  *-callouts) EXTRA=(--input-map '{"record":"The newest saved Skin result from the recorded journey"}') ;;
   web-camera)
     y4m $Q/inputs/Char11-2.png $Q/e2e-camera-FRONT.y4m
     EXTRA=(--frames "$Q/e2e-camera-POSE.y4m" --poses FRONT --input-map '{"FRONT":"Char11-2","failure":"Camera refusal injected in this journey only"}') ;;

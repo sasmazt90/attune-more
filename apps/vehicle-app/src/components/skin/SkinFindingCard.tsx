@@ -11,8 +11,10 @@ import { compareMeasures, measureOf, scopeOf, formatValue, type Measure } from '
 import { SkinDateRangeDialog, inDayRange, type DateRange } from './SkinDateRangeDialog';
 
 /** One finding of a page: title with arrows to the other findings, what it looks like, its score and its history. */
-export function SkinFindingCard({ view, items, index, onIndex, history, scanAt, acneType = null, onAcneType, current }: {
+export function SkinFindingCard({ view, items, index, onIndex, focused = false, onFocus, history, scanAt, acneType = null, onAcneType, current }: {
   view: FindingViewId; items: SkinFinding[]; index: number; onIndex: (i: number) => void;
+  /** this finding alone is drawn on the photo */
+  focused?: boolean; onFocus?: () => void;
   history?: SkinFindingsHistoryEntry[]; scanAt: string;
   /** acne lesion type whose markers alone are drawn on the photo (null = all) */
   acneType?: AcneSubtype | null; onAcneType?: (t: AcneSubtype | null) => void;
@@ -29,14 +31,16 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt, 
     </button>
   );
   return (
-    <section className="rounded-[26px] bg-[#0f1724] px-5 pt-5 pb-6 flex flex-col gap-5" data-skin-finding-card={f.id} aria-live="polite">
+    <section className="rounded-[26px] border-2 bg-[#0f1724] px-5 pt-5 pb-6 flex flex-col gap-4" style={{ borderColor: focused ? color : 'transparent', background: focused ? `${color}12` : undefined }} data-skin-finding-card={f.id} data-skin-finding-focused={focused ? 'true' : 'false'} aria-live="polite">
       <div className="flex items-center justify-between gap-3">
         {n>1&&arrow(-1)}
         <div className="min-w-0 flex flex-col items-center gap-1 text-center">
           <span className="text-[13px] font-bold tracking-[0.08em] uppercase" style={{ color }} data-skin-finding-kicker>
             {text(FINDING_VIEW_NAMES[view])} · {index + 1} / {n}
           </span>
-          <h2 className="text-[28px] leading-tight font-extrabold tracking-tight text-white">{text(def.label)}</h2>
+          <h2 className="text-[28px] leading-tight font-extrabold tracking-tight text-white">{onFocus
+            ? <button type="button" aria-pressed={focused} onClick={onFocus} data-skin-finding-focus aria-label={`${text(def.label)}: ${text(focused ? 'Tüm bulguları göster' : 'Yüzde yalnız bunu göster')}`} className="min-h-11 rounded-xl px-2 font-extrabold focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">{text(def.label)}</button>
+            : text(def.label)}</h2>
         </div>
         {n>1&&arrow(1)}
       </div>
@@ -48,8 +52,8 @@ export function SkinFindingCard({ view, items, index, onIndex, history, scanAt, 
         : f.areaPct !== undefined
           ? <ScoreBar value={f.areaPct} color={color} label={text(f.id === 'melasma' ? 'İşaretli leke kutularının kapladığı alan' : 'Kapladığı alan')} scale={['%0', '%50', '%100'].map(text)} />
           : countLabel(f) !== null
-            ? <div className="flex items-baseline justify-center gap-2" data-skin-finding-count={countLabel(f)}>
-                <span className="text-4xl font-extrabold tabular-nums text-white">{countLabel(f)}</span>
+            ? <div className="flex items-baseline gap-2" data-skin-finding-count={countLabel(f)}>
+                <span className="text-2xl font-extrabold tabular-nums text-white">{countLabel(f)}</span>
                 <span className="text-base text-slate-400">{countUnit(countLabel(f), def.unit, text)}</span>
               </div>
             : <p className="text-[15px] leading-snug text-slate-400 text-center" data-skin-finding-unmeasured>

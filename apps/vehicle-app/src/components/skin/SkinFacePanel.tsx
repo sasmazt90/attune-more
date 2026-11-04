@@ -15,7 +15,8 @@ import { skinBoxEnvelope } from '../../utils/skinBoxEnvelope';
 import { retainedRegionalSkinReplay } from '../../utils/regionalSkinMap';
 import { PAINT_OUTLINES, paintPath, faceWidthPx, PAINT_LABELS, PAINT_TAG_ANCHOR, PAINT_KEYS, paintKey, paintKeyColor, type PaintRegionId, type PaintState } from '../../utils/skinTypePaint';
 import { SkinInconclusiveDialog } from './SkinInconclusiveDialog';
-import { FINDING_DEFS, findingColor, findingAreaPath, isFindingView, markerSubtype, markersOnPhoto, viewFindings, type AcneSubtype, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
+import { FINDING_DEFS, markerSubtype, type AcneSubtype, type SkinFinding, type SkinFindingId } from '../../utils/skinFindings';
+import { faceBox, faceFeatures, findingLayers } from '../../utils/skinCalloutModel';
 import { SkinFindingCallouts, type FindingCallout } from './SkinFindingCallouts';
 
 interface SkinFacePanelProps {
@@ -31,6 +32,8 @@ interface SkinFacePanelProps {
   selectedCriterion?: string | null;
   findings?: SkinFinding[];
   selectedFinding?: SkinFindingId | null;
+  /** draw every finding located on this photo while none is selected */
+  showAllFindings?: boolean;
   /** labels around the photo that point at each finding; tapping one selects it */
   callouts?: FindingCallout[];
   onSelectFinding?: (key: string) => void;
@@ -64,6 +67,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
   selectedCriterion,
   findings,
   selectedFinding,
+  showAllFindings = false,
   callouts,
   onSelectFinding,
   markerType = null
@@ -180,6 +184,12 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
     return Array.isArray(compPaths) ? compPaths : [];
   }, [selectedCriterion, localMap, currentRegion.indicators]);
 
+  const layers = React.useMemo(() => mode === 'result' && (selectedFinding || showAllFindings)
+    ? findingLayers(findings, snapshot, currentRegion.id, selectedFinding || null, markerType).sort((a, b) => ['area', 'presence', 'count'].indexOf(a.kind) - ['area', 'presence', 'count'].indexOf(b.kind))
+    : [], [mode, selectedFinding, showAllFindings, findings, snapshot, currentRegion.id, markerType]);
+  const features = React.useMemo(() => faceFeatures(snapshot), [snapshot]);
+  const faceRect = React.useMemo(() => faceBox(snapshot), [snapshot]);
+
   const regionalTrace = (currentRegion.skinType as any)?.decisionTrace?.regions
     || (snapshot?.general as any)?.skinType?.decisionTrace?.regions
     || (snapshot?.general as any)?.findingsRegionalMap?.regions;
@@ -193,12 +203,12 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <SkinFindingCallouts callouts={mode === 'result' ? callouts : undefined} crop={displayCrop} photoRef={panel} active={selectedFinding || null} onSelect={onSelectFinding}>
+      <SkinFindingCallouts callouts={mode === 'result' ? callouts : undefined} crop={displayCrop} photoRef={panel} active={selectedFinding || null} onSelect={onSelectFinding} keepOut={features} face={faceRect}>
       {/* Natural portrait pixels; fixed aspect ratio prevents height jumps across region tabs. */}
       <div
         className={`relative w-full ${isLiveVideo && mode === 'scan' || snapshot ? 'max-w-[480px]' : 'max-w-[360px]'} rounded-2xl overflow-hidden select-none`}
         ref={panel}
-        style={displayCrop ? { aspectRatio: displayCrop.width / displayCrop.height, maxWidth: 460 } : isLiveVideo && mode === 'scan' ? { aspectRatio: videoRatio * crop.width / crop.height, maxWidth: `min(480px,${65 * videoRatio * crop.width / crop.height}vh)` } : undefined}
+        style={displayCrop ? { aspectRatio: displayCrop.width / displayCrop.height, maxWidth: mode === 'result' ? `min(560px, max(240px, calc((100dvh - var(--skin-photo-offset)) * ${(displayCrop.width / displayCrop.height).toFixed(3)})))` : 460 } : isLiveVideo && mode === 'scan' ? { aspectRatio: videoRatio * crop.width / crop.height, maxWidth: `min(480px,${65 * videoRatio * crop.width / crop.height}vh)` } : undefined}
         data-face-panel
         data-preview-crop={isLiveVideo && mode === 'scan' ? JSON.stringify(crop) : snapshot?.previewCrop ? JSON.stringify(snapshot.previewCrop) : undefined}
         data-source-pixel-width={displayCrop?.width}
@@ -299,7 +309,7 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                 {/* Regional skin-type map, HUD style: thin glowing outline per region, dot-matrix fill that is
                     brighter at the edge and fades inward, small tags. Unmeasured = grey dashed outline;
                     sensitive = pink inset dashed ring + sparse pink dots. Never global skinType, never boxes. */}
-                {mode === 'result' && !selectedCriterion && !selectedFinding && regionalTrace && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
+                {mode === 'result' && !selectedCriterion && !selectedFinding && !layers.length && regionalTrace && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
                   const lmk = snapshot.landmarks!;
                   const fw = faceWidthPx(lmk, snapshot.width);
                   const ids: PaintRegionId[] = ['forehead', 'nose', 'rightCheek', 'leftCheek', 'chin', 'periorbital'];
@@ -377,38 +387,33 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                     </g>
                   );
                 })()}
-                {mode === 'result' && selectedFinding && snapshot.landmarks && snapshot.landmarks.length >= 468 && (() => {
-                  // Overview: every region where the finding was seen; a page: the finding merged over the page's regions.
-                  const occ = (findings || []).filter(x => x.id === selectedFinding && x.status === 'seen' && (x.pose===snapshot.angle||markersOnPhoto(x,snapshot.angle).length>0));
-                  const f = currentRegion.id === 'overview'
-                    ? occ.length ? { ...occ[0], pose: undefined, markers: occ.flatMap(o => markersOnPhoto(o, snapshot.angle)) } : undefined
-                    : isFindingView(currentRegion.id) ? viewFindings(occ, currentRegion.id).find(x => x.id === selectedFinding) : undefined;
-                  if (!f) return null;
-                  const regions: PaintRegionId[] = currentRegion.id === 'overview' ? [...new Set(occ.map(o => o.region as PaintRegionId))]
-                    : pageOutlines(currentRegion.id).filter(r => occ.some(x => x.region === r) || f.region === r);
-                  const color = findingColor(f.id), fw = faceWidthPx(snapshot.landmarks, snapshot.width), kind = FINDING_DEFS[f.id].kind;
-                  const area = findingAreaPath(f.id, snapshot.landmarks, snapshot.width, snapshot.height)
-                    || regions.map(r => paintPath(r, snapshot.landmarks!, snapshot.width, snapshot.height)).filter(Boolean).join('') || null;
-                  const step = fw / 55;
+                {/* Every finding located on this photo, or only the selected one. Real markers and measured outlines only. */}
+                {layers.length > 0 && (() => {
+                  const fw = snapshot.landmarks && snapshot.landmarks.length >= 468 ? faceWidthPx(snapshot.landmarks, snapshot.width) : displayCrop!.width * .7;
+                  const on = !!selectedFinding, selectOnPhoto = (id: SkinFindingId) => { const c = callouts?.find(item => item.id === id); if (c) onSelectFinding?.(c.key); };
                   return (
-                    <g data-skin-finding-layer={f.id} pointerEvents="none">
-                      <defs>
-                        <filter id={`${maskId}-f-glow`} x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={fw / 120} /></filter>
-                        <pattern id={`${maskId}-f-dots`} patternUnits="userSpaceOnUse" width={step} height={step}><circle cx={step / 2} cy={step / 2} r={fw / 300} fill={color} /></pattern>
-                      </defs>
-                      {area && kind !== 'count' && <>
-                        <path d={area} fill={color} fillOpacity={kind === 'area' ? 0.2 : 0.12} fillRule="evenodd" />
-                        <path d={area} fill={`url(#${maskId}-f-dots)`} fillRule="evenodd" opacity="0.6" />
-                        <path d={area} fill="none" stroke={color} strokeWidth={fw / 70} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
-                        <path d={area} fill="none" stroke={color} strokeWidth={fw / 180} strokeLinejoin="round" />
-                      </>}
-                      {markersOnPhoto(f, snapshot.angle).filter(m => !markerType || markerSubtype(m) === markerType).map((m, i) => {
-                        const r = Math.max(m.r || 0, fw / 34);
+                    <g pointerEvents="none" data-skin-finding-layers={layers.map(l => l.id).join(' ')}>
+                      <defs><filter id={`${maskId}-f-glow`} x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={fw / 120} /></filter></defs>
+                      {layers.map(layer => {
+                        const dashed = layer.kind === 'presence' && FINDING_DEFS[layer.id].group !== 'eye';
                         return (
-                          <g key={i} data-skin-finding-marker={i} data-skin-marker-type={f.id === 'acne' ? markerSubtype(m) : undefined} pointerEvents="auto" role="button" tabIndex={0} aria-label={i18nText(FINDING_DEFS[f.id].label)} onClick={()=>{const c=callouts?.find(c=>c.id===f.id);if(c)onSelectFinding?.(c.key);}} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();const c=callouts?.find(c=>c.id===f.id);if(c)onSelectFinding?.(c.key);}}}>
-                            <circle cx={m.x} cy={m.y} r={r * 1.25} fill="none" stroke={color} strokeWidth={fw / 110} strokeOpacity="0.35" filter={`url(#${maskId}-f-glow)`} />
-                            <circle cx={m.x} cy={m.y} r={r} fill="none" stroke={color} strokeWidth={fw / 230} />
-                            <circle cx={m.x} cy={m.y} r={fw / 260} fill={color} />
+                          <g key={layer.id} data-skin-finding-layer={layer.id}>
+                            {layer.area && <>
+                              <path data-skin-finding-area={layer.id} d={layer.area} fill={layer.color} fillOpacity={on ? .3 : layer.kind === 'area' ? .18 : .14} fillRule="evenodd" />
+                              {on && <path d={layer.area} fill="none" stroke={layer.color} strokeWidth={fw / 70} strokeOpacity=".35" filter={`url(#${maskId}-f-glow)`} />}
+                              <path d={layer.area} fill="none" stroke={layer.color} strokeWidth={fw / (on ? 170 : 260)} strokeLinejoin="round" strokeDasharray={dashed ? `${fw / 55} ${fw / 80}` : undefined} />
+                            </>}
+                            {layer.markers.map((m, i) => {
+                              const r = Math.max(m.r || 0, fw / (on ? 34 : 42));
+                              return (
+                                <g key={i} data-skin-finding-marker={i} data-skin-marker-x={m.x} data-skin-marker-y={m.y} data-skin-marker-type={layer.id === 'acne' ? markerSubtype(m) : undefined} pointerEvents="auto" role="button" tabIndex={on ? 0 : -1} aria-label={i18nText(FINDING_DEFS[layer.id].label)}
+                                  onClick={() => selectOnPhoto(layer.id)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOnPhoto(layer.id); } }}>
+                                  {on && <circle cx={m.x} cy={m.y} r={r * 1.25} fill="none" stroke={layer.color} strokeWidth={fw / 110} strokeOpacity=".35" filter={`url(#${maskId}-f-glow)`} />}
+                                  <circle cx={m.x} cy={m.y} r={r} fill="none" stroke={layer.color} strokeWidth={fw / (on ? 230 : 300)} />
+                                  <circle cx={m.x} cy={m.y} r={fw / 260} fill={layer.color} />
+                                </g>
+                              );
+                            })}
                           </g>
                         );
                       })}

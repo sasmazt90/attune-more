@@ -43,10 +43,17 @@ button, select { min-height: 44px; min-width: 44px; }
 }
 main p, main article { overflow-wrap: anywhere; }
 
-/* A two-row header would take a quarter of a short screen, so it scrolls away.
+/* The header is one row from 768 px at any height, and wraps its controls only when they do not fit.
+ * A wrapped header would take a quarter of a short screen, so it scrolls away.
  * From 1100 px it fits one row and stays. header[...] outranks Tailwind's md:sticky. */
 @media (max-height: 640px) and (max-width: 1099px) {
   header[data-cockpit-header] { position: static; }
+}
+
+/* 1024 px fits one row in every language once the main tabs drop their icons and some spacing. */
+@media (min-width: 1000px) and (max-width: 1239px) {
+  header[data-cockpit-header] > nav > div > * > svg, header[data-cockpit-header] > nav > div > * > a > svg, header[data-cockpit-header] > nav > div > * > button > svg { display: none; }
+  header[data-cockpit-header] > nav > div > a, header[data-cockpit-header] > nav > div > * > a, header[data-cockpit-header] > nav > div > * > button { padding-inline: .5rem; }
 }
 
 /* Short vehicle displays: less vertical rhythm and wider dialogs, so text wraps less. */
@@ -55,6 +62,10 @@ main p, main article { overflow-wrap: anywhere; }
   [role="dialog"] { max-width: min(44rem, calc(100vw - 1rem)) !important; padding: 1rem !important; }
   [data-health-portrait] { width: 100%; max-width: none; aspect-ratio: auto; height: calc(100dvh - 11rem); max-height: 26rem; min-height: 11rem; }
 }
+
+/* The Skin result photo fits below the page title and tabs. */
+:root { --skin-photo-offset: 270px; }
+@media (min-width: 768px) and (max-height: 640px) { :root { --skin-photo-offset: 200px; } }
 
 /* Keep a dialog's main decision reachable while its text scrolls. Chromium holds a sticky element inside
    the scroller's padding, and text scrolling through that gap showed below the buttons. So the buttons

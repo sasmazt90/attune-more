@@ -32,10 +32,15 @@ interface Props {
   acneType?: import('../../utils/skinFindings').AcneSubtype | null;
   onAcneType?: (t: import('../../utils/skinFindings').AcneSubtype | null) => void;
   onOverviewSel: (id: SkinFindingId | null) => void;
+  /** a page's selected finding (null = every finding of the page on the photo) */
+  pageSel?: SkinFindingId | null;
+  onPageSel?: (id: SkinFindingId | null) => void;
+  skinMapShown?: boolean;
+  onSkinMap?: () => void;
 }
 
 /** Right column of the result screen: the selected finding's card, the inconclusive note and the two actions. */
-export function SkinFindingsPanel({ view, findings, findingsResult, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel, acneType, onAcneType }: Props) {
+export function SkinFindingsPanel({ view, findings, findingsResult, history, scanAt, skinType, index, onIndex, onNavigateToCare, onRescan, overviewSel, onOverviewSel, acneType, onAcneType, pageSel = null, onPageSel, skinMapShown = false, onSkinMap }: Props) {
   const { text } = useTranslations();
   const [recs, setRecs] = React.useState(false);
   const [unclear, setUnclear] = React.useState(false);
@@ -50,9 +55,9 @@ export function SkinFindingsPanel({ view, findings, findingsResult, history, sca
   return (
     <div className="flex flex-col gap-3 w-full" data-skin-findings-panel={view}>
       {view === 'overview'
-        ? <Overview findings={findings} state={state} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} />
+        ? <Overview findings={findings} state={state} skinType={skinType} selected={overviewSel} onSelect={onOverviewSel} mapShown={skinMapShown} onMap={onSkinMap} />
         : current
-          ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} history={history} scanAt={scanAt} acneType={acneType} onAcneType={onAcneType} current={validFindings(findingsResult) && findingsResult.status !== 'unavailable' ? findingsResult : undefined} />
+          ? <SkinFindingCard view={view} items={items} index={Math.min(index, items.length - 1)} onIndex={onIndex} focused={pageSel === current.id} onFocus={onPageSel && (() => onPageSel(pageSel === current.id ? null : current.id))} history={history} scanAt={scanAt} acneType={acneType} onAcneType={onAcneType} current={validFindings(findingsResult) && findingsResult.status !== 'unavailable' ? findingsResult : undefined} />
           : <section className="rounded-[26px] bg-[#0f1724] px-6 py-10 text-center flex flex-col gap-2" data-skin-findings-empty={emptyState}>
               <h2 className="text-2xl font-extrabold text-white">{text(FINDING_VIEW_NAMES[view])}</h2>
               {emptyText(state, 'page',measuredHere,unsure.length>0).map(t => <p key={t} className="text-[17px] text-slate-300">{text(t)}</p>)}
@@ -99,8 +104,9 @@ function emptyText(state: FindingsState, where: 'page' | 'overview',measured=tru
   return [where === 'page' ? 'Bu bölgede desteklenen bulgu yok.' : 'Bu taramada desteklenen bulgu yok.'];
 }
 
-function Overview({ findings, state, skinType, selected, onSelect }: {
+function Overview({ findings, state, skinType, selected, onSelect, mapShown, onMap }: {
   findings?: SkinFinding[]; state: FindingsState; skinType?: any; selected: SkinFindingId | null; onSelect: (id: SkinFindingId | null) => void;
+  mapShown: boolean; onMap?: () => void;
 }) {
   const { text } = useTranslations();
   const typeName = skinTypeLabel(skinType);
@@ -127,8 +133,8 @@ function Overview({ findings, state, skinType, selected, onSelect }: {
         </div>
       </div>
       {typeName && (
-        <button type="button" aria-pressed={selected === null} onClick={() => onSelect(null)} data-skin-type-card
-          className={`min-h-[56px] rounded-2xl border-2 px-4 py-2 flex items-center justify-between gap-3 text-left transition ${selected === null ? 'border-[#00d2eb] bg-[#00d2eb]/10' : 'border-transparent bg-[#131d2b] hover:bg-[#1a2533]'}`}>
+        <button type="button" aria-pressed={mapShown} onClick={() => (onMap ? onMap() : onSelect(null))} data-skin-type-card
+          className={`min-h-[56px] rounded-2xl border-2 px-4 py-2 flex items-center justify-between gap-3 text-left transition ${mapShown ? 'border-[#00d2eb] bg-[#00d2eb]/10' : 'border-transparent bg-[#131d2b] hover:bg-[#1a2533]'}`}>
           <span className="text-[15px] font-semibold text-slate-400">{text('Cilt tipi')}</span>
           <strong className="text-lg font-bold text-white">{text(typeName)}</strong>
         </button>
@@ -169,7 +175,7 @@ function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boole
       style={{ borderColor: on ? color : 'transparent', background: on ? `${color}1a` : '#131d2b' }}>
       <span className="flex items-center gap-2 min-w-0">
         <span aria-hidden="true" className="w-2.5 h-2.5 shrink-0 rounded-full" style={{ background: color }} />
-        <span className="text-base font-bold leading-tight text-white truncate">{text(def.label)}</span>
+        <span className="min-w-0 text-base font-bold leading-tight text-white [overflow-wrap:anywhere]">{text(def.label)}</span>
       </span>
       {width !== null
         ? <span className="block">
@@ -180,7 +186,7 @@ function OverviewFindingCard({ f, on, onClick }: { f: OverviewFinding; on: boole
               <span className="block h-full rounded-full" style={{ width: `${Math.max(4, width)}%`, background: color }} />
             </span>
           </span>
-        : <span className="text-sm font-semibold text-slate-400 truncate">{value}</span>}
+        : <span className="text-sm font-semibold text-slate-400 [overflow-wrap:anywhere]">{value}</span>}
     </button>
   );
 }
