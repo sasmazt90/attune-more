@@ -26,7 +26,7 @@ from playwright.sync_api import sync_playwright
 
 QA = Path('/var/lib/attune/qa')
 ADB = '/opt/android-sdk/platform-tools/adb'
-HOST = 'attune.sasmaz.digital'
+HOST = 'attunemore.sasmaz.digital'
 HISTORY = {'skin': 'togg_health_skin_history', 'dental': 'attune_dental_history_v1', 'hearing': 'attune_hearing_history_v1', 'mental': 'togg_health_mental_history'}
 ROUTES = {'skin': 'skin', 'dental': 'dental', 'din': 'hearing', 'tone': 'hearing', 'mental': 'mental'}
 TURKISH = re.compile(r'[çğıİşÇĞŞ]')
@@ -148,6 +148,31 @@ class Web:
             self.handle.close()
 
 
+# Measures the camera link as the page sees it, without changing it. Saved per socket in the session, so it survives
+# page changes. Records when frames arrive, how late the page's own thread runs, and how each connection ended.
+CAMERA_PROBE = """(()=>{if(window.__cameraProbeOn)return;window.__cameraProbeOn=true;const Native=window.WebSocket;
+const save=row=>{try{const all=JSON.parse(sessionStorage.getItem('__cameraProbe')||'[]');const at=all.findIndex(x=>x.id===row.id);if(at>=0)all[at]=row;else all.push(row);sessionStorage.setItem('__cameraProbe',JSON.stringify(all));}catch{}};
+let lastTick=performance.now();const ticks=[];setInterval(()=>{const now=performance.now();if(now-lastTick>=350)ticks.push(Math.round(now-lastTick));lastTick=now;if(ticks.length>400)ticks.shift();window.__cameraThreadStalls=ticks;},100);
+window.WebSocket=class extends Native{constructor(url,protocols){super(url,protocols);if(!String(url).includes('/bridge/receiver'))return;
+const row={id:Date.now()+'-'+Math.random().toString(36).slice(2,7),opened:Date.now(),frames:0,gaps:[],sizes:[],close:null,firstFrameMs:null};let last=0;const begun=performance.now();
+this.addEventListener('message',e=>{if(typeof e.data==='string')return;const now=performance.now();if(last)row.gaps.push(Math.round(now-last));else row.firstFrameMs=Math.round(now-begun);last=now;row.frames++;if(row.sizes.length<5)row.sizes.push(e.data.byteLength);if(row.frames%5===0){row.lastFrame=Date.now();row.threadStalls=(window.__cameraThreadStalls||[]).slice(-60);save(row);}});
+this.addEventListener('close',e=>{row.close={code:e.code,clean:e.wasClean,sinceLastFrameMs:last?Math.round(performance.now()-last):null,at:Date.now()};row.threadStalls=(window.__cameraThreadStalls||[]).slice(-60);save(row);});save(row);}};
+for(const name of ['CONNECTING','OPEN','CLOSING','CLOSED'])window.WebSocket[name]=Native[name];})()"""
+
+
+def camera_probe(page):
+    """Summary of each camera connection, or nothing when none was opened."""
+    rows = page.evaluate("JSON.parse(sessionStorage.getItem('__cameraProbe')||'[]')")
+    out = []
+    for row in rows:
+        gaps = sorted(row.get('gaps') or [])
+        pick = lambda share: gaps[min(len(gaps) - 1, int(len(gaps) * share))] if gaps else None
+        out.append({'frames': row.get('frames'), 'firstFrameMs': row.get('firstFrameMs'), 'p50': pick(.5), 'p95': pick(.95), 'p99': pick(.99), 'max': gaps[-1] if gaps else None,
+                    'gapsAtLeast750': sum(g >= 750 for g in gaps), 'gapsAtLeast1500': sum(g >= 1500 for g in gaps), 'gapsAtLeast3000': sum(g >= 3000 for g in gaps),
+                    'frameBytes': row.get('sizes'), 'close': row.get('close'), 'threadStallsMs': row.get('threadStalls'), 'seconds': round(((row.get('close') or {}).get('at', row.get('lastFrame') or row['opened']) - row['opened']) / 1000, 1)})
+    return out
+
+
 class Aaos:
     """The native WebView on the Android 15 emulator. Camera input comes through the mTLS reference bridge."""
 
@@ -168,7 +193,9 @@ class Aaos:
         page.add_init_script(TIMING)
         page.add_init_script(SEED_OBSERVER)
         page.add_init_script(MASK_PAIRING)
+        page.add_init_script(CAMERA_PROBE)
         page.evaluate(MASK_PAIRING)
+        page.evaluate(CAMERA_PROBE)
         return page
 
     def reconnect(self):
@@ -1424,6 +1451,11 @@ def main():
                 pass
         finally:
             run.stop_recording()
+            if args.platform == 'aaos':
+                try:
+                    run.report['cameraProbe'] = camera_probe(run.page)
+                except Exception as error:
+                    run.report['cameraProbeError'] = str(error)[:200]
             run.report['finishedAt'] = dt.datetime.now(dt.timezone.utc).isoformat()
             run.save()
             adapter.close()

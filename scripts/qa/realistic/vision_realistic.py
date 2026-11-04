@@ -282,6 +282,63 @@ class Journey:
         self.check('Result screen says the result is incomplete', banner.count() == 1 and banner.is_visible())
         self.check('Unmeasured letters are shown per eye', page.locator('[data-eye-unmeasured]').count() >= 1)
 
+    def referral(self, page, adapter):
+        """Specialist options from the live result, through to the provider and back. Returns the page in use."""
+        link = page.locator('[data-letter-result]').get_by_role('link', name='Specialist options', exact=True)
+        self.check('Specialist options are offered on the result', link.count() == 1, link.count())
+        link.scroll_into_view_if_needed()
+        page.wait_for_timeout(1500)
+        page.screenshot(path=str(self.out / 'referral-offer.png'))
+        link.click()
+        page.wait_for_url('**/care**')
+        filters = page.locator('[data-care-filters]')
+        filters.wait_for()
+        url = page.url
+        self.report['referralUrl'] = url.split('/', 3)[-1]
+        self.check('The referral says it came from Vision, for an eye specialist', 'from=vision' in url and 'specialty=' in url, self.report['referralUrl'])
+        page.wait_for_timeout(1500)
+        page.screenshot(path=str(self.out / 'referral-arrival.png'))
+        region = page.locator('[data-care-region]')
+        self.report['referralRegionOnArrival'] = region.input_value()
+        self.check('No region is chosen for the person', region.input_value() == '', region.input_value())
+        self.check('The page asks for a region first', page.locator('[data-care-region-required]').count() == 1)
+        region.select_option('Berlin')
+        slot = page.locator('[data-care-slot]').first
+        slot.wait_for(timeout=20000)
+        page.wait_for_timeout(1500)
+        page.screenshot(path=str(self.out / 'referral-options.png'))
+        count = page.locator('[data-care-slot]').count()
+        text = page.locator('[data-care-results]').inner_text()
+        self.report['referralOptions'] = count
+        self.report['referralOptionsText'] = text[:600]
+        self.check('Options are listed for the chosen region', count > 0, count)
+        self.check('Options are for eye care, not another specialty', re.search(r'ophthalm|eye', text, re.I) is not None, text[:160])
+        self.check('No technical labels on the page', not re.search(r'PUBLIC_|LIVE_|providerType|sourceId', text))
+        slot.get_by_role('button', name='Review appointment', exact=True).click()
+        dialog = page.get_by_role('dialog')
+        dialog.wait_for()
+        page.wait_for_timeout(1200)
+        page.screenshot(path=str(self.out / 'referral-consent.png'))
+        dialog.get_by_role('checkbox').check()
+        dialog.get_by_role('button', name='Confirm and continue').click()
+        page.wait_for_timeout(1200)
+        page.screenshot(path=str(self.out / 'referral-handoff.png'))
+        before = "JSON.parse(localStorage.getItem('attune.care.appointments.v1')||'[]').length"
+        booked = page.evaluate(before)
+        provider = page.locator('[data-care-open-provider]')
+        self.report['referralProvider'] = provider.get_attribute('href')
+        self.check('The provider link is a real web address', (self.report['referralProvider'] or '').startswith('https://'), self.report['referralProvider'])
+        page = adapter.open_provider(page, provider, self)
+        page.locator('[data-care-return]').wait_for()
+        page.wait_for_timeout(1500)
+        page.screenshot(path=str(self.out / 'referral-return.png'))
+        self.check('Back from the provider, the person is asked whether they booked', 'Did you book' in page.locator('[data-care-return]').inner_text())
+        self.check('Opening the provider saved nothing', page.evaluate(before) == booked)
+        page.locator('[data-care-return-no]').click()
+        page.wait_for_timeout(800)
+        self.check('Answering not yet saves nothing', page.evaluate(before) == booked)
+        return page
+
     def history(self, page, record, label):
         page.get_by_role('link', name='My Health History', exact=True).click()
         row = page.locator('[data-record-id="' + record['id'] + '"]')
@@ -341,6 +398,7 @@ class Journey:
                     tables = self.expand_sizes(page, page.locator('[data-letter-result]'), 'live')
                     self.report['resultText'] = tables
                     self.verify_display(tables, summary, 'Result')
+                    page = self.referral(page, adapter)
                     scope = self.history(page, record, 'saved')
                     saved = self.expand_sizes(page, scope, 'saved')
                     self.report['savedText'] = saved
@@ -375,13 +433,29 @@ class Aaos:
         unix = subprocess.check_output(device + ['shell', 'cat', '/proc/net/unix'], text=True, stdin=subprocess.DEVNULL)
         socket = re.findall(r'webview_devtools_remote_\d+', unix)[0]
         subprocess.check_call(device + ['forward', 'tcp:9222', 'localabstract:' + socket], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        browser = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
+        self.playwright = playwright
+        browser = self.browser = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
         page = next(p for c in browser.contexts for p in c.pages if p.url.startswith('http://127.0.0.1:3000'))
         # The camera pairing code is a short-lived credential. It stays out of recordings.
         mask = """(()=>{const hide=()=>document.querySelectorAll('dialog textarea').forEach(e=>e.style.webkitTextSecurity='disc');new MutationObserver(hide).observe(document,{childList:true,subtree:true});})();"""
         page.add_init_script(mask)
         page.evaluate(mask)
-        return page, browser.close
+        return page, lambda: self.browser.close()
+
+    def open_provider(self, page, link, journey):
+        # The native shell blocks this navigation and asks before leaving the app, so nothing will finish loading.
+        link.click(no_wait_after=True)
+        page.wait_for_timeout(1800)
+        # The dialog is native, so only the device can capture it.
+        shot = subprocess.check_output([self.ADB, '-s', 'emulator-5554', 'exec-out', 'screencap', '-p', '-d', '4619827259835644672'], stdin=subprocess.DEVNULL)
+        (journey.out / 'referral-native-leave-dialog.png').write_bytes(shot)
+        # Stay in the app.
+        subprocess.run([self.ADB, '-s', 'emulator-5554', 'shell', 'input', 'keyevent', '4'], stdin=subprocess.DEVNULL, check=False)
+        page.wait_for_timeout(600)
+        # A navigation the WebView cancels stays pending in Playwright for good. A new connection starts clean.
+        self.browser.close()
+        self.browser = self.playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
+        return next(p for c in self.browser.contexts for p in c.pages if p.url.startswith('http://127.0.0.1:3000'))
 
     def prepare(self, page, journey):
         page.goto('http://127.0.0.1:3000/', wait_until='networkidle')
@@ -427,7 +501,7 @@ class Aaos:
 
 class Web:
     """Real Chrome and real browser audio capture. Only the camera is replaced, by reference photos."""
-    HOST = 'attune.sasmaz.digital'
+    HOST = 'attunemore.sasmaz.digital'
     # Audio requests still reach the real device. Video requests get the current reference photo.
     CAMERA = """(()=>{const FRAMES=__FRAMES__,images={};for(const k of Object.keys(FRAMES)){const i=new Image();i.src=FRAMES[k];images[k]=i;}
  const canvas=document.createElement('canvas');canvas.width=640;canvas.height=480;const ctx=canvas.getContext('2d');
@@ -472,6 +546,12 @@ class Web:
         Aaos.enter(self, page, journey)
 
     pair = None
+
+    def open_provider(self, page, link, journey):
+        with page.context.expect_page() as popup:
+            link.click()
+        popup.value.close()
+        return page
 
     def set_pose(self, page, pose):
         page.evaluate('p=>{window.__attunePose=p}', pose)
