@@ -99,6 +99,14 @@ function measurePage() {
     primaryAction: cta ? { text: cta.innerText.trim().slice(0, 30), top: Math.round(ctaTop), viewportLengths: +(ctaTop / usable).toFixed(2), visibleWithoutScroll: ctaTop + cta.getBoundingClientRect().height <= innerHeight } : null,
     touch: { total: targets.length, belowMinimum: small.length, samples: small.slice(0, 6).map(el => ({ el: label(el), w: Math.round(el.getBoundingClientRect().width), h: Math.round(el.getBoundingClientRect().height) })) },
     smallText, covered: hiddenBehind.slice(0, 6).map(label),
+    // How much of each live element the user can see, in percent, at the current scroll position.
+    live: Object.fromEntries(['[data-letter-area]', '[data-camera-preview]', '[data-dental-capture]', '[data-live-transcript]'].map(selector => {
+      const el = document.querySelector(selector);
+      if (!el || !visible(el)) return [selector, null];
+      const r = el.getBoundingClientRect();
+      const shown = Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, sticky ? headerHeight : 0));
+      return [selector, Math.round(100 * shown / r.height)];
+    }).filter(([, value]) => value !== null)),
   };
 }
 

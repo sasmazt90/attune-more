@@ -13,7 +13,8 @@ export function LanguageSelector(){
   <select id="attune-language" aria-label={t('Uygulama dili')} disabled={!isParked||locked} value={language} className="min-h-11 rounded-xl border border-white/20 bg-slate-950 px-2 text-sm text-white disabled:opacity-50" onChange={e=>{try{const next=e.target.value;if(LANGUAGES.includes(next as typeof language))setLanguage(next as typeof language);setError('');}catch{setError('Dil tercihi kaydedilemedi.');}}}>
    {LANGUAGES.map(id=><option key={id} value={id} lang={id}>{id.toUpperCase()}</option>)}
   </select>
-  {locked&&<span role="status" className="max-w-60 text-xs text-slate-300">{t('Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.')}</span>}
+  {/* The disabled selector shows the lock on short displays; the text would add a header row. */}
+  {locked&&<span role="status" className="max-w-60 text-xs text-slate-300 short:sr-only">{t('Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.')}</span>}
   {error&&<span role="alert" className="max-w-48 text-xs text-amber-200">{t(error)}</span>}
  </div>;
 }

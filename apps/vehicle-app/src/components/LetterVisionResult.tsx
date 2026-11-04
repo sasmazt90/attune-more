@@ -2,10 +2,11 @@
 import {useTranslations} from '../i18n/LanguageProvider';
 
 import Link from 'next/link';
+import {formatPercent} from '../i18n/core';
 import {careHref} from '../utils/healthModules';
 import {LETTER_RULES, LETTER_VISIBILITY_STOP, type LetterResult, performanceBySize, performanceForEye} from '../utils/spokenVision';
 import {CardCarousel} from './CardCarousel';
-const percent=(value:number|null)=>value===null?'Yeterli yanıt yok':`%${Math.round(value)}`;
+const percent=(value:number|null)=>value===null?'Yeterli yanıt yok':formatPercent(value);
 export function LetterVisionResult({result,showReferral=true}:{result:LetterResult;showReferral?:boolean}){
  const {text:i18nText,node:i18nNode}=useTranslations();
  const stopped=result.stopReason===LETTER_VISIBILITY_STOP;

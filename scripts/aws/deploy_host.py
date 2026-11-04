@@ -31,7 +31,7 @@ BUILD_ENV = {
     'NEXT_TELEMETRY_DISABLED': '1',
 }
 # Everything else on the AAOS host stays as prepared; it serves no application source.
-AAOS_PATHS = ['infra/aws/aaos/', 'scripts/aws/']
+AAOS_PATHS = ['infra/aws/aaos/', 'scripts/aws/', 'scripts/qa/realistic/']
 WEB_RESTARTS = ['attune-api@web', 'attune-api@aaos', 'attune-web@web', 'attune-web@aaos', 'attune-capture']
 AAOS_RESTARTS = ['attune-audio']
 
@@ -56,6 +56,11 @@ def fetch(commit, workspace):
     run('tar', '-xzf', str(archive), '-C', str(workspace))
     source = next(p for p in Path(workspace).iterdir() if p.is_dir())
     return source, hashlib.sha256(archive.read_bytes()).hexdigest()
+
+
+def tree_copy(source, target):
+    # The trailing slashes copy a folder's contents. Without them rsync nests it inside itself.
+    return ['rsync', '-a', str(source).rstrip('/') + '/', str(target).rstrip('/') + '/']
 
 
 def lock_digest(path):
@@ -90,8 +95,12 @@ def deploy_aaos(commit):
     with tempfile.TemporaryDirectory(prefix='attune-release-', dir='/opt') as workspace:
         source, archive_sha = fetch(commit, workspace)
         for path in AAOS_PATHS:
-            run('rsync', '-a', str(source / path), str(ROOT / path))
+            (ROOT / path).mkdir(parents=True, exist_ok=True)
+            run(*tree_copy(source / path, ROOT / path))
     (ROOT / 'source-commit.txt').write_text(commit + '\n')
+    # Removes the nested copies an earlier version of this script left behind.
+    for leftover in ('infra/aws/aaos/aaos', 'scripts/aws/aws'):
+        shutil.rmtree(ROOT / leftover, ignore_errors=True)
     run('chown', '-R', 'root:attune', str(ROOT / 'infra'), str(ROOT / 'scripts'))
     run('chmod', '-R', 'g+rX,g-w', str(ROOT / 'infra'), str(ROOT / 'scripts'))
     run('systemctl', 'restart', *AAOS_RESTARTS)

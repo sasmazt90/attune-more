@@ -71,3 +71,5 @@ export function translateText(value:string,language:Language=getLanguage(),depth
 export const t=translateText;
 export function formatDate(value:Date|string|number,options?:Intl.DateTimeFormatOptions){return new Intl.DateTimeFormat(getLocale(),options).format(new Date(value));}
 export function formatNumber(value:number,options?:Intl.NumberFormatOptions){return new Intl.NumberFormat(getLocale(),options).format(value);}
+/** tr %83, en 83%, de 83 %. */
+export function formatPercent(value:number){return formatNumber(value/100,{style:'percent',maximumFractionDigits:0});}

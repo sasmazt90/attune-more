@@ -71,22 +71,22 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
   const selectFinding=(key:string)=>{const item=callouts.find(c=>c.key===key);if(!item)return;setSourceKey(key);if(view==='overview')setOverviewSel(item.id);else setIndex(Math.max(0,items.findIndex(f=>f.id===item.id)));};
   const when = new Date(at);
   return (
-    <div className="w-full flex flex-col gap-5" data-skin-result>
+    <div className="w-full flex flex-col gap-5 short:gap-2" data-skin-result>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-baseline gap-4">
-          <h1 className="text-[30px] font-extrabold tracking-tight text-white">{text('Cilt analizi')}</h1>
+          <h1 className="text-[30px] short:text-2xl font-extrabold tracking-tight text-white">{text('Cilt analizi')}</h1>
           <span className="text-base text-slate-400">{when.toLocaleDateString(locale, { day: 'numeric', month: 'long' })} · {when.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
         <span className="text-[15px] text-slate-300 px-[18px] py-2.5 rounded-full bg-[#0f1724] whitespace-nowrap">{text('Ön değerlendirme · Tanı değildir')}</span>
       </div>
 
       <nav aria-label={text('Bölgeler')} className="max-w-full overflow-x-auto self-start" data-skin-region-tabs>
-        <div className="flex gap-1.5 p-1.5 rounded-[22px] bg-[#0d1520] min-w-max">
+        <div className="flex gap-1.5 p-1.5 short:p-1 rounded-[22px] short:rounded-2xl bg-[#0d1520] min-w-max">
           {FINDING_VIEW_ORDER.map(id => {
             const active = id === view, n = id === 'overview' ? 0 : seenCount(findings, id);
             return (
               <button key={id} type="button" aria-current={active ? 'page' : undefined} onClick={() => goTo(id)} data-skin-region-tab={id}
-                className={`min-h-[52px] px-5 rounded-2xl text-[17px] flex items-center gap-2 transition ${active ? 'bg-[#1a2a3c] text-white font-bold' : 'text-slate-300 font-semibold hover:bg-white/[0.05]'}`}>
+                className={`min-h-[52px] short:min-h-[44px] px-5 short:px-3 rounded-2xl text-[17px] short:text-sm flex items-center gap-2 transition ${active ? 'bg-[#1a2a3c] text-white font-bold' : 'text-slate-300 font-semibold hover:bg-white/[0.05]'}`}>
                 {text(id === 'overview' ? 'Genel bakış' : FINDING_VIEW_NAMES[id])}
                 {n > 0 && <span className={`min-w-6 h-6 px-1.5 rounded-full text-xs font-bold flex items-center justify-center ${active ? 'bg-[#00d2eb] text-slate-950' : 'bg-white/10 text-white'}`}>{n}</span>}
               </button>
@@ -95,7 +95,7 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
         </div>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] gap-6 xl:gap-10 items-start" data-skin-result-layout>
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] short:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-6 short:gap-3 xl:gap-10 items-start" data-skin-result-layout>
         <div className="min-w-0 flex flex-col items-center">
           <SkinFacePanel currentRegion={currentRegion} snapshot={snapshot} mode="result" videoRef={videoRef} isLiveVideo={isLiveVideo}
             findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={selectFinding}

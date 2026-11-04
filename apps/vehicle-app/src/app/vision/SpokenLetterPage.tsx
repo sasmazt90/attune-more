@@ -286,8 +286,8 @@ export default function SpokenLetterPage(){
   {!isParked?<p>{i18nNode(syncStatus==='synced'?'Sürüş sırasında görev kapalıdır.':'Araç durumu doğrulanamadı; görev kapalıdır.')}</p>:<>
    {f.stage==='idle'&&<HealthStartCard module="vision" actions={<button onClick={()=>void start()} disabled={!ready||r.current.starting} className={HEALTH_START_ACTION}>{i18nText("Başlat")}</button>}/>}
    {(active||f.stage==='result')&&<VisionJourney phase={f.stage==='result'?'result':f.stage==='preparing'?'prepare':'test'} eye={s?.eye||'LEFT'} completed={s?.trials.length??(result?result.trials.filter(t=>t.valid).length:0)}/>}
-   {active&&<section className="grid md:grid-cols-2 gap-4 rounded-2xl bg-cockpit-surface border border-slate-800/90 p-4 md:p-6 w-full min-w-0 max-w-full">
-    <div className="order-first md:order-none md:col-span-2 grid md:grid-cols-2 gap-4 min-w-0"><div className="hidden md:block" aria-hidden="true"/><div className="space-y-2 min-w-0">
+   {active&&<section className="grid md:grid-cols-2 gap-4 short:gap-2 rounded-2xl bg-cockpit-surface border border-slate-800/90 p-4 md:p-6 short:p-2 w-full min-w-0 max-w-full">
+    <div className="order-first md:order-none md:col-span-2 grid md:grid-cols-2 gap-4 short:gap-2 min-w-0"><div className="hidden md:block" aria-hidden="true"/><div className="space-y-2 min-w-0">
      <p className="text-center font-semibold">{i18nNode(s?`${s.eye==='RIGHT'?'Sağ':'Sol'} göz · ${s.trials.length%12+1}/12`:'')}</p>
      <p role="status" data-vision-readiness className="min-h-5 text-sm text-togg-turquoise text-center">{i18nNode(voice==='playing'?'Yönerge okunuyor':voice==='loading'?'Yönerge hazırlanıyor':f.stage==='listening'&&r.current.listeningStarted?(f.conditionsValid?'Dinliyor':'Koşul bekleniyor'):f.stage==='listening'?(r.current.answerTimer?'Yanıt işleniyor':'Mikrofon hazırlanıyor'):f.stage==='condition-paused'?'Koşul bekleniyor':'')}</p>
     </div></div>

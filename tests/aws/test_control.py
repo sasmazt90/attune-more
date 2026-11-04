@@ -182,3 +182,17 @@ def test_issued_chain_is_long_lived_constrained_and_destroys_the_ca_key(tmp_path
         assert not re.search(r'IP Address', run('x509', '-in', str(path), '-noout', '-ext', 'subjectAltName'))
     with pytest.raises(ValueError):
         stable_host.sign_all({'web': requests['web']}, workspace=str(workspace))
+
+
+def test_release_copy_never_nests_a_folder_inside_itself():
+    import deploy_host
+    assert deploy_host.tree_copy('/tmp/src/infra/aws/aaos', '/opt/attune/infra/aws/aaos') == ['rsync', '-a', '/tmp/src/infra/aws/aaos/', '/opt/attune/infra/aws/aaos/']
+    assert deploy_host.tree_copy('/tmp/src/scripts/aws/', '/opt/attune/scripts/aws/')[2:] == ['/tmp/src/scripts/aws/', '/opt/attune/scripts/aws/']
+
+
+def test_release_requires_an_exact_commit():
+    import deploy_host
+    assert deploy_host.valid_commit('a' * 40) == 'a' * 40
+    for bad in ('main', 'a9b7919', '', None, 'a' * 39 + 'G'):
+        with pytest.raises(ValueError):
+            deploy_host.valid_commit(bad)

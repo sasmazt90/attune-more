@@ -61,7 +61,7 @@ export default function MentalPage() {
 
   return <div className={c.phase==='ready'?'space-y-6 max-w-5xl mx-auto':'grid grid-cols-1 lg:grid-cols-2 gap-6 items-start'}>
     {c.phase==='ready'&&<div className="flex items-center gap-2"><h1 className="text-2xl font-bold">{i18nNode(HEALTH_MODULES.mental.name)}</h1><InformationButton title={i18nText(HEALTH_MODULES.mental.name)}><p>{i18nText("Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.")}</p></InformationButton></div>}
-    <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5'}>
+    <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 short:p-3 space-y-5 short:space-y-2'}>
       {demo && <p className="text-amber-200">{i18nText("Demo / Örnek içerik — gerçek görüşme geçmişiniz değildir.")}</p>}
       {c.phase==='ready'?<HealthStartCard module="mental" actions={<button onClick={()=>{guidance.cancel();return c.start();}} disabled={!isParked||!c.serviceConsent} className={HEALTH_START_ACTION}><span className="flex items-center gap-2 justify-center"><Mic className="h-5 w-5"/>{i18nText("Görüşmeyi Başlat")}</span></button>}/>:<>
       <div className="flex items-center gap-2 text-togg-turquoise"><HeartPulse /><span>{i18nNode(HEALTH_MODULES.mental.name)}</span></div>
