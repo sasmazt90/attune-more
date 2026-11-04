@@ -10,7 +10,7 @@
 Mevcut AWS hedefleri: WEB `i-0b25450afc6633494`, AAOS `i-0f4cca4e92e94c351`.
 2026-11-03 gerçek EC2 API çağrısı ikisini de `stopped` doğruladı. Bölge `eu-central-1`.
 [Canlı preflight](PREFLIGHT-20261103.md) kısmen tamamlandı; runtime kabul hücreleri değişmedi.
-WEB hedefi `https://attune.sasmaz.digital`, AAOS hedefi `https://aaos.sasmaz.digital`.
+WEB hedefi `https://attunemore.sasmaz.digital`, AAOS hedefi `https://aaos.attunemore.sasmaz.digital`.
 Bunlar **canlı demo URL'si değildir**. DNS/TLS/hesap doğrulaması yapılmadı.
 
 | Kabul maddesi | WEB AWS | AAOS AWS | Gerekli kanıt |

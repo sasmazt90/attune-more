@@ -18,7 +18,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 KEYS = {'skin': 'togg_health_skin_history', 'dental': 'attune_dental_history_v1', 'hearing': 'attune_hearing_history_v1', 'mental': 'togg_health_mental_history', 'vision': 'togg_health_vision_history'}
-HOST = 'attune.sasmaz.digital'
+HOST = 'attunemore.sasmaz.digital'
 QA = Path('/var/lib/attune/qa')
 ADB = '/opt/android-sdk/platform-tools/adb'
 

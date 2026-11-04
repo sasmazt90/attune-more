@@ -3,15 +3,16 @@
   One-click START, STOP and STATUS for the two existing Attune.more EC2 instances.
 
 .DESCRIPTION
-  Never creates AWS resources or changes DNS. It only starts and stops the two
-  known instances, runs read-only checks through SSM, restarts Attune services,
-  and asks before allowing a new home IP on the existing Security Groups.
+  Never creates AWS resources. It starts and stops the two known instances, keeps the two
+  authorized IONOS A records on their current EC2 addresses, renews browser-trusted
+  certificates, restarts Attune services, runs checks through SSM, and asks before allowing
+  a new home IP on the existing Security Groups. See AttuneDomain.ps1.
 
   Exit code: 0 READY or STOPPED, 1 PARTIAL, 2 ERROR.
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('Start', 'Stop', 'Status', 'ShowLogin')][string]$Action = 'Status',
+    [ValidateSet('Start', 'Stop', 'Status', 'ShowLogin', 'SetupCertificates')][string]$Action = 'Status',
     [string]$AwsProfile = 'attune-desktop',
     [string]$LoginProfile = 'attune-operator',
     # Also hashes every model file and generates real Chatterbox speech. Adds several minutes.
@@ -20,6 +21,8 @@ param(
     [switch]$NoPause,
     # For unattended runs: allow this PC's new public IP without asking.
     [switch]$AllowIpChange,
+    # Start only: request new certificates even if the current ones have time left.
+    [switch]$RenewCertificates,
     # Root-readable login record on the WEB host.
     [string]$LoginFile = '/var/lib/attune/qa/access.json'
 )
@@ -33,8 +36,8 @@ $env:PYTHONUTF8 = '1'
 
 $Region = 'eu-central-1'
 $Account = '798886013428'
-$WebDomain = 'attune.sasmaz.digital'
-$AaosDomain = 'aaos.sasmaz.digital'
+$WebDomain = 'attunemore.sasmaz.digital'
+$AaosDomain = 'aaos.attunemore.sasmaz.digital'
 $WebSg = 'sg-023659b3a447ab759'
 $AaosSg = 'sg-0476f580c44063a5d'
 $Targets = @(
@@ -48,12 +51,17 @@ $EbsUsdPerMonth = 25.704
 
 $HostScript = Join-Path $PSScriptRoot 'host_ready.py'
 if (-not (Test-Path -LiteralPath $HostScript)) { $HostScript = Join-Path $PSScriptRoot '..\host_ready.py' }
-$DataRoot = Join-Path $env:LOCALAPPDATA 'AttuneMore'
+$StableScript = Join-Path $PSScriptRoot 'stable_host.py'
+if (-not (Test-Path -LiteralPath $StableScript)) { $StableScript = Join-Path $PSScriptRoot '..\stable_host.py' }
+. (Join-Path $PSScriptRoot 'AttuneDomain.ps1')
+# Not under AppData. A packaged app redirects its writes there to a private copy, so the same path
+# would hold different files for the desktop shortcuts and for a tool started from that app.
+$DataRoot = Join-Path $env:USERPROFILE 'AttuneMore'
 $ReportRoot = Join-Path $DataRoot 'reports'
 $StartedAt = Get-Date
 $Result = [ordered]@{
     action = $Action; startedAt = $StartedAt.ToUniversalTime().ToString('o'); status = 'ERROR'; identity = $null
-    instances = @(); checks = @(); recoveries = @(); urls = @{}; cost = @{}; timings = [ordered]@{}; problems = @()
+    instances = @(); checks = @(); recoveries = @(); urls = @{}; dns = @(); certificates = @(); cost = @{}; timings = [ordered]@{}; problems = @()
 }
 
 function Write-Line([string]$text, [string]$color = 'Gray') { Write-Host $text -ForegroundColor $color }
@@ -306,22 +314,40 @@ function Invoke-HostCommand([string]$instanceId, [string[]]$commands, [int]$time
     [pscustomobject]@{ Status = 'TimedOut'; Code = -1; Out = ''; Err = 'No result in time' }
 }
 
-function Get-HostScriptCommands([string]$role) {
-    $bytes = [IO.File]::ReadAllBytes($HostScript)
+function Get-InlineScriptCommands([string]$path, [string]$arguments) {
+    $bytes = [IO.File]::ReadAllBytes($path)
     $memory = New-Object IO.MemoryStream
     $gzip = New-Object IO.Compression.GZipStream($memory, [IO.Compression.CompressionMode]::Compress)
     $gzip.Write($bytes, 0, $bytes.Length)
     $gzip.Close()
     $encoded = [Convert]::ToBase64String($memory.ToArray())
-    $commands = @('set -e', 'target=$(mktemp /tmp/attune-host-ready.XXXXXX)')
+    $commands = @('set -e', 'target=$(mktemp /tmp/attune-host-script.XXXXXX)')
     for ($at = 0; $at -lt $encoded.Length; $at += 3000) {
         $commands += "printf %s '" + $encoded.Substring($at, [math]::Min(3000, $encoded.Length - $at)) + "' >> `"`$target`""
     }
-    $deepFlag = if ($Deep) { ' --deep' } else { '' }
     $commands += 'base64 -d "$target" | gunzip > "$target.py"'
-    $commands += "python3 `"`$target.py`" --role $role$deepFlag"
+    $commands += "python3 `"`$target.py`" $arguments"
     $commands += 'rm -f "$target" "$target.py"'
     $commands
+}
+
+function Get-HostScriptCommands([string]$role) {
+    $deepFlag = if ($Deep) { ' --deep' } else { '' }
+    Get-InlineScriptCommands $HostScript "--role $role$deepFlag"
+}
+
+# Certificates and origins only. Public data travels; nothing here prints a key.
+function Invoke-StableHost([string]$role, [string]$step, [string]$payload) {
+    $id = ($Targets | Where-Object { $_.Role -eq $role }).Id
+    $arguments = "$step --role $role"
+    if ($payload) { $arguments += " --payload '$payload'" }
+    $reply = Invoke-HostCommand $id (Get-InlineScriptCommands $StableScript $arguments) 180
+    if ($reply.Status -ne 'Success') {
+        $detail = "$($reply.Err)".Trim()
+        if ($detail.Length -gt 300) { $detail = $detail.Substring($detail.Length - 300) }
+        throw "$($role.ToUpper()) step '$step' failed: $detail"
+    }
+    ($reply.Out.Trim() -split "`n" | Select-Object -Last 1) | ConvertFrom-Json
 }
 
 function Get-HostReport([string]$role, [int]$timeoutSeconds = 240) {
@@ -361,6 +387,20 @@ function Write-HostReport($report, [string]$role) {
     }
 }
 
+function Sync-Origins {
+    foreach ($role in @('web', 'aaos')) {
+        try {
+            $reply = Invoke-StableHost $role 'origins'
+            $changed = @($reply.changed)
+            if ($changed) {
+                $Result.recoveries += "Origins updated on ${role}: $($changed -join ', ')"
+                Write-Line "  $($role.ToUpper()): origins updated, restarting its services." Yellow
+                [void](Invoke-StableHost $role 'restart')
+            }
+        } catch { Add-Problem "Could not confirm the origins on $($role.ToUpper()): $($_.Exception.Message)" }
+    }
+}
+
 function Start-Services {
     $web = ($Targets | Where-Object { $_.Role -eq 'web' }).Id
     $aaos = ($Targets | Where-Object { $_.Role -eq 'aaos' }).Id
@@ -382,33 +422,95 @@ function Restart-FailedUnits($report, [string]$role) {
     $true
 }
 
+# No certificate bypass and no address pinning: this is the path a browser takes.
 function Test-PublicHttps($instances) {
     $rows = @()
     foreach ($pair in @(@{ Role = 'web'; Domain = $WebDomain }, @{ Role = 'aaos'; Domain = $AaosDomain })) {
         $ip = Get-PublicIp (Get-InstanceOf $instances $pair.Role)
-        $resolved = $null
-        try { $resolved = @([Net.Dns]::GetHostAddresses($pair.Domain) | ForEach-Object { $_.IPAddressToString }) } catch { }
-        $dnsOk = $resolved -and ($resolved -contains $ip)
-        # The certificate comes from the project's private CA, so this checks routing and
-        # that unauthenticated callers are refused, not public certificate trust.
-        $code = & curl.exe -sk --max-time 12 --resolve "$($pair.Domain):443:$ip" -o NUL -w '%{http_code}' "https://$($pair.Domain)/" 2>$null
-        $rows += [ordered]@{ role = $pair.Role; publicIp = $ip; domain = $pair.Domain; dnsPointsHere = [bool]$dnsOk; unauthenticatedHttps = "$code" }
+        & ipconfig.exe /flushdns | Out-Null
+        $resolved = @(Get-SystemAnswer $pair.Domain)
+        $code = & curl.exe -s --max-time 15 --ssl-revoke-best-effort -o NUL -w '%{http_code}' "https://$($pair.Domain)/"
+        $curlExit = $LASTEXITCODE
+        $rows += [ordered]@{
+            role = $pair.Role; publicIp = $ip; domain = $pair.Domain; resolvesTo = ($resolved -join ',')
+            dnsPointsHere = [bool]($ip -and $resolved.Count -eq 1 -and $resolved[0] -eq $ip)
+            trustedCertificate = [bool]("$code" -ne '000' -and $curlExit -eq 0); unauthenticatedHttps = "$code"
+        }
     }
     $rows
 }
 
-function Open-Browser($urls) {
-    $browser = @("$env:ProgramFiles\Google\Chrome\Application\chrome.exe", "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe",
-        "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe", "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe",
-        "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
-    if (-not $browser) {
-        Write-Line 'No Chrome or Edge found. Open the URLs above manually.' Yellow
-        return
+function Add-AddressProblems($rows) {
+    foreach ($row in $rows) {
+        if (-not $row.dnsPointsHere) { Add-Problem "$($row.domain) resolves to '$($row.resolvesTo)' on this PC, but its instance has $($row.publicIp)." }
+        elseif (-not $row.trustedCertificate) { Add-Problem "$($row.domain): the HTTPS connection failed or the certificate is not trusted, so a browser would warn (curl result $($row.unauthenticatedHttps))." }
+        elseif ($row.unauthenticatedHttps -ne '401') { Add-Problem "$($row.domain) did not refuse an unauthenticated request (HTTP $($row.unauthenticatedHttps))." }
     }
-    $rules = @($urls | ForEach-Object { "MAP $($_.domain) $($_.publicIp)" }) -join ','
-    $profileDir = Join-Path $DataRoot 'browser-profile'
-    $arguments = @("--user-data-dir=`"$profileDir`"", "--host-resolver-rules=`"$rules`"", '--no-first-run') + @($urls | ForEach-Object { "https://$($_.domain)/" })
-    Start-Process -FilePath $browser -ArgumentList $arguments | Out-Null
+}
+
+function Sync-Dns($instances, $zone) {
+    $homeIp = Get-MyPublicIp
+    foreach ($pair in @(@{ Role = 'web'; Domain = $WebDomain }, @{ Role = 'aaos'; Domain = $AaosDomain })) {
+        $instance = Get-InstanceOf $instances $pair.Role
+        # From AWS, for this exact instance ID. Nothing else can reach the record.
+        $ip = Get-PublicIp $instance
+        if (-not $ip) {
+            Add-Problem "$($pair.Domain): instance $($instance.InstanceId) has no public IP yet, so DNS was not changed."
+            continue
+        }
+        try {
+            $action = Sync-DnsRecord $zone.id $pair.Domain $ip $homeIp
+            $Result.dns += [ordered]@{ name = $pair.Domain; instance = $instance.InstanceId; ip = $ip; action = $action }
+            Write-Line "  $($pair.Domain) -> $ip ($action)" $(if ($action -eq 'unchanged') { 'DarkGray' } else { 'Green' })
+        } catch {
+            Add-Problem "DNS for $($pair.Domain) was not changed: $($_.Exception.Message)"
+            Write-Line "  $($pair.Domain): NOT changed" Red
+        }
+    }
+}
+
+function Confirm-Dns($instances, $zone) {
+    $servers = @(Get-AuthoritativeServers $zone.id)
+    foreach ($pair in @(@{ Role = 'web'; Domain = $WebDomain }, @{ Role = 'aaos'; Domain = $AaosDomain })) {
+        $ip = Get-PublicIp (Get-InstanceOf $instances $pair.Role)
+        if (-not $ip) { continue }
+        $seen = Confirm-Hostname $pair.Domain $ip $servers
+        $entry = @($Result.dns | Where-Object { $_.name -eq $pair.Domain }) | Select-Object -First 1
+        if ($entry) { $entry.resolution = $seen }
+        if (-not $seen.authoritative) { Add-Problem "$($pair.Domain): the IONOS name servers do not yet answer $ip." }
+        elseif (-not $seen.thisPcOk) { Add-Problem "$($pair.Domain): IONOS is correct, but this PC still resolves it to '$($seen.thisPcAnswer)'. Its resolver may be caching; try STATUS in a few minutes." }
+        else { Write-Line "  $($pair.Domain) resolves to $ip (name servers and this PC; $($seen.publicResolversAgreeing) of $($script:PublicResolvers.Count) public resolvers)" Green }
+    }
+}
+
+function Sync-Certificates($zone) {
+    $servers = $null
+    foreach ($role in @('web', 'aaos')) {
+        try {
+            $state = Invoke-StableHost $role 'public-state'
+            if (-not $state.needsCertificate -and -not $RenewCertificates) {
+                Write-Line "  $($state.name): trusted certificate, $($state.daysLeft) days left" DarkGray
+                $Result.certificates += [ordered]@{ name = $state.name; action = 'kept'; daysLeft = $state.daysLeft; notAfter = $state.notAfter }
+                continue
+            }
+            Write-Line "  $($state.name): requesting a browser-trusted certificate" White
+            if (-not $servers) { $servers = @(Get-AuthoritativeServers $zone.id) }
+            $request = Invoke-StableHost $role 'public-request'
+            $chain = New-PublicCertificate $request.name $request.request 'production' $zone.id $servers
+            $payload = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes((@{ chain = $chain } | ConvertTo-Json -Compress)))
+            $after = Invoke-StableHost $role 'install-public' $payload
+            $Result.certificates += [ordered]@{ name = $after.name; action = 'issued'; daysLeft = $after.daysLeft; notAfter = $after.notAfter }
+            Write-Line "  $($after.name): installed, $($after.daysLeft) days left" Green
+        } catch {
+            $Result.certificates += [ordered]@{ name = "$role"; action = 'failed' }
+            Add-Problem "Certificate for $($role.ToUpper()): $($_.Exception.Message)"
+        }
+    }
+}
+
+function Open-Browser($urls) {
+    # The ordinary browser and real DNS, so what opens here is what any allowed device sees.
+    foreach ($url in $urls) { Start-Process "https://$($url.domain)/" | Out-Null }
 }
 
 function Save-Result {
@@ -434,11 +536,8 @@ function Write-Urls($rows) {
     Write-Line 'Addresses' White
     foreach ($row in $rows) {
         $label = if ($row.role -eq 'web') { 'WEB ' } else { 'AAOS' }
-        $routing = if ($row.dnsPointsHere) { 'DNS points here' } else { "DNS not set up yet, public IP $($row.publicIp)" }
+        $routing = if (-not $row.dnsPointsHere) { "NOT resolving to this instance ($($row.publicIp))" } elseif ($row.trustedCertificate) { 'DNS correct, certificate trusted' } else { 'DNS correct, certificate NOT trusted' }
         Write-Line "  $label https://$($row.domain)/   ($routing)"
-    }
-    if (@($rows | Where-Object { -not $_.dnsPointsHere })) {
-        Write-Line '  Use the browser this tool opens. It maps these names to the current public IPs.' DarkGray
     }
 }
 
@@ -488,12 +587,51 @@ function Invoke-ShowLogin {
     'SHOWN'
 }
 
+function Invoke-SetupCertificates {
+    Write-Host ''
+    Write-Line 'Browser-trusted certificates for the two Attune.more addresses come from Let''s Encrypt.' White
+    Write-Line 'This creates one Let''s Encrypt account and a matching test account. No email or personal data is sent.'
+    Write-Line 'The account key stays on this PC, encrypted for your Windows user. Certificates then renew on their own at START.'
+    Write-Host ''
+    Write-Line "Terms you accept by continuing: $(Get-AcmeTerms 'production')" Yellow
+    $answer = Read-Host 'Do you accept these terms? Type yes to continue'
+    if ($answer -ne 'yes') {
+        Write-Line 'Nothing was created.' Yellow
+        return 'SHOWN'
+    }
+    foreach ($authority in @('production', 'staging')) {
+        [void](Register-AcmeAccount $authority)
+        Write-Line "  $authority account ready." Green
+    }
+    Write-Line 'Done. Press START to issue the certificates.' Green
+    'SHOWN'
+}
+
 function Invoke-Start {
     Connect-Aws
     Write-Step 'Checking the two instances'
+    $before = Get-Instances
     Sync-HomeIp
+    Write-Step 'Checking IONOS DNS access'
+    $zone = $null
+    try {
+        $zone = Get-IonosZone
+        Write-Line "  IONOS zone $($zone.name) reachable." Green
+    } catch {
+        # Stopped hosts get new addresses at START, so without DNS the pages could not be reached.
+        if (@($before | Where-Object { $_.State.Name -ne 'running' })) {
+            Add-Problem $_.Exception.Message
+            Add-Problem 'Nothing was started, so nothing is charging.'
+            return 'ERROR'
+        }
+        Add-Problem $_.Exception.Message
+    }
     Write-Step 'Starting compute'
     Start-Compute
+    $instances = Get-Instances
+    Write-Step 'Updating the DNS records from the addresses AWS reports'
+    if ($zone) { Sync-Dns $instances $zone }
+    Add-Timing 'dnsWrittenSeconds'
     Write-Step 'Waiting for the operating systems and SSM'
     if (-not (Wait-Ssm 480)) {
         Add-Problem 'SSM did not come online within 8 minutes.'
@@ -501,6 +639,10 @@ function Invoke-Start {
     }
     Add-Timing 'ssmOnlineSeconds'
     Write-Line 'SSM is online on both instances.' Green
+    Write-Step 'Checking origins and browser-trusted certificates'
+    Sync-Origins
+    if ($zone) { Sync-Certificates $zone }
+    Add-Timing 'certificatesCheckedSeconds'
     Write-Step 'Starting Attune services'
     Start-Services
     Write-Step 'Verifying WEB + AI (backends, models, OpenAI, Chatterbox, Caddy)'
@@ -518,12 +660,13 @@ function Invoke-Start {
     Write-Step 'Checking the addresses from this PC'
     $instances = Get-Instances
     $Result.instances = @($instances | ForEach-Object { [ordered]@{ id = $_.InstanceId; state = $_.State.Name; publicIp = (Get-PublicIp $_) } })
+    if ($zone) {
+        try { Confirm-Dns $instances $zone } catch { Add-Problem "Could not confirm DNS: $($_.Exception.Message)" }
+    }
     $rows = @(Test-PublicHttps $instances)
     $Result.urls = $rows
     Write-Urls $rows
-    foreach ($row in $rows) {
-        if ($row.unauthenticatedHttps -ne '401') { Add-Problem "$($row.domain) did not answer as expected from this PC (HTTP $($row.unauthenticatedHttps))." }
-    }
+    Add-AddressProblems $rows
     Set-CostEstimate $instances
     Write-Cost
     if ($OpenBrowser) { Open-Browser $rows }
@@ -593,6 +736,7 @@ function Invoke-Status {
     $rows = @(Test-PublicHttps $instances)
     $Result.urls = $rows
     Write-Urls $rows
+    Add-AddressProblems $rows
     foreach ($report in @(@{ Role = 'WEB'; Data = $web }, @{ Role = 'AAOS'; Data = $aaos })) {
         if (-not $report.Data) { Add-Problem "$($report.Role): no readiness report." }
         elseif (-not $report.Data.ready) { Add-Problem "$($report.Role) failed: $(@($report.Data.failedRequired) -join ', ')" }
@@ -610,6 +754,7 @@ try {
         'Stop' { Invoke-Stop }
         'Status' { Invoke-Status }
         'ShowLogin' { Invoke-ShowLogin }
+        'SetupCertificates' { Invoke-SetupCertificates }
     }
     $Result.status = $status
     if ($status -eq 'SHOWN') {

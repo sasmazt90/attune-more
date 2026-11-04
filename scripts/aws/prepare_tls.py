@@ -28,8 +28,8 @@ def prepare(out, web_ip=None, aaos_ip=None):
         '-addext', 'basicConstraints=critical,CA:TRUE,pathlen:0',
         '-addext', 'keyUsage=critical,keyCertSign,cRLSign')
     for name, dns, ip, usage in [
-        ('web', 'attune.sasmaz.digital', web_ip, 'serverAuth'),
-        ('aaos', 'aaos.sasmaz.digital', aaos_ip, 'serverAuth'),
+        ('web', 'attunemore.sasmaz.digital', web_ip, 'serverAuth'),
+        ('aaos', 'aaos.attunemore.sasmaz.digital', aaos_ip, 'serverAuth'),
         ('internal', 'attune-internal', None, 'serverAuth'),
         ('client', 'attune-aaos-client', None, 'clientAuth'),
     ]:

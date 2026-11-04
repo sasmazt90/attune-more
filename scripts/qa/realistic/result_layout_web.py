@@ -13,7 +13,7 @@ import time
 
 from playwright.sync_api import sync_playwright
 
-HOST = 'attune.sasmaz.digital'
+HOST = 'attunemore.sasmaz.digital'
 QA = Path('/var/lib/attune/qa')
 # Layout facts from the rendered page; the same questions the page audit asks.
 MEASURE = """()=>{const h=document.querySelector('[data-cockpit-header]'),hr=h?h.getBoundingClientRect():{height:0},sticky=h?['sticky','fixed'].includes(getComputedStyle(h).position):false;

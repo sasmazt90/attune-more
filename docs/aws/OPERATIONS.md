@@ -72,11 +72,11 @@ python scripts/aws/cost.py --g6 <dated-rate> --m8i <dated-rate> --ebs-gb-month <
    Private key'ler root/caddy dışına okunmaz; Git/Drive'a yüklenmez.
 4. G6'daki örnek env düzeni (gerçek secrets yalnız root-owned 0600 dosyalarda):
 
-   - `api-web.env`: `PORT=8000`, `ATTUNE_TRUSTED_ORIGINS=https://attune.sasmaz.digital`
+   - `api-web.env`: `PORT=8000`, `ATTUNE_TRUSTED_ORIGINS=https://attunemore.sasmaz.digital`
    - `api-aaos.env`: `PORT=8001`, `ATTUNE_TRUSTED_ORIGINS=http://127.0.0.1:3000`
-   - `web-web.env`: `PORT=3000`, `ATTUNE_MENTAL_TTS_FRONTEND_ORIGIN=https://attune.sasmaz.digital`, `ATTUNE_MENTAL_TTS_BACKEND_URL=http://127.0.0.1:8000`
+   - `web-web.env`: `PORT=3000`, `ATTUNE_MENTAL_TTS_FRONTEND_ORIGIN=https://attunemore.sasmaz.digital`, `ATTUNE_MENTAL_TTS_BACKEND_URL=http://127.0.0.1:8000`
    - `web-aaos.env`: `PORT=3001`, `ATTUNE_MENTAL_TTS_FRONTEND_ORIGIN=http://127.0.0.1:3000`, `ATTUNE_MENTAL_TTS_BACKEND_URL=http://127.0.0.1:8001`
-   - `capture.env`: `ATTUNE_CAPTURE_SENDER_ORIGIN=https://aaos.sasmaz.digital`
+   - `capture.env`: `ATTUNE_CAPTURE_SENDER_ORIGIN=https://aaos.attunemore.sasmaz.digital`
    - Caddy environment: domainlar, internal private IP, toplantıya özel kullanıcı ve Caddy hash'i.
 
    İki API'nin native worker geçici dizin/lease yolları da toplantı kabulünden önce
@@ -89,7 +89,7 @@ python scripts/aws/cost.py --g6 <dated-rate> --m8i <dated-rate> --ebs-gb-month <
    kvm grubunda çalışır. KVM yoksa emülasyona düşülmez; BLOCKED.
 6. Opsiyonel ses: `loginctl enable-linger attune` ve attune kullanıcı servisi olarak
    PulseAudio socket kurulumu; `aaos.env` içinde `ATTUNE_AUDIO_ENABLED=1`,
-   `XDG_RUNTIME_DIR=/run/user/<attune-uid>`, `ATTUNE_AUDIO_ORIGIN=https://aaos.sasmaz.digital`.
+   `XDG_RUNTIME_DIR=/run/user/<attune-uid>`, `ATTUNE_AUDIO_ORIGIN=https://aaos.attunemore.sasmaz.digital`.
    `attune-audio` servisi `/audio` sayfasına WSS PCM sağlar. Browser mic izni ayrı
    seçilir; provider consent uygulamada kalır. Guest mixer/input ve kalibrasyon
    doğrulanmadan Hearing/Mental PASS verilmez. noVNC sayfasını açık tutup `/audio`
@@ -120,7 +120,7 @@ geçmez; onay olmadan `true` yazılmaz. Makbuzlar `.aws-oem` içinde kalır.
 ```bash
 python scripts/aws/democtl.py status --receipt .aws-oem/status.json
 python scripts/aws/democtl.py start --inventory .aws-oem/existing.json --approval .aws-oem/approval.json --receipt .aws-oem/start.json
-python scripts/aws/smoke.py --web https://attune.sasmaz.digital --aaos https://aaos.sasmaz.digital --output .aws-oem/smoke.json
+python scripts/aws/smoke.py --web https://attunemore.sasmaz.digital --aaos https://aaos.attunemore.sasmaz.digital --output .aws-oem/smoke.json
 # Toplantı bittikten sonra, aktif işlerin bittiği doğrulanarak:
 python scripts/aws/democtl.py stop --receipt .aws-oem/stop.json
 ```

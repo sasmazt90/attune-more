@@ -65,6 +65,16 @@ def test_control_never_forces_stop_or_runs_as_root():
     assert "Arn -match ':root$'" in source
 
 
+def test_tool_and_its_state_live_outside_appdata():
+    # Writes under AppData from a packaged app go to a private copy, which left the shortcuts pointing at nothing.
+    install = (WINDOWS / 'Install-AttuneShortcuts.ps1').read_text(encoding='utf8')
+    assert "$bin = Join-Path $env:USERPROFILE 'AttuneMore\\bin'" in install
+    assert "$DataRoot = Join-Path $env:USERPROFILE 'AttuneMore'" in (WINDOWS / 'AttuneControl.ps1').read_text(encoding='utf8')
+    domain = (WINDOWS / 'AttuneDomain.ps1').read_text(encoding='utf8')
+    assert "$script:DomainDataRoot = Join-Path $env:USERPROFILE 'AttuneMore'" in domain
+    assert domain.count('$env:LOCALAPPDATA') == 1, 'only the owner-saved IONOS key is read from AppData'
+
+
 def test_shortcuts_cover_start_stop_status():
     source = (WINDOWS / 'Install-AttuneShortcuts.ps1').read_text(encoding='utf8')
     for name, action in [('START ATTUNE.MORE', 'Start'), ('STOP ATTUNE.MORE', 'Stop'), ('STATUS ATTUNE.MORE', 'Status')]:
@@ -72,7 +82,7 @@ def test_shortcuts_cover_start_stop_status():
 
 
 @pytest.mark.skipif(not shutil.which('powershell'), reason='Windows PowerShell only')
-@pytest.mark.parametrize('script', ['AttuneControl.ps1', 'Setup-AttuneOperator.ps1', 'Install-AttuneShortcuts.ps1'])
+@pytest.mark.parametrize('script', ['AttuneControl.ps1', 'AttuneDomain.ps1', 'Setup-AttuneOperator.ps1', 'Install-AttuneShortcuts.ps1'])
 def test_powershell_scripts_parse(script):
     command = "$e=$null;$t=$null;[void][System.Management.Automation.Language.Parser]::ParseFile('{}',[ref]$t,[ref]$e);$e.Count".format(WINDOWS / script)
     result = subprocess.run(['powershell', '-NoProfile', '-Command', command], capture_output=True, text=True)
@@ -177,17 +187,17 @@ def test_restart_config_uses_hostnames_never_public_addresses():
     import stable_host
     text = json.dumps(stable_host.ORIGINS)
     assert not re.search(r'\d+\.\d+\.\d+\.\d+', text)
-    assert stable_host.ORIGINS['web']['api-web.env']['ATTUNE_TRUSTED_ORIGINS'] == 'https://attune.sasmaz.digital'
-    assert stable_host.ORIGINS['web']['capture.env']['ATTUNE_CAPTURE_SENDER_ORIGIN'] == 'https://aaos.sasmaz.digital'
-    assert stable_host.ORIGINS['aaos']['aaos.env']['ATTUNE_AUDIO_ORIGIN'] == 'https://aaos.sasmaz.digital'
+    assert stable_host.ORIGINS['web']['api-web.env']['ATTUNE_TRUSTED_ORIGINS'] == 'https://attunemore.sasmaz.digital'
+    assert stable_host.ORIGINS['web']['capture.env']['ATTUNE_CAPTURE_SENDER_ORIGIN'] == 'https://aaos.attunemore.sasmaz.digital'
+    assert stable_host.ORIGINS['aaos']['aaos.env']['ATTUNE_AUDIO_ORIGIN'] == 'https://aaos.attunemore.sasmaz.digital'
 
 
 def test_env_update_replaces_only_named_keys_and_keeps_secrets():
     import stable_host
     old = 'PORT=8000\nOPENAI_API_KEY=keep-me\nATTUNE_TRUSTED_ORIGINS=https://18.153.100.39\n# note\n'
-    new = stable_host.updated_env(old, {'ATTUNE_TRUSTED_ORIGINS': 'https://attune.sasmaz.digital'})
-    assert new == 'PORT=8000\nOPENAI_API_KEY=keep-me\nATTUNE_TRUSTED_ORIGINS=https://attune.sasmaz.digital\n# note\n'
-    assert stable_host.updated_env(new, {'ATTUNE_TRUSTED_ORIGINS': 'https://attune.sasmaz.digital'}) == new
+    new = stable_host.updated_env(old, {'ATTUNE_TRUSTED_ORIGINS': 'https://attunemore.sasmaz.digital'})
+    assert new == 'PORT=8000\nOPENAI_API_KEY=keep-me\nATTUNE_TRUSTED_ORIGINS=https://attunemore.sasmaz.digital\n# note\n'
+    assert stable_host.updated_env(new, {'ATTUNE_TRUSTED_ORIGINS': 'https://attunemore.sasmaz.digital'}) == new
     assert 'NEW=1' in stable_host.updated_env('PORT=1\n', {'NEW': '1'})
 
 
@@ -209,7 +219,8 @@ def test_issued_chain_is_long_lived_constrained_and_destroys_the_ca_key(tmp_path
     assert 'PRIVATE KEY' not in json.dumps(bundle)
     (tmp_path / 'ca.crt').write_text(bundle['ca'])
     constraints = run('x509', '-in', str(tmp_path / 'ca.crt'), '-noout', '-ext', 'nameConstraints')
-    assert 'attune.sasmaz.digital' in constraints and 'aaos.sasmaz.digital' in constraints
+    assert 'attune-internal' in constraints and 'attune-aaos-client' in constraints
+    assert 'sasmaz.digital' not in constraints, 'public names use the public CA'
     for name, leaf in stable_host.LEAVES.items():
         path = tmp_path / (name + '.crt')
         path.write_text(bundle['certificates'][name])
@@ -219,7 +230,65 @@ def test_issued_chain_is_long_lived_constrained_and_destroys_the_ca_key(tmp_path
         assert leaf['dns'] in run('x509', '-in', str(path), '-noout', '-ext', 'subjectAltName')
         assert not re.search(r'IP Address', run('x509', '-in', str(path), '-noout', '-ext', 'subjectAltName'))
     with pytest.raises(ValueError):
-        stable_host.sign_all({'web': requests['web']}, workspace=str(workspace))
+        stable_host.sign_all({'internal': requests['internal']}, workspace=str(workspace))
+
+
+def public_chain(tmp_path, name, key='web.key', days=90):
+    def run(*args):
+        return subprocess.run(['openssl', *args], capture_output=True, text=True, check=True, cwd=tmp_path).stdout
+    if not (tmp_path / key).exists():
+        run('genpkey', '-algorithm', 'EC', '-pkeyopt', 'ec_paramgen_curve:P-256', '-out', key)
+    return run('req', '-new', '-x509', '-key', key, '-days', str(days), '-subj', '/CN=' + name, '-addext', 'subjectAltName=DNS:' + name)
+
+
+@pytest.mark.skipif(not shutil.which('openssl'), reason='openssl required')
+def test_public_certificate_state_asks_for_renewal_only_when_needed(tmp_path, monkeypatch):
+    import datetime as dt
+    import stable_host
+    (tmp_path / 'web.crt').write_text(public_chain(tmp_path, stable_host.WEB_DOMAIN))
+    monkeypatch.setattr(stable_host, 'publicly_trusted', lambda path: True)
+    fresh = stable_host.public_state('web', tmp_path)
+    assert fresh['needsCertificate'] is False and fresh['names'] == [stable_host.WEB_DOMAIN]
+    late = dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=70)
+    assert stable_host.public_state('web', tmp_path, now=late)['needsCertificate'] is True, 'last third of the lifetime'
+    monkeypatch.setattr(stable_host, 'publicly_trusted', lambda path: False)
+    assert stable_host.public_state('web', tmp_path)['needsCertificate'] is True, 'the private CA is not enough'
+    monkeypatch.setattr(stable_host, 'publicly_trusted', lambda path: True)
+    (tmp_path / 'web.crt').write_text(public_chain(tmp_path, 'attune.sasmaz.digital'))
+    assert stable_host.public_state('web', tmp_path)['needsCertificate'] is True, 'old name'
+
+
+@pytest.mark.skipif(not shutil.which('openssl'), reason='openssl required')
+def test_public_certificate_install_refuses_a_wrong_key_or_name(tmp_path, monkeypatch):
+    import stable_host
+    other = tmp_path / 'other'
+    other.mkdir()
+    wrong_key = public_chain(other, stable_host.WEB_DOMAIN)
+    public_chain(tmp_path, stable_host.WEB_DOMAIN)
+    with pytest.raises(ValueError, match='does not match the key'):
+        stable_host.install_public('web', wrong_key, tmp_path, check_trust=False)
+    with pytest.raises(ValueError, match='not for'):
+        stable_host.install_public('web', public_chain(tmp_path, 'www.sasmaz.digital'), tmp_path, check_trust=False)
+    with pytest.raises(ValueError, match='public root'):
+        monkeypatch.setattr(stable_host, 'publicly_trusted', lambda path: False)
+        stable_host.install_public('web', public_chain(tmp_path, stable_host.WEB_DOMAIN), tmp_path)
+    assert not (tmp_path / 'web.crt').exists()
+
+
+def test_control_uses_real_dns_and_no_certificate_bypass():
+    source = (WINDOWS / 'AttuneControl.ps1').read_text(encoding='utf8')
+    assert '--resolve' not in source and 'host-resolver-rules' not in source and '-sk' not in source
+    assert "$WebDomain = 'attunemore.sasmaz.digital'" in source and "$AaosDomain = 'aaos.attunemore.sasmaz.digital'" in source
+    assert 'attune.sasmaz.digital' not in source and "'aaos.sasmaz.digital'" not in source
+
+
+def test_only_the_authorized_names_can_be_written():
+    source = (WINDOWS / 'AttuneDomain.ps1').read_text(encoding='utf8')
+    assert "$script:DnsNames = @('attunemore.sasmaz.digital', 'aaos.attunemore.sasmaz.digital')" in source
+    assert source.count("-notin $script:DnsNames") == 3
+    # Accepting a CA's terms is the user's step, so no switch may do it unattended.
+    control = (WINDOWS / 'AttuneControl.ps1').read_text(encoding='utf8')
+    assert control.count('Register-AcmeAccount') == 1 and "Read-Host 'Do you accept these terms?" in control
 
 
 def test_release_copy_never_nests_a_folder_inside_itself():

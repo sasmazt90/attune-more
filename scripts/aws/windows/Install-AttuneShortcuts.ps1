@@ -3,7 +3,7 @@
   Installs the Attune.more control tool for this Windows user and adds desktop shortcuts.
 
 .DESCRIPTION
-  Copies the tool to %LOCALAPPDATA%\AttuneMore\bin, so it keeps working if the Git clone
+  Copies the tool to %USERPROFILE%\AttuneMore\bin, so it keeps working if the Git clone
   moves, and creates START, STOP and STATUS shortcuts. No administrator rights are needed.
   Re-run after updating the repository to refresh the installed copy.
 #>
@@ -11,9 +11,13 @@
 param()
 
 $ErrorActionPreference = 'Stop'
-$bin = Join-Path $env:LOCALAPPDATA 'AttuneMore\bin'
+# Not under AppData. A packaged app redirects its writes there, so a shortcut made from such an app
+# would point at a file that does not exist for anyone else.
+$bin = Join-Path $env:USERPROFILE 'AttuneMore\bin'
 New-Item -ItemType Directory -Force -Path $bin | Out-Null
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'AttuneControl.ps1') -Destination $bin -Force
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'AttuneDomain.ps1') -Destination $bin -Force
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..\stable_host.py') -Destination $bin -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..\host_ready.py') -Destination $bin -Force
 
 $desktop = [Environment]::GetFolderPath('Desktop')

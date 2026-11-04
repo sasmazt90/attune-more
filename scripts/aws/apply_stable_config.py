@@ -96,7 +96,7 @@ def apply(profile, ca_output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--profile', default='attune-claude')
-    parser.add_argument('--ca-output', type=Path, default=Path(os.environ.get('LOCALAPPDATA', '.')) / 'AttuneMore' / 'attune-private-ca.crt')
+    parser.add_argument('--ca-output', type=Path, default=Path.home() / 'AttuneMore' / 'attune-private-ca.crt')
     args = parser.parse_args()
     print(json.dumps(apply(args.profile, args.ca_output), indent=2))
     print('Public CA certificate saved to', args.ca_output, file=sys.stderr)

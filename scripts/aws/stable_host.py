@@ -2,9 +2,10 @@
 """Host steps that let an ordinary EC2 Stop/Start keep working. Idempotent.
 
 A restart assigns new public IPs, so origins and certificates use the stable
-hostnames instead of an address. Certificates are reissued from each host's
-existing private keys, so no private key ever leaves its host. Only certificate
-requests and public certificates travel between hosts. Standard library plus openssl.
+hostnames instead of an address. The public names carry browser-trusted certificates
+requested from this PC's control tool. The private mTLS link between the hosts keeps
+its own private CA. No private key ever leaves its host: only certificate requests and
+public certificates travel. Standard library plus openssl.
 """
 import argparse
 import base64
@@ -18,8 +19,8 @@ import subprocess
 import sys
 import tempfile
 
-WEB_DOMAIN = 'attune.sasmaz.digital'
-AAOS_DOMAIN = 'aaos.sasmaz.digital'
+WEB_DOMAIN = 'attunemore.sasmaz.digital'
+AAOS_DOMAIN = 'aaos.attunemore.sasmaz.digital'
 ENV_ROOT = Path('/etc/attune')
 TLS_ROOT = ENV_ROOT / 'tls'
 CA_DAYS = 3650
@@ -36,13 +37,13 @@ ORIGINS = {
         'aaos.env': {'ATTUNE_AUDIO_ORIGIN': 'https://' + AAOS_DOMAIN},
     },
 }
-# CN and SAN are public names. 'internal' secures WEB:8443; 'client' is what AAOS presents to it.
+# Private CA, private names only. 'internal' secures WEB:8443; 'client' is what AAOS presents to it.
 LEAVES = {
-    'web': {'host': 'web', 'dns': WEB_DOMAIN, 'usage': 'serverAuth'},
     'internal': {'host': 'web', 'dns': 'attune-internal', 'usage': 'serverAuth'},
-    'aaos': {'host': 'aaos', 'dns': AAOS_DOMAIN, 'usage': 'serverAuth'},
     'client': {'host': 'aaos', 'dns': 'attune-aaos-client', 'usage': 'clientAuth'},
 }
+# Browser-trusted certificates: file name and the one name each may carry.
+PUBLIC_LEAVES = {'web': {'file': 'web', 'dns': WEB_DOMAIN}, 'aaos': {'file': 'aaos', 'dns': AAOS_DOMAIN}}
 CA_FILES = {'web': ['clients-ca.crt', 'server-ca.crt'], 'aaos': ['server-ca.crt']}
 RESTARTS = {
     'web': ['attune-caddy', 'attune-api@web', 'attune-web@web', 'attune-capture'],
@@ -164,13 +165,81 @@ def install_certificates(role, bundle, tls=TLS_ROOT, group='caddy'):
     return names + CA_FILES[role]
 
 
+def public_request(role, tls=TLS_ROOT):
+    """A request from the key already on this host. Reusing it keeps the key where it is."""
+    leaf = PUBLIC_LEAVES[role]
+    return openssl('req', '-new', '-key', str(tls / (leaf['file'] + '.key')), '-subj', '/CN=' + leaf['dns'],
+                   '-addext', 'subjectAltName=DNS:' + leaf['dns'])
+
+
+def certificate_names(path):
+    text = openssl('x509', '-in', str(path), '-noout', '-ext', 'subjectAltName')
+    return sorted(re.findall(r'DNS:([^\s,]+)', text))
+
+
+def certificate_dates(path):
+    def parse(value):
+        return dt.datetime.strptime(value.split('=', 1)[1].strip(), '%b %d %H:%M:%S %Y %Z').replace(tzinfo=dt.timezone.utc)
+    lines = openssl('x509', '-in', str(path), '-noout', '-startdate', '-enddate').splitlines()
+    return parse(lines[0]), parse(lines[1])
+
+
+def publicly_trusted(path):
+    """Checks the chain against the system's public roots, as a browser would."""
+    try:
+        openssl('verify', '-CApath', '/etc/ssl/certs', '-untrusted', str(path), str(path))
+        return True
+    except RuntimeError:
+        return False
+
+
+def public_state(role, tls=TLS_ROOT, now=None):
+    leaf = PUBLIC_LEAVES[role]
+    path = tls / (leaf['file'] + '.crt')
+    if not path.exists():
+        return {'role': role, 'name': leaf['dns'], 'present': False, 'needsCertificate': True}
+    start, end = certificate_dates(path)
+    now = now or dt.datetime.now(dt.timezone.utc)
+    names = certificate_names(path)
+    trusted = publicly_trusted(path)
+    days_left = (end - now).total_seconds() / 86400
+    lifetime = (end - start).total_seconds() / 86400
+    # Renew in the last third of the lifetime, because a stopped host cannot renew itself.
+    needs = names != [leaf['dns']] or not trusted or days_left < lifetime / 3
+    return {'role': role, 'name': leaf['dns'], 'present': True, 'names': names, 'trusted': trusted,
+            'notAfter': end.isoformat(), 'daysLeft': round(days_left, 1), 'lifetimeDays': round(lifetime, 1), 'needsCertificate': needs}
+
+
+def install_public(role, chain, tls=TLS_ROOT, group='caddy', check_trust=True):
+    leaf = PUBLIC_LEAVES[role]
+    target = tls / (leaf['file'] + '.crt')
+    key = tls / (leaf['file'] + '.key')
+    with tempfile.TemporaryDirectory() as directory:
+        candidate = Path(directory, 'candidate.crt')
+        candidate.write_text(chain)
+        if public_key('x509', '-in', str(candidate)) != public_key('pkey', '-in', str(key)):
+            raise ValueError('Certificate does not match the key on this host')
+        if certificate_names(candidate) != [leaf['dns']]:
+            raise ValueError('Certificate is not for ' + leaf['dns'])
+        if check_trust and not publicly_trusted(candidate):
+            raise ValueError('Certificate does not chain to a public root')
+    if target.exists():
+        stamp = dt.datetime.now(dt.timezone.utc).strftime('%Y%m%d%H%M%S%f')
+        archive = tls / ('previous-' + stamp)
+        archive.mkdir(mode=0o750)
+        shutil.copy2(target, archive / target.name)
+        shutil.chown(archive, 'root', group)
+    write_atomic(target, chain, 0o640, group)
+    return public_state(role, tls)
+
+
 def read_payload(encoded):
     return json.loads(base64.b64decode(encoded))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('step', choices=['origins', 'requests', 'sign', 'install', 'restart'])
+    parser.add_argument('step', choices=['origins', 'requests', 'sign', 'install', 'restart', 'public-state', 'public-request', 'install-public'])
     parser.add_argument('--role', choices=sorted(ORIGINS))
     parser.add_argument('--payload', help='Base64 JSON from the previous step. Public data only.')
     args = parser.parse_args()
@@ -182,6 +251,13 @@ def main():
         output = sign_all(read_payload(args.payload))
     elif args.step == 'install':
         output = {'role': args.role, 'installed': install_certificates(args.role, read_payload(args.payload))}
+    elif args.step == 'public-state':
+        output = public_state(args.role)
+    elif args.step == 'public-request':
+        output = {'role': args.role, 'name': PUBLIC_LEAVES[args.role]['dns'], 'request': public_request(args.role)}
+    elif args.step == 'install-public':
+        output = install_public(args.role, read_payload(args.payload)['chain'])
+        subprocess.run(['systemctl', 'restart', 'attune-caddy'], check=True)
     else:
         subprocess.run(['systemctl', 'restart', *RESTARTS[args.role]], check=True)
         output = {'role': args.role, 'restarted': RESTARTS[args.role]}
