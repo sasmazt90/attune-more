@@ -33,6 +33,9 @@ BUILD_ENV = {
 # Everything else on the AAOS host stays as prepared; it serves no application source.
 AAOS_PATHS = ['infra/aws/aaos/', 'scripts/aws/', 'scripts/qa/realistic/']
 WEB_RESTARTS = ['attune-api@web', 'attune-api@aaos', 'attune-web@web', 'attune-web@aaos', 'attune-capture']
+# Keeps the speech model loaded and gives it 4 of 8 cores. Same model files and voice; no secrets here.
+SPEECH_DROP_IN = Path('/etc/systemd/system/attune-api@.service.d/speech.conf')
+SPEECH_ENVIRONMENT = '[Service]\nEnvironment=ATTUNE_MENTAL_TTS_RESIDENT=1\nEnvironment=ATTUNE_MENTAL_TTS_THREADS=4\n'
 AAOS_RESTARTS = ['attune-audio']
 
 
@@ -86,6 +89,9 @@ def deploy_web(commit):
     cache = ROOT / 'apps/vehicle-app/.next/cache'
     cache.mkdir(parents=True, exist_ok=True)
     run('chown', '-R', 'attune:attune', str(cache))
+    SPEECH_DROP_IN.parent.mkdir(parents=True, exist_ok=True)
+    SPEECH_DROP_IN.write_text(SPEECH_ENVIRONMENT)
+    run('systemctl', 'daemon-reload')
     run('systemctl', 'restart', *WEB_RESTARTS)
     return {'role': 'web', 'commit': commit, 'archiveSha256': archive_sha, 'buildId': (ROOT / 'apps/vehicle-app/.next/BUILD_ID').read_text().strip(),
             'dependenciesReinstalled': dependencies_changed, 'buildFlags': {k: v for k, v in BUILD_ENV.items() if k.startswith('NEXT_PUBLIC')}}

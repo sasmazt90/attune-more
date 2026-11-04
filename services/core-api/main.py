@@ -38,10 +38,16 @@ from care_provider import BrowserCareSearchProvider, DemoCareSearchProvider, Cal
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    speech = None
+    if os.getenv('ATTUNE_MENTAL_TTS_RESIDENT') == '1':
+        import mental_neural_tts as speech
+        speech.schedule_warm()
     try:
         yield
     finally:
         close_openai_client()
+        if speech:
+            await speech.close_resident()
         from local_native_process import native_analysis
         await native_analysis.close()
 
@@ -507,7 +513,7 @@ async def mental_speech(payload: SpeechPayload):
 
 @app.post('/api/mental/neural-speech')
 async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
-    from mental_neural_tts import authorize, generate_for_request
+    from mental_neural_tts import authorize, generate_for_request, last_generation
     authorize(request.headers.get('authorization'))
     if not payload.speechConsent:
         raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
@@ -521,6 +527,7 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
     return Response(raw, media_type='audio/wav', headers={
         'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
         'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language],
+        'X-TTS-Seconds':str(last_generation.get('seconds')), 'X-TTS-Start':str(last_generation.get('start')),
         **({'X-TTS-Speaker-Profile':payload.speakerProfile} if payload.speakerProfile else {})})
 
 @app.post('/api/vision/speech')
