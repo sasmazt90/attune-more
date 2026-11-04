@@ -242,6 +242,9 @@ def main():
             if not args.not_an_upgrade:
                 result['problems'] += compare_package(before['package'], package)
             result['recordsCompared'] = {m: r.get('count') for m, r in before['records'].items()}
+            result['allowedToChange'] = args.allow_change
+            result['newRecordsAllowed'] = args.allow_new_records
+            result['packageCompared'] = not args.not_an_upgrade
         if args.operational:
             ids = [i for r in snapshot['records'].values() for i in r.get('ids', [])]
             result['checks'] = operational(page, out, args.stage, ids)

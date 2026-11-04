@@ -2,14 +2,15 @@
 
 | Layer | Value | How it was checked |
 |---|---|---|
-| Commit | `8c90ec419197cc627b9fc60d866a6cb99fe71599` | Deployment record for both hosts |
+| Commit | `b8031823242f723ecdd0efbbed6b976b9d7e2b04` | Deployment record for both hosts |
 | Branch and draft PR | `claude/aws-ops-automotive-ux-20261103`, [sasmazt90/attune-more#23](https://github.com/sasmazt90/attune-more/pull/23) | |
-| CI on that commit | CI / Submission QA Guard `41887368177`, Automotive prototype `41887368217`, AWS OEM preparation `41887368415`. All pass | GitHub Actions |
-| Source archive | `f027eda5c823942490add4e47eb774e248603138b73547ea9625a46b3e4923e2` | Same archive on both hosts |
-| Frontend build | `upgmpuSjeTb5mKKvjnMfK`, built on the WEB host | `.next/BUILD_ID` |
-| APK | `71ed01e8c61ecaa2742490ccb94c364b1b0c7abb71a29d21e14bdad213a22fc5`, 66,382 bytes, from the AWS OEM run above | Hash read back on the AAOS host at install |
+| CI on that commit | CI / Submission QA Guard `41913573316`, Automotive prototype `41913573314`, AWS OEM preparation `41913573683`. All pass | GitHub Actions |
+| Source archive | `1eae2cbcc1c519d5d8b9b203df41af23448d27c611b7771d6a5c0439aa68f84e` | Same archive on both hosts |
+| Frontend build | `mMdPxbmLanvc7kcMeqpLu`, built on the WEB host from unchanged app source | `.next/BUILD_ID` |
+| APK | `89f4cd1013ecfba8adb4e9ea5dbf56a7b55b1eab2ea6d723301637d04ea03417`, 70,482 bytes, versionCode 1058, from the AWS OEM run above | Hash of the APK Android has installed, pulled from the device |
+| APK signing certificate | SHA-256 `2aacbb13bad91c2ef982d594a8d98b65f523a71fdc97772d50222fe9f9843876`, stable across builds | CI with `apksigner`, the PC, and the installed copy. See `QA-41-APK-UPGRADE.md` |
 | Android | Android 15, SDK 35, `sdk_gcar_x86_64` emulator, WebView 147.0.7727.137 | `getprop`, `dumpsys webviewupdate` |
-| Model files | 52 of 52 match the verification record and the owner's approval record, by SHA-256 | Every file hashed on the WEB host |
+| Model files | 52 of 52 match the verification record and the owner's approval record, by SHA-256, and are identical to `8c90ec4` | Every file hashed on the WEB host |
 | Python packages added for Skin | `mediapipe 0.10.32`, OpenCV stays `4.12.0` | Imported by the host's interpreter |
 | Speech | Same Chatterbox voice and weights, kept resident, 4 threads | `speech.conf` drop-in |
 | Addresses | `https://attunemore.sasmaz.digital`, `https://aaos.attunemore.sasmaz.digital` | Real DNS, no bypass |
@@ -19,7 +20,13 @@
 **Commits after this one contain only QA tooling and documents, no product code.** Check with:
 
 ```bash
-git diff --stat 8c90ec419197cc627b9fc60d866a6cb99fe71599 HEAD -- apps services shared infra scripts/aws
+git diff --stat b8031823242f723ecdd0efbbed6b976b9d7e2b04 HEAD -- apps services shared infra scripts/aws
+```
+
+**Since `8c90ec4`, the last candidate, the only product changes are the APK's signing and version number (QA-41).** Under `apps`, `services`, `shared` and `infra` that is `build.gradle`, the public certificate file and a README section. Check with:
+
+```bash
+git diff --stat 8c90ec419197cc627b9fc60d866a6cb99fe71599 b8031823242f723ecdd0efbbed6b976b9d7e2b04 -- apps services shared infra
 ```
 
 ## Which videos come from which build
@@ -29,6 +36,8 @@ git diff --stat 8c90ec419197cc627b9fc60d866a6cb99fe71599 HEAD -- apps services s
 | WEB: all 6 | `8c90ec4` | Address and certificate changed for every WEB journey, and the header during activities |
 | AAOS: Skin, Vision, Dental, Mental | `f7d861e` | Recorded after the camera, acne, referral and speech changes. The only later product change hides a note that was already hidden at AAOS's 564 px height |
 | AAOS: Hearing digits-in-noise, Hearing pure-tone | `4bb51b3` | Not affected, so kept intact as the owner asked. Same files and hashes as before. They use neither the camera nor Mental speech, and the header does not change at the recorded size |
+
+**The twelve videos were not recorded again for QA-41.** Those journeys did not change: the APK has a new signature and version number, and its pages, API and models are the same. On the signed builds, 5 real AAOS journeys, one more Dental journey and the 7 native gates passed.
 
 Everything other than the recordings was rerun on `8c90ec4` on both platforms: the real Stop and Start, persistence, camera states, appointments, Skin labels, the UI journey and the native gates. Camera recovery and the acne trace ran on `f7d861e`, and their code has not changed since.
 
@@ -66,6 +75,7 @@ Each of these passed unit tests or a local check before the real run caught it:
 5. **Text in the German Mental consent dialog showed below the pinned buttons.** Fixed in `41d9593`.
 6. **A restart reported PARTIAL.** The readiness check compared two restored V5 files with an old record. Fixed in `ea9d2b4`.
 7. **READY did not notice an empty OpenAI account.** Fixed in `8939fa7` with a one-token call.
+8. **The one-time signing move stopped after removing the old app, and wrongly said nothing had changed.** adb refuses file names that do not end in `.apk`. The data was restored complete from the backup. Fixed in `32b021c`. See `QA-41-APK-UPGRADE.md`.
 
 Faults in the test itself, which would have overstated results:
 

@@ -113,7 +113,7 @@ Android allows an in-place update only when the signing certificate stays the sa
 | Item | Where |
 |---|---|
 | Private key and its password | GitHub environment `android-cloud-demo-signing`, readable only by the `cloud-apk` job, on `main`, `claude/**` and same-repository pull requests. Forks get nothing |
-| Recovery copy | `%USERPROFILE%\AttuneMore\secrets\android-cloud-demo-signing.xml` on the owner's PC, encrypted for that Windows user. GitHub secrets cannot be read back, so **this is the only recovery** |
+| Recovery copy | `%USERPROFILE%\AttuneMore\secrets\android-cloud-demo-signing.xml` on the owner's PC, encrypted for that Windows user, so it opens only under that account and a plain copy does not protect against losing the PC. GitHub secrets cannot be read back, so **this is the only recovery** |
 | Public fingerprint | `apps/automotive/signing/cloud-demo-certificate.json`, in the repository. Not a secret |
 
 The deploy tool stops with nothing changed if:

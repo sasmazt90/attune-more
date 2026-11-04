@@ -52,6 +52,7 @@ already be allowed.
 | DNS and certificates | Can START write anything other than the two A records and the short-lived challenge TXT records? Could it ever publish a home address? Does HTTPS work with no bypass after a real Stop and Start? | `scripts/aws/windows/AttuneDomain.ps1`, `tests/aws/test_domain_flow.py`, `docs/aws/OPERATIONS-CONTROL.md` |
 | Acne counting (QA-25) | Are the recovered lesions real? The rule shows a region with 2 marked lesions even when the region classifier passed over it. Look for false positives on your own photos, and for regions it now over-reports. | `docs/qa/QA-25-ACNE-TRACE.md`, `services/core-api/skin_findings_v1.py`, `scripts/qa/realistic/skin_acne_trace.py` |
 | Camera (QA-38) | Longer frame limits replaced 750 ms. Does anything stale reach an analysis? Does leaving PARK still end the session at once? | `scripts/aws/capture_bridge.py`, `apps/vehicle-app/src/utils/demoCamera.ts`, `tests/aws/test_deployment.py` |
+| APK upgrades (QA-41) | Can a deploy still delete data? Can the key leak through CI? Is restart persistence kept apart from upgrade persistence? Try your own upgrade with a CI-signed APK and compare records before and after. Please also judge the signing move, which failed once and has not run uninterrupted since its fix. | `docs/qa/QA-41-APK-UPGRADE.md`, `scripts/aws/apk_upgrade_host.py`, `scripts/aws/deploy_release.py`, `.github/workflows/aws-oem-preparation.yml`, `scripts/qa/realistic/apk_upgrade_check.py`, `tests/aws/test_apk_upgrade.py` |
 | Mental speech (QA-36, QA-02) | Is a turn still cut short? Does the pause between the two spoken parts feel acceptable, compared with waiting longer for all of it? | `apps/vehicle-app/src/utils/speechRecognition.ts`, `mentalNeuralSpeech.ts`, `mental-performance.md` |
 
 ## What the owner asked for on Skin labels
@@ -74,8 +75,14 @@ finding numbers, and a one-row top bar on all screens.
   match through the Drive API, and hashes match on the Drive for desktop copy. Please download them and compare with `videos.md`.
 - Your own AWS access. See above.
 
+## Updating the AAOS app during your review
+
+Deploy APKs from CI only, as `deploy_release.py` refuses any other signature. Do not run `adb uninstall` or `pm clear` on the app: its History now holds the QA-41 records. Those records come from test journeys, and you can add your own.
+
 ## Known limits to judge, not to assume fine
 
+- A device holding an APK signed by an old CI key cannot be updated in place. It needs the one-time move, described in `docs/aws/OPERATIONS-CONTROL.md`.
+- The new signing key is for this debuggable demo build only. It is not a production release key.
 - Every Skin accuracy figure on record comes from synthetic characters, on a set also used to choose the method.
 - The owner approved the configured Skin models on 2026-11-04, as product configuration and not for accuracy. See
   `docs/qa/SKIN-OWNER-APPROVAL-20261104.md`. Do not reopen model selection over an old research label. A demonstrated

@@ -1,6 +1,6 @@
 # Attune.more release candidate: acceptance report
 
-**Release candidate `8c90ec4`, 2026-11-04.** Written by Claude, who built and tested it, so this is not an independent
+**Release candidate `b803182`, 2026-11-04.** Written by Claude, who built and tested it, so this is not an independent
 review. Antigravity's review is the next step, and nothing is merged.
 
 ## Result in short
@@ -27,8 +27,11 @@ What changed since `4bb51b3`:
 | Header | Two rows at 800 px, and on WEB during every scan | One row from 768 px, in every state |
 | Start actions on short screens | Off screen at 517 px and below | In the first screen, down to 1024x400 and 800x480 |
 | Vision referral | Offered, never followed | Followed to the provider and back |
+| AAOS app update | The deploy uninstalled the app, deleting its data | In place, with one stable signing key. 2 real upgrades kept every record, consent and preference (QA-41) |
 
-**One decision needs the owner**, on the pause in Mental speech. See [Decisions for the owner](#decisions-for-the-owner).
+**Two decisions need the owner**: the pause in Mental speech, and where else the signing key should be kept. See [Decisions for the owner](#decisions-for-the-owner).
+
+**`b803182` differs from `8c90ec4` only in the APK's signing and version number and in the deployment tools.** Results below come from the builds named beside them.
 
 ## Final acceptance matrix
 
@@ -217,9 +220,34 @@ A real camera over a home connection was **not** tested. The slow source stands 
 ### Appointments, persistence and camera states
 
 - **Appointments:** no region assumed, opening a provider saves nothing, local time, and deleting says the provider's booking is not cancelled. Passed on both platforms.
-- **Persistence:** save, history, refresh, re-entry, a real host Stop and Start, history, delete. 11 of 11 checks on each platform.
+- **Persistence across restarts:** save, history, refresh, re-entry, a real host Stop and Start, history, delete. 11 of 11 checks on each platform. This never replaced the APK. Upgrades are covered in [the next section](#apk-upgrades-qa-41).
 - **Changed origin:** browser data is per origin, so records saved under the old WEB address are not visible at the new one.
 - **Camera states:** fresh entry, unavailable, retry, waiting and live, on Skin and Dental, on both platforms.
+
+### APK upgrades (QA-41)
+
+The full record is in `QA-41-APK-UPGRADE.md`.
+
+**Root cause.** CI signed each APK with its runner's temporary debug key. Android refuses to update an app whose certificate changed, so the deploy tool uninstalled it first, which deleted its local data.
+
+**Fix.** One stable signing identity, `2aacbb13...`, whose key is in a protected GitHub environment and never in the repository. The deploy now updates in place, and stops with nothing changed if the certificate differs.
+
+| Check | Upgrade 1, 1056 to 1057 | Upgrade 2, 1057 to 1058 |
+|---|---|---|
+| Uninstalled | No | No |
+| Signing certificate | Same | Same |
+| First install time | Unchanged | Unchanged |
+| 6 records across all 5 modules: IDs and hashes | Identical | Identical |
+| Duplicated or corrupted records | None | None |
+| Consent, privacy choices, region, language | Identical | Identical |
+| Stored photos, 2 stores | Identical | Identical |
+| App works: API, 5 modules, History, a record opens | 10 of 10 | 10 of 10 |
+
+After the upgrades, a new Dental journey saved a new record, a real Stop and Start kept all 7, and the native gates passed 7 of 7 on the signed APK.
+
+**A fault in my tool.** The one-time move to the new key stopped on its first real run, after removing the old app, and wrongly reported that nothing had changed. The data was restored complete from the backup, and the tool was fixed. The corrected move has not run uninterrupted on a device.
+
+**Older installs.** A device holding an APK signed by an old CI key cannot be updated in place, because that key no longer exists. It needs the one-time move once, or it loses its local records on reinstall. The AWS emulator has had it. No other device was found or tested.
 
 ### Layout and language (QA-39, QA-32, QA-10, QA-11)
 
@@ -269,7 +297,7 @@ Other limits a reader should know:
 
 ## Source and build
 
-The full record is in `RELEASE-CANDIDATE.md`. Commit `8c90ec4`, all CI workflows pass.
+The full record is in `RELEASE-CANDIDATE.md`. Commit `b803182`, all CI workflows pass.
 
 ## Costs
 
@@ -277,16 +305,18 @@ Estimates from run times, not a bill:
 
 | Item | Amount |
 |---|---|
-| Compute and public IPv4 since this work began: 16.5 hours at about $1.16 per hour | About $19.14 |
+| Compute and public IPv4 since this work began: about 17.4 hours at about $1.16 per hour | About $20.16 |
 | Disks, which continue while stopped | About $25.70 per month |
 | DNS and certificates | No cost from AWS. IONOS and Let's Encrypt were used as they are |
 | OpenAI | Not visible to Claude. The dashboard has the real figure |
 
-No AWS resources were created. Both instances are stopped, confirmed through the AWS API at 19:41 UTC.
+No AWS resources were created. Both instances are stopped, confirmed through the AWS API, with shutdown at 21:29 UTC.
 
 ## Decisions for the owner
 
 1. **The pause in Mental speech.** First sound now comes about 7 s sooner, but there is a silent pause of about 4 to 11 s between the two parts of a reply. Keep it, or go back to one longer wait with no pause? It is one setting, and Claude recommends keeping it because the first response is what makes the wait feel long. Antigravity's view would help, as this needs a person listening.
+
+2. **Where else to keep the signing key.** The only recovery is `%USERPROFILE%\AttuneMore\secrets\android-cloud-demo-signing.xml`, because GitHub secrets cannot be read back. It opens only under this Windows account on this PC, so a plain copy would not help if the PC is lost. Keeping the key in a password manager as well would. Without the key, no data has to be lost, but every installed app would need the one-time move to a new identity. Claude has not copied the key anywhere else.
 
 Also open: whether draft PR #22 should be closed.
 
@@ -296,11 +326,12 @@ Also open: whether draft PR #22 should be closed.
 - No clinical or detection accuracy assessment.
 - No professional translation review.
 - A direct-cloud hash of the ten replaced videos.
+- An uninterrupted run of the corrected signing move on a device, or an upgrade on a physical head unit.
 - The definition of all 21 master tasks was not found. Searched: the repository and Drive.
 - Antigravity's independent review has not started, and AG's own AWS access still needs confirming by AG.
 
 ## How the evidence was produced
 
 Reports come from the live page and the stored records, not from screen text alone. `vision-scoring-matrix.md`,
-`mental-performance.md`, `hearing-evidence.md`, `skin-label-evidence.md`, `persistence-evidence.md` and `ui-measurements.md` are generated
+`mental-performance.md`, `hearing-evidence.md`, `skin-label-evidence.md`, `persistence-evidence.md`, `qa41-apk-upgrade/apk-upgrade-evidence.md` and `ui-measurements.md` are generated
 from those reports.
