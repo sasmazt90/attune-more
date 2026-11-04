@@ -197,12 +197,13 @@ class Aaos:
 
     def emulate(self, page, width=None, height=None):
         """Other vehicle sizes inside the real WebView, with its native stylesheet. No size means the real display."""
-        client = page.context.new_cdp_session(page)
+        # An override lasts only as long as the session that set it.
+        if not getattr(self, 'emulation', None):
+            self.emulation = page.context.new_cdp_session(page)
         if width:
-            client.send('Emulation.setDeviceMetricsOverride', {'width': width, 'height': height, 'deviceScaleFactor': 1, 'mobile': False})
+            self.emulation.send('Emulation.setDeviceMetricsOverride', {'width': width, 'height': height, 'deviceScaleFactor': 1, 'mobile': False})
         else:
-            client.send('Emulation.clearDeviceMetricsOverride')
-        client.detach()
+            self.emulation.send('Emulation.clearDeviceMetricsOverride')
         page.wait_for_timeout(300)
 
     def close(self):
@@ -1255,14 +1256,20 @@ def callouts(run):
     base = page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2]
     run.report['record'] = {'id': record['id'], 'seen': [[f['id'], f['region'], f.get('pose'), len(f.get('markers') or [])] for f in rows if f.get('status') == 'seen']}
     states, wrong = [], []
+    size_wanted = None
 
     def problem(state, what, detail=None):
         wrong.append({'state': state, 'what': what, 'detail': detail})
 
     def read(name, view, selected, shot=False):
+        # Taking a screenshot clears a size set in the WebView, so it is set again before each reading.
+        if size_wanted:
+            run.adapter.emulate(page, *size_wanted)
         page.wait_for_timeout(450)
         m = page.evaluate(CALLOUT_READ)
         m.update(state=name, view=view, selected=selected)
+        if size_wanted and m['viewport'] != list(size_wanted):
+            problem(name, 'the size under test was not applied', m['viewport'])
         states.append(m)
         if m['angle']:
             want = expected_layers(rows, view, m['angle'], selected)
@@ -1306,6 +1313,7 @@ def callouts(run):
         return m
 
     for size in CALLOUT_SIZES[run.args.platform]:
+        size_wanted = size
         label = 'real' if size is None else '{}x{}'.format(*size)
         if size:
             run.adapter.emulate(page, *size)
@@ -1361,6 +1369,7 @@ def callouts(run):
     run.check('Default overview: all located findings, nothing selected', not [w for w in wrong if 'default' in w['what']], [w for w in wrong if 'default' in w['what']][:4])
     run.check('Selecting shows only that finding and highlights its card; deselecting restores', not [w for w in wrong if w['what'] in ('the card and the photo disagree', 'another finding is still drawn', 'another finding keeps a label', 'deselecting did not restore the overview', 'a selection carried over from another view')], [w for w in wrong if 'disagree' in w['what'] or 'still' in w['what'] or 'keeps' in w['what'] or 'restore' in w['what']][:4])
     run.check('No label overflow, overlap or off-screen placement in EN, DE or TR', not [w for w in wrong if w['what'].startswith('label') or w['what'] == 'labels overlap' or 'sideways' in w['what']], [w for w in wrong if w['what'].startswith('label') or w['what'] == 'labels overlap' or 'sideways' in w['what']][:6])
+    run.check('Every size under test was really applied', not [w for w in wrong if 'size under test' in w['what']], [w for w in wrong if 'size under test' in w['what']][:3])
     run.check('Lines stay short', not [w for w in wrong if 'line is long' in w['what']], [w for w in wrong if 'line is long' in w['what']][:4])
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
