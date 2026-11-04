@@ -56,8 +56,8 @@ export default function CockpitDashboard() {
             </div>
 
             {/* Modül Kategorileri Bandı */}
-            {/* Repeats the module cards directly below, so short displays drop it. */}
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400 short:hidden">
+            {/* Repeats the module cards directly below, so only a phone's stacked layout keeps it. */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400 md:hidden">
               {HEALTH_MODULE_IDS.map((id, index) => (
                 <React.Fragment key={id}>
                   {index > 0 && <span className="text-slate-600">•</span>}

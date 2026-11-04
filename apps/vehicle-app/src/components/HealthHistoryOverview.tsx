@@ -128,7 +128,8 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
         {id === 'skin' && skinAvg ? <SkinAverages avg={skinAvg} /> : <>
         <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span><span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : overview.count ? 'Tarih kaydedilmemiş' : 'Kayıt yok')}</span></>}
       </button>
-      {id==='hearing'&&records.hearing.length>0&&<HearingHistoryCards records={records.hearing} parked={parked} onOpen={setHearingId}/>}
+      {/* The Cockpit is for starting. Saved hearing records would stretch every card past the first screen. */}
+      {id==='hearing'&&!showStartActions&&records.hearing.length>0&&<HearingHistoryCards records={records.hearing} parked={parked} onOpen={setHearingId}/>}
       {showStartActions && <div className="mx-4 mb-4 border-t border-white/10 pt-3">{parked || id === 'mental' ? <Link href={HEALTH_MODULES[id].route} className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-togg-turquoise px-3 text-xs font-semibold text-togg-darkBlue focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">{i18nNode(!parked ? 'Görüşmeyi görüntüle' : id === 'mental' ? 'Görüşmeyi başlat' : 'Kontrolü aç')}</Link> : <p className="py-3 text-center text-xs text-slate-500">{i18nText("Park halinde açılır")}</p>}</div>}
     </article> };
   });
@@ -151,10 +152,10 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
 function SkinAverages({ avg }: { avg: NonNullable<ReturnType<typeof skinAverages>> }) {
   const { text, locale } = useTranslations();
   return <span className="mt-2 flex w-full flex-1 flex-col gap-1.5 text-sm" data-skin-averages={avg.scans}>
-    <span className="text-xs text-slate-400">{text(`Son ${avg.scans} taramanın ortalaması`)}</span>
+    <span className="text-xs text-slate-400">{text(avg.scans === 1 ? 'Son tarama' : `Son ${avg.scans} taramanın ortalaması`)}</span>
     {avg.skinType && <span className="flex justify-between gap-3 text-slate-300"><span>{text('Cilt tipi')}</span><strong className="text-white">{text(avg.skinType)}</strong></span>}
     {avg.rows.filter(r => r.value !== undefined).slice(0, 3).map(r => <span key={r.id} className="flex justify-between gap-3 text-slate-300" data-skin-average={r.id} data-skin-average-used={r.used}>
-      <span className="truncate">{text(r.label)}{r.used < avg.scans && <span className="text-xs text-slate-500"> {text(`(${r.used} tarama)`)}</span>}</span>
+      <span className="min-w-0 [overflow-wrap:anywhere]">{text(r.label)}{r.used < avg.scans && <span className="text-xs text-slate-500"> {text(`(${r.used} tarama)`)}</span>}</span>
       <strong className="whitespace-nowrap tabular-nums text-white">{formatValue(r, locale)}{r.kind === 'count' && <> {countUnit(formatValue(r, locale), FINDING_DEFS[r.id].unit, text)}</>}{r.kind === 'appearance' && <span className="text-xs font-normal text-slate-400"> {text('görünüm skoru')}</span>}</strong></span>)}
     {!avg.rows.some(r => r.value !== undefined) && <span className="text-slate-300">{text('Bu taramalarda karşılaştırılabilir bulgu değeri yok.')}</span>}
     <span className="mt-auto pt-2 text-xs text-slate-400">{text(`${avg.scans} tarama · son ${new Date(avg.latest).toLocaleDateString(getLocale())}`)}</span>

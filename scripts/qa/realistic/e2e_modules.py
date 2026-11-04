@@ -1312,6 +1312,9 @@ def callouts(run):
             problem(name, 'a line is long', m['lines'])
         if shot:
             run.shot(name)
+            # The next click must meet the layout under test, not the one the screenshot left behind.
+            if size_wanted:
+                run.adapter.emulate(page, *size_wanted)
         return m
 
     for size in CALLOUT_SIZES[run.args.platform]:
