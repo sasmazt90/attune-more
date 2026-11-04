@@ -24,5 +24,17 @@ const settle=()=>new Promise(r=>setTimeout(r,10));
  const response=pending();global.fetch=()=>{fetchCalls++;return response.promise;};
  source=pending();r=new CloudSpeechRecognition('mental');r.onresult=()=>results++;r.start();source.resolve(media());await new Promise(x=>setTimeout(x,260));r.stop();await settle();assert.equal(fetchCalls,1);r.abort();response.resolve({ok:true,json:async()=>({text:'late sensitive transcript'})});await settle();assert.equal(results,0,'abort rejects late provider result');
  source=pending();global.fetch=async()=>({ok:true,json:async()=>({text:'actual returned transcript'})});r=new CloudSpeechRecognition('mental');let output;r.onresult=e=>output=e.results[0];r.start();source.resolve(media());await new Promise(x=>setTimeout(x,260));r.stop();await settle();assert.equal(output[0].transcript,'actual returned transcript');assert.equal(output[0].confidence,0);assert.equal(output.isFinal,true);
+ // End of speech, on the real timing loop: silence after speech, with a clock this test moves.
+ const realNow=performance.now.bind(performance);let clock=0;performance.now=()=>clock;
+ let level=.1,ended=0;global.AudioContext=class{resume(){return Promise.resolve();}close(){return Promise.resolve();}createAnalyser(){return {fftSize:1024,getFloatTimeDomainData:a=>a.fill(level)};}createMediaStreamSource(){return {connect(){}};}};
+ const listen=async service=>{source=pending();global.fetch=async()=>({ok:true,json:async()=>({text:'x'})});const c=new CloudSpeechRecognition(service);ended=0;clock=0;level=.1;c.onspeechend=()=>ended++;c.start();source.resolve(media());await settle();await new Promise(x=>setTimeout(x,260));return c;};
+ const after=async ms=>{clock+=ms;await new Promise(x=>setTimeout(x,70));};
+ C.setServiceConsent('vision',C.SERVICE_REQUIREMENTS.vision.map(x=>x[0]));
+ let c=await listen('mental');level=0;await after(50);await after(950);assert.equal(ended,0,'Mental: a 950 ms pause between sentences is not the end');level=.1;await after(50);level=0;await after(50);await after(1400);assert.equal(ended,0);await after(120);assert.equal(ended,1,'Mental: 1500 ms of silence ends the turn');c.abort();
+ c=await listen('vision');level=0;await after(50);await after(800);assert.equal(ended,0);await after(120);assert.equal(ended,1,'Vision keeps its quick limit');c.abort();
+ c=await listen('mental');await after(20000);assert.equal(ended,0,'Mental: speech longer than 15 s is not cut');await after(41000);assert.equal(ended,1,'Mental: a turn is still bounded');c.abort();
+ c=await listen('vision');await after(16000);assert.equal(ended,1,'Vision keeps its bound');c.abort();
+ performance.now=realNow;
+ console.log('PASS end of speech: Mental survives natural pauses and long turns, Vision unchanged');
  console.log('PASS native default, renewed cloud consent, permission revocation, pending capture cleanup, abort rejects late reply, final provider transcript and unknown confidence');
 })().catch(e=>{console.error(e);process.exitCode=1;});
