@@ -1,0 +1,290 @@
+{
+  "observedAt": "2026-11-03T12:44:21.192336+00:00",
+  "sourceCommit": "7a26c134db7f8ca4a5c02357023865250f1bddd9",
+  "account": "798886013428",
+  "role": "attune-codex-deployer",
+  "region": "eu-central-1",
+  "runtimeAlias": "AWS",
+  "networkPolicy": "enforced",
+  "identityReady": true,
+  "instances": [
+    {
+      "id": "i-0b25450afc6633494",
+      "state": "stopped",
+      "type": "g6.2xlarge",
+      "az": "eu-central-1c",
+      "nestedVirtualization": null,
+      "privateIp": "172.31.11.240",
+      "groups": [
+        "sg-023659b3a447ab759"
+      ]
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "state": "stopped",
+      "type": "m8i.2xlarge",
+      "az": "eu-central-1c",
+      "nestedVirtualization": "enabled",
+      "privateIp": "172.31.10.53",
+      "groups": [
+        "sg-0476f580c44063a5d"
+      ]
+    }
+  ],
+  "inventoryChecks": {
+    "account": "OBSERVED",
+    "reservations": "OBSERVED",
+    "volumes": "OBSERVED",
+    "securityGroups": "OBSERVED",
+    "subnets": "OBSERVED",
+    "vpcs": "OBSERVED",
+    "images": "OBSERVED",
+    "addresses": "OBSERVED",
+    "routeTables": "OBSERVED",
+    "networkAcls": "OBSERVED",
+    "internetGateways": "OBSERVED",
+    "vpcEndpoints": "OBSERVED",
+    "groupInterfaces": "OBSERVED",
+    "ssm": "OBSERVED",
+    "profile:i-0b25450afc6633494": "OBSERVED",
+    "role:attune-ec2-ssm-role": "OBSERVED",
+    "managedPolicies:attune-ec2-ssm-role": "OBSERVED",
+    "inlinePolicyNames:attune-ec2-ssm-role": "OBSERVED",
+    "policy:arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore": "OBSERVED",
+    "policyVersion:arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore": "OBSERVED",
+    "profile:i-0f4cca4e92e94c351": "OBSERVED"
+  },
+  "quotaAndPrices": {
+    "identity": {
+      "status": "OBSERVED",
+      "value": "798886013428"
+    },
+    "g_vt_quota": {
+      "status": "OBSERVED",
+      "value": 8.0
+    },
+    "standard_quota": {
+      "status": "OBSERVED",
+      "value": 16.0
+    },
+    "existing_usage": {
+      "status": "OBSERVED",
+      "value": []
+    },
+    "price_g6.2xlarge": {
+      "status": "OBSERVED",
+      "value": 1.22249
+    },
+    "price_m8i.2xlarge": {
+      "status": "OBSERVED",
+      "value": 0.50716
+    },
+    "price_gp3_gb_month": {
+      "status": "OBSERVED",
+      "value": 0.0952
+    },
+    "price_ipv4_in_use": {
+      "status": "OBSERVED",
+      "value": 0.005
+    },
+    "price_ipv4_idle": {
+      "status": "OBSERVED",
+      "value": 0.005
+    }
+  },
+  "network": {
+    "sameAz": true,
+    "dnsSupport": true,
+    "dnsHostnames": true,
+    "defaultRoute": "active internet gateway",
+    "nacl": "allow IPv4 ingress/egress",
+    "natCount": 0,
+    "vpcEndpointCount": 0,
+    "retainedEipCount": 0,
+    "expectedActivePublicIpv4Count": 2,
+    "currentSsmManagedCount": 0
+  },
+  "instanceRole": {
+    "ec2Trust": true,
+    "AmazonSSMManagedInstanceCore": true,
+    "permissionsBoundary": false
+  },
+  "authorization": {
+    "start": "DryRunOperation",
+    "stop": "DryRunOperation",
+    "ssmSendCommand": "POLICY_ALLOW_ONLY_NOT_RUNTIME_TESTED",
+    "ssmDocumentAndCommandReads": "OBSERVED",
+    "iamSelfPolicyModification": "NO_ALLOW_IN_ATTACHED_OR_INLINE_POLICIES"
+  },
+  "ingress": {
+    "observedAt": "2026-11-03T12:51:09.339134+00:00",
+    "account": "798886013428",
+    "sourceCidr": "91.14.212.184/32",
+    "applyRequested": true,
+    "authorization": [
+      {
+        "groupId": "sg-023659b3a447ab759",
+        "port": 443,
+        "operation": "authorize_security_group_ingress",
+        "code": "DryRunOperation"
+      },
+      {
+        "groupId": "sg-023659b3a447ab759",
+        "port": 443,
+        "operation": "revoke_security_group_ingress",
+        "code": "DryRunOperation"
+      },
+      {
+        "groupId": "sg-0476f580c44063a5d",
+        "port": 443,
+        "operation": "authorize_security_group_ingress",
+        "code": "DryRunOperation"
+      },
+      {
+        "groupId": "sg-0476f580c44063a5d",
+        "port": 443,
+        "operation": "revoke_security_group_ingress",
+        "code": "DryRunOperation"
+      },
+      {
+        "groupId": "sg-023659b3a447ab759",
+        "port": 8443,
+        "operation": "authorize_security_group_ingress",
+        "code": "DryRunOperation"
+      },
+      {
+        "groupId": "sg-023659b3a447ab759",
+        "port": 8443,
+        "operation": "revoke_security_group_ingress",
+        "code": "DryRunOperation"
+      }
+    ],
+    "createdRuleIds": [
+      {
+        "groupId": "sg-023659b3a447ab759",
+        "ruleId": "sgr-0898077334d3fcce9"
+      },
+      {
+        "groupId": "sg-0476f580c44063a5d",
+        "ruleId": "sgr-01759f18cac427137"
+      },
+      {
+        "groupId": "sg-023659b3a447ab759",
+        "ruleId": "sgr-0490493a19b21de10"
+      }
+    ],
+    "status": "APPLIED",
+    "rules": [
+      [
+        "sg-023659b3a447ab759",
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 443,
+          "ToPort": 443,
+          "IpRanges": [
+            {
+              "CidrIp": "91.14.212.184/32"
+            }
+          ]
+        }
+      ],
+      [
+        "sg-0476f580c44063a5d",
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 443,
+          "ToPort": 443,
+          "IpRanges": [
+            {
+              "CidrIp": "91.14.212.184/32"
+            }
+          ]
+        }
+      ],
+      [
+        "sg-023659b3a447ab759",
+        {
+          "IpProtocol": "tcp",
+          "FromPort": 8443,
+          "ToPort": 8443,
+          "UserIdGroupPairs": [
+            {
+              "GroupId": "sg-0476f580c44063a5d"
+            }
+          ]
+        }
+      ]
+    ],
+    "verified": true
+  },
+  "modelAssets": {
+    "scope": "Selected required model binaries, not a full bundle audit",
+    "checks": [
+      {
+        "path": "services/core-api/models/dental-yolox-s.onnx",
+        "expectedSha256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+        "actualSha256": "eafaca8139e4447b1aa64375156aa47764affd91cf0594392b896ea78463bf03",
+        "status": "VERIFIED"
+      },
+      {
+        "path": "services/core-api/models/skin-type-local-v1/model.onnx",
+        "expectedSha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+        "actualSha256": null,
+        "status": "MISSING"
+      },
+      {
+        "path": "services/core-api/models/acne-v5-preview/step0-with-features-stable-silu.onnx",
+        "expectedSha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+        "actualSha256": null,
+        "status": "MISSING"
+      },
+      {
+        "path": "services/core-api/models/dryness-calibrated-v3/encoder.onnx",
+        "expectedSha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+        "actualSha256": "a93e5445326c8071cd4d013b6fde494d9054dd4842dacf97028ceaefc9eb1987",
+        "status": "VERIFIED"
+      }
+    ],
+    "currentStatus": "User supplied exact model sources; binary transfer pending Cloud host allowlist, no longer missing-source blocker"
+  },
+  "apk": {
+    "sourceCommit": "7a26c134db7f8ca4a5c02357023865250f1bddd9",
+    "runId": 41634882348,
+    "artifactId": 13229474049,
+    "archiveSha256": "417b99d519f11fd6ca330e504205d5dd1c3b8958e39e882de97aa0320dc1f79d",
+    "apkBytes": 66182,
+    "apkSha256": "646f504b32b60ef9c670eef66e59a8923ddeb5ff9681c9e066ba6f78e54aa8b6",
+    "verified": true
+  },
+  "budgets": [],
+  "awsMutations": [
+    {
+      "groupId": "sg-023659b3a447ab759",
+      "ruleId": "sgr-0898077334d3fcce9"
+    },
+    {
+      "groupId": "sg-0476f580c44063a5d",
+      "ruleId": "sgr-01759f18cac427137"
+    },
+    {
+      "groupId": "sg-023659b3a447ab759",
+      "ruleId": "sgr-0490493a19b21de10"
+    }
+  ],
+  "paidStartApproved": false,
+  "liveAcceptance": "NOT_RUN",
+  "finalReadback": {
+    "instances": [
+      {
+        "id": "i-0b25450afc6633494",
+        "state": "stopped"
+      },
+      {
+        "id": "i-0f4cca4e92e94c351",
+        "state": "stopped"
+      }
+    ],
+    "note": "Instance stopped readback before ingress-only change; ingress verified separately in ingress receipt"
+  },
+  "modelSources": "model-recovery-sources.json"
+}

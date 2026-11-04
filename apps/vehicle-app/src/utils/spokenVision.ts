@@ -96,7 +96,8 @@ export function letterConditionFailure(c:LetterConditions|null,eye:Eye|null,now:
 }
 
 // Product adaptation: two full correct halve each dimension; two errors undo one step.
-export const LETTER_RULES={startPx:120,minPx:15,maxPx:180,shrinkRatio:.50,perEye:12,maxValid:24} as const;
+// notVisibleAllowance covers the whole assessment, both eyes combined.
+export const LETTER_RULES={startPx:120,minPx:15,maxPx:180,shrinkRatio:.50,perEye:12,maxValid:24,notVisibleAllowance:1} as const;
 export interface RenderedSymbolGeometry {viewportWidthCssPx:number;viewportHeightCssPx:number;pathWidthCssPx:number;pathHeightCssPx:number;strokeWidthCssPx:number;measuredAt:number;method:'dom-svg-css-pixels'}
 export interface LetterTrial {
  id:string;presentationId:string;sequence:number;protocolVersion:typeof LETTER_PROTOCOL|typeof LEGACY_LETTER_PROTOCOL;transform?:LetterTransform;methodVersion?:string;eye:Eye;letter:Letter;orientation:Orientation;sizePx:number;
@@ -125,18 +126,21 @@ export function performanceBySize(trials:LetterTrial[],eye:Eye){
 }
 export function averageAccuracy(scores:ReturnType<typeof scoreLetterTrial>[]){const l=accuracy(scores.map(s=>s.letterCorrect)),o=accuracy(scores.map(s=>s.orientationCorrect));return l.percentage===null||o.percentage===null?null:(l.percentage+o.percentage)/2;}
 export function performanceForEye(trials:LetterTrial[],eye:Eye){const rows=trials.filter(t=>t.eye===eye&&t.valid),scores=rows.map(scoreLetterTrial);return {letter:accuracy(scores.map(s=>s.letterCorrect)),orientation:accuracy(scores.map(s=>s.orientationCorrect)),average:averageAccuracy(scores),valid:rows.length,notVisible:rows.filter(t=>t.notVisible).length};}
+export const LETTER_VISIBILITY_STOP='NOT_VISIBLE_LIMIT';
 function random(max:number){const a=new Uint32Array(1);crypto.getRandomValues(a);return Math.floor(a[0]/4294967296*max);}
 export class SpokenLetterSession {
  trials:LetterTrial[]=[];invalidTrials:LetterTrial[]=[];id=crypto.randomUUID();trialId='';presentationId='';letter:Letter='E';orientation:Orientation='upright';transform:LetterTransform=legacyTransform('upright');sizePx:number=LETTER_RULES.startPx;
  private streak=0;private wrongStreak=0;private previousTarget='';private presentedAt=0;private elapsed=0;private timing=false;private pending=false;private sequence=0;
+ stoppedForVisibility=false;
  get completed(){return this.trials.length>=LETTER_RULES.maxValid;}
+ get notVisibleUsed(){return this.trials.filter(t=>t.notVisible).length;}
  get eye():Eye{return this.trials.length<LETTER_RULES.perEye?'RIGHT':'LEFT';}
  get ledger(){return [...this.trials,...this.invalidTrials].sort((a,b)=>a.sequence-b.sequence);}
  get adaptationState(){return {correctStreak:this.streak,wrongStreak:this.wrongStreak,sizePx:this.sizePx};}
  beginResponse(now=performance.now()){if(this.presentationId&&!this.timing){this.presentedAt=now;this.timing=true;}}
  suspendResponse(now=performance.now()){if(this.timing){this.elapsed+=Math.max(0,now-this.presentedAt);this.timing=false;}}
  present(now=performance.now()){
-  if(this.completed||this.presentationId)return;
+  if(this.completed||this.stoppedForVisibility||this.presentationId)return;
   if(!this.pending){this.trialId=crypto.randomUUID();const targets:{letter:Letter;transform:LetterTransform}[]=[];
    for(const letter of Object.keys(LETTER_PATHS) as Letter[]){const unique:LetterTransform[]=[];for(const rotation of [0,90,180,270] as Rotation[])for(const mirrored of [false,true]){const t:LetterTransform={rotation,mirrored,mirrorAxis:'x',order:'mirror-then-rotate'};if(!unique.some(u=>equivalentTransform(letter,u,t)))unique.push(t);}for(const transform of unique)if(this.previousTarget!==letter+JSON.stringify(transform))targets.push({letter,transform});}
    const target=targets[random(targets.length)];this.letter=target.letter;this.transform=target.transform;this.orientation=({0:'upright',90:'right',180:'down',270:'left'} as const)[target.transform.rotation];this.previousTarget=this.letter+JSON.stringify(this.transform);}
@@ -152,9 +156,11 @@ export class SpokenLetterSession {
   if(!this.presentationId)return false;this.unscored(reason,c,now,geometry);this.presentationId='';this.pending=true;return true;
  }
  respond(answer:ParsedAnswer,c:LetterConditions|null,now:number,presentationId:string,geometry:RenderedSymbolGeometry|null){
-  if(this.completed||!this.presentationId||presentationId!==this.presentationId||letterConditionFailure(c,this.eye,now)||!c)return false;
+  if(this.completed||this.stoppedForVisibility||!this.presentationId||presentationId!==this.presentationId||letterConditionFailure(c,this.eye,now)||!c)return false;
   if(answer.clarify||(!answer.command&&(!answer.letter||!answerTransform(answer)))||(answer.command&&answer.command!=='not-visible'))return false;
   if(!geometry||![geometry.viewportWidthCssPx,geometry.viewportHeightCssPx,geometry.pathWidthCssPx,geometry.pathHeightCssPx,geometry.strokeWidthCssPx,geometry.measuredAt].every(Number.isFinite)||geometry.viewportWidthCssPx<=0||geometry.viewportHeightCssPx<=0||geometry.pathWidthCssPx<=0||geometry.pathHeightCssPx<=0||now<geometry.measuredAt||now-geometry.measuredAt>750)return false;
+  // Beyond the allowance the letter stays unread: stored unscored, never as a wrong or right letter.
+  if(answer.command==='not-visible'&&this.notVisibleUsed>=LETTER_RULES.notVisibleAllowance){this.invalidTrials.push(this.record(answer,c,now,geometry,LETTER_VISIBILITY_STOP));this.presentationId='';this.stoppedForVisibility=true;return true;}
   const eye=this.eye,t=this.record(answer,c,now,geometry,null);this.trials.push(t);this.presentationId='';this.streak=t.combinedCorrect?this.streak+1:0;this.wrongStreak=t.combinedCorrect?0:this.wrongStreak+1;
   if(this.wrongStreak===2){this.sizePx=Math.min(LETTER_RULES.maxPx,this.sizePx/LETTER_RULES.shrinkRatio);this.wrongStreak=0;}
   else if(this.streak===2){this.sizePx=Math.max(LETTER_RULES.minPx,this.sizePx*LETTER_RULES.shrinkRatio);this.streak=0;}
@@ -162,7 +168,7 @@ export class SpokenLetterSession {
   return true;
  }
 }
-export interface LetterResult {id:string;date:string;protocolVersion:typeof LETTER_PROTOCOL|typeof LEGACY_LETTER_PROTOCOL;methodVersion?:string;trials:LetterTrial[];deviceContext:{width:number;height:number;dpr:number};profileVerification:'unverified';distanceMethod:'relative-face-scale-only'|'relative-head-anchors';physicalScale:null;completed:boolean}
+export interface LetterResult {id:string;date:string;protocolVersion:typeof LETTER_PROTOCOL|typeof LEGACY_LETTER_PROTOCOL;methodVersion?:string;trials:LetterTrial[];deviceContext:{width:number;height:number;dpr:number};profileVerification:'unverified';distanceMethod:'relative-face-scale-only'|'relative-head-anchors';physicalScale:null;completed:boolean;stopReason?:typeof LETTER_VISIBILITY_STOP}
 /** Read the displayed geometry before sampling the response clock. Passing a
  * clock sampled first makes the real DOM measurement appear to be in the
  * future, which respond correctly rejects. Keep that strict guard intact. */

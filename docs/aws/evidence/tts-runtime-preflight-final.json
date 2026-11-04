@@ -1,0 +1,52 @@
+{
+  "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+  "modelFile": "t3_mtl23ls_v3.safetensors",
+  "modelInference": "NOT_EXECUTED",
+  "playback": "NOT_EXECUTED",
+  "checks": [
+    {
+      "name": "chatterbox-tts",
+      "status": "PASS",
+      "version": "0.1.7"
+    },
+    {
+      "name": "torch",
+      "status": "PASS",
+      "version": "2.6.0+cpu"
+    },
+    {
+      "name": "torchaudio",
+      "status": "PASS",
+      "version": "2.6.0+cpu"
+    },
+    {
+      "name": "transformers",
+      "status": "PASS",
+      "version": "5.2.0"
+    },
+    {
+      "name": "safetensors",
+      "status": "PASS",
+      "version": "0.5.3"
+    },
+    {
+      "language": "tr",
+      "status": "PASS",
+      "profile": "official-default",
+      "meaning": "official V3 bundle and default conditioning hashes verified; no inference/playback acceptance"
+    },
+    {
+      "language": "en",
+      "status": "PASS",
+      "profile": "official-default",
+      "meaning": "official V3 bundle and default conditioning hashes verified; no inference/playback acceptance"
+    },
+    {
+      "language": "de",
+      "status": "PASS",
+      "profile": "official-default",
+      "meaning": "official V3 bundle and default conditioning hashes verified; no inference/playback acceptance"
+    }
+  ],
+  "status": "PASS"
+}

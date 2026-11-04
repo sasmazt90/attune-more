@@ -12,7 +12,7 @@ with sync_playwright() as pw:
  def launch(headed=True):return pw.chromium.launch_persistent_context(str(PROFILE),channel='chrome',headless=not headed,viewport=None if headed else dict(width=1600,height=1000),no_viewport=headed,args=['--window-size=1600,1000','--enable-unsafe-swiftshader'])
  context=launch();context.route('**/__audit/vision_bundle.mjs',lambda r:r.fulfill(path=str(ROOT/'node_modules/@mediapipe/tasks-vision/vision_bundle.mjs'),content_type='text/javascript'))
  page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto('http://127.0.0.1:3000/privacy')
- expect(page.get_by_label('Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver',exact=True)).not_to_be_checked()
+ expect(page.get_by_label('Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.',exact=True)).not_to_be_checked()
  page.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla',exact=True).check()
  photo_permission=page.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla',exact=True)
  if not photo_permission.is_checked():photo_permission.click()

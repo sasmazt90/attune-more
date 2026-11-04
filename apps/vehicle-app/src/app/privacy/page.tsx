@@ -25,6 +25,7 @@ import {
   Info
 } from 'lucide-react';
 import { readMentalHistory } from '../../utils/mentalHistory';
+import { CARE_APPOINTMENTS_KEY, CARE_REGION_KEY } from '../../utils/careAppointments';
 import { STORAGE_KEYS, isDemoMode,SKIN_HOSTED_PROCESSING_PERMISSION,isSkinHostedProcessingAllowed } from '../../utils/attuneMode';
 import { localBackend } from '../../utils/localBackend';
 
@@ -190,7 +191,7 @@ export default function PrivacyPage() {
     let local = true;
     const healthKeys = [DENTAL_PHOTO_DELETE_PENDING,SKIN_PHOTO_DELETE_PENDING,'attune_skin_appearance_reference_v1','attune_skin_appearance_single_reference_v1',RECORD_JOURNAL, 'attune_dental_history_v1', 'attune_dental_latest_v1', 'attune_hearing_history_v1', 'attune_hearing_latest_v1', 'attune_skin_geometry_reference_v1', STORAGE_KEYS.SKIN_SIGNS_BASELINE, STORAGE_KEYS.SKIN_SINGLE_SIGNS_BASELINE, 'togg_health_vision_history', STORAGE_KEYS.LATEST_VISION, STORAGE_KEYS.LATEST_SKIN,
       STORAGE_KEYS.SKIN_BASELINE, STORAGE_KEYS.SKIN_BASELINE_META, STORAGE_KEYS.SKIN_MULTI_BASELINE, STORAGE_KEYS.SKIN_REMINDER, STORAGE_KEYS.SKIN_HISTORY, STORAGE_KEYS.LATEST_MENTAL, STORAGE_KEYS.MENTAL_HISTORY,
-      STORAGE_KEYS.REFERRAL_CONTEXT, STORAGE_KEYS.DEMO_SKIN_RESULT, STORAGE_KEYS.DEMO_REFERRAL];
+      STORAGE_KEYS.REFERRAL_CONTEXT, STORAGE_KEYS.DEMO_SKIN_RESULT, STORAGE_KEYS.DEMO_REFERRAL, CARE_APPOINTMENTS_KEY, CARE_REGION_KEY];
     try { await withRecordsLock(async () => {
     await clearSkinPhotos();await clearDentalPhotos();clearSkinSnapshots();
     for (const key of healthKeys) {
@@ -232,7 +233,7 @@ export default function PrivacyPage() {
       <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 shadow-2xl space-y-3">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-[11px] font-semibold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-togg-turquoise/10 border border-togg-turquoise/30 text-togg-turquoise text-xs font-semibold tracking-wider uppercase">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>{i18nText("Yerel Gizlilik ve Veri Güvenliği")}</span>
             </div>
@@ -277,7 +278,7 @@ export default function PrivacyPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{i18nText("Uygulama İzni")}</span>
+            <span className="text-xs text-slate-400">{i18nText("Uygulama İzni")}</span>
             <button
               onClick={handleToggleCamera}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
@@ -313,7 +314,7 @@ export default function PrivacyPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{i18nText("Uygulama İzni")}</span>
+            <span className="text-xs text-slate-400">{i18nText("Uygulama İzni")}</span>
             <button
               onClick={handleToggleMic}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
@@ -347,7 +348,7 @@ export default function PrivacyPage() {
           </div>
 
           <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{i18nText("Yerel Saklama")}</span>
+            <span className="text-xs text-slate-400">{i18nText("Yerel Saklama")}</span>
             <button
               onClick={() => handleToggleMentalSaving(!saveMentalSummaries)}
               className="text-xs font-semibold text-togg-turquoise hover:underline"
@@ -373,7 +374,7 @@ export default function PrivacyPage() {
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveDentalPhotos} disabled={photoBusy} onChange={async e=>{const enabled=e.target.checked;setPhotoBusy(true);try{await withRecordsLock(async()=>{localStorage.setItem(DENTAL_PHOTO_PERMISSION,String(enabled));setSaveDentalPhotos(enabled);window.dispatchEvent(new Event('attune-privacy'));if(!enabled)await clearDentalPhotos();});window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);setSaveDentalPhotos(localStorage.getItem(DENTAL_PHOTO_PERMISSION)==='true');}finally{setPhotoBusy(false);}}}/>{i18nText("Yeni diş kayıtlarının fotoğraflarını bu cihazda sakla")}</label>
         <p className="text-xs text-slate-400">{i18nText("Varsayılan kapalıdır. Sayısal kayıttan bağımsızdır; yalnız yeni kaydettiğiniz sonuçlara uygulanır. Kapatınca diş fotoğrafları silinir, sayısal kayıtlar kalır. Önceki fotoğraflar yeniden oluşturulmaz.")}</p>
         <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={saveSkin} onChange={e=>{try{localStorage.setItem('attune_privacy_skin_save_allowed',String(e.target.checked));setSaveSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla")}</label>
-        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={hostedSkin} onChange={e=>{try{localStorage.setItem(SKIN_HOSTED_PROCESSING_PERMISSION,String(e.target.checked));setHostedSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver")}</label>
+        <label className="flex min-h-11 items-center gap-3 text-sm"><input type="checkbox" checked={hostedSkin} onChange={e=>{try{localStorage.setItem(SKIN_HOSTED_PROCESSING_PERMISSION,String(e.target.checked));setHostedSkin(e.target.checked);window.dispatchEvent(new Event('attune-privacy'));}catch{setStorageUnavailable(true);}}}/>{i18nText("Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.")}</label>
         <p className="text-xs text-slate-400">{i18nText("Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.")}</p>
       </section>
 

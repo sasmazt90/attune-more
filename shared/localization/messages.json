@@ -27,7 +27,11 @@
   "6e3a654fc7c359b8": {
     "tr": "· {0} ölçüm boşluğu",
     "en": "· {0} measurement gaps",
-    "de": "· {0} Messlücken"
+    "de": "· {0} Messlücken",
+    "one": {
+      "en": "· {0} measurement gap",
+      "de": "· {0} Messlücke"
+    }
   },
   "c105a0ad3d44d703": {
     "tr": "· Bitiş:",
@@ -107,7 +111,11 @@
   "6d4aa43b37263003": {
     "tr": "{0} geçerli deneme",
     "en": "{0} valid trials",
-    "de": "{0} gültige Versuche"
+    "de": "{0} gültige Versuche",
+    "one": {
+      "en": "{0} valid trial",
+      "de": "{0} gültiger Versuch"
+    }
   },
   "19f0114be05d79ce": {
     "tr": "{0} geçerli deneme · {1} göremedi",
@@ -127,7 +135,11 @@
   "42f1556517c705a9": {
     "tr": "{0} geçerli yön yanıtı",
     "en": "{0} valid orientation responses",
-    "de": "{0} gültige Ausrichtungsantworten"
+    "de": "{0} gültige Ausrichtungsantworten",
+    "one": {
+      "en": "{0} valid orientation response",
+      "de": "{0} gültige Ausrichtungsantwort"
+    }
   },
   "6df636d63f056372": {
     "tr": "{0} geçmiş grafikleri",
@@ -137,17 +149,29 @@
   "246e65c5394164c3": {
     "tr": "{0} görünür aday",
     "en": "{0} visible candidates",
-    "de": "{0} sichtbare Kandidaten"
+    "de": "{0} sichtbare Kandidaten",
+    "one": {
+      "en": "{0} visible candidate",
+      "de": "{0} sichtbarer Kandidat"
+    }
   },
   "a54c322d2681d26e": {
     "tr": "{0} görüşme",
     "en": "{0} conversations",
-    "de": "{0} Gespräche"
+    "de": "{0} Gespräche",
+    "one": {
+      "en": "{0} conversation",
+      "de": "{0} Gespräch"
+    }
   },
   "c08224adeaaef4b3": {
     "tr": "{0} görüşme · {1}",
     "en": "{0} conversations · {1}",
-    "de": "{0} Gespräche · {1}"
+    "de": "{0} Gespräche · {1}",
+    "one": {
+      "en": "{0} conversation · {1}",
+      "de": "{0} Gespräch · {1}"
+    }
   },
   "d186bf29b71ef527": {
     "tr": "{0} göz · {1}/12",
@@ -288,11 +312,6 @@
     "tr": "0–100 değerleri görünüm indeksidir; klinik şiddet veya hastalık olasılığı değildir. Kişisel referans farkı ayrı ölçümdür.",
     "en": "Values from 0–100 are appearance indices, not clinical severity or disease probability. The difference from your personal reference is a separate measurement.",
     "de": "Werte von 0–100 sind Erscheinungsindizes, keine klinischen Schweregrade oder Erkrankungswahrscheinlichkeiten. Die Abweichung von Ihrer persönlichen Referenz ist eine gesonderte Messung."
-  },
-  "1e65ae72853841a7": {
-    "tr": "04 • UZMAN",
-    "en": "04 • SPECIALIST",
-    "de": "04 • FACHKRAFT"
   },
   "6595875483f323e1": {
     "tr": "1.55 LogCS (İzleniyor)",
@@ -2322,7 +2341,7 @@
   "818d140f76f3176f": {
     "tr": "Görüşme hizmet onayı kapsamındaki yanıt/özet metin aktarımı ayrıdır. Yerel Sil eylemi dökümü ve özeti birlikte temizler; sağlayıcının tarihsel saklama veya silme durumunu doğrulamaz. Tercihi kapatmak eski kayıtları otomatik silmez.",
     "en": "Transfer of response/summary text under service consent is separate. Local Delete clears the transcript and summary together; it does not verify the provider's historical retention or deletion status. Turning the preference off does not automatically delete older records.",
-    "de": "Die Übertragung von Antwort-/Zusammenfassungstext im Rahmen der Diensteeinwilligung ist gesondert. Lokal löschen entfernt Gesprächsprotokoll und Zusammenfassung gemeinsam; es bestätigt nicht den bisherigen Aufbewahrungs- oder Löschstatus beim Anbieter. Das Deaktivieren der Präferenz löscht ältere Einträge nicht automatisch."
+    "de": "Die Übertragung von Antwort-/Zusammenfassungstext im Rahmen der Einwilligung ist gesondert. Lokal löschen entfernt Gesprächsprotokoll und Zusammenfassung gemeinsam; es bestätigt nicht den bisherigen Aufbewahrungs- oder Löschstatus beim Anbieter. Das Deaktivieren der Präferenz löscht ältere Einträge nicht automatisch."
   },
   "85a2e7c0a43d4f46": {
     "tr": "görüşme katkısı /",
@@ -2777,22 +2796,22 @@
   "985a8810263a8392": {
     "tr": "hizmet izni",
     "en": "service consent",
-    "de": "Diensteeinwilligung"
+    "de": "Einwilligung"
   },
   "328ea2ec643e1a05": {
     "tr": "Hizmet izni açık",
     "en": "Service consent enabled",
-    "de": "Diensteeinwilligung erteilt"
+    "de": "Einwilligung erteilt"
   },
   "401cd646b213e16f": {
     "tr": "Hizmet izni geri çekildi.",
     "en": "Service consent withdrawn.",
-    "de": "Diensteeinwilligung widerrufen."
+    "de": "Einwilligung widerrufen."
   },
   "b274de60e43ac091": {
     "tr": "Hizmet onayı geri çekildi. Görüşme ve ses durduruldu.",
     "en": "Service consent withdrawn. Conversation and audio stopped.",
-    "de": "Diensteeinwilligung widerrufen. Gespräch und Audio wurden beendet."
+    "de": "Einwilligung widerrufen. Gespräch und Audio wurden beendet."
   },
   "078736d18931158f": {
     "tr": "Hizmet seçenekleri",
@@ -3932,7 +3951,7 @@
   "b59072b1a8ef8558": {
     "tr": "Mikrofon yalnız görüşmeyi başlattığınızda kullanılır. Tarayıcı/cihaz izni ayrıca gerekir; bu tercih onu onaylamaz. Konuşma tanıma hizmeti sesi buluta aktarabilir. Aktarım Ruh Sağlığı ekranındaki hizmet onayına bağlıdır. Ham ses uygulamada saklanmaz.",
     "en": "The microphone is used only when you start a conversation. Browser/device permission is also required; this preference does not grant it. The speech recognition service may transfer audio to the cloud. Transfer depends on service consent on the Mental Health screen. Raw audio is not stored in the application.",
-    "de": "Das Mikrofon wird nur verwendet, wenn Sie ein Gespräch starten. Zusätzlich ist eine Browser-/Geräteberechtigung nötig; diese Präferenz erteilt sie nicht. Der Spracherkennungsdienst kann Audio in die Cloud übertragen. Die Übertragung hängt von der Diensteeinwilligung auf der Seite Psychisches Wohlbefinden ab. Unbearbeitetes Audio wird in der Anwendung nicht gespeichert."
+    "de": "Das Mikrofon wird nur verwendet, wenn Sie ein Gespräch starten. Zusätzlich ist eine Browser-/Geräteberechtigung nötig; diese Präferenz erteilt sie nicht. Der Spracherkennungsdienst kann Audio in die Cloud übertragen. Die Übertragung hängt von der Einwilligung auf der Seite Psychisches Wohlbefinden ab. Unbearbeitetes Audio wird in der Anwendung nicht gespeichert."
   },
   "10b561219d6764f0": {
     "tr": "Mikrofona erişilemiyor.",
@@ -3961,7 +3980,7 @@
   },
   "aef8d151b2835536": {
     "tr": "Net görüntü elde edin",
-    "en": "Obtain a sharp image",
+    "en": "Get a sharp image",
     "de": "Sorgen Sie für ein scharfes Bild"
   },
   "88ee52ba0df5cb94": {
@@ -6622,7 +6641,7 @@
   "018f8c0920f07003": {
     "tr": "{0} hizmet izni",
     "en": "Service consent for {0}",
-    "de": "Diensteeinwilligung für {0}"
+    "de": "Einwilligung für {0}"
   },
   "42b9f30b4726b1b7": {
     "tr": "{0}: {1}. {2}.",
@@ -6712,7 +6731,7 @@
   "ac52cef8434885fa": {
     "tr": "Çevrimiçi seslendirme ayrıca ilgili hizmet izninizi gerektirir. Ücretli hizmet kullanılmaz. İşitme testinin onaylı sayı kayıtları ses tercihiyle değiştirilmez.",
     "en": "Online speech also requires the relevant service consent. No paid service is used. Approved hearing-test digit recordings are not changed by voice preferences.",
-    "de": "Online-Sprachausgabe erfordert zusätzlich die entsprechende Diensteeinwilligung. Es wird kein kostenpflichtiger Dienst verwendet. Freigegebene Ziffernaufnahmen des Hörtests werden durch Stimmpräferenzen nicht verändert."
+    "de": "Online-Sprachausgabe erfordert zusätzlich die entsprechende Einwilligung. Es wird kein kostenpflichtiger Dienst verwendet. Freigegebene Ziffernaufnahmen des Hörtests werden durch Stimmpräferenzen nicht verändert."
   },
   "6b3aed56657fac61": {
     "tr": "dBFS peak",
@@ -6772,7 +6791,7 @@
   "c1fc8c35c12b25fb": {
     "tr": "Hizmet izni verilmedi; ilgili sayfada izin verebilirsiniz.",
     "en": "Service consent not granted; you can give consent on the relevant page.",
-    "de": "Keine Diensteeinwilligung erteilt; Sie können auf der entsprechenden Seite einwilligen."
+    "de": "Keine Einwilligung erteilt; Sie können auf der entsprechenden Seite einwilligen."
   },
   "dfe6e92cafbe5b3b": {
     "tr": "Kadın",
@@ -7982,7 +8001,7 @@
   "2448a6de4b9544fc": {
     "tr": "Uzman seçeneklerini gör",
     "en": "See specialist options",
-    "de": "Fachärztliche Optionen anzeigen"
+    "de": "Fachkraftoptionen ansehen"
   },
   "0a5a4fe526a3bb49": {
     "tr": "Öneriler",
@@ -8037,7 +8056,11 @@
   "2a7622127f2f7636": {
     "tr": "{0} bulgu kesinleştirilemedi",
     "en": "{0} findings could not be confirmed",
-    "de": "{0} Befunde nicht eindeutig"
+    "de": "{0} Befunde nicht eindeutig",
+    "one": {
+      "en": "{0} finding could not be confirmed",
+      "de": "{0} Befund nicht eindeutig"
+    }
   },
   "5f16f6278aad2e46": {
     "tr": "Nedenini gör",
@@ -9157,7 +9180,11 @@
   "b8f40e988d47e19a": {
     "tr": "{0} bulgu ölçülemedi",
     "en": "{0} findings could not be measured",
-    "de": "{0} Befunde konnten nicht gemessen werden"
+    "de": "{0} Befunde konnten nicht gemessen werden",
+    "one": {
+      "en": "{0} finding could not be measured",
+      "de": "{0} Befund konnte nicht gemessen werden"
+    }
   },
   "dbf0479c0474a225": {
     "tr": "Bu bulgu bu taramada ölçülemedi.",
@@ -9387,7 +9414,11 @@
   "a7cc7ee365230ada": {
     "tr": "{0} tarama · son {1}",
     "en": "{0} scans · last {1}",
-    "de": "{0} Scans · zuletzt {1}"
+    "de": "{0} Scans · zuletzt {1}",
+    "one": {
+      "en": "{0} scan · last {1}",
+      "de": "{0} Scan · zuletzt {1}"
+    }
   },
   "a2ae2906399fb278": {
     "tr": "+{0} bulgu",
@@ -9397,7 +9428,11 @@
   "d77a4ff7b529fc0b": {
     "tr": "{0} puan",
     "en": "{0} points",
-    "de": "{0} Punkte"
+    "de": "{0} Punkte",
+    "one": {
+      "en": "{0} point",
+      "de": "{0} Punkt"
+    }
   },
   "e17ccb1e9466019c": {
     "tr": "Yeni",
@@ -10466,7 +10501,7 @@
   },
   "99f40df146fb0644": {
     "tr": "Göz Testi",
-    "en": "Eye Test",
+    "en": "Eye test",
     "de": "Sehtest"
   },
   "4ea04268b7180382": {
@@ -10476,7 +10511,7 @@
   },
   "4d41f3f117023421": {
     "tr": "Görüşme Seansı",
-    "en": "Conversation Session",
+    "en": "Conversation session",
     "de": "Gesprächssitzung"
   },
   "f0089aff052a7cd5": {
@@ -10486,13 +10521,8 @@
   },
   "697afc5e42ff0474": {
     "tr": "Sesli akış ile sohbete başlayabilirsiniz.",
-    "en": "You can start chatting using the voice flow.",
-    "de": "Sie können das Gespräch über den Sprachablauf beginnen."
-  },
-  "f8485b439869d353": {
-    "tr": "Seansa ara verip, devam edebilirsiniz.",
-    "en": "You can pause and resume the session.",
-    "de": "Sie können die Sitzung unterbrechen und fortsetzen."
+    "en": "You can start talking by voice.",
+    "de": "Sie können das Gespräch per Sprache beginnen."
   },
   "a4f0d833434bfa63": {
     "tr": "Seans bitirildiğinde temaları analiz edebilirsiniz.",
@@ -10553,6 +10583,11 @@
     "tr": "Analiz durduruldu. PARK durumunu ve izinlerinizi kontrol edip yeniden deneyin.",
     "en": "Analysis stopped. Check PARK status and your permissions, then try again.",
     "de": "Die Analyse wurde beendet. Prüfen Sie den PARK-Status und Ihre Berechtigungen und versuchen Sie es erneut."
+  },
+  "5a7c6ce8f2592aca": {
+    "tr": "Bu cihazda yeterli boş bellek yok. Açık uygulamaları kapatıp yeniden deneyin.",
+    "en": "This device does not have enough free memory. Close open apps and try again.",
+    "de": "Dieses Gerät hat nicht genügend freien Arbeitsspeicher. Schließen Sie geöffnete Apps und versuchen Sie es erneut."
   },
   "d5d6a1716d439440": {
     "tr": "Yerel analiz şu anda kullanılamıyor. Yeniden deneyin; sorun sürerse destek alın.",
@@ -10677,7 +10712,11 @@
   "14d5baad9c561fd2": {
     "tr": "{0} geçerli harf/yön yanıtı",
     "en": "{0} valid letter/orientation responses",
-    "de": "{0} gültige Buchstaben-/Ausrichtungsantworten"
+    "de": "{0} gültige Buchstaben-/Ausrichtungsantworten",
+    "one": {
+      "en": "{0} valid letter/orientation response",
+      "de": "{0} gültige Buchstaben-/Ausrichtungsantwort"
+    }
   },
   "ed373091f39587e2": {
     "tr": "Bu görevde {0} sayının {1} tanesini doğru ayırt ettiniz.",
@@ -10763,5 +10802,578 @@
     "tr": "Varsayılan kapalıdır; çekim izninden ayrıdır. Fotoğraf saklama tercihi aşağıda ayrıca yönetilir. Kapatmak eski kayıtları silmez; kayıt Sil veya Tüm Yerel Verileri Sil ile kaldırılır.",
     "en": "Off by default; separate from capture permission. Photo retention is managed separately below. Turning it off does not delete earlier records; use Delete or Delete All Local Data.",
     "de": "Standardmäßig aus; unabhängig von der Aufnahmeberechtigung. Die Fotospeicherung wird unten separat verwaltet. Das Ausschalten löscht frühere Einträge nicht; verwenden Sie Löschen oder Alle lokalen Daten löschen."
+  },
+  "ee3111e2a0a0e354": {
+    "tr": "Uzak demo kamerası",
+    "en": "Remote demo camera",
+    "de": "Remote-Demokamera"
+  },
+  "8abd239dc7621e89": {
+    "tr": "Uzak demo kamerası kullanılamıyor.",
+    "en": "The remote demo camera is unavailable.",
+    "de": "Die Remote-Demokamera ist nicht verfügbar."
+  },
+  "bee43434f39a4631": {
+    "tr": "Uzak demo kamerası iptal edildi, süresi doldu veya bağlantısı kesildi.",
+    "en": "The remote demo camera was cancelled, expired or disconnected.",
+    "de": "Die Remote-Demokamera wurde abgebrochen, ist abgelaufen oder wurde getrennt."
+  },
+  "72278748133ac996": {
+    "tr": "İptal",
+    "en": "Cancel",
+    "de": "Abbrechen"
+  },
+  "39e450d47dd8e6d4": {
+    "tr": "Tamamlanan görüşme turlarının özeti kaydedildi; yanıtı beklenen son mesaj dahil edilmedi.",
+    "en": "The summary of your completed turns was saved; the last message, still awaiting a reply, was not included.",
+    "de": "Die Zusammenfassung Ihrer abgeschlossenen Gesprächsrunden wurde gespeichert; die letzte, noch unbeantwortete Nachricht wurde nicht berücksichtigt."
+  },
+  "413468ef5e73787e": {
+    "tr": "Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Saklama tercihi kapalı; geçmişe kayıt eklenmedi.",
+    "en": "The task stopped: “I can't see it” was said a second time. The remaining letters were not measured. Saving is off, so nothing was added to history.",
+    "de": "Die Aufgabe wurde beendet: „Ich kann es nicht sehen“ wurde ein zweites Mal gesagt. Die übrigen Buchstaben wurden nicht gemessen. Das Speichern ist ausgeschaltet, daher wurde nichts zum Verlauf hinzugefügt."
+  },
+  "0be8f2b1e6e98882": {
+    "tr": "Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Yanıtlarınız bu cihazdaki geçmişe eksik sonuç olarak kaydedildi.",
+    "en": "The task stopped: “I can't see it” was said a second time. The remaining letters were not measured. Your answers were saved to history on this device as an incomplete result.",
+    "de": "Die Aufgabe wurde beendet: „Ich kann es nicht sehen“ wurde ein zweites Mal gesagt. Die übrigen Buchstaben wurden nicht gemessen. Ihre Antworten wurden im Verlauf auf diesem Gerät als unvollständiges Ergebnis gespeichert."
+  },
+  "e8c858ad415435cb": {
+    "tr": "Görev durdu: ikinci kez “göremiyorum” dendi. Kalan harfler ölçülmedi. Sonuç kaydedilemedi.",
+    "en": "The task stopped: “I can't see it” was said a second time. The remaining letters were not measured. The result could not be saved.",
+    "de": "Die Aufgabe wurde beendet: „Ich kann es nicht sehen“ wurde ein zweites Mal gesagt. Die übrigen Buchstaben wurden nicht gemessen. Das Ergebnis konnte nicht gespeichert werden."
+  },
+  "bebe6bce19df27e5": {
+    "tr": "“Göremiyorum” hakkınızı kullandınız. Bir harfi daha göremezseniz görev durur ve kalan harfler ölçülmez.",
+    "en": "You have used your one “I can't see it”. If you can't see another letter, the task stops and the remaining letters are not measured.",
+    "de": "Sie haben Ihr einmaliges „Ich kann es nicht sehen“ verwendet. Wenn Sie einen weiteren Buchstaben nicht sehen, wird die Aufgabe beendet und die übrigen Buchstaben werden nicht gemessen."
+  },
+  "f8be637b975f3768": {
+    "tr": "“Göremiyorum” yanıtı tüm değerlendirmede, iki göz için toplam bir kez kullanılabilir.",
+    "en": "“I can't see it” can be used once in the whole assessment, across both eyes.",
+    "de": "„Ich kann es nicht sehen“ kann in der gesamten Beurteilung einmal verwendet werden, für beide Augen zusammen."
+  },
+  "05a75f87af90526c": {
+    "tr": "Ölçülmeyen harf:",
+    "en": "Letters not measured:",
+    "de": "Nicht gemessene Buchstaben:"
+  },
+  "3e800015e77fc550": {
+    "tr": "Eksik sonuç: Görev, ikinci “göremiyorum” yanıtında durdu. Skorlar yalnız verilen yanıtları kapsar. Bu klinik bir değerlendirme değildir; görmenizle ilgili endişeniz varsa bir göz uzmanına danışın.",
+    "en": "Incomplete result: the task stopped at the second “I can't see it”. Scores cover only the answers given. This is not a clinical assessment. If you are concerned about your vision, please talk to an eye specialist.",
+    "de": "Unvollständiges Ergebnis: Die Aufgabe wurde beim zweiten „Ich kann es nicht sehen“ beendet. Die Werte beziehen sich nur auf die gegebenen Antworten. Dies ist keine klinische Beurteilung. Wenn Sie sich um Ihr Sehvermögen sorgen, sprechen Sie bitte mit einer Augenfachkraft."
+  },
+  "f54e82c18806e82a": {
+    "tr": "{0} tamamlanmış izinli görüşme",
+    "en": "{0} completed conversations with consent",
+    "de": "{0} abgeschlossene Gespräche mit Einwilligung",
+    "one": {
+      "en": "{0} completed conversation with consent",
+      "de": "{0} abgeschlossenes Gespräch mit Einwilligung"
+    }
+  },
+  "761f150fe8d4ce27": {
+    "tr": "{0} tema kaydı",
+    "en": "{0} theme records",
+    "de": "{0} Themeneinträge",
+    "one": {
+      "en": "{0} theme record",
+      "de": "{0} Themeneintrag"
+    }
+  },
+  "7213e8d0c2c959bc": {
+    "tr": "Uzmanlar ve randevular",
+    "en": "Specialists and appointments",
+    "de": "Fachkräfte und Termine"
+  },
+  "1e30f7f0e59a0dd2": {
+    "tr": "Branş ve bölge seçin; uygunluğu sağlayıcının sayfasında doğrulayın.",
+    "en": "Choose a specialty and region, then check availability on the provider's page.",
+    "de": "Wählen Sie Fachrichtung und Region und prüfen Sie die Verfügbarkeit auf der Seite des Anbieters."
+  },
+  "03883b61a07a42c4": {
+    "tr": "Seçtiğiniz zaman aralığı ve görüşme süresi yalnız kaynağın doğrulanmış saatleriyle eşleştirilir. Kişisel takvim ve canlı rota entegrasyonu yoktur. Harici sayfada uygunluğu kontrol edip randevuyu kendiniz tamamlarsınız. Yönlendirme hazırlamak bilgilerinizi hekime göndermez.",
+    "en": "Your time window and duration are only matched with times the source has confirmed. There is no personal calendar or live route integration. You check availability and complete the booking yourself on the external page. Preparing a referral does not send your information to a doctor.",
+    "de": "Ihr Zeitfenster und Ihre Dauer werden nur mit Zeiten abgeglichen, die die Quelle bestätigt hat. Es gibt keine Anbindung an einen persönlichen Kalender oder an Live-Routen. Sie prüfen die Verfügbarkeit und schließen die Buchung auf der externen Seite selbst ab. Das Vorbereiten einer Überweisung sendet Ihre Daten nicht an einen Arzt."
+  },
+  "c9f60e6636ebe8f5": {
+    "tr": "Bağlamı kaldır",
+    "en": "Remove context",
+    "de": "Kontext entfernen"
+  },
+  "3e75053ce6ed2277": {
+    "tr": "Bölge seçin",
+    "en": "Choose a region",
+    "de": "Region wählen"
+  },
+  "d15b2145422e575c": {
+    "tr": "Türkiye",
+    "en": "Türkiye",
+    "de": "Türkei"
+  },
+  "e10e0b319ac325a5": {
+    "tr": "Almanya",
+    "en": "Germany",
+    "de": "Deutschland"
+  },
+  "85441b855a4fc701": {
+    "tr": "Görüşme türü",
+    "en": "Appointment type",
+    "de": "Terminart"
+  },
+  "813279a3dd909916": {
+    "tr": "Yüz yüze",
+    "en": "In person",
+    "de": "Vor Ort"
+  },
+  "763ddba7319cbb65": {
+    "tr": "Branş",
+    "en": "Specialty",
+    "de": "Fachrichtung"
+  },
+  "6308cd0b7224c229": {
+    "tr": "Branş seçin",
+    "en": "Choose a specialty",
+    "de": "Fachrichtung wählen"
+  },
+  "0071147f0c2f9414": {
+    "tr": "Branş seçin.",
+    "en": "Choose a specialty.",
+    "de": "Wählen Sie eine Fachrichtung."
+  },
+  "30f1a3646977a3f4": {
+    "tr": "Zaman aralığı ve süre",
+    "en": "Time window and duration",
+    "de": "Zeitfenster und Dauer"
+  },
+  "67a852b27310705a": {
+    "tr": "Saatler bu cihazın saat diliminde gösterilir:",
+    "en": "Times are shown in this device's time zone: ",
+    "de": "Zeiten werden in der Zeitzone dieses Geräts angezeigt: "
+  },
+  "b24aa27666bf3359": {
+    "tr": "Randevunuzu aldınız mı?",
+    "en": "Did you book your appointment?",
+    "de": "Haben Sie Ihren Termin gebucht?"
+  },
+  "9f529d535ab0c58b": {
+    "tr": "Attune.more dış sitedeki randevuları göremez. Yalnız randevunuz kesinleştiyse kaydedin.",
+    "en": "Attune.more can't see bookings made on other sites. Save it only if your appointment is confirmed.",
+    "de": "Attune.more kann Buchungen auf anderen Websites nicht sehen. Speichern Sie den Termin nur, wenn er bestätigt ist."
+  },
+  "e5e505b04944f223": {
+    "tr": "Henüz almadım",
+    "en": "Not yet",
+    "de": "Noch nicht"
+  },
+  "bee9f33d31d59275": {
+    "tr": "Evet, kaydet",
+    "en": "Yes, save it",
+    "de": "Ja, speichern"
+  },
+  "8aaf503b71d1fad4": {
+    "tr": "Uzman seçeneklerini görmek için bir bölge seçin.",
+    "en": "Choose a region to see specialist options.",
+    "de": "Wählen Sie eine Region, um Fachkraftoptionen zu sehen."
+  },
+  "167ddb6c4d442328": {
+    "tr": "{0} için bu branşta kaynak bulunamadı. Başka bir bölge veya branş seçebilirsiniz.",
+    "en": "No source was found for this specialty in {0}. You can choose another region or specialty.",
+    "de": "Für diese Fachrichtung wurde in {0} keine Quelle gefunden. Sie können eine andere Region oder Fachrichtung wählen."
+  },
+  "2042ffdf69dbaff7": {
+    "tr": "Görüşme türü sağlayıcıda seçilir",
+    "en": "Appointment type is chosen on the provider's page",
+    "de": "Die Terminart wird beim Anbieter gewählt"
+  },
+  "4bdcdbf1280862f2": {
+    "tr": "Tarih ve saat sağlayıcıda seçilir",
+    "en": "Date and time are chosen on the provider's page",
+    "de": "Datum und Uhrzeit werden beim Anbieter gewählt"
+  },
+  "3315d269059c107f": {
+    "tr": "Randevuyu incele",
+    "en": "Review appointment",
+    "de": "Termin ansehen"
+  },
+  "eb9161919b83763b": {
+    "tr": "Yönlendirme onayı",
+    "en": "Referral confirmation",
+    "de": "Bestätigung der Weiterleitung"
+  },
+  "df4b9aa2b1736596": {
+    "tr": "Randevu bilgilerimin Attune.more tarafından işlenmesini, sevk bağlamımın hazırlanmasını ve harici sağlayıcı sayfasına yönlendirilmeyi onaylıyorum.",
+    "en": "I agree to Attune.more processing my appointment details, preparing my referral context and sending me to the external provider page.",
+    "de": "Ich stimme zu, dass Attune.more meine Termindaten verarbeitet, meinen Überweisungskontext vorbereitet und mich zur externen Anbieterseite weiterleitet."
+  },
+  "3544946752f0b24d": {
+    "tr": "Onayla ve devam et",
+    "en": "Confirm and continue",
+    "de": "Bestätigen und fortfahren"
+  },
+  "632da8461c4e1f28": {
+    "tr": "Yönlendirme hazır",
+    "en": "Referral ready",
+    "de": "Weiterleitung bereit"
+  },
+  "fc2d6e8a0a4b6fbf": {
+    "tr": "Randevu henüz alınmadı. Sağlayıcı sayfasında uygunluğu kontrol edip işlemi kendiniz tamamlayın.",
+    "en": "No appointment has been booked yet. Check availability on the provider's page and complete the booking yourself.",
+    "de": "Es wurde noch kein Termin gebucht. Prüfen Sie die Verfügbarkeit auf der Seite des Anbieters und schließen Sie die Buchung selbst ab."
+  },
+  "2fc228019fca8b1d": {
+    "tr": "Randevuyu düzenle",
+    "en": "Edit appointment",
+    "de": "Termin bearbeiten"
+  },
+  "2423a2df17f90162": {
+    "tr": "Randevuyu kaydet",
+    "en": "Save appointment",
+    "de": "Termin speichern"
+  },
+  "384800bb2161ddb4": {
+    "tr": "Randevuyu sil",
+    "en": "Delete appointment",
+    "de": "Termin löschen"
+  },
+  "74eecad3f0c2bc12": {
+    "tr": "Bu kayıt yalnız bu cihazda saklanır ve sağlayıcıya gönderilmez.",
+    "en": "This record stays on this device and is not sent to the provider.",
+    "de": "Dieser Eintrag bleibt auf diesem Gerät und wird nicht an den Anbieter gesendet."
+  },
+  "275f3ccbd80e5738": {
+    "tr": "Doktor veya kurum",
+    "en": "Doctor or clinic",
+    "de": "Arzt oder Praxis"
+  },
+  "c17048e6ca9a0649": {
+    "tr": "Tarih ve saat",
+    "en": "Date and time",
+    "de": "Datum und Uhrzeit"
+  },
+  "e2202c3088f15012": {
+    "tr": "Adres (isteğe bağlı)",
+    "en": "Address (optional)",
+    "de": "Adresse (optional)"
+  },
+  "c1fe2ecdff02ec1d": {
+    "tr": "Kaydet",
+    "en": "Save",
+    "de": "Speichern"
+  },
+  "06942e808a971e59": {
+    "tr": "Geçti",
+    "en": "Past",
+    "de": "Vergangen"
+  },
+  "ca6a40e7c884dcb6": {
+    "tr": "Kaydedildiği saat dilimi:",
+    "en": "Time zone when saved: ",
+    "de": "Zeitzone beim Speichern: "
+  },
+  "fe1e63ffb96a578a": {
+    "tr": "Randevularım",
+    "en": "My appointments",
+    "de": "Meine Termine"
+  },
+  "aae163549951318b": {
+    "tr": "Randevu ekle",
+    "en": "Add appointment",
+    "de": "Termin hinzufügen"
+  },
+  "e681fd454a5a09b5": {
+    "tr": "Kayıtlı randevunuz yok. Sağlayıcıda aldığınız randevuyu buraya ekleyebilirsiniz.",
+    "en": "You have no saved appointments. You can add one you booked with a provider here.",
+    "de": "Sie haben keine gespeicherten Termine. Einen beim Anbieter gebuchten Termin können Sie hier hinzufügen."
+  },
+  "de3039e721710a94": {
+    "tr": "Bu kayıt yalnız bu cihazdan silinir. Sağlayıcıdaki randevunuz iptal edilmez.",
+    "en": "This only deletes the record on this device. Your appointment with the provider is not cancelled.",
+    "de": "Der Eintrag wird nur auf diesem Gerät gelöscht. Ihr Termin beim Anbieter wird nicht storniert."
+  },
+  "2fd5e1e412eec895": {
+    "tr": "Randevu kaydedilemedi. Tarayıcı depolama ayarlarını kontrol edin.",
+    "en": "The appointment could not be saved. Check your browser's storage settings.",
+    "de": "Der Termin konnte nicht gespeichert werden. Prüfen Sie die Speichereinstellungen des Browsers."
+  },
+  "2c82290edce70888": {
+    "tr": "Randevu silinemedi.",
+    "en": "The appointment could not be deleted.",
+    "de": "Der Termin konnte nicht gelöscht werden."
+  },
+  "ce9d6fd65f72bd86": {
+    "tr": "Doktor veya kurum adını yazın.",
+    "en": "Enter the doctor or clinic name.",
+    "de": "Geben Sie den Namen des Arztes oder der Praxis ein."
+  },
+  "156e605b050e9944": {
+    "tr": "Tarih ve saati girin.",
+    "en": "Enter the date and time.",
+    "de": "Geben Sie Datum und Uhrzeit ein."
+  },
+  "a137b960ada99fe7": {
+    "tr": "Konuşma dökümünü saklama tercihiniz kapalıydı. Bu görüşmede yalnız özet saklandı.",
+    "en": "Your transcript saving preference was off, so only the summary was saved for this session.",
+    "de": "Das Speichern des Transkripts war ausgeschaltet, daher wurde für dieses Gespräch nur die Zusammenfassung gespeichert."
+  },
+  "032e1edb6b83237a": {
+    "tr": "Attune.more'nun yüz görüntümü ve görünüm göstergelerimi geçici olarak işlemesine izin veriyorum.",
+    "en": "I allow Attune.more to temporarily process my face image and appearance indicators.",
+    "de": "Ich erlaube Attune.more, mein Gesichtsbild und meine Erscheinungsindikatoren vorübergehend zu verarbeiten."
+  },
+  "28864cf2f63b0aaa": {
+    "tr": "Attune.more'nun diş fotoğraflarımı geçici olarak işlemesine izin veriyorum.",
+    "en": "I allow Attune.more to temporarily process my dental photos.",
+    "de": "Ich erlaube Attune.more, meine Zahnfotos vorübergehend zu verarbeiten."
+  },
+  "df7b5f2a6c8332ce": {
+    "tr": "Attune.more'nun kulaklık sesleri ve yanıtlarımla işitme testi yapmasına izin veriyorum.",
+    "en": "I allow Attune.more to run a hearing test using headphone sounds and my responses.",
+    "de": "Ich erlaube Attune.more, mit Kopfhörertönen und meinen Antworten einen Hörtest durchzuführen."
+  },
+  "38b2633265509287": {
+    "tr": "Attune.more'nun kamera görüntümü ve konuşma yanıtlarımı göz görevi için geçici olarak işlemesine izin veriyorum.",
+    "en": "I allow Attune.more to temporarily process my camera image and spoken answers for the eye task.",
+    "de": "Ich erlaube Attune.more, mein Kamerabild und meine gesprochenen Antworten für die Augenaufgabe vorübergehend zu verarbeiten."
+  },
+  "f48290c8d7946e3e": {
+    "tr": "Attune.more'nun sesli yönerge vermesine ve konuşma yanıtlarımı tanımasına izin veriyorum. Tanıma için sesim buluta aktarılabilir.",
+    "en": "I allow Attune.more to give spoken guidance and recognise my spoken answers. My voice may be sent to the cloud for recognition.",
+    "de": "Ich erlaube Attune.more, gesprochene Anweisungen zu geben und meine gesprochenen Antworten zu erkennen. Meine Stimme kann dafür in die Cloud übertragen werden."
+  },
+  "f1783847737e8c42": {
+    "tr": "Attune.more'nun sesimi metne çevirmesine izin veriyorum. Bunun için sesim buluta aktarılabilir.",
+    "en": "I allow Attune.more to convert my voice to text. My voice may be sent to the cloud for this.",
+    "de": "Ich erlaube Attune.more, meine Stimme in Text umzuwandeln. Meine Stimme kann dafür in die Cloud übertragen werden."
+  },
+  "5efdc65bb8a3b6ab": {
+    "tr": "Attune.more'nun konuşma metnimi yanıtlar, geçici oturum belleği ve özet için işlemesine izin veriyorum.",
+    "en": "I allow Attune.more to process my conversation text for replies, temporary session memory and a summary.",
+    "de": "Ich erlaube Attune.more, meinen Gesprächstext für Antworten, den vorübergehenden Sitzungsspeicher und eine Zusammenfassung zu verarbeiten."
+  },
+  "cb381ded45d356dc": {
+    "tr": "Attune.more'nun yanıtlarını seçtiğim dilde kendi sesiyle veya seçtiğim tarayıcı ya da cihaz sesiyle okumasına izin veriyorum. Çevrimiçi tarayıcı sesi için ayrıca izin istenir.",
+    "en": "I allow Attune.more to read its replies in my chosen language, in its own voice or a browser or device voice I choose. Online browser voices need separate permission.",
+    "de": "Ich erlaube Attune.more, seine Antworten in meiner gewählten Sprache mit eigener Stimme oder einer von mir gewählten Browser- oder Gerätestimme vorzulesen. Für Online-Browserstimmen wird eine separate Erlaubnis eingeholt."
+  },
+  "329ad17aa73296a8": {
+    "tr": "Attune.more'nun konuşmamı tanıması için mikrofon sesimin bulut hizmetine gönderilmesine izin veriyorum. Bu hizmeti OpenAI sağlar ve kendi veri işleme koşulları geçerlidir. Attune.more ham sesi kaydetmez.",
+    "en": "I allow my microphone audio to be sent to a cloud service so Attune.more can recognise my speech. OpenAI provides this service and its own data processing terms apply. Attune.more does not store raw audio.",
+    "de": "Ich erlaube, dass mein Mikrofonton an einen Cloud-Dienst gesendet wird, damit Attune.more meine Sprache erkennen kann. Diesen Dienst stellt OpenAI bereit, und es gelten dessen Datenverarbeitungsbedingungen. Attune.more speichert keine Rohaudiodaten."
+  },
+  "901903b8071e4e54": {
+    "tr": "Attune.more, konuşma metni ve özetler için OpenAI hizmetini kullanır. Konuşma tanıma için sesiniz buluta aktarılabilir. Çevrimiçi tarayıcı sesleri seçildiğinde ilgili sağlayıcı metni alabilir.",
+    "en": "Attune.more uses an OpenAI service for conversation text and summaries. Your voice may be sent to the cloud for speech recognition. If you choose online browser voices, that provider may receive the text.",
+    "de": "Attune.more nutzt für Gesprächstext und Zusammenfassungen einen OpenAI-Dienst. Für die Spracherkennung kann Ihre Stimme in die Cloud übertragen werden. Wenn Sie Online-Browserstimmen wählen, kann der jeweilige Anbieter den Text erhalten."
+  },
+  "38d1ecd5f9b2ccf9": {
+    "tr": "Attune.more, seçilen özetler için OpenAI hizmetini kullanır. İzni kaldırmak mevcut geçmiş kayıtlarını silmez.",
+    "en": "Attune.more uses an OpenAI service for the selected summaries. Removing permission does not delete existing history records.",
+    "de": "Attune.more nutzt für die ausgewählten Zusammenfassungen einen OpenAI-Dienst. Das Entziehen der Erlaubnis löscht vorhandene Verlaufseinträge nicht."
+  },
+  "a20480df53852248": {
+    "tr": "Kamera görüntüsü bekleniyor…",
+    "en": "Waiting for the camera image…",
+    "de": "Warten auf das Kamerabild…"
+  },
+  "03b3d656a94de9ba": {
+    "tr": "İzmir",
+    "en": "Izmir",
+    "de": "Izmir"
+  },
+  "430b4fc55e4ef149": {
+    "tr": "Köln",
+    "en": "Cologne",
+    "de": "Köln"
+  },
+  "c075b9c24a3d0f0c": {
+    "tr": "München",
+    "en": "Munich",
+    "de": "München"
+  },
+  "aa329582666bd4e5": {
+    "tr": "Gürültüde sayı anlama sonucu",
+    "en": "Digits-in-noise result",
+    "de": "Ergebnis Zahlenverstehen im Störgeräusch"
+  },
+  "a480fc9be6286f87": {
+    "tr": "Daha düşük değer, gürültü içinde sayıları daha iyi ayırt ettiğinizi gösterir.",
+    "en": "A lower value means you told the digits apart better in noise.",
+    "de": "Ein niedrigerer Wert bedeutet, dass Sie die Zahlen im Störgeräusch besser unterscheiden konnten."
+  },
+  "e09250d7d533e280": {
+    "tr": "Önceki test:",
+    "en": "Previous test: ",
+    "de": "Vorheriger Test: "
+  },
+  "39e10740c2bcaf9a": {
+    "tr": "dB SNR · fark",
+    "en": " dB SNR · difference ",
+    "de": " dB SNR · Differenz "
+  },
+  "e665b47714cda4b1": {
+    "tr": "Bu görev tarama amaçlıdır; klinik bir işitme eşiği değildir. Cihaz ve kulaklık kalibre edilmemiştir.",
+    "en": "This task is for screening and is not a clinical hearing threshold. The device and headphones are not calibrated.",
+    "de": "Diese Aufgabe dient dem Screening und ist keine klinische Hörschwelle. Gerät und Kopfhörer sind nicht kalibriert."
+  },
+  "ea33d1b8fc36e090": {
+    "tr": "Deneme ayrıntıları",
+    "en": "Trial details",
+    "de": "Details der Durchgänge"
+  },
+  "574ac6d9c54137da": {
+    "tr": "Çalan sayılar",
+    "en": "Digits played",
+    "de": "Gespielte Zahlen"
+  },
+  "5590a8488ff6e3fb": {
+    "tr": "Yanıtınız",
+    "en": "Your answer",
+    "de": "Ihre Antwort"
+  },
+  "8cae5ab460c153cb": {
+    "tr": "Doğru",
+    "en": "Correct",
+    "de": "Richtig"
+  },
+  "9520c878eaacc556": {
+    "tr": "Yanlış",
+    "en": "Incorrect",
+    "de": "Falsch"
+  },
+  "e757b8b008519dab": {
+    "tr": "Kulak ve frekansa göre dijital ses düzeyi",
+    "en": "Digital sound level by ear and frequency",
+    "de": "Digitaler Schallpegel nach Ohr und Frequenz"
+  },
+  "4ec99d21520a55eb": {
+    "tr": "En kısık duyduğunuz ses. Daha düşük dBFS, daha kısık ses demektir.",
+    "en": "The quietest sound you heard. A lower dBFS means a quieter sound.",
+    "de": "Der leiseste Ton, den Sie gehört haben. Ein niedrigerer dBFS-Wert bedeutet einen leiseren Ton."
+  },
+  "21ddb4f5a6ab9912": {
+    "tr": "Frekans",
+    "en": "Frequency",
+    "de": "Frequenz"
+  },
+  "6e0308843a2ed9b9": {
+    "tr": "En yüksek seviyede duyulmadı",
+    "en": "Not heard at the highest level",
+    "de": "Auf höchstem Pegel nicht gehört"
+  },
+  "ca6a6a4197666d99": {
+    "tr": "En düşük seviyede de duyuldu",
+    "en": "Heard even at the lowest level",
+    "de": "Auch auf niedrigstem Pegel gehört"
+  },
+  "5c16ecab3e85d99e": {
+    "tr": "Parantez içindeki değer, aynı cihaz oturumundaki önceki testle farktır.",
+    "en": "The value in brackets is the difference from the previous test in the same device session.",
+    "de": "Der Wert in Klammern ist die Differenz zum vorherigen Test in derselben Gerätesitzung."
+  },
+  "afb3027272bc1740": {
+    "tr": "Belirsizlik",
+    "en": "Uncertainty",
+    "de": "Unsicherheit"
+  },
+  "bb75f8565035c8bb": {
+    "tr": "1.000 Hz tekrar ölçümündeki farka göre.",
+    "en": "Based on the difference in the repeat measurement at 1,000 Hz.",
+    "de": "Basierend auf der Differenz der Wiederholungsmessung bei 1.000 Hz."
+  },
+  "00053574d58fd301": {
+    "tr": "Bu sonuç klinik bir eşik veya odyogram değildir. Düzeyler kalibre edilmemiş dijital ses seviyesidir; kulaklığa ve cihaz ses ayarına göre değişir.",
+    "en": "This result is not a clinical threshold or an audiogram. The levels are uncalibrated digital sound levels and change with the headphones and device volume.",
+    "de": "Dieses Ergebnis ist weder eine klinische Schwelle noch ein Audiogramm. Die Pegel sind unkalibrierte digitale Schallpegel und hängen von Kopfhörer und Gerätelautstärke ab."
+  },
+  "320f69e36edc46ed": {
+    "tr": "Ölçümünüz hazır.",
+    "en": "Your measurement is ready.",
+    "de": "Ihre Messung ist fertig."
+  },
+  "0256d59f527c2294": {
+    "tr": "Kapanış güvenilir biçimde doğrulanamadı. Işığı veya açıyı değiştirin ya da bu görünümü atlayın.",
+    "en": "The bite could not be confirmed reliably. Change the light or angle, or skip this view.",
+    "de": "Der Biss konnte nicht zuverlässig bestätigt werden. Ändern Sie Licht oder Winkel oder überspringen Sie diese Ansicht."
+  },
+  "2814fa741ae8ddec": {
+    "tr": "Kapanış güvenilir biçimde doğrulanamadı.",
+    "en": "The bite could not be confirmed reliably.",
+    "de": "Der Biss konnte nicht zuverlässig bestätigt werden."
+  },
+  "654a53122c5ba5ba": {
+    "tr": "Dişlerdeki renk değişikliği nedeniyle kapanış daha düşük güvenle değerlendirildi. Hizalanma sonucunu bu sınırla okuyun.",
+    "en": "Discoloured teeth lowered the confidence of the bite check. Read the alignment result with this limit in mind.",
+    "de": "Verfärbte Zähne verringern die Sicherheit der Bissprüfung. Lesen Sie das Ausrichtungsergebnis mit dieser Einschränkung."
+  },
+  "5e1207033bea7123": {
+    "tr": "Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.",
+    "en": "I allow Attune.more to process my face photo in a cloud service for skin type. Roboflow provides this service.",
+    "de": "Ich erlaube Attune.more, mein Gesichtsfoto für den Hauttyp in einem Cloud-Dienst zu verarbeiten. Diesen Dienst stellt Roboflow bereit."
+  },
+  "f716ffd9e27ceaad": {
+    "tr": "Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz Attune.more yüz fotoğrafınızın ilgili kısmını bulut hizmetinde işler. Bu hizmeti Roboflow sağlar ve internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.",
+    "en": "Face points and regional appearance are processed on this device, and the camera closes at the result. If you also allow it for skin type in Privacy & Permissions, Attune.more processes the relevant part of your face photo in a cloud service. Roboflow provides this service and it needs internet. Numeric record and photo storage preferences are separate. If photo storage is off, the image stays only in the open session. Older records without a saved photo are shown numerically. The result is not a clinical diagnosis.",
+    "de": "Gesichtspunkte und regionale Erscheinung werden auf diesem Gerät verarbeitet, und die Kamera schließt beim Ergebnis. Wenn Sie dies für den Hauttyp unter Datenschutz & Berechtigungen zusätzlich erlauben, verarbeitet Attune.more den relevanten Teil Ihres Gesichtsfotos in einem Cloud-Dienst. Diesen Dienst stellt Roboflow bereit, und er benötigt Internet. Einstellungen für numerische Einträge und Fotospeicherung sind getrennt. Ist die Fotospeicherung aus, bleibt das Bild nur in der offenen Sitzung. Ältere Einträge ohne gespeichertes Foto werden numerisch angezeigt. Das Ergebnis ist keine klinische Diagnose."
+  },
+  "ead2508d55d30bff": {
+    "tr": "Ölçümler tamamlandı; belirlenemeyen düzeyler — ile gösterilir.",
+    "en": "Measurements complete; levels that could not be determined are shown as —.",
+    "de": "Messungen abgeschlossen; nicht bestimmbare Pegel werden als — angezeigt."
+  },
+  "02603b2c0cca4e70": {
+    "tr": "frekansta düzey belirlendi",
+    "en": "frequencies with a level determined",
+    "de": "Frequenzen mit bestimmtem Pegel"
+  },
+  "09c3d080152e4045": {
+    "tr": "İki kulağın frekanslara göre dijital ses düzeyleri",
+    "en": "Digital sound levels of both ears by frequency",
+    "de": "Digitale Schallpegel beider Ohren nach Frequenz"
+  },
+  "2ec086bf702f9a0d": {
+    "tr": "1.000 Hz tekrar ölçümü farkı",
+    "en": "Repeat difference at 1,000 Hz",
+    "de": "Wiederholungsdifferenz bei 1.000 Hz"
+  },
+  "057bf458bcd6a5fe": {
+    "tr": "Ölçüm adımı 5 dB olduğundan belirsizlik en az ±5 dB kabul edilmelidir.",
+    "en": "The measurement step is 5 dB, so allow for at least ±5 dB of uncertainty.",
+    "de": "Die Messschrittweite beträgt 5 dB, rechnen Sie daher mit mindestens ±5 dB Unsicherheit."
+  },
+  "60846e68bd4bc4ca": {
+    "tr": "Göz altı morlukları",
+    "en": "Dark circles",
+    "de": "Augenringe"
+  },
+  "e3b76fbeed92d2a4": {
+    "tr": "Bu fotoğrafta işaretli değil; değerleri kartlarda:",
+    "en": "Not marked on this photo; values are on the cards:",
+    "de": "Auf diesem Foto nicht markiert; die Werte stehen auf den Karten:"
+  },
+  "b043de3f79c0b237": {
+    "tr": "Yüzde yalnız bunu göster",
+    "en": "Show only this on the face",
+    "de": "Nur dies im Gesicht zeigen"
+  },
+  "d09c8348c7794140": {
+    "tr": "Tüm bulguları göster",
+    "en": "Show all findings",
+    "de": "Alle Befunde anzeigen"
+  },
+  "ff9009ece5ce812b": {
+    "tr": "aaos.attunemore.sasmaz.digital/capture sayfasına bu eşleştirme kodunu girin.",
+    "en": "Enter this pairing code at aaos.attunemore.sasmaz.digital/capture.",
+    "de": "Geben Sie diesen Kopplungscode auf aaos.attunemore.sasmaz.digital/capture ein."
+  },
+  "5c46dcc7885dd7c6": {
+    "tr": "UZMAN",
+    "en": "SPECIALIST",
+    "de": "FACHKRAFT"
+  },
+  "1f2737ffd53e8381": {
+    "tr": "Seansa ara verip devam edebilirsiniz.",
+    "en": "You can pause and resume the session.",
+    "de": "Sie können die Sitzung unterbrechen und fortsetzen."
   }
 }

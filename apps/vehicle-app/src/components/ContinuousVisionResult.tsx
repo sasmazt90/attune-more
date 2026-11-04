@@ -14,7 +14,7 @@ export function ContinuousVisionResult({result}:{result:OrientationResult}) {
  const {text:i18nText,node:i18nNode}=useTranslations();
   return <div data-orientation-result className="space-y-4">
     <h2 className="text-xl font-bold">{i18nText("Yön hizalama ön değerlendirmesi")}</h2>
-    <p>{i18nNode(result.validTrials)}{i18nText(" geçerli deneme · ")}{i18nNode(result.notVisible)}{i18nText(" göremedi")}</p>
+    <p>{i18nText(`${result.validTrials} geçerli deneme`)} · {i18nNode(result.notVisible)}{i18nText(" göremedi")}</p>
     <p className="text-sm text-amber-200">{i18nText("Görme keskinliği bu protokolle hesaplanmadı. Göz örtülmesi kamera tarafından doğrulanmadı; mutlak mesafe ölçülmedi.")}</p>
     <div className="overflow-x-auto"><table className="w-full text-sm text-left"><thead><tr><th className="p-2">{i18nText("Koşul")}</th><th className="p-2">{i18nText("Yanıtlanan")}</th><th className="p-2">{i18nText("Göremedi")}</th><th className="p-2">{i18nText("Ortalama hata")}</th></tr></thead><tbody>{(['RIGHT','LEFT','BOTH'] as const).map(eye=>{
       const s=summarizeContinuousTrials(result.trials.filter(t=>t.eye===eye));

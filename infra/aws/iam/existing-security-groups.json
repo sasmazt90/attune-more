@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ManageOnlyExistingAttuneIngress",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": [
+        "arn:aws:ec2:eu-central-1:798886013428:security-group/sg-023659b3a447ab759",
+        "arn:aws:ec2:eu-central-1:798886013428:security-group/sg-0476f580c44063a5d"
+      ],
+      "Condition": {
+        "StringEquals": {"aws:RequestedRegion": "eu-central-1"}
+      }
+    }
+  ]
+}

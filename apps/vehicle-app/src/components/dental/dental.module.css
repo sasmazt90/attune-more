@@ -21,6 +21,8 @@
 .capture{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:24px;align-items:start}
 .panel{background:var(--panel);border-radius:25px;padding:24px;min-width:0}
 .preview{position:relative;border-radius:20px;overflow:hidden;background:#05090f;width:100%}
+/* The mouth is low in the frame, so the whole preview has to fit the screen height. */
+@media(min-width:901px){.preview{width:min(100%,calc((100dvh - 24rem)*var(--preview-ratio,1.33)));margin-inline:auto}}
 .preview video{display:block}
 .hold{height:6px;border-radius:6px;background:var(--chip);overflow:hidden;margin:16px 0 8px}
 .hold>span{display:block;height:100%;background:var(--cyan);transition:width .15s linear}
@@ -79,6 +81,18 @@
 .disclaimer{font-size:11px!important;text-align:center;color:var(--dim)!important;margin-top:18px!important}
 .warning{color:var(--warn)!important;padding:12px 15px;background:#efbc720d;border-radius:12px}
 @media(max-width:900px){.capture,.viewGrid{grid-template-columns:1fr}}
+/* Short vehicle displays: the whole preview stays visible, at its true proportions. */
+@media(min-width:768px) and (max-height:640px){
+ .journey{padding:4px 8px}
+ .journey>span{min-height:30px}
+ /* A finished step bar only repeats the result; keep it while it reports a skipped view. */
+ .journey:has(>[aria-current=step]:last-child):not(:has(.skipped)){display:none}
+ .capture{grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:8px}
+ .panel{padding:10px;border-radius:16px}
+ .preview{width:min(100%,calc((100dvh - 15.5rem)*var(--preview-ratio,1.33)));margin-inline:auto}
+ .hold{margin:6px 0 4px}
+ .tabs button{min-height:44px;padding:6px 14px}
+}
 @media(max-width:760px){.cards{grid-template-columns:1fr}.journey{padding:10px 8px;gap:3px}.journey>span{flex-direction:column;gap:3px;font-size:11px;padding:4px 0}}
 @media(max-width:520px){.panel,.card{padding:18px 16px}.tabs{gap:14px}.tabs button{font-size:12px}.poses{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.root *{transition:none!important;animation:none!important}}

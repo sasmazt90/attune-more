@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'output/playwright/hosted-type-20261012';OUT.mkdir(parents=True,exist_ok=True)
 receipt=json.loads((ROOT/'audit-results/skin-type-integration-20261012/replay-server.json').read_text())
 PROVIDER='http://127.0.0.1:'+str(receipt['providerPort'])
-PERMISSION='Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver'
+PERMISSION='Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.'
 INIT="window.workerMessages=[];window.workerTimings=[];const post=Worker.prototype.postMessage;Worker.prototype.postMessage=function(m,...args){window.workerMessages.push(m.type);if(!this.observed){this.observed=true;this.requests=new Map();this.addEventListener('message',({data})=>{const r=this.requests.get(data.id);if(r&&!data.phase)window.workerTimings.push({type:r.type,ms:performance.now()-r.at,error:!!data.error});});}if(m.id)this.requests.set(m.id,{type:m.type,at:performance.now()});return post.call(this,m,...args);};window.appearanceRequests=[];window.appearanceResponses=[];const fetchOriginal=window.fetch;window.fetch=async(...a)=>{if(String(a[0]).endsWith('/api/local-health/skin'))window.appearanceRequests.push(JSON.parse(a[1].body));const r=await fetchOriginal(...a);if(String(a[0]).endsWith('/api/local-health/skin')&&r.ok)window.appearanceResponses.push(await r.clone().json());return r;};"
 def provider_state():
  with urllib.request.urlopen(PROVIDER,timeout=3) as r:return json.loads(r.read())

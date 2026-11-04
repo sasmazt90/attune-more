@@ -36,6 +36,7 @@ import { InformationButton } from '../../components/InformationButton';
 import { SkinInference } from '../../utils/skinInference';
 import { SKIN_ANGLES, ANGLE_LABELS, AngleCapture, SkinAngle, MultiAngleReference, matchesSkinAngle, angleGuidance, captureSkinAngle, compareMultiAngle } from '../../utils/skinMultiAngle';
 import { SkinSnapshot, snapshotRawSkinFrame as snapshotSkinFrame, snapshotAngleForRegion, assertCompleteFace } from '../../utils/skinSnapshot';
+import {acquireCamera,demoCameraSource} from '../../utils/demoCamera';
 import { measureSkinIndicators, SKIN_SIGN_CONTRACT, validSkinIndicators } from '../../utils/skinIndicators';
 import {skinTemporalSupport} from '../../utils/skinTemporalSupport';
 import { analyzeAppearance,attachAppearance,fuseRegionalOnServer,prepareSkinAnalysis } from '../../utils/appearanceMeasurements';
@@ -54,6 +55,7 @@ import { LatestVideoFrame, rawFrameOf } from '../../utils/skinRawFrame';
 export default function SkinPage() {
  const {text:i18nText,node:i18nNode}=useTranslations();
   const resultPersisted=useRef(false);
+  const [resultNotSaved,setResultNotSaved]=useState(false);
   const storageAllowed=()=>serviceAllowed('skin')&&localStorage.getItem('attune_privacy_skin_save_allowed')==='true';
   const temporalSupport=useRef<ReturnType<typeof skinTemporalSupport>[]>([]);
   const localAnalysis=useRef<SkinLocalAnalysis|null>(null);
@@ -453,6 +455,7 @@ export default function SkinPage() {
     setPreparationPhase(null);
     if (!validCapture()) return;
     const acceptedSnapshot = snapshotSkinFrame(canvas, alignToUse, 'FRONT');
+    acceptedSnapshot.inputSource=demoCameraSource();
     const indicators=measureSkinIndicators(ctx,acceptedSnapshot,qualToUse);
     try{
       await addLocalMaps(acceptedSnapshot,ctx,qualToUse.isValid,validCapture,undefined,indicators,{yaw:alignToUse.yaw,pitch:alignToUse.pitch,roll:alignToUse.roll,scaleRatio:alignToUse.scaleRatio,avgLuminance:qualToUse.avgLuminance,blurScore:qualToUse.blurScore});
@@ -489,7 +492,7 @@ export default function SkinPage() {
     // Current-session measurements never read/write personal reference keys.
     if (validSkinIndicators(indicators) && validSkinOverview(finalResult.general,finalResult.id) && SkinAnalyzer.canPersistResult(finalResult)) {
       try {
-        resultPersisted.current=storageAllowed();
+        resultPersisted.current=storageAllowed();setResultNotSaved(!resultPersisted.current);
         if(resultPersisted.current)await appendHealthRecord('skin', finalResult, {}, () => validCapture() && storageAllowed());
         if (!validCapture()) return;
       } catch (e) {
@@ -561,7 +564,7 @@ export default function SkinPage() {
       }
       if (!validSkinIndicators(indicators) || !validSkinOverview(finalResult.general,finalResult.id) || !SkinAnalyzer.canPersistResult(finalResult)) throw new Error('Invalid metrics');
       // Numeric history never contains pixels; photo retention has separate consent.
-      resultPersisted.current=storageAllowed();
+      resultPersisted.current=storageAllowed();setResultNotSaved(!resultPersisted.current);
       if(resultPersisted.current)await appendHealthRecord('skin', finalResult, {}, () => validCapture() && storageAllowed());
       if (!validCapture()) return;
       rememberSkinSnapshots(finalResult.id,snapshotFrames.current); await persistPhotos(finalResult.id,snapshotFrames.current,validCapture); if(!validCapture())return; setSelectedRegionId(finalResult.general ? 'overview' : 'forehead'); snapshotRecord.current = finalResult.id; setSnapshots({ ...snapshotFrames.current });
@@ -640,6 +643,7 @@ export default function SkinPage() {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (ctx) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const inputSource=demoCameraSource();
           latestFrame.replace(video); // the same frame as raw YUV planes (server converts with the camera profile)
 
           // Gerçek hizalama ve kalite değerlendirmesi
@@ -742,8 +746,9 @@ export default function SkinPage() {
                     setPreparationPhase(null);
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     const snapshot = snapshotSkinFrame(canvas, curAlign, target);
+                    snapshot.inputSource=inputSource;
                     capture.indicators=measureSkinIndicators(ctx,snapshot,curQual);
-                    snapshot.rawFrame=await rawFrameOf(latestFrame.current(),canvas.width,canvas.height);
+                    snapshot.rawFrame=inputSource?undefined:await rawFrameOf(latestFrame.current(),canvas.width,canvas.height);
                     if (cancelled || !parkedRef.current || !isCameraAllowed()) return;
                     try { await addLocalMaps(snapshot,ctx,curQual.isValid,()=>!cancelled&&parkedRef.current&&isCameraAllowed(),capture.frameToken,capture.indicators,{...capture.pose,avgLuminance:curQual.avgLuminance,blurScore:curQual.blurScore}); } finally { delete snapshot.rawFrame; }
                     if(cancelled||!parkedRef.current||!isCameraAllowed())return;
@@ -801,6 +806,7 @@ export default function SkinPage() {
   const startCamera = async () => {
     if (!isParked || scanState === 'CAMERA_ACTIVE') return;
     const acquisition = ++acquisitionRef.current;
+    setResultNotSaved(false);
     setErrorMessage(null);
     setMediaStream(null);
     setIsLiveVideo(false);
@@ -851,7 +857,7 @@ export default function SkinPage() {
       setPreparationPhase(null);
       const videoConstraints:MediaTrackConstraints & {resizeMode:ConstrainDOMString}={width:{ideal:1920},height:{ideal:1080},resizeMode:{ideal:'none'},facingMode:'user'};
       cameraRequested=true;
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const stream = await acquireCamera({
         video: videoConstraints
       });
       if (!mountedRef.current || acquisition !== acquisitionRef.current || !parkedRef.current || !isCameraAllowed()) {
@@ -937,7 +943,7 @@ export default function SkinPage() {
           <AlertTriangle className="w-10 h-10 animate-pulse" />
         </div>
         <div className="space-y-2">
-          <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Sürüş Emniyeti Devrede • ")}{i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</span>
+          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Sürüş Emniyeti Devrede • ")}{i18nNode(state.currentSpeed)}{i18nText(" km/s ")}</span>
           <h1 className="text-2xl font-extrabold text-white">{i18nText("Cilt Sağlığı Kilitlendi")}</h1>
           <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">{i18nText("Cilt analizi kamera odaklanması ve yüz hizalaması gerektirdiğinden, sürüş güvenliğiniz için araç hareket halindeyken kullanılamaz. ")}</p>
         </div>
@@ -970,7 +976,7 @@ export default function SkinPage() {
             <AlertTriangle className="w-8 h-8" />
           </div>
           <div className="space-y-2">
-            <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Analiz Motoru Bildirimi ")}</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold px-3 py-1 bg-amber-500/10 rounded-full border border-amber-500/20">{i18nText("Analiz Motoru Bildirimi ")}</span>
             <h2 className="text-2xl font-extrabold text-white">{i18nText("Cilt Sağlığı Başlatılamadı")}</h2>
             <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
               {i18nNode(errorMessage || 'Cilt analiz motoru kullanılamıyor. Lütfen kamera iznini ve bağlantınızı kontrol edip tekrar deneyin.')}
@@ -999,7 +1005,7 @@ export default function SkinPage() {
       {/* SCREEN 1: SKIN START VIEW (REFERANS 1 & 2)                  */}
       {/* ============================================================ */}
       {scanState === 'READY' && (
-        <SkinStartView information={<InformationButton title={i18nText("Cilt taraması")}><p>{i18nText("Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz yüz fotoğrafınızın ilgili kısmı Roboflow tarafından işlenir; internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.")}</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label={i18nText("Üç açılı tarama")} checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />{i18nText("Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.")}</label></InformationButton>} onStart={startCamera} />
+        <SkinStartView information={<InformationButton title={i18nText("Cilt taraması")}><p>{i18nText("Yüz noktaları ve bölgesel görünüm bu cihazda işlenir; sonuçta kamera kapanır. Cilt tipi için Gizlilik & İzinler alanında ayrıca izin verirseniz Attune.more yüz fotoğrafınızın ilgili kısmını bulut hizmetinde işler. Bu hizmeti Roboflow sağlar ve internet gerekir. Sayısal kayıt ve fotoğraf saklama tercihleri ayrıdır. Fotoğraf saklama kapalıysa görüntü yalnız açık oturumda kalır. Fotoğrafı saklanmamış eski kayıtlar sayısal olarak gösterilir. Sonuç klinik tanı değildir.")}</p><label className="flex min-h-11 items-center gap-3"><input type="checkbox" aria-label={i18nText("Üç açılı tarama")} checked={multiAngle} onChange={e => setMultiAngle(e.target.checked)} />{i18nText("Ön, sağ ve sol pozlarda tara. Kapalıyken yalnız ön poz kullanılır.")}</label></InformationButton>} onStart={startCamera} />
       )}
 
       {/* ============================================================ */}
@@ -1033,6 +1039,7 @@ export default function SkinPage() {
         {photoNotice&&<p role="status" className="text-sm text-amber-200">{i18nNode(photoNotice)}</p>}
         <SkinResultView
           captures={analysisResult?.captures}
+          notSaved={resultNotSaved}
           snapshots={snapshots}
           currentRegion={currentRegionData}
           snapshot={snapshots[snapshotAngleForRegion(selectedRegionId, analysisResult?.comparisonScope === 'three-angle-v2')]}

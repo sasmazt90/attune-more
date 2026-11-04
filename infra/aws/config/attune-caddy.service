@@ -1,0 +1,23 @@
+[Unit]
+Description=Attune private demo HTTPS and mTLS gateway
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=caddy
+Group=caddy
+SupplementaryGroups=attune
+EnvironmentFile=/etc/attune/caddy.env
+ExecStartPre=/usr/local/bin/caddy validate --config /etc/attune/Caddyfile --adapter caddyfile
+ExecStart=/usr/local/bin/caddy run --config /etc/attune/Caddyfile --adapter caddyfile
+Restart=on-failure
+TimeoutStopSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+StateDirectory=caddy
+ReadWritePaths=/var/lib/caddy
+[Install]
+WantedBy=multi-user.target

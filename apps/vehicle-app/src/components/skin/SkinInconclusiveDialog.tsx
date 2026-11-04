@@ -1,4 +1,5 @@
 'use client';
+import {X as CloseIcon} from 'lucide-react';
 import {useTranslations} from '../../i18n/LanguageProvider';
 import { AccessibleDialog } from '../AccessibleDialog';
 import { PAINT_REGION_NAMES } from '../../utils/skinTypePaint';
@@ -30,7 +31,7 @@ export function SkinInconclusiveDialog({ regionId, causes, onClose }: { regionId
     <AccessibleDialog title={i18nText(title)} onClose={onClose} className="w-full max-w-lg rounded-2xl border border-white/20 bg-cockpit-surface p-5 space-y-4">
       <div className="flex items-start justify-between gap-3" data-skin-inconclusive-dialog={regionId} data-causes={found.join(',')}>
         <h2 className="text-lg font-bold">{i18nNode(title)}</h2>
-        <button type="button" aria-label={i18nText("Bilgi penceresini kapat")} onClick={onClose} className="min-h-11 min-w-11 rounded-xl border border-white/20">✕</button>
+        <button type="button" aria-label={i18nText("Bilgi penceresini kapat")} onClick={onClose} className="min-h-11 min-w-11 rounded-xl border border-white/20"><CloseIcon className="w-5 h-5 mx-auto" aria-hidden="true"/></button>
       </div>
       <p className="text-sm text-slate-300">{i18nText("Taramada aşağıdaki olası neden(ler)den dolayı bölgesel sonuca varılamadı:")}</p>
       <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-300" data-skin-inconclusive-reasons>

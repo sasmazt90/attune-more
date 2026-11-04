@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useVehicle } from '../../context/VehicleContext';
 import { useMentalConversation } from '../../utils/useMentalConversation';
 import { mentalThemeStats, translateMood } from '../../utils/mentalHistory';
+import { formatPercent } from '../../i18n/core';
 import { isDemoMode, STORAGE_KEYS } from '../../utils/attuneMode';
 import { RecordHistory } from '../../components/RecordHistory';
 import { spokenText } from '../../utils/spokenText';
@@ -61,7 +62,7 @@ export default function MentalPage() {
 
   return <div className={c.phase==='ready'?'space-y-6 max-w-5xl mx-auto':'grid grid-cols-1 lg:grid-cols-2 gap-6 items-start'}>
     {c.phase==='ready'&&<div className="flex items-center gap-2"><h1 className="text-2xl font-bold">{i18nNode(HEALTH_MODULES.mental.name)}</h1><InformationButton title={i18nText(HEALTH_MODULES.mental.name)}><p>{i18nText("Park halinde sesli görüşebilirsiniz. Bu hizmet klinik tanı veya acil yardım hizmeti değildir.")}</p></InformationButton></div>}
-    <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 space-y-5'}>
+    <section className={c.phase==='ready'?undefined:'bg-cockpit-surface border border-white/10 rounded-2xl p-6 short:p-3 space-y-5 short:space-y-2'}>
       {demo && <p className="text-amber-200">{i18nText("Demo / Örnek içerik — gerçek görüşme geçmişiniz değildir.")}</p>}
       {c.phase==='ready'?<HealthStartCard module="mental" actions={<button onClick={()=>{guidance.cancel();return c.start();}} disabled={!isParked||!c.serviceConsent} className={HEALTH_START_ACTION}><span className="flex items-center gap-2 justify-center"><Mic className="h-5 w-5"/>{i18nText("Görüşmeyi Başlat")}</span></button>}/>:<>
       <div className="flex items-center gap-2 text-togg-turquoise"><HeartPulse /><span>{i18nNode(HEALTH_MODULES.mental.name)}</span></div>
@@ -90,8 +91,8 @@ export default function MentalPage() {
       <div className="flex items-center gap-2"><h2 className="font-bold">{i18nText("Seans temaları")}</h2><InformationButton title={i18nText("Seans temaları")}><p>{i18nText("Bu grafik tanı veya ölçülmüş stres düzeyi değildir; tamamlanmış ve saklama izinli görüşmelerdeki tema paylarını gösterir. Çok temalı görüşmeler her farklı temaya bir kez katkı verir; yüzdeler toplamı 100 olacak şekilde yuvarlanır. Tamamlanma ve izin bilgisi doğrulanamayan eski kayıtlar grafiğe katılmaz.")}</p></InformationButton></div>
 
       {!stats.mentions ? <p>{i18nText("Henüz tema verisi yok.")}</p> : <>
-        <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label={i18nText("Görüşme tema payları")} className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{i18nNode(r.theme)}: %{i18nNode(r.percent)} ({i18nNode(r.count)}/{i18nNode(stats.mentions)}{i18nText(" tema kaydı)")}</button>)}</div></div>
-        <p className="text-xs">{i18nNode(stats.sessions)}{i18nText(" tamamlanmış izinli görüşme · ")}{i18nNode(stats.mentions)}{i18nText(" tema kaydı.")}</p>
+        <div className="flex flex-wrap gap-4 items-center"><div role="img" aria-label={i18nText("Görüşme tema payları")} className="w-32 h-32 shrink-0 rounded-full" style={{ background: `conic-gradient(${gradient})` }} /><div className="space-y-2">{stats.rows.map((r, i) => <button key={r.theme} onClick={() => setTheme(r.theme)} aria-pressed={theme === r.theme} className="block text-xs text-left rounded-lg px-2 py-1 hover:bg-white/5"><span style={{ color: COLORS[i % COLORS.length] }}>● </span>{i18nNode(r.theme)}: {formatPercent(r.percent)} ({i18nNode(r.count)}/{i18nNode(stats.mentions)}{i18nText(" tema kaydı)")}</button>)}</div></div>
+        <p className="text-xs">{i18nText(`${stats.sessions} tamamlanmış izinli görüşme`)} · {i18nText(`${stats.mentions} tema kaydı`)}.</p>
         {theme && <div data-selected-theme><h3 className="font-bold">{i18nNode(theme)}</h3>{c.history.filter(h => [2,3].includes(h.schemaVersion || 0) && h.completed && h.consented && h.themes.some(value=>canonicalMentalTheme(value)===theme)).map(h => <p className="text-sm mt-2" key={h.id}>{translateMood(h.summaryText)}</p>)}</div>}
       </>}
 

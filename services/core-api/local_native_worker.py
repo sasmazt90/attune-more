@@ -11,6 +11,10 @@ import os
 os.environ['OMP_NUM_THREADS']='2'
 os.environ['MKL_NUM_THREADS']='2'
 os.environ['OPENBLAS_NUM_THREADS']='2'
+# Lanes that finish early sleep instead of spinning. Under host load a spinning lane holds
+# a CPU the slowest lane needs. Waiting does not affect any computed value.
+os.environ['OMP_WAIT_POLICY']='PASSIVE'
+os.environ['KMP_BLOCKTIME']='0'
 
 MAX_MESSAGE=128*1024*1024
 SKIN_PREPARATION_STEPS=('dryness','skinmap','findings','acnes','regional','wrinkles','classifier','type')
@@ -123,6 +127,25 @@ def execute(operation,value):
         return {'ready':True,'models':models}
     raise ValueError('INVALID_OPERATION')
 
+def failure_response(error):
+    """Stable status and code for a failed operation; exception text never leaves the worker."""
+    from fastapi import HTTPException
+    from dental_analysis import DentalModelError
+    from dental_upload import UploadError
+    from product_dryness import DrynessModelUnavailable
+    from camera_color import CameraProfileUnavailable
+    from experimental_acne_v5 import PreviewRejected,PreviewUnavailable
+    if isinstance(error,HTTPException):return error.status_code,error.detail
+    if isinstance(error,UploadError):return 422,str(error)
+    if isinstance(error,PreviewRejected):return 422,str(error)
+    if isinstance(error,DentalModelError):return 503,'LOCAL_MODEL_FAILURE'
+    if isinstance(error,CameraProfileUnavailable):return 503,'CAMERA_PROFILE_UNAVAILABLE'
+    # The reserve guard is a host state the user can act on, not a broken model.
+    if isinstance(error,DrynessModelUnavailable) and str(error)=='LOCAL_MEMORY_RESERVE':return 503,'LOCAL_MEMORY_RESERVE'
+    if isinstance(error,(PreviewUnavailable,DrynessModelUnavailable,OSError)):return 503,'LOCAL_MODEL_OR_RESOURCE_UNAVAILABLE'
+    if isinstance(error,(KeyError,ValueError,TypeError,IndexError,OverflowError)):return 422,'INVALID_LOCAL_GEOMETRY_OR_PHOTO'
+    return 503,'LOCAL_ANALYSIS_WORKER_FAILED'
+
 def main():
     # Native libraries may print; stdout belongs exclusively to the framed IPC.
     output=sys.stdout.buffer
@@ -141,20 +164,7 @@ def main():
         except Exception as error:
             import logging
             logging.getLogger(__name__).exception('Native analysis operation failed (%s)',type(error).__name__)
-            from fastapi import HTTPException
-            from dental_analysis import DentalModelError
-            from dental_upload import UploadError
-            from product_dryness import DrynessModelUnavailable
-            from camera_color import CameraProfileUnavailable
-            from experimental_acne_v5 import PreviewRejected,PreviewUnavailable
-            if isinstance(error,HTTPException):status,code=error.status_code,error.detail
-            elif isinstance(error,UploadError):status,code=422,str(error)
-            elif isinstance(error,(PreviewRejected,)):status,code=422,str(error)
-            elif isinstance(error,DentalModelError):status,code=503,'LOCAL_MODEL_FAILURE'
-            elif isinstance(error,CameraProfileUnavailable):status,code=503,'CAMERA_PROFILE_UNAVAILABLE'
-            elif isinstance(error,(PreviewUnavailable,DrynessModelUnavailable,OSError)):status,code=503,'LOCAL_MODEL_OR_RESOURCE_UNAVAILABLE'
-            elif isinstance(error,(KeyError,ValueError,TypeError,IndexError,OverflowError)):status,code=422,'INVALID_LOCAL_GEOMETRY_OR_PHOTO'
-            else:status,code=503,'LOCAL_ANALYSIS_WORKER_FAILED'
+            status,code=failure_response(error)
             response={'status':status,'code':code}
         encoded=json.dumps(response,allow_nan=False,separators=(',',':')).encode()
         if len(encoded)>MAX_MESSAGE:return

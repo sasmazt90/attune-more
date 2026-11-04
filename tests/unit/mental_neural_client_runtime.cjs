@@ -10,6 +10,11 @@ const original=Module._load;Module._load=function(request,parent,...args){
 const C=require('../../apps/vehicle-app/src/i18n/core.ts'),N=require('../../apps/vehicle-app/src/utils/mentalNeuralSpeech.ts');
 const raw='A genuinely new nonpersonal response 1287 İı Straße.';
 global.fetch=async(url,init)=>{fetchCalls++;assert.equal(url,'/api/mental-neural-speech');assert.deepEqual(JSON.parse(init.body),{text:raw,language:'en',speechConsent:true});assert(!('Authorization' in init.headers));if(mode==='locale')C.setLanguage('de');if(mode==='abort')window.dispatchEvent(new Event('attune-guidance-cancel'));return new Response(new Uint8Array(100),{status:mode==='unavailable'?503:200,headers:{'Content-Type':'audio/wav','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':mode==='wrongLocale'?'tr-TR':'en-US'}});};
+assert.deepEqual(N.speechParts('One short line'),['One short line'],'nothing to split');
+assert.deepEqual(N.speechParts('That sounds really hard for you. What would help most?'),['That sounds really hard for you.','What would help most?']);
+assert.deepEqual(N.speechParts('I hear you. That sounds really hard for you. What would help?'),['I hear you. That sounds really hard for you.','What would help?'],'a very short first sentence waits for the next');
+assert.deepEqual(N.speechParts('A first full sentence here now. Second one. Third one.'),['A first full sentence here now.','Second one. Third one.'],'never more than two parts');
+assert.deepEqual(N.speechParts('You scored 3.5 out of ten today.'),['You scored 3.5 out of ten today.'],'a decimal is not a sentence end');
 (async()=>{
  assert.equal(N.mentalSpeechEngine(),'chatterbox-v3');
  for(const variant of ['success','locale','abort','unavailable','wrongLocale']){mode=variant;C.setLanguage('en');const before=playCalls;assert.equal(await N.mentalNeuralSpeech(raw,new AbortController().signal,()=>true,()=>playing++,()=>ready++),variant==='success');assert.equal(focus,0);assert.equal(playCalls-before,variant==='success'?1:0);}

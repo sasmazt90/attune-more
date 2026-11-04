@@ -1,0 +1,49 @@
+{
+  "scope": "Same-model delegate comparison followed by explicitly approved AWS E2E production deployment",
+  "rows": [
+    {
+      "delegate": "GPU",
+      "timesMs": [
+        3489.7000000001863,
+        362.8999999994412,
+        353.79999999981374,
+        354.20000000018626
+      ],
+      "faces": 1,
+      "hands": 0
+    },
+    {
+      "delegate": "CPU",
+      "timesMs": [
+        123.79999999981374,
+        50.10000000055879,
+        55,
+        46.799999999813735
+      ],
+      "faces": 1,
+      "hands": 0
+    }
+  ],
+  "ssmCommandId": "75671dcc-5e07-4078-ba28-1c88b1a4a7a4",
+  "status": "DEPLOYED_VERIFIED_REAL_CAMERA_MODEL_AND_ASR",
+  "build": "Local production build with CPU selection passed",
+  "selection": "NEXT_PUBLIC_ATTUNE_MEDIAPIPE_DELEGATE=CPU",
+  "default": "GPU",
+  "approval": "Explicit user approval: CPU y\u00fcr\u00fct\u00fcc\u00fcs\u00fcn\u00fc etkinle\u015ftir ve testlere devam et",
+  "unchanged": [
+    "model files",
+    "weights",
+    "quality thresholds",
+    "calibration",
+    "camera freshness limit",
+    "PARK/DRIVE gates"
+  ],
+  "deploymentSsmCommandId": "d9ceb331-c376-4f3d-a7fb-cc03b20068f2",
+  "observedWebVisionInferenceMs": 71.4,
+  "acceptedJourneys": [
+    "WEB Vision EN 48 valid trials",
+    "WEB Vision DE 48 valid trials",
+    "AAOS Vision 24 valid trials at 3072 MiB",
+    "AAOS Skin real model/results/history"
+  ]
+}

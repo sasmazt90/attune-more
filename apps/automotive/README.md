@@ -13,3 +13,12 @@ Android build: `bash scripts/automotive/build.sh` after installing the documente
 SDK and JDK. The standard Gradle wrapper pins and verifies Gradle 8.11.1; its
 distribution and normal build dependencies download on first use. No SDK is
 bundled or installed implicitly.
+
+## Signing
+
+Android updates an app in place only when its signing certificate stays the same, and
+an uninstall deletes the app's data. CI therefore signs `cloudDemo` with one stable
+identity, whose public fingerprint is in `signing/cloud-demo-certificate.json`. The
+private key is never in this repository. A local build without the key uses the normal
+debug key, and the deploy tool refuses it. See "Updating the AAOS app" in
+`docs/aws/OPERATIONS-CONTROL.md`.

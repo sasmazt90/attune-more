@@ -1,0 +1,62 @@
+{
+  auto_https disable_redirects
+  admin off
+  default_sni {$AAOS_DOMAIN}
+}
+(private_app) {
+  reverse_proxy https://{$WEB_PRIVATE_IP}:8443 {
+    header_up Host attune-internal
+    transport http {
+      tls_server_name attune-internal
+      tls_trust_pool file /etc/attune/tls/server-ca.crt
+      tls_client_auth /etc/attune/tls/client.crt /etc/attune/tls/client.key
+    }
+    flush_interval -1
+  }
+}
+https://{$AAOS_DOMAIN} {
+  tls /etc/attune/tls/aaos.crt /etc/attune/tls/aaos.key
+  basic_auth {
+    {$DEMO_USER} {$DEMO_PASSWORD_HASH}
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    Cache-Control "no-store"
+    Referrer-Policy "no-referrer"
+    X-Content-Type-Options "nosniff"
+  }
+  @crossSiteSocket {
+    path /websockify
+    not header Origin https://{$AAOS_DOMAIN}
+  }
+  respond @crossSiteSocket 403
+  @receiver path /bridge/pair /bridge/receiver
+  respond @receiver 403
+  handle /bridge/* {
+    import private_app
+  }
+  handle /audio/ws {
+    reverse_proxy 127.0.0.1:6090
+  }
+  handle /audio {
+    root * /opt/attune/infra/aws/aaos
+    rewrite * /audio.html
+    file_server
+  }
+  handle /capture* {
+    root * /opt/attune/infra/aws/aaos
+    rewrite * /capture.html
+    file_server
+  }
+  handle / {
+    redir /vnc.html?autoconnect=1&resize=scale 302
+  }
+  # noVNC is a real X11 emulator window, not a simulated AAOS page.
+  handle {
+    reverse_proxy 127.0.0.1:6080
+  }
+}
+# Only adb reverse inside THIS AWS guest may reach this listener.
+http://127.0.0.1:3000 {
+  import private_app
+}

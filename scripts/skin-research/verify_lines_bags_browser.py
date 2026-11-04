@@ -30,7 +30,7 @@ with sync_playwright() as pw:
  context.add_init_script("window.__skinRequests=[];window.__skinResponses=[];const orig=window.fetch;window.fetch=async(...args)=>{const skin=String(args[0]).endsWith('/api/local-health/skin');if(skin)window.__skinRequests.push(JSON.parse(args[1].body));const r=await orig(...args);if(skin&&r.ok)window.__skinResponses.push(await r.clone().json());return r;};")
  page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
  console=[];page.on('console',lambda message:console.append(dict(type=message.type,text=message.text)))
- page.goto('http://127.0.0.1:3000/privacy');expect(page.get_by_label('Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver',exact=True)).not_to_be_checked()
+ page.goto('http://127.0.0.1:3000/privacy');expect(page.get_by_label('Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.',exact=True)).not_to_be_checked()
  numeric=page.get_by_label('Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla',exact=True)
  if not numeric.is_checked():numeric.click()
  expect(numeric).to_be_checked();photo=page.get_by_label('Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla',exact=True)

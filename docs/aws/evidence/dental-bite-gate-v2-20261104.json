@@ -1,0 +1,245 @@
+{
+ "scope": "Gate decision only. Not a dental or clinical assessment. No model, measurement or threshold changed. Constructed rows are edited photos, labelled as such.",
+ "tongueBGR": [
+  90,
+  87,
+  161
+ ],
+ "photos": [
+  {
+   "photo": "Male-Dental-2.png",
+   "kind": "real",
+   "shows": "closed bite, normal enamel",
+   "expectedClosed": true,
+   "correct": true,
+   "valid": true,
+   "reasons": [],
+   "confirmed": true,
+   "uncertain": false,
+   "basis": "enamel",
+   "enamelOnly": 0.932,
+   "joined": 0.949,
+   "opening": 0.191
+  },
+  {
+   "photo": "Female-Dental-4.png",
+   "kind": "real",
+   "shows": "closed bite, discoloured enamel and lesions",
+   "expectedClosed": true,
+   "correct": true,
+   "valid": true,
+   "reasons": [],
+   "confirmed": true,
+   "uncertain": false,
+   "basis": "discoloured-enamel",
+   "enamelOnly": 0.479,
+   "joined": 0.983,
+   "opening": 0.363
+  },
+  {
+   "photo": "Male-Dental-1.png",
+   "kind": "real",
+   "shows": "open mouth, normal enamel",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.723
+  },
+  {
+   "photo": "Male-Dental-3.png",
+   "kind": "real",
+   "shows": "open mouth, normal enamel",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.705
+  },
+  {
+   "photo": "Male-Dental-4.png",
+   "kind": "real",
+   "shows": "open mouth, normal enamel",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.54
+  },
+  {
+   "photo": "Female-Dental-1.png",
+   "kind": "real",
+   "shows": "open mouth, discoloured enamel",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.555
+  },
+  {
+   "photo": "Female-Dental-2.png",
+   "kind": "real",
+   "shows": "open mouth, discoloured enamel",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.53
+  },
+  {
+   "photo": "Female-Dental-3.png",
+   "kind": "real",
+   "shows": "open mouth, discoloured enamel",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.654
+  },
+  {
+   "photo": "Male-Dental-2.png",
+   "kind": "constructed",
+   "shows": "Male-Dental-2.png with a tongue-filled gap of 6% of mouth width",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.251
+  },
+  {
+   "photo": "Male-Dental-2.png",
+   "kind": "constructed",
+   "shows": "Male-Dental-2.png with a tongue-filled gap of 10% of mouth width",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.29
+  },
+  {
+   "photo": "Male-Dental-2.png",
+   "kind": "constructed",
+   "shows": "Male-Dental-2.png with a tongue-filled gap of 15% of mouth width",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.342
+  },
+  {
+   "photo": "Female-Dental-4.png",
+   "kind": "constructed",
+   "shows": "Female-Dental-4.png with a tongue-filled gap of 6% of mouth width",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.422
+  },
+  {
+   "photo": "Female-Dental-4.png",
+   "kind": "constructed",
+   "shows": "Female-Dental-4.png with a tongue-filled gap of 10% of mouth width",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.463
+  },
+  {
+   "photo": "Female-Dental-4.png",
+   "kind": "constructed",
+   "shows": "Female-Dental-4.png with a tongue-filled gap of 15% of mouth width",
+   "expectedClosed": false,
+   "correct": true,
+   "valid": false,
+   "reasons": [
+    "NATURAL_BITE_REQUIRED"
+   ],
+   "confirmed": false,
+   "uncertain": false,
+   "basis": "none",
+   "enamelOnly": 0.0,
+   "joined": 0.0,
+   "opening": 0.514
+  }
+ ],
+ "allCorrect": true
+}

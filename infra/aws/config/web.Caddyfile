@@ -1,0 +1,66 @@
+# Set environment in a root-owned systemd EnvironmentFile; no secrets in Git.
+# Provision certificates before opening ingress. No port 80 is exposed.
+{
+  auto_https disable_redirects
+  admin off
+  default_sni {$WEB_DOMAIN}
+}
+https://{$WEB_DOMAIN} {
+  tls /etc/attune/tls/web.crt /etc/attune/tls/web.key
+  basic_auth {
+    {$DEMO_USER} {$DEMO_PASSWORD_HASH}
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    Cache-Control "no-store"
+    Referrer-Policy "no-referrer"
+  }
+  request_body {
+    max_size 24MB
+  }
+  @admin path /docs /redoc /openapi.json /api/appearance/skin/release-worker
+  respond @admin 404
+  handle /api/mental-neural-speech {
+    reverse_proxy 127.0.0.1:3000
+  }
+  handle /api/* {
+    reverse_proxy 127.0.0.1:8000 {
+      flush_interval -1
+    }
+  }
+  handle {
+    reverse_proxy 127.0.0.1:3000
+  }
+}
+# Dedicated AAOS application/backend process; accessible ONLY from the M8i SG.
+https://:8443 {
+  tls /etc/attune/tls/internal.crt /etc/attune/tls/internal.key {
+    client_auth {
+      mode require_and_verify
+      trust_pool file /etc/attune/tls/clients-ca.crt
+    }
+  }
+  request_body {
+    max_size 24MB
+  }
+  @admin path /docs /redoc /openapi.json /api/appearance/skin/release-worker
+  respond @admin 404
+  handle /bridge/* {
+    reverse_proxy 127.0.0.1:8012
+  }
+  handle /api/mental-neural-speech {
+    reverse_proxy 127.0.0.1:3001 {
+      header_up Host 127.0.0.1:3000
+    }
+  }
+  handle /api/* {
+    reverse_proxy 127.0.0.1:8001 {
+      flush_interval -1
+    }
+  }
+  handle {
+    reverse_proxy 127.0.0.1:3001 {
+      header_up Host 127.0.0.1:3000
+    }
+  }
+}

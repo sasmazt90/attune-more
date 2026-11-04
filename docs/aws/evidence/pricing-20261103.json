@@ -1,0 +1,795 @@
+{
+  "observedAt": "2026-11-03T12:44:21.192336+00:00",
+  "source": "AWS Pricing GetProducts API",
+  "region": "eu-central-1",
+  "currency": "USD",
+  "rates": {
+    "price_g6.2xlarge": 1.22249,
+    "price_m8i.2xlarge": 0.50716,
+    "price_gp3_gb_month": 0.0952,
+    "price_ipv4_in_use": 0.005,
+    "price_ipv4_idle": 0.005
+  },
+  "computeProducts": {
+    "g6.2xlarge": [
+      {
+        "product": {
+          "productFamily": "Compute Instance",
+          "attributes": {
+            "enhancedNetworkingSupported": "Yes",
+            "intelTurboAvailable": "No",
+            "memory": "32 GiB",
+            "dedicatedEbsThroughput": "Up to 5000 Mbps",
+            "vcpu": "8",
+            "classicnetworkingsupport": "false",
+            "capacitystatus": "Used",
+            "locationType": "AWS Region",
+            "storage": "1 x 450 GB NVMe SSD",
+            "instanceFamily": "GPU instance",
+            "operatingSystem": "Linux",
+            "intelAvx2Available": "No",
+            "instanceFamilyCategory": "Accelerated Computing",
+            "regionCode": "eu-central-1",
+            "physicalProcessor": "AMD EPYC 7R13 Processor",
+            "clockSpeed": "2.6 GHz",
+            "ecu": "NA",
+            "networkPerformance": "Up to 10 Gigabit",
+            "servicename": "Amazon Elastic Compute Cloud",
+            "gpuMemory": "24 GB",
+            "dedicatedEbsThroughputDescription": "2000 Mbps",
+            "vpcnetworkingsupport": "true",
+            "instanceType": "g6.2xlarge",
+            "tenancy": "Shared",
+            "usagetype": "EUC1-BoxUsage:g6.2xlarge",
+            "normalizationSizeFactor": "1.21471173",
+            "gpu": "1",
+            "intelAvxAvailable": "No",
+            "processorFeatures": "AMD Turbo; AVX; AVX2",
+            "servicecode": "AmazonEC2",
+            "licenseModel": "No License required",
+            "currentGeneration": "Yes",
+            "preInstalledSw": "NA",
+            "location": "EU (Frankfurt)",
+            "processorArchitecture": "64-bit",
+            "marketoption": "OnDemand",
+            "operation": "RunInstances",
+            "availabilityzone": "NA"
+          },
+          "sku": "53FR42B3DQJ4Z8AS"
+        },
+        "serviceCode": "AmazonEC2",
+        "terms": {
+          "OnDemand": {
+            "53FR42B3DQJ4Z8AS.JRTCKXETXF": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.JRTCKXETXF.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "$1.22249 per On Demand Linux g6.2xlarge Instance Hour",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.JRTCKXETXF.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "1.2224900000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          },
+          "Reserved": {
+            "53FR42B3DQJ4Z8AS.6QCMYABX3D": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.6QCMYABX3D.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.6QCMYABX3D.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "6507"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.6QCMYABX3D.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "USD 0.0 per Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.6QCMYABX3D.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:24Z",
+              "offerTermCode": "6QCMYABX3D",
+              "termAttributes": {
+                "LeaseContractLength": "1yr",
+                "OfferingClass": "standard",
+                "PurchaseOption": "All Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.HU7G6KETJZ": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.HU7G6KETJZ.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.HU7G6KETJZ.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "3320"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.HU7G6KETJZ.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.HU7G6KETJZ.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.3789700000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:24Z",
+              "offerTermCode": "HU7G6KETJZ",
+              "termAttributes": {
+                "LeaseContractLength": "1yr",
+                "OfferingClass": "standard",
+                "PurchaseOption": "Partial Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.CUZHX8X6JH": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.CUZHX8X6JH.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.CUZHX8X6JH.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.4737100000"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.CUZHX8X6JH.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.CUZHX8X6JH.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "4150"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:25Z",
+              "offerTermCode": "CUZHX8X6JH",
+              "termAttributes": {
+                "LeaseContractLength": "1yr",
+                "OfferingClass": "convertible",
+                "PurchaseOption": "Partial Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.7NE97W5U4E": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.7NE97W5U4E.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.7NE97W5U4E.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.9948000000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:24Z",
+              "offerTermCode": "7NE97W5U4E",
+              "termAttributes": {
+                "LeaseContractLength": "1yr",
+                "OfferingClass": "convertible",
+                "PurchaseOption": "No Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.38NPMPTW36": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.38NPMPTW36.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.38NPMPTW36.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.2597800000"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.38NPMPTW36.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.38NPMPTW36.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "6827"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:25Z",
+              "offerTermCode": "38NPMPTW36",
+              "termAttributes": {
+                "LeaseContractLength": "3yr",
+                "OfferingClass": "standard",
+                "PurchaseOption": "Partial Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.MZU6U2429S": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.MZU6U2429S.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "USD 0.0 per Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.MZU6U2429S.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.MZU6U2429S.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.MZU6U2429S.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "16726"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:26Z",
+              "offerTermCode": "MZU6U2429S",
+              "termAttributes": {
+                "LeaseContractLength": "3yr",
+                "OfferingClass": "convertible",
+                "PurchaseOption": "All Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.NQ3QZPMQV9": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.NQ3QZPMQV9.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "USD 0.0 per Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.NQ3QZPMQV9.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.NQ3QZPMQV9.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.NQ3QZPMQV9.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "12835"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:26Z",
+              "offerTermCode": "NQ3QZPMQV9",
+              "termAttributes": {
+                "LeaseContractLength": "3yr",
+                "OfferingClass": "standard",
+                "PurchaseOption": "All Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.BPH4J8HBKS": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.BPH4J8HBKS.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.BPH4J8HBKS.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.5611200000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:27Z",
+              "offerTermCode": "BPH4J8HBKS",
+              "termAttributes": {
+                "LeaseContractLength": "3yr",
+                "OfferingClass": "standard",
+                "PurchaseOption": "No Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.R5XV2EPZQZ": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.R5XV2EPZQZ.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.R5XV2EPZQZ.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.3247200000"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.R5XV2EPZQZ.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.R5XV2EPZQZ.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "8534"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:26Z",
+              "offerTermCode": "R5XV2EPZQZ",
+              "termAttributes": {
+                "LeaseContractLength": "3yr",
+                "OfferingClass": "convertible",
+                "PurchaseOption": "Partial Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.VJWZNREJX2": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.VJWZNREJX2.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "USD 0.0 per Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.VJWZNREJX2.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                },
+                "53FR42B3DQJ4Z8AS.VJWZNREJX2.2TG2D8R56U": {
+                  "unit": "Quantity",
+                  "description": "Upfront Fee",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.VJWZNREJX2.2TG2D8R56U",
+                  "pricePerUnit": {
+                    "USD": "8133"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:27Z",
+              "offerTermCode": "VJWZNREJX2",
+              "termAttributes": {
+                "LeaseContractLength": "1yr",
+                "OfferingClass": "convertible",
+                "PurchaseOption": "All Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.4NA7Y494T4": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.4NA7Y494T4.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.4NA7Y494T4.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.7958400000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:27Z",
+              "offerTermCode": "4NA7Y494T4",
+              "termAttributes": {
+                "LeaseContractLength": "1yr",
+                "OfferingClass": "standard",
+                "PurchaseOption": "No Upfront"
+              }
+            },
+            "53FR42B3DQJ4Z8AS.Z2E3P23VKM": {
+              "priceDimensions": {
+                "53FR42B3DQJ4Z8AS.Z2E3P23VKM.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "Linux/UNIX (Amazon VPC), g6.2xlarge reserved instance applied",
+                  "appliesTo": [],
+                  "rateCode": "53FR42B3DQJ4Z8AS.Z2E3P23VKM.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.7014000000"
+                  }
+                }
+              },
+              "sku": "53FR42B3DQJ4Z8AS",
+              "effectiveDate": "2026-10-29T18:17:26Z",
+              "offerTermCode": "Z2E3P23VKM",
+              "termAttributes": {
+                "LeaseContractLength": "3yr",
+                "OfferingClass": "convertible",
+                "PurchaseOption": "No Upfront"
+              }
+            }
+          }
+        },
+        "version": "20261029175634",
+        "publicationDate": "2026-10-29T17:56:34Z"
+      }
+    ],
+    "m8i.2xlarge": [
+      {
+        "product": {
+          "productFamily": "Compute Instance",
+          "attributes": {
+            "enhancedNetworkingSupported": "Yes",
+            "intelTurboAvailable": "Yes",
+            "memory": "32 GiB",
+            "dedicatedEbsThroughput": "Up to 10000 Mbps",
+            "vcpu": "8",
+            "classicnetworkingsupport": "false",
+            "capacitystatus": "Used",
+            "locationType": "AWS Region",
+            "storage": "EBS only",
+            "instanceFamily": "General purpose",
+            "operatingSystem": "Linux",
+            "intelAvx2Available": "Yes",
+            "instanceFamilyCategory": "General Purpose",
+            "regionCode": "eu-central-1",
+            "physicalProcessor": "Intel Xeon Scalable (Granite Rapids)",
+            "clockSpeed": "3.9 GHz",
+            "ecu": "NA",
+            "networkPerformance": "Up to 15000 Megabit",
+            "servicename": "Amazon Elastic Compute Cloud",
+            "gpuMemory": "NA",
+            "dedicatedEbsThroughputDescription": "2500 Mbps",
+            "vpcnetworkingsupport": "true",
+            "instanceType": "m8i.2xlarge",
+            "tenancy": "Shared",
+            "usagetype": "EUC1-BoxUsage:m8i.2xlarge",
+            "normalizationSizeFactor": "16",
+            "intelAvxAvailable": "Yes",
+            "processorFeatures": "Intel AVX; Intel AVX2; Intel AVX512; Intel Turbo; Intel AMX",
+            "servicecode": "AmazonEC2",
+            "licenseModel": "No License required",
+            "currentGeneration": "Yes",
+            "preInstalledSw": "NA",
+            "location": "EU (Frankfurt)",
+            "processorArchitecture": "64-bit",
+            "marketoption": "OnDemand",
+            "operation": "RunInstances",
+            "availabilityzone": "NA"
+          },
+          "sku": "VA5V2YA7577A4YJB"
+        },
+        "serviceCode": "AmazonEC2",
+        "terms": {
+          "OnDemand": {
+            "VA5V2YA7577A4YJB.JRTCKXETXF": {
+              "priceDimensions": {
+                "VA5V2YA7577A4YJB.JRTCKXETXF.6YS6EN2CT7": {
+                  "unit": "Hrs",
+                  "endRange": "Inf",
+                  "description": "$0.50716 per On Demand Linux m8i.2xlarge Instance Hour",
+                  "appliesTo": [],
+                  "rateCode": "VA5V2YA7577A4YJB.JRTCKXETXF.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.5071600000"
+                  }
+                }
+              },
+              "sku": "VA5V2YA7577A4YJB",
+              "effectiveDate": "2026-10-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          }
+        },
+        "version": "20261029175634",
+        "publicationDate": "2026-10-29T17:56:34Z"
+      }
+    ]
+  },
+  "networkProducts": {
+    "out": [
+      {
+        "product": {
+          "productFamily": "Data Transfer",
+          "attributes": {
+            "fromLocationType": "AWS Region",
+            "toRegionCode": "",
+            "servicecode": "AWSDataTransfer",
+            "usagetype": "EUC1-DataTransfer-Out-Bytes",
+            "fromRegionCode": "eu-central-1",
+            "transferType": "AWS Outbound",
+            "servicename": "AWS Data Transfer",
+            "fromLocation": "EU (Frankfurt)",
+            "toLocationType": "Other",
+            "toLocation": "External",
+            "operation": ""
+          },
+          "sku": "F62Y6TKR8NC6Q2ZB"
+        },
+        "serviceCode": "AWSDataTransfer",
+        "terms": {
+          "OnDemand": {
+            "F62Y6TKR8NC6Q2ZB.JRTCKXETXF": {
+              "priceDimensions": {
+                "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.N9EW5UVVPA": {
+                  "unit": "GB",
+                  "endRange": "153600",
+                  "description": "$0.070 per GB - next 100 TB / month data transfer out",
+                  "appliesTo": [],
+                  "rateCode": "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.N9EW5UVVPA",
+                  "beginRange": "51200",
+                  "pricePerUnit": {
+                    "USD": "0.0700000000"
+                  }
+                },
+                "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.GPHXDESFBB": {
+                  "unit": "GB",
+                  "endRange": "Inf",
+                  "description": "$0.050 per GB - greater than 150 TB / month data transfer out",
+                  "appliesTo": [],
+                  "rateCode": "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.GPHXDESFBB",
+                  "beginRange": "153600",
+                  "pricePerUnit": {
+                    "USD": "0.0500000000"
+                  }
+                },
+                "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.Q3Z75P77EN": {
+                  "unit": "GB",
+                  "endRange": "10240",
+                  "description": "$0.090 per GB - first 10 TB / month data transfer out beyond the global free tier",
+                  "appliesTo": [],
+                  "rateCode": "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.Q3Z75P77EN",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0900000000"
+                  }
+                },
+                "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.VF6T3GAUKQ": {
+                  "unit": "GB",
+                  "endRange": "51200",
+                  "description": "$0.085 per GB - next 40 TB / month data transfer out",
+                  "appliesTo": [],
+                  "rateCode": "F62Y6TKR8NC6Q2ZB.JRTCKXETXF.VF6T3GAUKQ",
+                  "beginRange": "10240",
+                  "pricePerUnit": {
+                    "USD": "0.0850000000"
+                  }
+                }
+              },
+              "sku": "F62Y6TKR8NC6Q2ZB",
+              "effectiveDate": "2026-06-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          }
+        },
+        "version": "20260916132208",
+        "publicationDate": "2026-09-16T13:22:08Z"
+      }
+    ],
+    "in": [
+      {
+        "product": {
+          "productFamily": "Data Transfer",
+          "attributes": {
+            "fromLocationType": "Other",
+            "toRegionCode": "eu-central-1",
+            "servicecode": "AWSDataTransfer",
+            "usagetype": "EUC1-DataTransfer-In-Bytes",
+            "fromRegionCode": "",
+            "transferType": "AWS Inbound",
+            "servicename": "AWS Data Transfer",
+            "fromLocation": "External",
+            "toLocationType": "AWS Region",
+            "toLocation": "EU (Frankfurt)",
+            "operation": ""
+          },
+          "sku": "BWS8837XEJR9Q69S"
+        },
+        "serviceCode": "AWSDataTransfer",
+        "terms": {
+          "OnDemand": {
+            "BWS8837XEJR9Q69S.JRTCKXETXF": {
+              "priceDimensions": {
+                "BWS8837XEJR9Q69S.JRTCKXETXF.6YS6EN2CT7": {
+                  "unit": "GB",
+                  "endRange": "Inf",
+                  "description": "$0.000 per GB - data transfer in per month",
+                  "appliesTo": [],
+                  "rateCode": "BWS8837XEJR9Q69S.JRTCKXETXF.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                }
+              },
+              "sku": "BWS8837XEJR9Q69S",
+              "effectiveDate": "2026-06-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          }
+        },
+        "version": "20260916132208",
+        "publicationDate": "2026-09-16T13:22:08Z"
+      }
+    ],
+    "regional": [
+      {
+        "product": {
+          "productFamily": "Data Transfer",
+          "attributes": {
+            "fromLocationType": "AWS Region",
+            "toRegionCode": "eu-central-1",
+            "servicecode": "AWSDataTransfer",
+            "usagetype": "EUC1-DataTransfer-xAZ-In-Bytes",
+            "fromRegionCode": "eu-central-1",
+            "transferType": "IntraRegion-xAZ-In",
+            "servicename": "AWS Data Transfer",
+            "fromLocation": "EU (Frankfurt)",
+            "toLocationType": "AWS Region",
+            "toLocation": "EU (Frankfurt)",
+            "operation": ""
+          },
+          "sku": "FDEMV8D22J6CN4KU"
+        },
+        "serviceCode": "AWSDataTransfer",
+        "terms": {
+          "OnDemand": {
+            "FDEMV8D22J6CN4KU.JRTCKXETXF": {
+              "priceDimensions": {
+                "FDEMV8D22J6CN4KU.JRTCKXETXF.6YS6EN2CT7": {
+                  "unit": "GB",
+                  "endRange": "Inf",
+                  "description": "$0.00 per GB - regional data transfer - in/out/between EC2 Azs or using elastic IPs or ELB",
+                  "appliesTo": [],
+                  "rateCode": "FDEMV8D22J6CN4KU.JRTCKXETXF.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                }
+              },
+              "sku": "FDEMV8D22J6CN4KU",
+              "effectiveDate": "2026-06-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          }
+        },
+        "version": "20260916132208",
+        "publicationDate": "2026-09-16T13:22:08Z"
+      },
+      {
+        "product": {
+          "productFamily": "Data Transfer",
+          "attributes": {
+            "fromLocationType": "AWS Region",
+            "toRegionCode": "eu-central-1",
+            "servicecode": "AWSDataTransfer",
+            "usagetype": "EUC1-DataTransfer-xAZ-Out-Bytes",
+            "fromRegionCode": "eu-central-1",
+            "transferType": "IntraRegion-xAZ-Out",
+            "servicename": "AWS Data Transfer",
+            "fromLocation": "EU (Frankfurt)",
+            "toLocationType": "AWS Region",
+            "toLocation": "EU (Frankfurt)",
+            "operation": ""
+          },
+          "sku": "SH6YXCDDJZFWXAZV"
+        },
+        "serviceCode": "AWSDataTransfer",
+        "terms": {
+          "OnDemand": {
+            "SH6YXCDDJZFWXAZV.JRTCKXETXF": {
+              "priceDimensions": {
+                "SH6YXCDDJZFWXAZV.JRTCKXETXF.6YS6EN2CT7": {
+                  "unit": "GB",
+                  "endRange": "Inf",
+                  "description": "$0.00 per GB - regional data transfer - in/out/between EC2 Azs or using elastic IPs or ELB",
+                  "appliesTo": [],
+                  "rateCode": "SH6YXCDDJZFWXAZV.JRTCKXETXF.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0000000000"
+                  }
+                }
+              },
+              "sku": "SH6YXCDDJZFWXAZV",
+              "effectiveDate": "2026-06-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          }
+        },
+        "version": "20260916132208",
+        "publicationDate": "2026-09-16T13:22:08Z"
+      },
+      {
+        "product": {
+          "productFamily": "Data Transfer",
+          "attributes": {
+            "fromLocationType": "AWS Region",
+            "toRegionCode": "eu-central-1",
+            "servicecode": "AWSDataTransfer",
+            "usagetype": "EUC1-DataTransfer-Regional-Bytes",
+            "fromRegionCode": "eu-central-1",
+            "transferType": "IntraRegion",
+            "servicename": "AWS Data Transfer",
+            "fromLocation": "EU (Frankfurt)",
+            "toLocationType": "AWS Region",
+            "toLocation": "EU (Frankfurt)",
+            "operation": ""
+          },
+          "sku": "ZE4E4QX7N8PFY8CH"
+        },
+        "serviceCode": "AWSDataTransfer",
+        "terms": {
+          "OnDemand": {
+            "ZE4E4QX7N8PFY8CH.JRTCKXETXF": {
+              "priceDimensions": {
+                "ZE4E4QX7N8PFY8CH.JRTCKXETXF.6YS6EN2CT7": {
+                  "unit": "GB",
+                  "endRange": "Inf",
+                  "description": "$0.010 per GB - regional data transfer - in/out/between EC2 AZs or using elastic IPs or ELB",
+                  "appliesTo": [],
+                  "rateCode": "ZE4E4QX7N8PFY8CH.JRTCKXETXF.6YS6EN2CT7",
+                  "beginRange": "0",
+                  "pricePerUnit": {
+                    "USD": "0.0100000000"
+                  }
+                }
+              },
+              "sku": "ZE4E4QX7N8PFY8CH",
+              "effectiveDate": "2026-06-01T00:00:00Z",
+              "offerTermCode": "JRTCKXETXF",
+              "termAttributes": {}
+            }
+          }
+        },
+        "version": "20260916132208",
+        "publicationDate": "2026-09-16T13:22:08Z"
+      }
+    ]
+  },
+  "estimate": {
+    "hours": 2,
+    "compute": 3.4593,
+    "ipv4": 0.02,
+    "existingGp3Monthly": 25.704,
+    "existingGp3TwoHourAllocationNovember720Hours": 0.0714,
+    "baselineIncludingAllocatedStorage": 3.5507,
+    "egressGBBudget": 10,
+    "egressPerGBConservative": 0.09,
+    "egressBudget": 0.9,
+    "awsIncluding10GBEgress": 4.4507,
+    "awsOperationalBudget": 5,
+    "providerAllowanceNotQuote": 1,
+    "combinedProposedOperationalBudget": 6,
+    "taxesIncluded": false,
+    "hardBillingCap": false
+  }
+}

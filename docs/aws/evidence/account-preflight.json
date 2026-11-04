@@ -1,0 +1,37 @@
+{
+  "region": "eu-central-1",
+  "observedAt": "2026-11-03",
+  "awsIdentity": "BLOCKED: no configured AWS identity",
+  "gVtQuota": "BLOCKED: user reports approved 8 vCPU; not independently queried",
+  "standardQuota": "BLOCKED",
+  "permissions": "BLOCKED",
+  "availabilityZones": "BLOCKED",
+  "launchCapacity": "BLOCKED",
+  "officialPrices": "BLOCKED",
+  "observedSpend": "NOT_OBSERVED",
+  "resourcesCreatedByThisTask": [],
+  "paidProvisioningAuthorized": false,
+  "dnsChanges": [],
+  "existingInstancesReported": [
+    {
+      "id": "i-0b25450afc6633494",
+      "name": "attune-web-ai",
+      "type": "g6.2xlarge",
+      "rootGiB": 150,
+      "volumeType": "gp3",
+      "reportedState": "stopped"
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "name": "attune-aaos-demo",
+      "type": "m8i.2xlarge",
+      "rootGiB": 120,
+      "volumeType": "gp3",
+      "reportedState": "stopped",
+      "reportedNestedVirtualization": "enabled"
+    }
+  ],
+  "existingInventory": "BLOCKED: AWS identity and endpoint permissions still absent",
+  "newInfrastructureAllowed": false,
+  "paidStartApproved": false
+}

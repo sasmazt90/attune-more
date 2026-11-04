@@ -37,7 +37,8 @@ export function languageURL(path:string):string {
   const [base,fragment]=path.split('#',2),separator=base.includes('?')?'&':'?';
   return base+separator+'language='+getLanguage()+(fragment?'#'+fragment:'');
 }
-type Message={tr:string;en:string;de:string};
+/** one: EN/DE wording when {0} is 1. Turkish does not inflect after a number. */
+type Message={tr:string;en:string;de:string;one?:{en:string;de:string}};
 const normalize=(text:string)=>text.normalize('NFC').replace(/\s+/g,' ').trim();
 const messages=Object.values(catalog) as Message[];
 const bySource=new Map(messages.map(message=>[normalize(message.tr),message]));
@@ -60,7 +61,8 @@ export function translateText(value:string,language:Language=getLanguage(),depth
     for(const template of templates){
       const match=template.match.exec(normalized);if(!match)continue;
       const parameters=new Map(template.fields.map((field,index)=>[field,translateText(match[index+1],language,depth+1)]));
-      return padded(template.message[language].replace(/\{(\d+)\}/g,(_,id)=>parameters.get(Number(id))||''));
+      const wording=parameters.get(0)==='1'&&template.message.one?template.message.one[language]:template.message[language];
+      return padded(wording.replace(/\{(\d+)\}/g,(_,id)=>parameters.get(Number(id))||''));
     }
   }
   // Unknown/user-authored strings remain unchanged; never send private text to translation APIs.
@@ -69,3 +71,5 @@ export function translateText(value:string,language:Language=getLanguage(),depth
 export const t=translateText;
 export function formatDate(value:Date|string|number,options?:Intl.DateTimeFormatOptions){return new Intl.DateTimeFormat(getLocale(),options).format(new Date(value));}
 export function formatNumber(value:number,options?:Intl.NumberFormatOptions){return new Intl.NumberFormat(getLocale(),options).format(value);}
+/** tr %83, en 83%, de 83 %. */
+export function formatPercent(value:number){return formatNumber(value/100,{style:'percent',maximumFractionDigits:0});}

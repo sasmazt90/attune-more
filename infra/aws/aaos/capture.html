@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Attune remote demo camera</title>
+<style>body{background:#10202c;color:#fff;font:18px system-ui;max-width:750px;margin:40px auto;padding:20px}input,button{font:inherit;margin:10px;padding:12px}video{width:100%}#key{width:90%}</style>
+<h1>Remote demo camera</h1><p>Uzak demo kamerası · Remote-Demokamera. This sends live camera frames to your AWS AAOS session. It is not a vehicle camera integration. No inference runs on this computer.</p>
+<label>Pairing code from AAOS <input id="key" autocomplete="off" spellcheck="false"></label>
+<label><input id="consent" type="checkbox">I consent to transmitting my camera frames to this AWS demo session for analysis. Existing in-app processing and storage choices also apply.</label>
+<p>Select the UGREEN camera in your browser’s camera permission settings.</p><button id="start">Start camera</button><button id="stop">Stop and revoke</button><p id="status" role="status">Camera off</p><video id="preview" autoplay playsinline muted></video>
+<script>
+'use strict';
+let stream,socket,active=false,epoch=0;
+const $=id=>document.getElementById(id);
+function stop(){epoch++;active=false;socket?.close();stream?.getTracks().forEach(t=>t.stop());$('preview').srcObject=null;$('status').textContent='Camera off';}
+$('stop').onclick=stop;window.addEventListener('pagehide',stop);document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});$('consent').onchange=()=>{if(!$('consent').checked)stop();};
+$('start').onclick=async()=>{
+ stop();const generation=epoch;if(!$('consent').checked||!$('key').value.trim())return;
+ try{
+  const media=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1920,max:1920},height:{ideal:1080,max:1080}},audio:false});
+  if(generation!==epoch){media.getTracks().forEach(t=>t.stop());return;}stream=media;active=true;$('preview').srcObject=stream;await $('preview').play();
+  if(generation!==epoch)return;
+  for(const t of stream.getTracks())t.addEventListener('ended',stop,{once:true});
+  const ws=socket=new WebSocket('wss://'+location.host+'/bridge/sender');
+  ws.onopen=()=>{ws.send(JSON.stringify({key:$('key').value.trim(),consent:true}));$('key').value='';$('status').textContent='Live frames sent to AWS';};
+  ws.onclose=()=>{if(generation===epoch)stop();};ws.onerror=()=>{if(generation===epoch)stop();};
+  let lastTime=-1;ws.onmessage=async event=>{
+   if(!active||generation!==epoch||!$('consent').checked||document.hidden)return stop();
+   const request=JSON.parse(event.data),v=$('preview');
+   if(v.readyState<2||v.currentTime===lastTime)return stop();lastTime=v.currentTime;
+   const canvas=document.createElement('canvas');canvas.width=v.videoWidth;canvas.height=v.videoHeight;canvas.getContext('2d').drawImage(v,0,0);
+   const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+   if(generation!==epoch||!active||!blob||ws.readyState!==1)return;
+   ws.send(JSON.stringify({challenge:request.challenge}));ws.send(blob);
+  };
+ }catch{if(generation===epoch){stop();$('status').textContent='Camera unavailable or permission denied';}}
+};
+</script></html>

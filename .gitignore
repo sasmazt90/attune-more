@@ -13,6 +13,10 @@
 !*.env.example
 *.pem
 *.key
+*.p12
+*.pfx
+*.jks
+*.keystore
 *.cert
 *.crt
 secrets.json
@@ -171,3 +175,10 @@ services/core-api/models/skin-type-local-v1/*.onnx
 !apps/vehicle-app/public/audio/mental/v1/en/female-calm-v1/*/*.wav
 !apps/vehicle-app/public/audio/mental/v1/de/female-calm-v1/*/*.wav
 !docs/mental-structured/closing-female-calm-v1/??-closing.wav
+
+# Task 13 runtime secrets, identities and disposable output.
+infra/aws/private/
+.aws-oem/
+# Local linked dependency directories in isolated worktrees.
+/node_modules
+/apps/vehicle-app/node_modules

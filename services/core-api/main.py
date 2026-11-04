@@ -38,10 +38,16 @@ from care_provider import BrowserCareSearchProvider, DemoCareSearchProvider, Cal
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    speech = None
+    if os.getenv('ATTUNE_MENTAL_TTS_RESIDENT') == '1':
+        import mental_neural_tts as speech
+        speech.schedule_warm()
     try:
         yield
     finally:
         close_openai_client()
+        if speech:
+            await speech.close_resident()
         from local_native_process import native_analysis
         await native_analysis.close()
 
@@ -299,7 +305,7 @@ class CreateSessionPayload(BaseModel):
 
 class AppointmentMatchPayload(BaseModel):
     specialty: str = Field(min_length=1,max_length=120)
-    preferredCity: Optional[str] = Field(default="İstanbul",max_length=120)
+    preferredCity: Optional[str] = Field(default=None,max_length=120)
     maxTravelTimeMin: Optional[int] = 30
     useBrowserAgent: Optional[bool] = True
     availableWindows: List[dict] = Field(default_factory=list,max_length=30)
@@ -507,7 +513,7 @@ async def mental_speech(payload: SpeechPayload):
 
 @app.post('/api/mental/neural-speech')
 async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
-    from mental_neural_tts import authorize, generate_for_request
+    from mental_neural_tts import authorize, generate_for_request, last_generation
     authorize(request.headers.get('authorization'))
     if not payload.speechConsent:
         raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
@@ -521,6 +527,7 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
     return Response(raw, media_type='audio/wav', headers={
         'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
         'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language],
+        'X-TTS-Seconds':str(last_generation.get('seconds')), 'X-TTS-Start':str(last_generation.get('start')),
         **({'X-TTS-Speaker-Profile':payload.speakerProfile} if payload.speakerProfile else {})})
 
 @app.post('/api/vision/speech')
@@ -578,7 +585,11 @@ async def match_appointments(payload: AppointmentMatchPayload, request: Request)
         raise HTTPException(409, "PARK_REQUIRED")
     if await request.is_disconnected(): raise HTTPException(409, "CANCELLED")
     specialty = payload.specialty
-    city = payload.preferredCity or "İstanbul"
+    # Region comes from the user's explicit choice; language or a default city never stands in.
+    city = (payload.preferredCity or "").strip()
+    if not city:
+        return {"status": "REGION_REQUIRED", "specialty": specialty, "city": None, "providerType": None, "sourceBadge": None,
+                "handoffNote": None, "liveSearchUrl": None, "matchedSlots": [], "currentTravelBufferMin": None}
     # Reject invalid manual windows before any provider/network side effect.
     try: available_window_match(None,payload.availableWindows,payload.durationMin,payload.timeZone)
     except ValueError: raise HTTPException(422,'INVALID_MATCH_WINDOW') from None

@@ -1,5 +1,6 @@
 """Opt-in local Chatterbox V3 boundary. No downloads, imports of ML, or loading at startup."""
 import asyncio
+import base64
 import hashlib
 import hmac
 import io
@@ -29,6 +30,140 @@ SOURCE_MANIFEST = Path(__file__).resolve().parents[2] / 'shared/localization/cha
 VOICE_PROFILE = Path(__file__).resolve().parents[2] / 'shared/mental/voices/female-calm-v1.json'
 logger = logging.getLogger('uvicorn.error')
 WORKER_PHASES = ('verify-assets', 'verify-source', 'import-runtime', 'load-model', 'inference', 'encode-wav', 'complete')
+RESIDENT_WORKER = Path(__file__).with_name('mental_neural_resident.py')
+RESIDENT_REPLY_LIMIT = 16 * 1024 * 1024
+last_generation = {'seconds': None, 'start': None}
+_resident = None
+_warm_task = None
+
+
+def resident_enabled():
+    return os.getenv('ATTUNE_MENTAL_TTS_RESIDENT') == '1'
+
+
+def tts_threads():
+    """Inference threads. Measured on the host: 2 takes 33 s, 4 takes 15 s, 7 gains nothing."""
+    try:
+        return max(1, min(int(os.getenv('ATTUNE_MENTAL_TTS_THREADS', '2')), 16))
+    except ValueError:
+        return 2
+
+
+def worker_environment():
+    threads = str(tts_threads())
+    env = {**os.environ, 'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1',
+           'OMP_NUM_THREADS': threads, 'MKL_NUM_THREADS': threads, 'ATTUNE_MENTAL_TTS_THREADS': threads, 'HF_HUB_DISABLE_TELEMETRY': '1'}
+    # Never pass provider keys or the service bearer secret into the worker.
+    for key in list(env):
+        if any(word in key.upper() for word in ('TOKEN', 'SECRET', 'API_KEY', 'PASSWORD')):
+            env.pop(key, None)
+    return env
+
+
+async def _start_resident():
+    global _resident
+    if _resident and _resident[0].returncode is None:
+        return _resident[0]
+    process = await asyncio.create_subprocess_exec(os.getenv('ATTUNE_MENTAL_TTS_PYTHON') or sys.executable, str(RESIDENT_WORKER),
+        stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.DEVNULL,
+        env=worker_environment(), limit=RESIDENT_REPLY_LIMIT)
+    _resident = (process, OwnedProcessTree(getattr(process, 'pid', None)))
+    return process
+
+
+async def stop_resident():
+    """Killing the worker is how inference is cancelled. The next request starts a new one."""
+    global _resident
+    current, _resident = _resident, None
+    if not current:
+        return
+    process, owned = current
+    if process.returncode is None:
+        if owned.root is not None:
+            await run_in_threadpool(owned.terminate)
+        else:
+            process.kill()
+        await process.wait()
+
+
+async def _warm(path, language, speaker_profile):
+    try:
+        process = await _start_resident()
+        job = {'config': path, 'language': language, 'warm': True, **({'speakerProfile': speaker_profile} if speaker_profile else {})}
+        process.stdin.write(json.dumps(job).encode() + b'\n')
+        await process.stdin.drain()
+        reply = await process.stdout.readline()
+        if not reply or 'error' in json.loads(reply):
+            logger.warning('Resident speech worker did not warm up')
+            await stop_resident()
+    except asyncio.CancelledError:
+        await stop_resident()
+        raise
+    except (OSError, ValueError):
+        logger.warning('Resident speech worker did not start')
+        await stop_resident()
+
+
+def schedule_warm(language='en', speaker_profile=None):
+    """Loads the model ahead of the first request. No user text is involved."""
+    global _warm_task
+    path = configuration_path(speaker_profile)
+    if not resident_enabled() or not path or not Path(path).is_file() or (_warm_task and not _warm_task.done()):
+        return
+    _warm_task = asyncio.create_task(_warm(path, language, speaker_profile))
+
+
+async def close_resident():
+    if _warm_task and not _warm_task.done():
+        _warm_task.cancel()
+        await asyncio.gather(_warm_task, return_exceptions=True)
+    await stop_resident()
+
+
+async def _resident_audio(path, language, text, speaker_profile, permitted, disconnected):
+    started = monotonic()
+
+    async def guard():
+        if not permitted():
+            raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
+        if await disconnected():
+            raise HTTPException(499, 'NEURAL_TTS_REQUEST_CANCELLED')
+        if monotonic() - started >= LIMITS['workerSeconds']:
+            raise HTTPException(504, 'NEURAL_TTS_DEADLINE')
+
+    read = None
+    try:
+        while _warm_task and not _warm_task.done():
+            await guard()
+            await asyncio.wait({_warm_task}, timeout=.1)
+        process = await _start_resident()
+        job = {'config': path, 'language': language, 'text': text, **({'speakerProfile': speaker_profile} if speaker_profile else {})}
+        process.stdin.write(json.dumps(job, ensure_ascii=False).encode() + b'\n')
+        await process.stdin.drain()
+        read = asyncio.create_task(process.stdout.readline())
+        while not read.done():
+            await guard()
+            await asyncio.wait({read}, timeout=.1)
+        reply = read.result()
+        if not reply:
+            raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE')
+        data = json.loads(reply)
+        if 'wav' not in data:
+            raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE')
+        try:
+            audio = validate_wave(base64.b64decode(data['wav']))
+        except (ValueError, wave.Error, EOFError):
+            raise HTTPException(503, 'NEURAL_TTS_INVALID_AUDIO') from None
+        last_generation.update(seconds=round(monotonic() - started, 3), start=data.get('start'))
+        return audio
+    except BaseException:
+        last_generation.update(seconds=None, start=None)
+        if read and not read.done():
+            read.cancel()
+            await asyncio.gather(read, return_exceptions=True)
+        await stop_resident()
+        schedule_warm(language, speaker_profile)
+        raise
 
 
 def worker_progress(path):
@@ -234,13 +369,12 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
             raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
         if await disconnected():
             raise HTTPException(499, 'NEURAL_TTS_REQUEST_CANCELLED')
+        if resident_enabled():
+            audio = await _resident_audio(path, language, text, speaker_profile, permitted, disconnected)
+            outcome = 'success'
+            return audio
         executable = os.getenv('ATTUNE_MENTAL_TTS_PYTHON') or sys.executable
-        env = {**os.environ, 'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1',
-               'OMP_NUM_THREADS': '2', 'MKL_NUM_THREADS': '2', 'HF_HUB_DISABLE_TELEMETRY': '1'}
-        # Never pass provider keys or the service bearer secret into the worker.
-        for key in list(env):
-            if any(word in key.upper() for word in ('TOKEN', 'SECRET', 'API_KEY', 'PASSWORD')):
-                env.pop(key, None)
+        env = worker_environment()
         if os.getenv('ATTUNE_MENTAL_TTS_DIAGNOSTICS') == '1':
             diagnostic = tempfile.TemporaryDirectory(prefix='attune-tts-timing-')
             env['ATTUNE_MENTAL_TTS_PROGRESS'] = str(Path(diagnostic.name) / 'progress.json')
@@ -274,6 +408,7 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
         except (ValueError, wave.Error, EOFError):
             raise HTTPException(503, 'NEURAL_TTS_INVALID_AUDIO') from None
         outcome = 'success'
+        last_generation.update(seconds=round(monotonic() - started, 3), start='one-shot')
         return audio
     except HTTPException as error:
         outcome = 'http-' + str(error.status_code)

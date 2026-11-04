@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>AAOS demo audio</title>
+<style>body{font:18px system-ui;max-width:720px;margin:40px auto;padding:20px;background:#10202c;color:white}button{font:inherit;padding:12px;margin:10px}</style>
+<h1>AAOS demo audio</h1><p>This connects your browser to the AWS emulator's audio. It does not calibrate headphones or microphone levels. Hearing results are preliminary and require the application's preparation checks.</p>
+<label><input id="listen" type="checkbox">I consent to receiving this demo session's audio.</label><br>
+<label><input id="mic" type="checkbox">I also consent to sending my microphone to the AWS AAOS session. Provider processing still requires the application's separate consent.</label><br>
+<button id="start">Connect audio</button><button id="stop">Disconnect and revoke</button><p id="status" role="status">Disconnected</p>
+<script>
+'use strict';const $=x=>document.getElementById(x);let generation=0,context,stream,ws;
+function stop(){generation++;ws?.close();stream?.getTracks().forEach(t=>t.stop());context?.close();context=undefined;$('status').textContent='Disconnected';}
+$('stop').onclick=stop;window.addEventListener('pagehide',stop);$('listen').onchange=stop;$('mic').onchange=stop;
+$('start').onclick=async()=>{
+ stop();const epoch=generation;if(!$('listen').checked)return;
+ try{
+  context=new AudioContext({sampleRate:48000});if(context.sampleRate!==48000)throw Error('48 kHz unavailable');
+  const program=`class DemoAudio extends AudioWorkletProcessor{constructor(){super();this.q=[];this.offset=0;this.frames=0;this.port.onmessage=e=>{let a=new Float32Array(e.data);this.q.push(a);this.frames+=a.length/2;if(this.frames>24000){this.q=[];this.frames=0;this.offset=0;this.port.postMessage({error:'Audio buffer overflow'});}};}process(inputs,outputs){const out=outputs[0];for(let i=0;i<out[0].length;i++){let a=this.q[0];for(let c=0;c<out.length;c++)out[c][i]=a?a[this.offset+c]:0;if(a){this.offset+=2;this.frames--;if(this.offset>=a.length){this.q.shift();this.offset=0;}}}if(inputs[0]?.[0]){const b=inputs[0][0].slice();this.port.postMessage(b.buffer,[b.buffer]);}return true;}}registerProcessor('demo-audio',DemoAudio);`;
+  const url=URL.createObjectURL(new Blob([program],{type:'application/javascript'}));try{await context.audioWorklet.addModule(url);}finally{URL.revokeObjectURL(url);}if(epoch!==generation)return;
+  const node=new AudioWorkletNode(context,'demo-audio',{outputChannelCount:[2]});node.connect(context.destination);
+  ws=new WebSocket('wss://'+location.host+'/audio/ws');const socket=ws;socket.binaryType='arraybuffer';
+  socket.onopen=()=>{socket.send(JSON.stringify({listenConsent:true,microphoneConsent:$('mic').checked}));$('status').textContent='Connected · uncalibrated demo transport';};
+  socket.onmessage=e=>{if(epoch===generation)node.port.postMessage(e.data,[e.data]);};
+  socket.onclose=()=>{if(epoch===generation)stop();};socket.onerror=()=>{if(epoch===generation)stop();};
+  node.port.onmessage=e=>{if(epoch!==generation)return;if(e.data.error){stop();$('status').textContent=e.data.error;return;}if(socket.readyState===1){if(socket.bufferedAmount>96000){stop();$('status').textContent='Audio network too slow';return;}socket.send(e.data);}};
+  if($('mic').checked){const media=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,sampleRate:48000,echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false});if(epoch!==generation){media.getTracks().forEach(t=>t.stop());return;}stream=media;for(const track of media.getTracks())track.addEventListener('ended',stop,{once:true});context.createMediaStreamSource(media).connect(node);}
+  await context.resume();
+ }catch{if(epoch===generation){stop();$('status').textContent='Audio device or transport unavailable';}}
+};
+</script></html>

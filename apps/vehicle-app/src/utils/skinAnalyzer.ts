@@ -17,6 +17,7 @@
 import { FilesetResolver, FaceLandmarker, NormalizedLandmark } from '@mediapipe/tasks-vision';
 
 import { expressionScores } from './skinExpression';
+import { MEDIA_PIPE_DELEGATE } from './mediaPipeRuntime';
 
 export interface FaceAlignment {
   expressionScores?:Record<string,number>;
@@ -178,7 +179,7 @@ export class SkinAnalyzer {
         baseOptions: {
           modelAssetPath:
             '/mediapipe/models/face_landmarker.task',
-          delegate: 'GPU'
+          delegate: MEDIA_PIPE_DELEGATE
         },
         runningMode: 'IMAGE',
         ...(typeof document === 'undefined' ? { canvas: new OffscreenCanvas(1, 1) } : {}),

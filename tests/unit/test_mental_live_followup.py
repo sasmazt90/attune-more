@@ -68,7 +68,7 @@ const item=(id,themes,extra={})=>({id,date:'2026-10-03T10:00:00Z',summaryText:'G
 assert.deepEqual(H.mentalThemeStats([]),{sessions:0,mentions:0,rows:[]});
 const stats=H.mentalThemeStats([item('1',['a','a','b']),item('2',['c']),item('old',['x'],{schemaVersion:undefined}),item('cancelled',['x'],{completed:false}),item('no-consent',['x'],{consented:false})]);
 assert.equal(stats.sessions,2);assert.equal(stats.mentions,3);assert.equal(stats.rows.reduce((s,r)=>s+r.percent,0),100);assert.deepEqual(stats.rows.map(r=>r.count),[1,1,1]);assert.deepEqual(stats.rows.map(r=>r.percent).sort(),[33,33,34]);
-assert.equal(H.translateMood('STRESSED TIRED RELAXED NEUTRAL'),'Gergin Yorgun Rahat Nötr');
+assert.equal(H.translateMood('STRESSED TIRED RELAXED NEUTRAL'),'gergin yorgun rahat nötr');
 load('skinAnalyzer');const M=load('skinMultiAngle');
 const pose={faceDetected:true,isMediaPipeActive:true,yaw:0,pitch:0,roll:0,scaleRatio:.5};
 assert(M.matchesSkinAngle(pose,'FRONT'));assert(!M.matchesSkinAngle(pose,'LEFT'));assert(!M.matchesSkinAngle(pose,'RIGHT'));

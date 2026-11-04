@@ -1,0 +1,165 @@
+{
+  "account": "798886013428",
+  "region": "eu-central-1",
+  "before": {
+    "observedAt": "2026-11-03T19:09:00.474619+00:00",
+    "requestId": "6826c8de-28ed-4863-bec3-847d615ea007",
+    "instances": [
+      {
+        "instanceId": "i-0b25450afc6633494",
+        "type": "r7i.2xlarge",
+        "state": "stopped",
+        "launchTime": "2026-11-03T16:28:16+00:00",
+        "availabilityZone": "eu-central-1c",
+        "volumeIds": [
+          "vol-0b484223201916460"
+        ],
+        "subnetId": "subnet-0522052d105ce2ff3",
+        "securityGroupIds": [
+          "sg-023659b3a447ab759"
+        ]
+      },
+      {
+        "instanceId": "i-0f4cca4e92e94c351",
+        "type": "m8i.2xlarge",
+        "state": "running",
+        "launchTime": "2026-11-03T16:28:46+00:00",
+        "availabilityZone": "eu-central-1c",
+        "volumeIds": [
+          "vol-03e8094dfdad0112c"
+        ],
+        "subnetId": "subnet-0522052d105ce2ff3",
+        "securityGroupIds": [
+          "sg-0476f580c44063a5d"
+        ]
+      }
+    ]
+  },
+  "stopRequestedAt": "2026-11-03T19:09:00.474653+00:00",
+  "force": false,
+  "hibernate": false,
+  "stopResponse": {
+    "requestId": "3eeee2c6-006d-4e81-8809-23033f32d369",
+    "instances": [
+      {
+        "InstanceId": "i-0b25450afc6633494",
+        "CurrentState": {
+          "Code": 80,
+          "Name": "stopped"
+        },
+        "PreviousState": {
+          "Code": 80,
+          "Name": "stopped"
+        }
+      },
+      {
+        "InstanceId": "i-0f4cca4e92e94c351",
+        "CurrentState": {
+          "Code": 64,
+          "Name": "stopping"
+        },
+        "PreviousState": {
+          "Code": 16,
+          "Name": "running"
+        }
+      }
+    ]
+  },
+  "after": {
+    "observedAt": "2026-11-03T19:09:19.201027+00:00",
+    "requestId": "2b682cf1-53f8-4a53-ae84-285eca146f03",
+    "instances": [
+      {
+        "instanceId": "i-0b25450afc6633494",
+        "type": "r7i.2xlarge",
+        "state": "stopped",
+        "launchTime": "2026-11-03T16:28:16+00:00",
+        "availabilityZone": "eu-central-1c",
+        "volumeIds": [
+          "vol-0b484223201916460"
+        ],
+        "subnetId": "subnet-0522052d105ce2ff3",
+        "securityGroupIds": [
+          "sg-023659b3a447ab759"
+        ]
+      },
+      {
+        "instanceId": "i-0f4cca4e92e94c351",
+        "type": "m8i.2xlarge",
+        "state": "stopped",
+        "launchTime": "2026-11-03T16:28:46+00:00",
+        "availabilityZone": "eu-central-1c",
+        "volumeIds": [
+          "vol-03e8094dfdad0112c"
+        ],
+        "subnetId": "subnet-0522052d105ce2ff3",
+        "securityGroupIds": [
+          "sg-0476f580c44063a5d"
+        ]
+      }
+    ]
+  },
+  "webStoppedEarlier": {
+    "account": "798886013428",
+    "region": "eu-central-1",
+    "before": {
+      "observedAt": "2026-11-03T19:07:08.040223+00:00",
+      "requestId": "743df115-f337-408d-b7ed-c05dfb708328",
+      "instances": [
+        {
+          "instanceId": "i-0b25450afc6633494",
+          "type": "r7i.2xlarge",
+          "state": "running",
+          "launchTime": "2026-11-03T16:28:16+00:00",
+          "availabilityZone": "eu-central-1c",
+          "volumeIds": [
+            "vol-0b484223201916460"
+          ],
+          "subnetId": "subnet-0522052d105ce2ff3",
+          "securityGroupIds": [
+            "sg-023659b3a447ab759"
+          ]
+        }
+      ]
+    },
+    "stopRequestedAt": "2026-11-03T19:07:08.040249+00:00",
+    "force": false,
+    "hibernate": false,
+    "stopResponse": {
+      "requestId": "05790c9a-2743-4bef-a8de-852e43696138",
+      "instances": [
+        {
+          "InstanceId": "i-0b25450afc6633494",
+          "CurrentState": {
+            "Code": 64,
+            "Name": "stopping"
+          },
+          "PreviousState": {
+            "Code": 16,
+            "Name": "running"
+          }
+        }
+      ]
+    },
+    "after": {
+      "observedAt": "2026-11-03T19:07:43.341397+00:00",
+      "requestId": "0899f90e-91d8-4d5b-89c0-573b27ba2835",
+      "instances": [
+        {
+          "instanceId": "i-0b25450afc6633494",
+          "type": "r7i.2xlarge",
+          "state": "stopped",
+          "launchTime": "2026-11-03T16:28:16+00:00",
+          "availabilityZone": "eu-central-1c",
+          "volumeIds": [
+            "vol-0b484223201916460"
+          ],
+          "subnetId": "subnet-0522052d105ce2ff3",
+          "securityGroupIds": [
+            "sg-023659b3a447ab759"
+          ]
+        }
+      ]
+    }
+  }
+}

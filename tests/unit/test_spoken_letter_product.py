@@ -44,6 +44,35 @@ for(let i=s.trials.length;i<24;i++){s.present();const cc={...c,...(s.eye==='LEFT
 assert(s.completed);assert.equal(s.trials.filter(t=>t.eye==='RIGHT').length,12);assert.equal(s.trials.filter(t=>t.eye==='LEFT').length,12);assert(!('logMAR' in s));
 """)
 
+def test_second_not_visible_stops_assessment_without_scoring_the_letter(tmp_path):
+ run(tmp_path,"""
+const s=new V.SpokenLetterSession();const answer=()=>({letter:s.letter,rotation:s.transform.rotation,mirrored:s.transform.mirrored});
+s.present();assert(s.respond(answer(),c,1100,s.presentationId));
+s.present();assert(s.respond({command:'not-visible'},c,1100,s.presentationId));assert.equal(s.notVisibleUsed,1);assert(!s.stoppedForVisibility);
+const firstUse=s.trials.at(-1);assert(firstUse.valid&&firstUse.notVisible&&firstUse.letterCorrect===false);
+s.present();assert(s.respond(answer(),c,1100,s.presentationId));
+const before=s.trials.length,size=s.sizePx;s.present();const id=s.presentationId;
+assert(s.respond({command:'not-visible'},c,1100,id));
+assert(s.stoppedForVisibility);assert(!s.completed);assert.equal(s.trials.length,before);assert.equal(s.sizePx,size);assert.equal(s.notVisibleUsed,1);
+const stop=s.invalidTrials.at(-1);assert.equal(stop.invalidReason,V.LETTER_VISIBILITY_STOP);assert.equal(stop.valid,false);
+assert.equal(stop.letterCorrect,null);assert.equal(stop.orientationCorrect,null);assert.equal(stop.correct,false);assert.equal(stop.answer,null);
+assert.equal(V.performanceForEye(s.ledger,'RIGHT').valid,before);
+s.present();assert.equal(s.presentationId,'');assert(!s.respond(answer(),c,1100,id));
+""")
+
+def test_not_visible_allowance_spans_both_eyes(tmp_path):
+ run(tmp_path,"""
+const s=new V.SpokenLetterSession();const answer=()=>({letter:s.letter,rotation:s.transform.rotation,mirrored:s.transform.mirrored});
+s.present();assert(s.respond({command:'not-visible'},c,1100,s.presentationId));
+for(let i=1;i<12;i++){s.present();assert(s.respond(answer(),c,1100,s.presentationId));}
+assert.equal(s.eye,'LEFT');const left={...c,right:closed,left:open};
+s.present();assert(s.respond({command:'not-visible'},left,1100,s.presentationId));assert(s.stoppedForVisibility);assert.equal(s.trials.length,12);
+""")
+
+@pytest.mark.parametrize('language,one,other',[('en','1 completed conversation with consent','2 completed conversations with consent'),('de','1 abgeschlossenes Gespräch mit Einwilligung','2 abgeschlossene Gespräche mit Einwilligung')])
+def test_counted_labels_use_the_singular_form_for_one(tmp_path,language,one,other):
+ run(tmp_path,"const I=load('../i18n/core');assert.equal(I.translateText('1 tamamlanmış izinli görüşme',"+json.dumps(language)+"),"+json.dumps(one)+");assert.equal(I.translateText('2 tamamlanmış izinli görüşme',"+json.dumps(language)+"),"+json.dumps(other)+");assert.equal(I.translateText('1 tamamlanmış izinli görüşme','tr'),'1 tamamlanmış izinli görüşme');")
+
 @pytest.mark.parametrize('change',[{'observedAt':0},{'cameraLive':False},{'modelActive':False},{'faceCount':2},{'qualityValid':False},{'positionValid':False},{'relativeScaleChange':.081},{'relativeScaleChange':None},{'left':{'state':'open'}},{'right':{'state':'closed'}},{'left':{'state':'uncertain'}}])
 def test_conditions_block_scoring_and_preserve_presentation(tmp_path,change):
  run(tmp_path,"const s=new V.SpokenLetterSession();s.present();const id=s.presentationId,size=s.sizePx;const cc={...c,..."+json.dumps(change)+"};assert(V.letterConditionFailure(cc,'RIGHT',1100));assert(!s.respond({letter:s.letter,orientation:s.orientation},cc,1100,id));assert(!s.respond({command:'not-visible'},cc,1100,id));assert.equal(s.trials.length,0);assert.equal(s.presentationId,id);assert.equal(s.sizePx,size);")

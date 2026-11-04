@@ -1,0 +1,35 @@
+{
+ "observedAt": "2026-11-03",
+ "source": "adb and Chrome DevTools on the running AAOS 15 emulator WebView",
+ "physical": {
+  "width": 1280,
+  "height": 800,
+  "densityDpi": 160,
+  "devicePixelRatio": 1
+ },
+ "systemBars": {
+  "statusBarPx": 76,
+  "navigationBarPx": 96
+ },
+ "nativeShellBarPx": 111,
+ "webView": {
+  "screenY": 187,
+  "width": 1280,
+  "height": 517
+ },
+ "attuneHeaderBefore": {
+  "heightPx": 122,
+  "position": "sticky",
+  "contentHeightLeftPx": 395
+ },
+ "safeAreaInsets": {
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "otherDisplays": [
+  "528x692 and 528x792 are additional emulator displays, not Attune surfaces"
+ ],
+ "boundary": "One emulator configuration. Real vehicles have other bars and sizes."
+}

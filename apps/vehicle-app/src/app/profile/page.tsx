@@ -1,4 +1,5 @@
 'use client';
+import {X as CloseIcon} from 'lucide-react';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
 import { HEALTH_MODULES,HEALTH_MODULE_IDS } from '../../utils/healthModules';
@@ -71,7 +72,7 @@ export default function ProfilePage() {
               <span className="text-slate-500">•</span>
               <span className="text-slate-300 font-medium text-sm">{isDemo ? <>{profile.user.displayName}{i18nText(' (örnek kimlik)')}</> : i18nText('Yerel kullanıcı')}</span>
               {isDemo && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-950/80 border border-togg-turquoise/30 text-togg-turquoise lowercase font-mono">{i18nText("demo veri ")}</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-950/80 border border-togg-turquoise/30 text-togg-turquoise lowercase font-mono">{i18nText("demo veri ")}</span>
               )}
             </div>
             <p className="text-xs text-slate-400">
@@ -111,7 +112,7 @@ export default function ProfilePage() {
                 aria-label={i18nText("Pencereyi kapat")}
                 className="w-11 shrink-0 text-slate-400 hover:text-white text-xs"
               >
-                ✕
+                <CloseIcon className="w-5 h-5 mx-auto" aria-hidden="true"/>
               </button>
             </div>
 

@@ -1,0 +1,71 @@
+{
+  "observedAt": "2026-11-03T13:43:44.324343+00:00",
+  "network": {
+    "policy": "unrestricted",
+    "state": "enforced",
+    "actualTransfers": "VERIFIED"
+  },
+  "account": "798886013428",
+  "region": "eu-central-1",
+  "identityAlias": "AWS",
+  "instanceObservationAt": "2026-11-03T13:28:09.285229+00:00",
+  "instances": [
+    {
+      "id": "i-0b25450afc6633494",
+      "type": "g6.2xlarge",
+      "state": "stopped"
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "type": "m8i.2xlarge",
+      "state": "stopped"
+    }
+  ],
+  "paidStartApproved": false,
+  "ec2StartedByThisWork": false,
+  "priorPricingEvidence": "pricing-20261103.json",
+  "pricingRequeried": false,
+  "securityGroupsRecreated": false,
+  "models": {
+    "onnxOutputs": 2,
+    "regionalParts": 24,
+    "regionalMembers": 31,
+    "chatterboxParts": 98,
+    "chatterboxPinnedMembers": 117,
+    "configReferenceFiles": 4,
+    "inference": "NOT_RUN"
+  },
+  "apk": {
+    "artifactId": 13229474049,
+    "runId": 41634882348,
+    "bytes": 66182,
+    "sha256": "646f504b32b60ef9c670eef66e59a8923ddeb5ff9681c9e066ba6f78e54aa8b6",
+    "installedOnDevice": false
+  },
+  "validation": {
+    "webProductionBuild": "PASS",
+    "backendPipCheck": "PASS",
+    "backendImports": "PASS",
+    "ttsOfflineInstall": "PASS",
+    "ttsPipCheck": "PASS",
+    "ttsSourceFiles": 50,
+    "ttsDefaultAndFemaleConfigs": [
+      "tr",
+      "en",
+      "de"
+    ],
+    "caddyWebAndAaos": "PASS_WITH_TEST_CERTIFICATES",
+    "awsUnitTests": 28,
+    "webRoutingLocale": "PASS",
+    "liveAcceptance": "NOT_RUN"
+  },
+  "cost": {
+    "hours": 2,
+    "baseAwsUsd": 3.5507,
+    "awsWith10GBEgressUsd": 4.4507,
+    "operationalAwsProviderBudgetUsd": 6,
+    "taxIncluded": false,
+    "hardCap": false,
+    "existingStoppedEbsMonthlyUsd": 25.704
+  }
+}

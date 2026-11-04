@@ -1,4 +1,5 @@
 'use client';
+import {VIDEO_POSTER} from '../../utils/videoPoster';
 import {useLocaleSwitchLock} from '../../i18n/useLocaleSwitchLock';
 import {apiFetch as fetch} from '../../utils/localBackend';
 import {useTranslations} from '../../i18n/LanguageProvider';
@@ -21,6 +22,7 @@ import {StablePreviewCrop,SourceMotion,cameraCrop,Crop} from '../../utils/camera
 import {DentalCapture,DENTAL_POSES,DENTAL_GUIDANCE,assessDentalCapture,captureDental} from '../../utils/dentalCapture';
 import {DentalCaptureSession} from '../../utils/dentalCaptureSession';
 import {localAnalysisError} from '../../utils/localAnalysisError';
+import {acquireCamera,demoCameraSource} from '../../utils/demoCamera';
 import {dentalCameraErrorMessage} from '../../utils/dentalCameraError';
 import {saveDentalPhotos,verifyDentalPhotoPixels,DENTAL_PHOTO_PERMISSION} from '../../utils/dentalPhotoHistory';
 import {validateDentalResult,validateDentalView,dentalRecordMeasurements,dentalViewMeasured,DENTAL_POSE_LABELS} from '../../utils/dentalResult';
@@ -48,7 +50,7 @@ export default function DentalPage(){
  const voice=useGuidance('dental',isParked);
  useEffect(()=>{if(isParked)voice.phase(phase+':'+index,phase==='camera'?(['dental-front','dental-right','dental-left','dental-bite'] as const)[Math.min(index,3)]:undefined);},[voice,isParked,phase,index]);
  useEffect(()=>{const id=(phase==='camera'&&!notice.endsWith('Kısa süre sabit tutun.'))||phase==='error'?qualityGuidance(notice):undefined;voice.issue(id||'',id);},[voice,notice,phase]);
- const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|undefined>(undefined),inference=useRef<SkinInference|undefined>(undefined),epoch=useRef(0),abort=useRef<AbortController|undefined>(undefined),captures=useRef<readonly DentalCapture[]>([]),session=useRef<DentalCaptureSession|undefined>(undefined),display=useRef(new StablePreviewCrop()),motion=useRef(new SourceMotion()),validSince=useRef(0),lastFrame=useRef(-1),lastFresh=useRef(0),frameTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),misses=useRef(0),poseSince=useRef(0),best=useRef<{sharp:number;alignment:FaceAlignment;canvas:HTMLCanvasElement}|undefined>(undefined);
+ const video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|undefined>(undefined),inference=useRef<SkinInference|undefined>(undefined),epoch=useRef(0),abort=useRef<AbortController|undefined>(undefined),captures=useRef<readonly DentalCapture[]>([]),session=useRef<DentalCaptureSession|undefined>(undefined),display=useRef(new StablePreviewCrop()),motion=useRef(new SourceMotion()),validSince=useRef(0),lastFrame=useRef(-1),lastFresh=useRef(0),frameTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),misses=useRef(0),poseSince=useRef(0),best=useRef<{inputSource?:DentalCapture['inputSource'];sharp:number;alignment:FaceAlignment;canvas:HTMLCanvasElement}|undefined>(undefined);
  const stop=useCallback(()=>{setSaveBusy(false);voice.cancel();session.current?.close();epoch.current++;if(frameTimer.current)clearTimeout(frameTimer.current);stream.current?.getTracks().forEach(track=>track.stop());stream.current=undefined;inference.current?.close();inference.current=undefined;abort.current?.abort();},[voice]);
  const cancel=useCallback(()=>{stop();captures.current=[];resultId.current='';setSaved(false);setSaveNote(null);setResult(undefined);setUploading(false);if(fileInput.current)fileInput.current.value='';setProgress(0);setPhase('ready');setNotice('Geçici fotoğraf ve sonuçlar temizlendi.');},[stop]);
  useEffect(()=>()=>{stop();captures.current=[];},[stop]);
@@ -107,20 +109,20 @@ export default function DentalPage(){
     // Every pose skipped: nothing was measured; never present that as a result.
     if(!sources.length){stop();setPhase('error');setNotice('Hiçbir görünüm alınamadı. Daha iyi ışıkta yeniden tarayabilirsiniz.');return;}
     void analyze(run,sources);});session.current=scan;
-  try{const media=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1920},height:{ideal:1080}},audio:false});if(run!==epoch.current){media.getTracks().forEach(t=>t.stop());return;}stream.current=media;for(const track of media.getVideoTracks())track.addEventListener('ended',()=>{if(run===epoch.current){stop();setPhase('error');setNotice('Kamera bağlantısı kesildi. Yeniden başlayabilirsiniz.');}},{once:true});inference.current=new SkinInference();await inference.current.initialize();if(run!==epoch.current)return;
+  try{const media=await acquireCamera({video:{width:{ideal:1920},height:{ideal:1080}},audio:false});if(run!==epoch.current){media.getTracks().forEach(t=>t.stop());return;}stream.current=media;for(const track of media.getVideoTracks())track.addEventListener('ended',()=>{if(run===epoch.current){stop();setPhase('error');setNotice('Kamera bağlantısı kesildi. Yeniden başlayabilirsiniz.');}},{once:true});inference.current=new SkinInference();await inference.current.initialize();if(run!==epoch.current)return;
    if(!video.current)throw Error('Kamera önizlemesi hazırlanamadı.');video.current.srcObject=media;await video.current.play();setRatio(video.current.videoWidth/video.current.videoHeight);const canvas=document.createElement('canvas'),analysis=document.createElement('canvas');validSince.current=0;misses.current=0;best.current=undefined;poseSince.current=performance.now();lastFrame.current=-1;lastFresh.current=performance.now();display.current=new StablePreviewCrop();motion.current=new SourceMotion();
    const loop=async()=>{if(run!==epoch.current||scan.sealed||!parked.current||!isCameraAllowed()||!video.current)return;const v=video.current,now=performance.now();
     if(v.readyState<2||v.currentTime===lastFrame.current){if(now-lastFresh.current>750){validSince.current=0;setProgress(0);setNotice('Kamera görüntüsü güncel değil.');}frameTimer.current=setTimeout(loop,100);return;}
-    lastFrame.current=v.currentTime;lastFresh.current=now;canvas.width=v.videoWidth;canvas.height=v.videoHeight;const ctx=canvas.getContext('2d',{willReadFrequently:true})!;ctx.drawImage(v,0,0);
+    lastFrame.current=v.currentTime;lastFresh.current=now;canvas.width=v.videoWidth;canvas.height=v.videoHeight;const ctx=canvas.getContext('2d',{willReadFrequently:true})!;ctx.drawImage(v,0,0);const inputSource=demoCameraSource();
     const factor=Math.min(1,640/canvas.width);analysis.width=Math.round(canvas.width*factor);analysis.height=Math.round(canvas.height*factor);analysis.getContext('2d')!.drawImage(canvas,0,0,analysis.width,analysis.height);
     let a:FaceAlignment;try{a=await inference.current!.assessAlignment(analysis);}catch{if(run===epoch.current&&!scan.sealed){setPhase('error');setNotice('Yüz modeli yanıt vermedi.');stop();}return;}if(run!==epoch.current||scan.sealed)return;
     const pose=scan.nextPose;if(!pose)return;setCrop(display.current.update(cameraCrop(a.landmarks),performance.now()));const quality=assessDentalCapture(ctx,a,pose),center=a.landmarks?.[1];const moving=center?motion.current.update(center.x,center.y,a.scaleRatio,performance.now()):true;
     const at=performance.now();if(at-poseSince.current>=DENTAL_SKIP_AFTER_MS)setSkipAvailable(true);
     if(quality.valid&&!moving){if(!validSince.current){validSince.current=at;best.current=undefined;}misses.current=0;
      // Keep the sharpest fully valid frame (pixels + its own landmarks) of this hold.
-     const sharp=quality.sharp??0;if(!best.current||sharp>best.current.sharp){const copy=best.current?.canvas||document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;copy.getContext('2d',{willReadFrequently:true})!.drawImage(canvas,0,0);best.current={sharp,alignment:a,canvas:copy};}
+     const sharp=quality.sharp??0;if(!best.current||sharp>best.current.sharp){const copy=best.current?.canvas||document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;copy.getContext('2d',{willReadFrequently:true})!.drawImage(canvas,0,0);best.current={inputSource,sharp,alignment:a,canvas:copy};}
      const held=at-validSince.current;setProgress(Math.min(100,Math.round(held/DENTAL_HOLD_MS*100)));setNotice(DENTAL_GUIDANCE[pose]+' Kısa süre sabit tutun.');
-     if(held>=DENTAL_HOLD_MS){const chosen=best.current!;const capture=await captureDental(chosen.canvas,chosen.alignment,pose);
+     if(held>=DENTAL_HOLD_MS){const chosen=best.current!;const capture=await captureDental(chosen.canvas,chosen.alignment,pose);capture.inputSource=chosen.inputSource;
       // The session may have been sealed (skip/cancel) while this frame was encoding:
       // then the capture is discarded and can neither join the sources nor start an analysis.
       if(run!==epoch.current)return;const accepted=scan.accept(capture);if(accepted==='closed')return;
@@ -153,7 +155,7 @@ export default function DentalPage(){
   :<section className={styles.root}>
    {!uploading&&phase!=='error'&&<DentalJourney active={step} skipped={Array.isArray(result?.missingViews)?result.missingViews:skippedPoses}/>}
    {phase==='camera'&&<div className={styles.capture} data-dental-capture>
-    <div className={styles.panel}><div className={styles.preview} style={{aspectRatio:ratio*crop.width/crop.height}}><div className="absolute" style={{width:`${100/crop.width}%`,height:`${100/crop.height}%`,left:`${-100*crop.x/crop.width}%`,top:`${-100*crop.y/crop.height}%`}}><video ref={video} muted playsInline autoPlay className="w-full h-full object-fill" data-dental-live-video/></div></div>
+    <div className={styles.panel}><div className={styles.preview} style={{aspectRatio:ratio*crop.width/crop.height,'--preview-ratio':ratio*crop.width/crop.height} as React.CSSProperties}><div className="absolute" style={{width:`${100/crop.width}%`,height:`${100/crop.height}%`,left:`${-100*crop.x/crop.width}%`,top:`${-100*crop.y/crop.height}%`}}><video poster={VIDEO_POSTER} ref={video} muted playsInline autoPlay className="w-full h-full object-fill" data-dental-live-video/></div></div>
      <div className={styles.hold} role="progressbar" aria-label={i18nText('Sabit tutma süresi')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress}><span style={{width:`${progress}%`}}/></div><p className={styles.hint}>{i18nNode(progress>0?'Çekiliyor…':'Başınızı rahat tutun; çekim kendiliğinden yapılır.')}</p></div>
     <div className={styles.panel}><p className={styles.stepCount}>{i18nNode(Math.min(index+1,4))}<small> / 4</small></p><h2>{i18nNode(DENTAL_POSE_LABELS[DENTAL_POSES[Math.min(index,3)]])}</h2><p className={styles.guide}>{i18nNode(DENTAL_GUIDANCE[DENTAL_POSES[Math.min(index,3)]])}</p><p role="status" aria-live="polite">{i18nNode(notice)}</p>
      <div className={styles.actions}>{skipAvailable&&<button type="button" className={styles.secondary} onClick={skipPose} data-dental-skip-pose={DENTAL_POSES[Math.min(index,3)]} {...(index===3?{'data-dental-skip-bite':''}:{})}><SkipForward aria-hidden="true"/>{i18nNode(index===3?'Kapanış görünümünü atla':'Bu görünümü atla')}</button>}<button type="button" className={styles.ghost} onClick={cancel}><X aria-hidden="true"/>{i18nText('İptal et')}</button></div>

@@ -1,0 +1,454 @@
+{
+ "scope": "Real EC2 Stop, Start and Stop through the installed desktop tool, profile attune-desktop. Service availability, not health-module acceptance.",
+ "installedTool": "%LOCALAPPDATA%\\AttuneMore\\bin\\AttuneControl.ps1",
+ "deepVerification": "Start ran with -Deep: SHA-256 of all model files and one real Chatterbox generation.",
+ "publicIpChangedOnEveryStart": [
+  "63.179.109.210/51.102.246.181",
+  "3.67.199.247/51.102.115.128",
+  "35.158.113.241/3.71.96.180"
+ ],
+ "cycle": [
+  {
+   "action": "Stop",
+   "startedAt": "2026-11-03T22:54:36.3100538Z",
+   "finishedAt": "2026-11-03T22:55:08.5758348Z",
+   "seconds": 32,
+   "status": "STOPPED",
+   "identity": "arn:aws:sts::798886013428:assumed-role/attune-ops-control/desktop",
+   "instances": [
+    {
+     "id": "i-0b25450afc6633494",
+     "state": "stopped"
+    },
+    {
+     "id": "i-0f4cca4e92e94c351",
+     "state": "stopped"
+    }
+   ],
+   "timingsFromStartSeconds": {
+    "stoppedSeconds": 29
+   },
+   "recoveries": [],
+   "problems": [],
+   "urls": {},
+   "costEstimate": {
+    "basis": "Estimate from recorded AWS On-Demand rates and instance run time. Not a bill. Excludes data transfer, OpenAI and tax.",
+    "sessionComputeAndIpv4Usd": 0.27,
+    "perInstance": [
+     {
+      "role": "web",
+      "state": "stopped",
+      "hours": 0.23,
+      "usd": 0.148
+     },
+     {
+      "role": "aaos",
+      "state": "stopped",
+      "hours": 0.23,
+      "usd": 0.118
+     }
+    ],
+    "computeRunningNowUsdPerHour": 0,
+    "ebsContinuesUsdPerMonth": 25.704
+   },
+   "checksPassed": 0,
+   "checksFailedRequired": [],
+   "checks": []
+  },
+  {
+   "action": "Start",
+   "startedAt": "2026-11-03T22:55:32.0389370Z",
+   "finishedAt": "2026-11-03T22:58:13.1959770Z",
+   "seconds": 161,
+   "status": "READY",
+   "identity": "arn:aws:sts::798886013428:assumed-role/attune-ops-control/desktop",
+   "instances": [
+    {
+     "id": "i-0b25450afc6633494",
+     "state": "running",
+     "publicIp": "35.158.113.241"
+    },
+    {
+     "id": "i-0f4cca4e92e94c351",
+     "state": "running",
+     "publicIp": "3.71.96.180"
+    }
+   ],
+   "timingsFromStartSeconds": {
+    "computeRunningSeconds": 19,
+    "ssmOnlineSeconds": 29,
+    "webVerifiedSeconds": 147,
+    "aaosVerifiedSeconds": 157
+   },
+   "recoveries": [],
+   "problems": [],
+   "urls": [
+    {
+     "role": "web",
+     "publicIp": "35.158.113.241",
+     "domain": "attune.sasmaz.digital",
+     "dnsPointsHere": false,
+     "unauthenticatedHttps": "401"
+    },
+    {
+     "role": "aaos",
+     "publicIp": "3.71.96.180",
+     "domain": "aaos.sasmaz.digital",
+     "dnsPointsHere": false,
+     "unauthenticatedHttps": "401"
+    }
+   ],
+   "costEstimate": {
+    "basis": "Estimate from recorded AWS On-Demand rates and instance run time. Not a bill. Excludes data transfer, OpenAI and tax.",
+    "sessionComputeAndIpv4Usd": 0.05,
+    "perInstance": [
+     {
+      "role": "web",
+      "state": "running",
+      "hours": 0.041,
+      "usd": 0.027
+     },
+     {
+      "role": "aaos",
+      "state": "running",
+      "hours": 0.04,
+      "usd": 0.021
+     }
+    ],
+    "computeRunningNowUsdPerHour": 1.156,
+    "ebsContinuesUsdPerMonth": 25.704
+   },
+   "checksPassed": 56,
+   "checksFailedRequired": [],
+   "checks": [
+    {
+     "id": "identity",
+     "status": "PASS",
+     "detail": "i-0b25450afc6633494 r7i.2xlarge eu-central-1"
+    },
+    {
+     "id": "os",
+     "status": "PASS",
+     "detail": "running"
+    },
+    {
+     "id": "disk",
+     "status": "PASS",
+     "detail": "120.3 GiB free"
+    },
+    {
+     "id": "unit:attune-caddy",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-api@web",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-api@aaos",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-web@web",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-web@aaos",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-capture",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "tls-valid",
+     "status": "PASS",
+     "detail": "earliest internal.crt in 825.0 days"
+    },
+    {
+     "id": "api-web",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "api-aaos",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "web-modules",
+     "status": "PASS",
+     "detail": "all 200"
+    },
+    {
+     "id": "aaos-frontend-modules",
+     "status": "PASS",
+     "detail": "all 200"
+    },
+    {
+     "id": "provider-file",
+     "status": "PASS",
+     "detail": "root-owned 0600"
+    },
+    {
+     "id": "provider-web",
+     "status": "PASS",
+     "detail": "LIVE_OPENAI (gpt-4o-mini)"
+    },
+    {
+     "id": "asr-web",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "provider-aaos",
+     "status": "PASS",
+     "detail": "LIVE_OPENAI (gpt-4o-mini)"
+    },
+    {
+     "id": "asr-aaos",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "provider-auth",
+     "status": "PASS",
+     "detail": "HTTP 200"
+    },
+    {
+     "id": "tts-runtime",
+     "status": "PASS",
+     "detail": "2 of 2 configs"
+    },
+    {
+     "id": "tts-tokens",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "tts-generate",
+     "status": "PASS",
+     "detail": "200 86444 70.131117 audio/wav"
+    },
+    {
+     "id": "assets",
+     "status": "PASS",
+     "detail": "52 files"
+    },
+    {
+     "id": "inference",
+     "status": "PASS",
+     "detail": "27 models ready"
+    },
+    {
+     "id": "capture-port",
+     "status": "PASS",
+     "detail": "127.0.0.1:8012"
+    },
+    {
+     "id": "caddy-443",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "mtls-8443",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "identity",
+     "status": "PASS",
+     "detail": "i-0f4cca4e92e94c351 m8i.2xlarge eu-central-1"
+    },
+    {
+     "id": "os",
+     "status": "PASS",
+     "detail": "running"
+    },
+    {
+     "id": "disk",
+     "status": "PASS",
+     "detail": "99.0 GiB free"
+    },
+    {
+     "id": "unit:attune-caddy",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-aaos",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "unit:attune-audio",
+     "status": "PASS",
+     "detail": "active=active enabled=enabled"
+    },
+    {
+     "id": "tls-valid",
+     "status": "PASS",
+     "detail": "earliest aaos.crt in 825.0 days"
+    },
+    {
+     "id": "kvm",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "mtls",
+     "status": "PASS",
+     "detail": "HTTP 200"
+    },
+    {
+     "id": "mtls-refusal",
+     "status": "PASS",
+     "detail": "ERR:curl: (56) OpenSSL SSL_read: OpenSSL/3.0.13: error:0A00045C:SSL routines::tlsv13 alert certificate required, errno 0"
+    },
+    {
+     "id": "camera-bridge",
+     "status": "PASS",
+     "detail": "HTTP 405"
+    },
+    {
+     "id": "park",
+     "status": "PASS",
+     "detail": "PARKED"
+    },
+    {
+     "id": "aaos-modules",
+     "status": "PASS",
+     "detail": "all 200"
+    },
+    {
+     "id": "android-boot",
+     "status": "PASS",
+     "detail": "1"
+    },
+    {
+     "id": "android-api",
+     "status": "PASS",
+     "detail": "API 35"
+    },
+    {
+     "id": "android-automotive",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "android-mic-feature",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "android-memory",
+     "status": "PASS",
+     "detail": "2979 MiB visible"
+    },
+    {
+     "id": "apk",
+     "status": "PASS",
+     "detail": "more.attune.automotive.prototype.clouddemo"
+    },
+    {
+     "id": "webview",
+     "status": "PASS",
+     "detail": "com.google.android.webview 147.0.7727.137"
+    },
+    {
+     "id": "adb-reverse",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "app-foreground",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "display",
+     "status": "PASS",
+     "detail": "Physical size: 1280x800; Physical density: 160"
+    },
+    {
+     "id": "audio-enabled",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "audio-sinks",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "audio-port",
+     "status": "PASS",
+     "detail": "127.0.0.1:6090"
+    },
+    {
+     "id": "novnc",
+     "status": "PASS",
+     "detail": ""
+    },
+    {
+     "id": "caddy-443",
+     "status": "PASS",
+     "detail": ""
+    }
+   ]
+  },
+  {
+   "action": "Stop",
+   "startedAt": "2026-11-03T23:06:57.7702256Z",
+   "finishedAt": "2026-11-03T23:07:50.8019332Z",
+   "seconds": 53,
+   "status": "STOPPED",
+   "identity": "arn:aws:sts::798886013428:assumed-role/attune-ops-control/desktop",
+   "instances": [
+    {
+     "id": "i-0b25450afc6633494",
+     "state": "stopped"
+    },
+    {
+     "id": "i-0f4cca4e92e94c351",
+     "state": "stopped"
+    }
+   ],
+   "timingsFromStartSeconds": {
+    "stoppedSeconds": 50
+   },
+   "recoveries": [],
+   "problems": [],
+   "urls": {},
+   "costEstimate": {
+    "basis": "Estimate from recorded AWS On-Demand rates and instance run time. Not a bill. Excludes data transfer, OpenAI and tax.",
+    "sessionComputeAndIpv4Usd": 0.22,
+    "perInstance": [
+     {
+      "role": "web",
+      "state": "stopped",
+      "hours": 0.191,
+      "usd": 0.123
+     },
+     {
+      "role": "aaos",
+      "state": "stopped",
+      "hours": 0.192,
+      "usd": 0.098
+     }
+    ],
+    "computeRunningNowUsdPerHour": 0,
+    "ebsContinuesUsdPerMonth": 25.704
+   },
+   "checksPassed": 0,
+   "checksFailedRequired": [],
+   "checks": []
+  }
+ ]
+}

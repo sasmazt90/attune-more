@@ -55,7 +55,7 @@ export const SkinObservationModal: React.FC<SkinObservationModalProps> = ({ regi
         </div>
 
         {/* Disclaimer / Guidance */}
-        <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-[11px] text-slate-400 leading-normal">
+        <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 text-xs text-slate-400 leading-normal">
           <span className="font-semibold text-slate-300">{i18nText("Bilgilendirme: ")}</span>{i18nText("Bu değerlendirme, araç içi optik sensör verileriyle hesaplanan görsel değişim eğilimidir; tıbbi tanı veya tedavi tavsiyesi teşkil etmez. ")}</div>
     </AccessibleDialog>
   );

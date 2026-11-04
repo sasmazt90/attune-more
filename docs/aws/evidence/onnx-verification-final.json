@@ -1,0 +1,23 @@
+{
+  "assets": [
+    {
+      "path": "services/core-api/models/skin-type-local-v1/model.onnx",
+      "bytes": 343341982,
+      "sha256": "99b4c2fa1e9ac013d539f635eb948c5a29f4c5f86f34fe26c380ad308c26c65a",
+      "status": "VERIFIED"
+    },
+    {
+      "path": "services/core-api/models/acne-v5-preview/step0-with-features-stable-silu.onnx",
+      "bytes": 39122518,
+      "sha256": "9c87475d9302aed16f09abedc109211c2ac1b49f22f465f86aab408a5244d0be",
+      "status": "VERIFIED"
+    }
+  ],
+  "partOrder": [
+    "skin-type-local-v1-model.onnx.part-000",
+    "skin-type-local-v1-model.onnx.part-001",
+    "skin-type-local-v1-model.onnx.part-002",
+    "skin-type-local-v1-model.onnx.part-003"
+  ],
+  "inference": "NOT_RUN"
+}

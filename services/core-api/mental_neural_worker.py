@@ -68,7 +68,7 @@ def synthesize(payload, runtime=None):
             raise OSError('UNAPPROVED_AUXILIARY_ARTIFACT')
         return str(directory / 'Cangjie5_TC.json')
     tokenizer_module.hf_hub_download = local_mapping
-    torch.set_num_threads(2)
+    torch.set_num_threads(int(os.getenv('ATTUNE_MENTAL_TTS_THREADS', '2')))
     device = config.get('device', 'cpu')
     if device not in ('cpu', 'cuda'):
         raise ValueError('UNSUPPORTED_DEVICE')

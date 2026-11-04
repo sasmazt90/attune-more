@@ -1,4 +1,5 @@
 'use client';
+import {VIDEO_POSTER} from '../utils/videoPoster';
 import {useTranslations} from '../i18n/LanguageProvider';
 
 import { useEffect, useRef, useState, type RefObject } from 'react';
@@ -15,7 +16,7 @@ export function CameraPreview({videoRef,landmarks,vision=false}:{videoRef:RefObj
  useEffect(()=>{if(!vision||!frame.current)return;const observer=new ResizeObserver(([entry])=>{const {width,height}=entry.contentRect;if(width>0&&height>0)setFrameRatio(width/height);});observer.observe(frame.current);return()=>observer.disconnect();},[vision]);
  const desired=vision?visionCameraCrop(landmarks,ratio,frameRatio):cameraCrop(landmarks),crop=(vision?visionStable.current:stable.current).update(desired,performance.now());
  return <div ref={frame} data-camera-preview data-preview-crop={JSON.stringify(crop)} data-target-crop={JSON.stringify(desired)} className={vision?VISION_FRAME_CLASS:"relative w-full max-w-[480px] mx-auto overflow-hidden rounded-2xl bg-black"} style={vision?undefined:{aspectRatio:ratio*crop.width/crop.height}}>
-  <video ref={videoRef} autoPlay playsInline muted data-vision-camera={vision?true:undefined} onLoadedMetadata={e=>{if(e.currentTarget.videoHeight)setRatio(e.currentTarget.videoWidth/e.currentTarget.videoHeight);}} className="absolute max-w-none" style={{width:`${100/crop.width}%`,height:'auto',left:`${-100*crop.x/crop.width}%`,top:`${-100*crop.y/crop.height}%`}}/>
+  <video poster={VIDEO_POSTER} ref={videoRef} autoPlay playsInline muted data-vision-camera={vision?true:undefined} onLoadedMetadata={e=>{if(e.currentTarget.videoHeight)setRatio(e.currentTarget.videoWidth/e.currentTarget.videoHeight);}} className="absolute max-w-none" style={{width:`${100/crop.width}%`,height:'auto',left:`${-100*crop.x/crop.width}%`,top:`${-100*crop.y/crop.height}%`}}/>
  </div>;
 }
 export interface CameraResolution { width:number; height:number; maxWidth?:number; maxHeight?:number }

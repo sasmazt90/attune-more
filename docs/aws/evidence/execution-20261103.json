@@ -1,0 +1,204 @@
+{
+  "observedAt": "2026-11-03T16:25:26.435221+00:00",
+  "scope": "Actual EC2/SSM installation observations; not health-module E2E acceptance",
+  "account": "798886013428",
+  "region": "eu-central-1",
+  "aaos": {
+    "instanceId": "i-0f4cca4e92e94c351",
+    "type": "m8i.2xlarge",
+    "state": "stopped",
+    "boot": "Android 15 API 35; android.hardware.type.automotive present",
+    "requestedMemoryMiB": 3072,
+    "guestMemTotalKiB": 3050220,
+    "display": "1280x800",
+    "kvm": "installed and usable",
+    "apkSha256": "646f504b32b60ef9c670eef66e59a8923ddeb5ff9681c9e066ba6f78e54aa8b6",
+    "cameraDeviceCount": 0,
+    "microphoneFeature": true,
+    "audio": "Installed and verified active before stop; physical input/output NOT_ACCEPTED",
+    "tls": "Private CA validated; direct-IP HTTPS returns 401 without authentication",
+    "backend": "BLOCKED: WEB stopped; native application keeps health operations closed"
+  },
+  "web": {
+    "instanceId": "i-0b25450afc6633494",
+    "type": "g6e.2xlarge",
+    "state": "stopped",
+    "startFailure": "InsufficientInstanceCapacity",
+    "typeChangeFailure": "Initial IAM denial resolved; subsequent approved g5 and g6e changes succeeded",
+    "typeChanged": true,
+    "approvedAlternatives": [
+      "g5.2xlarge",
+      "g6e.2xlarge"
+    ],
+    "capacityFailures": [
+      "g6.2xlarge",
+      "g5.2xlarge",
+      "g6e.2xlarge"
+    ],
+    "lastCapacityFailure": {
+      "at": "2026-11-03T16:24:22.333343+00:00",
+      "instanceId": "i-0b25450afc6633494",
+      "type": "g6e.2xlarge",
+      "priorState": "stopped",
+      "preservedResources": {
+        "VpcId": "vpc-074768071df6b9266",
+        "SubnetId": "subnet-0522052d105ce2ff3",
+        "SecurityGroups": [
+          {
+            "GroupId": "sg-023659b3a447ab759",
+            "GroupName": "attune-web-ai-sg"
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "AttachTime": "2026-11-03 09:44:53+00:00",
+              "DeleteOnTermination": true,
+              "Status": "attached",
+              "VolumeId": "vol-0b484223201916460",
+              "EbsCardIndex": 0
+            }
+          }
+        ],
+        "ImageId": "ami-04de259f26cbf4c1e"
+      },
+      "error": {
+        "Code": "InsufficientInstanceCapacity",
+        "Message": "Insufficient capacity."
+      },
+      "requestId": "b01cab3c-33cc-413f-8212-a401c2950dcd"
+    }
+  },
+  "localValidation": {
+    "awsTestsPassed": 29,
+    "routingLocaleChecks": "PASS",
+    "liveAcceptanceClaimed": false
+  },
+  "e2e": {
+    "completedEnglishVideos": 0,
+    "requiredEnglishVideos": 10,
+    "modules": {
+      "Dental": {
+        "AAOS": "BLOCKED_BACKEND_UNAVAILABLE",
+        "Web App": "BLOCKED_INSTANCE_STOPPED"
+      },
+      "Vision": {
+        "AAOS": "BLOCKED_BACKEND_UNAVAILABLE",
+        "Web App": "BLOCKED_INSTANCE_STOPPED"
+      },
+      "Skin": {
+        "AAOS": "BLOCKED_BACKEND_UNAVAILABLE",
+        "Web App": "BLOCKED_INSTANCE_STOPPED"
+      },
+      "Mental": {
+        "AAOS": "BLOCKED_BACKEND_UNAVAILABLE",
+        "Web App": "BLOCKED_INSTANCE_STOPPED"
+      },
+      "Hearing": {
+        "AAOS": "BLOCKED_BACKEND_UNAVAILABLE",
+        "Web App": "BLOCKED_INSTANCE_STOPPED"
+      }
+    },
+    "remaining": [
+      "ATT-T03-05 simultaneous Skin WEB and Hearing AAOS",
+      "Vision WEB real EN/DE ASR",
+      "AAOS Vision full journey with 3072 MiB",
+      "Mental partial-session and ordered five-turn sessions",
+      "native PARK/DRIVE transitions",
+      "real camera/microphone/audio, results/history/session acceptance",
+      "private WEB-AAOS mTLS handshake"
+    ],
+    "diagnosticVideo": {
+      "status": "BLOCKED_NOT_E2E_PASS",
+      "language": "English",
+      "bytes": 78124,
+      "sha256": "6a56bd4174824917b0ea8e91f2d97849716268eaa7e4c972e99aee11094650e3",
+      "driveReadBackSha256Verified": true
+    }
+  },
+  "secretAudit": "WEB not started; provider-secret presence unknown. No missing-key assertion made.",
+  "ssm": [
+    {
+      "CommandId": "68a69fb6-5039-42ad-94be-f2236827ff64",
+      "InstanceId": "i-0f4cca4e92e94c351",
+      "Status": "Success",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-03T15:51:55.106Z",
+      "ExecutionEndDateTime": "2026-11-03T15:52:49.106Z"
+    },
+    {
+      "CommandId": "9728dfc1-b10b-447f-8621-67c150839b83",
+      "InstanceId": "i-0f4cca4e92e94c351",
+      "Status": "Success",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-03T16:01:22.580Z",
+      "ExecutionEndDateTime": "2026-11-03T16:01:22.580Z"
+    },
+    {
+      "CommandId": "052fc46f-ea30-4fe1-8f87-71c7cd5e8ed0",
+      "InstanceId": "i-0f4cca4e92e94c351",
+      "Status": "Success",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-03T16:02:16.843Z",
+      "ExecutionEndDateTime": "2026-11-03T16:02:41.843Z"
+    },
+    {
+      "CommandId": "e5bc1f41-97d0-404f-a6e8-3ed98c672187",
+      "InstanceId": "i-0f4cca4e92e94c351",
+      "Status": "Success",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-03T16:05:40.306Z",
+      "ExecutionEndDateTime": "2026-11-03T16:06:08.306Z"
+    },
+    {
+      "CommandId": "eaaddb8d-2a6a-44c9-b1e0-4999321f1223",
+      "InstanceId": "i-0f4cca4e92e94c351",
+      "Status": "Success",
+      "ResponseCode": 0,
+      "ExecutionStartDateTime": "2026-11-03T16:07:58.662Z",
+      "ExecutionEndDateTime": "2026-11-03T16:07:59.662Z"
+    }
+  ],
+  "costObservation": {
+    "actualBill": "UNAVAILABLE: Cost Explorer AccessDeniedException",
+    "aaosHourlyUsd": 0.50716,
+    "activeIpv4HourlyUsd": 0.005,
+    "existingGp3MonthlyUsd": 25.704,
+    "webG6_2xlargeHourlyUsd": 1.22249,
+    "approvedG6_4xlargeHourlyUsd": 1.65466,
+    "providerCallsDuringResume": 0,
+    "fixedTimeCutoff": false,
+    "selectedG6e_2xlargeHourlyUsd": 2.8035,
+    "bothHostsWithActiveIpv4HourlyUsd": 3.32066,
+    "finalSessionEstimate": {
+      "basis": "Conservative elapsed upper bound from successful AAOS StartInstances request to confirmed stopped; not a billed-cost observation",
+      "from": "2026-11-03T15:04:18.005326+00:00",
+      "to": "2026-11-03T16:25:26.435221+00:00",
+      "hours": 1.3523416375000001,
+      "aaosComputeUsd": 0.685854,
+      "activeIpv4Usd": 0.006762,
+      "incrementalEstimateUsd": 0.692615,
+      "allocatedExistingEbsUsd": 0.048279,
+      "estimateIncludingAllocatedEbsUsd": 0.740894,
+      "actualBilledCost": "UNAVAILABLE: Cost Explorer AccessDeniedException",
+      "webComputeUsd": 0,
+      "providerCallsObserved": 0,
+      "existingEbsMonthlyUsd": 25.704,
+      "excludes": "VAT, account-wide charges, actual internet egress, provider charges outside this execution"
+    }
+  },
+  "restrictions": {
+    "newEc2VpcEbs": false,
+    "dnsChanged": false,
+    "mergedMain": false
+  },
+  "finalStop": {
+    "verifiedAt": "2026-11-03T16:25:26.435221+00:00",
+    "requestId": "4d8f0a25-a7d3-4db9-b6e6-56116b45b422",
+    "describeRequestId": "45922c10-eca1-456f-b6ad-c2fb3de56039",
+    "bothStopped": true,
+    "force": false,
+    "evidence": "stop-20261103.json"
+  }
+}

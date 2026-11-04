@@ -15,7 +15,7 @@ def session():
             import onnxruntime as ort
             path=Path(__file__).with_name('models')/'skin-eyewear-framefind-v1.onnx'
             if hashlib.sha256(path.read_bytes()).hexdigest()!=MODEL_HASH:raise ValueError('SKIN_EYEWEAR_MODEL_IDENTITY')
-            opts=ort.SessionOptions();opts.intra_op_num_threads=1;opts.inter_op_num_threads=1;opts.enable_cpu_mem_arena=False;opts.enable_mem_pattern=False
+            opts=ort.SessionOptions();opts.intra_op_num_threads=1;opts.inter_op_num_threads=1;opts.enable_cpu_mem_arena=False;opts.enable_mem_pattern=False;opts.add_session_config_entry('session.intra_op.allow_spinning','0')
             created=ort.InferenceSession(str(path),opts,providers=['CPUExecutionProvider'])
             if created.get_inputs()[0].name!='input' or created.get_inputs()[0].shape[1:]!=[3,112,112] or created.get_outputs()[0].name!='logit':raise ValueError('SKIN_EYEWEAR_MODEL_CONTRACT')
             _session=created

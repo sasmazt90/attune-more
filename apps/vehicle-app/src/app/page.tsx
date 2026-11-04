@@ -33,29 +33,31 @@ export default function CockpitDashboard() {
   return (
     <div className="space-y-6">
       {/* 1. Hero Karşılama ve Durum Alanı (İlk Viewport Üst %35-40) */}
-      <section className="bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 relative overflow-hidden shadow-2xl">
+      <section className={`bg-gradient-to-br from-cockpit-surface via-[#071322] to-cockpit-bg border border-white/10 rounded-2xl p-6 md:p-7 short:p-4 relative overflow-hidden shadow-2xl ${isDemo||!isParked ? 'xshort:p-2' : 'xshort:hidden'}`}>
         <div className="absolute top-0 right-0 w-96 h-96 bg-togg-turquoise/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-cyan-900/20 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="space-y-3 min-w-0 max-w-2xl">
-            <div className="flex items-center gap-2 text-[11px] font-semibold text-togg-turquoise tracking-wider uppercase">
+          <div className="space-y-3 short:space-y-1 min-w-0 max-w-2xl">
+            {/* Short displays keep the module actions in the first screen. A demo label always stays. */}
+            <div className={`flex items-center gap-2 text-xs font-semibold text-togg-turquoise tracking-wider uppercase ${isDemo ? '' : 'short:hidden'}`}>
               <span className="w-2 h-2 rounded-full bg-togg-turquoise animate-pulse" />
               <span>{i18nText("Kişisel Önleyici Sağlık Kokpiti")}</span>
               {isDemo && (
-                <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-cyan-950/80 border border-togg-turquoise/30 text-togg-turquoise lowercase font-mono">{i18nText("demo veri ")}</span>
+                <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-cyan-950/80 border border-togg-turquoise/30 text-togg-turquoise lowercase font-mono">{i18nText("demo veri ")}</span>
               )}
             </div>
 
-            <div className="space-y-1">
-              <div className="flex items-center gap-2"><h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
+            <div className="space-y-1 xshort:hidden">
+              <div className="flex items-center gap-2"><h1 className="text-3xl md:text-4xl short:text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
                 <ProductWordmark />
               </h1><InformationButton title={i18nText("Attune.more kokpiti")}><ul className="list-disc pl-5 space-y-3"><li>{i18nText("Kişisel sağlık ve iyi oluş modülleri ön değerlendirme amaçlı olup, kontroller yalnız park halinde kullanılabilir.")}</li><li>{i18nText("Bu uygulama klinik tanı sağlamaz.")}</li></ul></InformationButton></div>
               <p className="text-sm md:text-base text-slate-300 leading-relaxed">{i18nText("Park halinde göz, cilt, diş, işitme ve ruh sağlığı değerlendirmelerinizi başlatın. ")}</p>
             </div>
 
             {/* Modül Kategorileri Bandı */}
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
+            {/* Repeats the module cards directly below, so only a phone's stacked layout keeps it. */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400 md:hidden">
               {HEALTH_MODULE_IDS.map((id, index) => (
                 <React.Fragment key={id}>
                   {index > 0 && <span className="text-slate-600">•</span>}
@@ -88,7 +90,7 @@ export default function CockpitDashboard() {
               <div className="p-2.5 bg-togg-darkBlue/80 border border-togg-darkTurquoise/50 text-togg-turquoise rounded-xl group-hover:border-togg-turquoise/60 transition-colors">
                 <CalendarCheck className="w-5 h-5" />
               </div>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800 font-mono">{i18nText("04 • UZMAN ")}</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800 font-mono">{i18nText("UZMAN")}</span>
             </div>
 
             <div>
@@ -97,13 +99,13 @@ export default function CockpitDashboard() {
             </div>
 
             {/* Sade Tek Katman İçgörü */}
-            <div data-cockpit-care className="bg-slate-950/80 border border-slate-800/80 rounded-xl p-3 text-xs space-y-1">
-              <p className="text-amber-400 text-[11px]">{i18nText("Örnek randevu")}</p>
+            <div data-cockpit-care className="short:hidden bg-slate-950/80 border border-slate-800/80 rounded-xl p-3 text-xs space-y-1">
+              <p className="text-amber-400 text-xs">{i18nText("Örnek randevu")}</p>
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 text-[11px]">{i18nText("Örnek Branş")}</span>
+                <span className="text-slate-400 text-xs">{i18nText("Örnek Branş")}</span>
                 <span className="text-white text-xs font-semibold">{i18nText("Dermatoloji")}</span>
               </div>
-              <div className="text-[11px] text-emerald-400 font-medium pt-1 border-t border-slate-900 flex items-center justify-between">
+              <div className="text-xs text-emerald-400 font-medium pt-1 border-t border-slate-900 flex items-center justify-between">
                 <span>{i18nText("Uzm. Dr. B. Kaya (Demo Hekim)")}</span>
                 <span>{i18nText("Yarın 18:20 (örnek)")}</span>
               </div>

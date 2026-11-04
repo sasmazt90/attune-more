@@ -1,0 +1,88 @@
+{
+  "baseline": "9db8abaa324610b1852364ea8848bbb05fff9643",
+  "preparationCommit": "860753172b01e20eac8c23d7d120ec6ff99d969f",
+  "draftPR": "https://github.com/sasmazt90/attune-more/pull/22",
+  "tests": {
+    "pythonFocused": {
+      "passed": 20,
+      "aws": false
+    },
+    "hostJvmPolicy": {
+      "passed": 96,
+      "androidRuntime": false
+    },
+    "nextCloudBuild": "PASS",
+    "typecheck": "PASS",
+    "lint": "PASS",
+    "cloudformationLint": "PASS",
+    "caddyAdapt": "PASS: fixture env; live TLS validation NOT_RUN",
+    "browserCapture": "PASS: synthetic Chromium; no AI/AAOS/AWS"
+  },
+  "files": [
+    {
+      "path": "docs/aws/evidence/account-preflight.json",
+      "bytes": 483,
+      "sha256": "4f383a969ddd303c942ab9d2f5ddebbad8d71996ca3e9e8731bd514b47337fe7"
+    },
+    {
+      "path": "docs/aws/evidence/browser-capture.json",
+      "bytes": 249,
+      "sha256": "badfdb8def572f2bb7d123479ff2d20fa198f1a3f60fef0278f8eecabe7f1a1c"
+    },
+    {
+      "path": "docs/aws/evidence/caddy-aaos.json",
+      "bytes": 3283,
+      "sha256": "3971a24461f37fa3e9ce6cc4610b1484286576ed19275477742317063c3d2a9e"
+    },
+    {
+      "path": "docs/aws/evidence/caddy-web.json",
+      "bytes": 2894,
+      "sha256": "950d7e63c299dcd9253c29ae90f064efe40542650836c26caf436c079e8f47b4"
+    },
+    {
+      "path": "docs/aws/evidence/cloudformation-lint.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/aws/evidence/dns-readonly.json",
+      "bytes": 429,
+      "sha256": "a18e11c7f9f1f60ccda2cfd8435215bce1ae922604a2cc24dba82dbd588a4dc1"
+    },
+    {
+      "path": "docs/aws/evidence/lint.log",
+      "bytes": 492,
+      "sha256": "30ee16cce27d07dfc636b88c8a9441d6b038095a0532d3231d723b864a621d55"
+    },
+    {
+      "path": "docs/aws/evidence/native-policy.log",
+      "bytes": 152,
+      "sha256": "81e1aef0b68d0c5088333bc11d7bb531110611d24c9c07113d10717052eb5576"
+    },
+    {
+      "path": "docs/aws/evidence/routing.log",
+      "bytes": 66,
+      "sha256": "a45a465883c0e80786f4a0261054fbbaec605fd1ed855ccb7356203999ae16ca"
+    },
+    {
+      "path": "docs/aws/evidence/tests-debug.log",
+      "bytes": 1832,
+      "sha256": "476fa1bb01ae0d254140a6025eb906db1ab22c4a75d3f8cd2c02a8bb123ec79b"
+    },
+    {
+      "path": "docs/aws/evidence/tests.log",
+      "bytes": 633,
+      "sha256": "cc37b09f1c20a4d7b3d8ebafb830fac7ca7887b7efa93e475ac22933036edd1f"
+    },
+    {
+      "path": "docs/aws/evidence/typecheck.log",
+      "bytes": 209,
+      "sha256": "24f7c3b3f503cd027e1585c3fe4d7bc24413feb6a6d3c13b6192dada3ed87262"
+    },
+    {
+      "path": "docs/aws/evidence/web-build.log",
+      "bytes": 1952,
+      "sha256": "d3840cc105578de598fbdacb9c1b64733d0a92b26c0623b900343cd733c3d236"
+    }
+  ]
+}

@@ -69,7 +69,7 @@ export type FindingGroup = 'acne' | 'pigment' | 'redness' | 'lines' | 'eye' | 'l
 export const FINDING_GROUP_COLORS: Record<FindingGroup, string> = {
   acne: '#fb923c', pigment: '#fde047', redness: '#f43f5e', lines: '#38bdf8', eye: '#a78bfa', lip: '#f472b6', texture: '#5eead4'
 };
-type Def = { label: string; unit?: string; kind: SkinFindingKind; group: FindingGroup; info: string; expert?: boolean };
+type Def = { label: string; /** shorter name for the label on the photo */ callout?: string; unit?: string; kind: SkinFindingKind; group: FindingGroup; info: string; expert?: boolean };
 export const FINDING_DEFS: Record<SkinFindingId, Def> = {
   acne: { label: 'Sivilce', unit: 'sivilce', kind: 'count', group: 'acne', info: 'Ciltte kabarık, kırmızı veya iltihaplı görünen küçük noktalar.' },
   acneMarks: { label: 'Akne izi', kind: 'presence', group: 'pigment', info: 'İyileşmiş sivilcelerden kalan düz, kahverengi veya kırmızımsı lekeler.' },
@@ -81,7 +81,7 @@ export const FINDING_DEFS: Record<SkinFindingId, Def> = {
   foreheadLines: { label: 'Alın çizgileri', kind: 'presence', group: 'lines', info: 'Alında yatay ince çizgiler.' },
   crowsFeet: { label: 'Kaz ayakları', kind: 'presence', group: 'lines', info: 'Gözlerin dış köşesinde ince çizgiler.' },
   eyeBags: { label: 'Göz altı torbası', kind: 'presence', group: 'eye', info: 'Alt göz kapağının altında şişkinlik görünümü.' },
-  darkCircles: { label: 'Göz altı morluğu', kind: 'presence', group: 'eye', info: 'Göz altında çevreye göre daha koyu renk görünümü.' },
+  darkCircles: { label: 'Göz altı morluğu', callout: 'Göz altı morlukları', kind: 'presence', group: 'eye', info: 'Göz altında çevreye göre daha koyu renk görünümü.' },
   hoodedEyelids: { label: 'Göz kapağı düşüklüğü', kind: 'presence', group: 'eye', info: 'Üst göz kapağı derisinin kapak çizgisinin üzerine inmiş görünümü.', expert: true },
   downturnedCorners: { label: 'Göz kuyruğu düşüklüğü', kind: 'presence', group: 'eye', info: 'Göz kuyruklarının (dış köşelerin) aşağı doğru eğimli görünümü.' },
   eczema: { label: 'Egzama/sedef eğilimi', kind: 'presence', group: 'redness', info: 'Kızarık, kuru ve pullu görünen, sınırları belirgin yamalar.', expert: true },

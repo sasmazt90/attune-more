@@ -1,0 +1,174 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Task 13 EXISTING hosts only. Optional missing ingress rules; never import, create or replace EC2/VPC/EBS/EIP/IAM resources. Default: all changes disabled.",
+  "Metadata": {
+    "Workflow": "Run inventory.py first. Do not update a stack created from the former provisioning template. Only a separate additive rules stack after reviewed change set; no existing-resource import."
+  },
+  "Parameters": {
+    "WebInstanceId": {
+      "Type": "AWS::EC2::Instance::Id",
+      "Default": "i-0b25450afc6633494",
+      "AllowedValues": [
+        "i-0b25450afc6633494"
+      ]
+    },
+    "AaosInstanceId": {
+      "Type": "AWS::EC2::Instance::Id",
+      "Default": "i-0f4cca4e92e94c351",
+      "AllowedValues": [
+        "i-0f4cca4e92e94c351"
+      ]
+    },
+    "WebSecurityGroupId": {
+      "Type": "AWS::EC2::SecurityGroup::Id",
+      "Description": "Existing, audited web SG; never create a replacement"
+    },
+    "AaosSecurityGroupId": {
+      "Type": "AWS::EC2::SecurityGroup::Id",
+      "Description": "Existing, audited AAOS SG; never create a replacement"
+    },
+    "MeetingIpv4Cidr": {
+      "Type": "String",
+      "Description": "Explicit reviewed meeting source CIDR; no default public exposure",
+      "AllowedPattern": "(\\d{1,3}\\.){3}\\d{1,3}/\\d{1,2}"
+    },
+    "AddWebHttps": {
+      "Type": "String",
+      "Default": "no",
+      "AllowedValues": [
+        "no",
+        "yes"
+      ],
+      "Description": "yes only after inventory proves this rule missing and its existing SG unshared"
+    },
+    "AddAaosHttps": {
+      "Type": "String",
+      "Default": "no",
+      "AllowedValues": [
+        "no",
+        "yes"
+      ],
+      "Description": "yes only after inventory proves this rule missing and its existing SG unshared"
+    },
+    "AddPrivateApi": {
+      "Type": "String",
+      "Default": "no",
+      "AllowedValues": [
+        "no",
+        "yes"
+      ],
+      "Description": "yes only after inventory proves this rule missing and its existing SG unshared"
+    }
+  },
+  "Rules": {
+    "FrankfurtOnly": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Equals": [
+              {
+                "Ref": "AWS::Region"
+              },
+              "eu-central-1"
+            ]
+          },
+          "AssertDescription": "Frankfurt only"
+        }
+      ]
+    }
+  },
+  "Conditions": {
+    "AddWebHttps": {
+      "Fn::Equals": [
+        {
+          "Ref": "AddWebHttps"
+        },
+        "yes"
+      ]
+    },
+    "AddAaosHttps": {
+      "Fn::Equals": [
+        {
+          "Ref": "AddAaosHttps"
+        },
+        "yes"
+      ]
+    },
+    "AddPrivateApi": {
+      "Fn::Equals": [
+        {
+          "Ref": "AddPrivateApi"
+        },
+        "yes"
+      ]
+    }
+  },
+  "Resources": {
+    "WebHttps": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "AddWebHttps",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "GroupId": {
+          "Ref": "WebSecurityGroupId"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": 443,
+        "ToPort": 443,
+        "CidrIp": {
+          "Ref": "MeetingIpv4Cidr"
+        },
+        "Description": "Attune Task 13 reviewed missing rule"
+      }
+    },
+    "AaosHttps": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "AddAaosHttps",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "GroupId": {
+          "Ref": "AaosSecurityGroupId"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": 443,
+        "ToPort": 443,
+        "CidrIp": {
+          "Ref": "MeetingIpv4Cidr"
+        },
+        "Description": "Attune Task 13 reviewed missing rule"
+      }
+    },
+    "PrivateApi": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Condition": "AddPrivateApi",
+      "DeletionPolicy": "Retain",
+      "UpdateReplacePolicy": "Retain",
+      "Properties": {
+        "GroupId": {
+          "Ref": "WebSecurityGroupId"
+        },
+        "IpProtocol": "tcp",
+        "FromPort": 8443,
+        "ToPort": 8443,
+        "SourceSecurityGroupId": {
+          "Ref": "AaosSecurityGroupId"
+        },
+        "Description": "Attune Task 13 reviewed missing rule"
+      }
+    }
+  },
+  "Outputs": {
+    "WebInstanceId": {
+      "Value": {
+        "Ref": "WebInstanceId"
+      }
+    },
+    "AaosInstanceId": {
+      "Value": {
+        "Ref": "AaosInstanceId"
+      }
+    }
+  }
+}

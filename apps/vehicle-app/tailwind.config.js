@@ -8,6 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        // Vehicle displays where system bars leave little height; 1280x800 hardware gives only 517 px.
+        short: { raw: '(min-width: 768px) and (max-height: 640px)' },
+        // Too short for a page introduction and saved values above the Start actions. 1280x800 hardware is 517 px.
+        xshort: { raw: '(min-width: 768px) and (max-height: 540px)' },
+      },
       colors: {
         togg: {
           turquoise: '#00C2E7',

@@ -58,6 +58,19 @@ UNAVAILABLE = {
 REQUIRED_POSES = ('FRONT', 'LEFT', 'RIGHT')
 APP_OF = {'forehead': 'forehead', 'nose': 'nose', 'cheek_imgL': 'rightCheek', 'cheek_imgR': 'leftCheek', 'chin': 'chin'}
 MARKER_MIN_SCORE = 0.35
+# The research regions are feature areas, not the whole face. Hairline, the skin between the brows and the jaw lie outside
+# all five, so a lesion there was dropped although the detector marked it. Counting (only) gives such a lesion to the
+# nearest region. Polygons, classifier inputs and measured areas keep using the research regions.
+FACE_OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
+NOT_SKIN = ([33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246],     # eyes
+            [263, 249, 390, 373, 374, 380, 381, 382, 362, 398, 384, 385, 386, 387, 388, 466],
+            [70, 63, 105, 66, 107, 55, 65, 52, 53, 46], [300, 293, 334, 296, 336, 285, 295, 282, 283, 276],     # brows
+            LIP)
+FACE_MARGIN = 0.05           # share of face width: the mesh stops below the hairline
+# The region classifier decides the person and most regions, but it can pass over a region holding several marked lesions
+# (Character 49's chin: 4 boxes of 0.37 to 0.68, region score 0.24). For a person already positive, a region is shown when
+# one photo marks at least this many lesions there. One box alone stays hidden: it is often a highlight, as on a nose tip.
+LESION_SUPPORT_MIN = 2
 
 
 def _usable(app: str, view: str) -> bool:
@@ -72,6 +85,23 @@ def _point_in(poly, x: float, y: float) -> bool:
         if (y1 > y) != (y2 > y) and x < (x2 - x1) * (y - y1) / ((y2 - y1) or 1e-9) + x1:
             inside = not inside
     return inside
+
+
+def lesion_region(polys: dict, x: float, y: float, Pc=None) -> str | None:
+    """Region a lesion is counted in: the research region holding it, else the nearest one if it is on facial skin."""
+    inside = next((APP_OF[rk] for rk in APP_OF if rk in polys and _point_in(polys[rk], x, y)), None)
+    if inside is not None or Pc is None or len(Pc) <= max(FACE_OVAL):
+        return inside
+    import cv2, numpy as np
+    points = np.asarray(Pc, np.float32)
+    face_w = float(points[:, 0].max() - points[:, 0].min())
+    oval = points[FACE_OVAL][:, :2].reshape(-1, 1, 2)
+    if cv2.pointPolygonTest(oval, (float(x), float(y)), True) < -FACE_MARGIN * face_w:
+        return None
+    if any(_point_in(points[indices][:, :2].tolist(), x, y) for indices in NOT_SKIN):
+        return None
+    gaps = {rk: -cv2.pointPolygonTest(np.asarray(polys[rk], np.float32).reshape(-1, 1, 2), (float(x), float(y)), True) for rk in APP_OF if rk in polys}
+    return APP_OF[min(gaps, key=gaps.get)] if gaps else None
 
 
 def evidence_from_detections(ev: dict, dets: dict, cats: dict, polys: dict, sc: float, view: str, pose: str, inv, src_scale: float, Pc=None):
@@ -127,7 +157,7 @@ def evidence_from_detections(ev: dict, dets: dict, cats: dict, polys: dict, sc: 
         kept.append([s, sub, bx])
     for s, sub, (x0, y0, x1, y1) in kept:
         cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-        reg = next((APP_OF[rk] for rk in APP_OF if rk in polys and _point_in(polys[rk], cx, cy)), None)
+        reg = lesion_region(polys, cx, cy, Pc)
         if reg is None or not _usable(reg, view):
             continue
         sx, sy = inv(cx, cy)
@@ -258,6 +288,10 @@ def _attach_count(row: dict, maps: dict, poses: list, fallback_pose: str | None 
         return [b for b in (maps.get(p, {}).get('findingBoxes') or []) if b['finding'] == row['id'] and b['region'] == row['region']]
     order = [COUNT_POSE.get(row['region'])] + [fallback_pose] + list(poses)
     pose = next((p for p in order if p in poses and boxes(p)), None)
+    if row['id'] == 'acne' and pose:
+        # Still one photo, so nothing is counted twice: the one that shows the most, the facing photo on a tie. A single
+        # photo can miss lesions another shows, because boxes near the score limit come and go with the crop.
+        pose = max((p for p in dict.fromkeys(order) if p in poses), key=lambda p: len(boxes(p)))
     marks = boxes(pose) if pose else []
     row['markers'] = [dict(x=b['x'], y=b['y'], r=b['r'], pose=b['pose'], **({'type': b['type']} if 'type' in b else {})) for b in marks]
     row['count'] = len(marks)
@@ -348,6 +382,20 @@ def _attach_severity(findings: list, maps: dict, poses: list) -> None:
                 f['severity'] = round(v, 1)
 
 
+def _show_regions_with_marked_lesions(findings: list, maps: dict, poses: list) -> None:
+    """See LESION_SUPPORT_MIN. Never makes a person positive: without a seen acne row nothing changes."""
+    acne = [f for f in findings if f['id'] == 'acne']
+    if not any(f['status'] == 'seen' for f in acne):
+        return
+    for row in acne:
+        if row['status'] != 'notSeen':
+            continue
+        counts = {p: sum(1 for b in (maps[p].get('findingBoxes') or []) if b['finding'] == 'acne' and b['region'] == row['region']) for p in poses}
+        best = max(poses, key=lambda p: counts[p])
+        if counts[best] >= LESION_SUPPORT_MIN:
+            row.update(status='seen', pose=best, decidedBy='markedLesions')
+
+
 def findings_from_maps(maps: dict) -> dict:
     """maps: {'FRONT'|'LEFT'|'RIGHT': regional_skin_v3.analyze_photo() output}. Returns general.findings."""
     poses = sorted(p for p, m in maps.items() if isinstance(m, dict) and isinstance(m.get('findingEvidence'), dict))
@@ -383,6 +431,7 @@ def findings_from_maps(maps: dict) -> dict:
     measures = {}
     if det:
         rows, measures = _det_rows(det, maps, poses); findings += rows
+        _show_regions_with_marked_lesions(findings, maps, poses)
     for f in findings:   # rosacea and eczema show the light-corrected red area of their region
         if f['status'] == 'seen' and f['id'] in ('rosacea', 'eczema') and f['region'] in measures and 'areaPct' not in f:
             f.update(measures[f['region']])

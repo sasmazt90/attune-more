@@ -10,10 +10,11 @@ export function LanguageSelector(){
  const locked=useLanguageSwitchLocked(),[error,setError]=useState('');
  return <div className="flex flex-wrap items-center gap-2 min-w-0" data-language-selector>
   <label className="sr-only" htmlFor="attune-language">{t('Uygulama dili')}</label>
-  <select id="attune-language" aria-label={t('Uygulama dili')} disabled={!isParked||locked} value={language} className="min-h-11 rounded-xl border border-white/20 bg-slate-950 px-2 text-sm text-white disabled:opacity-50" onChange={e=>{try{const next=e.target.value;if(LANGUAGES.includes(next as typeof language))setLanguage(next as typeof language);setError('');}catch{setError('Dil tercihi kaydedilemedi.');}}}>
+  <select id="attune-language" aria-label={t('Uygulama dili')} title={locked?t('Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.'):undefined} disabled={!isParked||locked} value={language} className="min-h-11 rounded-xl border border-white/20 bg-slate-950 px-2 text-sm text-white disabled:opacity-50" onChange={e=>{try{const next=e.target.value;if(LANGUAGES.includes(next as typeof language))setLanguage(next as typeof language);setError('');}catch{setError('Dil tercihi kaydedilemedi.');}}}>
    {LANGUAGES.map(id=><option key={id} value={id} lang={id}>{id.toUpperCase()}</option>)}
   </select>
-  {locked&&<span role="status" className="max-w-60 text-xs text-slate-300">{t('Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.')}</span>}
+  {/* From 768 px the header is one row, so the greyed selector and its tooltip show the lock, and the text stays for screen readers. */}
+  {locked&&<span role="status" className="max-w-60 text-xs text-slate-300 md:sr-only">{t('Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.')}</span>}
   {error&&<span role="alert" className="max-w-48 text-xs text-amber-200">{t(error)}</span>}
  </div>;
 }

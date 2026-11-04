@@ -1,4 +1,5 @@
 'use client';
+import {formatPercent} from '../../i18n/core';
 import {useTranslations} from '../../i18n/LanguageProvider';
 
 
@@ -40,10 +41,10 @@ export const SkinActiveScan: React.FC<SkinActiveScanProps> = ({
   const analyzing=fresh && !!alignment?.isMediaPipeActive && alignment.faceDetected && alignment.isAligned && !!quality?.isValid && scanProgress>0;
 
   return (
-    <div className="bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 shadow-2xl w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <div className="bg-[#0c1424]/90 border border-slate-800/90 rounded-3xl p-6 md:p-8 short:p-3 short:rounded-2xl shadow-2xl w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-12 short:grid-cols-12 gap-8 short:gap-3 items-center short:items-start">
         {/* Sol Kolon: Büyük Yüz + Biyometrik Landmark Konstelasyon Ağı + Tarama Işını */}
-        <div className="lg:col-span-6 flex justify-center">
+        <div className="lg:col-span-6 short:col-span-5 flex justify-center">
           <SkinFacePanel
             currentRegion={defaultRegion}
             mode="scan"
@@ -55,9 +56,9 @@ export const SkinActiveScan: React.FC<SkinActiveScanProps> = ({
         </div>
 
         {/* Sağ Kolon: Analiz Ediliyor, İlerleme Çubuğu ve 3 Kalite Kontrolü */}
-        <div className="lg:col-span-6 space-y-6 max-w-md">
+        <div className="lg:col-span-6 short:col-span-7 space-y-6 short:space-y-2 max-w-md short:max-w-none">
           <div className="space-y-1">
-            <h2 className="text-3xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl short:text-xl font-extrabold text-white tracking-tight">
               {i18nNode(preparing ? 'Portre Hazırlanıyor' : analyzing ? 'Analiz Ediliyor' : 'Kamera Hazırlığı')}
             </h2>
             <p className="text-sm text-slate-300">
@@ -69,7 +70,7 @@ export const SkinActiveScan: React.FC<SkinActiveScanProps> = ({
           {!preparing && <div className="space-y-2">
             <div className="flex justify-between text-xs text-slate-300 font-medium">
               <span>{i18nNode(analyzing ? 'Geçerli kareler değerlendiriliyor' : 'Uygun konum bekleniyor')}</span>
-              <span className="font-mono text-togg-turquoise font-bold">%{i18nNode(scanProgress)}</span>
+              <span className="font-mono text-togg-turquoise font-bold">{formatPercent(scanProgress)}</span>
             </div>
             <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
               <div

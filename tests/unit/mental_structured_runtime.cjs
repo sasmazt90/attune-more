@@ -17,7 +17,7 @@ const code=ts.transpileModule(names.map(n=>functions[n]).join('\n'),{compilerOpt
    Date,AbortController,setTimeout,clearTimeout,
    abortRecognition:no,cleanup:no,stopAudio:()=>{r.audioEpoch++;r.audio=null;},canonicalMentalTheme:x=>x,timing:no,setVoiceNotice:v=>voiceNotice=v,setVoiceState:no,setPhase:v=>phase=v,setNotice:no,setActive:no,setSummary:v=>summary=v,
    append:m=>r.transcript.push(m),checkCrisisTrigger:()=>({isCrisis:crisisLimit,emergencyResponseTr:'112 emergency'}),spokenText:x=>x,isDemoMode:()=>false,isMentalSummarySavingAllowed:()=>false,
-   API:'mock',resume:()=>{r.busy=false;},cancel:()=>{r.active=false;},mentalSpeechEngine:()=> 'chatterbox-v3',approvedMentalTemplate:()=>null,
+   API:'mock',closingTranscript:require('../../apps/vehicle-app/src/utils/mentalSessionClose.ts').closingTranscript,setMessages:no,resume:()=>{r.busy=false;},cancel:()=>{r.active=false;},mentalSpeechEngine:()=> 'chatterbox-v3',approvedMentalTemplate:()=>null,
    playPreparedMental:async(text,ids)=>{prepared++;assert.equal(text,'Okay. What happened?');assert.deepEqual(ids,['prepared-A','prepared-B']);return true;},
    mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;assert(current());assert.equal(options.speakerProfile,'female-calm-v1');assert.equal(text,'Your own concise closing summary.');if(scenario==='throw')throw Error('Fixture audio unavailable');if(scenario==='late'){r.epoch++;r.audio='new-session-audio';}return closingWorks;},
    pendingAudioPlay:{current:null},setAudioNeedsGesture:no,

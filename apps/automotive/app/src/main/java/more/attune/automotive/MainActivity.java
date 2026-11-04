@@ -54,6 +54,7 @@ public final class MainActivity extends Activity {
     private GatePolicy.Platform platform = GatePolicy.Platform.UNKNOWN;
     private boolean foreground, pageFailed, destroyed;
     private FrameLayout frame;
+    private static final int WIDE_TOOLBAR_DP = 1000;
     private TextView status, placeholder;
     private Button back, home, simulation;
     private WebView web;
@@ -146,12 +147,23 @@ public final class MainActivity extends Activity {
         });
         if (BuildConfig.BACKEND_SIMULATION) toolbar.addView(simulation);
         scroll.addView(toolbar);
-        root.addView(scroll);
         status = new TextView(this);
         status.setTextColor(Color.rgb(226, 232, 240));
         status.setTextSize(14);
         status.setPadding(dp(12), dp(4), dp(12), dp(8));
-        root.addView(status);
+        // Wide displays keep the status beside the buttons, which returns its row to the WebView.
+        // Narrow ones keep it on its own row, so scrolling the buttons can never hide it.
+        LinearLayout controls = new LinearLayout(this);
+        if (getResources().getConfiguration().screenWidthDp >= WIDE_TOOLBAR_DP) {
+            controls.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            controls.addView(scroll);
+            controls.addView(status, new LinearLayout.LayoutParams(0, -2, 1));
+        } else {
+            controls.setOrientation(LinearLayout.VERTICAL);
+            controls.addView(scroll);
+            controls.addView(status);
+        }
+        root.addView(controls);
         frame = new FrameLayout(this);
         placeholder = new TextView(this);
         placeholder.setTextColor(Color.WHITE);
@@ -249,6 +261,7 @@ public final class MainActivity extends Activity {
         web = view;
         view.resumeTimers(); view.onResume();
         WebSettings settings = view.getSettings();
+        if (BuildConfig.REMOTE_DEMO_CAPTURE) settings.setUserAgentString(settings.getUserAgentString() + " AttuneCloudDemo/1");
         settings.setJavaScriptEnabled(true); settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(false); settings.setAllowContentAccess(false);
         settings.setAllowFileAccessFromFileURLs(false); settings.setAllowUniversalAccessFromFileURLs(false);
@@ -280,6 +293,11 @@ public final class MainActivity extends Activity {
                 if (!request.isForMainFrame() && ("data".equals(scheme) || "blob".equals(scheme))) return null;
                 if (OriginPolicy.isHttps(url) || (BuildConfig.DEBUG && (webOrigin.contains(url) || apiOrigin.contains(url)))) return null;
                 return new WebResourceResponse("text/plain", "UTF-8", 403, "Blocked", java.util.Collections.emptyMap(), new ByteArrayInputStream(new byte[0]));
+            }
+            @Override public void onPageStarted(WebView source, String url, android.graphics.Bitmap favicon) {
+                // A navigation can drop a pending evaluateJavascript callback. Without this the
+                // native labels would keep their language until the WebView is recreated.
+                if (source == web) localeReadPending = false;
             }
             @Override public void onPageFinished(WebView source, String url) {
                 if (source != web || !ready() || !webOrigin.contains(url)) return;

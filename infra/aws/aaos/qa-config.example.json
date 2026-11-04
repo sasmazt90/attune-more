@@ -1,0 +1,9 @@
+{
+  "runtime": "aws-existing",
+  "adb": "/opt/android-sdk/platform-tools/adb",
+  "serial": "emulator-5554",
+  "package": "more.attune.automotive.prototype.clouddemo",
+  "devtoolsPort": 19226,
+  "webOrigin": "http://127.0.0.1:3000",
+  "apiOrigin": "http://127.0.0.1:3000"
+}

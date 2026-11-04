@@ -1,0 +1,228 @@
+{
+  "recordedAt": "2026-11-03T13:06:51.862016+00:00",
+  "baseCommit": "5a82147",
+  "environment": "attune-more",
+  "networkPolicy": "enforced",
+  "awsIdentityAlias": "AWS",
+  "secretBindings": [],
+  "runtimeVariables": [],
+  "sgReadback": {
+    "groups": [
+      {
+        "GroupId": "sg-023659b3a447ab759",
+        "IpPermissionsEgress": [
+          {
+            "IpProtocol": "-1",
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "0.0.0.0/0"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ],
+        "VpcId": "vpc-074768071df6b9266",
+        "SecurityGroupArn": "arn:aws:ec2:eu-central-1:798886013428:security-group/sg-023659b3a447ab759",
+        "OwnerId": "798886013428",
+        "GroupName": "attune-web-ai-sg",
+        "Description": "attune-web-ai-sg created 2026-11-03T09:23:07.312Z",
+        "IpPermissions": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "UserIdGroupPairs": [],
+            "IpRanges": [],
+            "Ipv6Ranges": [
+              {
+                "CidrIpv6": "2003:cd::/32"
+              }
+            ],
+            "PrefixListIds": []
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 8443,
+            "ToPort": 8443,
+            "UserIdGroupPairs": [
+              {
+                "UserId": "798886013428",
+                "GroupId": "sg-0476f580c44063a5d"
+              }
+            ],
+            "IpRanges": [],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 443,
+            "ToPort": 443,
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "91.14.212.184/32"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ]
+      },
+      {
+        "GroupId": "sg-0476f580c44063a5d",
+        "IpPermissionsEgress": [
+          {
+            "IpProtocol": "-1",
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "0.0.0.0/0"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ],
+        "VpcId": "vpc-074768071df6b9266",
+        "SecurityGroupArn": "arn:aws:ec2:eu-central-1:798886013428:security-group/sg-0476f580c44063a5d",
+        "OwnerId": "798886013428",
+        "GroupName": "attune-aaos-sg",
+        "Description": "attune-aaos-sg created 2026-11-03T09:52:31.070Z",
+        "IpPermissions": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "UserIdGroupPairs": [],
+            "IpRanges": [],
+            "Ipv6Ranges": [
+              {
+                "CidrIpv6": "2003:cd::/32"
+              }
+            ],
+            "PrefixListIds": []
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 443,
+            "ToPort": 443,
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "91.14.212.184/32"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ]
+      }
+    ],
+    "instances": [
+      {
+        "id": "i-0b25450afc6633494",
+        "state": "stopped",
+        "groups": [
+          {
+            "GroupId": "sg-023659b3a447ab759",
+            "GroupName": "attune-web-ai-sg"
+          }
+        ]
+      },
+      {
+        "id": "i-0f4cca4e92e94c351",
+        "state": "stopped",
+        "groups": [
+          {
+            "GroupId": "sg-0476f580c44063a5d",
+            "GroupName": "attune-aaos-sg"
+          }
+        ]
+      }
+    ]
+  },
+  "requiredIngress": [
+    {
+      "groupId": "sg-023659b3a447ab759",
+      "port": 443,
+      "source": "91.14.212.184/32",
+      "verified": true
+    },
+    {
+      "groupId": "sg-0476f580c44063a5d",
+      "port": 443,
+      "source": "91.14.212.184/32",
+      "verified": true
+    },
+    {
+      "groupId": "sg-023659b3a447ab759",
+      "port": 8443,
+      "source": "sg-0476f580c44063a5d",
+      "verified": true
+    }
+  ],
+  "awsMutationsThisContinuation": [],
+  "apk": {
+    "sourceCommit": "7a26c134db7f8ca4a5c02357023865250f1bddd9",
+    "workflowRun": 41634882348,
+    "artifactId": 13229474049,
+    "archiveSha256": "417b99d519f11fd6ca330e504205d5dd1c3b8958e39e882de97aa0320dc1f79d",
+    "apkBytes": 66182,
+    "apkSha256": "646f504b32b60ef9c670eef66e59a8923ddeb5ff9681c9e066ba6f78e54aa8b6",
+    "status": "VERIFIED",
+    "artifactExpiresAt": "2026-11-10T12:21:30Z",
+    "deviceInstall": "NOT_RUN"
+  },
+  "onnxTransfers": [
+    {
+      "key": "step0",
+      "host": "sdmntprcentralus.oaiusercontent.com",
+      "status": "BLOCKED",
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+      "name": "step0-with-features-stable-silu.onnx"
+    },
+    {
+      "key": "part0",
+      "host": "sdmntprcentralus.oaiusercontent.com",
+      "status": "BLOCKED",
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+      "name": "skin-type-local-v1-model.onnx.part-000"
+    },
+    {
+      "key": "part1",
+      "host": "sdmntprsoutheastus3.oaiusercontent.com",
+      "status": "BLOCKED",
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+      "name": "skin-type-local-v1-model.onnx.part-001"
+    },
+    {
+      "key": "part2",
+      "host": "sdmntprpolandcentral.oaiusercontent.com",
+      "status": "VERIFIED",
+      "bytes": 100663296,
+      "sha256": "40cf2b5e711e8921ab747c2f638f57de964f6d74e8233fa435c75ea63b6d33a3",
+      "name": "skin-type-local-v1-model.onnx.part-002"
+    },
+    {
+      "key": "part3",
+      "host": "sdmntpreastus2.oaiusercontent.com",
+      "status": "BLOCKED",
+      "error": "URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+      "name": "skin-type-local-v1-model.onnx.part-003"
+    }
+  ],
+  "combinedSkinType": "NOT_ASSEMBLED_MISSING_TRANSFERS",
+  "regionalStaging": "Prior commit 5a82147 verified 24 parts/archive/31 members; see regional-model-staging.json. Bytes not present in this runtime.",
+  "ttsStaging": "98-part source manifest recovered and hash-verified; no completed part receipts in this continuation before user requested handoff.",
+  "paidStartApproved": false,
+  "ec2Started": false,
+  "liveAcceptance": "NOT_RUN",
+  "validation": {
+    "command": ".venv/bin/python -m pytest tests/aws/test_restore_onnx.py tests/aws/test_ingress.py tests/aws/test_existing.py -q",
+    "passed": 15,
+    "liveInference": false
+  }
+}

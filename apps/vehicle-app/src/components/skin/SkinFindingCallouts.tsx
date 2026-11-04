@@ -2,30 +2,50 @@
 import React from 'react';
 import { useTranslations } from '../../i18n/LanguageProvider';
 import type { SkinFindingId } from '../../utils/skinFindings';
+import { placeCallouts, type CalloutRect } from '../../utils/skinCalloutLayout';
 
-/** A label beside the photo with a leader line to the spot it refers to (source pixels). */
+/** A finding name joined by a short line to the spot it refers to (source pixels). */
 export type FindingCallout = { key: string; id: SkinFindingId; label: string; sub?: string; color: string; anchor: { x: number; y: number }; active?: boolean };
 type Crop = { x: number; y: number; width: number; height: number };
-const GUTTER = 196, PILL_H = 52, GAP = 12, MIN_PHOTO = 360;
+type Box = { w: number; left: number; top: number; pw: number; ph: number };
+type Size = { w: number; h: number; visualH: number; lines: number };
+// 48 px is the vehicle stylesheet's minimum for a control.
+const TARGET = 48, MIN_PHOTO = 220, MAX_LINES = 2, LINE = '#e6edf5', HALO = '#070b12';
+/** Label width limits follow the photo, so a German or Turkish name wraps instead of covering the face. */
+export const labelWidthLimit = (photoWidth: number) => Math.max(104, Math.min(190, Math.round(photoWidth * .46)));
+const toPhoto = (r: CalloutRect, crop: Crop, box: Box): CalloutRect => ({ x: (r.x - crop.x) / crop.width * box.pw, y: (r.y - crop.y) / crop.height * box.ph, w: r.w / crop.width * box.pw, h: r.h / crop.height * box.ph });
 
-/** When the photo column has room for both gutters and a readable photo (>= MIN_PHOTO px): labels in the gutters left
- * and right of the photo with leader lines. Otherwise (narrow screens, or a narrow photo column): the same labels as a
- * row of buttons under the photo, so the gutters never squeeze the photo. Tapping a label selects that finding. */
-export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect, children }: {
+/** The dot and the name. The same markup is measured and shown, so the measured size is the real size. */
+function Pill({ color, label, sub, on, width }: { color: string; label: string; sub?: string; on: boolean; width?: number }) {
+  return (
+    <span data-skin-callout-pill className={`inline-flex items-center gap-1.5 rounded-[14px] border px-2.5 py-1 text-[13px] leading-[1.2] text-white text-left shadow-md ${on ? 'font-bold' : 'font-semibold'}`}
+      style={{ borderColor: color, background: 'rgba(10,18,32,.92)', ...(width ? { width } : {}) }}>
+      <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />
+      <span data-skin-callout-text className="min-w-0 [overflow-wrap:anywhere]">{label}{sub && <span className="ml-1.5 text-slate-300 tabular-nums">{sub}</span>}</span>
+    </span>
+  );
+}
+
+export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect, keepOut, face, children }: {
   callouts?: FindingCallout[]; crop?: Crop; photoRef: React.RefObject<HTMLDivElement | null>; active: SkinFindingId | null;
-  onSelect?: (key: string) => void; children: React.ReactNode;
+  onSelect?: (key: string) => void; keepOut?: CalloutRect[]; face?: CalloutRect | null; children: React.ReactNode;
 }) {
   const { text } = useTranslations();
-  const wrap = React.useRef<HTMLDivElement>(null);
-  const [box, setBox] = React.useState<{ w: number; left: number; top: number; pw: number; ph: number } | null>(null);
-  const [wide, setWide] = React.useState(false);
+  const wrap = React.useRef<HTMLDivElement>(null), ruler = React.useRef<HTMLDivElement>(null);
+  const [box, setBox] = React.useState<Box | null>(null);
+  const [sizes, setSizes] = React.useState<Record<string, Size>>({});
+  const list = React.useMemo(() => (callouts || []).filter(c => !crop || (c.anchor.x >= crop.x && c.anchor.x <= crop.x + crop.width && c.anchor.y >= crop.y && c.anchor.y <= crop.y + crop.height)), [callouts, crop]);
+  const labels = list.map(c => `${c.key}=${text(c.label)}${c.sub ? ' ' + text(c.sub) : ''}`).join('|');
+
   React.useEffect(() => {
     const measure = () => {
       const w = wrap.current, p = photoRef.current;
-      setWide(window.matchMedia('(min-width: 1280px)').matches);
       if (!w || !p) return;
       const a = w.getBoundingClientRect(), b = p.getBoundingClientRect();
-      setBox({ w: a.width, left: b.left - a.left, top: b.top - a.top, pw: b.width, ph: b.height });
+      setBox(old => {
+        const next = { w: a.width, left: b.left - a.left, top: b.top - a.top, pw: b.width, ph: b.height };
+        return old && Object.keys(next).every(k => Math.abs(old[k as keyof Box] - next[k as keyof Box]) < .5) ? old : next;
+      });
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -33,66 +53,89 @@ export function SkinFindingCallouts({ callouts, crop, photoRef, active, onSelect
     if (photoRef.current) ro.observe(photoRef.current);
     window.addEventListener('resize', measure);
     return () => { ro.disconnect(); window.removeEventListener('resize', measure); };
-  }, [photoRef, callouts?.length]);
+  }, [photoRef, list.length]);
 
-  const list = (callouts || []).filter(c=>!crop||(c.anchor.x>=crop.x&&c.anchor.x<=crop.x+crop.width&&c.anchor.y>=crop.y&&c.anchor.y<=crop.y+crop.height));
-  if (!list.length) return <>{children}</>;
-  // gutters only when the whole column (w) leaves at least MIN_PHOTO px for the photo between them
-  const gutter = wide && !!box && box.w >= 2 * GUTTER + MIN_PHOTO;
-  const pill = (c: FindingCallout, style?: React.CSSProperties, extra = '') => {
-    const on = c.active ?? c.id === active;
-    return (
-      <button key={c.key} type="button" aria-pressed={on} onClick={() => onSelect?.(c.key)} data-skin-callout={c.key} style={{ ...style, borderColor: on ? c.color : 'transparent', background: on ? `${c.color}26` : '#121b28' }}
-        className={`min-h-[52px] rounded-full border-2 px-4 flex items-center gap-2.5 text-left text-[15px] leading-tight transition active:scale-[0.98] ${on ? 'text-white font-bold' : 'text-slate-200 font-semibold hover:bg-white/10'} ${c.sub ? 'whitespace-nowrap' : ''} ${extra}`}>
-        <span aria-hidden="true" className="min-w-6 h-6 shrink-0 rounded-full text-slate-950 text-sm font-bold flex items-center justify-center" style={{ background: c.color }}>{list.indexOf(c)+1}</span>
-        <span>{text(c.label)}{c.sub && <span className="ml-1.5 font-semibold text-slate-300 tabular-nums">{text(c.sub)}</span>}</span>
-      </button>
-    );
-  };
+  const limit = box ? labelWidthLimit(box.pw) : 0;
+  // Sizes come from the rendered text, so every language gets its own width and the layout runs again when it changes.
+  React.useEffect(() => {
+    const host = ruler.current;
+    if (!host || !limit) return;
+    const measure = () => {
+      const next: Record<string, Size> = {};
+      host.querySelectorAll<HTMLElement>('[data-skin-callout-ruler]').forEach(row => {
+        const pill = row.firstElementChild as HTMLElement;
+        const name = pill.querySelector<HTMLElement>('[data-skin-callout-text]')!;
+        const lineHeight = parseFloat(getComputedStyle(name).lineHeight) || 16;
+        const linesOf = () => Math.round(name.getBoundingClientRect().height / lineHeight);
+        pill.style.width = ''; pill.style.whiteSpace = 'nowrap';
+        const natural = Math.ceil(pill.getBoundingClientRect().width);
+        pill.style.whiteSpace = '';
+        // Two balanced lines read better than one long line and one short word.
+        let width = natural <= limit ? natural : Math.min(limit, Math.ceil(natural * .62));
+        pill.style.width = `${width}px`;
+        while (linesOf() > MAX_LINES && width < limit) { width = Math.min(limit, width + 12); pill.style.width = `${width}px`; }
+        next[row.dataset.skinCalloutRuler!] = { w: Math.max(TARGET, width), h: Math.max(TARGET, Math.ceil(pill.getBoundingClientRect().height)), visualH: Math.ceil(pill.getBoundingClientRect().height), lines: linesOf() };
+        pill.style.width = '';
+      });
+      setSizes(next);
+    };
+    measure();
+    // A web font arriving late changes the width of the text, so its size is read again.
+    let live = true;
+    void document.fonts?.ready.then(() => { if (live) measure(); });
+    const fonts = () => measure();
+    document.fonts?.addEventListener?.('loadingdone', fonts);
+    return () => { live = false; document.fonts?.removeEventListener?.('loadingdone', fonts); };
+  }, [labels, limit]);
 
-  // Gutter layout: project anchors into wrapper pixels, split by side, stack labels without overlap.
-  let placed: { c: FindingCallout; ax: number; ay: number; left: boolean; y: number }[] = [];
-  if (gutter && box && crop) {
-    const pts = list.map(c => ({ c, ax: box.left + (c.anchor.x - crop.x) / crop.width * box.pw, ay: box.top + (c.anchor.y - crop.y) / crop.height * box.ph }));
-    const sides = [pts.filter(p => p.ax < box.left + box.pw / 2), pts.filter(p => p.ax >= box.left + box.pw / 2)];
-    // keep both sides balanced when one side would crowd
-    while (Math.abs(sides[0].length - sides[1].length) > 2) {
-      const [from, to] = sides[0].length > sides[1].length ? [sides[0], sides[1]] : [sides[1], sides[0]];
-      from.sort((a, b) => Math.abs(a.ax - box.left - box.pw / 2) - Math.abs(b.ax - box.left - box.pw / 2));
-      to.push(from.shift()!);
-    }
-    placed = sides.flatMap((side, i) => {
-      const sorted = [...side].sort((a, b) => a.ay - b.ay);
-      let y = -Infinity;
-      const ys = sorted.map(p => (y = Math.max(p.ay - PILL_H / 2, y + PILL_H + GAP)));
-      const over = ys.length ? ys[ys.length - 1] + PILL_H - (box.top + box.ph) : 0;
-      return sorted.map((p, j) => ({ ...p, left: i === 0, y: Math.max(box.top, ys[j] - Math.max(0, over)) }));
+  const layout = React.useMemo(() => {
+    if (!box || !crop || !list.length || !list.every(c => sizes[c.key])) return null;
+    const anchors = list.map(c => ({ c, ax: (c.anchor.x - crop.x) / crop.width * box.pw, ay: (c.anchor.y - crop.y) / crop.height * box.ph }));
+    if (box.pw < MIN_PHOTO || list.some(c => sizes[c.key].lines > MAX_LINES)) return { anchors, placed: null };
+    const result = placeCallouts(anchors.map(({ c, ax, ay }) => ({ key: c.key, ax, ay, w: sizes[c.key].w, h: sizes[c.key].h, visualH: sizes[c.key].visualH })), {
+      width: box.pw, height: box.ph, keepOut: (keepOut || []).map(r => toPhoto(r, crop, box)), face: face ? toPhoto(face, crop, box) : null,
     });
-  }
+    return { anchors, placed: result.fits ? result.placed : null };
+  }, [box, crop, list, sizes, keepOut, face]);
+
+  if (!list.length) return <>{children}</>;
+  const mode = !layout ? 'pending' : layout.placed ? 'photo' : 'list';
+  const pressed = (c: FindingCallout) => c.active ?? c.id === active;
+  const button = 'flex items-center justify-center rounded-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-white';
   return (
-    <div className="w-full flex flex-col items-center gap-3" data-skin-callouts>
-      <div ref={wrap} className="relative w-full flex justify-center" style={gutter ? { paddingLeft: GUTTER, paddingRight: GUTTER } : undefined} data-skin-callout-layout={gutter ? 'gutter' : 'row'}>
+    <div className="w-full flex flex-col items-center" data-skin-callouts>
+      <div ref={wrap} className="relative w-full flex justify-center" data-skin-callout-layout={mode}>
         {children}
-        {!gutter && box && crop && <svg aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none" data-skin-callout-connectors>
-          {list.map((c,i)=>{const x=box.left+(c.anchor.x-crop.x)/crop.width*box.pw,y=box.top+(c.anchor.y-crop.y)/crop.height*box.ph,bx=Math.max(box.left+14,Math.min(box.left+box.pw-14,x+28)),by=Math.max(box.top+14,Math.min(box.top+box.ph-14,y-28));return <g key={c.key} opacity={c.active?1:.8}><line x1={x} y1={y} x2={bx} y2={by} stroke={c.color} strokeWidth="2"/><circle cx={x} cy={y} r="4" fill={c.color}/><circle cx={bx} cy={by} r="12" fill={c.color}/><text x={bx} y={by+4} textAnchor="middle" fontSize="13" fontWeight="700" fill="#070b12">{i+1}</text></g>;})}
-        </svg>}
-        {gutter && box && placed.length > 0 && <>
-          <svg aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-            {placed.map(p => {
-              const on = p.c.active ?? p.c.id === active, cy = p.y + PILL_H / 2;
-              const ex = p.left ? GUTTER - 8 : box.w - GUTTER + 8, elbow = p.left ? Math.min(p.ax - 18, ex + 40) : Math.max(p.ax + 18, ex - 40);
-              return (
-                <g key={p.c.key} opacity={on ? 1 : 0.6}>
-                  <polyline points={`${p.ax},${p.ay} ${elbow},${cy} ${ex},${cy}`} fill="none" stroke={p.c.color} strokeWidth={on ? 2.5 : 2} strokeLinejoin="round" />
-                  <circle cx={p.ax} cy={p.ay} r={on ? 6 : 5} fill={p.c.color} stroke="#070b12" strokeWidth="1.5" />
-                </g>
-              );
+        {/* Hidden copies are what the label sizes are read from. */}
+        <div ref={ruler} aria-hidden="true" className="absolute left-0 top-0 invisible pointer-events-none" style={{ width: limit || 190 }}>
+          {list.map(c => <div key={c.key} data-skin-callout-ruler={c.key} style={{ width: 'max-content', maxWidth: 'none', height: 0, overflow: 'hidden' }}><Pill color={c.color} label={text(c.label)} sub={c.sub && text(c.sub)} on={pressed(c)} /></div>)}
+        </div>
+        {box && layout && <>
+          <svg aria-hidden="true" className="absolute pointer-events-none overflow-visible" style={{ left: box.left, top: box.top, width: box.pw, height: box.ph }} data-skin-callout-connectors>
+            {layout.anchors.map(({ c, ax, ay }) => {
+              const on = pressed(c), p = layout.placed?.find(x => x.key === c.key);
+              return <g key={c.key} data-skin-callout-line={c.key}>
+                {p && <path d={p.path} fill="none" stroke={HALO} strokeOpacity=".55" strokeWidth="3" strokeLinecap="round" />}
+                {p && <path d={p.path} fill="none" stroke={LINE} strokeWidth={on ? 1.5 : 1.25} strokeLinecap="round" data-skin-callout-path={c.key} />}
+                <circle cx={ax} cy={ay} r={on ? 4.5 : 3.5} fill={HALO} fillOpacity=".35" stroke={layout.placed ? LINE : c.color} strokeWidth="1.5" data-skin-callout-ring={c.key} />
+              </g>;
             })}
           </svg>
-          {placed.map(p => pill(p.c, { position: 'absolute', top: p.y, ...(p.left ? { right: box.w - GUTTER + 8 } : { left: box.w - GUTTER + 8 }), ...(p.c.sub ? {} : { maxWidth: GUTTER - 16 }) }))}
+          {layout.placed?.map(p => {
+            const c = list.find(x => x.key === p.key)!, size = sizes[c.key];
+            return <button key={p.key} type="button" aria-pressed={pressed(c)} onClick={() => onSelect?.(c.key)} data-skin-callout={c.key} data-skin-callout-finding={c.id} data-skin-callout-anchor={`${c.anchor.x},${c.anchor.y}`} data-skin-callout-lines={size.lines}
+              className={`absolute ${button}`} style={{ left: box.left + p.x, top: box.top + p.y, width: p.w, height: p.h }}>
+              <Pill color={c.color} label={text(c.label)} sub={c.sub && text(c.sub)} on={pressed(c)} width={Math.max(0, size.w)} />
+            </button>;
+          })}
         </>}
       </div>
-      {!gutter && <div className="flex flex-wrap justify-center gap-2" data-skin-callout-row>{list.map(c => pill(c))}</div>}
+      {mode === 'list' && (
+        <ul className="mt-2 flex w-full flex-wrap justify-center gap-x-1.5" data-skin-callout-list>
+          {list.map(c => <li key={c.key} className="max-w-full"><button type="button" aria-pressed={pressed(c)} onClick={() => onSelect?.(c.key)} data-skin-callout={c.key} data-skin-callout-finding={c.id} data-skin-callout-anchor={`${c.anchor.x},${c.anchor.y}`}
+            className={`min-h-[48px] min-w-[48px] max-w-full ${button}`}><Pill color={c.color} label={text(c.label)} sub={c.sub && text(c.sub)} on={pressed(c)} /></button></li>)}
+        </ul>
+      )}
     </div>
   );
 }

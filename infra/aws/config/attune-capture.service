@@ -1,0 +1,14 @@
+[Unit]
+Description=Attune opt-in remote demo capture bridge
+After=attune-api@aaos.service
+Requires=attune-api@aaos.service
+[Service]
+User=attune
+WorkingDirectory=/opt/attune/scripts/aws
+EnvironmentFile=/etc/attune/capture.env
+ExecStart=/opt/attune-venv/bin/uvicorn capture_bridge:configured_app --factory --host 127.0.0.1 --port 8012 --workers 1 --no-access-log --ws-max-size 8388608 --ws-max-queue 1
+NoNewPrivileges=true
+PrivateTmp=true
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target

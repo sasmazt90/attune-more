@@ -1,0 +1,29 @@
+{
+  "region": "eu-central-1",
+  "source": "AWS DescribeInstances after normal Stop on 2026-11-03",
+  "observationStatus": "OBSERVED",
+  "instances": [
+    {
+      "id": "i-0b25450afc6633494",
+      "name": "attune-web-ai",
+      "type": "r7i.2xlarge",
+      "rootGiB": 150,
+      "volumeType": "gp3",
+      "reportedState": "stopped"
+    },
+    {
+      "id": "i-0f4cca4e92e94c351",
+      "name": "attune-aaos-demo",
+      "type": "m8i.2xlarge",
+      "rootGiB": 120,
+      "volumeType": "gp3",
+      "reportedState": "stopped",
+      "reportedNestedVirtualization": "enabled"
+    }
+  ],
+  "provisioningAllowed": false,
+  "startApproved": true,
+  "approvalScope": "until_completion_or_unrecoverable_blocker; monitor costs; normal Stop at completion",
+  "observedAt": "2026-11-03T19:09:19.201027+00:00",
+  "stopVerified": true
+}

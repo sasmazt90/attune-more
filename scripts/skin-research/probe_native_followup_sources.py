@@ -10,7 +10,7 @@ sources=json.loads((args.selection or OUT/'probe-selection.json').read_text('utf
 with sync_playwright() as pw:
  context=pw.chromium.launch_persistent_context(str(profile),channel='chrome',headless=False,viewport=dict(width=1400,height=950),args=['--enable-unsafe-swiftshader'])
  context.route('**/__audit/vision_bundle.mjs',lambda r:r.fulfill(path=str(ROOT/'node_modules/@mediapipe/tasks-vision/vision_bundle.mjs'),content_type='text/javascript'))
- page=context.new_page();page.goto('http://127.0.0.1:3000/privacy');assert not page.get_by_label('Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver',exact=True).is_checked()
+ page=context.new_page();page.goto('http://127.0.0.1:3000/privacy');assert not page.get_by_label('Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.',exact=True).is_checked()
  page.add_script_tag(content=(ROOT/'.runtime/periorbital-v5-browser-support/utilities.js').read_text('utf8'));page.evaluate("async()=>{window.__auditMediaPipe=await import('/__audit/vision_bundle.mjs');return !!await __auditRequire('apps/vehicle-app/src/utils/skinAnalyzer.ts').SkinAnalyzer.getFaceLandmarker()}")
  for row in sources:
   prefix=row['sha256'][:8];data=Path(row['absolutePath']).read_bytes();assert hashlib.sha256(data).hexdigest()==row['sha256']

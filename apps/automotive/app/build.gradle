@@ -12,6 +12,12 @@ def debugOrigin = { String propertyName, String fallback ->
     return '"' + value + '"'
 }
 
+// The cloudDemo APK needs one signing identity across builds, or Android refuses an update in place and saved data
+// is lost. CI supplies the key from a protected secret. Without it the build still works, with the debug key, and
+// the deploy tool refuses that APK because its certificate is not the pinned one.
+def signingKeystore = providers.environmentVariable('ATTUNE_ANDROID_KEYSTORE').getOrNull()
+def signingPassword = providers.environmentVariable('ATTUNE_ANDROID_KEYSTORE_PASSWORD').getOrNull()
+
 android {
     namespace 'more.attune.automotive'
     compileSdk 35
@@ -22,8 +28,22 @@ android {
         applicationId 'more.attune.automotive.prototype'
         minSdk 29
         targetSdk 35
-        versionCode 1
+        // CI raises this every build. Android refuses to install a lower one over a higher one.
+        versionCode providers.environmentVariable('ATTUNE_VERSION_CODE').map { it.toInteger() }.getOrElse(1)
         versionName '0.1-prototype'
+    }
+    if (signingKeystore && signingPassword) {
+        signingConfigs {
+            stableCloudDemo {
+                storeFile file(signingKeystore)
+                storeType 'pkcs12'
+                storePassword signingPassword
+                keyAlias 'attune-cloud-demo'
+                keyPassword signingPassword
+                enableV2Signing true
+                enableV3Signing true
+            }
+        }
     }
     buildFeatures { buildConfig true }
     // Native labels follow the existing in-app TR/EN/DE selector offline.
@@ -31,6 +51,7 @@ android {
     bundle { language { enableSplit = false } }
     buildTypes {
         debug {
+            buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'false'
             applicationIdSuffix '.debug'
             buildConfigField 'boolean', 'BACKEND_SIMULATION', 'true'
             // adb reverse connects to an isolated host instance of the existing app/API.
@@ -38,13 +59,29 @@ android {
             buildConfigField 'String', 'API_ORIGIN', debugOrigin('attuneDebugApiOrigin', 'http://localhost:8000')
         }
         release {
+            buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'false'
             minifyEnabled false
             buildConfigField 'boolean', 'BACKEND_SIMULATION', 'false'
             // Intentionally unusable until an authorized provider and deployment are integrated.
             buildConfigField 'String', 'WEB_ORIGIN', '"https://attune.invalid"'
             buildConfigField 'String', 'API_ORIGIN', '"https://attune.invalid"'
         }
+        cloudDemo {
+            initWith debug
+            applicationIdSuffix '.clouddemo'
+            if (signingKeystore && signingPassword) {
+                signingConfig signingConfigs.stableCloudDemo
+            }
+            versionNameSuffix '-aws-demo'
+            matchingFallbacks = ['debug']
+            buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'true'
+            // These loopbacks terminate inside the AWS AVD and M8i host only.
+            // The M8i proxy authenticates to G6 over private mTLS.
+            buildConfigField 'String', 'WEB_ORIGIN', '"http://127.0.0.1:3000"'
+            buildConfigField 'String', 'API_ORIGIN', '"http://127.0.0.1:3000"'
+        }
     }
+    sourceSets { cloudDemo { res.srcDirs += 'src/debug/res' } }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
