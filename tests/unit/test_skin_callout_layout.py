@@ -124,6 +124,11 @@ def test_labels_use_the_frame_the_photo_is_drawn_in():
     assert 'crop={viewCrop}' in source and 'aspectRatio: viewCrop.width / viewCrop.height' in source
 
 
+def test_findings_sit_on_a_clean_photo():
+    source = (ROOT / 'apps/vehicle-app/src/components/skin/SkinFacePanel.tsx').read_text('utf8')
+    assert '!selectedFinding&&!layers.length&&regionalLayers.map(' in source
+
+
 def test_callout_strings_are_translated():
     catalog = json.loads((ROOT / 'shared/localization/messages.json').read_text('utf8'))
     rows = {row.get('en'): row for row in catalog.values()}

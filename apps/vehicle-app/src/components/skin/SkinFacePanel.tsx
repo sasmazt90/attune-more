@@ -263,7 +263,8 @@ export const SkinFacePanel: React.FC<SkinFacePanelProps> = ({
                   </clipPath>
                 </defs>
                 <image href={snapshot.dataUrl} width={snapshot.width} height={snapshot.height} />
-            {regionalLayers.map(layer=>{const mesh=snapshot.meshes[layer.region];if(!mesh)return null;const paths=meshTriangles(mesh).map((triangle,i)=><path key={i} d={triangle.map((point,j)=>`${j?'L':'M'}${mesh.points[point].x} ${mesh.points[point].y}`).join('')+'Z'}/>);return <g key={layer.region} data-regional-skin-layer={layer.region} data-regional-state={layer.state} data-regional-fill={layer.fill||'uncoloured'} data-regional-redness={layer.redness} data-regional-geometry={layer.geometry}>
+            {/* The regional map belongs to the skin-type view. Findings sit on a clean photo. */}
+            {!selectedFinding&&!layers.length&&regionalLayers.map(layer=>{const mesh=snapshot.meshes[layer.region];if(!mesh)return null;const paths=meshTriangles(mesh).map((triangle,i)=><path key={i} d={triangle.map((point,j)=>`${j?'L':'M'}${mesh.points[point].x} ${mesh.points[point].y}`).join('')+'Z'}/>);return <g key={layer.region} data-regional-skin-layer={layer.region} data-regional-state={layer.state} data-regional-fill={layer.fill||'uncoloured'} data-regional-redness={layer.redness} data-regional-geometry={layer.geometry}>
               {layer.fill&&<g fill={layerColour[layer.fill]} fillOpacity={layer.fill==='lightgrey'?'.20':'.24'}>{paths}</g>}
               {layer.redness==='positive'&&<><g fill={`url(#${maskId}-red-hatch)`}>{paths}</g>{snapshot.contours[layer.region]&&<path data-regional-redness-contour={layer.region} d={snapshot.contours[layer.region].map((p,i)=>`${i?'L':'M'}${p.x} ${p.y}`).join(' ')+'Z'} fill="none" stroke="#ef4444" strokeWidth={displayCrop!.width/300} strokeOpacity=".82" strokeDasharray={`${displayCrop!.width/150} ${displayCrop!.width/210}`}/>}</>}
             </g>})}

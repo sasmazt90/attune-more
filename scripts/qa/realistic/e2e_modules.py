@@ -1228,7 +1228,7 @@ CALLOUT_READ = """()=>{const panel=document.querySelector('[data-face-panel]'),p
  let overlaps=0;for(let i=0;i<pills.length;i++)for(let j=i+1;j<pills.length;j++){const a=pills[i].box,b=pills[j].box;if(a[0]<b[2]-.5&&b[0]<a[2]-.5&&a[1]<b[3]-.5&&b[1]<a[3]-.5)overlaps++;}
  return {viewport:[innerWidth,innerHeight],layout:document.querySelector('[data-skin-callout-layout]')?.dataset.skinCalloutLayout||'none',photo:photo?[Math.round(photo.width),Math.round(photo.height)]:null,angle:svg?.dataset.snapshotAngle||null,
   layers:[...document.querySelectorAll('[data-skin-finding-layer]')].map(e=>e.dataset.skinFindingLayer).sort(),markers:[...document.querySelectorAll('[data-skin-finding-layer]')].flatMap(l=>[...l.querySelectorAll('[data-skin-finding-marker]')].map(m=>[l.dataset.skinFindingLayer,Number(m.dataset.skinMarkerX),Number(m.dataset.skinMarkerY)])),
-  skinMap:!!document.querySelector('[data-skin-type-overlay]'),pressedCards:[...document.querySelectorAll('[data-skin-overview-finding][aria-pressed=true]')].map(e=>e.dataset.skinOverviewFinding),focused:document.querySelector('[data-skin-finding-focused=true]')?.dataset.skinFindingCard||null,pills:pills,overlaps,lines:[...document.querySelectorAll('[data-skin-callout-path]')].map(p=>Math.round(p.getTotalLength())),sideways:document.documentElement.scrollWidth>innerWidth+1,unlocated:(document.querySelector('[data-skin-unlocated]')?.dataset.skinUnlocated||'').split(' ').filter(Boolean)};}"""
+  skinMap:!!document.querySelector('[data-skin-type-overlay]'),regionalPatches:document.querySelectorAll('[data-regional-skin-layer]').length,pressedCards:[...document.querySelectorAll('[data-skin-overview-finding][aria-pressed=true]')].map(e=>e.dataset.skinOverviewFinding),focused:document.querySelector('[data-skin-finding-focused=true]')?.dataset.skinFindingCard||null,pills:pills,overlaps,lines:[...document.querySelectorAll('[data-skin-callout-path]')].map(p=>Math.round(p.getTotalLength())),sideways:document.documentElement.scrollWidth>innerWidth+1,unlocated:(document.querySelector('[data-skin-unlocated]')?.dataset.skinUnlocated||'').split(' ').filter(Boolean)};}"""
 VIEW_SCOPE = {'forehead': ('forehead', 'nose'), 'periorbital': ('periorbital',), 'rightCheek': ('rightCheek',), 'leftCheek': ('leftCheek',), 'chin': ('chin',)}
 
 
@@ -1282,6 +1282,8 @@ def callouts(run):
                 drawn = {(x, y) for f, x, y in m['markers'] if f == finding}
                 if drawn != marks:
                     problem(name, 'stored markers are missing', [finding, sorted(marks - drawn)])
+        if m['layers'] and m['regionalPatches']:
+            problem(name, 'the regional map is drawn over the findings', m['regionalPatches'])
         for p in m['pills']:
             if not p['textInside']:
                 problem(name, 'label text leaves its background', p['text'])
@@ -1370,6 +1372,7 @@ def callouts(run):
     run.check('Selecting shows only that finding and highlights its card; deselecting restores', not [w for w in wrong if w['what'] in ('the card and the photo disagree', 'another finding is still drawn', 'another finding keeps a label', 'deselecting did not restore the overview', 'a selection carried over from another view')], [w for w in wrong if 'disagree' in w['what'] or 'still' in w['what'] or 'keeps' in w['what'] or 'restore' in w['what']][:4])
     run.check('No label overflow, overlap or off-screen placement in EN, DE or TR', not [w for w in wrong if w['what'].startswith('label') or w['what'] == 'labels overlap' or 'sideways' in w['what']], [w for w in wrong if w['what'].startswith('label') or w['what'] == 'labels overlap' or 'sideways' in w['what']][:6])
     run.check('Every size under test was really applied', not [w for w in wrong if 'size under test' in w['what']], [w for w in wrong if 'size under test' in w['what']][:3])
+    run.check('Findings sit on a clean photo', not [w for w in wrong if 'regional map' in w['what']], [w for w in wrong if 'regional map' in w['what']][:3])
     run.check('Lines stay short', not [w for w in wrong if 'line is long' in w['what']], [w for w in wrong if 'line is long' in w['what']][:4])
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
