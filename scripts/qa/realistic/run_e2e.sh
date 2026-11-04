@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs one recorded journey on the host. Usage: run_e2e.sh <web|aaos> <skin|dental|din|tone|mental|vision> <output name> [--record]
+# Runs one recorded journey on the host. Usage: run_e2e.sh <web|aaos> <skin|dental|din|tone|mental|vision|care|ui|camera> <output name> [--record]
 # Inputs are the reference files prepared on the host; the report states which ones were used.
 set -u
 PLATFORM=$1; MODULE=$2; NAME=$3; RECORD=${4:-}
@@ -61,6 +61,13 @@ pngs() { # prefix, FRONT file, RIGHT file, LEFT file, [BITE file]
 EXTRA=()
 case "$PLATFORM-$MODULE" in
   *-care) EXTRA=(--input-map '{"appointment":"Scripted example; no real booking was made"}') ;;
+  web-camera)
+    y4m $Q/inputs/Char11-2.png $Q/e2e-camera-FRONT.y4m
+    EXTRA=(--frames "$Q/e2e-camera-POSE.y4m" --poses FRONT --input-map '{"FRONT":"Char11-2","failure":"Camera refusal injected in this journey only"}') ;;
+  aaos-camera)
+    pngs $Q/e2e-camera- $I/Char49-2.png $I/Char49-1.png $I/Char49-3.png
+    start_sender $Q/e2e-camera- FRONT,RIGHT,LEFT
+    EXTRA=(--input-map '{"FRONT":"Char49-2","failure":"Person cancels the demo camera pairing"}') ;;
   web-skin)
     y4m $Q/inputs/Char11-2.png $Q/e2e-skin-FRONT.y4m; y4m $Q/inputs/Char11-1.png $Q/e2e-skin-RIGHT.y4m; y4m $Q/inputs/Char11-3.png $Q/e2e-skin-LEFT.y4m
     EXTRA=(--frames "$Q/e2e-skin-POSE.y4m" --poses FRONT,RIGHT,LEFT --input-map '{"FRONT":"Char11-2","RIGHT":"Char11-1","LEFT":"Char11-3"}') ;;

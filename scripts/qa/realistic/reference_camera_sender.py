@@ -28,31 +28,33 @@ def main():
     parser.add_argument('--wait', type=int, default=600)
     args = parser.parse_args()
     pair = Path(args.pair_file)
-    for _ in range(args.wait):
-        if pair.exists():
-            break
-        time.sleep(1)
-    else:
-        raise SystemExit('No pairing key arrived')
-    key = json.loads(pair.read_text())['key']
-    pair.unlink()
     context = ssl.create_default_context(cafile=TLS + 'server-ca.crt')
     context.load_cert_chain(TLS + 'client.crt', TLS + 'client.key')
     frames = {pose: Path(args.prefix + pose + '.png').read_bytes() for pose in args.poses.split(',')}
     pose_file = Path(args.pose_file)
-    sent = 0
-    try:
-        with connect('wss://attune-internal:8443/bridge/sender', sock=socket.create_connection((args.web_ip, 8443)), ssl=context,
-                     origin=args.origin, max_size=8388608) as ws:
-            ws.send(json.dumps({'key': key, 'consent': True}))
-            while True:
-                request = json.loads(ws.recv(timeout=10))
-                current = pose_file.read_text().strip()
-                ws.send(json.dumps({'challenge': request['challenge']}))
-                ws.send(frames[current])
-                sent += 1
-    except Exception as error:
-        print(json.dumps({'senderFinished': True, 'framesSent': sent, 'endClass': type(error).__name__}))
+    # A journey can pair more than once. It ends this process when it finishes.
+    while True:
+        for _ in range(args.wait):
+            if pair.exists():
+                break
+            time.sleep(1)
+        else:
+            raise SystemExit('No pairing key arrived')
+        key = json.loads(pair.read_text())['key']
+        pair.unlink()
+        sent = 0
+        try:
+            with connect('wss://attune-internal:8443/bridge/sender', sock=socket.create_connection((args.web_ip, 8443)), ssl=context,
+                         origin=args.origin, max_size=8388608) as ws:
+                ws.send(json.dumps({'key': key, 'consent': True}))
+                while True:
+                    request = json.loads(ws.recv(timeout=10))
+                    current = pose_file.read_text().strip()
+                    ws.send(json.dumps({'challenge': request['challenge']}))
+                    ws.send(frames[current])
+                    sent += 1
+        except Exception as error:
+            print(json.dumps({'senderFinished': True, 'framesSent': sent, 'endClass': type(error).__name__}), flush=True)
 
 
 if __name__ == '__main__':

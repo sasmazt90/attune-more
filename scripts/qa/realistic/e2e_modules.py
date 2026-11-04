@@ -1083,7 +1083,83 @@ def ui(run):
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 
 
-JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care, 'ui': ui}
+# ---------------------------------------------------------------- Camera states (QA-33)
+
+CAMERA_OFF = """()=>{window.__qaCamera=navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);navigator.mediaDevices.getUserMedia=()=>Promise.reject(new DOMException('Camera unavailable','NotReadableError'));}"""
+CAMERA_ON = """()=>{if(window.__qaCamera)navigator.mediaDevices.getUserMedia=window.__qaCamera;}"""
+CAMERA_READ = """()=>{const v=document.querySelector('main video');return {video:!!v,ready:v?v.readyState:0,width:v?v.videoWidth:0,
+ waiting:!!document.querySelector('[data-skin-camera-waiting]'),placeholder:!!document.querySelector('[data-skin-photo-empty]'),
+ pairing:!!document.querySelector('dialog[open] textarea'),text:(document.querySelector('main')?.innerText||'').replace(/\\s+/g,' ').slice(0,240)};}"""
+
+
+def camera(run):
+    """What the preview shows in each camera state. The failure here is injected, in this journey only, never in a recording."""
+    page = run.page
+    set_english(run)
+    allow_local_storage(run)
+    rows = []
+
+    def state(module, name):
+        reading = page.evaluate(CAMERA_READ)
+        rows.append({'module': module, 'state': name, **reading})
+        run.shot('{}-{}'.format(module, name.replace(' ', '-')))
+        run.mark('{}: {}'.format(module, name))
+        return reading
+
+    for module, start in (('skin', '^start analysis$'), ('dental', '^start dental scan$')):
+        run.adapter.home(page)
+        enter_module(run, module)
+        state(module, 'fresh entry')
+        button = page.get_by_role('button', name=re.compile(start, re.I))
+        # Camera unavailable. WEB: the browser refuses the camera. AAOS: the person cancels the demo camera pairing.
+        if run.args.platform == 'web':
+            page.evaluate(CAMERA_OFF)
+            button.click()
+        else:
+            button.click()
+            page.locator('dialog[open] textarea').wait_for()
+            state(module, 'pairing')
+            page.locator('dialog[open] button').click()
+        again = page.get_by_role('button', name=re.compile('try again|scan again', re.I))
+        # A person should not be left waiting. Twenty seconds covers the analysis start before the camera request.
+        limit = time.time() + 20
+        while time.time() < limit and not again.count():
+            page.wait_for_timeout(250)
+        run.report.setdefault('secondsToFailure', {})[module] = round(20 - (limit - time.time()), 1)
+        unavailable = state(module, 'camera unavailable')
+        run.check('{}: unavailable camera says so and shows no saved-record text'.format(module), not unavailable['placeholder'] and not unavailable['video'] and bool(re.search('camera|cancel', unavailable['text'], re.I)), unavailable['text'][:160])
+        # Try again, with the camera back.
+        if run.args.platform == 'web':
+            page.evaluate(CAMERA_ON)
+        run.check('{}: a retry control is offered'.format(module), again.count() > 0, again.count())
+        again.first.click()
+        page.wait_for_timeout(500)
+        if page.get_by_role('button', name=re.compile(start, re.I)).count():
+            page.get_by_role('button', name=re.compile(start, re.I)).click()
+        if run.args.platform == 'aaos':
+            run.adapter.set_pose(page, 'FRONT')
+            run.adapter.pair(page)
+        waiting = leaked = 0
+        deadline = time.time() + 45
+        reading = {}
+        while time.time() < deadline:
+            reading = page.evaluate(CAMERA_READ)
+            waiting += 1 if reading['waiting'] else 0
+            leaked += 1 if reading['placeholder'] else 0
+            if reading['video'] and reading['ready'] >= 2 and reading['width'] > 0:
+                break
+            page.wait_for_timeout(250)
+        run.dwell(1200)
+        state(module, 'live after retry')
+        run.report.setdefault('waitingPolls', {})[module] = waiting
+        run.check('{}: the camera recovers after retry'.format(module), reading.get('ready', 0) >= 2 and reading.get('width', 0) > 0, {'ready': reading.get('ready'), 'width': reading.get('width')})
+        run.check('{}: no saved-record text during the live start'.format(module), leaked == 0, {'occurrences': leaked})
+    run.adapter.home(page)
+    run.report['states'] = rows
+    run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
+
+
+JOURNEYS = {'skin': skin, 'dental': dental, 'din': din, 'tone': tone, 'mental': mental, 'care': care, 'ui': ui, 'camera': camera}
 
 
 def main():
