@@ -1037,8 +1037,11 @@ DIALOG_FIT = """()=>{const p=[...document.querySelectorAll('[role=dialog]')].pop
  const gap=a?Math.max(0,r.bottom-1-a.bottom):0;
  const peek=a&&gap>1?[...p.querySelectorAll('p,label,li,span,h1,h2,h3,summary')].filter(e=>!actions.contains(e)&&e.getClientRects().length).filter(e=>{const b=e.getBoundingClientRect();return b.bottom>a.bottom+1&&b.top<r.bottom-1&&b.height>0;}).map(e=>(e.innerText||'').slice(0,40)):[];
  return {gapBelowActions:Math.round(gap),width:Math.round(r.width),height:Math.round(r.height),fits:r.top>=-1&&r.bottom<=innerHeight+1,sharePct:Math.round(100*r.width*r.height/(innerWidth*innerHeight)),actionsInView:a?a.top>=r.top-1&&a.bottom<=r.bottom+1:null,textBelowActions:peek.slice(0,4),scrollable:p.scrollHeight>p.clientHeight+1};}"""
-HERO = """()=>{const cards=[...document.querySelectorAll('main a[href],main button')].filter(e=>/skin|dental|vision|hearing|mental|health/i.test(e.getAttribute('href')||e.innerText||''));
- const inView=cards.filter(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}).length;return {actions:cards.length,fullyInFirstScreen:inView};}"""
+HERO = """()=>{const links=['skin','dental','vision','hearing','mental'].map(m=>document.querySelector('main a[href="/'+m+'"]')).filter(Boolean);
+ const inView=links.filter(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}).length;
+ const h=document.querySelector('main section'),box=h?h.getBoundingClientRect():null,bar=document.querySelector('[data-cockpit-header]');
+ const usable=innerHeight-(bar?bar.getBoundingClientRect().height:0);
+ return {actions:links.length,fullyInFirstScreen:inView,heroPx:box?Math.round(box.height):null,heroSharePct:box?Math.round(100*box.height/usable):null};}"""
 
 
 def go(run, route):
@@ -1106,6 +1109,8 @@ def ui(run):
     run.check('Dialog actions stay in view', all(r['actionsInView'] is not False for r in dialogs), [(r['language'], r['state']) for r in dialogs if r['actionsInView'] is False][:6])
     run.check('No consent text shows below the pinned buttons', not [r for r in dialogs if r.get('textBelowActions')], [(r['language'], r['state'], r['textBelowActions']) for r in dialogs if r.get('textBelowActions')][:4])
     run.check('No undersized controls or tiny text', not [r for r in rows if r.get('smallCount') or r.get('tinyText')], [(r['language'], r['state'], r.get('smallTargets'), r.get('tinyText')) for r in rows if r.get('smallCount') or r.get('tinyText')][:6])
+    cockpit = [r for r in rows if r['state'] == 'cockpit']
+    run.check('Every module Start action is in the first screen', all(r['fullyInFirstScreen'] == r['actions'] == 5 for r in cockpit), [(r['language'], r['fullyInFirstScreen'], r['heroPx'], r['heroSharePct']) for r in cockpit])
     run.check('No font-dependent glyphs', not [r for r in rows if r.get('unsafeGlyphs')], [(r['language'], r['state']) for r in rows if r.get('unsafeGlyphs')][:6])
     run.report['status'] = 'PASS' if all(c['passed'] for c in run.report['checks']) else 'FAIL'
 

@@ -38,8 +38,9 @@ export default function CockpitDashboard() {
         <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-cyan-900/20 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div className="space-y-3 min-w-0 max-w-2xl">
-            <div className="flex items-center gap-2 text-xs font-semibold text-togg-turquoise tracking-wider uppercase">
+          <div className="space-y-3 short:space-y-1 min-w-0 max-w-2xl">
+            {/* Short displays keep the module actions in the first screen. A demo label always stays. */}
+            <div className={`flex items-center gap-2 text-xs font-semibold text-togg-turquoise tracking-wider uppercase ${isDemo ? '' : 'short:hidden'}`}>
               <span className="w-2 h-2 rounded-full bg-togg-turquoise animate-pulse" />
               <span>{i18nText("Kişisel Önleyici Sağlık Kokpiti")}</span>
               {isDemo && (
@@ -98,7 +99,7 @@ export default function CockpitDashboard() {
             </div>
 
             {/* Sade Tek Katman İçgörü */}
-            <div data-cockpit-care className="bg-slate-950/80 border border-slate-800/80 rounded-xl p-3 text-xs space-y-1">
+            <div data-cockpit-care className="short:hidden bg-slate-950/80 border border-slate-800/80 rounded-xl p-3 text-xs space-y-1">
               <p className="text-amber-400 text-xs">{i18nText("Örnek randevu")}</p>
               <div className="flex items-center justify-between">
                 <span className="text-slate-400 text-xs">{i18nText("Örnek Branş")}</span>

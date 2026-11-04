@@ -123,7 +123,7 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
   const cards: { id: string; content: ReactNode }[] = HEALTH_MODULE_IDS.map(id => {
     const overview = moduleOverview(id, records[id]), selected = module === id;
     return { id, content: <article className={`flex w-full flex-col rounded-2xl border bg-cockpit-surface transition-colors ${selected ? 'border-togg-turquoise' : 'border-white/10 hover:border-white/30'}`}>
-      <button type="button" aria-haspopup="dialog" aria-expanded={selected} onClick={() => setModule(id)} className="flex min-h-44 w-full flex-1 flex-col items-start rounded-2xl p-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-togg-turquoise" data-health-module={id}>
+      <button type="button" aria-haspopup="dialog" aria-expanded={selected} onClick={() => setModule(id)} className="flex min-h-44 short:min-h-0 w-full flex-1 flex-col items-start rounded-2xl p-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-togg-turquoise" data-health-module={id}>
         <span className="flex min-w-0 items-start gap-2 text-sm font-bold text-togg-turquoise"><span className="shrink-0 pt-0.5"><HealthModuleIcon module={id}/></span><span>{i18nNode(HEALTH_MODULES[id].name)}</span></span>
         {id === 'skin' && skinAvg ? <SkinAverages avg={skinAvg} /> : <>
         <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span><span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : overview.count ? 'Tarih kaydedilmemiş' : 'Kayıt yok')}</span></>}
