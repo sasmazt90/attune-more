@@ -13,7 +13,8 @@ Written by Claude, who built and tested this, so it is not an independent review
 | Question | Does data survive a host Stop and Start, on the same APK? | Does data survive replacing the APK with a new version? |
 | What can break it | Storage that does not outlive a process or boot | A new signing certificate, or an uninstall |
 | Check | `persistence_check.py`, 11 of 11 on `8c90ec4` | `apk_upgrade_check.py`, this document |
-| Did the first answer imply the second? | No. The 11 of 11 never replaced the APK | |
+
+The 11 of 11 never replaced the APK, so it said nothing about upgrades.
 
 ## Original root cause
 
@@ -47,7 +48,7 @@ No Skin model, threshold, calibration, app page, API or consent behaviour change
 
 This is a demo signing key for this test build type, which stays debuggable. It is not a production release key.
 
-Each build's certificate was checked by three separate readers: this repository's parser in CI and again on the PC, Android's `apksigner` in CI, and Android's own installed copy, pulled from the device after each upgrade.
+Each build's certificate was checked three ways: this repository's parser in CI and again on the PC, Android's `apksigner` in CI, and the copy Android actually installed, pulled from the device after each upgrade.
 
 | Build | Commit | CI run | versionCode | APK SHA-256 |
 |---|---|---|---:|---|
@@ -69,7 +70,7 @@ Each stage reads the real WebView's local storage and IndexedDB, and Android's p
 | 4 | 5 real journeys on build A, saving Skin, Dental, Vision, Hearing and Mental records. All passed | 6 records, 20 local values, 2 photo stores |
 | 5 | **Baseline.** Region Berlin and language German, chosen through the real controls | Recorded |
 | 6 | **Upgrade 1:** build B, in place, 1056 to 1057 | **PASS**, 10 of 10 operational checks |
-| 7 | 4 live refusals, listed below | All refused. Data unchanged |
+| 7 | 5 live refusals, listed below | All refused. Data unchanged |
 | 8 | **Upgrade 2:** build C, in place, 1057 to 1058 | **PASS**, 10 of 10 operational checks. Also PASS compared directly with the baseline |
 | 9 | A new Dental journey on the upgraded app | PASS. New record saved, older ones unchanged |
 | 10 | Real host Stop and Start. This measures restart persistence and is not an upgrade | PASS. 7 records, nothing changed |
