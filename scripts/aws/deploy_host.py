@@ -33,10 +33,23 @@ BUILD_ENV = {
 # Everything else on the AAOS host stays as prepared; it serves no application source.
 AAOS_PATHS = ['infra/aws/aaos/', 'scripts/aws/', 'scripts/qa/realistic/']
 WEB_RESTARTS = ['attune-api@web', 'attune-api@aaos', 'attune-web@web', 'attune-web@aaos', 'attune-capture']
+SKIN_RUNTIME_PACKAGES = ['mediapipe==0.10.32', 'absl-py==2.5.1', 'sounddevice==0.5.6', 'cffi==2.1.1', 'pycparser==3.12']
 # Keeps the speech model loaded and gives it 4 of 8 cores. Same model files and voice; no secrets here.
 SPEECH_DROP_IN = Path('/etc/systemd/system/attune-api@.service.d/speech.conf')
 SPEECH_ENVIRONMENT = '[Service]\nEnvironment=ATTUNE_MENTAL_TTS_RESIDENT=1\nEnvironment=ATTUNE_MENTAL_TTS_THREADS=4\n'
 AAOS_RESTARTS = ['attune-audio']
+
+
+def ensure_skin_runtime():
+    """The Skin findings recipe needs Python MediaPipe (CODEX_HANDOFF.md). Without it, acne and redness
+    use client landmarks and produce no redness measure. --no-deps is deliberate: its dependency list
+    would install a second OpenCV and replace the cv2 every measurement uses."""
+    python = '/opt/attune-venv/bin/python'
+    before = run(python, '-c', 'import cv2;print(cv2.__version__)').strip()
+    run('/opt/attune-venv/bin/pip', 'install', '--no-deps', '--no-cache-dir', *SKIN_RUNTIME_PACKAGES, timeout=300)
+    after = run(python, '-c', 'import cv2,mediapipe;from mediapipe.tasks.python import vision;print(cv2.__version__)').strip()
+    if before != after:
+        raise RuntimeError('OpenCV changed from {} to {}'.format(before, after))
 
 
 def run(*args, cwd=None, env=None, timeout=900):
@@ -89,6 +102,7 @@ def deploy_web(commit):
     cache = ROOT / 'apps/vehicle-app/.next/cache'
     cache.mkdir(parents=True, exist_ok=True)
     run('chown', '-R', 'attune:attune', str(cache))
+    ensure_skin_runtime()
     SPEECH_DROP_IN.parent.mkdir(parents=True, exist_ok=True)
     SPEECH_DROP_IN.write_text(SPEECH_ENVIRONMENT)
     run('systemctl', 'daemon-reload')

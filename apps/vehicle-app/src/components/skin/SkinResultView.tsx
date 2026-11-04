@@ -95,7 +95,7 @@ export const SkinResultView: React.FC<SkinResultViewProps> = ({ currentRegion, s
         </div>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] short:grid-cols-2 gap-6 short:gap-3 xl:gap-10 items-start" data-skin-result-layout>
+      <div className="grid grid-cols-1 lg:grid-cols-2 short:grid-cols-2 gap-6 short:gap-3 xl:gap-10 items-start" data-skin-result-layout>
         <div className="min-w-0 flex flex-col items-center">
           <SkinFacePanel currentRegion={currentRegion} snapshot={snapshot} mode="result" videoRef={videoRef} isLiveVideo={isLiveVideo}
             findings={findings} selectedFinding={selected} callouts={callouts} onSelectFinding={selectFinding}
