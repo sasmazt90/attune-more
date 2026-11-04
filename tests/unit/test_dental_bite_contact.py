@@ -71,6 +71,59 @@ def test_open_mouth_with_small_lip_ratio_is_not_a_bite():
     assert not d.incisal_contact(tooth, mouth, p, width)['confirmed']
 
 
+def _pixel(rgb):
+    return np.array([[rgb[::-1]]], np.uint8)
+
+
+def test_discoloured_enamel_is_told_apart_from_tissue_and_cavity():
+    # Values read from real mouth photos. Mirrored in dental_bite_contact_parity.cjs.
+    for name, rgb, expected in (('orange lower tooth', (225, 170, 95), True), ('yellow enamel', (225, 195, 130), True), ('brown lesion', (135, 95, 60), True),
+                                ('pink gum', (205, 135, 140), False), ('red tongue', (150, 85, 85), False), ('tongue highlight', (190, 130, 125), False),
+                                ('lip', (190, 130, 140), False), ('dark cavity', (50, 30, 25), False), ('white enamel', (240, 238, 232), False)):
+        mouth = np.ones((1, 1), bool)
+        assert bool(d.discoloured_enamel(_pixel(rgb), mouth, np.zeros((1, 1), bool))[0, 0]) is expected, name
+
+
+def test_thresholds_are_not_lowered():
+    assert (d.BITE_CONTACT['maxGapRatio'], d.BITE_CONTACT['minContactColumns'], d.BITE_CONTACT['minEnamelColumns']) == (.04, .60, .50)
+    assert d.BITE_CONTACT['version'] == 'incisal-contact-v2'
+
+
+def _colour_case(kind, gap_colour):
+    tooth, mouth, p, width = mouth_case(kind)
+    image = np.zeros((*mouth.shape, 3), np.uint8)
+    image[:] = gap_colour[::-1]
+    image[tooth] = (232, 238, 240)
+    return image, tooth, mouth, p, width
+
+
+def test_stain_between_rows_closes_the_bite_but_stays_marked():
+    image, tooth, mouth, p, width = _colour_case('open', (135, 95, 60))
+    result = d.bite_contact(image, tooth, mouth, p, width, .3)
+    assert result['confirmed'] and result['basis'] == 'discoloured-enamel' and not result['uncertain']
+    assert result['enamelOnlyContactColumnFraction'] == 0
+
+
+def test_stain_with_wide_lip_aperture_is_uncertain_not_passed():
+    image, tooth, mouth, p, width = _colour_case('open', (135, 95, 60))
+    result = d.bite_contact(image, tooth, mouth, p, width, .6)
+    assert not result['confirmed'] and result['uncertain'] and result['basis'] == 'none'
+
+
+def test_tongue_or_cavity_between_rows_stays_open():
+    for colour in ((150, 85, 85), (205, 135, 140), (50, 30, 25)):
+        image, tooth, mouth, p, width = _colour_case('open', colour)
+        result = d.bite_contact(image, tooth, mouth, p, width, .3)
+        assert not result['confirmed'] and not result['uncertain'], colour
+
+
+def test_clean_enamel_contact_is_unchanged():
+    image, tooth, mouth, p, width = _colour_case('bite', (150, 85, 85))
+    result = d.bite_contact(image, tooth, mouth, p, width, .3)
+    assert result['confirmed'] and result['basis'] == 'enamel'
+    assert result['contactColumnFraction'] == d.incisal_contact(tooth, mouth, p, width)['contactColumnFraction']
+
+
 def _reference_calculus(image, tooth, gum):
     """The previous full-frame implementation, kept verbatim as an oracle."""
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV).astype(np.float32)

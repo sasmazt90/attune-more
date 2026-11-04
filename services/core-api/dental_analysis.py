@@ -75,7 +75,7 @@ def dental_pixels(image,mouth,native_capture=False):
 # Scale is gated once by mouth width; enamel amount is relative to it, and a
 # small lip gap is enough when the enamel-visibility gate itself passes.
 DENTAL_GATES={'minLipOpening':.06,'minMouthWidthPx':65,'minEnamelPerMouthWidth2':.008,'minEnamelColumnFraction':.30,'version':'vehicle-capture-v2'}
-BITE_CONTACT={'centralHalfWidth':.25,'maxGapRatio':.04,'minContactColumns':.60,'minEnamelColumns':.50,'version':'incisal-contact-v1'}
+BITE_CONTACT={'centralHalfWidth':.25,'maxGapRatio':.04,'minContactColumns':.60,'minEnamelColumns':.50,'discolouredMaxOpening':.45,'version':'incisal-contact-v2'}
 
 
 def incisal_contact(tooth,mouth,p,width):
@@ -103,6 +103,30 @@ def incisal_contact(tooth,mouth,p,width):
                 confirmed=bool(total and enamel_fraction>=BITE_CONTACT['minEnamelColumns'] and contact_fraction>=BITE_CONTACT['minContactColumns']))
 
 
+def discoloured_enamel(image,mouth,enamel):
+    """Yellow, orange or brown tooth surface the enamel rule leaves out. Used only to decide
+    contact: measurements keep their own masks. Blood-red tissue has red without yellow, stain
+    has both, and the mouth cavity is dark. Mirrored by isDiscolouredEnamel in dentalCapture.ts."""
+    f=image.astype(np.float32);b,g,r=f[:,:,0],f[:,:,1],f[:,:,2]
+    v=np.maximum(np.maximum(r,g),b);red=r-g;yellow=g-b
+    tissue=(red>v*.12)&(yellow<red*.55)
+    return mouth&~enamel&(v>=70)&(r>=g)&(g>=b)&(yellow>v*.03)&~tissue
+
+
+def bite_contact(image,enamel,mouth,p,width,opening):
+    """Clean enamel alone can confirm a bite, as before. Discoloured enamel can also bridge the
+    gap, with the same gap and column limits, but it is weaker evidence: a wide lip aperture then
+    stays uncertain instead of passing or being called open."""
+    clean=incisal_contact(enamel,mouth,p,width)
+    stained=discoloured_enamel(image,mouth,enamel)
+    joined=incisal_contact(enamel|stained,mouth,p,width)
+    bridged=joined['confirmed'] and opening<=BITE_CONTACT['discolouredMaxOpening']
+    confirmed=clean['confirmed'] or bridged
+    return dict(joined if not clean['confirmed'] else clean,confirmed=confirmed,uncertain=not confirmed and joined['confirmed'],
+                basis='enamel' if clean['confirmed'] else 'discoloured-enamel' if bridged else 'none',
+                enamelOnlyContactColumnFraction=clean['contactColumnFraction'],joinedContactColumnFraction=joined['contactColumnFraction'])
+
+
 def gate_enamel(image,mouth):
     """Per-pixel enamel classification of the live capture gate (dentalCapture.ts),
     without the 3x3 opening used for analysis masks: at in-car image scales a
@@ -127,11 +151,11 @@ def dental_quality(image,points,bite=False,pose_check=True):
     lap=cv2.Laplacian(gray,cv2.CV_32F)
     sharp=float(np.mean(lap[interior]**2)) if interior.any() else 0
     light=float(gray[mouth].mean()) if area else 0
-    reasons=[];contact=incisal_contact(visible,mouth,p,width)
+    reasons=[];contact=bite_contact(image,visible,mouth,p,width,opening)
     anatomical=anatomical_mouth_width(points,image.shape)
     if anatomical<DENTAL_GATES['minMouthWidthPx']:reasons.append('INSUFFICIENT_TOOTH_DETAIL')
     if pose_check and not bite and opening<DENTAL_GATES['minLipOpening']:reasons.append('MOUTH_CLOSED')
-    if pose_check and bite and not contact['confirmed']:reasons.append('NATURAL_BITE_REQUIRED')
+    if pose_check and bite and not contact['confirmed']:reasons.append('NATURAL_BITE_UNCERTAIN' if contact['uncertain'] else 'NATURAL_BITE_REQUIRED')
     if count<width*width*DENTAL_GATES['minEnamelPerMouthWidth2'] or fraction<DENTAL_GATES['minEnamelColumnFraction']:reasons.append('TEETH_NOT_VISIBLE')
     if light<45 or light>230:reasons.append('LIGHT_INVALID')
     if sharp<12:reasons.append('BLURRY')

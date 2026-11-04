@@ -5,7 +5,7 @@ export const DENTAL_ADULT_POLICY='adult-permanent-D-only-v1';
 export const DENTAL_ACCUMULATION_LABEL='Birikim görünümü';
 export const DENTAL_POSE_LABELS:Record<string,string>={FRONT:'Ön',RIGHT:'Anatomik sağ',LEFT:'Anatomik sol',BITE:'Kapanış görünümü'};
 /** Backend quality codes -> user guidance (no technical codes on screen). */
-export const DENTAL_QUALITY_REASONS:Record<string,string>={INSUFFICIENT_TOOTH_DETAIL:'Dişler küçük göründü; kameraya biraz yaklaşın.',MOUTH_CLOSED:'Ağız yeterince açık değildi.',NATURAL_BITE_REQUIRED:'Ön dişlerin birbirine değdiği kapanış görülemedi.',TEETH_NOT_VISIBLE:'Dişlerin bir kısmı dudak veya dil tarafından örtüldü.',LIGHT_INVALID:'Işık dişler için uygun değildi.',BLURRY:'Fotoğraf yeterince net değildi.',SALIVA_OR_GLARE:'Diş yüzeyinde parlama vardı.',TONGUE_OCCLUSION:'Dil görünür alanı örttü.'};
+export const DENTAL_QUALITY_REASONS:Record<string,string>={INSUFFICIENT_TOOTH_DETAIL:'Dişler küçük göründü; kameraya biraz yaklaşın.',MOUTH_CLOSED:'Ağız yeterince açık değildi.',NATURAL_BITE_REQUIRED:'Ön dişlerin birbirine değdiği kapanış görülemedi.',NATURAL_BITE_UNCERTAIN:'Kapanış güvenilir biçimde doğrulanamadı.',TEETH_NOT_VISIBLE:'Dişlerin bir kısmı dudak veya dil tarafından örtüldü.',LIGHT_INVALID:'Işık dişler için uygun değildi.',BLURRY:'Fotoğraf yeterince net değildi.',SALIVA_OR_GLARE:'Diş yüzeyinde parlama vardı.',TONGUE_OCCLUSION:'Dil görünür alanı örttü.'};
 /** A view the backend measured vs. one it explicitly could not measure. */
 export const dentalViewMeasured=(v:any)=>v?.quality?.valid===true&&v?.caries?.quality==='valid';
 const fail=()=>{throw Error('Diş sonucu ve kaynak geometrisi doğrulanamadı.');};

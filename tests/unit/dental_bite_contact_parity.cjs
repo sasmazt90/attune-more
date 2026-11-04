@@ -3,7 +3,7 @@
 // backend results must stay visible per view instead of failing the whole scan.
 const assert=require('node:assert/strict');
 require(process.cwd()+'/tests/unit/ts_loader');
-const {incisalContact,DENTAL_BITE_CONTACT}=require(process.cwd()+'/apps/vehicle-app/src/utils/dentalCapture.ts');
+const {biteContact,incisalContact,isDiscolouredEnamel,DENTAL_BITE_CONTACT}=require(process.cwd()+'/apps/vehicle-app/src/utils/dentalCapture.ts');
 const R=require(process.cwd()+'/apps/vehicle-app/src/utils/dentalResult.ts');
 
 function mouthCase(kind){
@@ -21,7 +21,21 @@ for(const [kind,expected] of [['bite',true],['wide-bite',true],['open',false],['
  const c=mouthCase(kind),r=incisalContact(c.valid,c.tooth,c.W,c.H,0,0,c.p,c.width);
  assert.equal(r.confirmed,expected,kind+' '+JSON.stringify(r));
 }
-assert.equal(DENTAL_BITE_CONTACT.version,'incisal-contact-v1');
+assert.equal(DENTAL_BITE_CONTACT.version,'incisal-contact-v2');
+// Thresholds are unchanged. Colours mirror tests/unit/test_dental_bite_contact.py.
+assert.deepEqual([DENTAL_BITE_CONTACT.maxGapRatio,DENTAL_BITE_CONTACT.minContactColumns,DENTAL_BITE_CONTACT.minEnamelColumns],[.04,.60,.50]);
+for(const [name,rgb,expected] of [['orange lower tooth',[225,170,95],true],['yellow enamel',[225,195,130],true],['brown lesion',[135,95,60],true],['pink gum',[205,135,140],false],['red tongue',[150,85,85],false],['tongue highlight',[190,130,125],false],['lip',[190,130,140],false],['dark cavity',[50,30,25],false],['white enamel',[240,238,232],false]])
+ assert.equal(isDiscolouredEnamel(...rgb),expected,name);
+{
+ const c=mouthCase('open'),stained=new Uint8Array(c.tooth.length);
+ for(let i=0;i<stained.length;i++)if(c.valid[i]&&!c.tooth[i])stained[i]=1;
+ const bridged=biteContact(c.valid,c.tooth,stained,c.W,c.H,0,0,c.p,c.width,.3);
+ assert.equal(bridged.confirmed,true);assert.equal(bridged.basis,'discoloured-enamel');
+ const wide=biteContact(c.valid,c.tooth,stained,c.W,c.H,0,0,c.p,c.width,.6);
+ assert.equal(wide.confirmed,false);assert.equal(wide.uncertain,true);assert.equal(wide.basis,'none');
+ const open=biteContact(c.valid,c.tooth,new Uint8Array(c.tooth.length),c.W,c.H,0,0,c.p,c.width,.3);
+ assert.equal(open.confirmed,false);assert.equal(open.uncertain,false);
+}
 
 // Partial results: shapes as returned by analyze_dental for a quality failure.
 const hash=c=>c.repeat(64);
