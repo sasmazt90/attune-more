@@ -30,6 +30,9 @@ $P pactl list short sources 2>/dev/null | grep -q attune_mic_source || $P pactl 
 if [ "$PLATFORM" = web ]; then
   pgrep -x Xvfb >/dev/null || { Xvfb :99 -screen 0 1280x800x24 -nolisten tcp >/dev/null 2>&1 & sleep 1; }
   chmod 1777 /tmp/.X11-unix 2>/dev/null
+  # Browser notices are not part of the application. Keep them out of the recording.
+  mkdir -p /etc/opt/chrome/policies/managed
+  echo '{"TranslateEnabled":false,"CommandLineFlagSecurityWarningsEnabled":false,"PromotionalTabsEnabled":false,"BrowserSignin":0,"DefaultBrowserSettingEnabled":false}' > /etc/opt/chrome/policies/managed/attune-qa.json
 else
   # A vehicle is in a real time zone. The emulator image defaults to UTC, which would show UTC times.
   $A -s emulator-5554 shell cmd alarm set-timezone Europe/Berlin </dev/null >/dev/null 2>&1 || $A -s emulator-5554 shell setprop persist.sys.timezone Europe/Berlin </dev/null >/dev/null 2>&1

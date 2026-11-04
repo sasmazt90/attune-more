@@ -26,7 +26,10 @@ export async function acquireCamera(constraints:MediaStreamConstraints):Promise<
   let stream:MediaStream|undefined,done=false,busy=false,lastFrame=0,metadata:DemoSource|undefined;
   // MediaStreamTrack.stop() is consumer cleanup, not an unexpected source-ended event.
   const cleanup=(notifyEnded=true)=>{if(done)return;done=true;clearInterval(timer);clearTimeout(waiting);window.removeEventListener('pagehide',onPageHide);window.removeEventListener('attune-privacy',onPrivacy);window.removeEventListener('storage',onPrivacy);ws.close();dialog.remove();source=undefined;if(stream)for(const track of stream.getTracks()){track.stop();if(notifyEnded)track.dispatchEvent(new Event('ended'));}else reject(new Error(translateText('Uzak demo kamerası iptal edildi, süresi doldu veya bağlantısı kesildi.')));};
-  const timer=setInterval(()=>{if(lastFrame&&performance.now()-lastFrame>=750)cleanup();},100);
+  // The 750 ms limit is about the source. A long task on this thread also delays frame handling, so it
+  // says nothing about the source: the next on-time check starts from where this thread resumed.
+  let lastTick=performance.now();
+  const timer=setInterval(()=>{const now=performance.now(),starved=now-lastTick>=350;lastTick=now;if(starved){if(lastFrame)lastFrame=Math.max(lastFrame,now);return;}if(lastFrame&&now-lastFrame>=750)cleanup();},100);
   const waiting=setTimeout(()=>cleanup(),120000);
   ws.onopen=()=>ws.send(JSON.stringify({key:pair.receiverKey,consent:true}));
   ws.onclose=()=>cleanup();ws.onerror=()=>cleanup();cancel.onclick=()=>cleanup();dialog.oncancel=()=>cleanup();
@@ -42,7 +45,8 @@ export async function acquireCamera(constraints:MediaStreamConstraints):Promise<
    const received=performance.now();
    try{
     const bitmap=await createImageBitmap(new Blob([event.data],{type:'image/png'}));
-    if(done||performance.now()-received>=750){bitmap.close();cleanup();return;}
+    // A frame that took too long to decode is stale. Never show it; the limit above still catches a stalled source.
+    if(done||performance.now()-received>=750){bitmap.close();return;}
     if(!context||bitmap.width>1920||bitmap.height>1080)throw Error();
     if(stream&&(canvas.width!==bitmap.width||canvas.height!==bitmap.height))throw Error();
     canvas.width=bitmap.width;canvas.height=bitmap.height;context.drawImage(bitmap,0,0);bitmap.close();source=capturedMetadata;lastFrame=performance.now();

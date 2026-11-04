@@ -21,6 +21,8 @@
 .capture{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:24px;align-items:start}
 .panel{background:var(--panel);border-radius:25px;padding:24px;min-width:0}
 .preview{position:relative;border-radius:20px;overflow:hidden;background:#05090f;width:100%}
+/* The mouth is low in the frame, so the whole preview has to fit the screen height. */
+@media(min-width:901px){.preview{width:min(100%,calc((100dvh - 24rem)*var(--preview-ratio,1.33)));margin-inline:auto}}
 .preview video{display:block}
 .hold{height:6px;border-radius:6px;background:var(--chip);overflow:hidden;margin:16px 0 8px}
 .hold>span{display:block;height:100%;background:var(--cyan);transition:width .15s linear}

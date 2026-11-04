@@ -107,7 +107,8 @@ class Web:
     def open(self, playwright):
         args = self.args
         launch = ['--no-sandbox', '--disable-dev-shm-usage', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required',
-                  '--host-resolver-rules=MAP {} 127.0.0.1'.format(HOST), '--window-position=0,0', '--window-size=1280,800', '--kiosk']
+                  '--host-resolver-rules=MAP {} 127.0.0.1'.format(HOST), '--window-position=0,0', '--window-size=1280,800', '--app=https://' + HOST,
+                  '--disable-features=Translate,TranslateUI', '--disable-infobars', '--lang=en-US', '--no-first-run']
         if args.frames:
             self.frames = {pose: Path(args.frames.replace('POSE', pose)).read_bytes() for pose in args.poses.split(',')}
             self.camera = Path(args.out) / 'camera.y4m'

@@ -377,6 +377,10 @@ class Aaos:
         subprocess.check_call(device + ['forward', 'tcp:9222', 'localabstract:' + socket], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
         browser = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
         page = next(p for c in browser.contexts for p in c.pages if p.url.startswith('http://127.0.0.1:3000'))
+        # The camera pairing code is a short-lived credential. It stays out of recordings.
+        mask = """(()=>{const hide=()=>document.querySelectorAll('dialog textarea').forEach(e=>e.style.webkitTextSecurity='disc');new MutationObserver(hide).observe(document,{childList:true,subtree:true});})();"""
+        page.add_init_script(mask)
+        page.evaluate(mask)
         return page, browser.close
 
     def prepare(self, page, journey):
@@ -440,15 +444,18 @@ class Web:
             frames[pose] = 'data:image/jpeg;base64,' + base64.b64encode(Path(name).read_bytes()).decode()
         # Chrome does not offer monitor sources as microphones, so the run script adds a remapped source.
         environment = {**os.environ, 'PULSE_SOURCE': args.mic_source, 'PULSE_SINK': args.speaker_monitor.replace('.monitor', '')}
-        browser = playwright.chromium.launch(
-            executable_path='/usr/bin/google-chrome', headless=not args.record, env=environment, ignore_default_args=['--mute-audio'],
+        environment['DISPLAY'] = args.display.split('+')[0]
+        environment['TZ'] = args.timezone
+        # The same kept profile and app window as the other journeys, so saved records carry between them.
+        context = playwright.chromium.launch_persistent_context(
+            args.profile, executable_path='/usr/bin/google-chrome', headless=False, env=environment, ignore_default_args=['--mute-audio', '--enable-automation'],
             args=['--no-sandbox', '--disable-dev-shm-usage', '--use-fake-ui-for-media-stream', '--autoplay-policy=no-user-gesture-required',
-                  '--host-resolver-rules=MAP {} 127.0.0.1'.format(self.HOST), '--window-size=1280,800', '--window-position=0,0'])
-        context = browser.new_context(http_credentials={'username': credentials['username'], 'password': credentials['password']}, ignore_https_errors=True,
-                                      viewport={'width': args.web_width, 'height': args.web_height}, permissions=['camera', 'microphone'])
+                  '--host-resolver-rules=MAP {} 127.0.0.1'.format(self.HOST), '--window-size=1280,800', '--window-position=0,0', '--app=https://' + self.HOST,
+                  '--disable-features=Translate,TranslateUI', '--disable-infobars', '--lang=en-US', '--no-first-run'],
+            http_credentials={'username': credentials['username'], 'password': credentials['password']}, ignore_https_errors=True,
+            viewport={'width': args.web_width, 'height': args.web_height}, permissions=['camera', 'microphone'], timezone_id=args.timezone, locale='en-US')
         context.add_init_script(self.CAMERA.replace('__FRAMES__', json.dumps(frames)))
-        page = context.new_page()
-        return page, browser.close
+        return (context.pages[0] if context.pages else context.new_page()), context.close
 
     def prepare(self, page, journey):
         page.goto('https://' + self.HOST, wait_until='networkidle')
@@ -494,6 +501,8 @@ def main():
     parser.add_argument('--pose-file', default='/var/lib/attune/qa/camera-pose.txt')
     parser.add_argument('--pair-file', default='/var/lib/attune/qa/camera-pair.json')
     parser.add_argument('--timeout', type=int, default=1200)
+    parser.add_argument('--profile', default='/var/lib/attune/qa/profile-web')
+    parser.add_argument('--timezone', default='Europe/Berlin')
     parser.add_argument('--record', action='store_true')
     args = parser.parse_args()
     adapter = Web() if args.platform == 'web' else Aaos()

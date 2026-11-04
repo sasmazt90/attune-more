@@ -21,7 +21,7 @@ async function receiver(){
  const acquired=sandbox.exports.acquireCamera({video:true});await new Promise(setImmediate);
  await ws.onmessage({data:JSON.stringify({sourceId:'source',sourceType:'remote-demo-camera',sequence:1})});
  await ws.onmessage({data:new Uint8Array([1])});await acquired;
- return {track,ws,expire(){clock=751;expired();},state:()=>({stops,ended,source:sandbox.exports.demoCameraSource()})};
+ return {track,ws,advance(ms){clock+=ms;expired();},onTime(ms){for(let t=0;t<ms;t+=100){clock+=100;expired();}},state:()=>({stops,ended,source:sandbox.exports.demoCameraSource()})};
 }
 test('intentional consumer stop releases transport without reporting a camera failure',async()=>{
  const r=await receiver();r.track.stop();assert(r.state().stops>0);assert.equal(r.state().ended,0);assert.equal(r.state().source,undefined);
@@ -31,5 +31,9 @@ test('unexpected websocket disconnect still reports ended once',async()=>{
  const r=await receiver();r.ws.onclose();assert.equal(r.state().ended,1);assert.equal(r.state().source,undefined);r.ws.onerror();assert.equal(r.state().ended,1);
 });
 test('unchanged 750 ms freshness limit still ends a stalled remote source',async()=>{
- const r=await receiver();r.expire();assert.equal(r.state().ended,1);assert.equal(r.state().source,undefined);
+ const r=await receiver();r.onTime(700);assert.equal(r.state().ended,0,'Still fresh before the limit');r.onTime(100);assert.equal(r.state().ended,1);assert.equal(r.state().source,undefined);
+});
+test('a long task on this thread is not a stalled source',async()=>{
+ const r=await receiver();r.onTime(100);r.advance(2000);assert.equal(r.state().ended,0,'The thread was busy, the source was not silent');
+ r.onTime(700);assert.equal(r.state().ended,0);r.onTime(100);assert.equal(r.state().ended,1,'A source that stays silent afterwards still ends');
 });

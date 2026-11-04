@@ -14,7 +14,7 @@ import { useVehicle } from '../../context/VehicleContext';
 import { ReferralContext } from '@packages/health-profile/types';
 import { CareAppointments, emptyDraft } from '../../components/care/CareAppointments';
 import { AppointmentDraft, CARE_REGIONS, readCareRegion, writeCareRegion } from '../../utils/careAppointments';
-import { ArrowRight, CheckCircle2, Clock, ExternalLink, MapPin, ShieldCheck, Sparkles, X } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ChevronDown, Clock, ExternalLink, MapPin, ShieldCheck, Sparkles, X } from 'lucide-react';
 
 interface CareSlot {
   id: string;
@@ -223,7 +223,7 @@ function CareContent() {
             ))}
           </div>
           <details data-care-time-window className="text-sm [&[open]]:basis-full">
-            <summary className="min-h-11 flex items-center cursor-pointer font-medium text-slate-200">{i18nText("Zaman aralığı ve süre")}</summary>
+            <summary className="min-h-11 flex items-center cursor-pointer font-medium text-slate-200">{i18nText("Zaman aralığı ve süre")}<ChevronDown className="w-4 h-4 ml-1" aria-hidden="true" /></summary>
             <div className="flex flex-wrap gap-3 items-end pt-2">
               <label>{i18nText("Uygun zaman başlangıcı")}<input type="datetime-local" value={availableStart} onChange={e=>setAvailableStart(e.target.value)} className="block mt-1 min-h-11 bg-slate-900 rounded-lg px-2 border border-white/20 max-w-full"/></label>
               <label>{i18nText("Uygun zaman bitişi")}<input type="datetime-local" value={availableEnd} min={availableStart} onChange={e=>setAvailableEnd(e.target.value)} className="block mt-1 min-h-11 bg-slate-900 rounded-lg px-2 border border-white/20 max-w-full"/></label>
@@ -254,7 +254,7 @@ function CareContent() {
           </div>
           <div className="flex flex-wrap gap-2">
             <button data-care-return-no onClick={() => setAwaitingReturn(null)} className="min-h-11 px-4 rounded-xl border border-white/20 text-sm">{i18nText("Henüz almadım")}</button>
-            <button data-care-return-yes onClick={() => { setAppointmentDraft(emptyDraft(provider.specialty, provider.sourceType === 'PUBLIC_SEARCH_ONLY' ? '' : provider.providerName)); setAwaitingReturn(null); }} className="min-h-11 px-4 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold">{i18nText("Evet, kaydet")}</button>
+            <button data-care-return-yes onClick={() => { setAppointmentDraft(emptyDraft(selectedSpecialty, provider.sourceType === 'PUBLIC_SEARCH_ONLY' ? '' : provider.providerName)); setAwaitingReturn(null); }} className="min-h-11 px-4 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold">{i18nText("Evet, kaydet")}</button>
           </div>
         </section>
       )}
