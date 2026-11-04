@@ -1,7 +1,10 @@
 # Skin model selection and measurement contract (QA-31, task 18.9)
 
-**Status: runtime verified on the release candidate, accuracy not verified.** Nothing here changes a model, threshold
-or calibration. The audit did find two places where the AWS deployment was not running what the records describe, and
+**Status: OWNER APPROVED on 2026-11-04 as product configuration. Accuracy not verified.** The dated record with model
+identifiers, versions and hashes is `SKIN-OWNER-APPROVAL-20261104.md`. Model selection reopens only for a newly
+demonstrated technical defect or concrete evidence of an incorrect result, not because of an older research label.
+
+Nothing here changes a model, threshold or calibration. The audit did find two places where the AWS deployment was not running what the records describe, and
 both were corrected. Runtime values come from `skin-contract-runtime.json`, saved per platform with the recordings.
 
 ## What the runtime check found
@@ -19,7 +22,10 @@ both were corrected. Runtime values come from `skin-contract-runtime.json`, save
 Both change Skin numbers compared with earlier AWS runs, because they restore what was configured. **This is a change
 the owner should know about:** V5 still carries `accepted:false` in its own manifest.
 
-**Three open decisions for the owner:**
+**Three questions this audit raised, all answered by the owner on 2026-11-04.** The findings stay as written, because
+they describe the records. V5 and `regional.pt` were both approved, and so were all other configured Skin models. The
+acne heading stays with V5, and the finding pipeline keeps its own detections, counts and subtypes, so the two paths
+remain separate by decision and must not be added together.
 
 1. **No record of explicit owner approval exists for most indicators.** The records hold "selected" or "configured".
    Explicit approval was found only for the rebuild of the finding models from the same research recipes, and for the
@@ -59,12 +65,13 @@ candidate. Both platforms use the same model files through separate API processe
 real labelled photographs of the target use: all finding figures are from synthetic characters, on a test set also
 used to choose the method.
 
-A status of MATCH would need both an approval on record and runtime proof. Runtime proof now exists for every row marked
-**ran** below. Rows stay NOT VERIFIED where no approval record was found, because the audit may not invent one.
+Runtime proof exists for every row marked **ran** below. The "approved" and status columns show what the audit found in
+the records before 2026-11-04 and are kept as history. The owner's approval of 2026-11-04 now covers every configured
+Skin model listed in `SKIN-OWNER-APPROVAL-20261104.md`, as product configuration. It says nothing about accuracy.
 
 | Indicator | Original approved model/version | Actual WEB model | Actual AAOS model | Artifact SHA | Approved measurement method | Approved threshold/calibration | Actual inference evidence | UI result | Accuracy evidence | Status | Required correction |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Acne heading | No approval found. V5 configured, `accepted:false` | ran | ran | `9c87475d`, `0d7bf03c` | Unique accepted box pixels / visible anatomical support x100 | Verifier 0.15628, detector 0.30, NMS 0.30 | `acneRuntime`: measured, 9 tiles | Appearance score | None on real labelled photos | NOT VERIFIED | Owner confirms V5 |
+| Acne heading | **Owner approved 2026-11-04.** V5 configured; research manifest keeps `accepted:false` | ran | ran | `9c87475d`, `0d7bf03c` | Unique accepted box pixels / visible anatomical support x100 | Verifier 0.15628, detector 0.30, NMS 0.30 | `acneRuntime`: measured, 9 tiles | Appearance score | None on real labelled photos | NOT VERIFIED | Owner confirms V5 |
 | Acne finding, count | Recipe rebuild approved by owner | ran | ran | `findings-v2/acne.json` `21bf8c71`, `findings.pt` `c8d94801`, `acnes.pt` `5db24d92` | Detector feature fusion LR; counted boxes score >= 0.35; each region counted from one photo | About 0.599 | `findings.models` hash match | Count on card | Synthetic: P 0.86, R 1.00, only 6 positives | NOT VERIFIED | Runtime proof; QA-25 |
 | Blackheads, whiteheads | No separate approval found | ran | ran | `acnes.pt` `5db24d92`, `findings.pt` `c8d94801` | Detector classes inside the acne count | Score >= 0.35 | Runtime receipt | "Acne types" section | Not validated on real labels | NOT VERIFIED | Runtime proof |
 | Acne subtypes | No separate approval found | ran | ran | `acnes.pt` `5db24d92` | Papule, pustule, nodule detector classes; rows sum to total | Score >= 0.35 | Runtime receipt | "Acne types" section | "Subtype split not validated" on record | NOT VERIFIED | Runtime proof |
@@ -82,7 +89,7 @@ A status of MATCH would need both an approval on record and runtime proof. Runti
 | Flaking finding | Recipe rebuild approved by owner | ran | ran | `flaking.json` `6affd88f`, measures `04bcd877` | DINOv2 LR, flake texture rank | Saved in spec | Runtime receipt | Rank | Synthetic: P 0.92, R 0.78 | NOT VERIFIED | Runtime proof |
 | Skin type | ViT `local-vit-dima806-5aace4f-v1`; regional fusion may govern (reconciliation decision) | ran | ran | `99b4c2fa` | ViT dry, normal, oily; regional rule can override | `combination-regional-user-v2…` | Runtime receipt | Type name | Publisher: accuracy 0.65 on 1,529 samples, not our product | NOT VERIFIED | Runtime proof |
 | Mixed skin type | Naming rule "product owner" in code | ran | ran | `params.json` `5d1dc44d`, `k_classifier.json` `a7ab0b05` | Oily somewhere plus dry or normal elsewhere gives combination | Needs at least 3 measured regions including forehead or nose | Runtime receipt | Type name | Three-class regional: normal F1 0.49 | NOT VERIFIED | Runtime proof with mixed input |
-| Regional T-zone, cheek | Regional v3 configured. See finding 2 | ran | ran | `regional.pt` `b23cd0ed`, `skinmap.pt` `bc4e8aab`, `k_classifier.json` `a7ab0b05` | RF-DETR evidence and DINOv2 LR per region; uncertain stays `unmeasured` | Per-tone thresholds in `params.json` | Runtime receipt | Region map | Synthetic validation: oily F1 0.74, dry 0.71, normal 0.49 | NOT VERIFIED | Owner decision; verify uncertain never shows normal |
+| Regional T-zone, cheek | **Owner approved 2026-11-04**, `regional.pt` included. See finding 2 | ran | ran | `regional.pt` `b23cd0ed`, `skinmap.pt` `bc4e8aab`, `k_classifier.json` `a7ab0b05` | RF-DETR evidence and DINOv2 LR per region; uncertain stays `unmeasured` | Per-tone thresholds in `params.json` | Runtime receipt | Region map | Synthetic validation: oily F1 0.74, dry 0.71, normal 0.49 | NOT VERIFIED | Owner decision; verify uncertain never shows normal |
 | Periorbital | Not validated for regional typing, on record | ran | ran | none for the region | Excluded from regional decision | n/a | Runtime receipt | Separate eye items | "Periorbital not validated" | NOT VERIFIED | Runtime proof |
 | Dark circles | Recipe rebuild approved by owner | ran | ran | `darkCircles.json` `03a1e3eb` | Color and geometry LR, FRONT | About 0.857 | Runtime receipt | Prominence | Synthetic: P 0.89, R 0.46 | NOT VERIFIED | Runtime proof |
 | Eye bags | Recipe rebuild approved by owner | ran | ran | `eyeBags.json` `90e8d945` | DINOv2 crop LR | Saved in spec | Runtime receipt | Prominence | Synthetic: P 0.89, R 0.44 | NOT VERIFIED | Runtime proof |
