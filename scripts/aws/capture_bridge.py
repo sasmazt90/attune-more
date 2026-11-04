@@ -6,6 +6,7 @@ Public ingress must authenticate /bridge/sender and block /bridge/pair and
 """
 import asyncio
 from dataclasses import dataclass, field
+import json
 import os
 import secrets
 import time
@@ -15,6 +16,15 @@ from fastapi import FastAPI, HTTPException, Request, WebSocket, WebSocketDisconn
 
 PNG = b'\x89PNG\r\n\x1a\n'
 MAX_BYTES = 8 * 1024 * 1024
+# A frame is captured after its challenge, so the challenge proves it is new. These limits say how long that frame may
+# take to arrive, not how old an analysed image may be: pages only use frames they have not seen, and stop trusting the
+# preview after 750 ms without one. A lossless 1080p frame is about 3.3 MB, so a real camera on home upload needs seconds.
+FRAME_SECONDS = 4.0
+RECEIVER_SECONDS = 2.0
+# PARK is checked this often whatever the frames are doing, so a slow frame never delays leaving PARK.
+PARK_POLL_SECONDS = .25
+# The state being unreadable is not the same as DRIVE, but frames stop at once and the session ends after this long.
+PARK_UNKNOWN_SECONDS = 2.0
 
 @dataclass
 class Pair:
@@ -42,13 +52,17 @@ def create_app(parked, receiver_origins, sender_origins):
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
     state = {'pair': None}
 
-    async def revoke(pair):
+    async def revoke(pair, reason=None):
+        if reason and not pair.closed:
+            # Reasons and counts only. Frames and capabilities never enter logs.
+            print(json.dumps({'captureEnded': reason, 'frames': pair.sequence, 'seconds': round(time.monotonic() - pair.created, 1)}), flush=True)
         pair.closed = True
         for socket in (pair.sender, pair.receiver):
             if socket:
+                # One socket failing to close must never leave the other one open.
                 try:
                     await socket.close(code=1000)
-                except (RuntimeError, WebSocketDisconnect):
+                except Exception:  # noqa: BLE001
                     pass
         if state['pair'] is pair:
             state['pair'] = None
@@ -103,28 +117,60 @@ def create_app(parked, receiver_origins, sender_origins):
         pair = await join(ws, 'sender', sender_origins)
         if not pair:
             return
-        try:
-            if not pair.receiver:
-                return
+        if not pair.receiver:
+            await revoke(pair, 'no-receiver')
+            return
+        confirmed = time.monotonic()
+
+        async def watch_park():
+            nonlocal confirmed
             while pair.valid():
-                if not await parked():
+                value = await parked()
+                now = time.monotonic()
+                if value is True:
+                    confirmed = now
+                elif value is False:
+                    await revoke(pair, 'not-parked')
                     return
+                elif now - confirmed >= PARK_UNKNOWN_SECONDS:
+                    await revoke(pair, 'park-state-unknown')
+                    return
+                await asyncio.sleep(PARK_POLL_SECONDS)
+
+        guard = asyncio.create_task(watch_park())
+        step = 'challenge'
+        reason = 'session-ended'
+        try:
+            while pair.valid():
                 nonce = secrets.token_hex(16)
                 started = time.monotonic()
+                step = 'challenge'
                 await ws.send_json({'challenge':nonce})
-                response = await asyncio.wait_for(ws.receive_json(), .75)
-                frame = await asyncio.wait_for(ws.receive_bytes(), .75)
-                if response != {'challenge':nonce} or time.monotonic()-started >= .75 or not valid_frame(frame) or not await parked():
+                response = await asyncio.wait_for(ws.receive_json(), FRAME_SECONDS)
+                step = 'frame'
+                frame = await asyncio.wait_for(ws.receive_bytes(), max(.05, FRAME_SECONDS-(time.monotonic()-started)))
+                if response != {'challenge':nonce} or not valid_frame(frame):
+                    reason = 'invalid-frame'
                     return
+                # Nothing goes out unless PARK was confirmed for this frame, and a stopped session has no receiver left.
+                if time.monotonic()-confirmed >= PARK_POLL_SECONDS*4 or not pair.valid():
+                    continue
                 pair.sequence += 1
-                await asyncio.wait_for(pair.receiver.send_json({'sourceId':pair.source_id,'sequence':pair.sequence,'sourceType':'remote-demo-camera'}), .5)
-                await asyncio.wait_for(pair.receiver.send_bytes(frame), .5)
+                step = 'receiver'
+                await asyncio.wait_for(pair.receiver.send_json({'sourceId':pair.source_id,'sequence':pair.sequence,'sourceType':'remote-demo-camera'}), RECEIVER_SECONDS)
+                await asyncio.wait_for(pair.receiver.send_bytes(frame), RECEIVER_SECONDS)
                 # One frame in flight, no unbounded queue or replay buffer.
                 await asyncio.sleep(.1)
-        except (TimeoutError, ValueError, WebSocketDisconnect, RuntimeError):
-            pass
+        except TimeoutError:
+            reason = 'timeout-' + step
+        except WebSocketDisconnect:
+            reason = 'disconnected-' + step
+        except (ValueError, RuntimeError):
+            reason = 'error-' + step
         finally:
-            await revoke(pair)
+            guard.cancel()
+            await asyncio.gather(guard, return_exceptions=True)
+            await revoke(pair, reason)
 
     return app
 
@@ -137,7 +183,8 @@ async def backend_parked():
             value = response.json()
             return value.get('vehicleParked') is True and value.get('vehicleMoving') is False and value.get('currentSpeed') == 0
     except (httpx.HTTPError, ValueError):
-        return False
+        # Unknown, not DRIVE. The bridge treats it as not parked unless a recent answer said PARK.
+        return None
 
 
 def configured_app():

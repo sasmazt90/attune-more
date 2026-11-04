@@ -48,7 +48,7 @@ y4m() { # source png, target y4m
 SENDER=
 start_sender() { # prefix, poses
   printf FRONT > $Q/camera-pose.txt; chown attune:attune $Q/camera-pose.txt; rm -f $Q/camera-pair.json
-  /opt/attune-venv/bin/python $R/reference_camera_sender.py --prefix "$1" --poses "$2" > "$OUT/sender.log" 2>&1 &
+  /opt/attune-venv/bin/python $R/reference_camera_sender.py --prefix "$1" --poses "$2" ${SENDER_DELAYS:+--delays "$SENDER_DELAYS"} > "$OUT/sender.log" 2>&1 &
   SENDER=$!
 }
 # A camera has one frame size, and the bridge accepts at most 1080 rows. Supplied photos are 1446 to 1448

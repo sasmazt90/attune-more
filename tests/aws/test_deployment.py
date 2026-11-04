@@ -14,8 +14,9 @@ from democtl import validate_approval, validate_instances
 from cost import estimate
 from preflight import price_per_hour
 
+import time
 R='http://127.0.0.1:3000'
-S='https://aaos.sasmaz.digital'
+S='https://aaos.attunemore.sasmaz.digital'
 
 @pytest.fixture
 def bridge():
@@ -62,8 +63,59 @@ def test_transport_preserves_frame_and_revokes_on_drive(bridge):
             assert rx.receive_json()=={'sourceId':p['sourceId'],'sequence':1,'sourceType':'remote-demo-camera'}
             assert rx.receive_bytes()==raw
             state['parked']=False
+            # A challenge may already be on its way. No frame can follow it, because the session has ended.
+            message=tx.receive()
+            if message['type']!='websocket.close':
+                assert tx.receive()['type']=='websocket.close'
+            assert rx.receive()['type']=='websocket.close'
+
+
+def test_a_slow_frame_is_accepted_and_keeps_the_session(bridge):
+    c,_=bridge;p=pair(c)
+    raw=b'\x89PNG\r\n\x1a\n'+b'\x00'*8+(640).to_bytes(4,'big')+(480).to_bytes(4,'big')
+    with c.websocket_connect('/bridge/receiver',headers={'origin':R}) as rx:
+        rx.send_json({'key':p['receiverKey'],'consent':True})
+        with c.websocket_connect('/bridge/sender',headers={'origin':S}) as tx:
+            tx.send_json({'key':p['senderKey'],'consent':True})
+            challenge=tx.receive_json()
+            time.sleep(1.2)
+            tx.send_json(challenge);tx.send_bytes(raw)
+            assert rx.receive_json()['sequence']==1
+            assert rx.receive_bytes()==raw
+            assert 'challenge' in tx.receive_json(),'The session continues after a late frame'
+
+
+def test_leaving_park_ends_the_session_while_a_frame_is_awaited(bridge):
+    c,state=bridge;p=pair(c)
+    with c.websocket_connect('/bridge/receiver',headers={'origin':R}) as rx:
+        rx.send_json({'key':p['receiverKey'],'consent':True})
+        with c.websocket_connect('/bridge/sender',headers={'origin':S}) as tx:
+            tx.send_json({'key':p['senderKey'],'consent':True})
+            tx.receive_json()
+            started=time.monotonic()
+            state['parked']=False
+            # The frame limit is 4 s. Leaving PARK must not wait for it.
             assert tx.receive()['type']=='websocket.close'
             assert rx.receive()['type']=='websocket.close'
+            assert time.monotonic()-started<1.5
+
+
+def test_an_unreadable_park_state_stops_frames_and_soon_ends_the_session(bridge,capsys):
+    c,state=bridge;p=pair(c)
+    raw=b'\x89PNG\r\n\x1a\n'+b'\x00'*8+(640).to_bytes(4,'big')+(480).to_bytes(4,'big')
+    with c.websocket_connect('/bridge/receiver',headers={'origin':R}) as rx:
+        rx.send_json({'key':p['receiverKey'],'consent':True})
+        with c.websocket_connect('/bridge/sender',headers={'origin':S}) as tx:
+            tx.send_json({'key':p['senderKey'],'consent':True})
+            challenge=tx.receive_json()
+            state['parked']=None
+            time.sleep(1.2)
+            tx.send_json(challenge);tx.send_bytes(raw)
+            # Each test socket has its own event loop, so wait for the message before reading it, or the read never wakes.
+            time.sleep(1.3)
+            # Unknown is not DRIVE, but nothing is forwarded while it lasts, and it does not last.
+            assert rx.receive()['type']=='websocket.close'
+            assert 'park-state-unknown' in capsys.readouterr().out
 
 
 def test_stale_challenge_cannot_replay(bridge):
