@@ -72,7 +72,7 @@ def summarize(raw):
             'indexedDb': databases, 'cookieNames': raw['cookieNames']}
 
 
-def compare(before, after, allow_new_records=False):
+def compare(before, after, allow_new_records=False, allow_change=()):
     """Everything wrong between two stages. An empty list means the data came through intact."""
     problems = []
     for module, was in before['records'].items():
@@ -93,7 +93,7 @@ def compare(before, after, allow_new_records=False):
             problems.append('{}: records changed {}'.format(module, changed))
     record_keys = set(RECORD_KEYS.values())
     for key, value in before['localStorage'].items():
-        if VOLATILE.match(key) or (allow_new_records and key in record_keys):
+        if VOLATILE.match(key) or (allow_new_records and key in record_keys) or key in allow_change:
             continue
         if key not in after['localStorage']:
             problems.append('Local value lost: {}'.format(key))
@@ -211,6 +211,7 @@ def main():
     parser.add_argument('--compare-to')
     parser.add_argument('--allow-new-records', action='store_true', help='A journey ran since that stage, so more records are expected. None may be lost or changed.')
     parser.add_argument('--not-an-upgrade', action='store_true', help='Compare data only, for a host restart or the one-time signing move.')
+    parser.add_argument('--allow-change', action='append', default=[], help='A local value a journey is known to set, such as its language.')
     parser.add_argument('--set-preferences', action='store_true')
     parser.add_argument('--operational', action='store_true')
     parser.add_argument('--restore-language')
@@ -237,7 +238,7 @@ def main():
         if args.compare_to:
             before = json.loads((out / (args.compare_to + '.json')).read_text())
             result['comparedTo'] = args.compare_to
-            result['problems'] = compare(before, snapshot, args.allow_new_records)
+            result['problems'] = compare(before, snapshot, args.allow_new_records, args.allow_change)
             if not args.not_an_upgrade:
                 result['problems'] += compare_package(before['package'], package)
             result['recordsCompared'] = {m: r.get('count') for m, r in before['records'].items()}
