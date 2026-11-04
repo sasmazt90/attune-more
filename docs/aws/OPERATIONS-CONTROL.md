@@ -104,6 +104,36 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%USERPROFILE%\AttuneMore\bi
 - Browser data is per origin, so records saved under the old address are not visible at the new one.
 - Dated records under `docs/aws/evidence` and `CONTINUATION-20261103.md` keep the old names, because they describe what happened then.
 
+## Updating the AAOS app
+
+`scripts/aws/deploy_release.py --commit <full SHA> --apk <file>` updates the app in place, so Health History, consents, preferences and the microphone grant stay. It never uninstalls.
+
+Android allows an in-place update only when the signing certificate stays the same, so the cloudDemo APK has one stable identity:
+
+| Item | Where |
+|---|---|
+| Private key and its password | GitHub environment `android-cloud-demo-signing`, readable only by the `cloud-apk` job, on `main`, `claude/**` and same-repository pull requests. Forks get nothing |
+| Recovery copy | `%USERPROFILE%\AttuneMore\secrets\android-cloud-demo-signing.xml` on the owner's PC, encrypted for that Windows user. GitHub secrets cannot be read back, so **this is the only recovery** |
+| Public fingerprint | `apps/automotive/signing/cloud-demo-certificate.json`, in the repository. Not a secret |
+
+The deploy tool stops with nothing changed if:
+
+| Message | Meaning |
+|---|---|
+| `APK_NOT_PINNED_IDENTITY` | The APK is not signed by the pinned identity, for example a local debug build |
+| `SIGNATURE_MISMATCH` | The installed app has another certificate. Android cannot update it, and uninstalling would delete its data |
+| `INSTALL_REFUSED` | Android refused it, for example a lower version number |
+
+CI gives each build a higher version number: 1000 plus the workflow's run number.
+
+### Moving to the stable signing identity
+
+This is needed once, for an app installed before the stable identity existed. Its old key was temporary and no longer exists, so Android has no in-place route. Run the deploy with `--migrate-signing-once`. It copies the app's data out, replaces the app, restores the data, compares every file's size, and regrants the microphone. It refuses to run unless the certificates really differ. The copy stays on the AAOS host under `/var/lib/attune/apk-migration`, readable by root only.
+
+Any other device holding an old build needs the same step, or loses its local records on reinstall. If the key is ever lost, every installed app needs this step again, with a new identity.
+
+Restart persistence and upgrade persistence are different checks. `persistence_check.py` covers a host Stop and Start. `apk_upgrade_check.py` covers APK upgrades.
+
 ## Costs
 
 Rates are recorded AWS On-Demand prices in Frankfurt. Estimates, not bills, excluding data

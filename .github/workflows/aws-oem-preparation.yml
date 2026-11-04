@@ -43,6 +43,9 @@ jobs:
           NEXT_PUBLIC_ATTUNE_SPEECH_PROVIDER: 'openai'
           NEXT_PUBLIC_ATTUNE_MEDIAPIPE_DELEGATE: 'CPU'
   cloud-apk:
+    # Only this job can read the signing key. A fork's pull request gets no secrets, so it does not run here.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    environment: android-cloud-demo-signing
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -55,7 +58,29 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
-      - run: apps/automotive/gradlew --no-daemon --max-workers=2 -p apps/automotive :app:assembleCloudDemo :app:lintCloudDemo
+      - name: Put the signing key on the runner, for this job only
+        env:
+          KEYSTORE: ${{ secrets.ATTUNE_ANDROID_KEYSTORE_B64 }}
+        run: |
+          if [ -z "$KEYSTORE" ]; then echo "::error::The signing key is not available"; exit 1; fi
+          umask 077
+          printf %s "$KEYSTORE" | base64 -d > "$RUNNER_TEMP/attune-cloud-demo.p12"
+          echo "ATTUNE_ANDROID_KEYSTORE=$RUNNER_TEMP/attune-cloud-demo.p12" >> "$GITHUB_ENV"
+          echo "ATTUNE_VERSION_CODE=$((1000 + GITHUB_RUN_NUMBER))" >> "$GITHUB_ENV"
+      - name: Build and lint the cloudDemo APK
+        env:
+          ATTUNE_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ATTUNE_ANDROID_KEYSTORE_PASSWORD }}
+        run: apps/automotive/gradlew --no-daemon --max-workers=2 -p apps/automotive :app:assembleCloudDemo :app:lintCloudDemo
+      - name: Remove the signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/attune-cloud-demo.p12"
+      - name: Check the APK carries the pinned identity, with Android's own tool as well
+        run: |
+          APK=$(ls apps/automotive/app/build/outputs/apk/cloudDemo/*.apk)
+          PIN=$(python3 -c "import json;print(json.load(open('apps/automotive/signing/cloud-demo-certificate.json'))['sha256'])")
+          python3 scripts/aws/apk_identity.py "$APK" --expect "$PIN"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs "$APK" | grep -i "SHA-256 digest: $PIN"
+          "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging "$APK" | head -1
       - uses: actions/upload-artifact@v4
         with:
           name: attune-cloud-demo-apk

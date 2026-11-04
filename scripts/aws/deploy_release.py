@@ -12,6 +12,7 @@ import sys
 import tempfile
 import time
 
+from apk_identity import pinned_identity, signing_identity
 from targets import REGION, TARGETS
 
 ROLE_ID = {target['role']: key for key, target in TARGETS.items()}
@@ -85,9 +86,17 @@ def run_commands(profile, commands, comment, timeout=300):
     raise RuntimeError(comment + ' timed out')
 
 
-def install_apk(profile, path):
-    """Replaces the APK that run.sh installs on every boot. CI's debug key differs per build, so
-    Android refuses an update in place: uninstall once, which also clears the microphone grant."""
+def check_apk_identity(path):
+    """Stops before anything is deployed if this APK is not signed by the pinned identity."""
+    found, expected = signing_identity(path), pinned_identity(SCRIPT.parents[2])
+    if found != expected:
+        raise SystemExit('APK_NOT_PINNED_IDENTITY: {} is signed by {}, and the pinned identity is {}. Nothing was deployed.'.format(path, found, expected))
+    return expected
+
+
+def install_apk(profile, path, migrate_signing=False):
+    """Updates the app in place on the emulator, which keeps its data. The steps and refusals are in apk_upgrade_host.py."""
+    expected = check_apk_identity(path)
     data = Path(path).read_bytes()
     digest = hashlib.sha256(data).hexdigest()
     encoded = base64.b64encode(data).decode()
@@ -95,34 +104,28 @@ def install_apk(profile, path):
     run_commands(profile, [': > {}.b64'.format(work)], 'Attune APK upload')
     for start in range(0, len(encoded), 30000):
         run_commands(profile, ["printf %s '{}' >> {}.b64".format(encoded[start:start + 30000], work)], 'Attune APK upload')
-    adb = '/opt/android-sdk/platform-tools/adb -s emulator-5554'
-    package = 'more.attune.automotive.prototype.clouddemo'
+    flag = ' --migrate-signing' if migrate_signing else ''
     output = run_commands(profile, [
         'set -e', 'base64 -d {0}.b64 > {0}'.format(work), 'rm -f {}.b64'.format(work),
         'test "$(sha256sum {} | cut -d" " -f1)" = "{}"'.format(work, digest),
-        'cp -p /opt/attune-staging/app-cloudDemo.apk /opt/attune-staging/app-cloudDemo.apk.previous',
-        'chown --reference=/opt/attune-staging/app-cloudDemo.apk {}'.format(work),
-        'chmod --reference=/opt/attune-staging/app-cloudDemo.apk {}'.format(work),
-        'mv {} /opt/attune-staging/app-cloudDemo.apk'.format(work),
-        '{} uninstall {} </dev/null || true'.format(adb, package),
-        '{} install -r /opt/attune-staging/app-cloudDemo.apk </dev/null'.format(adb),
-        'for user in 0 10; do {0} shell pm grant --user $user {1} android.permission.RECORD_AUDIO </dev/null || true; done'.format(adb, package),
-        '{} shell am start -n {}/more.attune.automotive.MainActivity </dev/null'.format(adb, package),
-        'sha256sum /opt/attune-staging/app-cloudDemo.apk',
-    ], 'Attune APK install')
-    return {'apkSha256': digest, 'bytes': len(data), 'hostOutput': output[-300:]}
+        'python3 /opt/attune/scripts/aws/apk_upgrade_host.py --incoming {} --expected-cert {}{}'.format(work, expected, flag),
+    ], 'Attune APK install', timeout=900)
+    return {'apkSha256': digest, 'bytes': len(data), 'certificate': expected, 'upgrade': json.loads(output.strip().splitlines()[-1])}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--apk', help='Also install this cloudDemo APK on the AAOS host. Build it from the same commit.')
+    parser.add_argument('--apk', help='Also update the cloudDemo app on the AAOS host, in place. Build it from the same commit.')
+    parser.add_argument('--migrate-signing-once', action='store_true', help='One time only: move an app signed by an old key to the pinned one, keeping its data.')
     parser.add_argument('--profile', default='attune-claude')
     parser.add_argument('--commit', required=True, help='Full commit SHA, already pushed to GitHub')
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
+    if args.apk:
+        check_apk_identity(args.apk)
     report = {'commit': args.commit, 'hosts': [deploy(args.profile, role, args.commit) for role in ('web', 'aaos')]}
     if args.apk:
-        report['apk'] = install_apk(args.profile, args.apk)
+        report['apk'] = install_apk(args.profile, args.apk, args.migrate_signing_once)
     text = json.dumps(report, indent=2)
     print(text)
     if args.output:

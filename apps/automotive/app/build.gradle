@@ -12,6 +12,12 @@ def debugOrigin = { String propertyName, String fallback ->
     return '"' + value + '"'
 }
 
+// The cloudDemo APK needs one signing identity across builds, or Android refuses an update in place and saved data
+// is lost. CI supplies the key from a protected secret. Without it the build still works, with the debug key, and
+// the deploy tool refuses that APK because its certificate is not the pinned one.
+def signingKeystore = providers.environmentVariable('ATTUNE_ANDROID_KEYSTORE').getOrNull()
+def signingPassword = providers.environmentVariable('ATTUNE_ANDROID_KEYSTORE_PASSWORD').getOrNull()
+
 android {
     namespace 'more.attune.automotive'
     compileSdk 35
@@ -22,8 +28,22 @@ android {
         applicationId 'more.attune.automotive.prototype'
         minSdk 29
         targetSdk 35
-        versionCode 1
+        // CI raises this every build. Android refuses to install a lower one over a higher one.
+        versionCode providers.environmentVariable('ATTUNE_VERSION_CODE').map { it.toInteger() }.getOrElse(1)
         versionName '0.1-prototype'
+    }
+    if (signingKeystore && signingPassword) {
+        signingConfigs {
+            stableCloudDemo {
+                storeFile file(signingKeystore)
+                storeType 'pkcs12'
+                storePassword signingPassword
+                keyAlias 'attune-cloud-demo'
+                keyPassword signingPassword
+                enableV2Signing true
+                enableV3Signing true
+            }
+        }
     }
     buildFeatures { buildConfig true }
     // Native labels follow the existing in-app TR/EN/DE selector offline.
@@ -49,6 +69,9 @@ android {
         cloudDemo {
             initWith debug
             applicationIdSuffix '.clouddemo'
+            if (signingKeystore && signingPassword) {
+                signingConfig signingConfigs.stableCloudDemo
+            }
             versionNameSuffix '-aws-demo'
             matchingFallbacks = ['debug']
             buildConfigField 'boolean', 'REMOTE_DEMO_CAPTURE', 'true'
