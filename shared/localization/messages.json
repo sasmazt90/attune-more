@@ -313,11 +313,6 @@
     "en": "Values from 0–100 are appearance indices, not clinical severity or disease probability. The difference from your personal reference is a separate measurement.",
     "de": "Werte von 0–100 sind Erscheinungsindizes, keine klinischen Schweregrade oder Erkrankungswahrscheinlichkeiten. Die Abweichung von Ihrer persönlichen Referenz ist eine gesonderte Messung."
   },
-  "1e65ae72853841a7": {
-    "tr": "04 • UZMAN",
-    "en": "04 • SPECIALIST",
-    "de": "04 • FACHKRAFT"
-  },
   "6595875483f323e1": {
     "tr": "1.55 LogCS (İzleniyor)",
     "en": "1.55 LogCS (monitored)",
@@ -2346,7 +2341,7 @@
   "818d140f76f3176f": {
     "tr": "Görüşme hizmet onayı kapsamındaki yanıt/özet metin aktarımı ayrıdır. Yerel Sil eylemi dökümü ve özeti birlikte temizler; sağlayıcının tarihsel saklama veya silme durumunu doğrulamaz. Tercihi kapatmak eski kayıtları otomatik silmez.",
     "en": "Transfer of response/summary text under service consent is separate. Local Delete clears the transcript and summary together; it does not verify the provider's historical retention or deletion status. Turning the preference off does not automatically delete older records.",
-    "de": "Die Übertragung von Antwort-/Zusammenfassungstext im Rahmen der Diensteeinwilligung ist gesondert. Lokal löschen entfernt Gesprächsprotokoll und Zusammenfassung gemeinsam; es bestätigt nicht den bisherigen Aufbewahrungs- oder Löschstatus beim Anbieter. Das Deaktivieren der Präferenz löscht ältere Einträge nicht automatisch."
+    "de": "Die Übertragung von Antwort-/Zusammenfassungstext im Rahmen der Einwilligung ist gesondert. Lokal löschen entfernt Gesprächsprotokoll und Zusammenfassung gemeinsam; es bestätigt nicht den bisherigen Aufbewahrungs- oder Löschstatus beim Anbieter. Das Deaktivieren der Präferenz löscht ältere Einträge nicht automatisch."
   },
   "85a2e7c0a43d4f46": {
     "tr": "görüşme katkısı /",
@@ -2801,22 +2796,22 @@
   "985a8810263a8392": {
     "tr": "hizmet izni",
     "en": "service consent",
-    "de": "Diensteeinwilligung"
+    "de": "Einwilligung"
   },
   "328ea2ec643e1a05": {
     "tr": "Hizmet izni açık",
     "en": "Service consent enabled",
-    "de": "Diensteeinwilligung erteilt"
+    "de": "Einwilligung erteilt"
   },
   "401cd646b213e16f": {
     "tr": "Hizmet izni geri çekildi.",
     "en": "Service consent withdrawn.",
-    "de": "Diensteeinwilligung widerrufen."
+    "de": "Einwilligung widerrufen."
   },
   "b274de60e43ac091": {
     "tr": "Hizmet onayı geri çekildi. Görüşme ve ses durduruldu.",
     "en": "Service consent withdrawn. Conversation and audio stopped.",
-    "de": "Diensteeinwilligung widerrufen. Gespräch und Audio wurden beendet."
+    "de": "Einwilligung widerrufen. Gespräch und Audio wurden beendet."
   },
   "078736d18931158f": {
     "tr": "Hizmet seçenekleri",
@@ -3956,7 +3951,7 @@
   "b59072b1a8ef8558": {
     "tr": "Mikrofon yalnız görüşmeyi başlattığınızda kullanılır. Tarayıcı/cihaz izni ayrıca gerekir; bu tercih onu onaylamaz. Konuşma tanıma hizmeti sesi buluta aktarabilir. Aktarım Ruh Sağlığı ekranındaki hizmet onayına bağlıdır. Ham ses uygulamada saklanmaz.",
     "en": "The microphone is used only when you start a conversation. Browser/device permission is also required; this preference does not grant it. The speech recognition service may transfer audio to the cloud. Transfer depends on service consent on the Mental Health screen. Raw audio is not stored in the application.",
-    "de": "Das Mikrofon wird nur verwendet, wenn Sie ein Gespräch starten. Zusätzlich ist eine Browser-/Geräteberechtigung nötig; diese Präferenz erteilt sie nicht. Der Spracherkennungsdienst kann Audio in die Cloud übertragen. Die Übertragung hängt von der Diensteeinwilligung auf der Seite Psychisches Wohlbefinden ab. Unbearbeitetes Audio wird in der Anwendung nicht gespeichert."
+    "de": "Das Mikrofon wird nur verwendet, wenn Sie ein Gespräch starten. Zusätzlich ist eine Browser-/Geräteberechtigung nötig; diese Präferenz erteilt sie nicht. Der Spracherkennungsdienst kann Audio in die Cloud übertragen. Die Übertragung hängt von der Einwilligung auf der Seite Psychisches Wohlbefinden ab. Unbearbeitetes Audio wird in der Anwendung nicht gespeichert."
   },
   "10b561219d6764f0": {
     "tr": "Mikrofona erişilemiyor.",
@@ -3985,7 +3980,7 @@
   },
   "aef8d151b2835536": {
     "tr": "Net görüntü elde edin",
-    "en": "Obtain a sharp image",
+    "en": "Get a sharp image",
     "de": "Sorgen Sie für ein scharfes Bild"
   },
   "88ee52ba0df5cb94": {
@@ -6646,7 +6641,7 @@
   "018f8c0920f07003": {
     "tr": "{0} hizmet izni",
     "en": "Service consent for {0}",
-    "de": "Diensteeinwilligung für {0}"
+    "de": "Einwilligung für {0}"
   },
   "42b9f30b4726b1b7": {
     "tr": "{0}: {1}. {2}.",
@@ -6736,7 +6731,7 @@
   "ac52cef8434885fa": {
     "tr": "Çevrimiçi seslendirme ayrıca ilgili hizmet izninizi gerektirir. Ücretli hizmet kullanılmaz. İşitme testinin onaylı sayı kayıtları ses tercihiyle değiştirilmez.",
     "en": "Online speech also requires the relevant service consent. No paid service is used. Approved hearing-test digit recordings are not changed by voice preferences.",
-    "de": "Online-Sprachausgabe erfordert zusätzlich die entsprechende Diensteeinwilligung. Es wird kein kostenpflichtiger Dienst verwendet. Freigegebene Ziffernaufnahmen des Hörtests werden durch Stimmpräferenzen nicht verändert."
+    "de": "Online-Sprachausgabe erfordert zusätzlich die entsprechende Einwilligung. Es wird kein kostenpflichtiger Dienst verwendet. Freigegebene Ziffernaufnahmen des Hörtests werden durch Stimmpräferenzen nicht verändert."
   },
   "6b3aed56657fac61": {
     "tr": "dBFS peak",
@@ -6796,7 +6791,7 @@
   "c1fc8c35c12b25fb": {
     "tr": "Hizmet izni verilmedi; ilgili sayfada izin verebilirsiniz.",
     "en": "Service consent not granted; you can give consent on the relevant page.",
-    "de": "Keine Diensteeinwilligung erteilt; Sie können auf der entsprechenden Seite einwilligen."
+    "de": "Keine Einwilligung erteilt; Sie können auf der entsprechenden Seite einwilligen."
   },
   "dfe6e92cafbe5b3b": {
     "tr": "Kadın",
@@ -8006,7 +8001,7 @@
   "2448a6de4b9544fc": {
     "tr": "Uzman seçeneklerini gör",
     "en": "See specialist options",
-    "de": "Fachärztliche Optionen anzeigen"
+    "de": "Fachkraftoptionen ansehen"
   },
   "0a5a4fe526a3bb49": {
     "tr": "Öneriler",
@@ -10506,7 +10501,7 @@
   },
   "99f40df146fb0644": {
     "tr": "Göz Testi",
-    "en": "Eye Test",
+    "en": "Eye test",
     "de": "Sehtest"
   },
   "4ea04268b7180382": {
@@ -10516,7 +10511,7 @@
   },
   "4d41f3f117023421": {
     "tr": "Görüşme Seansı",
-    "en": "Conversation Session",
+    "en": "Conversation session",
     "de": "Gesprächssitzung"
   },
   "f0089aff052a7cd5": {
@@ -10526,13 +10521,8 @@
   },
   "697afc5e42ff0474": {
     "tr": "Sesli akış ile sohbete başlayabilirsiniz.",
-    "en": "You can start chatting using the voice flow.",
-    "de": "Sie können das Gespräch über den Sprachablauf beginnen."
-  },
-  "f8485b439869d353": {
-    "tr": "Seansa ara verip, devam edebilirsiniz.",
-    "en": "You can pause and resume the session.",
-    "de": "Sie können die Sitzung unterbrechen und fortsetzen."
+    "en": "You can start talking by voice.",
+    "de": "Sie können das Gespräch per Sprache beginnen."
   },
   "a4f0d833434bfa63": {
     "tr": "Seans bitirildiğinde temaları analiz edebilirsiniz.",
@@ -10894,7 +10884,7 @@
   "7213e8d0c2c959bc": {
     "tr": "Uzmanlar ve randevular",
     "en": "Specialists and appointments",
-    "de": "Fachärzte und Termine"
+    "de": "Fachkräfte und Termine"
   },
   "1e30f7f0e59a0dd2": {
     "tr": "Branş ve bölge seçin; uygunluğu sağlayıcının sayfasında doğrulayın.",
@@ -10984,7 +10974,7 @@
   "8aaf503b71d1fad4": {
     "tr": "Uzman seçeneklerini görmek için bir bölge seçin.",
     "en": "Choose a region to see specialist options.",
-    "de": "Wählen Sie eine Region, um Facharztoptionen zu sehen."
+    "de": "Wählen Sie eine Region, um Fachkraftoptionen zu sehen."
   },
   "167ddb6c4d442328": {
     "tr": "{0} için bu branşta kaynak bulunamadı. Başka bir bölge veya branş seçebilirsiniz.",
@@ -11375,5 +11365,15 @@
     "tr": "aaos.attunemore.sasmaz.digital/capture sayfasına bu eşleştirme kodunu girin.",
     "en": "Enter this pairing code at aaos.attunemore.sasmaz.digital/capture.",
     "de": "Geben Sie diesen Kopplungscode auf aaos.attunemore.sasmaz.digital/capture ein."
+  },
+  "5c46dcc7885dd7c6": {
+    "tr": "UZMAN",
+    "en": "SPECIALIST",
+    "de": "FACHKRAFT"
+  },
+  "1f2737ffd53e8381": {
+    "tr": "Seansa ara verip devam edebilirsiniz.",
+    "en": "You can pause and resume the session.",
+    "de": "Sie können die Sitzung unterbrechen und fortsetzen."
   }
 }

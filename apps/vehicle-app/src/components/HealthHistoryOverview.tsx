@@ -127,7 +127,7 @@ export function HealthHistoryOverview({ showStartActions = false, parked = true,
         <span className="flex min-w-0 items-start gap-2 text-sm font-bold text-togg-turquoise"><span className="shrink-0 pt-0.5"><HealthModuleIcon module={id}/></span><span>{i18nNode(HEALTH_MODULES[id].name)}</span></span>
         {/* On the shortest displays the card keeps its name and Start action. Opening it shows the saved values. */}
         <span className={`contents ${showStartActions ? 'xshort:hidden' : ''}`}>{id === 'skin' && skinAvg ? <SkinAverages avg={skinAvg} /> : <>
-        <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span><span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : overview.count ? 'Tarih kaydedilmemiş' : 'Kayıt yok')}</span></>}</span>
+        <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-300">{i18nNode(overview.text)}</span>{overview.count>0&&<span className="mt-3 text-xs text-slate-400">{i18nNode(overview.date !== null ? new Date(overview.date).toLocaleDateString(getLocale()) : 'Tarih kaydedilmemiş')}</span>}</>}</span>
       </button>
       {/* The Cockpit is for starting. Saved hearing records would stretch every card past the first screen. */}
       {id==='hearing'&&!showStartActions&&records.hearing.length>0&&<HearingHistoryCards records={records.hearing} parked={parked} onOpen={setHearingId}/>}

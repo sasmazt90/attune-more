@@ -90,7 +90,7 @@ export default function CockpitDashboard() {
               <div className="p-2.5 bg-togg-darkBlue/80 border border-togg-darkTurquoise/50 text-togg-turquoise rounded-xl group-hover:border-togg-turquoise/60 transition-colors">
                 <CalendarCheck className="w-5 h-5" />
               </div>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800 font-mono">{i18nText("04 • UZMAN ")}</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800 font-mono">{i18nText("UZMAN")}</span>
             </div>
 
             <div>
