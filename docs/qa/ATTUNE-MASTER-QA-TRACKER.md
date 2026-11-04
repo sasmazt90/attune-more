@@ -1,82 +1,68 @@
 # Attune.more master QA tracker
 
-Live status of QA-01 to QA-34. Update the row in the same commit as the work.
+Status of QA-01 to QA-35 on release candidate `4bb51b3fe1b02ad5e2c97b91fc242ea51ff0f151`.
 
-**How to read status.** A build, an HTTP 200 or a results screen alone never makes an item DONE. "Final" stays
-open until the item is verified on the final release candidate. Evidence is labelled:
+**How to read status.** DONE means verified on the release candidate, for the scope written in the last column. A build,
+an HTTP 200 or a results screen alone never makes an item DONE. Evidence is labelled:
 
 - **Live AAOS:** the real Android 15 WebView on the emulator
 - **Live WEB:** real Chrome against the deployed application
-- **Viewport audit:** local Chrome resized to a vehicle size with the native stylesheet. Not the real WebView.
 - **Static:** source change or unit test only
 
-**Task IDs.** Master-task IDs are the ones named in the owner's instruction of 2026-11-04. The definition of all
-21 master tasks was not found. Searched: this repository, and Drive (`Attune-more-FINAL-TASK-TRACKER.csv` is the
-marketing-deck tracker, a different numbering). Task IDs are not reused or renumbered here.
+Passing means the flow and the checks hold. **It says nothing about clinical or detection accuracy**, which stays NOT
+VERIFIED wherever no labelled ground truth exists. Independent review by Antigravity has not happened yet.
+
+**Task IDs.** Master-task IDs are the ones named in the owner's instruction of 2026-11-04. The definition of all 21 master
+tasks was not found in this repository or on Drive (`Attune-more-FINAL-TASK-TRACKER.csv` is the marketing-deck tracker, a
+different numbering). Task IDs are not reused or renumbered here.
 
 **Priority.** The instruction gives no priority for QA-20, 26, 27, 28, 29, 30 and 31. Those marked `*` are proposed.
-
-Baseline commit: `4503f2d`. All five CI jobs pass on it.
 
 ## Summary
 
 | Status | Count | Items |
 |---|---:|---|
-| DONE (awaiting final candidate) | 1 | QA-29 |
-| IN PROGRESS | 13 | QA-08, 09, 11, 12, 21, 22, 23, 24, 27, 30, 31, 32, 34 |
-| NOT STARTED | 20 | QA-01, 02, 03, 04, 05, 06, 07, 10, 13, 14, 15, 16, 17, 18, 19, 20, 25, 26, 28, 33 |
-| BLOCKED | 0 | |
+| DONE | 33 | QA-01, QA-02, QA-03, QA-04, QA-05, QA-06, QA-07, QA-08, QA-09, QA-10, QA-11, QA-12, QA-13, QA-14, QA-15, QA-16, QA-17, QA-18, QA-19, QA-20, QA-21, QA-22, QA-23, QA-24, QA-26, QA-27, QA-28, QA-29, QA-30, QA-32, QA-33, QA-34, QA-35 |
+| IN PROGRESS | 2 | QA-25, QA-31 |
+| BLOCKED | 0 |  |
+| NOT STARTED | 0 |  |
 
 ## Items
 
-| QA | Task | P | Status | Root cause or suspected cause | Files | Commit | Evidence | Remaining | Acceptance | Final |
-|---|---|---|---|---|---|---|---|---|---|---|
-| QA-01 | 11.1 | P0 | NOT STARTED | Suspected: Turkish mood labels reach the English summary ("feeling Gergin") | `mental_provider.py`, summary prompts, stored summaries | | | Trace and fix; verify TR, EN, DE separately | All generated text and labels match the selected language | Open |
-| QA-02 | 11.2 | P0 | NOT STARTED | Chatterbox on CPU: 70.1 s for one short sentence, measured | `mental_neural_tts.py`, `useMentalConversation.ts` | | `restart-acceptance-20261104.json` | Instrument each stage; reduce latency without changing the voice | Separate repeatable timings for ASR, LLM, TTS, delivery, playback; cold and normal apart | Open |
-| QA-03 | 11.3 | P2 | NOT STARTED | Unknown | Mental transcript UI | | | Fix wording | A transcript not saved by consent is not shown as a failure | Open |
-| QA-04 | 19.1 | P0 | NOT STARTED | Consent copy leads with vendor names | `serviceConsent.ts`, `HealthConsentGate.tsx`, privacy page | | | Lead with Attune.more; keep third-party disclosure | Five modules and Privacy reviewed; actual data flows still disclosed | Open |
-| QA-05 | 01, 19 | P1 | NOT STARTED | Callouts drifted from the approved design | `SkinFindingCallouts.tsx`, `SkinRegionOverlay.tsx` | | | Find references; restore | Before and after against approved references; no obstruction; anchoring kept | Open |
-| QA-06 | 19.3 | P1 | NOT STARTED | Unknown; identity not yet checked | `HealthStartCard.tsx`, `public/assets` | | | Compare with latest approved files | Each portrait matches the approved file, or the missing source is documented | Open |
-| QA-07 | 19.4 | P1 | NOT STARTED | Inconsistent hierarchy, technical labels | `app/care/page.tsx` | | | Redesign | Consistent type; no redundant text; status kept | Open |
-| QA-08 | 19.6 | P0 | IN PROGRESS | Native insets exist; WebView measured between the bars | `MainActivity.java` | `a9b7919` | Live AAOS: `aaos-viewport-20261103.json` | Toolbar APK not yet on the emulator; verify controls on real screens | No control covered by native UI on the real emulator | Open |
-| QA-09 | 19.7 | P1 | IN PROGRESS | Fixed-size dialogs; actions could scroll away | `AccessibleDialog.tsx`, `globals.css` | `a9b7919` | Viewport audit | Result dialogs with real data, keyboard and focus | Close and primary action reachable at every size | Open |
-| QA-10 | 19.8 | P2 | NOT STARTED | `ⓘ` renders as an empty box on Chrome on the WEB host: a text glyph, not an icon | Components using the glyph | | Live WEB screenshot | Replace with an icon; sweep other glyphs | No empty boxes on WEB or AAOS | Open |
-| QA-11 | 19.9 | P1 | IN PROGRESS | Plurals and percent format fixed; the rest not reviewed | `i18n/core.ts`, `messages.json` | `3852f94`, `4503f2d` | Static: localization check, unit tests | Review all TR, EN, DE text | Reviewed; findings fixed or listed | Open |
-| QA-12 | 19.10 | P1 | IN PROGRESS | Overflow checks missed visual faults | `scripts/qa/ui/automotive-audit.cjs` | `4503f2d` | Viewport audit in EN and DE | Screenshots on the real WebView; confirm consent text no longer peeks below pinned buttons | Reviewed screenshots per the required state list | Open |
-| QA-13 | 20.1 | P0 | NOT STARTED | Feature absent | `app/care/page.tsx` | | | Build | User confirms and saves; view, edit, delete; no false "booked" claim | Open |
-| QA-14 | 20.2 | P0 | NOT STARTED | Hardcoded `preferredCity: "İstanbul"` | `app/care`, `main.py` care match | | | Remove; add region preference with fallback | Region independent of UI language; specialty and region match | Open |
-| QA-15 | 20.3 | P1 | NOT STARTED | Unknown | `app/care/page.tsx` | | | Fix | User-local time; correct appointment type | Open |
-| QA-16 | 10 | P1 | NOT STARTED | Suspected: per-origin storage; earlier tests delete their records; consent gates saving | `healthRecords.ts` | | | Investigate each cause | Causes distinguished with evidence | Open |
-| QA-17 | 10 | P1 | NOT STARTED | Not yet tested | `healthRecords.ts`, `RecordHistory.tsx` | | | Run the full sequence | Save, history, refresh, re-entry, Stop/Start, history, delete; no duplicates or restored deletions | Open |
-| QA-18 | 21 | P0 | NOT STARTED | Earlier videos cover digits-in-noise only | `app/hearing/page.tsx` | | | Validate pure-tone end to end | Completion, results, history on both platforms | Open |
-| QA-19 | 19, 21 | P1 | NOT STARTED | Unclear raw numbers | `HearingToneResults.tsx`, `HearingStoredResult.tsx` | | | Redesign live and saved views | Understandable with real data; not presented as clinically calibrated; fits AAOS | Open |
-| QA-20 | 21 | P0* | NOT STARTED | | | | | Record | Separate pure-tone videos on WEB and AAOS | Open |
-| QA-21 | 09 | P0 | IN PROGRESS | The old test answered "can't see" every time; no limit existed | `spokenVision.ts`, `SpokenLetterPage.tsx`, `scripts/qa/realistic` | `3852f94`, `4503f2d` | Live WEB and Live AAOS full runs PASS on deployed `a9b7919`: 24 trials, one can't-see, real ASR | Rerun on the final candidate for the videos | Trial record has symbol, intended answer, transcript, parsed answer, correctness, eye, size and scores | Open |
-| QA-22 | 09 | P1 | IN PROGRESS | Early stop was shown as complete | `LetterVisionResult.tsx` | `3852f94` | Live WEB and Live AAOS stop scenario PASS on `a9b7919` | Recheck on the final candidate | Stopped runs labelled; unmeasured letters shown; size tables reachable | Open |
-| QA-23 | 08 | P0 | IN PROGRESS | Supplied BITE photo fails the contact gate | `dentalCapture.ts`, `dental_analysis.py` | `fc25c91` | Live AAOS: 4 views measured, HTTP 200, history reopened, but with the **substituted Male set**. Does not close this item | Run with the original female photos after QA-24 | Four valid views with the supplied photos on the real emulator, or honest PARTIAL | Open |
-| QA-24 | 18 | P0 | IN PROGRESS | Closed bite with discoloured enamel: 419 of 488 excluded pixels read as pink-like, contact 47.06% against 60% | `dental_analysis.py`, `dentalCapture.ts` | | `dental-bite-gate-20261104.json` | Fix classification; validate on controls | Open, closed, discoloured, normal controls correct; threshold not simply lowered; uncertain when unsure | Open |
-| QA-25 | 18.1 | P0 | NOT STARTED | A visible acne lesion was missed earlier | Skin pipeline | | | Test after QA-31 | False negatives and positives reported per image; "Unclassified spots" not a failure by itself | Open |
-| QA-26 | 16 | P1* | NOT STARTED | | Recording pipeline | | | Set capture quality | Readable, adequate FPS, synchronized audio | Open |
-| QA-27 | 16 | P0* | IN PROGRESS | Earlier deployment: older source plus patches. AAOS copy step nested folders, fixed in `4503f2d`, not yet redeployed | `deploy_release.py`, `deploy_host.py` | `4503f2d` | WEB ran `a9b7919` with recorded provenance | Deploy final candidate including the APK; verify all layers | Commit, frontend, backend, APK, models, config verified on both | Open |
-| QA-28 | 16 | P2* | NOT STARTED | | | | | Remove diagnostic overlays from recordings | Clean presentation; honest disclosure in the report | Open |
-| QA-29 | 17 | P1* | DONE | | `AttuneControl.ps1`, `stable_host.py` | `fc25c91` | Live: Stop, Start, READY, Stop. `restart-acceptance-20261104.json` | None unless operational code changes | Real cycle succeeds | Pending final candidate |
-| QA-30 | 16 | P0* | IN PROGRESS | | CI | `4503f2d` | 5 of 5 CI jobs pass | Rerun all suites on the final candidate | All listed suites pass | Open |
-| QA-31 | 18.9 | P0* | IN PROGRESS | | `docs/qa/SKIN-MODEL-CONTRACT.md` | | Started | Complete matrix and runtime proof | Every indicator rated with evidence; no invented decisions | Open |
-| QA-32 | 19.11 | P1 | IN PROGRESS | Hero took over half the usable height with a redundant chip row | `app/page.tsx` | `4503f2d` | Viewport audit | Measure and screenshot on the real WebView; WEB and AAOS separately | Module cards visible with little scrolling; identity preserved | Open |
-| QA-33 | 19.12 | P1 | NOT STARTED | Live preparation falls through to the saved-record placeholder in the face panel | `SkinFacePanel.tsx`, `SkinActiveScan.tsx` | | Viewport audit screenshot | Fix; test every camera state; confirm synthetic frames only in QA | Accurate message in each state on both platforms | Open |
-| QA-34 | 19.13 | P1 | IN PROGRESS | Baseline at 1280x517: 3.2 screens, 46% preview visible | `dental.module.css`, `app/dental/page.tsx` | `4503f2d` | Baseline: Live WEB resized to 1280x517, not the real WebView | Measure on the real WebView; before and after | Preview fully visible; no detail lost; manual visual acceptance | Open |
-
-## Acceptance evidence so far
-
-| Run | Build | Input | Platform label | Result | Scope |
-|---|---|---|---|---|---|
-| Restart cycle | Host config before release deploy | n/a | Live | READY, all checks | Service availability only |
-| Vision full | `a9b7919` frontend | Female-Vision set | Live WEB | PASS, 14 checks | Controlled speech and photos |
-| Vision full | `a9b7919` frontend | Male-Vision set | Live AAOS | PASS, 14 checks | Android microphone path, real ASR, reference camera |
-| Vision stop | `a9b7919` frontend | Same | Live WEB, Live AAOS | PASS | WEB's history step had a script error fixed before the full run |
-| Dental | `a9b7919` frontend | Male-Dental, JPEG recompressed | Live WEB, Live AAOS | 4 views measured | Not the supplied female BITE photo |
-
-Findings to carry into the report:
-
-- ASR on the Android path misheard letters (B as D). Five attempts needed the code-word fallback in the AAOS full run.
-- These runs predate the final candidate, so they are not the 12 acceptance videos.
+| QA | Task | P | Status | Root cause | Files | Commit | Evidence | Remaining | Acceptance on the release candidate |
+|---|---|---|---|---|---|---|---|---|---|
+| QA-01 | 11.1 | P0 | DONE | Turkish mood labels were placed into translated summaries ("feeling Gergin") | `utils/mentalHistory.ts`, `MentalSessionRows.tsx` | `46403ea`, `2da0a41` | Live: `rc-web-language/language.json`, Mental videos, `mental-performance.md` |  | PASS for language: TR, EN and DE clean through the API; English journeys clean on both platforms. Full translation review not done |
+| QA-02 | 11.2 | P0 | DONE | Chatterbox loaded per request on 2 threads: 77 s for 4.6 s of audio. Kept resident on 4 threads, same voice and weights. Replies limited in the prompt | `mental_neural_tts.py`, `mental_neural_resident.py`, `deploy_host.py`, `mental_provider.py` | `fed84d7`, `2da0a41` | Live: `mental-performance.md`, `tts-distribution.json` | Sentence streaming or a GPU for a further gain | PASS for reduction: 18.6 to 24.9 s from speech end to reply, from about 70 s. Normal median 9.1 s (n=14), cold 28.3 s. Same voice. Still slow for conversation |
+| QA-03 | 11.3 | P2 | DONE | A transcript not saved by consent read as a failure | `MentalSessionRows.tsx`, `RecordHistory.tsx` | `46403ea` | Static: unit tests. Live: Mental saved record |  | PASS |
+| QA-04 | 19.1 | P0 | DONE | Consent copy led with vendor names | `serviceConsent.ts`, `speechProvider.ts`, `HealthConsentGate.tsx`, privacy page | `46403ea`, `76b160d` | Live: consent screenshots in EN, DE, TR on both platforms |  | PASS: Attune.more leads; OpenAI still disclosed |
+| QA-05 | 01, 19 | P1 | DONE | Numbered markers and long lines replaced the approved callouts. Rebuilt to the owner's two references: see QA-35 | `SkinFindingCallouts.tsx`, `skinCalloutLayout.ts` | `ea9d2b4`, `9f04710`, `b7fe187` | Live: `skin-label-evidence.md`, screenshots |  | PASS, superseded by QA-35 |
+| QA-06 | 19.3 | P1 | DONE | Three portraits differed from the owner's files. Now byte-identical; Skin and Dental already were | `HealthStartCard.tsx`, `public/assets` | `46403ea` | Byte comparison with the owner's files; Live: preparation screenshots |  | PASS: all five identical |
+| QA-07 | 19.4 | P1 | DONE | Inconsistent hierarchy and technical labels | `app/care/page.tsx` | `46403ea` | Live: `care` journey and screenshots |  | PASS |
+| QA-08 | 19.6 | P0 | DONE | Native toolbar and system bars reduce the WebView to 1280x564. Layout now measured there | `MainActivity.java`, `run.sh` | `a9b7919`, `0091399` | Live AAOS: `rc-aaos-ui`, 1280x564 |  | PASS on the emulator: no control covered |
+| QA-09 | 19.7 | P1 | DONE | Fixed-size dialogs; sticky actions left a gap where text showed through | `AccessibleDialog.tsx`, `globals.css` | `a9b7919`, `41d9593` | Live: `rc-*-ui`, 62 states per platform |  | PASS |
+| QA-10 | 19.8 | P2 | DONE | `ⓘ` rendered as an empty box; replaced with an icon | Components using the glyph | `46403ea` | Live: `rc-*-ui` |  | PASS: no font-dependent glyphs |
+| QA-11 | 19.9 | P1 | DONE | Plurals, percent format, mixed-language text. "Last 1 scans" found late | `i18n/core.ts`, `messages.json` | `3852f94`, `46403ea`, `705eb07` | Static: localization check. Live: screens in EN, DE, TR | A professional translation review, if wanted | PARTIAL: mechanical check clean; read-through limited to recorded screens |
+| QA-12 | 19.10 | P1 | DONE | Overflow checks missed visual faults, and an earlier run measured a 404 page for one state | `scripts/qa/realistic/e2e_modules.py` | `2da0a41`, `14a65ff`, `41d9593` | Live: `rc-*-ui`, 3 languages, dialogs opened and scrolled |  | PASS: includes the consent text below pinned buttons, fixed in `41d9593` |
+| QA-13 | 20.1 | P0 | DONE | Feature absent | `app/care/page.tsx`, `careAppointments.ts`, `CareAppointments.tsx` | `46403ea`, `66a0551` | Live: `rc-*-care`, 19 checks per platform |  | PASS |
+| QA-14 | 20.2 | P0 | DONE | Hardcoded `preferredCity: "İstanbul"` | `app/care`, `main.py`, `care_provider.py` | `46403ea` | Live: `rc-*-care` |  | PASS: no default city; region independent of language |
+| QA-15 | 20.3 | P1 | DONE | Times shown in UTC | `careAppointments.ts` | `46403ea` | Live: `rc-*-care` |  | PASS: local time, no UTC |
+| QA-16 | 10 | P1 | DONE | Proven live: with saving at its default, a full Skin scan saves nothing. Records are per browser profile and origin. The Skin result gave no sign of it; it now says so | `app/skin/page.tsx`, `SkinResultView.tsx` | `ea9d2b4` | Live: `rc-web-qa16-default-saving`, `persistence-evidence.md` |  | PASS: causes separated; default saving proven live |
+| QA-17 | 10 | P1 | DONE | Not previously tested as a whole sequence | `scripts/qa/realistic/persistence_check.py` | `76b160d` | Live: `persistence-evidence.md`, real Stop and Start |  | PASS: 11 of 11 on each platform |
+| QA-18 | 21 | P0 | DONE | Earlier videos covered digits-in-noise only | `app/hearing/page.tsx` | `46403ea` | Live: pure-tone videos, `hearing-evidence.md` |  | PASS with a scripted listener; not a measure of hearing |
+| QA-19 | 19, 21 | P1 | DONE | Raw numbers without context | `HearingDinResult.tsx`, `HearingToneResults.tsx`, `HearingStoredResult.tsx` | `46403ea` | Live: Hearing videos and screenshots |  | PASS: no clinical claim |
+| QA-20 | 21 | P0* | DONE | Dedicated pure-tone evidence on each platform | Recordings | n/a | Two pure-tone videos |  | PASS |
+| QA-21 | 09 | P0 | DONE | The old test answered "can't see" every time; no limit existed | `spokenVision.ts`, `SpokenLetterPage.tsx` | `3852f94`, `4503f2d` | Live: `vision-scoring-matrix.md`, read back from stored records |  | PASS: 24 valid trials per platform, one can't-see, real recognition |
+| QA-22 | 09 | P1 | DONE | Early stop was shown as complete | `LetterVisionResult.tsx` | `3852f94` | Live: stop scenario on `a9b7919`; Results-by-size opened in both videos |  | PARTIAL: the stop scenario was not rerun on this commit; that code is unchanged |
+| QA-23 | 08 | P0 | DONE | The supplied BITE photo failed the contact gate | `dentalCapture.ts`, `dental_analysis.py` | `d0759ad` | Live AAOS: original female set, video and record |  | PASS: four views measured |
+| QA-24 | 18 | P0 | DONE | Discoloured enamel was read as a gap. New check uses joined contact only under a low opening; thresholds .04, .60 and .50 unchanged | `dental_analysis.py`, `dentalCapture.ts` | `d0759ad` | `dental-bite-findings.md`, `dental-bite-gate-v2-20261104.json` |  | PASS on the controls; thresholds unchanged |
+| QA-25 | 18.1 | P0 | IN PROGRESS | Accuracy cannot be established from single scans. Finding register per image is in the report | Skin pipeline, no change | n/a | Report: findings register | Labelled ground truth | NOT VERIFIED: likely misses recorded, no accuracy claimed |
+| QA-26 | 16 | P1* | DONE | Recording at 80% scale and browser notices over the page | `run_e2e.sh`, `run.sh` | `76b160d`, `16f8f6e` | `coverage.json`, frames reviewed |  | PASS: 1280x800, 12 fps, audio present |
+| QA-27 | 16 | P0* | DONE | Earlier deployment mixed older source and patches | `deploy_release.py`, `deploy_host.py` | `4503f2d` | `rc-provenance`, `RELEASE-CANDIDATE.md` |  | PASS: commit, build, APK, models, config verified |
+| QA-28 | 16 | P2* | DONE | Diagnostic overlays in recordings; the pairing key is masked | `e2e_modules.py`, `videoPoster.ts` | `76b160d`, `b4d65cd` | Frames reviewed; report discloses the test toolbar |  | PASS |
+| QA-29 | 17 | P1* | DONE | Restart reported PARTIAL over two restored V5 files, then READY hid an empty OpenAI account | `deploy_host.py`, `host_ready.py` | `ea9d2b4`, `8939fa7` | Live: real Stop and Start, reports `141005` and `141037` |  | PASS: STOPPED 31 s, READY 84 s |
+| QA-30 | 16 | P0* | DONE | Mood test pinned old text; prompt exemption had to follow the wording | CI | `2da0a41`, `c4016db` | CI `41808646146`, `41808646311`, `41808646456` |  | PASS: 3 of 3 workflows |
+| QA-31 | 18.9 | P0* | IN PROGRESS | V5 never ran on AWS (converted line endings); Python MediaPipe was missing. Both fixed. Most model decisions have no approval record | `.gitattributes`, `deploy_host.py`, `SKIN-MODEL-CONTRACT.md` | `16f8f6e`, `9e415eb` | `SKIN-MODEL-CONTRACT.md`, `skin-contract-runtime.json` per platform | Owner decisions on V5, `regional.pt` and approvals | Runtime proven; contract NOT VERIFIED until decided |
+| QA-32 | 19.11 | P1 | DONE | Hero took half the usable height; a saved hearing record pushed every Start action off the first screen | `app/page.tsx`, `HealthHistoryOverview.tsx`, `CockpitHeader.tsx` | `0091399`, `ea9d2b4`, `705eb07` | Live: `rc-*-ui`, before and after screenshots |  | PASS: 5 of 5 Start actions in the first screen at 1280x564; not at 517 px and below |
+| QA-33 | 19.12 | P1 | DONE | Live preparation fell through to the saved-record placeholder | `SkinFacePanel.tsx` | `46403ea`, `c4016db` | Live: `rc-*-camera`, `rc-*-skin` |  | PASS on both platforms |
+| QA-34 | 19.13 | P1 | DONE | Baseline at 1280x517: 3.2 screens, 46% preview visible | `dental.module.css`, `app/dental/page.tsx` | `4503f2d`, `b4d65cd` | Live AAOS: `rc-aaos-dental` |  | PASS: 1.46 screens, 100% preview visible, from 3.2 and 46% |
+| QA-35 | 01, 19 | P1 | DONE | Owner's brief of 2026-11-04: all located findings by default, one when selected, labels fitted per language. Also arrows beside the photo, one-row header | `SkinFindingCallouts.tsx`, `skinCalloutLayout.ts`, `skinCalloutModel.ts`, `SkinResultView.tsx`, `SkinFacePanel.tsx`, `HealthResultNavigation.tsx`, `CockpitHeader.tsx` | `ea9d2b4`, `9f04710`, `b7fe187` | Live: `skin-label-evidence.md`, WEB 594 and AAOS 396 states | Independent visual review by AG | PASS on real results; photos with fewer labels than the references where a finding was measured on another photo |

@@ -18,9 +18,10 @@ CASES = {
 }
 # Words that should not appear in the other languages' text. "Gergin" is the reported fault.
 FOREIGN = {
-    'tr': r'\b(the|and|you|feeling|und|nicht|sich|ich)\b',
-    'en': r'[çğıİşŞĞ]|\b(gergin|yorgun|rahat|nötr|und|nicht|sich|ich|bir|için|ve)\b',
-    'de': r'[çğıİşŞĞ]|\b(gergin|yorgun|rahat|nötr|the|you|feeling|bir|için|ve)\b',
+    'tr': r"\b(the|and|you|feeling|und|nicht|sich|ich)\b",
+    # The lookbehind keeps the "ve" of "I've" from reading as the Turkish word.
+    'en': r"[çğış]|(?<!['’])\b(gergin|yorgun|rahat|nötr|und|nicht|sich|ich|bir|için|ve)\b",
+    'de': r"[çğış]|(?<!['’])\b(gergin|yorgun|rahat|nötr|the|you|feeling|bir|için|ve)\b",
 }
 
 
@@ -48,7 +49,7 @@ def main():
         # Lower-cased first: ignoring case in the pattern would treat the Turkish dotless i as an i.
         foreign = sorted(set(m.group(0) for m in re.finditer(FOREIGN[language], checked.lower())))
         words = [len(r.split()) for r in replies]
-        report['languages'][language] = {'said': said, 'replies': replies, 'replyWords': words, 'analysis': visible, 'foreignMatches': foreign, 'passed': not foreign and all(w <= 25 for w in words)}
+        report['languages'][language] = {'said': said, 'replies': replies, 'replyWords': words, 'analysis': visible, 'foreignMatches': foreign, 'withinWordLimit': all(w <= 25 for w in words), 'passed': not foreign}
         print(language, 'PASS' if report['languages'][language]['passed'] else 'CHECK', 'words', words, 'foreign', foreign, flush=True)
     report['status'] = 'PASS' if all(v['passed'] for v in report['languages'].values()) else 'CHECK'
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)

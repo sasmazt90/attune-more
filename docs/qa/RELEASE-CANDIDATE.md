@@ -2,12 +2,12 @@
 
 | Layer | Value | How it was checked |
 |---|---|---|
-| Commit | `b7fe187b302669cb117911ad01a3dcee89e2ead8` | Deployment record for both hosts |
+| Commit | `4bb51b3fe1b02ad5e2c97b91fc242ea51ff0f151` | Deployment record for both hosts |
 | Branch and draft PR | `claude/aws-ops-automotive-ux-20261103`, [sasmazt90/attune-more#23](https://github.com/sasmazt90/attune-more/pull/23) | |
-| CI on that commit | CI / Submission QA Guard `41796222922`, Automotive prototype `41796222828`, AWS OEM preparation `41796222745`. All pass | GitHub Actions |
-| Source archive | `27697d7351b45065fb3d701f54c2de22b0ec3a44597237f607420a6e25fbed41` | Same archive on both hosts |
-| Frontend build | `9blsTy3oEG7JnynzdGch4`, built on the WEB host | `.next/BUILD_ID` |
-| APK | `e3e7b46ef5d8c3fb6131f3f1f45d82a380c8811ae4ab94a324e29dfffdf829d5`, 66,382 bytes, from the AWS OEM run above | Hash read back from the emulator |
+| CI on that commit | CI / Submission QA Guard `41808646146`, Automotive prototype `41808646311`, AWS OEM preparation `41808646456`. All pass | GitHub Actions |
+| Source archive | `92cf307ecd116dcb23292a0bb6edfa09cfbdda70e1f912bfd329ee37e76f5d39` | Same archive on both hosts |
+| Frontend build | `b7M_ErYGvyppUYhvnbQaP`, built on the WEB host | `.next/BUILD_ID` |
+| APK | `ae5ec1c0c4a0e1add008c6fc422d89661221c23e6ae7f1d8ee76c7316ced887e`, 66,382 bytes, from the AWS OEM run above | Hash read back from the emulator |
 | Android | Android 15, SDK 35, `sdk_gcar_x86_64` emulator, WebView 147.0.7727.137 | `getprop`, `dumpsys webviewupdate` |
 | Model files | 52 of 52 match the verification record, by SHA-256 | Every file hashed on the host |
 | Python packages added for Skin | `mediapipe 0.10.32`, OpenCV stays `4.12.0` | Imported by the host's interpreter |
@@ -34,8 +34,9 @@ own camera, because the reference photos arrive through the demo camera bridge.
 
 ## An earlier candidate
 
-`0091399` was recorded first and passed. The owner's Skin label brief arrived after that, so all 12 videos were recorded
-again on this commit, and all 12 here come from one build. The earlier run is kept only as a local reference.
+`0091399` was recorded first and passed. The owner's Skin label brief arrived after that, and later candidates fixed what real
+runs found, so all 12 videos were recorded again on this commit. All 12 here come from one build. Earlier runs are kept only as a
+local reference.
 
 ## Faults only the real environment found
 
@@ -49,6 +50,9 @@ Each of these passed unit tests or a local check before the real run caught it:
 4. **No module Start action was in the first screen at 1280x564.** Fixed in `0091399`.
 5. **A restart reported PARTIAL.** The readiness check compared two restored V5 files with an old record. Fixed in
    `ea9d2b4`, against pinned hashes rather than by loosening the check.
+6. **READY did not notice an empty OpenAI account.** Listing models still returned 200 while speech recognition failed. Fixed in
+   `8939fa7` with a one-token call.
+7. **Saved hearing records pushed every Cockpit Start action off the first screen.** Fixed in `705eb07`.
 
 Faults in the test itself, which would have overstated results:
 
@@ -59,4 +63,4 @@ Faults in the test itself, which would have overstated results:
 ## Delivery
 
 Evidence, videos and the acceptance report are on Google Drive under
-`Attune.more / Claude Release Candidate E2E English / 2026-11-04 /`. Links are in the acceptance report and on the PR.
+[`Attune.more / Claude Release Candidate E2E English / 2026-11-04 /`](https://drive.google.com/drive/folders/1LsbiNKlGinJUD5_gFSa2-SpHbtjJkmQa). The report is `docs/qa/ACCEPTANCE-REPORT-20261104.md`.

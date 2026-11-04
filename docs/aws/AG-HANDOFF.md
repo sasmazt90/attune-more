@@ -5,7 +5,7 @@ review. Do not rely on Claude's PASS labels: check the code, the videos and the 
 find. Fixes go through a reviewed branch and affected tests and videos are rerun. Nothing merges to `main` until your
 review is complete and the owner approves.
 
-Release candidate, draft PR and evidence links: see `docs/qa/RELEASE-CANDIDATE.md`.
+Start with `docs/qa/ACCEPTANCE-REPORT-20261104.md`. Release candidate, draft PR and evidence: see `docs/qa/RELEASE-CANDIDATE.md`.
 
 ## Confirm your own AWS access first
 
@@ -41,6 +41,8 @@ The hosts cost about $1.16 per hour. Stop them when you are not testing.
 | Mental | Language quality, latency, whole conversation. | `mental-performance.md` |
 | Appointments | No false booking claim, no default city, local time. | `app/care/page.tsx`, `utils/careAppointments.ts` |
 | Automotive UX | Check the real WebView, not a resized browser. Text readable, nothing covered. | `ui-measurements.md`, the AAOS videos |
+| Skin labels | Do they match the owner's two references on real results? Is any label on the wrong spot or the wrong photo? Compare the stored result with what is drawn. | `skin-label-evidence.md`, `SkinFindingCallouts.tsx`, `skinCalloutLayout.ts`, `skinCalloutModel.ts`; rerun with `run_e2e.sh <web or aaos> callouts <name>` after a Skin run |
+| Readiness | Does READY fail on an empty OpenAI account, without printing any response text? | `scripts/aws/host_ready.py`, `tests/aws/test_control.py` |
 
 ## Known limits to judge, not to assume fine
 
@@ -50,6 +52,8 @@ The hosts cost about $1.16 per hour. Stop them when you are not testing.
 - All recordings use reference photos, synthesized speech and scripted listeners. No physical camera, microphone or
   person. No clinical accuracy is claimed anywhere.
 - AAOS runs on an emulator with simulated vehicle data.
+- Claude reads likely Skin and Dental misses from the photos in the findings register. That is one reader's judgement, not ground truth.
+- A spoken clip can be cut at a pause, and it happened on a different platform in different runs. Worth your own look.
 
 ## Reporting
 
