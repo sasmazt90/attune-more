@@ -155,13 +155,22 @@ class Aaos:
         unix = subprocess.check_output(device + ['shell', 'cat', '/proc/net/unix'], text=True, stdin=subprocess.DEVNULL)
         socket = re.findall(r'webview_devtools_remote_\d+', unix)[0]
         subprocess.check_call(device + ['forward', 'tcp:9222', 'localabstract:' + socket], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
-        browser = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
-        page = next(p for c in browser.contexts for p in c.pages if p.url.startswith('http://127.0.0.1:3000'))
+        self.playwright = playwright
+        return self.connect(), lambda: self.browser.close()
+
+    def connect(self):
+        self.browser = self.playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
+        page = next(p for c in self.browser.contexts for p in c.pages if p.url.startswith('http://127.0.0.1:3000'))
         page.add_init_script(TIMING)
         page.add_init_script(SEED_OBSERVER)
         page.add_init_script(MASK_PAIRING)
         page.evaluate(MASK_PAIRING)
-        return page, browser.close
+        return page
+
+    def reconnect(self):
+        """A navigation the WebView cancels stays pending in Playwright for good. A new connection starts clean."""
+        self.browser.close()
+        return self.connect()
 
     def home(self, page):
         page.goto('http://127.0.0.1:3000/', wait_until='networkidle')
@@ -950,10 +959,15 @@ def care(run):
             link.click()
         popup.value.close()
     else:
-        link.click()
+        # The native shell blocks this navigation and asks before leaving the app, so nothing will finish loading.
+        link.click(no_wait_after=True)
         page.wait_for_timeout(1800)
-        # The native shell asks before leaving the app. Stay in the app.
+        # The dialog is native, so only the device can capture it.
+        (run.out / 'care-native-leave-dialog.png').write_bytes(subprocess.check_output([ADB, '-s', 'emulator-5554', 'exec-out', 'screencap', '-p', '-d', '4619827259835644672'], stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL))
+        # Stay in the app.
         subprocess.run([ADB, '-s', 'emulator-5554', 'shell', 'input', 'keyevent', '4'], stdin=subprocess.DEVNULL, check=False)
+        page.wait_for_timeout(600)
+        page = run.page = run.adapter.reconnect()
     page.locator('[data-care-return]').wait_for()
     run.dwell(1500)
     run.mark('Back from the provider')
@@ -1019,9 +1033,10 @@ COVERED = """()=>{const bars=[...document.querySelectorAll('[data-cockpit-header
  return {smallTargets:small.slice(0,6),smallCount:small.length,tinyText:tiny,unsafeGlyphs:glyphs};}"""
 DIALOG_FIT = """()=>{const p=[...document.querySelectorAll('[role=dialog]')].pop();if(!p)return null;const r=p.getBoundingClientRect();
  const actions=p.querySelector('[data-dialog-actions]');const a=actions?actions.getBoundingClientRect():null;
- // Text is a peek when it shows in the gap below the pinned buttons.
- const peek=a?[...p.querySelectorAll('p,label,li,span,h1,h2,h3,summary')].filter(e=>!actions.contains(e)&&e.getClientRects().length).filter(e=>{const b=e.getBoundingClientRect();return b.bottom>a.bottom+1&&b.top<r.bottom-1&&b.height>0;}).map(e=>(e.innerText||'').slice(0,40)):[];
- return {width:Math.round(r.width),height:Math.round(r.height),fits:r.top>=-1&&r.bottom<=innerHeight+1,sharePct:Math.round(100*r.width*r.height/(innerWidth*innerHeight)),actionsInView:a?a.top>=r.top-1&&a.bottom<=r.bottom+1:null,textBelowActions:peek.slice(0,4),scrollable:p.scrollHeight>p.clientHeight+1};}"""
+ // Text is a peek when it shows in a gap below the pinned buttons. With no gap, text behind them is simply clipped.
+ const gap=a?Math.max(0,r.bottom-1-a.bottom):0;
+ const peek=a&&gap>1?[...p.querySelectorAll('p,label,li,span,h1,h2,h3,summary')].filter(e=>!actions.contains(e)&&e.getClientRects().length).filter(e=>{const b=e.getBoundingClientRect();return b.bottom>a.bottom+1&&b.top<r.bottom-1&&b.height>0;}).map(e=>(e.innerText||'').slice(0,40)):[];
+ return {gapBelowActions:Math.round(gap),width:Math.round(r.width),height:Math.round(r.height),fits:r.top>=-1&&r.bottom<=innerHeight+1,sharePct:Math.round(100*r.width*r.height/(innerWidth*innerHeight)),actionsInView:a?a.top>=r.top-1&&a.bottom<=r.bottom+1:null,textBelowActions:peek.slice(0,4),scrollable:p.scrollHeight>p.clientHeight+1};}"""
 HERO = """()=>{const cards=[...document.querySelectorAll('main a[href],main button')].filter(e=>/skin|dental|vision|hearing|mental|health/i.test(e.getAttribute('href')||e.innerText||''));
  const inView=cards.filter(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}).length;return {actions:cards.length,fullyInFirstScreen:inView};}"""
 
