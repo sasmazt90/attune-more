@@ -61,7 +61,7 @@ with sync_playwright() as pw:
     context=pw.chromium.launch_persistent_context(str(PROFILE),channel='chrome',headless=False,viewport=dict(width=1600,height=1000),permissions=['camera'],args=['--window-size=1600,1000','--use-fake-device-for-media-stream','--use-file-for-fake-video-capture='+str(camera),'--enable-unsafe-swiftshader'])
     context.add_init_script("window.__skinRequests=[];window.__skinResponses=[];const orig=window.fetch;window.fetch=async(...a)=>{const skin=String(a[0]).endsWith('/api/local-health/skin');if(skin)window.__skinRequests.push(JSON.parse(a[1].body));const r=await orig(...a);if(skin&&r.ok)window.__skinResponses.push(await r.clone().json());return r;};")
     page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
-    page.goto('http://127.0.0.1:3000/privacy');expect(page.get_by_label('Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver',exact=True)).not_to_be_checked()
+    page.goto('http://127.0.0.1:3000/privacy');expect(page.get_by_label('Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.',exact=True)).not_to_be_checked()
     for text in ['Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla','Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla']:
         control=page.get_by_label(text,exact=True)
         if not control.is_checked():control.click()

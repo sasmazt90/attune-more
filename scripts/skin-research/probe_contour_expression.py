@@ -8,7 +8,7 @@ prefixes=['99f82af5','fc3a6b13','05619d0a','f90e68f8','64b02ede','40c7edda'];row
 with sync_playwright() as pw:
     context=pw.chromium.launch_persistent_context(str(ROOT/'output/playwright/material-runtime-expression-profile'),channel='chrome',headless=False,viewport=dict(width=1300,height=900),args=['--enable-unsafe-swiftshader'])
     context.route('**/__audit/vision_bundle.mjs',lambda r:r.fulfill(path=str(ROOT/'node_modules/@mediapipe/tasks-vision/vision_bundle.mjs'),content_type='text/javascript'))
-    page=context.new_page();page.goto('http://127.0.0.1:3000/privacy');assert not page.get_by_label('Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver',exact=True).is_checked()
+    page=context.new_page();page.goto('http://127.0.0.1:3000/privacy');assert not page.get_by_label('Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.',exact=True).is_checked()
     page.add_script_tag(content=(ROOT/'.runtime/periorbital-v5-browser-support/utilities.js').read_text('utf8'))
     page.evaluate("async()=>{window.__auditMediaPipe=await import('/__audit/vision_bundle.mjs');const m=await __auditRequire('apps/vehicle-app/src/utils/skinAnalyzer.ts').SkinAnalyzer.getFaceLandmarker();await m.setOptions({outputFaceBlendshapes:true});return true}")
     for prefix in prefixes:

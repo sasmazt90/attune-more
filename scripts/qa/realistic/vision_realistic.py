@@ -132,10 +132,10 @@ class Journey:
     def start_recording(self):
         if not self.args.record:
             return
-        command = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'x11grab', '-framerate', '4', '-video_size', self.args.video_size, '-i', self.args.display,
+        command = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'x11grab', '-framerate', '12', '-video_size', self.args.video_size, '-i', self.args.display,
                    '-f', 'pulse', '-i', self.args.speaker_monitor, '-f', 'pulse', '-i', self.args.mic_sink + '.monitor',
-                   '-filter_complex', '[1:a][2:a]amix=inputs=2:normalize=0[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '28',
-                   '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '96k', str(self.out / 'continuous.mp4')]
+                   '-filter_complex', '[1:a][2:a]amix=inputs=2:normalize=0[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24',
+                   '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', str(self.out / 'video.mp4')]
         self.recorder = subprocess.Popen(command, stderr=(self.out / 'recorder.log').open('w'))
         time.sleep(1.5)
 

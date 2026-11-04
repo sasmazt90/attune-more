@@ -60,7 +60,7 @@ function draw(){x.drawImage(im[selected],0,0);if(stream.getVideoTracks()[0].read
         try:
             context.add_init_script(injection);page=context.pages[0] if context.pages else context.new_page();page.set_viewport_size(dict(width=1600,height=1000));page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto('http://127.0.0.1:3000/privacy')
-            expect(page.get_by_label('Cilt tipi için yüz fotoğrafımın Roboflow tarafından işlenmesine izin ver',exact=True)).not_to_be_checked()
+            expect(page.get_by_label('Attune.more'nun cilt tipi için yüz fotoğrafımı bulut hizmetinde işlemesine izin ver. Bu hizmeti Roboflow sağlar.',exact=True)).not_to_be_checked()
             for label in ['Cilt ölçümlerini ve kişisel sayısal referansı bu tarayıcıda sakla','Yeni cilt kayıtlarının fotoğraflarını bu cihazda sakla']:
                 box=page.get_by_label(label,exact=True)
                 if not box.is_checked():
