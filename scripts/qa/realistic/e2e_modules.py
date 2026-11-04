@@ -1026,6 +1026,18 @@ HERO = """()=>{const cards=[...document.querySelectorAll('main a[href],main butt
  const inView=cards.filter(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}).length;return {actions:cards.length,fullyInFirstScreen:inView};}"""
 
 
+def go(run, route):
+    """Opens a route directly. A navigation still in progress can abort this one, so it retries once and keeps count."""
+    page = run.page
+    target = page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2] + '/' + route
+    try:
+        page.goto(target, wait_until='networkidle')
+    except Exception as error:
+        run.report.setdefault('navigationRetries', []).append({'route': route, 'error': str(error).splitlines()[0][:120]})
+        page.wait_for_timeout(1500)
+        page.goto(target, wait_until='networkidle')
+
+
 def ui(run):
     page = run.page
     run.adapter.home(page)
@@ -1041,7 +1053,7 @@ def ui(run):
         rows.append({'language': language, 'state': 'cockpit', **page.evaluate(MEASURE), **page.evaluate(COVERED), **page.evaluate(HERO)})
         for route in ('skin', 'dental', 'vision', 'hearing', 'mental'):
             consent = page.evaluate("()=>{const v=localStorage.getItem('attune_health_processing_v1');localStorage.removeItem('attune_health_processing_v1');window.dispatchEvent(new Event('attune-service-consent'));return v;}")
-            page.goto(page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2] + '/' + route, wait_until='networkidle')
+            go(run, route)
             page.wait_for_timeout(1200)
             dialog = page.locator('[role=dialog]')
             if dialog.count():
@@ -1066,8 +1078,8 @@ def ui(run):
                 run.shot('{}-{}-info'.format(language, route))
                 page.keyboard.press('Escape')
                 page.wait_for_timeout(350)
-        for route in ('care', 'history', 'privacy'):
-            page.goto(page.url.split('/', 3)[0] + '//' + page.url.split('/', 3)[2] + '/' + route, wait_until='networkidle')
+        for route in ('care', 'profile', 'privacy'):
+            go(run, route)
             page.wait_for_timeout(900)
             run.shot('{}-{}'.format(language, route))
             rows.append({'language': language, 'state': route, **page.evaluate(MEASURE), **page.evaluate(COVERED)})
