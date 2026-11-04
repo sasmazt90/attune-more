@@ -28,8 +28,8 @@ PIN = ROOT / 'apps/automotive/signing/cloud-demo-certificate.json'
 ALIAS = 'attune-cloud-demo'
 REPOSITORY = 'sasmazt90/attune-more'
 ENVIRONMENT = 'android-cloud-demo-signing'
-# Pull requests build from refs/pull/<n>/merge, which GitHub matches as <n>/merge.
-BRANCHES = ['main', 'claude/**', '*/merge']
+# Pull requests build from refs/pull/<n>/merge, and GitHub matches that full name. Forks get no secrets, and the job skips them.
+BRANCHES = ['main', 'claude/**', 'refs/pull/*/merge']
 BACKUP = Path(os.environ.get('USERPROFILE', '.')) / 'AttuneMore' / 'secrets' / 'android-cloud-demo-signing.xml'
 YEARS = 30
 

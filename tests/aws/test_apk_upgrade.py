@@ -1,11 +1,13 @@
 """APK identity and upgrade rules, with a stand-in for adb. The real upgrades are recorded under QA-41."""
 import hashlib
+import io
 import json
 from pathlib import Path
 import re
 import struct
 import subprocess
 import sys
+import tarfile
 import zipfile
 
 import pytest
@@ -284,3 +286,161 @@ def test_comparison_catches_a_reinstall_dressed_as_an_upgrade():
     assert any('no upgrade' in p for p in check.compare_package(row, {**good, 'lastUpdateTime': 't1'}))
     assert any('versionCode' in p for p in check.compare_package(row, {**good, 'versionCode': 1001}))
     assert any('microphone' in p for p in check.compare_package(row, {**good, 'users': {'10': {'microphone': False}}}))
+
+
+class MovingDevice(FakeDevice):
+    """Adds what the signing move touches: real tar streams, real removal of the data, and adb's check of the file name."""
+
+    def __init__(self, tmp_path, installed):
+        super().__init__(tmp_path, installed)
+        self.files = {'app_webview/Default/Local Storage/leveldb/000003.log': b'records', 'shared_prefs/app.xml': b'prefs', 'cache/old': b'x'}
+        self.refuse_new_install = None
+        self.refuse_every_install = None
+        self.drop_on_restore = None
+
+    def package(self):
+        return host.parse_package(dumpsys(self.code, self.first, self.update, microphone=self.microphone)) if self.cert else None
+
+    microphone = True
+
+    def text(self, *args, **kwargs):
+        return ' '.join(sorted({name.split('/')[0] for name in self.files})) if args[:2] == ('shell', 'run-as') else ''
+
+    def run(self, *args, check=True, **kwargs):
+        self.calls.append(args)
+        if args[0] == 'install':
+            if not str(args[-1]).endswith('.apk'):
+                return subprocess.CompletedProcess(args, 1, b'Performing Streamed Install\n', b"adb: filename doesn't end .apk or .apex")
+            if self.refuse_every_install:
+                return subprocess.CompletedProcess(args, 1, b'', self.refuse_every_install)
+            new = apk_identity.signing_identity(args[-1])
+            if self.cert and sha(self.cert) != new:
+                return subprocess.CompletedProcess(args, 1, b'', b'Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE]')
+            if not self.cert and self.refuse_new_install:
+                return subprocess.CompletedProcess(args, 1, b'', self.refuse_new_install)
+            self.cert, self.microphone = self.new_cert, False
+            self.first, self.update, self.code = '2026-11-05 10:00:00', '2026-11-05 10:00:00', 1056
+            return subprocess.CompletedProcess(args, 0, b'Success\n', b'')
+        if args[0] == 'uninstall':
+            self.cert, self.files = None, {}
+        elif args[0] == 'exec-out':
+            with tarfile.open(fileobj=kwargs['stdout'], mode='w') as archive:
+                for name, content in self.files.items():
+                    if name.split('/')[0] in args[args.index('-') + 1:]:
+                        info = tarfile.TarInfo(name)
+                        info.size = len(content)
+                        archive.addfile(info, io.BytesIO(content))
+        elif args[0] == 'exec-in':
+            with tarfile.open(fileobj=kwargs['stdin']) as archive:
+                for member in archive.getmembers():
+                    if member.name != self.drop_on_restore:
+                        self.files[member.name] = archive.extractfile(member).read()
+        elif args[:3] == ('shell', 'pm', 'grant'):
+            self.microphone = True
+        return subprocess.CompletedProcess(args, 0, b'', b'')
+
+    new_cert = A
+
+
+def moving(tmp_path, installed=OLD):
+    device, stage = MovingDevice(tmp_path, installed), stage_files(tmp_path)
+    return device, stage, make_apk(tmp_path / 'incoming.apk', A), tmp_path / 'moves'
+
+
+def test_the_wrong_file_name_stops_before_anything_changes(tmp_path):
+    """adb refuses names that do not end in .apk. This once surfaced only after the old app was gone."""
+    device, stage, incoming, moves = moving(tmp_path)
+    renamed = incoming.with_name('app-cloudDemo.apk.incoming')
+    incoming.rename(renamed)
+    with pytest.raises(host.Refused, match='APK_NAME'):
+        host.run(renamed, sha(A), True, device, stage, moves)
+    assert device.calls == [] and device.cert == OLD and stage.read_bytes() == b'old-stage'
+
+
+def test_the_deploy_tool_uploads_under_a_name_adb_accepts():
+    source = (ROOT / 'scripts/aws/deploy_release.py').read_text(encoding='utf8')
+    assert re.search(r"work = '/opt/attune-staging/[^']+\.apk'", source)
+
+
+def test_the_signing_move_keeps_every_file_and_the_microphone(tmp_path):
+    device, stage, incoming, moves = moving(tmp_path)
+    kept = {name: content for name, content in device.files.items() if not name.startswith('cache')}
+    report = host.run(incoming, sha(A), True, device, stage, moves)
+    assert report['action'] == 'migrate' and device.cert == A and device.microphone
+    assert device.files == kept and apk_identity.signing_identity(stage) == sha(A)
+    names = [call[0] for call in device.calls]
+    assert names.index('install') < names.index('exec-out') < names.index('uninstall'), 'Offered to Android, then backed up, and only then removed'
+    assert json.loads(next(moves.glob('*/manifest.json')).read_text())['finished']
+
+
+def test_the_signing_move_stops_first_if_android_has_another_objection(tmp_path):
+    device, stage, incoming, moves = moving(tmp_path)
+    device.refuse_every_install = b'Failure [INSTALL_PARSE_FAILED_NO_CERTIFICATES]'
+    with pytest.raises(host.Refused, match='MIGRATION_PREFLIGHT.*Nothing was changed'):
+        host.run(incoming, sha(A), True, device, stage, moves)
+    assert not any(call[0] in ('uninstall', 'exec-out') for call in device.calls) and device.cert == OLD and 'shared_prefs/app.xml' in device.files
+
+
+def test_a_move_that_stops_after_removal_says_so_and_can_be_finished(tmp_path):
+    device, stage, incoming, moves = moving(tmp_path)
+    kept = {name: content for name, content in device.files.items() if not name.startswith('cache')}
+    device.refuse_new_install = b'Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE]'
+    with pytest.raises(host.MigrationInterrupted) as stopped:
+        host.run(incoming, sha(A), True, device, stage, moves)
+    message = str(stopped.value)
+    work = next(moves.iterdir())
+    assert 'INSUFFICIENT_STORAGE' in message and str(work) in message and '--resume-migration' in message
+    assert 'not changed' not in message and 'Nothing was changed' not in message, 'The old app is gone, so this must never claim otherwise'
+    assert device.cert is None and device.files == {} and stage.read_bytes() == b'old-stage'
+    device.refuse_new_install = None
+    report = host.resume_migration(incoming, sha(A), work, device, stage)
+    assert report['action'] == 'resume-migration' and report['previousCertificate'] == sha(OLD)
+    assert device.cert == A and device.files == kept and device.microphone and apk_identity.signing_identity(stage) == sha(A)
+
+
+def test_resume_refuses_what_it_could_damage(tmp_path):
+    device, stage, incoming, moves = moving(tmp_path)
+    device.refuse_new_install = b'Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE]'
+    with pytest.raises(host.MigrationInterrupted):
+        host.run(incoming, sha(A), True, device, stage, moves)
+    work = next(moves.iterdir())
+    device.refuse_new_install = None
+    other = make_apk(tmp_path / 'other.apk', B)
+    with pytest.raises(host.Refused, match='APK_NOT_PINNED_IDENTITY'):
+        host.resume_migration(other, sha(A), work, device, stage)
+    device.cert = OLD
+    with pytest.raises(host.Refused, match='MIGRATION_OTHER_APP'):
+        host.resume_migration(incoming, sha(A), work, device, stage)
+    device.cert = None
+    tar = work / 'user-10.tar'
+    good = tar.read_bytes()
+    tar.write_bytes(good + b'x')
+    with pytest.raises(host.Refused, match='MIGRATION_BACKUP_CHANGED'):
+        host.resume_migration(incoming, sha(A), work, device, stage)
+    tar.write_bytes(good)
+    host.resume_migration(incoming, sha(A), work, device, stage)
+    device.files['shared_prefs/newer.xml'] = b'made after the move'
+    keep_incoming = make_apk(tmp_path / 'again.apk', A)
+    with pytest.raises(host.Refused, match='MIGRATION_ALREADY_FINISHED'):
+        host.resume_migration(keep_incoming, sha(A), work, device, stage)
+    assert device.files['shared_prefs/newer.xml'] == b'made after the move'
+
+
+def test_a_restore_that_differs_is_not_reported_as_success(tmp_path):
+    device, stage, incoming, moves = moving(tmp_path)
+    device.drop_on_restore = 'shared_prefs/app.xml'
+    with pytest.raises(host.MigrationInterrupted, match='differs from the backup'):
+        host.run(incoming, sha(A), True, device, stage, moves)
+    assert stage.read_bytes() == b'old-stage' and next(moves.glob('*/user-10.tar')).exists()
+    assert not json.loads(next(moves.glob('*/manifest.json')).read_text()).get('finished')
+
+
+def test_the_signing_move_regrants_the_microphone_to_a_user_with_no_data(tmp_path):
+    device, stage, incoming, moves = moving(tmp_path)
+    before = device.package()
+    before['users']['0'] = {'installed': True, 'microphone': True, 'firstInstallTime': before['firstInstallTime']}
+    names = device.text
+    device.text = lambda *args, **kwargs: '' if args[:5] == ('shell', 'run-as', host.PACKAGE, '--user', '0') else names(*args, **kwargs)
+    host.migrate(device, before, sha(OLD), incoming, moves)
+    grants = [call[4] for call in device.calls if call[:3] == ('shell', 'pm', 'grant')]
+    assert sorted(grants) == ['0', '10'] and list(moves.glob('*/user-0.tar')) == []

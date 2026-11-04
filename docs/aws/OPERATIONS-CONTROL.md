@@ -123,12 +123,25 @@ The deploy tool stops with nothing changed if:
 | `APK_NOT_PINNED_IDENTITY` | The APK is not signed by the pinned identity, for example a local debug build |
 | `SIGNATURE_MISMATCH` | The installed app has another certificate. Android cannot update it, and uninstalling would delete its data |
 | `INSTALL_REFUSED` | Android refused it, for example a lower version number |
+| `APK_NAME` | The uploaded file does not end in `.apk`, so adb would refuse it |
 
 CI gives each build a higher version number: 1000 plus the workflow's run number.
 
 ### Moving to the stable signing identity
 
-This is needed once, for an app installed before the stable identity existed. Its old key was temporary and no longer exists, so Android has no in-place route. Run the deploy with `--migrate-signing-once`. It copies the app's data out, replaces the app, restores the data, compares every file's size, and regrants the microphone. It refuses to run unless the certificates really differ. The copy stays on the AAOS host under `/var/lib/attune/apk-migration`, readable by root only.
+This is needed once, for an app installed before the stable identity existed. Its old key was temporary and no longer exists, so Android has no in-place route. Run the deploy with `--migrate-signing-once`. It refuses to run unless the certificates really differ. It then:
+
+1. Offers the APK to Android, which must refuse it for the certificate and nothing else (`MIGRATION_PREFLIGHT` if not).
+2. Copies the app's data out and checks that the copy can be read. The copy stays on the AAOS host under `/var/lib/attune/apk-migration`, readable by root only.
+3. Replaces the app, regrants the microphone, restores the data, and compares every file's size.
+
+If it stops after step 3 begins, the old app is gone and the message starts with `MIGRATION_INTERRUPTED` and names the backup folder. Do not restart the AAOS host, because its start script would install the old stage APK. Fix the cause, then run this on the host:
+
+```bash
+python3 /opt/attune/scripts/aws/apk_upgrade_host.py --incoming /opt/attune-staging/app-cloudDemo.incoming.apk --expected-cert <sha256> --resume-migration /var/lib/attune/apk-migration/<folder>
+```
+
+It refuses if the backup no longer matches its hash, if another app is installed, or if that move already finished, because restoring then would overwrite newer data.
 
 Any other device holding an old build needs the same step, or loses its local records on reinstall. If the key is ever lost, every installed app needs this step again, with a new identity.
 

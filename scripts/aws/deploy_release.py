@@ -81,7 +81,7 @@ def run_commands(profile, commands, comment, timeout=300):
             continue
         if result['Status'] not in ('Pending', 'InProgress', 'Delayed'):
             if result['Status'] != 'Success':
-                raise RuntimeError('{}: {} {}'.format(comment, result['Status'], result['StandardErrorContent'][-400:]))
+                raise RuntimeError('{}: {} {}'.format(comment, result['Status'], result['StandardErrorContent'][-1500:]))
             return result['StandardOutputContent']
     raise RuntimeError(comment + ' timed out')
 
@@ -100,7 +100,7 @@ def install_apk(profile, path, migrate_signing=False):
     data = Path(path).read_bytes()
     digest = hashlib.sha256(data).hexdigest()
     encoded = base64.b64encode(data).decode()
-    work = '/opt/attune-staging/app-cloudDemo.apk.incoming'
+    work = '/opt/attune-staging/app-cloudDemo.incoming.apk'
     run_commands(profile, [': > {}.b64'.format(work)], 'Attune APK upload')
     for start in range(0, len(encoded), 30000):
         run_commands(profile, ["printf %s '{}' >> {}.b64".format(encoded[start:start + 30000], work)], 'Attune APK upload')

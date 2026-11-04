@@ -6,7 +6,9 @@ signing certificate differs, Android would refuse the update, so this stops firs
 
 One exception is --migrate-signing: moving an app from an old certificate to the pinned one once. Android has no in-place
 route for that when the old key is gone, so the app data is copied out, the app replaced, and the data restored and compared.
-It must be asked for by name, and it refuses to run unless the certificates really differ.
+It must be asked for by name, and it refuses to run unless the certificates really differ. Before touching anything it offers
+the APK to Android and expects one refusal only, the certificate. If the move stops after the old app is gone, the data stays
+in the backup, the message says so, and --resume-migration finishes the job.
 """
 import argparse
 import hashlib
@@ -35,6 +37,10 @@ NOT_DATA = {'cache', 'code_cache'}
 
 class Refused(Exception):
     """Stopped on purpose, with the app and its data unchanged."""
+
+
+class MigrationInterrupted(RuntimeError):
+    """The old app is gone and the move did not finish. The data is in the backup, and --resume-migration finishes the job."""
 
 
 def plan(installed_cert, new_cert, expected_cert, migrate):
@@ -101,13 +107,27 @@ class Device:
         self.run('shell', 'am', 'start', '-n', ACTIVITY, check=False)
 
 
-def install_in_place(device, apk):
-    """adb install -r keeps the app's data. A refusal from Android leaves the old app and its data as they were."""
+def android_install(device, apk):
+    """adb install -r keeps the app's data. Returns None on success, or why it was refused."""
     done = device.run('install', '-r', str(apk), check=False, timeout=240)
     output = ((done.stdout or b'') + (done.stderr or b'')).decode('utf8', 'replace')
-    if done.returncode != 0 or 'Success' not in output:
-        reason = re.search(r'INSTALL_[A-Z_]+', output)
-        raise Refused('INSTALL_REFUSED: Android refused the update ({}). The installed app and its data were not changed.'.format(reason.group(0) if reason else output.strip()[:160]))
+    if done.returncode == 0 and 'Success' in output:
+        return None
+    reason = re.search(r'INSTALL_[A-Z_]+', output)
+    return reason.group(0) if reason else output.strip()[:160]
+
+
+def install_in_place(device, apk):
+    """A refusal from Android leaves the old app and its data as they were."""
+    refusal = android_install(device, apk)
+    if refusal:
+        raise Refused('INSTALL_REFUSED: Android refused the update ({}). The installed app and its data were not changed.'.format(refusal))
+
+
+def check_apk_name(apk):
+    """adb installs only files with this ending, so a wrong name must stop before anything is touched."""
+    if Path(apk).suffix != '.apk':
+        raise Refused('APK_NAME: adb installs only files ending in .apk, and this is {}. Nothing was changed.'.format(apk))
 
 
 def promote(incoming, stage=STAGE):
@@ -149,16 +169,10 @@ def tar_inventory(path):
         return {m.name.lstrip('./'): m.size for m in archive.getmembers() if m.isfile() and not m.name.endswith(('LOCK', '-journal', 'SingletonLock'))}
 
 
-def migrate(device, before, incoming, folder=MIGRATIONS):
-    """One-time move to the pinned certificate. The old key is gone, so the data must travel around the new install."""
-    stamp = time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
-    work = folder / stamp
-    work.mkdir(parents=True, mode=0o700)
-    device.run('shell', 'am', 'force-stop', PACKAGE, check=False)
-    time.sleep(2)
-    users = [number for number, user in before['users'].items() if user['installed']]
+def back_up(device, before, work):
+    """Copies each user's data out and checks the copy can be read. The app is still untouched if this stops."""
     backups = {}
-    for user in users:
+    for user in [number for number, row in before['users'].items() if row['installed']]:
         names = data_names(device, user)
         if not names:
             continue
@@ -170,14 +184,25 @@ def migrate(device, before, incoming, folder=MIGRATIONS):
         if not inventory:
             raise Refused('MIGRATION_BACKUP_EMPTY: the backup of user {} holds no files, so the app was not touched.'.format(user))
         backups[user] = {'path': str(path), 'files': len(inventory), 'bytes': sum(inventory.values()), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
-    device.run('uninstall', PACKAGE)
-    install_in_place(device, incoming)
+    return backups
+
+
+def finish_migration(device, incoming, work):
+    """Installs the new app if it is not there yet, restores every user's data and compares it. Can be repeated until it succeeds."""
+    path = work / 'manifest.json'
+    manifest = json.loads(path.read_text())
+    backups = manifest['users']
+    if not device.package():
+        refusal = android_install(device, incoming)
+        if refusal:
+            raise RuntimeError('Android refused the new APK ({})'.format(refusal))
     device.run('shell', 'am', 'force-stop', PACKAGE, check=False)
+    # A user can hold the grant without having any data yet.
+    for user in manifest['microphoneUsers']:
+        device.run('shell', 'pm', 'grant', '--user', user, PACKAGE, MICROPHONE, check=False)
     for user, backup in backups.items():
         with open(backup['path'], 'rb') as source:
             device.run('exec-in', 'run-as', PACKAGE, '--user', user, 'tar', '-xf', '-', stdin=source, timeout=280)
-        if before['users'][user]['microphone']:
-            device.run('shell', 'pm', 'grant', '--user', user, PACKAGE, MICROPHONE, check=False)
         restored = work / 'user-{}-restored.tar'.format(user)
         with restored.open('wb') as out:
             device.run('exec-out', 'run-as', PACKAGE, '--user', user, 'tar', '-cf', '-', *data_names(device, user), stdout=out, timeout=280)
@@ -189,19 +214,75 @@ def migrate(device, before, incoming, folder=MIGRATIONS):
         backup['sizeChangedAfterRestore'] = changed[:20]
         restored.unlink()
         if missing or changed:
-            raise RuntimeError('MIGRATION_RESTORE_DIFFERS for user {}: the backup is kept at {}'.format(user, backup['path']))
+            raise RuntimeError('the restored data of user {} differs from the backup: {} files missing, {} changed in size'.format(user, len(missing), len(changed)))
+    manifest['finished'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+    path.write_text(json.dumps(manifest, indent=1))
     return {'backupFolder': str(work), 'users': backups}
+
+
+def interrupted(work, failure):
+    return MigrationInterrupted('MIGRATION_INTERRUPTED: the old app was removed and the move did not finish: {}. The data is safe in {}. Fix the cause, then run apk_upgrade_host.py --incoming <apk> --expected-cert <sha256> --resume-migration {}. Do not restart the AAOS host first, because its start script would install the old stage APK.'.format(failure, work, work))
+
+
+def migrate(device, before, installed, incoming, folder=MIGRATIONS):
+    """One-time move to the pinned certificate. The old key is gone, so the data must travel around the new install."""
+    refusal = android_install(device, incoming)
+    if not refusal or 'UPDATE_INCOMPATIBLE' not in refusal:
+        raise Refused('MIGRATION_PREFLIGHT: Android should refuse this APK only for its certificate, and it answered {}. Nothing was changed.'.format(refusal or 'success'))
+    work = folder / time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
+    work.mkdir(parents=True, mode=0o700)
+    device.run('shell', 'am', 'force-stop', PACKAGE, check=False)
+    time.sleep(2)
+    manifest = {'before': before, 'previousCertificate': installed, 'users': back_up(device, before, work),
+                'microphoneUsers': [number for number, row in before['users'].items() if row['microphone']]}
+    (work / 'manifest.json').write_text(json.dumps(manifest, indent=1))
+    (work / 'manifest.json').chmod(0o600)
+    device.run('uninstall', PACKAGE)
+    try:
+        return finish_migration(device, incoming, work)
+    except (RuntimeError, OSError, subprocess.SubprocessError, tarfile.TarError) as failure:
+        raise interrupted(work, failure) from failure
+
+
+def resume_migration(incoming, expected, work, device=None, stage=STAGE):
+    """Finishes a move that stopped after the old app was removed."""
+    device = device or Device()
+    work = Path(work)
+    check_apk_name(incoming)
+    new_cert = signing_identity(incoming)
+    if new_cert != expected:
+        raise Refused('APK_NOT_PINNED_IDENTITY: this APK is signed by {}, and the pinned identity is {}. Nothing was changed.'.format(new_cert, expected))
+    manifest = json.loads((work / 'manifest.json').read_text())
+    if manifest.get('finished'):
+        raise Refused('MIGRATION_ALREADY_FINISHED: this move finished at {}, and restoring it now would overwrite newer data. Nothing was changed.'.format(manifest['finished']))
+    for user, backup in manifest['users'].items():
+        if hashlib.sha256(Path(backup['path']).read_bytes()).hexdigest() != backup['sha256']:
+            raise Refused('MIGRATION_BACKUP_CHANGED: the backup of user {} no longer matches its recorded hash. Nothing was changed.'.format(user))
+    installed = device.installed_cert() if device.package() else None
+    if installed not in (None, new_cert):
+        raise Refused('MIGRATION_OTHER_APP: the installed app is signed by {}, so restoring over it is not safe. Nothing was changed.'.format(installed))
+    try:
+        migration = finish_migration(device, incoming, work)
+    except (RuntimeError, OSError, subprocess.SubprocessError, tarfile.TarError) as failure:
+        raise interrupted(work, failure) from failure
+    if device.installed_cert() != new_cert:
+        raise RuntimeError('The installed app does not carry the new certificate')
+    report = {'action': 'resume-migration', 'certificate': new_cert, 'previousCertificate': manifest['previousCertificate'], 'before': manifest['before'], 'migration': migration, 'after': device.package()}
+    promote(Path(incoming), stage)
+    device.start()
+    return report
 
 
 def run(incoming, expected, allow_migration, device=None, stage=STAGE, folder=MIGRATIONS):
     device = device or Device()
+    check_apk_name(incoming)
     new_cert = signing_identity(incoming)
     before = device.package()
     installed = device.installed_cert() if before else None
     action = plan(installed, new_cert, expected, allow_migration)
     report = {'action': action, 'certificate': new_cert, 'previousCertificate': installed, 'before': before}
     if action == 'migrate':
-        report['migration'] = migrate(device, before, incoming, folder)
+        report['migration'] = migrate(device, before, installed, incoming, folder)
     else:
         install_in_place(device, incoming)
     after = device.package()
@@ -222,12 +303,18 @@ def main():
     parser.add_argument('--incoming', required=True)
     parser.add_argument('--expected-cert', required=True)
     parser.add_argument('--migrate-signing', action='store_true', help='One time only: move an app signed by an old key to the pinned one, keeping its data.')
+    parser.add_argument('--resume-migration', help='The backup folder of a move that stopped after the old app was removed.')
     args = parser.parse_args()
+    expected = args.expected_cert.lower()
     try:
-        print(json.dumps(run(args.incoming, args.expected_cert.lower(), args.migrate_signing)))
+        report = resume_migration(args.incoming, expected, args.resume_migration) if args.resume_migration else run(args.incoming, expected, args.migrate_signing)
+        print(json.dumps(report))
     except (Refused, NotSigned) as refusal:
         print(str(refusal), file=sys.stderr)
         return 3
+    except MigrationInterrupted as failure:
+        print(str(failure), file=sys.stderr)
+        return 4
     return 0
 
 
