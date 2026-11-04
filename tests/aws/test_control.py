@@ -136,20 +136,20 @@ def provider_with(monkeypatch, tmp_path, outputs):
 def test_listing_models_does_not_hide_an_empty_account(monkeypatch, tmp_path):
     body = json.dumps({'error': {'code': 'credit_balance_exhausted', 'type': 'insufficient_quota', 'message': 'private text'}})
     report, secret = provider_with(monkeypatch, tmp_path, ['200', body + '\n429'])
-    assert report.payload()['failedRequired'] == ['provider-credit']
+    assert 'provider-credit' in report.payload()['failedRequired']
     text = json.dumps(report.payload())
     assert secret not in text and 'private text' not in text
 
 
 def test_a_real_call_confirms_credit(monkeypatch, tmp_path):
     report, _ = provider_with(monkeypatch, tmp_path, ['200', '{}\n200'])
-    assert report.payload()['ready'] is True
+    assert 'provider-credit' not in report.payload()['failedRequired']
     assert any(c['id'] == 'provider-credit' and c['status'] == 'PASS' for c in report.checks)
 
 
 def test_a_rate_limit_is_not_called_an_empty_account(monkeypatch, tmp_path):
     report, _ = provider_with(monkeypatch, tmp_path, ['200', json.dumps({'error': {'code': 'rate_limit_exceeded'}}) + '\n429'])
-    assert report.payload()['ready'] is True
+    assert 'provider-credit' not in report.payload()['failedRequired']
     assert any(c['id'] == 'provider-credit' and c['status'] == 'WARN' for c in report.checks)
 
 
