@@ -1,5 +1,7 @@
 # Release candidate
 
+> Historical deployment snapshot. See [RELEASE-READINESS-20261105.md](RELEASE-READINESS-20261105.md) for current engineering changes and limits. Statements below that later commits contain no product changes describe the original snapshot only; PR #24 and its follow-up add product fixes. Historical build/recording references are retained.
+
 | Layer | Value | How it was checked |
 |---|---|---|
 | Commit | `b8031823242f723ecdd0efbbed6b976b9d7e2b04` | Deployment record for both hosts |

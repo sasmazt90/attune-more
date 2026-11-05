@@ -23,6 +23,7 @@ import sys
 import time
 
 from playwright.sync_api import sync_playwright
+from qa_result import finalize_report
 
 ROTATION_WORDS = {0: 'upright', 90: 'rotated right', 180: 'upside down', 270: 'rotated left'}
 WRONG_LETTER = {'E': 'F', 'F': 'E', 'P': 'R', 'R': 'P', 'B': 'R', 'A': 'R'}
@@ -424,10 +425,12 @@ class Journey:
                     self.audio.terminate()
                 self.stop_recording()
                 self.report['finishedAt'] = dt.datetime.now(dt.timezone.utc).isoformat()
+                finalize_report(self.report)
                 self.save()
                 adapter.finish(self)
                 close()
         print(json.dumps({'status': self.report.get('status'), 'failed': [c['check'] for c in self.report['checks'] if not c['passed']], 'failure': self.report.get('failure')}, ensure_ascii=False))
+        return finalize_report(self.report)
 
 
 class Aaos:
@@ -593,7 +596,7 @@ def main():
     args = parser.parse_args()
     adapter = Web() if args.platform == 'web' else Aaos()
     adapter.journey_args = args
-    Journey(args).run(adapter)
+    return Journey(args).run(adapter)
 
 
 if __name__ == '__main__':

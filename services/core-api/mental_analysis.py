@@ -1,7 +1,13 @@
 """Consent-gated summary context and strict additive structured-analysis contract."""
-from pydantic import BaseModel, Field, StrictBool, ConfigDict
+from pydantic import BaseModel, Field, StrictBool, ConfigDict, field_validator
 from typing import Literal
 from mental_themes import SESSION_THEME_KEYS, stable_session_themes
+
+
+def reject_template_support_reason(value):
+    if isinstance(value, str) and value.strip() == 'Klinik öneri gerekçesi veya null':
+        raise ValueError('TEMPLATE_SUPPORT_REASON')
+    return value
 
 
 def relevant_history(messages, records):
@@ -29,6 +35,11 @@ class SessionAnalysis(BaseModel):
     relatedSessionIds: list[str] = Field(default_factory=list,max_length=5)
     recurringThemes: list[str] = Field(default_factory=list,max_length=12)
     spokenSummary: str = Field(min_length=1,max_length=2000)
+
+    @field_validator('professionalSupportReason')
+    @classmethod
+    def reject_template_reason(cls, value):
+        return reject_template_support_reason(value)
 
 
 def structured_analysis_response_format():

@@ -116,6 +116,8 @@ Fixes in `32b021c`, with tests:
 
 ## Migration requirement for older installs
 
+**2026-11-05 release-path decision:** the preserved prototype is already migrated, and fresh installs require no move. Legacy migration is outside this release baseline and remains blocked until uninterrupted disposable-device validation. See [the engineering follow-up](RELEASE-READINESS-20261105.md#cq-04-release-path-decision); do not repeat a migration on the preserved installation to close this gap.
+
 **Any device holding an APK signed by an old CI key cannot be updated in place.** That key was temporary and no longer exists, so Android has no route. Each such device needs the one-time move once, or it loses its local records on reinstall. The AWS emulator has already had it. No other device was found or tested.
 
 Plain `deploy_release.py` refuses such a device with `SIGNATURE_MISMATCH` and changes nothing. The move has to be asked for by name. Steps are in `docs/aws/OPERATIONS-CONTROL.md`, under "Moving to the stable signing identity".

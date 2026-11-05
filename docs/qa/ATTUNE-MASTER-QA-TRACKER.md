@@ -1,5 +1,7 @@
 # Attune.more master QA tracker
 
+> Historical acceptance tracker. The completed independent audit and subsequent engineering dispositions are distinguished in [RELEASE-READINESS-20261105.md](RELEASE-READINESS-20261105.md). In particular, the historical DONE count does not close uninterrupted legacy-migration acceptance or subjective Mental audio acceptance.
+
 Status of QA-01 to QA-41, plus the DNS and certificate subtask of Task 17, on release candidate `b803182`. QA-41 was verified on `b803182`. The other items were verified on `8c90ec4` or the builds named in `RELEASE-CANDIDATE.md`. Since `8c90ec4`, only the APK's signing and version number, the deployment tools and documents changed.
 
 **How to read status.** DONE means verified on the release candidate, for the scope written in the last column. A build,

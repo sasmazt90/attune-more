@@ -1,0 +1,210 @@
+{
+  "source": "Independent QA 2026-11-05; existing five-turn English WEB and AAOS recordings; no new run",
+  "limitations": "Browser timings include server and transfer time; worker phase split is not present in these reports. No subjective listening approval.",
+  "results": [
+    {
+      "platform": "WEB",
+      "turns": [
+        {
+          "turn": 1,
+          "apiSeconds": 0.8688000000002793,
+          "firstAudioReadySeconds": 9.814100000000094,
+          "playbackDispatchSeconds": 0.006399999999906867,
+          "secondPartReadySeconds": 13.516100000000094,
+          "firstClipSeconds": 2.416700000000186,
+          "gapSeconds": 11.0985
+        },
+        {
+          "turn": 2,
+          "apiSeconds": 0.8363000000002794,
+          "firstAudioReadySeconds": 12.540200000000187,
+          "playbackDispatchSeconds": 0.006899999999906868,
+          "secondPartReadySeconds": 12.532699999999721,
+          "firstClipSeconds": 3.326899999999907,
+          "gapSeconds": 9.205
+        },
+        {
+          "turn": 3,
+          "apiSeconds": 1.0113000000002794,
+          "firstAudioReadySeconds": 14.4145,
+          "playbackDispatchSeconds": 0.005899999999906868,
+          "secondPartReadySeconds": 17.303599999999626,
+          "firstClipSeconds": 4.081799999999814,
+          "gapSeconds": 13.226600000000094
+        },
+        {
+          "turn": 4,
+          "apiSeconds": 0.9813999999999069,
+          "firstAudioReadySeconds": 10.784799999999814,
+          "playbackDispatchSeconds": 0.005700000000186264,
+          "secondPartReadySeconds": 16.074600000000093,
+          "firstClipSeconds": 2.7090999999996273,
+          "gapSeconds": 13.367900000000372
+        },
+        {
+          "turn": 5,
+          "apiSeconds": 0.7867000000001863,
+          "firstAudioReadySeconds": 11.679299999999813,
+          "playbackDispatchSeconds": 0.006399999999906867,
+          "secondPartReadySeconds": 12.997100000000094,
+          "firstClipSeconds": 3.1399000000003725,
+          "gapSeconds": 9.857899999999907
+        }
+      ],
+      "statistics": {
+        "apiSeconds": {
+          "min": 0.787,
+          "median": 0.869,
+          "max": 1.011
+        },
+        "firstAudioReadySeconds": {
+          "min": 9.814,
+          "median": 11.679,
+          "max": 14.415
+        },
+        "playbackDispatchSeconds": {
+          "min": 0.006,
+          "median": 0.006,
+          "max": 0.007
+        },
+        "secondPartReadySeconds": {
+          "min": 12.533,
+          "median": 13.516,
+          "max": 17.304
+        },
+        "firstClipSeconds": {
+          "min": 2.417,
+          "median": 3.14,
+          "max": 4.082
+        },
+        "gapSeconds": {
+          "min": 9.205,
+          "median": 11.098,
+          "max": 13.368
+        },
+        "speechEndToTranscriptSeconds": {
+          "min": 1.4,
+          "median": 1.9,
+          "max": 2.1
+        },
+        "transcriptToReplyTextSeconds": {
+          "min": 0.8,
+          "median": 0.9,
+          "max": 1.0
+        },
+        "replyTextToPlaybackSeconds": {
+          "min": 9.9,
+          "median": 11.8,
+          "max": 14.5
+        },
+        "speechEndToPlaybackSeconds": {
+          "min": 12.6,
+          "median": 14.6,
+          "max": 17.0
+        }
+      }
+    },
+    {
+      "platform": "AAOS",
+      "turns": [
+        {
+          "turn": 1,
+          "apiSeconds": 0.8949000000003725,
+          "firstAudioReadySeconds": 8.299200000000186,
+          "playbackDispatchSeconds": 0.007599999999627471,
+          "secondPartReadySeconds": 13.299,
+          "firstClipSeconds": 1.9546000000005588,
+          "gapSeconds": 11.348699999999255
+        },
+        {
+          "turn": 2,
+          "apiSeconds": 1.016100000000559,
+          "firstAudioReadySeconds": 8.8315,
+          "playbackDispatchSeconds": 0.006899999999441206,
+          "secondPartReadySeconds": 10.594299999999814,
+          "firstClipSeconds": 2.2894000000003727,
+          "gapSeconds": 8.307400000000372
+        },
+        {
+          "turn": 3,
+          "apiSeconds": 0.8881999999992549,
+          "firstAudioReadySeconds": 12.777599999999627,
+          "playbackDispatchSeconds": 0.0095,
+          "secondPartReadySeconds": 12.84460000000056,
+          "firstClipSeconds": 3.8659000000003725,
+          "gapSeconds": 8.981099999999627
+        },
+        {
+          "turn": 4,
+          "apiSeconds": 0.8156000000005588,
+          "firstAudioReadySeconds": 10.672900000000373,
+          "playbackDispatchSeconds": 0.00840000000037253,
+          "secondPartReadySeconds": 17.563700000000185,
+          "firstClipSeconds": 3.1510999999996274,
+          "gapSeconds": 14.411599999999627
+        },
+        {
+          "turn": 5,
+          "apiSeconds": 0.752,
+          "firstAudioReadySeconds": 10.181799999999814,
+          "playbackDispatchSeconds": 0.008399999999441207,
+          "secondPartReadySeconds": 13.276399999999441,
+          "firstClipSeconds": 2.682,
+          "gapSeconds": 10.595800000000745
+        }
+      ],
+      "statistics": {
+        "apiSeconds": {
+          "min": 0.752,
+          "median": 0.888,
+          "max": 1.016
+        },
+        "firstAudioReadySeconds": {
+          "min": 8.299,
+          "median": 10.182,
+          "max": 12.778
+        },
+        "playbackDispatchSeconds": {
+          "min": 0.007,
+          "median": 0.008,
+          "max": 0.009
+        },
+        "secondPartReadySeconds": {
+          "min": 10.594,
+          "median": 13.276,
+          "max": 17.564
+        },
+        "firstClipSeconds": {
+          "min": 1.955,
+          "median": 2.682,
+          "max": 3.866
+        },
+        "gapSeconds": {
+          "min": 8.307,
+          "median": 10.596,
+          "max": 14.412
+        },
+        "speechEndToTranscriptSeconds": {
+          "min": 1.5,
+          "median": 1.6,
+          "max": 1.7
+        },
+        "transcriptToReplyTextSeconds": {
+          "min": 0.8,
+          "median": 0.9,
+          "max": 1.0
+        },
+        "replyTextToPlaybackSeconds": {
+          "min": 8.3,
+          "median": 10.2,
+          "max": 12.8
+        },
+        "speechEndToPlaybackSeconds": {
+          "min": 10.9,
+          "median": 12.5,
+          "max": 15.2
+        }
+      }
+    }
+  ]
+}
