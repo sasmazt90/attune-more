@@ -372,6 +372,8 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 response_format=response_format
             )
             data = json.loads(resp.choices[0].message.content)
+            from mental_analysis import reject_template_support_reason
+            reject_template_support_reason(data.get('professionalSupportReason'))
             if structured:
                 from mental_analysis import validate_analysis
                 data=validate_analysis(data,getattr(self,'prior_sessions',[]),getattr(self,'no_advice',False))

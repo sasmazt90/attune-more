@@ -293,8 +293,8 @@ def test_one_analysis_no_rewrite_and_uninvented_history(monkeypatch):
     with pytest.raises(ValueError):validate_analysis({**analysis_fixture(),'spokenSummary':''},[])
 
 
-@pytest.mark.parametrize('defect', ['missing-closing', 'template-reason'])
-def test_invalid_provider_analysis_is_not_fabricated_or_retried(monkeypatch, defect):
+@pytest.mark.parametrize('defect,structured', [('missing-closing', True), ('template-reason', True), ('template-reason', False)])
+def test_invalid_provider_analysis_is_not_fabricated_or_retried(monkeypatch, defect, structured):
     import mental_provider
     calls=[]
     incomplete=analysis_fixture()
@@ -307,7 +307,7 @@ def test_invalid_provider_analysis_is_not_fabricated_or_retried(monkeypatch, def
             calls.append(kw)
             return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(incomplete)))])
     monkeypatch.setattr(mental_provider,'get_openai_client',lambda *args:SimpleNamespace(chat=SimpleNamespace(completions=Chat())))
-    analyzer=OpenAICompatibleSessionAnalyzer('mock');analyzer.structured=True
+    analyzer=OpenAICompatibleSessionAnalyzer('mock');analyzer.structured=structured
     from fastapi import HTTPException
     with pytest.raises(HTTPException) as error:
         analyzer.analyze_session([{'role':'user','content':'Synthetic work fatigue example.'}])

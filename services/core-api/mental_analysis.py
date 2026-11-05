@@ -4,6 +4,12 @@ from typing import Literal
 from mental_themes import SESSION_THEME_KEYS, stable_session_themes
 
 
+def reject_template_support_reason(value):
+    if isinstance(value, str) and value.strip() == 'Klinik öneri gerekçesi veya null':
+        raise ValueError('TEMPLATE_SUPPORT_REASON')
+    return value
+
+
 def relevant_history(messages, records):
     from mental_provider import LocalFallbackSessionAnalyzer
     from mental_structured import normalize
@@ -33,9 +39,7 @@ class SessionAnalysis(BaseModel):
     @field_validator('professionalSupportReason')
     @classmethod
     def reject_template_reason(cls, value):
-        if value == 'Klinik öneri gerekçesi veya null':
-            raise ValueError('TEMPLATE_SUPPORT_REASON')
-        return value
+        return reject_template_support_reason(value)
 
 
 def structured_analysis_response_format():
