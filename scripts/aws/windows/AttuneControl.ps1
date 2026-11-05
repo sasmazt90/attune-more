@@ -95,8 +95,8 @@ function Connect-Aws {
         Write-Line "Sign in as IAM user $LoginProfile (account $Account)." Yellow
         $previous = $ErrorActionPreference
         $ErrorActionPreference = 'Continue'
-        & aws login --profile $LoginProfile --region $Region
-        $ErrorActionPreference = $previous
+        try { & aws login --profile $LoginProfile --region $Region | Out-Host }
+        finally { $ErrorActionPreference = $previous }
         $check = Invoke-Aws sts get-caller-identity --output json
         if (-not $check.Ok) { throw "AWS sign-in failed: $($check.Text)" }
     }

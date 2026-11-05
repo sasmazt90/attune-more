@@ -293,10 +293,15 @@ def test_one_analysis_no_rewrite_and_uninvented_history(monkeypatch):
     with pytest.raises(ValueError):validate_analysis({**analysis_fixture(),'spokenSummary':''},[])
 
 
-def test_missing_provider_closing_is_not_fabricated_or_retried(monkeypatch):
+@pytest.mark.parametrize('defect', ['missing-closing', 'template-reason'])
+def test_invalid_provider_analysis_is_not_fabricated_or_retried(monkeypatch, defect):
     import mental_provider
     calls=[]
-    incomplete=analysis_fixture();del incomplete['spokenSummary']
+    incomplete=analysis_fixture()
+    if defect == 'missing-closing':
+        del incomplete['spokenSummary']
+    else:
+        incomplete['professionalSupportReason']='Klinik öneri gerekçesi veya null'
     class Chat:
         def create(self,**kw):
             calls.append(kw)
@@ -308,6 +313,34 @@ def test_missing_provider_closing_is_not_fabricated_or_retried(monkeypatch):
         analyzer.analyze_session([{'role':'user','content':'Synthetic work fatigue example.'}])
     assert error.value.status_code==503 and error.value.detail=='PROVIDER_UNAVAILABLE'
     assert len(calls)==1
+
+
+@pytest.mark.parametrize('language,reason', [
+    ('en', 'You asked about professional support.'),
+    ('de', 'Sie haben nach professioneller Unterstützung gefragt.'),
+    ('tr', 'Profesyonel destek hakkında bilgi istediniz.'),
+])
+def test_analysis_reason_preserves_requested_language_and_null(monkeypatch, language, reason):
+    import mental_provider
+    calls=[]
+    data=analysis_fixture()
+    def create(**kwargs):
+        calls.append(kwargs)
+        return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(data)))])
+    monkeypatch.setattr(mental_provider, 'get_openai_client', lambda *args: SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create))))
+    token=request_language.set(language)
+    try:
+        analyzer=OpenAICompatibleSessionAnalyzer('mock');analyzer.structured=True
+        for value in (None, reason):
+            data['professionalSupportReason']=value
+            result=analyzer.analyze_session([{'role':'user','content':'Synthetic request.'}])
+            assert result['professionalSupportReason']==value
+        prompt=calls[0]['messages'][-1]['content']
+        assert 'Klinik öneri gerekçesi veya null' not in prompt
+        assert '"professionalSupportReason": null' in prompt
+        assert 'All free text, including spokenSummary, must be in '+mental_provider.LANGUAGE_NAMES[language] in prompt
+    finally:
+        request_language.reset(token)
 
 
 def test_history_consent_is_distinct_and_relevance_is_bounded(monkeypatch):

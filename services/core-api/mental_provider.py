@@ -327,8 +327,9 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 '  "themes": ["tema1", "tema2"],\n'
                 '  "moodTrend": "STRESSED | RELAXED | TIRED | NEUTRAL",\n'
                 '  "professionalSupportSuggested": true | false,\n'
-                '  "professionalSupportReason": "Klinik öneri gerekçesi veya null"\n'
+                '  "professionalSupportReason": null\n'
                 "}\n"
+                "professionalSupportReason: Use JSON null when no reason applies; otherwise use a reason grounded in the conversation, in the requested language. Never copy template instructions into this field.\n"
                 "Konuşma Geçmişi:\n"
                 + "Geçici oturum belleği (kullanıcının birebir eski alıntıları, sonraki düzeltmeler önceliklidir):\n" + json.dumps(getattr(self,"session_memory",[]),ensure_ascii=False) + "\n"
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])

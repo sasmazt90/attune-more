@@ -23,6 +23,7 @@ import threading
 import time
 
 from playwright.sync_api import sync_playwright
+from qa_result import finalize_report
 
 QA = Path('/var/lib/attune/qa')
 ADB = '/opt/android-sdk/platform-tools/adb'
@@ -1525,6 +1526,7 @@ def main():
                 except Exception as error:
                     run.report['cameraProbeError'] = str(error)[:200]
             run.report['finishedAt'] = dt.datetime.now(dt.timezone.utc).isoformat()
+            finalize_report(run.report)
             run.save()
             adapter.close()
             close()
@@ -1533,6 +1535,7 @@ def main():
         run.report['video'] = json.loads(probe.stdout or '{}')
         run.save()
     print(json.dumps({'status': run.report.get('status'), 'failed': [c['check'] for c in run.report['checks'] if not c['passed']], 'failure': run.report.get('failure')}, ensure_ascii=False))
+    return finalize_report(run.report)
 
 
 if __name__ == '__main__':
