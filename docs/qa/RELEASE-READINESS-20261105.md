@@ -1,5 +1,7 @@
 # Engineering release follow-up — 2026-11-05
 
+**Subsequent deployment:** this document preserves the earlier source-only assessment. See [the deployment execution record](DEPLOYMENT-BASELINE-20261105.md) for the later live runtime, APK, targeted regressions and shutdown; the stopped/undeployed statements below describe the earlier phase.
+
 This source-release assessment follows the completed Independent QA audit of 2026-11-05. Its private recordings, photographs and integrity receipts remain in their original archive. No primary journey was repeated and no preserved installation was modified.
 
 **Release scope:** the existing WEB/AAOS cloud demonstration and fresh installations of the same prototype package. This is not production signing, physical-vehicle acceptance, clinical validation, or authorization to migrate a legacy-signed device. The preserved AAOS installation already has the pinned certificate.

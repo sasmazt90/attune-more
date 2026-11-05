@@ -36,4 +36,4 @@ The first new diagnostic launch stopped before scanning because its task output 
 
 ## Validation and release record
 
-Targeted timing, worker, resident, frontend/proxy and observational collector tests: 146 passed locally. They cover concurrent request timing isolation, numerical bounds/privacy, cancellation/error/language/playback boundaries and unchanged proxy behavior. CI and exact merged/deployed commit, signed APK identity, storage/photo integrity, targeted runtime regressions and final AWS shutdown will be recorded after execution. No subjective listening or owner UAT acceptance is implied.
+Targeted timing, worker, resident, frontend/proxy and observational collector tests: 146 passed locally. They cover concurrent request timing isolation, numerical bounds/privacy, cancellation/error/language/playback boundaries and unchanged proxy behavior. See the [deployment execution record](DEPLOYMENT-BASELINE-20261105.md) for CI, exact runtime/APK identities, matched timing limitations and targeted runtime results. No subjective listening or owner UAT acceptance is implied.
