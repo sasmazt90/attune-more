@@ -52,7 +52,7 @@ export async function POST(request:NextRequest){
   while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>8*1024*1024){await reader.cancel();return fail(502,'TTS_RESPONSE_TOO_LARGE');}chunks.push(value);}
   if(size<=44||controller.signal.aborted)return fail(502,'INVALID_TTS_RESPONSE');
   const bytes=new Uint8Array(size);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
-  return new Response(bytes,{headers:{'Content-Type':'audio/wav','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-TTS-Seconds':response.headers.get('x-tts-seconds')||'','X-TTS-Start':response.headers.get('x-tts-start')||'','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':response.headers.get('x-tts-locale')!,...(payload.speakerProfile?{'X-TTS-Speaker-Profile':payload.speakerProfile}:{})}});
+  return new Response(bytes,{headers:{'Content-Type':'audio/wav','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','X-TTS-Seconds':response.headers.get('x-tts-seconds')||'','X-TTS-Start':response.headers.get('x-tts-start')||'','Server-Timing':response.headers.get('server-timing')||'','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':response.headers.get('x-tts-locale')!,...(payload.speakerProfile?{'X-TTS-Speaker-Profile':payload.speakerProfile}:{})}});
  }catch{return fail(controller.signal.aborted?504:503,'NEURAL_TTS_UNAVAILABLE');}
  finally{controller.abort();clearTimeout(deadline);request.signal.removeEventListener('abort',cancel);}
 }

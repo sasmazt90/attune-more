@@ -17,6 +17,7 @@ import wave
 from fastapi import HTTPException
 from starlette.concurrency import run_in_threadpool
 from owned_python_process import OwnedProcessTree
+import mental_timing
 
 MODEL_REPO = 'ResembleAI/chatterbox'
 SOURCE_REVISION = '5de7a54aa4e5e2baadb0182dde554908b48b85c2'
@@ -136,6 +137,8 @@ async def _resident_audio(path, language, text, speaker_profile, permitted, disc
         while _warm_task and not _warm_task.done():
             await guard()
             await asyncio.wait({_warm_task}, timeout=.1)
+        mental_timing.record('warm-wait', monotonic() - started)
+        worker_started = monotonic()
         process = await _start_resident()
         job = {'config': path, 'language': language, 'text': text, **({'speakerProfile': speaker_profile} if speaker_profile else {})}
         process.stdin.write(json.dumps(job, ensure_ascii=False).encode() + b'\n')
@@ -148,6 +151,8 @@ async def _resident_audio(path, language, text, speaker_profile, permitted, disc
         if not reply:
             raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE')
         data = json.loads(reply)
+        mental_timing.record('worker', monotonic() - worker_started)
+        mental_timing.phases(safe_worker_phases(data.get('phases', [])))
         if 'wav' not in data:
             raise HTTPException(503, 'NEURAL_TTS_RUNTIME_UNAVAILABLE')
         try:
@@ -171,6 +176,13 @@ def worker_progress(path):
     try:
         with Path(path).open('rb') as stream:
             rows = json.loads(stream.read(4097))
+        return safe_worker_phases(rows)
+    except (OSError, ValueError):
+        return []
+
+
+def safe_worker_phases(rows):
+    try:
         if not isinstance(rows, list) or len(rows) > len(WORKER_PHASES):
             return []
         safe = []
@@ -354,6 +366,8 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
     if not path or not Path(path).is_file():
         raise HTTPException(503, 'NEURAL_TTS_MODEL_BUNDLE_UNAVAILABLE')
     _busy = True
+    mental_timing.begin()
+    request_started = monotonic()
     process = None
     owned = None
     task = None
@@ -365,6 +379,7 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
         # Keep vehicle-state requests responsive, without skipping integrity or
         # owner approval checks. Hold admission across verification as well.
         await run_in_threadpool(verify_request_configuration, path, language, speaker_profile)
+        mental_timing.record('verify', monotonic() - request_started)
         if not permitted():
             raise HTTPException(409, 'PARK_AND_AUTHENTICATION_REQUIRED')
         if await disconnected():
@@ -428,6 +443,9 @@ async def generate(text, language, permitted, disconnected, speaker_profile=None
                 task.cancel()
             await asyncio.gather(task, return_exceptions=True)
         try:
+            if diagnostic:
+                mental_timing.phases(worker_progress(Path(diagnostic.name) / 'progress.json'))
+            mental_timing.record('total', monotonic() - request_started)
             if diagnostic:
                 logger.info('Neural worker timing %s', json.dumps({
                     'language': language if language in ('tr', 'en', 'de') else 'unknown',

@@ -514,6 +514,7 @@ async def mental_speech(payload: SpeechPayload):
 @app.post('/api/mental/neural-speech')
 async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
     from mental_neural_tts import authorize, generate_for_request, last_generation
+    from mental_timing import server_timing
     authorize(request.headers.get('authorization'))
     if not payload.speechConsent:
         raise HTTPException(403, 'SPEECH_CONSENT_REQUIRED')
@@ -528,6 +529,7 @@ async def mental_neural_speech(payload: NeuralSpeechPayload, request: Request):
         'Cache-Control':'no-store', 'X-Content-Type-Options':'nosniff',
         'X-TTS-Source':'chatterbox-multilingual-v3', 'X-TTS-Locale':LANGUAGES[payload.language],
         'X-TTS-Seconds':str(last_generation.get('seconds')), 'X-TTS-Start':str(last_generation.get('start')),
+        'Server-Timing':server_timing(),
         **({'X-TTS-Speaker-Profile':payload.speakerProfile} if payload.speakerProfile else {})})
 
 @app.post('/api/vision/speech')

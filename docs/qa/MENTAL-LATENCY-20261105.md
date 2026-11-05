@@ -43,3 +43,7 @@ These are experiments for a justified targeted runtime session, **not deployed c
 Chat token streaming alone can remove only a fraction of the observed ~0.9 s API wait unless generation safely starts sooner; sentence boundaries, later corrections and safety classification make speculative speech risky. Do not speak unvalidated partial text or introduce a new model/GPU here. Buffers shift waiting rather than remove it; extra workers lack evidence of benefit. Approved fixed clips remain byte-identical and must not substitute for contextual live responses.
 
 Accept a future optimization only with matched text/language/voice/settings/hardware; objective timing and content completeness; actual listening evidence for clarity/prosody/continuity; and existing interruption/consent/PARK/DRIVE regressions. This establishes a baseline and priorities, not subjective audio approval.
+
+## Follow-up instrumentation
+
+See [the performance follow-up](PERFORMANCE-FOLLOWUP-20261105.md) for measured token/decoder costs and the bounded timing instrumentation. This does not supersede the original recordings or establish subjective listening acceptance.
