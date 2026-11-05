@@ -58,6 +58,8 @@ public final class MainActivity extends Activity {
     private TextView status, placeholder;
     private Button back, home, simulation;
     private WebView web;
+    // Only an explicitly confirmed external handoff may restore its internal return route.
+    private String externalReturnUrl;
     private PermissionRequest pendingPermission;
     private String[] pendingResources;
     private boolean runtimePermissionInFlight, permissionResultReceived;
@@ -279,8 +281,10 @@ public final class MainActivity extends Activity {
                         .setMessage(localizedString(R.string.external_message))
                         .setNegativeButton(localizedString(R.string.cancel), null).setPositiveButton(localizedString(R.string.open_browser), (dialog, which) -> {
                             if (!ready()) return;
+                            String returnUrl = source.getUrl();
+                            externalReturnUrl = webOrigin.contains(returnUrl) ? returnUrl : null;
                             try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); }
-                            catch (android.content.ActivityNotFoundException error) { notice(R.string.no_browser); }
+                            catch (android.content.ActivityNotFoundException error) { externalReturnUrl = null; notice(R.string.no_browser); }
                         }).show();
                 }
                 return true;
@@ -346,7 +350,9 @@ public final class MainActivity extends Activity {
         });
         frame.addView(view, new FrameLayout.LayoutParams(-1, -1));
         placeholder.setVisibility(View.GONE);
-        view.loadUrl(BuildConfig.WEB_ORIGIN + "/");
+        String initialUrl = externalReturnUrl;
+        externalReturnUrl = null;
+        view.loadUrl(initialUrl != null && webOrigin.contains(initialUrl) ? initialUrl : BuildConfig.WEB_ORIGIN + "/");
     }
 
     private boolean cameraPresent() { return getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY); }

@@ -14,6 +14,7 @@ import { useVehicle } from '../../context/VehicleContext';
 import { ReferralContext } from '@packages/health-profile/types';
 import { CareAppointments, emptyDraft } from '../../components/care/CareAppointments';
 import { AppointmentDraft, CARE_REGIONS, readCareRegion, writeCareRegion } from '../../utils/careAppointments';
+import { CareHandoff, clearCareHandoff, readCareHandoff, writeCareHandoff } from '../../utils/careHandoff';
 import { ArrowRight, CheckCircle2, ChevronDown, Clock, ExternalLink, MapPin, ShieldCheck, Sparkles, X } from 'lucide-react';
 
 interface CareSlot {
@@ -64,10 +65,11 @@ function CareContent() {
   const [region, setRegion] = useState<string>('');
   const [regionReady, setRegionReady] = useState<boolean>(false);
   // Opening a provider page is not a booking. Only the user can say one was made.
-  const [awaitingReturn, setAwaitingReturn] = useState<CareSlot | null>(null);
+  const [awaitingReturn, setAwaitingReturn] = useState<CareHandoff | null>(null);
   const [appointmentDraft, setAppointmentDraft] = useState<AppointmentDraft | null>(null);
 
   useEffect(() => { setRegion(readCareRegion()); setRegionReady(true); }, []);
+  useEffect(() => { setAwaitingReturn(readCareHandoff()); }, []);
 
   useEffect(() => {
     if (!isParked) {
@@ -253,8 +255,8 @@ function CareContent() {
             <p className="text-sm text-slate-300">{i18nText("Attune.more dış sitedeki randevuları göremez. Yalnız randevunuz kesinleştiyse kaydedin.")}</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <button data-care-return-no onClick={() => setAwaitingReturn(null)} className="min-h-11 px-4 rounded-xl border border-white/20 text-sm">{i18nText("Henüz almadım")}</button>
-            <button data-care-return-yes onClick={() => { setAppointmentDraft(emptyDraft(selectedSpecialty, provider.sourceType === 'PUBLIC_SEARCH_ONLY' ? '' : provider.providerName)); setAwaitingReturn(null); }} className="min-h-11 px-4 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold">{i18nText("Evet, kaydet")}</button>
+            <button data-care-return-no onClick={() => { clearCareHandoff(); setAwaitingReturn(null); }} className="min-h-11 px-4 rounded-xl border border-white/20 text-sm">{i18nText("Henüz almadım")}</button>
+            <button data-care-return-yes onClick={() => { setAppointmentDraft(emptyDraft(provider.specialty, provider.sourceType === 'PUBLIC_SEARCH_ONLY' ? '' : provider.providerName)); clearCareHandoff(); setAwaitingReturn(null); }} className="min-h-11 px-4 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold">{i18nText("Evet, kaydet")}</button>
           </div>
         </section>
       )}
@@ -334,7 +336,7 @@ function CareContent() {
               href={safeCareBookingUrl(selectedSlot.bookingUrl)}
               target="_blank"
               rel="noreferrer"
-              onClick={() => { setAwaitingReturn(selectedSlot); setConfirmationStep('SELECTING'); setSelectedSlot(null); }}
+              onClick={() => { writeCareHandoff(selectedSlot); setAwaitingReturn(selectedSlot); setConfirmationStep('SELECTING'); setSelectedSlot(null); }}
               className="min-h-11 px-5 rounded-xl bg-togg-turquoise text-togg-darkBlue text-sm font-semibold inline-flex items-center gap-2"
             >
               <span>{i18nText("Sağlayıcı sayfasını aç")}</span>
