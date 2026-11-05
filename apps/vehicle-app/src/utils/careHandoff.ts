@@ -28,9 +28,9 @@ export function readCareHandoff(now = Date.now()): CareHandoff | null {
     const value = JSON.parse(raw);
     if (!value || typeof value.specialty !== 'string' || typeof value.providerName !== 'string'
         || (value.sourceType !== undefined && typeof value.sourceType !== 'string')
-        || !Number.isFinite(value.openedAt) || now < value.openedAt || now - value.openedAt > MAX_AGE_MS) {
+        || !Number.isFinite(value.openedAt) || now < value.openedAt || now - value.openedAt >= MAX_AGE_MS) {
       clearCareHandoff(); return null;
     }
     return {specialty: value.specialty, providerName: value.providerName, sourceType: value.sourceType};
-  } catch { return null; }
+  } catch { clearCareHandoff(); return null; }
 }
