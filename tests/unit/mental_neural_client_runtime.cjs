@@ -1,6 +1,7 @@
 /** Execute actual dynamic transport/playback with explicit audio/HTTP fixtures. */
 require('./ts_loader.js');const assert=require('assert/strict'),Module=require('module');
 global.window=new EventTarget();global.document=new EventTarget();document.hidden=false;const store=new Map([['attune.language.v1','en']]);global.localStorage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,String(v))};
+let stages=[];
 let fetchCalls=0,playCalls=0,ready=0,focus=0,playing=0,capture=0,mode='success';
 window.addEventListener('attune-stream-focus',e=>{focus+=e.active?1:-1;});
 const original=Module._load;Module._load=function(request,parent,...args){
@@ -17,7 +18,8 @@ assert.deepEqual(N.speechParts('A first full sentence here now. Second one. Thir
 assert.deepEqual(N.speechParts('You scored 3.5 out of ten today.'),['You scored 3.5 out of ten today.'],'a decimal is not a sentence end');
 (async()=>{
  assert.equal(N.mentalSpeechEngine(),'chatterbox-v3');
- for(const variant of ['success','locale','abort','unavailable','wrongLocale']){mode=variant;C.setLanguage('en');const before=playCalls;assert.equal(await N.mentalNeuralSpeech(raw,new AbortController().signal,()=>true,()=>playing++,()=>ready++),variant==='success');assert.equal(focus,0);assert.equal(playCalls-before,variant==='success'?1:0);}
+ for(const variant of ['success','locale','abort','unavailable','wrongLocale']){mode=variant;C.setLanguage('en');const before=playCalls;assert.equal(await N.mentalNeuralSpeech(raw,new AbortController().signal,()=>true,()=>playing++,()=>ready++,{observe:stage=>stages.push(stage)}),variant==='success');assert.equal(focus,0);assert.equal(playCalls-before,variant==='success'?1:0);}
+ assert.deepEqual(stages.slice(0,5),['segment-request-0','segment-headers-0','segment-ready-0','response-ready','playing']);assert(!stages.join(' ').includes(raw));
  for(const guard of ['muted','hidden','focus','invalid','signal']){window.attuneOutputMuted=guard==='muted';document.hidden=guard==='hidden';store.set('attune_hearing_audio_focus',guard==='focus'?String(Date.now()+10000):'0');const c=new AbortController();if(guard==='signal')c.abort();const before=fetchCalls;assert.equal(await N.mentalNeuralSpeech(raw,c.signal,()=>guard!=='invalid',()=>{},()=>{}),false);assert.equal(fetchCalls,before);}
  window.attuneOutputMuted=false;document.hidden=false;store.delete('attune_hearing_audio_focus');N.setMentalSpeechEngine('browser-system');const before=fetchCalls;assert.equal(await N.mentalNeuralSpeech(raw,new AbortController().signal,()=>true,()=>{},()=>{}),false);assert.equal(fetchCalls,before);assert.equal(playing,1);assert.equal(ready,1);assert.equal(capture,0);console.log('PASS raw dynamic text transport, backend default/separate explicit fallback, language/source guards, cancellation/mute/background/Hearing focus and balanced audio ownership (HTTP/playback fixtures only)');
 })().catch(e=>{console.error(e);process.exitCode=1});

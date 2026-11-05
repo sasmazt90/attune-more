@@ -45,28 +45,31 @@ export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:
  focus(true);
  // Null means this part cannot be played, for whatever reason. It never rejects, because the next part is generated
  // while this one plays and nothing is waiting on it yet.
- const generate=async(part:string):Promise<ArrayBuffer|null>=>{
+ const generate=async(part:string,index:number):Promise<ArrayBuffer|null>=>{
   try{
+   options.observe?.('segment-request-'+index);
    const response=await fetch('/api/mental-neural-speech',{method:'POST',headers:{'Content-Type':'application/json'},cache:'no-store',body:JSON.stringify({text:part,language,speechConsent:true,...(options.speakerProfile?{speakerProfile:options.speakerProfile}:{})}),signal:controller.signal});
    if(options.speakerProfile&&response.headers.get('x-tts-speaker-profile')!==options.speakerProfile)return null;
    if(!response.ok||!permitted()||response.headers.get('content-type')?.split(';')[0]!=='audio/wav'||response.headers.get('x-tts-source')!=='chatterbox-multilingual-v3'||response.headers.get('x-tts-locale')!==locale)return null;
+   options.observe?.('segment-headers-'+index);
    const reader=response.body?.getReader();if(!reader)return null;const chunks:Uint8Array[]=[];let size=0;
    while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>8*1024*1024){await reader.cancel();return null;}chunks.push(value);}
    if(size<=44||!permitted())return null;
+   options.observe?.('segment-ready-'+index);
    const bytes=new Uint8Array(size);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}
    return bytes.buffer;
   }catch{return null;}
  };
  try{
   const parts=speechParts(text);
-  let pending=generate(parts[0]);
+  let pending=generate(parts[0],0);
   for(let index=0;index<parts.length;index++){
    const bytes=await pending;
    if(!bytes||!permitted())return false;
    // A part's generation budget ends here; playback has its own bounded deadline.
    // Keep live mute/consent/locale/session/motion and abort observation active.
    clearTimeout(deadline);
-   if(index+1<parts.length){deadline=setTimeout(cancel,limits.generationMilliseconds);pending=generate(parts[index+1]);}
+   if(index+1<parts.length){deadline=setTimeout(cancel,limits.generationMilliseconds);pending=generate(parts[index+1],index+1);}
    options.observe?.('response-ready');
    const audio=new Audio();audioReady(audio);
    const played=await playAudioBytes(audio,bytes,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{options.observe?.(stage);if(stage==='playing'&&index===0)onPlaying();},false,options.requestGesture);
