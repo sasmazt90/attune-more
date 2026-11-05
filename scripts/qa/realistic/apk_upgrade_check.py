@@ -131,18 +131,28 @@ def compare_package(before, after):
     return problems
 
 
+def native_webview_socket(unix, pids):
+    """Other apps can own WebViews too; socket order is not app identity."""
+    values = pids.split()
+    if len(values) != 1 or not values[0].isdecimal():
+        return None
+    expected = 'webview_devtools_remote_' + values[0]
+    return expected if expected in re.findall(r'webview_devtools_remote_\d+', unix) else None
+
+
 def connect(playwright):
     """The app restarts on an upgrade, so its debugging socket has a new name."""
     deadline = time.time() + 90
     while True:
         unix = subprocess.check_output(ADB + ['shell', 'cat', '/proc/net/unix'], text=True, stdin=subprocess.DEVNULL)
-        sockets = re.findall(r'webview_devtools_remote_\d+', unix)
-        if sockets:
+        process = subprocess.run(ADB + ['shell', 'pidof', 'more.attune.automotive.prototype.clouddemo'], capture_output=True, text=True, timeout=10)
+        socket = native_webview_socket(unix, process.stdout)
+        if socket:
             break
         if time.time() > deadline:
             raise RuntimeError('The app did not start a WebView')
         time.sleep(2)
-    subprocess.check_call(ADB + ['forward', 'tcp:9222', 'localabstract:' + sockets[-1]], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+    subprocess.check_call(ADB + ['forward', 'tcp:9222', 'localabstract:' + socket], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     while True:
         try:
             browser = playwright.chromium.connect_over_cdp('http://127.0.0.1:9222')
@@ -176,7 +186,10 @@ def operational(page, out, stage, expected_ids):
 
     page.goto(HOME, wait_until='networkidle')
     page.wait_for_function("document.querySelector('[data-vehicle-status]')")
-    check('The chosen language is still in use', page.locator('#attune-language').input_value() == 'de' and 'Gesundheitsmodule' in page.locator('main').inner_text())
+    preferences = page.evaluate("()=>({language:localStorage.getItem('attune.language.v1')||'tr',region:localStorage.getItem('attune.care.region.v1')||''})")
+    headings = {'tr': 'Sağlık modülleri', 'en': 'Health modules', 'de': 'Gesundheitsmodule'}
+    language = preferences['language']
+    check('The chosen language is still in use', language in headings and page.locator('#attune-language').input_value() == language and headings[language] in page.locator('main').inner_text(), {'expected': language})
     status = page.evaluate("fetch('/api/health').then(r=>r.status)")
     check('The API answers through the app', status == 200, status)
     for route in ROUTES:
@@ -184,7 +197,7 @@ def operational(page, out, stage, expected_ids):
         page.wait_for_timeout(900)
         check('{}: opens with its consent still given'.format(route), page.locator('[role=dialog]').count() == 0 and page.locator('main').count() == 1)
     page.goto(HOME + 'care', wait_until='networkidle')
-    check('The chosen region is still selected', page.locator('[data-care-region]').input_value() == 'Berlin')
+    check('The chosen region is still selected', page.locator('[data-care-region]').input_value() == preferences['region'])
     page.goto(HOME + 'profile', wait_until='networkidle')
     page.wait_for_timeout(2000)
     shown = page.locator('[data-record-id]').evaluate_all('e=>e.map(x=>x.getAttribute("data-record-id"))')
