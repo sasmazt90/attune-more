@@ -44,6 +44,13 @@ def test_valid_short_lines(language, text):
     ('en', 'You talked about pressure at work and gestörten sleep.', 'wrong-language'),
     ('de', 'Sie sprachen über İş baskısı.', 'wrong-language'),
     ('en', 'You mentioned your vacation plans for next summer.', 'not-grounded-in-user-words'),
+    # Lines a live provider returned on 2026-11-10: reassurance, evaluation or a suggestion instead of a recap.
+    ('en', "It's normal to feel pressure at work and disrupted sleep.", 'advice-or-evaluation'),
+    ('en', 'You are managing pressure at work and sleep effectively.', 'advice-or-evaluation'),
+    ('en', 'You should talk about pressure at work with someone.', 'advice-or-evaluation'),
+    ('tr', 'İş baskısı zorlayıcı olabilir, destek almayı düşünebilirsiniz.', 'advice-or-evaluation'),
+    ('de', 'Es ist normal, bei der Arbeit Druck zu spüren.', 'advice-or-evaluation'),
+    ('de', 'Sie sollten über Druck bei der Arbeit sprechen.', 'advice-or-evaluation'),
 ])
 def test_rejected_lines_are_dropped_not_shortened(language, text, reason):
     assert validate_spoken_summary(text, language, USER[language]) == (None, reason)
@@ -90,6 +97,8 @@ def test_one_call_requests_and_validates_spoken_line(monkeypatch, language):
     template = prompt[prompt.index('JSON formatı'):prompt.index('}')]
     assert '"spokenSummary"' in template
     assert prompt.index('spokenSummary is required') < prompt.index('Konuşma Geçmişi')
+    assert {'tr': 'söz ettiniz', 'en': 'You talked about', 'de': 'Sie sprachen über'}[language] in prompt
+    assert 'No evaluation, reassurance, advice or suggestion' in prompt
     assert result['spokenSummary'] == line and result['spokenSummaryStatus'] == 'valid'
     assert result['summaryText'] == BASE['summaryText']
 

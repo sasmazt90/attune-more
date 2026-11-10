@@ -305,6 +305,10 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
         }
 
 
+# Sentence form of the normal closing's short spoken line (form only, no content to copy).
+SPOKEN_SUMMARY_FORM = {'tr': '"... söz ettiniz."', 'en': '"You talked about ..."', 'de': '"Sie sprachen über ..."'}
+
+
 class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
     """
     Canlı LLM ile JSON schema doğrulamalı oturum özeti çıkarımı.
@@ -337,8 +341,11 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 + "}\n"
                 "professionalSupportReason: Use JSON null when no reason applies; otherwise use a reason grounded in the conversation, in the requested language. Never copy template instructions into this field.\n"
                 + (('spokenSummary is required. Also return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
+                    'It restates in second person one or two things the user said, using the user\'s own key words, in the form '
+                    + SPOKEN_SUMMARY_FORM[current_language()] + '. '
                     'At most 12 words and 100 characters; keep full detail in summaryText. '
                     'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
+                    'No evaluation, reassurance, advice or suggestion, including no suggestion to seek support. '
                     'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
                     'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in '+LANGUAGE_NAMES[current_language()]+'.\n') if spoken else '')
                 + "Konuşma Geçmişi:\n"

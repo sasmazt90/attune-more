@@ -72,6 +72,16 @@ _BRIDGE_PHRASES = {
 # Characters that cannot occur in the requested language's own words (a heuristic language check).
 _FOREIGN_LETTERS = {'en': 'ğĞıİşŞçÇöÖüÜäÄß', 'de': 'ğĞıİşŞçÇ', 'tr': 'äÄß'}
 _INFORMAL = {'de': r'\b(du|dich|dir|dein\w*|euch|euer\w*)\b', 'tr': r'\b(sen|seni|sana|senin|seninle)\b', 'en': None}
+# The line restates what the user said. Clear markers of advice, suggestion, reassurance or evaluation reject it
+# (a live provider returned "It's normal to feel ...", "... effectively" and "... destek almayı düşünebilirsiniz").
+_ADVICE_OR_EVALUATION = {
+    'tr': (r'düşünebilirsiniz', r'öneri', r'almalısınız', r'yapmalısınız', r'\bdeneyin', r'deneyebilirsiniz', r'normaldir',
+           r'\bnormal\b', r'anlaşılır', r'başarıyla', r'harika', r'çok iyi'),
+    'en': (r'\bshould\b', r'\bconsider', r'\bmight want\b', r'\btry\b', r"\bit'?s (normal|okay|ok|fine|good|great|understandable)\b",
+           r'\b(normal|understandable)\b', r'\beffectively\b', r'\bwell done\b', r'\bgreat\b', r'\brecommend'),
+    'de': (r'\bsollten\b', r'\bempfehl', r'\bversuchen sie\b', r'\bkönnten sie\b', r'\b(ist|sei) (normal|verständlich|gut|okay)\b',
+           r'\bnormal\b', r'\bverständlich\b', r'\berfolgreich\b', r'\bgroßartig\b', r'\bratsam\b'),
+}
 
 
 def _stems(text):
@@ -80,7 +90,8 @@ def _stems(text):
 
 
 def validate_spoken_summary(value, language, messages):
-    """Short closing line for the normal conversation: one sentence, <= 12 words and <= 100 characters.
+    """Short closing line for the normal conversation: one sentence, <= 12 words and <= 100 characters, a recap of
+    what the user said (no advice, suggestion, reassurance or evaluation).
 
     Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an
     invalid line is rejected, the written summary stays, and the caller does not speak a longer text instead.
@@ -107,6 +118,8 @@ def validate_spoken_summary(value, language, messages):
         return None, 'informal-address'
     if any(re.search(pattern, lowered) for pattern in _BRIDGE_PHRASES[language]):
         return None, 'repeats-bridge-phrase'
+    if any(re.search(pattern, lowered) for pattern in _ADVICE_OR_EVALUATION[language]):
+        return None, 'advice-or-evaluation'
     said = _stems(' '.join(m.get('content', '') for m in messages if m.get('role') == 'user'))
     if not _stems(text) & said:
         return None, 'not-grounded-in-user-words'
