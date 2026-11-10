@@ -117,11 +117,15 @@ function closingSequence({parts, stages, media, tolerance = 0.1, matchMs = 80, d
     if (!playing || !ended) { blocked.push(`${part}:no-${playing ? 'ended' : 'playing'}-media-event-on-the-closing-element`); continue; }
     row.element = playing.el;
     row.elapsedMs = Math.round(ended.pm - playing.pm);
-    row.elementDurationS = ended.duration ?? null;
+    // The element's own duration of this part, from its 'ended' event or, when the page reset the source before the
+    // harness listener ran (round 6, first part), from its 'playing' event. Neither: blocked, never a failure or a pass.
+    row.elementDurationS = ended.duration ?? playing.duration ?? null;
+    row.elementDurationFrom = ended.duration != null ? 'ended' : playing.duration != null ? 'playing' : null;
     if (!(expectedS > 0)) { blocked.push(`${part}:no-duration`); continue; }
     row.ratio = Math.round(row.elapsedMs / 1000 / expectedS * 100) / 100;
     if (Math.abs(row.elapsedMs / 1000 - expectedS) > tolerance * expectedS) failed.push(`${part}:elapsed-outside-${Math.round(tolerance * 100)}%`);
-    if (row.elementDurationS === null || Math.abs(row.elementDurationS - expectedS) > durationMatchS) failed.push(`${part}:not-the-expected-recording`);
+    if (row.elementDurationS === null) blocked.push(`${part}:no-element-duration`);
+    else if (Math.abs(row.elementDurationS - expectedS) > durationMatchS) failed.push(`${part}:not-the-expected-recording`);
     if (previousEnd !== null && playing.pm < previousEnd) failed.push(`${part}:overlaps-the-previous-part`);
     previousEnd = ended.pm;
   }

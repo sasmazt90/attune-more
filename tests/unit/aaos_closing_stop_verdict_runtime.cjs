@@ -124,6 +124,15 @@ assert.deepEqual([closingSequence(other).status, closingSequence(other).blocked]
 // Elapsed outside 10 % (the round-4 2x clock), a different recording, an overlap, a repeated part: failed.
 assert.deepEqual(closingSequence(seq({dur: {C: 1.5}})).failed, ['C:elapsed-outside-10%']);
 assert.deepEqual(closingSequence(seq({durEl: {P: 2.1}})).failed, ['P:not-the-expected-recording']);
+// Round 6, first AAOS run: the page reset A's source before the harness listener read it at 'ended' (duration null);
+// the same element reported it at 'playing'. Taken from there; without either it is blocked, not failed.
+const nullEnded = seq();
+nullEnded.media = nullEnded.media.map((m, i) => i === 1 ? {...m, duration: null} : m);
+assert.equal(closingSequence(nullEnded).status, 'PASS');
+assert.equal(closingSequence(nullEnded).rows[0].elementDurationFrom, 'playing');
+const noDuration = seq();
+noDuration.media = noDuration.media.map((m, i) => i < 2 ? {...m, duration: null} : m);
+assert.deepEqual([closingSequence(noDuration).status, closingSequence(noDuration).blocked], ['BLOCKED', ['A:no-element-duration']]);
 assert.deepEqual(closingSequence(seq({shift: {B: -600}})).failed, ['B:overlaps-the-previous-part']);
 assert.deepEqual(closingSequence(seq({extraStages: [{stage: 'closing-summary-playing', pm: 99999}]})).failed, ['P:repeated']);
 // Run summary: not applicable never counts as a pass; any failure fails, any blocked blocks.
