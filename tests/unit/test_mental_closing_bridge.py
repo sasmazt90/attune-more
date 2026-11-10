@@ -18,7 +18,8 @@ VOICE = json.loads((ROOT / 'shared/mental/voices/female-calm-v1.json').read_text
 SOURCE = json.loads((ROOT / 'shared/localization/chatterbox-v3-source.json').read_text('utf-8'))
 
 
-@pytest.mark.parametrize('script', ['mental_closing_bridge_runtime.cjs', 'mental_closing_finish_runtime.cjs', 'vehicle_polling_runtime.cjs'])
+@pytest.mark.parametrize('script', ['mental_closing_bridge_runtime.cjs', 'mental_closing_finish_runtime.cjs', 'vehicle_polling_runtime.cjs',
+                                    'aaos_closing_stop_verdict_runtime.cjs'])
 def test_closing_bridge_frontend_closures(script):
     result = subprocess.run(['node', 'tests/unit/' + script], cwd=ROOT, text=True, capture_output=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr

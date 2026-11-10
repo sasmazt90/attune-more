@@ -22,9 +22,15 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const W = require('./webview.cjs');
+const {players, startedPiids, stopChecks} = require('./closing_stop_verdict.cjs');
 
 const BUILD = process.env.CLOSING_BUILD_ORIGIN || 'http://127.0.0.1:3100';
-const TTS_MODE = process.env.CLOSING_TTS === 'product' ? 'product' : 'replay';
+// CLOSING_LIVE_API (test only): analysis and the closing voice go to a test API (branch code, real provider, its resident
+// worker possibly on a GPU host) at that private address, with the one-off bearer in CLOSING_LIVE_API_BEARER_FILE. The
+// harness then stands in for the Next speech route (same request, same headers checked); the conversation reply and
+// ordinary speech stay replayed. Vehicle speed set by a case is mirrored to the test API so its park gate sees it too.
+const LIVE_API = process.env.CLOSING_LIVE_API || null;
+const TTS_MODE = LIVE_API ? 'live-api' : process.env.CLOSING_TTS === 'product' ? 'product' : 'replay';
 const CONFIG = JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_AAOS_CONFIG, 'utf8').replace(/^\uFEFF/, ''));
 const {execFile} = require('node:child_process');
 // Asynchronous adb so that page events keep arriving (with host receipt times) while the device is sampled.
@@ -34,6 +40,11 @@ const replay = JSON.parse(fs.readFileSync(path.join(REPLAY, 'realpath.json'), 'u
 const LOCALE = {tr: 'tr-TR', en: 'en-US', de: 'de-DE'};
 const REPLY = {tr: 'Anlıyorum. Bunu paylaştığınız için teşekkür ederim.', en: 'I understand. Thank you for sharing that.', de: 'Ich verstehe. Danke, dass Sie das teilen.'};
 const sleep = ms => new Promise(ok => setTimeout(ok, ms));
+const liveBearer = () => fs.readFileSync(process.env.CLOSING_LIVE_API_BEARER_FILE, 'utf8').trim();
+async function setSpeed(kmh) {
+  await W.setSpeed(kmh);
+  if (LIVE_API) await fetch(LIVE_API + '/api/vehicle/speed', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({speedKmH: kmh})}).catch(() => {});
+}
 const repository = path.resolve(__dirname, '../../..');
 
 // Scripted recognizer (as in aaos-mental.cjs), the app's content-free timing events and media/focus/guidance/vehicle
@@ -89,6 +100,15 @@ async function install(page) {
       if (url.pathname === '/api/mental/provider-status') return await json(route, {isLiveLLM: true, apiKeyConfigured: true, providerName: 'replay of the WEB real-path run'});
       if (url.pathname === '/api/mental/compact-context') return await json(route, {memory: [], method: 'extractive-user-quotes-v1'});
       if (url.pathname === '/api/mental/converse') return await json(route, {reply: REPLY[plan.language], isCrisis: false, providerType: 'LIVE_OPENAI'});
+      if (url.pathname === '/api/mental/analyze-session' && LIVE_API) {
+        const id = plan.id, at = Date.now();
+        const response = await fetch(LIVE_API + url.pathname + url.search, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: request.postData()});
+        const text = await response.text();
+        let parsed = null; try { parsed = JSON.parse(text); } catch {}
+        plan.requests.push({kind: 'analysis-live', id, at, ms: Date.now() - at, status: response.status, spokenSummaryStatus: parsed?.spokenSummaryStatus ?? null,
+          spokenSummary: parsed?.spokenSummary ?? null, providerType: parsed?.providerType ?? null});
+        return await route.fulfill({status: response.status, contentType: 'application/json', headers: {'Cache-Control': 'no-store'}, body: text});
+      }
       if (url.pathname === '/api/mental/analyze-session') {
         const body = request.postDataJSON(), a = analysis(plan.language, plan.conversation), id = plan.id;
         plan.requests.push({kind: 'analysis', id, spokenSummaryRequested: body.spokenSummary === true, at: Date.now(), delayMs: Math.round(a.seconds * 1000)});
@@ -98,6 +118,23 @@ async function install(page) {
       }
       if (url.pathname === '/api/mental-neural-speech') {
         const body = request.postDataJSON(), id = plan.id;
+        if (LIVE_API && body.speakerProfile === 'female-calm-v1') {
+          // The Next route's job: bearer to the test API, then the same checks of the answer.
+          const at = Date.now();
+          plan.requests.push({kind: 'tts-live', id, closing: true, at});
+          const response = await fetch(LIVE_API + '/api/mental/neural-speech?language=' + encodeURIComponent(body.language), {method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + liveBearer()},
+            body: JSON.stringify({text: body.text, language: body.language, speechConsent: true, speakerProfile: body.speakerProfile})});
+          const audio = Buffer.from(await response.arrayBuffer()), h = name => response.headers.get(name);
+          const valid = response.ok && h('content-type')?.split(';')[0] === 'audio/wav' && h('x-tts-source') === 'chatterbox-multilingual-v3' &&
+            h('x-tts-locale') === LOCALE[body.language] && h('x-tts-speaker-profile') === body.speakerProfile && audio.length > 44;
+          plan.requests.push({kind: 'tts-answered', id, live: true, at: Date.now(), ms: Date.now() - at, status: response.status, valid,
+            ttsSeconds: h('x-tts-seconds'), ttsStart: h('x-tts-start'), serverTiming: h('server-timing'), bytes: audio.length});
+          if (!valid) return await route.fulfill({status: response.ok ? 502 : response.status, contentType: 'application/json', body: '{"detail":"NEURAL_TTS_UNAVAILABLE"}'});
+          return await route.fulfill({status: 200, headers: {'Content-Type': 'audio/wav', 'Cache-Control': 'no-store', 'X-TTS-Source': 'chatterbox-multilingual-v3',
+            'X-TTS-Locale': h('x-tts-locale'), 'X-TTS-Speaker-Profile': body.speakerProfile, 'X-TTS-Seconds': h('x-tts-seconds') || '', 'X-TTS-Start': h('x-tts-start') || '',
+            'Server-Timing': h('server-timing') || ''}, body: audio});
+        }
         if (TTS_MODE === 'product' && body.speakerProfile === 'female-calm-v1') {
           // Live speech through the existing product AAOS chain; the response headers are recorded by the page listener.
           plan.requests.push({kind: 'tts-live', id, closing: true, at: Date.now()});
@@ -231,12 +268,25 @@ async function sampleOutput(pid, ms) {
   const series = [], began = Date.now();
   for (let i = 0; Date.now() - began < ms; i++) {
     const t = Date.now(), audio = await adbAsync('shell', 'dumpsys', 'audio');
-    const players = [...audio.matchAll(/AudioPlaybackConfiguration piid:(\d+)[^\n]*?u\/pid:\d+\/(\d+) state:(\w+)/g)].filter(m => m[2] === String(pid)).map(m => ({piid: m[1], state: m[3]}));
-    const row = {host: t, dumpMs: Date.now() - t, started: players.filter(x => x.state === 'started').map(x => x.piid), states: players.map(x => x.piid + ':' + x.state)};
+    const own = players(audio, pid);
+    const row = {host: t, dumpMs: Date.now() - t, started: own.filter(x => x.state === 'started').map(x => x.piid), states: own.map(x => x.piid + ':' + x.state)};
     if (i % 2 === 0) { const f = await adbAsync('shell', 'dumpsys', 'media.audio_flinger'); const m = f.match(/Frames written:\s*(\d+)/); row.frames = m ? Number(m[1]) : null; }
     series.push(row);
   }
   return series;
+}
+// A stop is measured only from a player Android reports as 'started'. The page's 'playing' event comes earlier than the
+// Android player state (round 3: consent revoked 1.3 s after A's 'playing' found no started player in 3 of 3 runs), so
+// the harness polls until the app's player is started, then acts. Not observed in time: the case is reported blocked.
+async function waitPlayerStarted(pid, timeoutMs) {
+  const began = Date.now();
+  let polls = 0;
+  while (Date.now() - began < timeoutMs) {
+    const started = startedPiids(await adbAsync('shell', 'dumpsys', 'audio'), pid);
+    polls++;
+    if (started.length) return {observed: true, afterStageMs: Date.now() - began, polls, piids: started};
+  }
+  return {observed: false, afterStageMs: null, waitedMs: Date.now() - began, polls};
 }
 async function logcatSince(guestEpochMs) {
   const raw = await adbAsync('logcat', '-d', '-v', 'epoch', '-t', '1500');
@@ -316,6 +366,8 @@ async function closing(session, language, options, check, out, r) {
   const t0 = await page.evaluate(() => performance.now());
   const finish = page.getByRole('button', {name: tr('Görüşmeyi Bitir'), exact: true});
   const firstEvent = pageEvents.length;
+  // Before-start cases act at the closing's first stage: look the app process up before the tap, not after it.
+  const pidBeforeTap = options.beforeStart ? appPid() : null;
   const tap = options.realTap ? await realTap(page, finish) : (await finish.click(), null);
   const row = {name: options.name, language, action: options.action || null, at: options.at || null, build, run: process.env.CLOSING_RUN_LABEL || null,
     tts: TTS_MODE, finishInput: tap || 'CDP click', turnTaps};
@@ -328,17 +380,20 @@ async function closing(session, language, options, check, out, r) {
       throw Error('real tap did not start the closing; the case is not continued with a CDP click');
     }
   }
-  await waitStage(page, 'closing-A-playing', 20000).catch(() => {});
-  row.mixerDuringA = await mixerDelta(1000);
-  row.focusDuringA = focusOwners();
+  if (!options.beforeStart) {
+    await waitStage(page, 'closing-A-playing', 20000).catch(() => {});
+    row.mixerDuringA = await mixerDelta(1000);
+    row.focusDuringA = focusOwners();
+  }
   if (options.action) {
     await waitStage(page, options.at, 90000);
+    const offset = await clockOffset(page), pid = pidBeforeTap || appPid();
+    if (options.action !== 'language' && !options.beforeStart) row.playerStartedBeforeAction = await waitPlayerStarted(pid, options.startedTimeoutMs || 5000);
     const actionPm = await page.evaluate(() => performance.now());
-    const offset = await clockOffset(page), pid = appPid();
     const sampler = sampleOutput(pid, options.sampleMs || 8000);
     let ackAt = null;
     const actedAt = Date.now();
-    if (options.action === 'drive') { await W.setSpeed(75); ackAt = Date.now(); }
+    if (options.action === 'drive') { await setSpeed(75); ackAt = Date.now(); }
     if (options.action === 'background') W.shell('input', 'keyevent', 'KEYCODE_HOME');
     if (options.action === 'cancel') {
       // The control is "Özet hazırlamayı iptal et" until the summary is shown, then "Sesli kapanışı durdur".
@@ -361,14 +416,17 @@ async function closing(session, language, options, check, out, r) {
       row.playerSeries = series.map(x => ({ms: x.host - actedAt, started: x.started, frames: x.frames ?? null, dumpMs: x.dumpMs}));
       row.logcat = await logcatSince(actedAt + offset.offsetMs);
       const st = row.stopStages, reference = options.action === 'drive' ? st.backendAcknowledgedMs : 0;
-      check(`${options.name}: the app's player left 'started' within ${STOP_CRITERION_MS} ms of the stop condition (proposed criterion, measured ${st.appPlayerStoppedMs === null ? 'n/a' : st.appPlayerStoppedMs - reference} ms)`,
-        st.appPlayerWasStartedAtAction === true && st.appPlayerStoppedMs !== null && st.appPlayerStoppedMs - reference <= STOP_CRITERION_MS, st);
+      // During playback: acted only after Android reported 'started' (blocked otherwise). Before start: the player was
+      // not started at the action and must not start afterwards.
+      for (const c of stopChecks({name: options.name, action: options.action, at: options.at, beforeStart: !!options.beforeStart,
+        startedBeforeAction: row.playerStartedBeforeAction, series: row.playerSeries, appPlayerStoppedMs: st.appPlayerStoppedMs,
+        reference, criterionMs: STOP_CRITERION_MS, sampleMs: options.sampleMs || 8000})) check(c.what, c.pass, {...c.detail, stopStages: st});
     }
     if (['drive', 'background'].includes(options.action)) {
       // The native shell destroys the WebView; wait past the replayed speech response, then come back.
       row.webViewProcessAfterAction = appPid();
       await sleep(Math.max(0, (options.waitMs || 35000) - (options.sampleMs || 8000)));
-      if (options.action === 'drive') await W.setSpeed(0);
+      if (options.action === 'drive') await setSpeed(0);
       session = await W.attach();
       page = session.page;
       await ensure(page);
@@ -448,7 +506,7 @@ async function closing(session, language, options, check, out, r) {
   row.pageEvents = pageEvents.slice(firstEvent).filter(e => !['vehicle', 'stage'].includes(e.kind));
   check(`${options.name}: nothing else plays in the 12 s after the spoken closing (no second completion message)`, row.playsAfterCompletion.length === 0 && !row.guidanceEventsAfterCompletion.some(e => e.kind === 'voice-unavailable'),
     {plays: row.playsAfterCompletion, guidance: row.guidanceEventsAfterCompletion});
-  if (TTS_MODE === 'product') row.liveSpeech = plan.requests.filter(q => q.id === options.name && ['tts-live', 'tts-response'].includes(q.kind));
+  if (TTS_MODE !== 'replay') row.liveSpeech = plan.requests.filter(q => q.id === options.name && ['tts-live', 'tts-response', 'tts-answered', 'analysis-live'].includes(q.kind));
   check(`${options.name}: A, B, C and the personal summary played in order without overlap`, m.aPlaying !== null && m.aEnded < m.bPlaying && m.bEnded < m.cPlaying && m.cEnded <= m.summaryPlaying && m.summaryComplete !== null, m);
   check(`${options.name}: no extra tap needed during the closing (one shared, gesture-unlocked element)`, m.gestureRequired.length === 0, m.gestureRequired);
   check(`${options.name}: Android mixer writes frames during A and during the summary`, row.mixerDuringA.framesDelta > 0 && row.mixerDuringSummary.framesDelta > 0, {a: row.mixerDuringA, summary: row.mixerDuringSummary});
@@ -492,7 +550,10 @@ const CASES = [
   {name: 'tr-cancel-during-B-then-new', language: 'tr', action: 'cancel', at: 'closing-B-playing', thenNewConversation: true},
   {name: 'en-cancel-during-summary', language: 'en', action: 'cancel', at: 'closing-summary-audio-start', waitMs: 15000},
   {name: 'en-mute-during-C', language: 'en', action: 'mute', at: 'closing-C-playing'},
+  // Consent withdrawn while A is audibly playing (acted on once Android reports the player 'started'), and separately
+  // right at the closing's start, before any player has started (nothing may start afterwards).
   {name: 'de-consent-revoked-during-A', language: 'de', action: 'consent', at: 'closing-A-playing'},
+  {name: 'de-consent-revoked-before-start', language: 'de', action: 'consent', at: 'closing-trigger', beforeStart: true},
   {name: 'tr-language-locked-during-B', language: 'tr', action: 'language', at: 'closing-B-playing', sampleMs: 1000},
   {name: 'tr-drive-during-C', language: 'tr', action: 'drive', at: 'closing-C-playing'},
   {name: 'en-drive-during-summary', language: 'en', action: 'drive', at: 'closing-summary-audio-start'},
@@ -503,7 +564,9 @@ const CASES = [
 
 (async () => {
   const {out, r, check, save} = W.report('mental-closing');
-  r.testMode = TTS_MODE === 'product'
+  r.testMode = TTS_MODE === 'live-api'
+    ? 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; conversation reply replayed; analysis LIVE (test API, real provider) and closing speech LIVE (test API, its resident worker on the configured host); the harness stands in for the Next speech route.'
+    : TTS_MODE === 'product'
     ? 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; reply and analysis replayed from WEB real-path recordings; closing speech LIVE through the existing product AAOS chain.'
     : 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; reply, analysis and female-calm-v1 speech replayed from the WEB real-path recordings.';
   r.ttsMode = TTS_MODE;
