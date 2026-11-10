@@ -29,7 +29,7 @@ const repository = path.resolve(__dirname, '../../..');
 // media play() call so that late audio after a cancellation is visible even when it is short.
 const PAGE_SCRIPT = `(()=>{if(window.__closingQa)return;window.__closingQa=true;window.__qaUtterances=[];window.__timeline=[];window.__plays=[];
  addEventListener('attune-speech-timing',e=>window.__timeline.push({stage:e.detail.stage,atMs:e.detail.atMs}));
- const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){window.__plays.push({atMs:performance.now(),src:String(this.currentSrc||this.src||'').slice(0,12)});return play.apply(this,arguments);};
+ const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){window.__plays.push({atMs:performance.now(),src:String(this.currentSrc||this.src||'').slice(0,12),guidance:this.dataset&&this.dataset.guidanceId||null});return play.apply(this,arguments);};
  class QaRecognition{constructor(){this.lang='';this.continuous=false;this.interimResults=false;this.maxAlternatives=1;}
   start(){this.timer=setTimeout(()=>{this.onstart&&this.onstart();this.timer=setTimeout(()=>{const text=window.__qaUtterances.shift();
    if(text){const item=Object.assign([{transcript:text,confidence:.9}],{isFinal:true});this.onresult&&this.onresult({resultIndex:0,results:[item]});}
@@ -116,6 +116,13 @@ async function realTap(page, locator) {
   return {x, y, dpr, view};
 }
 
+// Frames the primary output wrote during a short window: > 0 means something is playing now. ("Standby: no" alone
+// stays set for a while after playback and is not evidence of output.)
+async function mixerDelta(ms = 2000) {
+  const a = W.audioFlinger(); await sleep(ms); const b = W.audioFlinger();
+  return {framesDelta: (b.framesWritten[0] || 0) - (a.framesWritten[0] || 0), windowMs: ms, standbyNo: b.standbyNo};
+}
+
 function focusOwners() {
   const raw = W.shell('dumpsys', 'audio');
   const stack = raw.split('Audio Focus stack entries')[1] || '';
@@ -168,22 +175,32 @@ async function closing(session, language, options, check, out, r) {
   const tap = options.realTap ? await realTap(page, finish) : (await finish.click(), null);
   const row = {name: options.name, language, action: options.action || null, at: options.at || null, build, finishInput: tap ? {kind: 'adb input tap', ...tap} : 'CDP click', turnTaps};
   await waitStage(page, 'closing-A-playing', 20000).catch(() => {});
-  row.mixerDuringA = W.audioFlinger();
+  row.mixerDuringA = await mixerDelta(1000);
   row.focusDuringA = focusOwners();
   if (options.action) {
     await waitStage(page, options.at, 90000);
     const actedAt = Date.now();
-    if (options.action === 'cancel') await page.getByRole('button', {name: tr(options.at.startsWith('closing-summary') ? 'Sesli kapanışı durdur' : 'Özet hazırlamayı iptal et'), exact: true}).click();
+    if (options.action === 'cancel') {
+      // The control is "Özet hazırlamayı iptal et" until the summary is shown, then "Sesli kapanışı durdur".
+      const stop = page.getByRole('button', {name: tr('Sesli kapanışı durdur'), exact: true}), cancel = page.getByRole('button', {name: tr('Özet hazırlamayı iptal et'), exact: true});
+      const which = await stop.count() ? stop : cancel;
+      row.cancelControl = await which.innerText();
+      await which.click();
+    }
     if (options.action === 'mute') await page.getByRole('button', {name: tr('Seslendirmeyi kapat'), exact: true}).click();
     if (options.action === 'consent') await page.evaluate(() => { const key = 'attune_health_processing_v1', d = JSON.parse(localStorage.getItem(key)); delete d.services.mental; localStorage.setItem(key, JSON.stringify(d)); dispatchEvent(new Event('attune-service-consent')); dispatchEvent(new Event('attune-privacy')); });
-    if (options.action === 'language') await page.locator('#attune-language').selectOption(language === 'tr' ? 'en' : 'tr');
+    if (options.action === 'language') {
+      // The selector is locked during a running process; a change cannot reach the closing through the UI.
+      row.languageSelector = await page.locator('#attune-language').evaluate(el => ({disabled: el.disabled, title: el.title, value: el.value}));
+      check(`${options.name}: language selector is locked while the closing plays`, row.languageSelector.disabled === true, row.languageSelector);
+    }
     if (options.action === 'drive') await W.setSpeed(75);
     if (options.action === 'background') W.shell('input', 'keyevent', 'KEYCODE_HOME');
     row.actedAt = actedAt;
     if (['drive', 'background'].includes(options.action)) {
       // The native shell destroys the WebView; wait past the replayed speech response, then come back.
-      await sleep(4000);
-      row.mixerAfterAction = W.audioFlinger();
+      await sleep(3000);
+      row.mixerAfterAction = await mixerDelta();
       row.webViewProcessAfterAction = (() => { try { return W.shell('pidof', W.pkg); } catch { return ''; } })();
       await sleep(Math.max(0, (options.waitMs || 35000) - 4000));
       if (options.action === 'drive') await W.setSpeed(0);
@@ -191,10 +208,11 @@ async function closing(session, language, options, check, out, r) {
       page = session.page;
       await page.evaluate(PAGE_SCRIPT).catch(() => {});
       await sleep(3000);
-      row.afterReturn = {plays: await page.evaluate(() => window.__plays.length).catch(() => null), timeline: await page.evaluate(() => window.__timeline.map(e => e.stage)).catch(() => null), mixer: W.audioFlinger(), url: page.url()};
+      row.afterReturn = {plays: await page.evaluate(() => window.__plays).catch(() => null), timeline: await page.evaluate(() => window.__timeline.map(e => e.stage)).catch(() => null), url: page.url()};
       row.requests = plan.requests.filter(q => q.id === options.name);
-      check(`${options.name}: ${options.action} stops the closing; the returned app plays nothing of it, also after the late speech response`,
-        !row.mixerAfterAction.standbyNo && row.afterReturn.plays === 0 && !row.afterReturn.mixer.standbyNo, {mixerAfterAction: row.mixerAfterAction, afterReturn: row.afterReturn});
+      const closingPlays = (row.afterReturn.plays || []).filter(p => !p.guidance);
+      check(`${options.name}: ${options.action} stops the closing at once (no output frames); the returned app plays nothing of it`,
+        row.mixerAfterAction.framesDelta === 0 && closingPlays.length === 0 && !(row.afterReturn.timeline || []).some(stage => stage.startsWith('closing-')), {mixerAfterAction: row.mixerAfterAction, afterReturn: row.afterReturn});
       W.shot(out, options.name + '-after');
       await ensure(page);
       r.cases.push(row);
@@ -206,6 +224,8 @@ async function closing(session, language, options, check, out, r) {
       // speech response arrives during it and must not play.
       await page.waitForFunction(() => ['ready', 'completed', 'error'].includes(document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase')), null, {timeout: 10000}).catch(() => {});
       plan.id = options.name + '-next';
+      const dialog = page.getByRole('dialog');
+      if (await dialog.count()) await dialog.getByRole('button', {name: tr('Tamam'), exact: true}).click().catch(() => {});
       const start = page.getByRole('button', {name: tr('Görüşmeyi Başlat'), exact: true});
       row.newConversationStarted = await start.count() && await start.isEnabled() ? (await start.click(), true) : false;
     }
@@ -214,13 +234,18 @@ async function closing(session, language, options, check, out, r) {
     row.metrics = metrics(events, t0);
     row.stagesAfterAction = events.filter(e => e.atMs >= after).map(e => e.stage);
     row.playsAfterAction = await page.evaluate(t => window.__plays.filter(p => p.atMs > t), after);
-    row.mixerAfter = W.audioFlinger();
+    row.mixerAfter = await mixerDelta();
     row.phase = await page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase');
     row.notice = await page.evaluate(() => [...document.querySelectorAll('[role=status],[role=alert]')].map(n => n.textContent).join(' | ').slice(0, 300));
     row.requests = plan.requests.filter(q => q.id === options.name);
     row.lateSpeechResponses = row.requests.filter(q => q.kind === 'tts-answered' && q.at > actedAt).length;
-    check(`${options.name}: ${options.action} at ${options.at} stops the closing and no later audio starts${options.thenNewConversation ? ' (new conversation running)' : ''}`,
-      row.playsAfterAction.length === 0 && row.metrics.summaryComplete === null && !row.stagesAfterAction.some(s => /closing-(summary-audio-start|summary-playing|[ABC]-playing)/.test(s)) && !row.mixerAfter.standbyNo,
+    const closingPlaysAfter = row.playsAfterAction.filter(p => !p.guidance);
+    if (options.action === 'language') {
+      check(`${options.name}: the closing continues to its end in the session language`, row.metrics.summaryComplete !== null, row.metrics);
+      W.shot(out, options.name); r.cases.push(row); return session;
+    }
+    check(`${options.name}: ${options.action} at ${options.at} stops the closing and no later closing audio starts${options.thenNewConversation ? ' (new conversation running)' : ''}`,
+      closingPlaysAfter.length === 0 && row.metrics.summaryComplete === null && !row.stagesAfterAction.some(s => /closing-(summary-audio-start|summary-playing|[ABC]-playing)/.test(s)) && row.mixerAfter.framesDelta === 0,
       {playsAfterAction: row.playsAfterAction, stagesAfterAction: row.stagesAfterAction, lateSpeechResponses: row.lateSpeechResponses, mixer: row.mixerAfter, phase: row.phase});
     if (options.thenNewConversation) {
       const finish2 = page.getByRole('button', {name: tr('Görüşmeyi Bitir'), exact: true});
@@ -234,7 +259,7 @@ async function closing(session, language, options, check, out, r) {
   }
   // Complete closing: wait for its end, sampling the mixer while the personal summary plays.
   await waitStage(page, 'closing-summary-audio-start', 120000).catch(() => {});
-  row.mixerDuringSummary = W.audioFlinger();
+  row.mixerDuringSummary = await mixerDelta(1000);
   row.focusDuringSummary = focusOwners();
   await page.waitForFunction(() => document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase') === 'completed', null, {timeout: 120000});
   await page.waitForTimeout(500);
@@ -246,7 +271,7 @@ async function closing(session, language, options, check, out, r) {
   const m = row.metrics;
   check(`${options.name}: A, B, C and the personal summary played in order without overlap`, m.aPlaying !== null && m.aEnded < m.bPlaying && m.bEnded < m.cPlaying && m.cEnded <= m.summaryPlaying && m.summaryComplete !== null, m);
   check(`${options.name}: no extra tap needed during the closing (one shared, gesture-unlocked element)`, m.gestureRequired.length === 0, m.gestureRequired);
-  check(`${options.name}: Android mixer active during A and during the summary`, row.mixerDuringA.standbyNo && row.mixerDuringSummary.standbyNo, {a: row.mixerDuringA, summary: row.mixerDuringSummary});
+  check(`${options.name}: Android mixer writes frames during A and during the summary`, row.mixerDuringA.framesDelta > 0 && row.mixerDuringSummary.framesDelta > 0, {a: row.mixerDuringA, summary: row.mixerDuringSummary});
   W.shot(out, options.name);
   const dialog = page.getByRole('dialog');
   if (await dialog.count()) await dialog.getByRole('button', {name: tr('Tamam'), exact: true}).click().catch(() => {});
@@ -279,7 +304,7 @@ const CASES = [
   {name: 'tr-cancel-during-B-then-new', language: 'tr', action: 'cancel', at: 'closing-B-playing', thenNewConversation: true},
   {name: 'en-mute-during-C', language: 'en', action: 'mute', at: 'closing-C-playing'},
   {name: 'de-consent-revoked-during-A', language: 'de', action: 'consent', at: 'closing-A-playing'},
-  {name: 'tr-language-change-during-B', language: 'tr', action: 'language', at: 'closing-B-playing'},
+  {name: 'tr-language-locked-during-B', language: 'tr', action: 'language', at: 'closing-B-playing'},
   {name: 'en-cancel-during-summary', language: 'en', action: 'cancel', at: 'closing-summary-audio-start', waitMs: 15000},
   {name: 'tr-drive-during-C', language: 'tr', action: 'drive', at: 'closing-C-playing'},
   {name: 'de-background-during-B', language: 'de', action: 'background', at: 'closing-B-playing'},
