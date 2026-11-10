@@ -65,7 +65,7 @@ def from_realpath(measurement, out_dir, _summary_delay_ms):
             continue
         language, cid = conv['language'], conv['conversation']
         summary = {'summaryText': conv['summaryText'], 'delayMs': round(conv['seconds'] * 1000),
-                   'source': f"real provider via test API {data['host']} ({conv['label']}, {conv['providerType']})"}
+                   'source': f"real provider via the test API on the WEB host ({conv['label']}, {conv['providerType']})"}
         for start in ('cold', 'warm'):
             short = tts.get(f'{cid}-short-{start}')
             if short and conv.get('spokenSummary'):

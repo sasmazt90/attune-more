@@ -8,20 +8,34 @@ When a Mental conversation ends, three prepared recordings play — **A** thanks
 
 | Path | Before | With the bridge enabled |
 | --- | --- | --- |
-| Normal conversation (live default) | Summary shown; no closing speech | A→B→C, then the validated `summaryText` spoken in `female-calm-v1` |
+| Normal conversation (live default) | Summary shown; no closing speech | A→B→C, then the short validated `spokenSummary` from the same analysis call, in `female-calm-v1`; `summaryText` stays on screen and in history |
 | Structured conversation (`structured-v1`) | Summary shown, then `spokenSummary` spoken | A→B→C, then `spokenSummary` |
 
 `finish()` in `apps/vehicle-app/src/utils/useMentalConversation.ts`:
 
 1. Existing preconditions first (failed, crisis or empty sessions never start the bridge). The closing guard is the same as the existing dynamic closing: session epoch, park, speech/cloud/service consent, voice on, language.
 2. `startClosingFlow()` (`mentalClosingBridge.ts`) chooses one A, one B and one C of the user's language **once**, verifies all three files (size + SHA-256) and starts A. It does not wait for anything else.
-3. Context preparation and `/analyze-session` run unchanged and in parallel. All existing validation applies.
-4. As soon as the summary text passed those checks, `summaryReady()` starts generating its speech with `prepareMentalNeuralSpeech()` — during A/B/C. Playback is a separate step.
-5. After history storage and `setSummary()`, `complete()` waits for C to end, then plays the prepared summary. If it is not ready yet the page shows an honest state (“Özetin sesi hazırlanıyor”) — no recording is replayed. The next summary part is still generated while the previous one plays.
+3. Context preparation and `/analyze-session` run in parallel. On the normal path the request adds `spokenSummary: true` (same single provider call, see below). All existing validation applies.
+4. As soon as the analysis passed those checks, `summaryReady(spokenSummary)` starts generating its speech with `prepareMentalNeuralSpeech()` — during A/B/C. Playback is a separate step. If the short line is missing or invalid, `summaryUnavailable()` is called: the written summary is saved and shown, nothing longer is spoken instead, and the page says so (“Özet hazır; kısa sesli özet oluşturulamadı.”).
+5. After history storage and `setSummary()`, `complete()` waits for C to end, then plays the prepared summary. If it is not ready yet the page shows an honest state (“Özetin sesi hazırlanıyor”) — no recording is replayed. A/B/C and the summary play on **one** media element, created in the user's “end conversation” gesture, so a WebView that requires a gesture per element (AAOS: `setMediaPlaybackRequiresUserGesture(true)`) needs no extra tap.
 
-One controller and one audio-focus owner cover the whole closing. Only one output plays at a time. `cleanup()` (cancel, PARK/driving, consent withdrawal, unmount, new conversation) aborts recordings and pending speech; a late result of an old closing cannot play. Mute, hidden page and language change stop output through the existing playback guards. Normal conversation turns, their `official-default` voice and other modules are unchanged.
+One controller and one audio-focus owner cover the whole closing. Only one output plays at a time. `cleanup()` (cancel, PARK/driving, consent withdrawal, unmount, new conversation) aborts recordings and pending speech; a late result of an old closing cannot play. Mute and a hidden page stop output through the existing playback guards; the language selector is locked while the closing runs (the language guard remains as a second layer). Normal conversation turns, their `official-default` voice and other modules are unchanged.
 
 `mentalNeuralSpeech()` is now `prepareMentalNeuralSpeech(...).play(...)`; for ordinary turns the request order, deadlines, guards and stage events are identical (existing tests unchanged).
+
+## Short spoken summary (normal closing)
+
+The normal path used to speak the written `summaryText` (TR 19, EN 24, DE 22 words in the first probe; 25–42 words from the live provider on 2026-11-10). It now asks the **same** `/analyze-session` call for an additional `spokenSummary` (`spokenSummary: true`, legacy engine only; no second provider request). `summaryText` is unchanged and remains the screen/history text.
+
+Server contract (`validate_spoken_summary` in `services/core-api/mental_analysis.py`, enforced on every response): one sentence, ≤ 12 words, ≤ 100 characters, the session language (TR/EN/DE), formal address (*siz*/*Sie*), at least one word stem the user actually said, none of the A/B/C bridge phrases (thanks, closing, “summary”), and no advice, suggestion, reassurance or evaluation. NFC and whitespace are normalised; nothing is ever cut. A failing line is returned as `spokenSummary: null` with `spokenSummaryStatus` (`missing`, `too-many-words`, `not-grounded-in-user-words`, `advice-or-evaluation`, …); the client then speaks nothing (it re-checks the same bounds before speaking).
+
+The prompt puts `spokenSummary` in the JSON template with a second-person recap form (“… söz ettiniz.” / “You talked about …” / “Sie sprachen über …”). Two earlier prompt versions were rejected by measurement with the live provider (`gpt-4o-mini` on WEB):
+
+| Prompt | Result with the real provider |
+| --- | --- |
+| Rule appended after the conversation, key not in the template | No `spokenSummary` at all (`missing`, TR 2/2) |
+| Key in the template, no recap form | Lines were reassurance/advice (“It's normal to feel anxious…”, “…destek almayı düşünebilirsiniz”, “…effectively”); DE 3 of 4 rejected as not grounded |
+| Recap form, no advice/evaluation (current) | 29 of 30 valid (TR 10/10, EN 10/10, DE 9/10; one 13-word DE line rejected, not shortened); 5–11 words |
 
 ## Enable, disable, fall back
 
@@ -62,6 +76,8 @@ Summary speech on the host (product resident loop, synthetic non-personal two-se
 | warm first parts TR / EN / DE | 20.1 / 17.2–19.1 / 19.5–22.7 | 4.7–7.1 s |
 | second parts TR / EN / DE | 18.0 / 12.6 / 15.4 | 2.9–5.1 s |
 
+**Superseded (kept as the original record):** the first browser timeline below paired the `part0-repeat` synthesis times with the `part0` WAVs (7.20/5.80/6.00 s audio instead of 6.32/4.68/7.12 s) and mislabelled EN/DE as first-after-boot. Corrected and new measurements: *Review 2026-11-10* below and [review-20261110.json](review-20261110.json).
+
 Browser timeline (production build, real Chromium playback of the committed WAVs, real hook code; **all backend responses are fixtures**, the summary arrives after an assumed 3 s (12 s in one case), speech responses replay the host-measured delays — no provider call):
 
 | Scenario | First prepared audio | C ends | First personalised audio | C→summary gap | Part gap | Closing audio ends |
@@ -76,6 +92,49 @@ The summary request started 3–5 ms after the trigger (in parallel with A); spe
 
 Not measured: a live provider's summary latency, the first EN/DE female request after boot (only TR was cold in the probe), real network/ASR, AAOS, and any listening quality. The PR #28 conditioning-cache flag was not used.
 
+## Review 2026-11-10: corrected and real-path measurements
+
+All numbers are milliseconds/seconds from the closing trigger (“end conversation”). Sources are labelled; replays are never counted as live runs. Details and every row: [review-20261110.json](review-20261110.json).
+
+**Corrected replay of the 2026-11-09 probe** (long written summary, as before; each part now plays the WAV of its own measurement row; the harness refuses mismatched duration, WAV hash, text hash, profile or run id, and fails a run whose requested text differs — the old pairing is rejected by that check): first personalised audio TR 25.4 s (repeat) / 38.4 s (first female request), EN 22.5/24.4 s and DE 24.8/28.0 s (two warm samples each); part gaps 9.1–14.0 s; no overlap. Same under `--autoplay-policy=user-gesture-required`.
+
+**Real path on WEB (components).** A separate API process of this branch (loopback port 8190, the product API's own environment, fresh token; product services untouched) with the real provider and the real `/api/mental/neural-speech` endpoint, resident worker, `female-calm-v1`, 4 threads; synthetic conversations. *cold* = first female request of a freshly started process after its start-up warm-up.
+
+| | TR | EN | DE |
+| --- | --- | --- | --- |
+| Analysis with `spokenSummary` (one call) | 2.7–2.8 s | 2.1 s | 2.4 s |
+| Written summary / spoken line | 30–35 / 8–9 words | 30–42 / 9–11 words | 25–38 / 11 words |
+| Short line speech, cold | 32.0 s (5.1 s audio) | 28.8 s (4.1 s) | 30.3 s (4.6 s) |
+| Short line speech, warm | 21.0–21.8 s (5.0–5.3 s) | 17.5–18.0 s (3.8–3.9 s) | 18.9–21.5 s (4.3–5.2 s) |
+| Long first part, cold / warm | 48.6 / 39.6–39.8 s (11.6–12.0 s) | 33.4 / 21.9–33.2 s (5.4–10.0 s) | 33.0 / 22.5–39.3 s (5.9–11.9 s) |
+
+Each request pays ≈ 2.35 s bundle verification; inference runs at ≈ 3.1–4.1× the audio duration on this CPU host; the first female request of a process adds ≈ 10 s.
+
+**Live on WEB (nothing replayed but the microphone).** System Chrome → a production build of this branch → the test API → real provider and real TTS; one synthetic utterance per conversation; per language a fresh API process, first closing cold, second warm:
+
+| Closing | Summary text | C ends | First personal audio | C → personal | Closing audio ends |
+| --- | --- | --- | --- | --- | --- |
+| TR cold / warm | 3.2 / 2.7 s | 11.0 / 10.3 s | 32.8 / 22.9 s | 21.9 / 12.5 s | 37.1 / 27.4 s |
+| EN cold / warm | 2.3 / 2.5 s | 9.2 / 8.6 s | 30.0 / 20.2 s | 20.8 / 11.5 s | 33.4 / 23.7 s |
+| DE cold / warm | 2.3 / 2.5 s | 11.1 / 8.8 s | 30.9 / 20.8 s | 19.8 / 12.0 s | 34.8 / 24.6 s |
+
+A started 17–19 ms after the trigger; A→B and B→C 126–129 ms; no overlap, no tap. (An earlier live run with the second prompt is kept in the evidence: one DE closing spoke nothing because its line was rejected, and showed the honest notice.)
+
+**Short vs long on the same recordings** (replay in Chromium of the real-path analysis and speech responses with their measured delays; long = the previous behaviour, build 4872c6e; identical under default and strict autoplay):
+
+| Conversation | First personal audio short / long | Closing audio ends short / long |
+| --- | --- | --- |
+| TR c1 cold | 34.8 / 51.4 s | 39.9 / 91.9 s |
+| TR c1, c2 warm | 23.8, 24.5 / 42.6, 42.4 s | 28.8, 29.8 / 81.7, 73.6 s |
+| EN c1 cold | 31.0 / 35.6 s | 35.2 / 65.4 s |
+| EN c1, c2 warm | 19.7, 20.1 / 24.1, 35.4 s | 23.5, 24.1 / 50.4, 58.5 s |
+| DE c1 cold | 32.8 / 35.4 s | 37.3 / 69.0 s |
+| DE c1, c2 warm | 24.0, 21.4 / 24.9, 41.7 s | 29.1, 25.7 / 59.5, 66.4 s |
+
+Why: speech time grows with the audio produced. The long path's first unit is the first sentence (12–28 words here), so the gain in time to the first personal audio is ≈ 1–5 s where that sentence was short (DE c1, EN c1) and 15–20 s where it was long; the long path's second part was generated only after the first and arrived 8–21 s after the first part ended. The short line removes the second part and that pause; the closing ends 27–53 s earlier. **It does not make synthesis faster**, and the 8–9 s target is not met: after C ends, the personal audio still comes ≈ 11–14 s later (warm) or ≈ 20–23 s later (first female request after a service start).
+
+**AAOS (real WebView).** AAOS 15 emulator on the AAOS host, cloudDemo APK, native PARK/driving gate and background handling, Android audio mixer. The product web-aaos service was not changed: the WebView origin's page and asset requests were answered by a build of this branch on the AAOS host through CDP interception; vehicle state went to the real backend; recognizer scripted; reply, analysis and closing speech replayed from the WEB real-path recordings. Results: all 45 recordings reached the WebView byte-identical to the manifest; TR (cold) and EN (warm) complete closings played A→B→C→personal summary in order without overlap or tap prompt (A→B/B→C 126–128 ms; the app held Android audio focus; output frames during A and the summary); cancel during B followed by a new conversation, cancel during the summary, mute during C, consent withdrawal during A: output stopped (no frames in the following window), no closing stage or closing audio afterwards, including after the late speech response; the language selector is locked during the closing; driving during C and backgrounding during B: the last output frame came 3.5 s and 3.3 s after the action, then silence, and nothing of the closing played after returning (the WebView document was replaced). Not verified on AAOS: a real Android touch on “end conversation” (the `adb input tap` coordinate mapping missed the button; all taps were CDP input events), a German complete closing, live provider/TTS inside AAOS, real speakers/hearing, OEM audio focus with other car apps, and a physical vehicle signal. One observation: in one run the existing completion guidance clip failed once ≈ 10 s after a finished closing (notice “Seçilen ses oynatılamadı…”) and then played on retry; the closing's own audio was not involved; cause not determined.
+
 ## Tests
 
-`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `scripts/qa/mental_closing_bridge_timeline.cjs` produced the browser timeline.
+`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements.
