@@ -1,0 +1,127 @@
+{
+ "mode": "cpu",
+ "launchArgs": [
+  "--no-sandbox",
+  "--js-flags=--max-old-space-size=8192"
+ ],
+ "browserVersion": "153.0.8010.12",
+ "wallSeconds": 84,
+ "result": {
+  "backendRequested": "CPU",
+  "modelUrl": "/models/qwen35-2b-rev895dd827/Qwen3.5-2B_int8.litertlm",
+  "stages": [
+   {
+    "name": "load-wasm-runtime",
+    "ok": true,
+    "ms": 1190
+   },
+   {
+    "name": "engine-create",
+    "ok": false,
+    "ms": 79309,
+    "error": "RuntimeError: Aborted(). Build with -sASSERTIONS for more info.\n    at abort (http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.js:287:41)\n    at __abort_js (http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.js:4057:24)\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[221]:0x1a0e8\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[144]:0x13120\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[139]:0x12f5b\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[5735]:0x518821\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[14563]:0x102b4d5\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[14144]:0xf7bd90\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[4370]:0x3942a6\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[5731]:0x518371"
+   }
+  ],
+  "done": true,
+  "env": {
+   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+   "hardwareConcurrency": 4,
+   "deviceMemory": 16,
+   "crossOriginIsolated": true,
+   "webgpu": true,
+   "adapter": null
+  },
+  "source": "url",
+  "error": "RuntimeError: Aborted(). Build with -sASSERTIONS for more info.\n    at abort (http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.js:287:41)\n    at __abort_js (http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.js:4057:24)\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[221]:0x1a0e8\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[144]:0x13120\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[139]:0x12f5b\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[5735]:0x518821\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[14563]:0x102b4d5\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[14144]:0xf7bd90\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[4370]:0x3942a6\n    at http://127.0.0.1:8731/node_modules/@litert-lm/core/wasm/litertlm_wasm_internal.wasm:wasm-function[5731]:0x518371"
+ },
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "peakBrowserRssMb": 4720,
+ "rssSamples": [
+  {
+   "t": 5,
+   "mb": 985
+  },
+  {
+   "t": 15,
+   "mb": 3019
+  },
+  {
+   "t": 25,
+   "mb": 3030
+  },
+  {
+   "t": 35,
+   "mb": 3035
+  },
+  {
+   "t": 45,
+   "mb": 3042
+  },
+  {
+   "t": 55,
+   "mb": 3042
+  },
+  {
+   "t": 65,
+   "mb": 3037
+  },
+  {
+   "t": 75,
+   "mb": 3851
+  }
+ ],
+ "console": [
+  "3.6s warning No available adapters.",
+  "3.6s log [probe] {\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36\",\"hardwareConcurrency\":4,\"deviceMemory\":16,\"crossOriginIsolated\":true,\"webgpu\":true,\"adapter\":null}",
+  "4.8s log [probe] load-wasm-runtime: ok 1191 ms",
+  "4.9s log I1110 22:16:37.499000 2446592 engine_advanced_impl.cc:685] Constructing EngineAdvancedImpl from a weight stream...",
+  "4.9s log I1110 22:16:37.500000 2446592 engine_advanced_impl.cc:699] Got data stream. Loading header...",
+  "4.9s log I1110 22:16:37.523000 2446592 engine_advanced_impl.cc:703] Header loaded. Processing sections...",
+  "4.9s warning W1110 22:16:37.524000 2446592 litert_lm_streaming_loader.cc:182] TFLite model type: tf_lite_vision_encoder not found for backend constraints. Skipping.",
+  "4.9s warning W1110 22:16:37.524000 2446592 litert_lm_streaming_loader.cc:202] TFLite model type: tf_lite_vision_encoder not found for prefer activation type. Use system's default backend activation type. System's default activation type for Text decoder is fp16. Vision encoder and audio encoder default is fp32.",
+  "4.9s warning W1110 22:16:37.524999 2446592 litert_lm_streaming_loader.cc:182] TFLite model type: tf_lite_audio_encoder_hw not found for backend constraints. Skipping.",
+  "4.9s warning W1110 22:16:37.524999 2446592 litert_lm_streaming_loader.cc:202] TFLite model type: tf_lite_audio_encoder_hw not found for prefer activation type. Use system's default backend activation type. System's default activation type for Text decoder is fp16. Vision encoder and audio encoder default is fp32.",
+  "4.9s log I1110 22:16:37.524999 2446592 engine_advanced_impl.cc:814] Processing section data type: LlmMetadata",
+  "4.9s log I1110 22:16:37.527000 2446592 engine_advanced_impl.cc:825] LlmMetadataProto processed.",
+  "4.9s log I1110 22:16:37.528000 2446592 engine_advanced_impl.cc:773] Setting engine settings without tokenizer...",
+  "4.9s log I1110 22:16:37.529999 2446592 engine_advanced_impl.cc:789] Engine settings set.",
+  "4.9s log I1110 22:16:37.529999 2446592 engine_advanced_impl.cc:1062] Processing section data type: ExecutorMetadataProto",
+  "4.9s log I1110 22:16:37.531000 2446592 engine_advanced_impl.cc:1074] ExecutorMetadataProto processed.",
+  "4.9s log I1110 22:16:37.532000 2446592 engine_advanced_impl.cc:1020] Processing section data type: HF_Tokenizer_Zlib",
+  "6.2s log I1110 22:16:38.840999 2446592 engine_advanced_impl.cc:1042] HuggingFaceTokenizer created.",
+  "6.2s log I1110 22:16:38.843000 2446592 engine_advanced_impl.cc:752] Setting engine settings...",
+  "6.2s log I1110 22:16:38.843000 2446592 engine_advanced_impl.cc:768] Engine settings set.",
+  "6.2s log I1110 22:16:38.844000 2446592 engine_advanced_impl.cc:864] Processing section data type: TFLiteModel",
+  "6.2s log I1110 22:16:38.844000 2446592 engine_advanced_impl.cc:885] Caching model from stream for type: 1",
+  "68.5s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "68.5s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "68.5s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x27d268, name=GPU WebGPU",
+  "68.5s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "68.5s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x31fb4c0, name=CpuAccelerator",
+  "68.5s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "68.7s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "68.7s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "68.7s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x854f9070, name=GPU WebGPU",
+  "68.7s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "68.7s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x854f9350, name=CpuAccelerator",
+  "68.7s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "68.7s log I1110 22:17:41.344999 2446592 engine_advanced_impl.cc:797] No more sections to process.",
+  "68.7s log I1110 22:17:41.344999 2446592 engine_advanced_impl.cc:1100] Main model was not compiled during streaming. Compiling now...",
+  "69.2s error INFO: [compiled_model.cc:981] Flatbuffer model initialized directly from incoming litert model.",
+  "69.8s error INFO: Created TensorFlow Lite XNNPACK delegate for CPU.",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error ERROR: failed to create XNNPACK runtime",
+  "84.1s error Aborted()",
+  "84.1s log [probe] engine-create: FAILED RuntimeError: Aborted(). Build with -sASSERTIONS for more info.",
+  "84.1s log [probe] done"
+ ],
+ "consoleLineCount": 50
+}

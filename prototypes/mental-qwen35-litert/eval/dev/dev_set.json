@@ -1,0 +1,65 @@
+{
+ "description": "Prompt-development set (not used for evaluation). Synthetic.",
+ "conversations": [
+  {
+   "id": "dev-tr",
+   "language": "tr",
+   "turns": [
+    "Bugün trafikte çok sinirlendim.",
+    "Yolda iki saat kaldım.",
+    "Eve gelince hiçbir şey yapmak istemedim.",
+    "Komşum kapıyı çaldı ama açmadım."
+   ]
+  },
+  {
+   "id": "dev-en",
+   "language": "en",
+   "turns": [
+    "Traffic made me really angry today.",
+    "I was stuck on the road for two hours.",
+    "When I got home I didn't want to do anything.",
+    "My neighbour knocked but I didn't open the door."
+   ]
+  },
+  {
+   "id": "dev-de",
+   "language": "de",
+   "turns": [
+    "Heute hat mich der Verkehr sehr geärgert.",
+    "Ich stand zwei Stunden im Stau.",
+    "Zu Hause wollte ich gar nichts mehr machen.",
+    "Mein Nachbar hat geklopft, aber ich habe nicht aufgemacht."
+   ]
+  },
+  {
+   "id": "dev-tr-fix",
+   "language": "tr",
+   "turns": [
+    "Dün teyzemle telefonda konuştum.",
+    "Pardon, teyzemle değil, eski bir arkadaşımla konuştum.",
+    "Onunla konuşmak beni rahatlatmadı.",
+    "Bu gece erken yatacağım."
+   ]
+  },
+  {
+   "id": "dev-en-fix",
+   "language": "en",
+   "turns": [
+    "I spoke to my aunt on the phone yesterday.",
+    "Sorry, not my aunt, it was an old friend.",
+    "Talking to her did not calm me down.",
+    "I will go to bed early tonight."
+   ]
+  },
+  {
+   "id": "dev-de-fix",
+   "language": "de",
+   "turns": [
+    "Gestern habe ich mit meiner Tante telefoniert.",
+    "Entschuldigung, nicht mit meiner Tante, sondern mit einer alten Freundin.",
+    "Das Gespräch hat mich nicht beruhigt.",
+    "Heute gehe ich früh ins Bett."
+   ]
+  }
+ ]
+}

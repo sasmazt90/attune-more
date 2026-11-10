@@ -1,0 +1,18 @@
+{
+  "name": "attune-mental-qwen35-litert-web-prototype",
+  "private": true,
+  "version": "0.0.1",
+  "description": "KOL B prototype: on-device (in-browser) Qwen3.5-2B via LiteRT-LM JS plus local VAD/STT/TTS. Not part of the product build.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@diffusionstudio/piper-wasm": "1.0.0",
+    "@huggingface/transformers": "4.3.2",
+    "@litert-lm/core": "0.19.0",
+    "@ricky0123/vad-web": "0.0.31",
+    "onnxruntime-web": "1.31.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

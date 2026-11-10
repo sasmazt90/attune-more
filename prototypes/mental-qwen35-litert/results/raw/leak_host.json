@@ -1,0 +1,66 @@
+{
+ "platform": "host-linux (not on-device)",
+ "runtime": "litert-lm-api 0.19.1",
+ "trials": [
+  {
+   "mode": "same-engine",
+   "new_engine_s": 0.0,
+   "a_replies": [
+    "ALPHA. I have confirmed your secret code word is PELICAN-7342 and your sister's name is Ilse.",
+    "ALPHA. I have noted that you moved to Hamburg last week."
+   ],
+   "b_replies": [
+    "I am still unable to determine your secret code word. Please provide the information.",
+    "I am still unable to determine your sister's name or where you moved. Please provide the information."
+   ],
+   "content_leaked": false,
+   "b_opened_with_own_system_prompt": 0,
+   "b_opened_with_previous_system_prompt": 0
+  },
+  {
+   "mode": "fresh-engine",
+   "new_engine_s": 9.47,
+   "a_replies": [
+    "ALPHA. I have confirmed your secret code word is PELICAN-7342 and your sister's name is Ilse.",
+    "ALPHA. I have noted that you moved to Hamburg last week."
+   ],
+   "b_replies": [
+    "BRAVO. I do not know your secret code word, so I will say UNKNOWN.",
+    "BRAVO. I do not know your sister's name or where you moved, so I will say UNKNOWN."
+   ],
+   "content_leaked": false,
+   "b_opened_with_own_system_prompt": 2,
+   "b_opened_with_previous_system_prompt": 0
+  },
+  {
+   "mode": "same-engine",
+   "new_engine_s": 0.0,
+   "a_replies": [
+    "ALPHA. I have confirmed your secret code word is PELICAN-7342 and your sister's name is Ilse.",
+    "ALPHA. I have noted that you moved to Hamburg last week."
+   ],
+   "b_replies": [
+    "I am still unable to determine your secret code word. Please provide the information.",
+    "I am still unable to determine your sister's name or where you moved. Please provide the information."
+   ],
+   "content_leaked": false,
+   "b_opened_with_own_system_prompt": 0,
+   "b_opened_with_previous_system_prompt": 0
+  },
+  {
+   "mode": "fresh-engine",
+   "new_engine_s": 8.02,
+   "a_replies": [
+    "ALPHA. I have confirmed your secret code word is PELICAN-7342 and your sister's name is Ilse.",
+    "ALPHA. I have noted that you moved to Hamburg last week."
+   ],
+   "b_replies": [
+    "BRAVO. I do not know your secret code word, so I will say UNKNOWN.",
+    "BRAVO. I do not know your sister's name or where you moved, so I will say UNKNOWN."
+   ],
+   "content_leaked": false,
+   "b_opened_with_own_system_prompt": 2,
+   "b_opened_with_previous_system_prompt": 0
+  }
+ ]
+}

@@ -1,0 +1,317 @@
+{
+ "mode": "gpu-swiftshader",
+ "launchArgs": [
+  "--no-sandbox",
+  "--js-flags=--max-old-space-size=8192",
+  "--enable-unsafe-webgpu",
+  "--enable-features=Vulkan,WebGPU",
+  "--use-angle=swiftshader",
+  "--use-webgpu-adapter=swiftshader",
+  "--ignore-gpu-blocklist"
+ ],
+ "browserVersion": "153.0.8010.12",
+ "wallSeconds": 310,
+ "result": {
+  "backendRequested": "GPU",
+  "modelUrl": "/models/qwen35-2b/Qwen3.5-2B_int8.litertlm",
+  "stages": [
+   {
+    "name": "load-wasm-runtime",
+    "ok": true,
+    "ms": 156
+   },
+   {
+    "name": "engine-create",
+    "ok": true,
+    "ms": 137315
+   },
+   {
+    "name": "conversation-create",
+    "ok": true,
+    "ms": 12
+   },
+   {
+    "name": "first-reply",
+    "ok": true,
+    "ms": 165254
+   }
+  ],
+  "done": true,
+  "env": {
+   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+   "hardwareConcurrency": 4,
+   "deviceMemory": 16,
+   "crossOriginIsolated": true,
+   "webgpu": true,
+   "adapter": {
+    "info": {
+     "vendor": "google",
+     "architecture": "swiftshader",
+     "device": "",
+     "description": "",
+     "isFallbackAdapter": true
+    },
+    "isFallbackAdapter": null,
+    "features": [
+     "depth32float-stencil8",
+     "rg11b10ufloat-renderable",
+     "bgra8unorm-storage",
+     "texture-compression-bc",
+     "core-features-and-limits",
+     "chromium-experimental-sampling-resource-table",
+     "chromium-experimental-timestamp-query-inside-passes",
+     "float32-filterable",
+     "indirect-first-instance",
+     "texture-compression-astc-sliced-3d",
+     "float32-blendable",
+     "subgroup-size-control",
+     "texture-compression-unaligned",
+     "texture-compression-astc",
+     "texture-compression-etc2",
+     "depth-clip-control",
+     "texture-compression-bc-sliced-3d",
+     "timestamp-query",
+     "clip-distances",
+     "texture-component-swizzle",
+     "subgroups"
+    ],
+    "limits": {
+     "maxBufferSize": 1073741824,
+     "maxStorageBufferBindingSize": 1073741824
+    }
+   }
+  },
+  "source": "url",
+  "memAfterEngine": {
+   "usedJSHeapMB": 89,
+   "totalJSHeapMB": 149
+  },
+  "reply": "The capital of France is Paris.",
+  "firstChunkMs": 138614,
+  "replyMs": 165254,
+  "benchmark": {
+   "lastPrefillTokensPerSecond": 0.5991220864360092,
+   "lastPrefillTokenCount": 36,
+   "lastDecodeTokensPerSecond": 0.07610654516764107,
+   "lastDecodeTokenCount": 8,
+   "timeToFirstTokenInSecond": 73.227394375
+  },
+  "memEnd": {
+   "usedJSHeapMB": 79,
+   "totalJSHeapMB": 80
+  }
+ },
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "peakBrowserRssMb": 13299,
+ "rssSamples": [
+  {
+   "t": 2,
+   "mb": 1401
+  },
+  {
+   "t": 12,
+   "mb": 5331
+  },
+  {
+   "t": 22,
+   "mb": 6376
+  },
+  {
+   "t": 32,
+   "mb": 6600
+  },
+  {
+   "t": 42,
+   "mb": 7342
+  },
+  {
+   "t": 52,
+   "mb": 7861
+  },
+  {
+   "t": 62,
+   "mb": 8449
+  },
+  {
+   "t": 72,
+   "mb": 8993
+  },
+  {
+   "t": 82,
+   "mb": 9239
+  },
+  {
+   "t": 92,
+   "mb": 9732
+  },
+  {
+   "t": 102,
+   "mb": 10303
+  },
+  {
+   "t": 112,
+   "mb": 10940
+  },
+  {
+   "t": 122,
+   "mb": 11401
+  },
+  {
+   "t": 132,
+   "mb": 11691
+  },
+  {
+   "t": 142,
+   "mb": 13134
+  },
+  {
+   "t": 152,
+   "mb": 13004
+  },
+  {
+   "t": 162,
+   "mb": 13299
+  },
+  {
+   "t": 172,
+   "mb": 12856
+  },
+  {
+   "t": 182,
+   "mb": 12874
+  },
+  {
+   "t": 192,
+   "mb": 12866
+  },
+  {
+   "t": 202,
+   "mb": 12885
+  },
+  {
+   "t": 212,
+   "mb": 12887
+  },
+  {
+   "t": 222,
+   "mb": 12890
+  },
+  {
+   "t": 232,
+   "mb": 12906
+  },
+  {
+   "t": 242,
+   "mb": 12900
+  },
+  {
+   "t": 252,
+   "mb": 12919
+  },
+  {
+   "t": 262,
+   "mb": 12904
+  },
+  {
+   "t": 272,
+   "mb": 12221
+  },
+  {
+   "t": 282,
+   "mb": 12176
+  },
+  {
+   "t": 292,
+   "mb": 12179
+  },
+  {
+   "t": 302,
+   "mb": 12185
+  }
+ ],
+ "console": [
+  "0.8s log [probe] {\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36\",\"hardwareConcurrency\":4,\"deviceMemory\":16,\"crossOriginIsolated\":true,\"webgpu\":true,\"adapter\":{\"info\":{\"vendor\":\"google\",\"architecture\":\"swiftshader\",\"device\":\"\",\"description\":\"\",\"isFallbackAdapter\":true},\"isFallbackAdapter\":null,\"features\":[\"depth32float-stencil8\",\"rg11b10ufloat-renderable\",\"bgra8unorm-storage\",\"texture-compression-bc\",\"core-features-and-limits\",\"chromium-experimental-sampling-resource-table\",\"chromium-experimental-timestamp-query-inside-passes\",\"float32-filterable\",\"indirect-first-instance\",\"texture-compression-astc-sliced-3d\",\"float32-blendable\",\"subgroup-size-control\",\"texture-compression-unaligned\",\"texture-compression-astc\",\"texture-compression-etc2\",\"depth-clip-control\",\"texture-compression-bc-sliced-3d\",\"timestamp-query\",\"clip-distances\",\"texture-component-swizzle\",\"subgroups\"],\"limits\":{\"maxBufferSize\":1073741824,\"maxStorageBufferBindingSize\":1073741824}}}",
+  "1.0s log [probe] load-wasm-runtime: ok 156 ms",
+  "1.0s log I1110 21:21:41.615000 2446592 engine_advanced_impl.cc:685] Constructing EngineAdvancedImpl from a weight stream...",
+  "1.0s log I1110 21:21:41.616000 2446592 engine_advanced_impl.cc:699] Got data stream. Loading header...",
+  "1.0s log I1110 21:21:41.616000 2446592 engine_advanced_impl.cc:703] Header loaded. Processing sections...",
+  "1.0s warning W1110 21:21:41.616999 2446592 litert_lm_streaming_loader.cc:182] TFLite model type: tf_lite_vision_encoder not found for backend constraints. Skipping.",
+  "1.0s warning W1110 21:21:41.616999 2446592 litert_lm_streaming_loader.cc:202] TFLite model type: tf_lite_vision_encoder not found for prefer activation type. Use system's default backend activation type. System's default activation type for Text decoder is fp16. Vision encoder and audio encoder default is fp32.",
+  "1.0s warning W1110 21:21:41.616999 2446592 litert_lm_streaming_loader.cc:182] TFLite model type: tf_lite_audio_encoder_hw not found for backend constraints. Skipping.",
+  "1.0s warning W1110 21:21:41.616999 2446592 litert_lm_streaming_loader.cc:202] TFLite model type: tf_lite_audio_encoder_hw not found for prefer activation type. Use system's default backend activation type. System's default activation type for Text decoder is fp16. Vision encoder and audio encoder default is fp32.",
+  "1.0s log I1110 21:21:41.616999 2446592 engine_advanced_impl.cc:814] Processing section data type: LlmMetadata",
+  "1.0s log I1110 21:21:41.617999 2446592 engine_advanced_impl.cc:825] LlmMetadataProto processed.",
+  "1.0s log I1110 21:21:41.619000 2446592 engine_advanced_impl.cc:773] Setting engine settings without tokenizer...",
+  "1.0s log I1110 21:21:41.619000 2446592 engine_advanced_impl.cc:789] Engine settings set.",
+  "1.0s log I1110 21:21:41.620000 2446592 engine_advanced_impl.cc:1062] Processing section data type: ExecutorMetadataProto",
+  "1.0s log I1110 21:21:41.620000 2446592 engine_advanced_impl.cc:1074] ExecutorMetadataProto processed.",
+  "1.0s log I1110 21:21:41.620000 2446592 engine_advanced_impl.cc:1020] Processing section data type: HF_Tokenizer_Zlib",
+  "1.6s log I1110 21:21:42.201999 2446592 engine_advanced_impl.cc:1042] HuggingFaceTokenizer created.",
+  "1.6s log I1110 21:21:42.201999 2446592 engine_advanced_impl.cc:752] Setting engine settings...",
+  "1.6s log I1110 21:21:42.203000 2446592 engine_advanced_impl.cc:768] Engine settings set.",
+  "1.6s log I1110 21:21:42.203000 2446592 engine_advanced_impl.cc:864] Processing section data type: TFLiteModel",
+  "1.6s log I1110 21:21:42.203000 2446592 engine_advanced_impl.cc:885] Caching model from stream for type: 1",
+  "2.1s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "2.1s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "2.1s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x277bf0, name=GPU WebGPU",
+  "2.1s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "2.1s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x31ff468, name=CpuAccelerator",
+  "2.1s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "2.3s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "2.3s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "2.3s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x37d4288, name=GPU WebGPU",
+  "2.3s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "2.3s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x37d4580, name=CpuAccelerator",
+  "2.3s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "2.3s log I1110 21:21:42.923000 2446592 engine_advanced_impl.cc:979] Storing TFLiteWeights section stream for model type: 1",
+  "2.3s log I1110 21:21:42.923000 2446592 engine_advanced_impl.cc:999] Compiling main model from stream...",
+  "2.6s error INFO: [compiled_model.cc:981] Flatbuffer model initialized directly from incoming litert model.",
+  "2.8s log I1110 21:21:43.382000 2446592 environment.cc:336] Subgroups Enabled!",
+  "2.8s error INFO: [delegate_webgpu.cc:370] Created a WebGPU environment with emscripten_webgpu_get_device().",
+  "2.8s error INFO: [environment.cc:47] Adding options to the existing LiteRT environment",
+  "2.8s error INFO: [gpu_environment.h:174] Created LiteRT GpuEnvironment.",
+  "... trimmed ...",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485396 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485401 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485402 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485258 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485259 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485283 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485284 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485308 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485309 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485333 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485334 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485358 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485359 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485383 (continuing as weights may be streamed)",
+  "131.5s error WARNING: [shared_memory_manager_webgpu_litert.cc:149] maybe_bind_data: External weight not found for external_buffer_id=2147485384 (continuing as weights may be streamed)",
+  "137.8s log I1110 21:23:58.407000 2446592 delegate_kernel.cc:360] Total 97 external tensors are used for delegate inputs and outputs",
+  "137.8s log I1110 21:23:58.408000 2446592 delegate_kernel.cc:1020] Initializing WebGPU-based API from graph.",
+  "138.1s error INFO: Created TensorFlow Lite XNNPACK delegate for CPU.",
+  "138.2s log I1110 21:23:58.849999 2446592 engine_advanced_impl.cc:1005] Main model compiled.",
+  "138.2s log I1110 21:23:58.849999 2446592 engine_advanced_impl.cc:797] No more sections to process.",
+  "138.3s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "138.3s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "138.3s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x2dca4168, name=GPU WebGPU",
+  "138.3s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "138.3s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x357c28d8, name=CpuAccelerator",
+  "138.3s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "138.3s log [probe] engine-create: ok 137315 ms",
+  "138.3s log [probe] conversation-create: ok 12 ms",
+  "148.4s error WARNING: [gpu_backend_webgpu_litert.cc:221] WaitForCompletion timeout. Retry: 1",
+  "158.4s error WARNING: [gpu_backend_webgpu_litert.cc:221] WaitForCompletion timeout. Retry: 2",
+  "168.4s error WARNING: [gpu_backend_webgpu_litert.cc:221] WaitForCompletion timeout. Retry: 3",
+  "178.4s error WARNING: [gpu_backend_webgpu_litert.cc:221] WaitForCompletion timeout. Retry: 4",
+  "188.4s error WARNING: [gpu_backend_webgpu_litert.cc:221] WaitForCompletion timeout. Retry: 5",
+  "198.4s error WARNING: [gpu_backend_webgpu_litert.cc:221] WaitForCompletion timeout. Retry: 6",
+  "198.5s log I1110 21:24:59.063000 2446592 llm_litert_compiled_model_executor.cc:1852] Sampler will handle decode input tensors.",
+  "303.5s log [probe] first-reply: ok 165254 ms",
+  "309.4s error INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x37d4580, name=CpuAccelerator",
+  "309.4s error INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x37d4288, name=GPU WebGPU",
+  "309.5s log [probe] reply: The capital of France is Paris.",
+  "309.5s log [probe] done"
+ ],
+ "consoleLineCount": 1847
+}

@@ -1,0 +1,91 @@
+{
+ "mode": "cpu",
+ "launchArgs": [
+  "--no-sandbox",
+  "--js-flags=--max-old-space-size=8192"
+ ],
+ "browserVersion": "153.0.8010.12",
+ "wallSeconds": 6,
+ "result": {
+  "backendRequested": "CPU",
+  "modelUrl": "/models/qwen35-2b/Qwen3.5-2B_int8.litertlm",
+  "stages": [
+   {
+    "name": "load-wasm-runtime",
+    "ok": true,
+    "ms": 170
+   },
+   {
+    "name": "engine-create",
+    "ok": false,
+    "ms": 4890,
+    "error": "Error: ERROR: [third_party/odml/litert_lm/runtime/core/engine_advanced_impl.cc:178]\n└ Failed to compile model\n└ ERROR: [third_party/odml/litert/litert/runtime/compiled_model.cc:1194]\n└ Failed to get external weight for buffer id 2147483792 (tensor 231)\n    at methodCaller<(std::string) => emscripten::val> (http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.js:5982:20)\n    at __emval_invoke (http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.js:6038:37)\n    at http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.wasm:wasm-function[911]:0x611f2\n    at http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.wasm:wasm-function[17725]:0x11390d8\n    at http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.wasm:wasm-function[20299]:0x12dc3d1\n    at async Engine.createExclusive (http://127.0.0.1:8731/vendor-nightly/core/dist/engine.js:101:47)\n    at async Mutex.acquireAndRun (http://127.0.0.1:8731/vendor-nightly/core/dist/mutex.js:54:20)\n    at async stage (http://127.0.0.1:8731/compat/probe.js:15:19)\n    at async http://127.0.0.1:8731/compat/probe.js:35:20"
+   }
+  ],
+  "done": true,
+  "env": {
+   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+   "hardwareConcurrency": 4,
+   "deviceMemory": 16,
+   "crossOriginIsolated": true,
+   "webgpu": true,
+   "adapter": null
+  },
+  "source": "url",
+  "error": "Error: ERROR: [third_party/odml/litert_lm/runtime/core/engine_advanced_impl.cc:178]\n└ Failed to compile model\n└ ERROR: [third_party/odml/litert/litert/runtime/compiled_model.cc:1194]\n└ Failed to get external weight for buffer id 2147483792 (tensor 231)\n    at methodCaller<(std::string) => emscripten::val> (http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.js:5982:20)\n    at __emval_invoke (http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.js:6038:37)\n    at http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.wasm:wasm-function[911]:0x611f2\n    at http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.wasm:wasm-function[17725]:0x11390d8\n    at http://127.0.0.1:8731/vendor-nightly/core/wasm/litertlm_wasm_internal.wasm:wasm-function[20299]:0x12dc3d1\n    at async Engine.createExclusive (http://127.0.0.1:8731/vendor-nightly/core/dist/engine.js:101:47)\n    at async Mutex.acquireAndRun (http://127.0.0.1:8731/vendor-nightly/core/dist/mutex.js:54:20)\n    at async stage (http://127.0.0.1:8731/compat/probe.js:15:19)\n    at async http://127.0.0.1:8731/compat/probe.js:35:20"
+ },
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "peakBrowserRssMb": 1414,
+ "rssSamples": [
+  {
+   "t": 2,
+   "mb": 1269
+  }
+ ],
+ "console": [
+  "0.6s warning No available adapters.",
+  "0.6s log [probe] {\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36\",\"hardwareConcurrency\":4,\"deviceMemory\":16,\"crossOriginIsolated\":true,\"webgpu\":true,\"adapter\":null}",
+  "0.7s log [probe] load-wasm-runtime: ok 170 ms",
+  "1.0s log I1110 22:18:57.918000 2443136 engine_advanced_impl.cc:682] Constructing EngineAdvancedImpl from a weight stream...",
+  "1.0s log I1110 22:18:57.920000 2443136 engine_advanced_impl.cc:703] Got data stream. Loading header...",
+  "1.1s log I1110 22:18:57.932000 2443136 engine_advanced_impl.cc:707] Header loaded. Processing sections...",
+  "1.1s warning W1110 22:18:57.932000 2443136 litert_lm_streaming_loader.cc:182] TFLite model type: tf_lite_vision_encoder not found for backend constraints. Skipping.",
+  "1.1s warning W1110 22:18:57.932999 2443136 litert_lm_streaming_loader.cc:202] TFLite model type: tf_lite_vision_encoder not found for prefer activation type. Use system's default backend activation type. System's default activation type for Text decoder is fp16. Vision encoder and audio encoder default is fp32.",
+  "1.1s warning W1110 22:18:57.932999 2443136 litert_lm_streaming_loader.cc:182] TFLite model type: tf_lite_audio_encoder_hw not found for backend constraints. Skipping.",
+  "1.1s warning W1110 22:18:57.932999 2443136 litert_lm_streaming_loader.cc:202] TFLite model type: tf_lite_audio_encoder_hw not found for prefer activation type. Use system's default backend activation type. System's default activation type for Text decoder is fp16. Vision encoder and audio encoder default is fp32.",
+  "1.1s log I1110 22:18:57.932999 2443136 engine_advanced_impl.cc:818] Processing section data type: LlmMetadata",
+  "1.1s log I1110 22:18:57.935000 2443136 engine_advanced_impl.cc:829] LlmMetadataProto processed.",
+  "1.1s log I1110 22:18:57.935000 2443136 engine_advanced_impl.cc:777] Setting engine settings without tokenizer...",
+  "1.1s log I1110 22:18:57.936000 2443136 engine_advanced_impl.cc:793] Engine settings set.",
+  "1.1s log I1110 22:18:57.936999 2443136 engine_advanced_impl.cc:1066] Processing section data type: ExecutorMetadataProto",
+  "1.1s log I1110 22:18:57.936999 2443136 engine_advanced_impl.cc:1078] ExecutorMetadataProto processed.",
+  "1.1s log I1110 22:18:57.936999 2443136 engine_advanced_impl.cc:1024] Processing section data type: HF_Tokenizer_Zlib",
+  "1.9s log I1110 22:18:58.769999 2443136 engine_advanced_impl.cc:1046] HuggingFaceTokenizer created.",
+  "1.9s log I1110 22:18:58.771000 2443136 engine_advanced_impl.cc:756] Setting engine settings...",
+  "1.9s log I1110 22:18:58.771000 2443136 engine_advanced_impl.cc:772] Engine settings set.",
+  "1.9s log I1110 22:18:58.771000 2443136 engine_advanced_impl.cc:868] Processing section data type: TFLiteModel",
+  "1.9s log I1110 22:18:58.772000 2443136 engine_advanced_impl.cc:889] Caching model from stream for type: 1",
+  "3.7s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "3.7s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "3.7s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x27ab58, name=GPU WebGPU",
+  "3.7s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "3.7s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x31fa290, name=CpuAccelerator",
+  "3.7s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "4.2s error INFO: [environment.cc:36] Creating LiteRT environment with options",
+  "4.2s error WARNING: [npu_registry.cc:34] NPU accelerator could not be loaded and registered: kLiteRtStatusErrorNotFound.",
+  "4.2s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x37d3020, name=GPU WebGPU",
+  "4.2s error INFO: [gpu_registry.cc:121] Statically linked GPU accelerator registered.",
+  "4.2s error INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x37d3340, name=CpuAccelerator",
+  "4.2s error INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.",
+  "4.2s log I1110 22:19:01.096999 2443136 engine_advanced_impl.cc:983] Storing TFLiteWeights section stream for model type: 1",
+  "4.2s log I1110 22:19:01.097999 2443136 engine_advanced_impl.cc:1003] Compiling main model from stream...",
+  "5.0s error INFO: [compiled_model.cc:1022] Flatbuffer model initialized directly from incoming litert model.",
+  "5.5s error WARNING: [compiled_model.cc:645] External weight loader: failed to prepare CPU access: kLiteRtStatusErrorRuntimeFailure. Continuing as weights may be provided via other means (e.g. streaming).",
+  "5.6s error INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x37d3340, name=CpuAccelerator",
+  "5.6s error INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x37d3020, name=GPU WebGPU",
+  "5.6s log [probe] engine-create: FAILED Error: ERROR: [third_party/odml/litert_lm/runtime/core/engine_advanced_impl.cc:178]\n└ Failed to compile model\n└ ERROR: [third_party/odml/litert/litert/runtime/compiled_model.cc:1194]\n└ Failed to get external weight for buffer id 2147483792 (tensor 231)",
+  "5.6s log [probe] done"
+ ],
+ "consoleLineCount": 42
+}
