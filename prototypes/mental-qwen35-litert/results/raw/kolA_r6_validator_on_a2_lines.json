@@ -1,0 +1,932 @@
+{
+ "checkout": "/tmp/claude-0/-home-user-attune-more/82df9230-e41e-5364-99e3-5f00b4e79e7d/scratchpad/kol-a-7dcf505",
+ "fixture": "/home/user/attune-more/tests/unit/fixtures/mental_spoken_summary_cases.json",
+ "cases": [
+  {
+   "id": "tr-ok-work",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-ok-family",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-ok-exam",
+   "language": "tr",
+   "content": "correct",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "tr-ok-rent",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "review-D-sen",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-negation-flip",
+   "language": "tr",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "tr-added-facts",
+   "language": "tr",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "review-D-siz",
+   "language": "tr",
+   "content": "wrong-address",
+   "status": "address-mismatch",
+   "accepted": false
+  },
+  {
+   "id": "tr-siz-possessive",
+   "language": "tr",
+   "content": "wrong-address",
+   "status": "address-mismatch",
+   "accepted": false
+  },
+  {
+   "id": "tr-grammar-live",
+   "language": "tr",
+   "content": "grammar",
+   "status": "tr-ablative-required",
+   "accepted": false
+  },
+  {
+   "id": "tr-advice-imperative",
+   "language": "tr",
+   "content": "advice",
+   "status": "advice-or-evaluation",
+   "accepted": false
+  },
+  {
+   "id": "tr-advice-in-form",
+   "language": "tr",
+   "content": "advice",
+   "status": "advice-or-evaluation",
+   "accepted": false
+  },
+  {
+   "id": "tr-evaluation",
+   "language": "tr",
+   "content": "evaluation",
+   "status": "advice-or-evaluation",
+   "accepted": false
+  },
+  {
+   "id": "tr-wrong-language",
+   "language": "tr",
+   "content": "wrong-language",
+   "status": "wrong-language",
+   "accepted": false
+  },
+  {
+   "id": "tr-bridge",
+   "language": "tr",
+   "content": "not-a-recap",
+   "status": "repeats-bridge-phrase",
+   "accepted": false
+  },
+  {
+   "id": "tr-not-recap",
+   "language": "tr",
+   "content": "not-a-recap",
+   "status": "not-recap-form",
+   "accepted": false
+  },
+  {
+   "id": "en-ok-work",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-ok-brother",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-ok-lonely",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-ok-commute",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "review-B",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-one-added-word",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-added-pain",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-negation-flip",
+   "language": "en",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "review-C",
+   "language": "en",
+   "content": "advice",
+   "status": "not-recap-form",
+   "accepted": false
+  },
+  {
+   "id": "en-reassurance",
+   "language": "en",
+   "content": "reassurance",
+   "status": "advice-or-evaluation",
+   "accepted": false
+  },
+  {
+   "id": "en-evaluation",
+   "language": "en",
+   "content": "evaluation",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-two-sentences",
+   "language": "en",
+   "content": "correct",
+   "status": "more-than-one-sentence",
+   "accepted": false
+  },
+  {
+   "id": "en-wrong-language",
+   "language": "en",
+   "content": "wrong-language",
+   "status": "wrong-language",
+   "accepted": false
+  },
+  {
+   "id": "en-ungrounded",
+   "language": "en",
+   "content": "added-fact",
+   "status": "not-grounded-in-user-words",
+   "accepted": false
+  },
+  {
+   "id": "review-A",
+   "language": "de",
+   "content": "wrong-language",
+   "status": "wrong-language",
+   "accepted": false
+  },
+  {
+   "id": "de-ok-work",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-ok-sister",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-ok-lonely",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-ok-perfect",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-negation-flip",
+   "language": "de",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "de-one-added-word",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-added-facts",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-informal",
+   "language": "de",
+   "content": "wrong-address",
+   "status": "address-mismatch",
+   "accepted": false
+  },
+  {
+   "id": "de-advice",
+   "language": "de",
+   "content": "advice",
+   "status": "advice-or-evaluation",
+   "accepted": false
+  },
+  {
+   "id": "de-bridge",
+   "language": "de",
+   "content": "not-a-recap",
+   "status": "repeats-bridge-phrase",
+   "accepted": false
+  },
+  {
+   "id": "de-not-recap",
+   "language": "de",
+   "content": "correct",
+   "status": "not-recap-form",
+   "accepted": false
+  },
+  {
+   "id": "de-separable-verb",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-live-first-person",
+   "language": "tr",
+   "content": "wrong-person",
+   "status": "first-person",
+   "accepted": false
+  },
+  {
+   "id": "tr-negation-flip-plain",
+   "language": "tr",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "tr-negation-kept",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-negation-other-part",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-ok-exam-negation-kept",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-negation-other-part",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-negation-other-part",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-negation-added",
+   "language": "en",
+   "content": "added-fact",
+   "status": "negation-added",
+   "accepted": false
+  },
+  {
+   "id": "en-first-person",
+   "language": "en",
+   "content": "wrong-person",
+   "status": "first-person",
+   "accepted": false
+  },
+  {
+   "id": "de-first-person",
+   "language": "de",
+   "content": "wrong-person",
+   "status": "first-person",
+   "accepted": false
+  },
+  {
+   "id": "tr-first-person-possessive",
+   "language": "tr",
+   "content": "wrong-person",
+   "status": "first-person",
+   "accepted": false
+  },
+  {
+   "id": "tr-m-stem-is-not-first-person",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-paraphrase-refused",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-added-word-inside-part",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-negation-wrong-target",
+   "language": "en",
+   "content": "negation-flip",
+   "status": "negation-moved",
+   "accepted": false
+  },
+  {
+   "id": "de-negation-wrong-target",
+   "language": "de",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "en-negation-out-of-reach",
+   "language": "en",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "tr-role-reversal",
+   "language": "tr",
+   "content": "wrong-person",
+   "status": "role-changed",
+   "accepted": false
+  },
+  {
+   "id": "en-added-possessor",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-added-noun-phrase",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "tr-added-possessor",
+   "language": "tr",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-added-modifier",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-added-in-compound",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-variant-false-ground",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-negation-contrast-kept",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-negation-contrast-swapped",
+   "language": "en",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "de-negation-contrast-kept",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-negation-long-clause-kept",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-negation-without-marker",
+   "language": "en",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "tr-role-kept",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-role-reversal-object",
+   "language": "tr",
+   "content": "wrong-person",
+   "status": "role-changed",
+   "accepted": false
+  },
+  {
+   "id": "en-role-reversal",
+   "language": "en",
+   "content": "wrong-person",
+   "status": "role-changed",
+   "accepted": false
+  },
+  {
+   "id": "de-live-high-pressure",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-live-sleep-problems",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-strong-verb-noun",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-synonym-refused",
+   "language": "de",
+   "content": "correct",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-recent-is-not-negation",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "en-person-modifier-family",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-person-short-part",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-short-noun-part",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-hardly-kept",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-kaum-dropped",
+   "language": "de",
+   "content": "negation-flip",
+   "status": "negation-not-kept",
+   "accepted": false
+  },
+  {
+   "id": "de-short-noun-added",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-short-noun-said",
+   "language": "de",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-person-modifier",
+   "language": "tr",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-irregular-form",
+   "language": "en",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "tr-tired-derivation",
+   "language": "tr",
+   "content": "correct",
+   "status": null,
+   "accepted": true
+  },
+  {
+   "id": "de-inference-refused",
+   "language": "de",
+   "content": "inference",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "en-added-thing-modifier",
+   "language": "en",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "de-added-thing-in-compound",
+   "language": "de",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  },
+  {
+   "id": "tr-added-thing-modifier",
+   "language": "tr",
+   "content": "added-fact",
+   "status": "adds-unsaid-content",
+   "accepted": false
+  }
+ ],
+ "prototypeLines": [
+  {
+   "id": "tr-work",
+   "line": "Baskıdan ve uykudan söz ettin.",
+   "status": null
+  },
+  {
+   "id": "tr-family",
+   "line": "Annemle sık sık tartıştığımızdan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-family",
+   "line": "Annemle sık sık tartıştığımızdan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-exam",
+   "line": "Sınavlara odaklanamamaktan söz ettin.",
+   "status": "negation-moved"
+  },
+  {
+   "id": "tr-exam",
+   "line": "Sınavlara odaklanamamaktan söz ettin.",
+   "status": "negation-moved"
+  },
+  {
+   "id": "tr-negation",
+   "line": "Çok yorulduğundan söz ettin.",
+   "status": null
+  },
+  {
+   "id": "tr-rent",
+   "line": "Bu ay kiramı ödemekten söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-rent",
+   "line": "Bu ay kiramı ödemekten söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-tired",
+   "line": "Yorgunluğundan söz ettin.",
+   "status": null
+  },
+  {
+   "id": "tr-move",
+   "line": "Yeni düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırmaktan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-move",
+   "line": "Yeni düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırmaktan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "en-work",
+   "line": "You talked about having a lot of pressure at work.",
+   "status": "adds-unsaid-content"
+  },
+  {
+   "id": "en-work",
+   "line": "You talked about having a lot of pressure at work.",
+   "status": "adds-unsaid-content"
+  },
+  {
+   "id": "en-brother",
+   "line": "You talked about arguing with your brother and it upsetting you.",
+   "status": null
+  },
+  {
+   "id": "en-lonely",
+   "line": "You talked about feeling lonely after moving to a new city.",
+   "status": null
+  },
+  {
+   "id": "en-negation",
+   "line": "You talked about not worrying about your health and only about your job.",
+   "status": "too-many-words"
+  },
+  {
+   "id": "en-negation",
+   "line": "You talked about not worrying about your health and only about your job.",
+   "status": "too-many-words"
+  },
+  {
+   "id": "en-commute",
+   "line": "You talked about a long commute and feeling tired every evening.",
+   "status": null
+  },
+  {
+   "id": "de-work",
+   "line": "Sie sprachen über Stress bei der Arbeit.",
+   "status": null
+  },
+  {
+   "id": "de-sister",
+   "line": "Sie sprachen über Streit mit der Schwester, der traurig macht.",
+   "status": null
+  },
+  {
+   "id": "de-lonely",
+   "line": "Sie sprachen über Einsamkeit nach dem Umzug.",
+   "status": null
+  },
+  {
+   "id": "de-negation",
+   "line": "Sie sprachen über Angst vor der Prüfung und das Ergebnis.",
+   "status": "negation-not-kept"
+  },
+  {
+   "id": "de-negation",
+   "line": "Sie sprachen über Angst vor der Prüfung.",
+   "status": "negation-not-kept"
+  },
+  {
+   "id": "de-care",
+   "line": "Sie sprachen über die Pflege ihres Vaters.",
+   "status": null
+  },
+  {
+   "id": "de-phone",
+   "line": "Sie sprachen über Prüfungen und das Handy.",
+   "status": null
+  },
+  {
+   "id": "tr-rent-live",
+   "line": "Bu ay kiramı ödemekten söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-rent-live",
+   "line": "Bu ay kiramı ödemekten söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "en-manager",
+   "line": "You talked about not believing your manager will support you.",
+   "status": null
+  },
+  {
+   "id": "tr-mother",
+   "line": "Annem beni hiç dinlemiyor söz ettin.",
+   "status": "tr-ablative-required"
+  },
+  {
+   "id": "tr-mother",
+   "line": "Annem beni hiç dinlemiyor söz ettin.",
+   "status": "tr-ablative-required"
+  },
+  {
+   "id": "tr-school",
+   "line": "Eğitim hayatım yoğunluğundan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-school",
+   "line": "Eğitim hayatım çok yoğunluğundan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "de-move",
+   "line": "Sie sprachen über eine andere Stadt und eine Freundin.",
+   "status": null
+  },
+  {
+   "id": "en-listen",
+   "line": "You talked about your mother never listening to you.",
+   "status": null
+  },
+  {
+   "id": "tr-listen",
+   "line": "Annemi hiç dinlemiyorumdan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "tr-listen",
+   "line": "Annemi hiç dinlemiyorumdan söz ettin.",
+   "status": "first-person"
+  },
+  {
+   "id": "en-sleep-hardly",
+   "line": "You talked about hardly sleeping at night.",
+   "status": null
+  },
+  {
+   "id": "de-tempo",
+   "line": "Sie sprachen über hohe Arbeitszeiten und unterbrochenen Schlaf.",
+   "status": "adds-unsaid-content"
+  },
+  {
+   "id": "de-brother",
+   "line": "Sie sprachen über seltene Gespräche mit ihrem Bruder.",
+   "status": null
+  },
+  {
+   "id": "de-withdraw",
+   "line": "Sie sprachen über Abends zurückziehen.",
+   "status": null
+  },
+  {
+   "id": "en-recent",
+   "line": "You talked about work being intense and feeling tired.",
+   "status": null
+  },
+  {
+   "id": "tr-pressure",
+   "line": "Baskıdan söz ettin.",
+   "status": null
+  },
+  {
+   "id": "de-sleep-hardly",
+   "line": "Sie sprachen über Schlafmangel.",
+   "status": "negation-not-kept"
+  },
+  {
+   "id": "de-sleep-hardly",
+   "line": "Sie sprachen über Schlafmangel.",
+   "status": "negation-not-kept"
+  },
+  {
+   "id": "de-tiring",
+   "line": "Sie sprachen über anstrengende Arbeit.",
+   "status": null
+  },
+  {
+   "id": "de-way",
+   "line": "Sie sprachen über den langen Weg zur Arbeit.",
+   "status": null
+  },
+  {
+   "id": "en-moving-worn",
+   "line": "You talked about moving to another city and how friends make you anxious.",
+   "status": "too-many-words"
+  },
+  {
+   "id": "en-moving-worn",
+   "line": "You talked about moving and friends.",
+   "status": null
+  },
+  {
+   "id": "tr-tired-meetings",
+   "line": "Uyku sorunum yok ama işte çok yoruluyorum.",
+   "status": "not-recap-form"
+  },
+  {
+   "id": "tr-tired-meetings",
+   "line": "Uyku sorunum yok ama işte çok yoruluyorum.",
+   "status": "not-recap-form"
+  },
+  {
+   "id": "de-lonely-friends",
+   "line": "Sie sprachen über Einsamkeit nach dem Umzug und Abende mit Freunden.",
+   "status": null
+  }
+ ],
+ "summary": {
+  "n": 94,
+  "accepted": 32,
+  "falseAccepts": [],
+  "unnecessaryRejects": [
+   "tr-ok-exam",
+   "en-two-sentences",
+   "de-not-recap",
+   "de-synonym-refused"
+  ]
+ }
+}

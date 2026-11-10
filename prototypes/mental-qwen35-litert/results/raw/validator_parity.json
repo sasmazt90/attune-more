@@ -1,0 +1,580 @@
+{
+ "url": "http://127.0.0.1:8731/bench/speech.html?mode=validator",
+ "browser": "153.0.8010.12",
+ "startedAt": "2026-11-10T22:56:53.923Z",
+ "wallSeconds": 4,
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "result": {
+  "mode": "validator",
+  "done": true,
+  "items": [
+   {
+    "id": "tr-ok-work",
+    "status": null,
+    "accepted": true,
+    "ms": 13.6
+   },
+   {
+    "id": "tr-ok-family",
+    "status": null,
+    "accepted": true,
+    "ms": 1.2
+   },
+   {
+    "id": "tr-ok-exam",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.7
+   },
+   {
+    "id": "tr-ok-rent",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "review-D-sen",
+    "status": null,
+    "accepted": true,
+    "ms": 0.2
+   },
+   {
+    "id": "tr-negation-flip",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.4
+   },
+   {
+    "id": "tr-added-facts",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.3
+   },
+   {
+    "id": "review-D-siz",
+    "status": "address-mismatch",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-siz-possessive",
+    "status": "address-mismatch",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-grammar-live",
+    "status": "tr-ablative-required",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "tr-advice-imperative",
+    "status": "advice-or-evaluation",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-advice-in-form",
+    "status": "advice-or-evaluation",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-evaluation",
+    "status": "advice-or-evaluation",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-wrong-language",
+    "status": "wrong-language",
+    "accepted": false,
+    "ms": 0
+   },
+   {
+    "id": "tr-bridge",
+    "status": "repeats-bridge-phrase",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-not-recap",
+    "status": "not-recap-form",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "en-ok-work",
+    "status": null,
+    "accepted": true,
+    "ms": 2.1
+   },
+   {
+    "id": "en-ok-brother",
+    "status": null,
+    "accepted": true,
+    "ms": 0.3
+   },
+   {
+    "id": "en-ok-lonely",
+    "status": null,
+    "accepted": true,
+    "ms": 0.7
+   },
+   {
+    "id": "en-ok-commute",
+    "status": null,
+    "accepted": true,
+    "ms": 0.7
+   },
+   {
+    "id": "review-B",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-one-added-word",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-added-pain",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-negation-flip",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.4
+   },
+   {
+    "id": "review-C",
+    "status": "not-recap-form",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "en-reassurance",
+    "status": "advice-or-evaluation",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "en-evaluation",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-two-sentences",
+    "status": "more-than-one-sentence",
+    "accepted": false,
+    "ms": 0
+   },
+   {
+    "id": "en-wrong-language",
+    "status": "wrong-language",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "en-ungrounded",
+    "status": "not-grounded-in-user-words",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "review-A",
+    "status": "wrong-language",
+    "accepted": false,
+    "ms": 0
+   },
+   {
+    "id": "de-ok-work",
+    "status": null,
+    "accepted": true,
+    "ms": 2.8
+   },
+   {
+    "id": "de-ok-sister",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "de-ok-lonely",
+    "status": null,
+    "accepted": true,
+    "ms": 0.6
+   },
+   {
+    "id": "de-ok-perfect",
+    "status": null,
+    "accepted": true,
+    "ms": 0.5
+   },
+   {
+    "id": "de-negation-flip",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.4
+   },
+   {
+    "id": "de-one-added-word",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 1
+   },
+   {
+    "id": "de-added-facts",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-informal",
+    "status": "address-mismatch",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "de-advice",
+    "status": "advice-or-evaluation",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-bridge",
+    "status": "repeats-bridge-phrase",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "de-not-recap",
+    "status": "not-recap-form",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "de-separable-verb",
+    "status": null,
+    "accepted": true,
+    "ms": 0.6
+   },
+   {
+    "id": "tr-live-first-person",
+    "status": "first-person",
+    "accepted": false,
+    "ms": 0.3
+   },
+   {
+    "id": "tr-negation-flip-plain",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.3
+   },
+   {
+    "id": "tr-negation-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.5
+   },
+   {
+    "id": "tr-negation-other-part",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "tr-ok-exam-negation-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.5
+   },
+   {
+    "id": "en-negation-other-part",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "de-negation-other-part",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "en-negation-added",
+    "status": "negation-added",
+    "accepted": false,
+    "ms": 0.6
+   },
+   {
+    "id": "en-first-person",
+    "status": "first-person",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "de-first-person",
+    "status": "first-person",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "tr-first-person-possessive",
+    "status": "first-person",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "tr-m-stem-is-not-first-person",
+    "status": null,
+    "accepted": true,
+    "ms": 1.1
+   },
+   {
+    "id": "de-paraphrase-refused",
+    "status": null,
+    "accepted": true,
+    "ms": 2.4
+   },
+   {
+    "id": "en-added-word-inside-part",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-negation-wrong-target",
+    "status": "negation-moved",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-negation-wrong-target",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.5
+   },
+   {
+    "id": "en-negation-out-of-reach",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.3
+   },
+   {
+    "id": "tr-role-reversal",
+    "status": "role-changed",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-added-possessor",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-added-noun-phrase",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.4
+   },
+   {
+    "id": "tr-added-possessor",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.4
+   },
+   {
+    "id": "en-added-modifier",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-added-in-compound",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-variant-false-ground",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-negation-contrast-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.3
+   },
+   {
+    "id": "en-negation-contrast-swapped",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-negation-contrast-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.5
+   },
+   {
+    "id": "en-negation-long-clause-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "en-negation-without-marker",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.3
+   },
+   {
+    "id": "tr-role-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.3
+   },
+   {
+    "id": "tr-role-reversal-object",
+    "status": "role-changed",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-role-reversal",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   },
+   {
+    "id": "de-live-high-pressure",
+    "status": null,
+    "accepted": true,
+    "ms": 0.7
+   },
+   {
+    "id": "de-live-sleep-problems",
+    "status": null,
+    "accepted": true,
+    "ms": 0.9
+   },
+   {
+    "id": "de-strong-verb-noun",
+    "status": null,
+    "accepted": true,
+    "ms": 0.6
+   },
+   {
+    "id": "de-synonym-refused",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.5
+   },
+   {
+    "id": "en-recent-is-not-negation",
+    "status": null,
+    "accepted": true,
+    "ms": 0.5
+   },
+   {
+    "id": "en-person-modifier-family",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "en-person-short-part",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.3
+   },
+   {
+    "id": "en-short-noun-part",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.1
+   },
+   {
+    "id": "en-hardly-kept",
+    "status": null,
+    "accepted": true,
+    "ms": 0.7
+   },
+   {
+    "id": "de-kaum-dropped",
+    "status": "negation-not-kept",
+    "accepted": false,
+    "ms": 0.4
+   },
+   {
+    "id": "de-short-noun-added",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.2
+   },
+   {
+    "id": "de-short-noun-said",
+    "status": null,
+    "accepted": true,
+    "ms": 7.5
+   },
+   {
+    "id": "tr-person-modifier",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.8
+   },
+   {
+    "id": "en-irregular-form",
+    "status": null,
+    "accepted": true,
+    "ms": 1.3
+   },
+   {
+    "id": "tr-tired-derivation",
+    "status": null,
+    "accepted": true,
+    "ms": 0.5
+   },
+   {
+    "id": "de-inference-refused",
+    "status": "adds-unsaid-content",
+    "accepted": false,
+    "ms": 0.9
+   },
+   {
+    "id": "en-added-thing-modifier",
+    "status": null,
+    "accepted": true,
+    "ms": 0.6
+   },
+   {
+    "id": "de-added-thing-in-compound",
+    "status": null,
+    "accepted": true,
+    "ms": 0.3
+   },
+   {
+    "id": "tr-added-thing-modifier",
+    "status": null,
+    "accepted": true,
+    "ms": 0.4
+   }
+  ],
+  "loadMs": 2480
+ },
+ "console": []
+}

@@ -1,0 +1,894 @@
+{
+ "platform": "HOST-linux-cpu (not on-device)",
+ "results": [
+  {
+   "id": "tr-work",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "line": {
+    "candidate": "Baskıdan ve uykudan söz ettin.",
+    "status": null,
+    "firstTokenMs": 1401,
+    "modelMs": 2191,
+    "verifier": "NO",
+    "accepted": "Baskıdan ve uykudan söz ettin.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 10973.801732,
+    "lineText": 13168.16144,
+    "verifierDone": 13938.155419,
+    "groupsText": 16289.567116,
+    "done": 16290.56058
+   }
+  },
+  {
+   "id": "tr-family",
+   "language": "tr",
+   "user": [
+    "Annemle sık sık tartışıyoruz, bu beni üzüyor."
+   ],
+   "line": {
+    "candidate": "Annemle sık sık tartıştığımızdan söz ettin.",
+    "status": "first-person",
+    "firstTokenMs": 1208,
+    "modelMs": 2021,
+    "retryCandidate": "Annemle sık sık tartıştığımızdan söz ettin.",
+    "retryStatus": "first-person",
+    "retryMs": 1381,
+    "accepted": null,
+    "finalStatus": "first-person"
+   },
+   "T": {
+    "trigger": 26705.163165,
+    "lineText": 28729.556609,
+    "lineRetryText": 30115.223497,
+    "groupsText": 32388.180823,
+    "done": 32388.539427
+   }
+  },
+  {
+   "id": "tr-exam",
+   "language": "tr",
+   "user": [
+    "Sınavlarım yaklaşıyor ve odaklanamıyorum."
+   ],
+   "line": {
+    "candidate": "Sınavlara odaklanamamaktan söz ettin.",
+    "status": "negation-moved",
+    "firstTokenMs": 1333,
+    "modelMs": 2136,
+    "retryCandidate": "Sınavlara odaklanamamaktan söz ettin.",
+    "retryStatus": "negation-moved",
+    "retryMs": 1263,
+    "accepted": null,
+    "finalStatus": "negation-moved"
+   },
+   "T": {
+    "trigger": 43848.764463,
+    "lineText": 45986.989065,
+    "lineRetryText": 47254.373169,
+    "groupsText": 49603.234353,
+    "done": 49603.306704
+   }
+  },
+  {
+   "id": "tr-negation",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum."
+   ],
+   "line": {
+    "candidate": "Çok yorulduğundan söz ettin.",
+    "status": null,
+    "firstTokenMs": 1262,
+    "modelMs": 1946,
+    "verifier": "NO",
+    "accepted": "Çok yorulduğundan söz ettin.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 61248.051397,
+    "lineText": 63196.396987,
+    "verifierDone": 63825.058242,
+    "groupsText": 66318.903161,
+    "done": 66318.986136
+   }
+  },
+  {
+   "id": "tr-rent",
+   "language": "tr",
+   "user": [
+    "Bu ay kiramı ödemekte zorlanıyorum."
+   ],
+   "line": {
+    "candidate": "Bu ay kiramı ödemekten söz ettin.",
+    "status": "first-person",
+    "firstTokenMs": 1052,
+    "modelMs": 1741,
+    "retryCandidate": "Bu ay kiramı ödemekten söz ettin.",
+    "retryStatus": "first-person",
+    "retryMs": 1262,
+    "accepted": null,
+    "finalStatus": "first-person"
+   },
+   "T": {
+    "trigger": 76510.044611,
+    "lineText": 78253.879969,
+    "lineRetryText": 79519.570187,
+    "groupsText": 81909.322445,
+    "done": 81909.40194
+   }
+  },
+  {
+   "id": "tr-tired",
+   "language": "tr",
+   "user": [
+    "Baskılardan yoruldum."
+   ],
+   "line": {
+    "candidate": "Yorgunluğundan söz ettin.",
+    "status": null,
+    "firstTokenMs": 1496,
+    "modelMs": 2087,
+    "verifier": "NO",
+    "accepted": "Yorgunluğundan söz ettin.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 93328.22379,
+    "lineText": 95417.901547,
+    "verifierDone": 96454.910586,
+    "groupsText": 98745.872756,
+    "done": 98746.149032
+   }
+  },
+  {
+   "id": "tr-move",
+   "language": "tr",
+   "user": [
+    "Yeni bir düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırıyor."
+   ],
+   "line": {
+    "candidate": "Yeni düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırmaktan söz ettin.",
+    "status": "first-person",
+    "firstTokenMs": 1361,
+    "modelMs": 3026,
+    "retryCandidate": "Yeni düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırmaktan söz ettin.",
+    "retryStatus": "first-person",
+    "retryMs": 2523,
+    "accepted": null,
+    "finalStatus": "first-person"
+   },
+   "T": {
+    "trigger": 108437.331244,
+    "lineText": 111467.670198,
+    "lineRetryText": 113995.42429,
+    "groupsText": 116354.536956,
+    "done": 116354.757035
+   }
+  },
+  {
+   "id": "en-work",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "line": {
+    "candidate": "You talked about having a lot of pressure at work.",
+    "status": "adds-unsaid-content",
+    "firstTokenMs": 1595,
+    "modelMs": 2371,
+    "retryCandidate": "You talked about having a lot of pressure at work.",
+    "retryStatus": "adds-unsaid-content",
+    "retryMs": 1395,
+    "accepted": null,
+    "finalStatus": "adds-unsaid-content"
+   },
+   "T": {
+    "trigger": 127422.998514,
+    "lineText": 129796.427041,
+    "lineRetryText": 131197.679434,
+    "groupsText": 133546.42429,
+    "done": 133546.776442
+   }
+  },
+  {
+   "id": "en-brother",
+   "language": "en",
+   "user": [
+    "My brother and I argue a lot and it upsets me."
+   ],
+   "line": {
+    "candidate": "You talked about arguing with your brother and it upsetting you.",
+    "status": null,
+    "firstTokenMs": 1665,
+    "modelMs": 2709,
+    "verifier": "NO",
+    "accepted": "You talked about arguing with your brother and it upsetting you.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 144691.327791,
+    "lineText": 147406.235247,
+    "verifierDone": 148262.154538,
+    "groupsText": 151398.499019,
+    "done": 151398.895832
+   }
+  },
+  {
+   "id": "en-lonely",
+   "language": "en",
+   "user": [
+    "I feel lonely since I moved to a new city."
+   ],
+   "line": {
+    "candidate": "You talked about feeling lonely after moving to a new city.",
+    "status": null,
+    "firstTokenMs": 1220,
+    "modelMs": 1962,
+    "verifier": "NO",
+    "accepted": "You talked about feeling lonely after moving to a new city.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 162287.196465,
+    "lineText": 164252.391175,
+    "verifierDone": 165624.032704,
+    "groupsText": 168746.431843,
+    "done": 168746.503452
+   }
+  },
+  {
+   "id": "en-negation",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "line": {
+    "candidate": "You talked about not worrying about your health and only about your job.",
+    "status": "too-many-words",
+    "firstTokenMs": 1587,
+    "modelMs": 2442,
+    "retryCandidate": "You talked about not worrying about your health and only about your job.",
+    "retryStatus": "too-many-words",
+    "retryMs": 1591,
+    "accepted": null,
+    "finalStatus": "too-many-words"
+   },
+   "T": {
+    "trigger": 180585.928464,
+    "lineText": 183029.953472,
+    "lineRetryText": 184625.214599,
+    "groupsText": 186931.387515,
+    "done": 186931.443101
+   }
+  },
+  {
+   "id": "en-commute",
+   "language": "en",
+   "user": [
+    "My commute is long and I feel tired every evening."
+   ],
+   "line": {
+    "candidate": "You talked about a long commute and feeling tired every evening.",
+    "status": null,
+    "firstTokenMs": 1356,
+    "modelMs": 2104,
+    "verifier": "NO",
+    "accepted": "You talked about a long commute and feeling tired every evening.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 197209.388848,
+    "lineText": 199316.084236,
+    "verifierDone": 200512.364301,
+    "groupsText": 202852.806613,
+    "done": 202852.881018
+   }
+  },
+  {
+   "id": "de-work",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Stress bei der Arbeit.",
+    "status": null,
+    "firstTokenMs": 1187,
+    "modelMs": 1752,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über Stress bei der Arbeit.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 213497.883203,
+    "lineText": 215252.549914,
+    "verifierDone": 216119.103022,
+    "groupsText": 218011.572828,
+    "done": 218011.808485
+   }
+  },
+  {
+   "id": "de-sister",
+   "language": "de",
+   "user": [
+    "Ich streite oft mit meiner Schwester und das macht mich traurig."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Streit mit der Schwester, der traurig macht.",
+    "status": null,
+    "firstTokenMs": 1433,
+    "modelMs": 2412,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über Streit mit der Schwester, der traurig macht.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 228330.814641,
+    "lineText": 230744.944705,
+    "verifierDone": 231775.350879,
+    "groupsText": 234262.042748,
+    "done": 234262.315938
+   }
+  },
+  {
+   "id": "de-lonely",
+   "language": "de",
+   "user": [
+    "Seit dem Umzug fühle ich mich einsam."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Einsamkeit nach dem Umzug.",
+    "status": null,
+    "firstTokenMs": 1261,
+    "modelMs": 2000,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über Einsamkeit nach dem Umzug.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 245048.309985,
+    "lineText": 247051.140276,
+    "verifierDone": 248206.701144,
+    "groupsText": 250481.960143,
+    "done": 250482.0182
+   }
+  },
+  {
+   "id": "de-negation",
+   "language": "de",
+   "user": [
+    "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Angst vor der Prüfung und das Ergebnis.",
+    "status": "negation-not-kept",
+    "firstTokenMs": 1333,
+    "modelMs": 2166,
+    "retryCandidate": "Sie sprachen über Angst vor der Prüfung.",
+    "retryStatus": "negation-not-kept",
+    "retryMs": 1340,
+    "accepted": null,
+    "finalStatus": "negation-not-kept"
+   },
+   "T": {
+    "trigger": 260851.984607,
+    "lineText": 263020.440543,
+    "lineRetryText": 264366.01513,
+    "groupsText": 266874.092897,
+    "done": 266874.151431
+   }
+  },
+  {
+   "id": "de-care",
+   "language": "de",
+   "user": [
+    "Die Pflege meines Vaters kostet mich viel Kraft."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über die Pflege ihres Vaters.",
+    "status": null,
+    "firstTokenMs": 1170,
+    "modelMs": 1850,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über die Pflege ihres Vaters.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 276584.876434,
+    "lineText": 278436.734559,
+    "verifierDone": 279281.113283,
+    "groupsText": 281505.462331,
+    "done": 281505.535142
+   }
+  },
+  {
+   "id": "de-phone",
+   "language": "de",
+   "user": [
+    "Meine Prüfungen stehen bevor und ich kann mich nicht konzentrieren.",
+    "Mein Handy lenkt mich ständig ab."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Prüfungen und das Handy.",
+    "status": null,
+    "firstTokenMs": 1472,
+    "modelMs": 2068,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über Prüfungen und das Handy.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 293388.107754,
+    "lineText": 295459.268405,
+    "verifierDone": 296424.052043,
+    "groupsText": 298865.41815,
+    "done": 298865.574652
+   }
+  },
+  {
+   "id": "tr-rent-live",
+   "language": "tr",
+   "user": [
+    "Bu ay kiramı ödemekte zorlanıyorum.",
+    "Geceleri hesap yapıp duruyorum."
+   ],
+   "line": {
+    "candidate": "Bu ay kiramı ödemekten söz ettin.",
+    "status": "first-person",
+    "firstTokenMs": 1584,
+    "modelMs": 2303,
+    "retryCandidate": "Bu ay kiramı ödemekten söz ettin.",
+    "retryStatus": "first-person",
+    "retryMs": 1302,
+    "accepted": null,
+    "finalStatus": "first-person"
+   },
+   "T": {
+    "trigger": 310583.221835,
+    "lineText": 312889.302548,
+    "lineRetryText": 314195.150516,
+    "groupsText": 316443.366022,
+    "done": 316443.452568
+   }
+  },
+  {
+   "id": "en-manager",
+   "language": "en",
+   "user": [
+    "I do not believe my manager will really support me."
+   ],
+   "line": {
+    "candidate": "You talked about not believing your manager will support you.",
+    "status": null,
+    "firstTokenMs": 1415,
+    "modelMs": 2100,
+    "verifier": "NO",
+    "accepted": "You talked about not believing your manager will support you.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 327523.422193,
+    "lineText": 329626.537006,
+    "verifierDone": 330603.570457,
+    "groupsText": 333912.984658,
+    "done": 333913.05508
+   }
+  },
+  {
+   "id": "tr-mother",
+   "language": "tr",
+   "user": [
+    "Annem beni hiç dinlemiyor."
+   ],
+   "line": {
+    "candidate": "Annem beni hiç dinlemiyor söz ettin.",
+    "status": "tr-ablative-required",
+    "firstTokenMs": 1455,
+    "modelMs": 2259,
+    "retryCandidate": "Annem beni hiç dinlemiyor söz ettin.",
+    "retryStatus": "tr-ablative-required",
+    "retryMs": 1288,
+    "accepted": null,
+    "finalStatus": "tr-ablative-required"
+   },
+   "T": {
+    "trigger": 345734.953975,
+    "lineText": 347997.186972,
+    "lineRetryText": 349294.613511,
+    "groupsText": 352909.43416,
+    "done": 352909.711895
+   }
+  },
+  {
+   "id": "tr-school",
+   "language": "tr",
+   "user": [
+    "Bu dönem eğitim hayatım çok yoğun."
+   ],
+   "line": {
+    "candidate": "Eğitim hayatım yoğunluğundan söz ettin.",
+    "status": "first-person",
+    "firstTokenMs": 1495,
+    "modelMs": 2463,
+    "retryCandidate": "Eğitim hayatım çok yoğunluğundan söz ettin.",
+    "retryStatus": "first-person",
+    "retryMs": 1500,
+    "accepted": null,
+    "finalStatus": "first-person"
+   },
+   "T": {
+    "trigger": 364587.672462,
+    "lineText": 367052.801999,
+    "lineRetryText": 368557.664301,
+    "groupsText": 370394.41564,
+    "done": 370394.464496
+   }
+  },
+  {
+   "id": "de-move",
+   "language": "de",
+   "user": [
+    "Ich ziehe bald in eine andere Stadt.",
+    "Mit einer Freundin zu telefonieren beruhigt mich."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über eine andere Stadt und eine Freundin.",
+    "status": null,
+    "firstTokenMs": 2047,
+    "modelMs": 2771,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über eine andere Stadt und eine Freundin.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 385106.464882,
+    "lineText": 387880.833166,
+    "verifierDone": 389044.802944,
+    "groupsText": 392176.648699,
+    "done": 392176.821
+   }
+  },
+  {
+   "id": "en-listen",
+   "language": "en",
+   "user": [
+    "My mother never listens to me."
+   ],
+   "line": {
+    "candidate": "You talked about your mother never listening to you.",
+    "status": null,
+    "firstTokenMs": 1220,
+    "modelMs": 1860,
+    "verifier": "NO",
+    "accepted": "You talked about your mother never listening to you.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 402470.499509,
+    "lineText": 404332.807093,
+    "verifierDone": 405143.775811,
+    "groupsText": 407285.253855,
+    "done": 407285.317815
+   }
+  },
+  {
+   "id": "tr-listen",
+   "language": "tr",
+   "user": [
+    "Annemi hiç dinlemiyorum."
+   ],
+   "line": {
+    "candidate": "Annemi hiç dinlemiyorumdan söz ettin.",
+    "status": "first-person",
+    "firstTokenMs": 1352,
+    "modelMs": 2176,
+    "retryCandidate": "Annemi hiç dinlemiyorumdan söz ettin.",
+    "retryStatus": "first-person",
+    "retryMs": 1519,
+    "accepted": null,
+    "finalStatus": "first-person"
+   },
+   "T": {
+    "trigger": 418546.375957,
+    "lineText": 420725.767816,
+    "lineRetryText": 422249.957546,
+    "groupsText": 426362.024987,
+    "done": 426362.294137
+   }
+  },
+  {
+   "id": "en-sleep-hardly",
+   "language": "en",
+   "user": [
+    "I hardly sleep at night."
+   ],
+   "line": {
+    "candidate": "You talked about hardly sleeping at night.",
+    "status": null,
+    "firstTokenMs": 1456,
+    "modelMs": 2132,
+    "verifier": "NO",
+    "accepted": "You talked about hardly sleeping at night.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 438029.937291,
+    "lineText": 440164.68704,
+    "verifierDone": 441198.590187,
+    "groupsText": 443951.334269,
+    "done": 443951.415009
+   }
+  },
+  {
+   "id": "de-tempo",
+   "language": "de",
+   "user": [
+    "Bei der Arbeit ist das Tempo seit Wochen sehr hoch und abends kann ich nicht abschalten.",
+    "Ich gehe spät ins Bett und mein Schlaf wird oft unterbrochen."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über hohe Arbeitszeiten und unterbrochenen Schlaf.",
+    "status": null,
+    "firstTokenMs": 1527,
+    "modelMs": 2618,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über hohe Arbeitszeiten und unterbrochenen Schlaf.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 459924.732021,
+    "lineText": 462546.366114,
+    "verifierDone": 463511.02181,
+    "groupsText": 466403.967455,
+    "done": 466404.031085
+   }
+  },
+  {
+   "id": "de-brother",
+   "language": "de",
+   "user": [
+    "Ich spreche selten mit meinem Bruder."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über seltene Gespräche mit ihrem Bruder.",
+    "status": null,
+    "firstTokenMs": 2322,
+    "modelMs": 3953,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über seltene Gespräche mit ihrem Bruder.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 480037.678172,
+    "lineText": 483994.878496,
+    "verifierDone": 485983.845034,
+    "groupsText": 489838.994041,
+    "done": 489839.077218
+   }
+  },
+  {
+   "id": "de-withdraw",
+   "language": "de",
+   "user": [
+    "Abends ziehe ich mich oft zurück."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Abends zurückziehen.",
+    "status": null,
+    "firstTokenMs": 1373,
+    "modelMs": 1921,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über Abends zurückziehen.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 502098.110515,
+    "lineText": 504022.095856,
+    "verifierDone": 505046.483119,
+    "groupsText": 507085.180957,
+    "done": 507085.252016
+   }
+  },
+  {
+   "id": "en-recent",
+   "language": "en",
+   "user": [
+    "Work has been very intense in recent weeks and I feel tired."
+   ],
+   "line": {
+    "candidate": "You talked about work being intense and feeling tired.",
+    "status": null,
+    "firstTokenMs": 1357,
+    "modelMs": 1953,
+    "verifier": "NO",
+    "accepted": "You talked about work being intense and feeling tired.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 518076.805805,
+    "lineText": 520032.832451,
+    "verifierDone": 521222.186449,
+    "groupsText": 523462.699243,
+    "done": 523462.750739
+   }
+  },
+  {
+   "id": "tr-pressure",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var."
+   ],
+   "line": {
+    "candidate": "Baskıdan söz ettin.",
+    "status": null,
+    "firstTokenMs": 1528,
+    "modelMs": 2430,
+    "verifier": "NO",
+    "accepted": "Baskıdan söz ettin.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 533712.146973,
+    "lineText": 536148.243129,
+    "verifierDone": 537871.920114,
+    "groupsText": 542669.849732,
+    "done": 542669.908096
+   }
+  },
+  {
+   "id": "de-sleep-hardly",
+   "language": "de",
+   "user": [
+    "Ich schlafe kaum."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Schlafmangel.",
+    "status": "negation-not-kept",
+    "firstTokenMs": 1031,
+    "modelMs": 1486,
+    "retryCandidate": "Sie sprachen über Schlafmangel.",
+    "retryStatus": "negation-not-kept",
+    "retryMs": 1140,
+    "accepted": null,
+    "finalStatus": "negation-not-kept"
+   },
+   "T": {
+    "trigger": 553611.697591,
+    "lineText": 555100.09732,
+    "lineRetryText": 556244.963055,
+    "groupsText": 559993.115589,
+    "done": 559993.177389
+   }
+  },
+  {
+   "id": "de-tiring",
+   "language": "de",
+   "user": [
+    "Die Arbeit ist anstrengend."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über anstrengende Arbeit.",
+    "status": null,
+    "firstTokenMs": 949,
+    "modelMs": 1484,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über anstrengende Arbeit.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 570350.341186,
+    "lineText": 571836.960017,
+    "verifierDone": 572688.533881,
+    "groupsText": 574750.06521,
+    "done": 574750.129084
+   }
+  },
+  {
+   "id": "de-way",
+   "language": "de",
+   "user": [
+    "Der Weg zur Arbeit ist lang."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über den langen Weg zur Arbeit.",
+    "status": null,
+    "firstTokenMs": 1127,
+    "modelMs": 1758,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über den langen Weg zur Arbeit.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 585110.489105,
+    "lineText": 586872.059753,
+    "verifierDone": 587732.078296,
+    "groupsText": 589785.401227,
+    "done": 589785.473833
+   }
+  },
+  {
+   "id": "en-moving-worn",
+   "language": "en",
+   "user": [
+    "I am moving to another city soon and the change is wearing me out.",
+    "Setting up a new routine and being far from my friends makes me anxious.",
+    "Talking with a friend on the phone calms me down."
+   ],
+   "line": {
+    "candidate": "You talked about moving to another city and how friends make you anxious.",
+    "status": "too-many-words",
+    "firstTokenMs": 1408,
+    "modelMs": 2398,
+    "retryCandidate": "You talked about moving and friends.",
+    "retryStatus": null,
+    "retryMs": 1320,
+    "verifier": "NO",
+    "accepted": "You talked about moving and friends.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 602829.64935,
+    "lineText": 605230.745804,
+    "lineRetryText": 606555.606024,
+    "verifierDone": 607734.348924,
+    "groupsText": 610098.279532,
+    "done": 610098.355266
+   }
+  },
+  {
+   "id": "tr-tired-meetings",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum.",
+    "Öğleden sonra toplantılardan sonra."
+   ],
+   "line": {
+    "candidate": "Uyku sorunum yok ama işte çok yoruluyorum.",
+    "status": "not-recap-form",
+    "firstTokenMs": 1612,
+    "modelMs": 2373,
+    "retryCandidate": "Uyku sorunum yok ama işte çok yoruluyorum.",
+    "retryStatus": "not-recap-form",
+    "retryMs": 1593,
+    "accepted": null,
+    "finalStatus": "not-recap-form"
+   },
+   "T": {
+    "trigger": 622555.533835,
+    "lineText": 624930.962837,
+    "lineRetryText": 626526.976043,
+    "groupsText": 629042.026676,
+    "done": 629042.118678
+   }
+  },
+  {
+   "id": "de-lonely-friends",
+   "language": "de",
+   "user": [
+    "Seit dem Umzug fühle ich mich einsam.",
+    "Die Abende mit meinen Freunden."
+   ],
+   "line": {
+    "candidate": "Sie sprachen über Einsamkeit nach dem Umzug und Abende mit Freunden.",
+    "status": null,
+    "firstTokenMs": 1264,
+    "modelMs": 2348,
+    "verifier": "NO",
+    "accepted": "Sie sprachen über Einsamkeit nach dem Umzug und Abende mit Freunden.",
+    "finalStatus": null
+   },
+   "T": {
+    "trigger": 643606.596085,
+    "lineText": 645958.209849,
+    "verifierDone": 646939.418145,
+    "groupsText": 649114.015769,
+    "done": 649114.104844
+   }
+  }
+ ]
+}

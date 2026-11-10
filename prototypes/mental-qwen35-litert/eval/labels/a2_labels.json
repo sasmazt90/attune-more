@@ -1,0 +1,20 @@
+{
+ "labeller": "prototype author (Claude); content judged against the shared fixture's user words",
+ "definitions": {"correct": "spoken, faithful", "correct-orthography": "spoken, faithful when heard; written 'ihres/ihrem' instead of 'Ihres/Ihrem' (inaudible)", "grammar": "spoken, faithful, ungrammatical",
+  "false-accept": "spoken, adds or changes content", "abstained-correct": "nothing personal spoken; the refused line was wrong", "abstained-conservative": "nothing personal spoken; the refused line was faithful"},
+ "labels": {
+  "tr-work": "correct", "tr-family": "abstained-correct", "tr-exam": "abstained-conservative", "tr-negation": "correct", "tr-rent": "abstained-correct", "tr-tired": "correct",
+  "tr-move": "abstained-correct", "en-work": "abstained-conservative", "en-brother": "correct", "en-lonely": "correct", "en-negation": "abstained-conservative", "en-commute": "correct",
+  "de-work": "correct", "de-sister": "correct", "de-lonely": "correct", "de-negation": "abstained-correct", "de-care": "correct-orthography", "de-phone": "correct",
+  "tr-rent-live": "abstained-correct", "en-manager": "correct", "tr-mother": "abstained-correct", "tr-school": "abstained-correct", "de-move": "correct", "en-listen": "correct",
+  "tr-listen": "abstained-correct", "en-sleep-hardly": "correct", "de-tempo": "false-accept", "de-brother": "correct-orthography", "de-withdraw": "grammar", "en-recent": "correct",
+  "tr-pressure": "correct", "de-sleep-hardly": "abstained-conservative", "de-tiring": "correct", "de-way": "correct", "en-moving-worn": "correct", "tr-tired-meetings": "abstained-correct",
+  "de-lonely-friends": "correct"
+ },
+ "notes": {
+  "de-tempo": "user: 'das Tempo ... sehr hoch'; line: 'hohe Arbeitszeiten' (working hours) — a changed fact. Accepted by the base validator (4b3f596) and by the prototype's verifier; refused by KOL A's round-6 validator at 7dcf505 (adds-unsaid-content), checked read-only.",
+  "de-negation": "the model's lines dropped the user's negation ('keine Angst vor der Prüfung'); the validator refused both attempts — the protection worked.",
+  "tr": "Turkish lines mostly copied the user's first person ('Annemle', 'kiramı', 'hayatım'); the validator refused them and nothing personal was spoken (9 of 13 TR inputs).",
+  "retry": "the single validator-guided retry produced the same refused line in 11 of 13 retries; it rescued 1 line (en-moving-worn)."
+ }
+}

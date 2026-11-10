@@ -1,0 +1,50 @@
+{
+ "platform": "HOST-linux-cpu",
+ "runtime": "litert-lm-api 0.19.1",
+ "noCancel": {
+  "cancelAfterS": null,
+  "replies": [
+   {
+    "msg": "Tell me a long story about a lighthouse.",
+    "text": "In the heart of a jagged, mist-shrouded archipelago known as the Azure Isles, stood the Lighthouse of Whispers. It was not built of steel or glass, but of living coral and ancient driftwood, shaped by the hands of generations of lighthouse keepers who had",
+    "error": null,
+    "s": 4.95
+   },
+   {
+    "msg": "What is the capital of France?",
+    "text": "The capital of France is **Paris**.",
+    "error": null,
+    "s": 0.94
+   },
+   {
+    "msg": "What is 2 plus 2?",
+    "text": "4",
+    "error": null,
+    "s": 0.45
+   }
+  ]
+ },
+ "cancelDuringFirst": {
+  "cancelAfterS": 0.8,
+  "replies": [
+   {
+    "msg": "Tell me a long story about a lighthouse.",
+    "text": "",
+    "error": null,
+    "s": 0.87
+   },
+   {
+    "msg": "What is the capital of France?",
+    "text": "",
+    "error": null,
+    "s": 0.0
+   },
+   {
+    "msg": "What is 2 plus 2?",
+    "text": "",
+    "error": null,
+    "s": 0.0
+   }
+  ]
+ }
+}

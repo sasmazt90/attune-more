@@ -1,0 +1,1602 @@
+{
+ "url": "http://127.0.0.1:8731/bench/speech.html?mode=vad&pauses=400,700,1000,1500&redemption=1100&items=%5B%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22tr-p1%22%2C%20%22a%22%3A%20%22Bu%20hafta%20i%5Cu015fte%20%5Cu00e7ok%20yo%5Cu011fundum%2C%22%2C%20%22b%22%3A%20%22toplant%5Cu0131lar%20hi%5Cu00e7%20bitmedi.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22tr-p2%22%2C%20%22a%22%3A%20%22Annemle%20konu%5Cu015fmadan%20%5Cu00f6nce%22%2C%20%22b%22%3A%20%22biraz%20gerginle%5Cu015fiyorum.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22tr-p3%22%2C%20%22a%22%3A%20%22Eskiden%20panik%20atak%20ya%5Cu015fard%5Cu0131m%2C%22%2C%20%22b%22%3A%20%22art%5Cu0131k%20ya%5Cu015fam%5Cu0131yorum.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22tr-p4%22%2C%20%22a%22%3A%20%22Yeni%20ekibimi%22%2C%20%22b%22%3A%20%22hen%5Cu00fcz%20tan%5Cu0131m%5Cu0131yorum.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22en-p1%22%2C%20%22a%22%3A%20%22This%20week%20was%20very%20busy%20at%20work%2C%22%2C%20%22b%22%3A%20%22the%20meetings%20never%20ended.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22en-p2%22%2C%20%22a%22%3A%20%22I%20get%20tense%22%2C%20%22b%22%3A%20%22before%20I%20talk%20to%20my%20mother.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22en-p3%22%2C%20%22a%22%3A%20%22I%20used%20to%20have%20panic%20attacks%2C%22%2C%20%22b%22%3A%20%22but%20not%20anymore.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22en-p4%22%2C%20%22a%22%3A%20%22I%20do%20not%20know%22%2C%20%22b%22%3A%20%22my%20new%20team%20yet.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22de-p1%22%2C%20%22a%22%3A%20%22Diese%20Woche%20war%20viel%20los%2C%22%2C%20%22b%22%3A%20%22die%20Besprechungen%20h%5Cu00f6rten%20nicht%20auf.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22de-p2%22%2C%20%22a%22%3A%20%22Bevor%20ich%20mit%20meiner%20Mutter%20spreche%2C%22%2C%20%22b%22%3A%20%22werde%20ich%20angespannt.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22de-p3%22%2C%20%22a%22%3A%20%22Fr%5Cu00fcher%20hatte%20ich%20Panikattacken%2C%22%2C%20%22b%22%3A%20%22jetzt%20nicht%20mehr.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22de-p4%22%2C%20%22a%22%3A%20%22Mein%20neues%20Team%22%2C%20%22b%22%3A%20%22kenne%20ich%20noch%20nicht.%22%7D%5D",
+ "browser": "153.0.8010.12",
+ "startedAt": "2026-11-10T23:10:42.807Z",
+ "wallSeconds": 368,
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "result": {
+  "mode": "vad",
+  "done": true,
+  "items": [
+   {
+    "lang": "tr",
+    "id": "tr-p1",
+    "a": "Bu hafta işte çok yoğundum,",
+    "b": "toplantılar hiç bitmedi.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2100,
+    "bStartMs": 2500,
+    "speechEndMs": 4229,
+    "events": [
+     {
+      "type": "start",
+      "t": 4.32,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 9.152,
+      "samples": 82432,
+      "rel": 5240
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 1011
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p1",
+    "a": "Bu hafta işte çok yoğundum,",
+    "b": "toplantılar hiç bitmedi.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2100,
+    "bStartMs": 2800,
+    "speechEndMs": 4529,
+    "events": [
+     {
+      "type": "start",
+      "t": 11.496,
+      "rel": 384
+     },
+     {
+      "type": "end",
+      "t": 16.64,
+      "samples": 87552,
+      "rel": 5528
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 999
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p1",
+    "a": "Bu hafta işte çok yoğundum,",
+    "b": "toplantılar hiç bitmedi.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2100,
+    "bStartMs": 3100,
+    "speechEndMs": 4829,
+    "events": [
+     {
+      "type": "start",
+      "t": 19.032,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 21.72,
+      "samples": 48128,
+      "rel": 3096
+     },
+     {
+      "type": "start",
+      "t": 21.816,
+      "rel": 3192
+     },
+     {
+      "type": "end",
+      "t": 24.472,
+      "samples": 44032,
+      "rel": 5848
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 1019
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p1",
+    "a": "Bu hafta işte çok yoğundum,",
+    "b": "toplantılar hiç bitmedi.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2100,
+    "bStartMs": 3600,
+    "speechEndMs": 5329,
+    "events": [
+     {
+      "type": "start",
+      "t": 26.792,
+      "rel": 376
+     },
+     {
+      "type": "end",
+      "t": 29.512,
+      "samples": 48640,
+      "rel": 3096
+     },
+     {
+      "type": "start",
+      "t": 30.12,
+      "rel": 3704
+     },
+     {
+      "type": "end",
+      "t": 32.744,
+      "samples": 47104,
+      "rel": 6328
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 999
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p2",
+    "a": "Annemle konuşmadan önce",
+    "b": "biraz gerginleşiyorum.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2041,
+    "bStartMs": 2441,
+    "speechEndMs": 3986,
+    "events": [
+     {
+      "type": "start",
+      "t": 35.64,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 40.152,
+      "samples": 77312,
+      "rel": 4920
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 934
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p2",
+    "a": "Annemle konuşmadan önce",
+    "b": "biraz gerginleşiyorum.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2041,
+    "bStartMs": 2741,
+    "speechEndMs": 4286,
+    "events": [
+     {
+      "type": "start",
+      "t": 42.584,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 47.384,
+      "samples": 81920,
+      "rel": 5208
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 922
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p2",
+    "a": "Annemle konuşmadan önce",
+    "b": "biraz gerginleşiyorum.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2041,
+    "bStartMs": 3041,
+    "speechEndMs": 4586,
+    "events": [
+     {
+      "type": "start",
+      "t": 49.84,
+      "rel": 400
+     },
+     {
+      "type": "end",
+      "t": 52.536,
+      "samples": 48128,
+      "rel": 3096
+     },
+     {
+      "type": "start",
+      "t": 52.592,
+      "rel": 3152
+     },
+     {
+      "type": "end",
+      "t": 54.96,
+      "samples": 38912,
+      "rel": 5520
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -1490
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p2",
+    "a": "Annemle konuşmadan önce",
+    "b": "biraz gerginleşiyorum.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2041,
+    "bStartMs": 3541,
+    "speechEndMs": 5086,
+    "events": [
+     {
+      "type": "start",
+      "t": 57.4,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 60.096,
+      "samples": 48128,
+      "rel": 3104
+     },
+     {
+      "type": "start",
+      "t": 60.664,
+      "rel": 3672
+     },
+     {
+      "type": "end",
+      "t": 63,
+      "samples": 42496,
+      "rel": 6008
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 922
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p3",
+    "a": "Eskiden panik atak yaşardım,",
+    "b": "artık yaşamıyorum.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2448,
+    "bStartMs": 2848,
+    "speechEndMs": 4253,
+    "events": [
+     {
+      "type": "start",
+      "t": 66.024,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 70.824,
+      "samples": 81920,
+      "rel": 5208
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 955
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p3",
+    "a": "Eskiden panik atak yaşardım,",
+    "b": "artık yaşamıyorum.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2448,
+    "bStartMs": 3148,
+    "speechEndMs": 4553,
+    "events": [
+     {
+      "type": "start",
+      "t": 73.232,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 78.352,
+      "samples": 87040,
+      "rel": 5528
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 975
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p3",
+    "a": "Eskiden panik atak yaşardım,",
+    "b": "artık yaşamıyorum.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2448,
+    "bStartMs": 3448,
+    "speechEndMs": 4853,
+    "events": [
+     {
+      "type": "start",
+      "t": 80.736,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 83.672,
+      "samples": 52224,
+      "rel": 3352
+     },
+     {
+      "type": "start",
+      "t": 83.864,
+      "rel": 3544
+     },
+     {
+      "type": "end",
+      "t": 86.136,
+      "samples": 39424,
+      "rel": 5816
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 963
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p3",
+    "a": "Eskiden panik atak yaşardım,",
+    "b": "artık yaşamıyorum.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2448,
+    "bStartMs": 3948,
+    "speechEndMs": 5353,
+    "events": [
+     {
+      "type": "start",
+      "t": 88.552,
+      "rel": 400
+     },
+     {
+      "type": "end",
+      "t": 91.496,
+      "samples": 52224,
+      "rel": 3344
+     },
+     {
+      "type": "start",
+      "t": 92.2,
+      "rel": 4048
+     },
+     {
+      "type": "end",
+      "t": 94.472,
+      "samples": 41472,
+      "rel": 6320
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 967
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p4",
+    "a": "Yeni ekibimi",
+    "b": "henüz tanımıyorum.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 1252,
+    "bStartMs": 1652,
+    "speechEndMs": 2825,
+    "events": [
+     {
+      "type": "start",
+      "t": 97.296,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 100.68,
+      "samples": 59392,
+      "rel": 3800
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 975
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p4",
+    "a": "Yeni ekibimi",
+    "b": "henüz tanımıyorum.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 1252,
+    "bStartMs": 1952,
+    "speechEndMs": 3125,
+    "events": [
+     {
+      "type": "start",
+      "t": 103.08,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 106.76,
+      "samples": 64000,
+      "rel": 4088
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 963
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p4",
+    "a": "Yeni ekibimi",
+    "b": "henüz tanımıyorum.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 1252,
+    "bStartMs": 2252,
+    "speechEndMs": 3425,
+    "events": [
+     {
+      "type": "start",
+      "t": 109.16,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 111.112,
+      "samples": 36352,
+      "rel": 2360
+     },
+     {
+      "type": "start",
+      "t": 111.144,
+      "rel": 2392
+     },
+     {
+      "type": "end",
+      "t": 113.16,
+      "samples": 32768,
+      "rel": 4408
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -1065
+   },
+   {
+    "lang": "tr",
+    "id": "tr-p4",
+    "a": "Yeni ekibimi",
+    "b": "henüz tanımıyorum.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 1252,
+    "bStartMs": 2752,
+    "speechEndMs": 3925,
+    "events": [
+     {
+      "type": "start",
+      "t": 115.552,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 117.472,
+      "samples": 35840,
+      "rel": 2328
+     },
+     {
+      "type": "start",
+      "t": 118.016,
+      "rel": 2872
+     },
+     {
+      "type": "end",
+      "t": 120.032,
+      "samples": 37376,
+      "rel": 4888
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 963
+   },
+   {
+    "lang": "en",
+    "id": "en-p1",
+    "a": "This week was very busy at work,",
+    "b": "the meetings never ended.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2587,
+    "bStartMs": 2987,
+    "speechEndMs": 4438,
+    "events": [
+     {
+      "type": "start",
+      "t": 124.96,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 130.016,
+      "samples": 86016,
+      "rel": 5464
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 1026
+   },
+   {
+    "lang": "en",
+    "id": "en-p1",
+    "a": "This week was very busy at work,",
+    "b": "the meetings never ended.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2587,
+    "bStartMs": 3287,
+    "speechEndMs": 4738,
+    "events": [
+     {
+      "type": "start",
+      "t": 132.36,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 137.704,
+      "samples": 90624,
+      "rel": 5752
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 1014
+   },
+   {
+    "lang": "en",
+    "id": "en-p1",
+    "a": "This week was very busy at work,",
+    "b": "the meetings never ended.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2587,
+    "bStartMs": 3587,
+    "speechEndMs": 5038,
+    "events": [
+     {
+      "type": "start",
+      "t": 140.056,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 143.28,
+      "samples": 56832,
+      "rel": 3640
+     },
+     {
+      "type": "start",
+      "t": 143.344,
+      "rel": 3704
+     },
+     {
+      "type": "end",
+      "t": 145.712,
+      "samples": 38912,
+      "rel": 6072
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -1398
+   },
+   {
+    "lang": "en",
+    "id": "en-p1",
+    "a": "This week was very busy at work,",
+    "b": "the meetings never ended.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2587,
+    "bStartMs": 4087,
+    "speechEndMs": 5538,
+    "events": [
+     {
+      "type": "start",
+      "t": 148.056,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 151.256,
+      "samples": 56320,
+      "rel": 3616
+     },
+     {
+      "type": "start",
+      "t": 151.856,
+      "rel": 4216
+     },
+     {
+      "type": "end",
+      "t": 154.192,
+      "samples": 42496,
+      "rel": 6552
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 1014
+   },
+   {
+    "lang": "en",
+    "id": "en-p2",
+    "a": "I get tense",
+    "b": "before I talk to my mother.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 1461,
+    "bStartMs": 1861,
+    "speechEndMs": 3452,
+    "events": [
+     {
+      "type": "start",
+      "t": 157.032,
+      "rel": 440
+     },
+     {
+      "type": "end",
+      "t": 161,
+      "samples": 68608,
+      "rel": 4408
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 956
+   },
+   {
+    "lang": "en",
+    "id": "en-p2",
+    "a": "I get tense",
+    "b": "before I talk to my mother.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 1461,
+    "bStartMs": 2161,
+    "speechEndMs": 3752,
+    "events": [
+     {
+      "type": "start",
+      "t": 163.4,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 167.696,
+      "samples": 73728,
+      "rel": 4704
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 952
+   },
+   {
+    "lang": "en",
+    "id": "en-p2",
+    "a": "I get tense",
+    "b": "before I talk to my mother.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 1461,
+    "bStartMs": 2461,
+    "speechEndMs": 4052,
+    "events": [
+     {
+      "type": "start",
+      "t": 170.152,
+      "rel": 440
+     },
+     {
+      "type": "end",
+      "t": 172.136,
+      "samples": 36864,
+      "rel": 2424
+     },
+     {
+      "type": "start",
+      "t": 172.264,
+      "rel": 2552
+     },
+     {
+      "type": "end",
+      "t": 174.736,
+      "samples": 41472,
+      "rel": 5024
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 972
+   },
+   {
+    "lang": "en",
+    "id": "en-p2",
+    "a": "I get tense",
+    "b": "before I talk to my mother.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 1461,
+    "bStartMs": 2961,
+    "speechEndMs": 4552,
+    "events": [
+     {
+      "type": "start",
+      "t": 177.152,
+      "rel": 432
+     },
+     {
+      "type": "end",
+      "t": 179.136,
+      "samples": 36864,
+      "rel": 2416
+     },
+     {
+      "type": "start",
+      "t": 179.776,
+      "rel": 3056
+     },
+     {
+      "type": "end",
+      "t": 182.24,
+      "samples": 44544,
+      "rel": 5520
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 968
+   },
+   {
+    "lang": "en",
+    "id": "en-p3",
+    "a": "I used to have panic attacks,",
+    "b": "but not anymore.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2088,
+    "bStartMs": 2488,
+    "speechEndMs": 3591,
+    "events": [
+     {
+      "type": "start",
+      "t": 185.152,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 189.376,
+      "samples": 72704,
+      "rel": 4632
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 1041
+   },
+   {
+    "lang": "en",
+    "id": "en-p3",
+    "a": "I used to have panic attacks,",
+    "b": "but not anymore.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2088,
+    "bStartMs": 2788,
+    "speechEndMs": 3891,
+    "events": [
+     {
+      "type": "start",
+      "t": 191.712,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 196.224,
+      "samples": 77312,
+      "rel": 4920
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 1029
+   },
+   {
+    "lang": "en",
+    "id": "en-p3",
+    "a": "I used to have panic attacks,",
+    "b": "but not anymore.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2088,
+    "bStartMs": 3088,
+    "speechEndMs": 4191,
+    "events": [
+     {
+      "type": "start",
+      "t": 198.56,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 201.216,
+      "samples": 47616,
+      "rel": 3064
+     },
+     {
+      "type": "start",
+      "t": 201.344,
+      "rel": 3192
+     },
+     {
+      "type": "end",
+      "t": 203.392,
+      "samples": 34816,
+      "rel": 5240
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 1049
+   },
+   {
+    "lang": "en",
+    "id": "en-p3",
+    "a": "I used to have panic attacks,",
+    "b": "but not anymore.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2088,
+    "bStartMs": 3588,
+    "speechEndMs": 4691,
+    "events": [
+     {
+      "type": "start",
+      "t": 205.712,
+      "rel": 408
+     },
+     {
+      "type": "end",
+      "t": 208.336,
+      "samples": 47104,
+      "rel": 3032
+     },
+     {
+      "type": "start",
+      "t": 209.016,
+      "rel": 3712
+     },
+     {
+      "type": "end",
+      "t": 211.024,
+      "samples": 37376,
+      "rel": 5720
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 1029
+   },
+   {
+    "lang": "en",
+    "id": "en-p4",
+    "a": "I do not know",
+    "b": "my new team yet.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 1264,
+    "bStartMs": 1664,
+    "speechEndMs": 3045,
+    "events": [
+     {
+      "type": "start",
+      "t": 213.776,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 217.416,
+      "samples": 63488,
+      "rel": 4056
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 1011
+   },
+   {
+    "lang": "en",
+    "id": "en-p4",
+    "a": "I do not know",
+    "b": "my new team yet.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 1264,
+    "bStartMs": 1964,
+    "speechEndMs": 3345,
+    "events": [
+     {
+      "type": "start",
+      "t": 219.776,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 223.704,
+      "samples": 68096,
+      "rel": 4344
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 999
+   },
+   {
+    "lang": "en",
+    "id": "en-p4",
+    "a": "I do not know",
+    "b": "my new team yet.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 1264,
+    "bStartMs": 2264,
+    "speechEndMs": 3645,
+    "events": [
+     {
+      "type": "start",
+      "t": 226.096,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 227.912,
+      "samples": 34304,
+      "rel": 2232
+     },
+     {
+      "type": "start",
+      "t": 228.04,
+      "rel": 2360
+     },
+     {
+      "type": "end",
+      "t": 230.312,
+      "samples": 38400,
+      "rel": 4632
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 987
+   },
+   {
+    "lang": "en",
+    "id": "en-p4",
+    "a": "I do not know",
+    "b": "my new team yet.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 1264,
+    "bStartMs": 2764,
+    "speechEndMs": 4145,
+    "events": [
+     {
+      "type": "start",
+      "t": 232.696,
+      "rel": 416
+     },
+     {
+      "type": "end",
+      "t": 234.512,
+      "samples": 34304,
+      "rel": 2232
+     },
+     {
+      "type": "start",
+      "t": 235.152,
+      "rel": 2872
+     },
+     {
+      "type": "end",
+      "t": 237.424,
+      "samples": 41472,
+      "rel": 5144
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 999
+   },
+   {
+    "lang": "de",
+    "id": "de-p1",
+    "a": "Diese Woche war viel los,",
+    "b": "die Besprechungen hörten nicht auf.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2274,
+    "bStartMs": 2674,
+    "speechEndMs": 4961,
+    "events": [
+     {
+      "type": "start",
+      "t": 242.024,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 247.24,
+      "samples": 88576,
+      "rel": 5816
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 855
+   },
+   {
+    "lang": "de",
+    "id": "de-p1",
+    "a": "Diese Woche war viel los,",
+    "b": "die Besprechungen hörten nicht auf.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2274,
+    "bStartMs": 2974,
+    "speechEndMs": 5261,
+    "events": [
+     {
+      "type": "start",
+      "t": 249.936,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 252.432,
+      "samples": 45056,
+      "rel": 3096
+     },
+     {
+      "type": "start",
+      "t": 252.592,
+      "rel": 3256
+     },
+     {
+      "type": "end",
+      "t": 255.44,
+      "samples": 48128,
+      "rel": 6104
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -2165
+   },
+   {
+    "lang": "de",
+    "id": "de-p1",
+    "a": "Diese Woche war viel los,",
+    "b": "die Besprechungen hörten nicht auf.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2274,
+    "bStartMs": 3274,
+    "speechEndMs": 5561,
+    "events": [
+     {
+      "type": "start",
+      "t": 258.136,
+      "rel": 576
+     },
+     {
+      "type": "end",
+      "t": 260.656,
+      "samples": 45568,
+      "rel": 3096
+     },
+     {
+      "type": "start",
+      "t": 261.104,
+      "rel": 3544
+     },
+     {
+      "type": "end",
+      "t": 263.952,
+      "samples": 50688,
+      "rel": 6392
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 831
+   },
+   {
+    "lang": "de",
+    "id": "de-p1",
+    "a": "Diese Woche war viel los,",
+    "b": "die Besprechungen hörten nicht auf.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2274,
+    "bStartMs": 3774,
+    "speechEndMs": 6061,
+    "events": [
+     {
+      "type": "start",
+      "t": 266.672,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 269.176,
+      "samples": 45056,
+      "rel": 3104
+     },
+     {
+      "type": "start",
+      "t": 270.136,
+      "rel": 4064
+     },
+     {
+      "type": "end",
+      "t": 272.976,
+      "samples": 50688,
+      "rel": 6904
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 843
+   },
+   {
+    "lang": "de",
+    "id": "de-p2",
+    "a": "Bevor ich mit meiner Mutter spreche,",
+    "b": "werde ich angespannt.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2506,
+    "bStartMs": 2906,
+    "speechEndMs": 4427,
+    "events": [
+     {
+      "type": "start",
+      "t": 276.232,
+      "rel": 568
+     },
+     {
+      "type": "end",
+      "t": 280.936,
+      "samples": 80384,
+      "rel": 5272
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 845
+   },
+   {
+    "lang": "de",
+    "id": "de-p2",
+    "a": "Bevor ich mit meiner Mutter spreche,",
+    "b": "werde ich angespannt.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2506,
+    "bStartMs": 3206,
+    "speechEndMs": 4727,
+    "events": [
+     {
+      "type": "start",
+      "t": 283.624,
+      "rel": 568
+     },
+     {
+      "type": "end",
+      "t": 286.376,
+      "samples": 49152,
+      "rel": 3320
+     },
+     {
+      "type": "start",
+      "t": 286.536,
+      "rel": 3480
+     },
+     {
+      "type": "end",
+      "t": 288.656,
+      "samples": 36352,
+      "rel": 5600
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -1407
+   },
+   {
+    "lang": "de",
+    "id": "de-p2",
+    "a": "Bevor ich mit meiner Mutter spreche,",
+    "b": "werde ich angespannt.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2506,
+    "bStartMs": 3506,
+    "speechEndMs": 5027,
+    "events": [
+     {
+      "type": "start",
+      "t": 291.336,
+      "rel": 584
+     },
+     {
+      "type": "end",
+      "t": 294.08,
+      "samples": 49152,
+      "rel": 3328
+     },
+     {
+      "type": "start",
+      "t": 294.536,
+      "rel": 3784
+     },
+     {
+      "type": "end",
+      "t": 296.64,
+      "samples": 38912,
+      "rel": 5888
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 861
+   },
+   {
+    "lang": "de",
+    "id": "de-p2",
+    "a": "Bevor ich mit meiner Mutter spreche,",
+    "b": "werde ich angespannt.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2506,
+    "bStartMs": 4006,
+    "speechEndMs": 5527,
+    "events": [
+     {
+      "type": "start",
+      "t": 299.32,
+      "rel": 568
+     },
+     {
+      "type": "end",
+      "t": 302.072,
+      "samples": 49152,
+      "rel": 3320
+     },
+     {
+      "type": "start",
+      "t": 303.032,
+      "rel": 4280
+     },
+     {
+      "type": "end",
+      "t": 305.144,
+      "samples": 38912,
+      "rel": 6392
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 865
+   },
+   {
+    "lang": "de",
+    "id": "de-p3",
+    "a": "Früher hatte ich Panikattacken,",
+    "b": "jetzt nicht mehr.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 2320,
+    "bStartMs": 2720,
+    "speechEndMs": 4032,
+    "events": [
+     {
+      "type": "start",
+      "t": 308.456,
+      "rel": 640
+     },
+     {
+      "type": "end",
+      "t": 312.672,
+      "samples": 72704,
+      "rel": 4856
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 824
+   },
+   {
+    "lang": "de",
+    "id": "de-p3",
+    "a": "Früher hatte ich Panikattacken,",
+    "b": "jetzt nicht mehr.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 2320,
+    "bStartMs": 3020,
+    "speechEndMs": 4332,
+    "events": [
+     {
+      "type": "start",
+      "t": 315.432,
+      "rel": 632
+     },
+     {
+      "type": "end",
+      "t": 317.96,
+      "samples": 45568,
+      "rel": 3160
+     },
+     {
+      "type": "start",
+      "t": 318.152,
+      "rel": 3352
+     },
+     {
+      "type": "end",
+      "t": 319.944,
+      "samples": 31744,
+      "rel": 5144
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -1172
+   },
+   {
+    "lang": "de",
+    "id": "de-p3",
+    "a": "Früher hatte ich Panikattacken,",
+    "b": "jetzt nicht mehr.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 2320,
+    "bStartMs": 3320,
+    "speechEndMs": 4632,
+    "events": [
+     {
+      "type": "start",
+      "t": 322.744,
+      "rel": 632
+     },
+     {
+      "type": "end",
+      "t": 325.272,
+      "samples": 45568,
+      "rel": 3160
+     },
+     {
+      "type": "start",
+      "t": 325.752,
+      "rel": 3640
+     },
+     {
+      "type": "end",
+      "t": 327.576,
+      "samples": 34304,
+      "rel": 5464
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 832
+   },
+   {
+    "lang": "de",
+    "id": "de-p3",
+    "a": "Früher hatte ich Panikattacken,",
+    "b": "jetzt nicht mehr.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 2320,
+    "bStartMs": 3820,
+    "speechEndMs": 5132,
+    "events": [
+     {
+      "type": "start",
+      "t": 330.344,
+      "rel": 632
+     },
+     {
+      "type": "end",
+      "t": 332.872,
+      "samples": 45568,
+      "rel": 3160
+     },
+     {
+      "type": "start",
+      "t": 333.896,
+      "rel": 4184
+     },
+     {
+      "type": "end",
+      "t": 335.696,
+      "samples": 33792,
+      "rel": 5984
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 852
+   },
+   {
+    "lang": "de",
+    "id": "de-p4",
+    "a": "Mein neues Team",
+    "b": "kenne ich noch nicht.",
+    "pauseMs": 400,
+    "redemptionMs": 1100,
+    "aEndMs": 1751,
+    "bStartMs": 2151,
+    "speechEndMs": 3672,
+    "events": [
+     {
+      "type": "start",
+      "t": 338.912,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 342.816,
+      "samples": 67584,
+      "rel": 4504
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": 832
+   },
+   {
+    "lang": "de",
+    "id": "de-p4",
+    "a": "Mein neues Team",
+    "b": "kenne ich noch nicht.",
+    "pauseMs": 700,
+    "redemptionMs": 1100,
+    "aEndMs": 1751,
+    "bStartMs": 2451,
+    "speechEndMs": 3972,
+    "events": [
+     {
+      "type": "start",
+      "t": 345.544,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 347.56,
+      "samples": 37376,
+      "rel": 2616
+     },
+     {
+      "type": "start",
+      "t": 347.72,
+      "rel": 2776
+     },
+     {
+      "type": "end",
+      "t": 349.776,
+      "samples": 35328,
+      "rel": 4832
+     }
+    ],
+    "cutInsidePause": false,
+    "endDetectedAfterSpeechEndMs": -1356
+   },
+   {
+    "lang": "de",
+    "id": "de-p4",
+    "a": "Mein neues Team",
+    "b": "kenne ich noch nicht.",
+    "pauseMs": 1000,
+    "redemptionMs": 1100,
+    "aEndMs": 1751,
+    "bStartMs": 2751,
+    "speechEndMs": 4272,
+    "events": [
+     {
+      "type": "start",
+      "t": 352.472,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 354.496,
+      "samples": 37376,
+      "rel": 2624
+     },
+     {
+      "type": "start",
+      "t": 354.936,
+      "rel": 3064
+     },
+     {
+      "type": "end",
+      "t": 356.984,
+      "samples": 37888,
+      "rel": 5112
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 840
+   },
+   {
+    "lang": "de",
+    "id": "de-p4",
+    "a": "Mein neues Team",
+    "b": "kenne ich noch nicht.",
+    "pauseMs": 1500,
+    "redemptionMs": 1100,
+    "aEndMs": 1751,
+    "bStartMs": 3251,
+    "speechEndMs": 4772,
+    "events": [
+     {
+      "type": "start",
+      "t": 359.704,
+      "rel": 600
+     },
+     {
+      "type": "end",
+      "t": 361.752,
+      "samples": 37888,
+      "rel": 2648
+     },
+     {
+      "type": "start",
+      "t": 362.712,
+      "rel": 3608
+     },
+     {
+      "type": "end",
+      "t": 364.736,
+      "samples": 37376,
+      "rel": 5632
+     }
+    ],
+    "cutInsidePause": true,
+    "endDetectedAfterSpeechEndMs": 860
+   }
+  ]
+ },
+ "console": [
+  "339.6s log VAD | debug > Detected real speech start",
+  "345.2s log VAD | debug > destroy called",
+  "345.2s log [bench] de-p4 pause 400: cut=false endDelay=832",
+  "345.2s log VAD | debug > Loading VAD...",
+  "345.2s log VAD | debug > ...finished loading VAD",
+  "345.2s log VAD | debug > initializing micVAD",
+  "345.2s log using custom audio context",
+  "345.2s log VAD | debug > started micVAD",
+  "346.2s log VAD | debug > Detected real speech start",
+  "348.4s log VAD | debug > Detected real speech start",
+  "352.1s log VAD | debug > destroy called",
+  "352.1s log [bench] de-p4 pause 700: cut=false endDelay=-1356",
+  "352.1s log VAD | debug > Loading VAD...",
+  "352.2s log VAD | debug > ...finished loading VAD",
+  "352.2s log VAD | debug > initializing micVAD",
+  "352.2s log using custom audio context",
+  "352.2s log VAD | debug > started micVAD",
+  "353.2s log VAD | debug > Detected real speech start",
+  "355.6s log VAD | debug > Detected real speech start",
+  "359.3s log VAD | debug > destroy called",
+  "359.3s log [bench] de-p4 pause 1000: cut=true endDelay=840",
+  "359.3s log VAD | debug > Loading VAD...",
+  "359.4s log VAD | debug > ...finished loading VAD",
+  "359.4s log VAD | debug > initializing micVAD",
+  "359.4s log using custom audio context",
+  "359.4s log VAD | debug > started micVAD",
+  "360.4s log VAD | debug > Detected real speech start",
+  "363.4s log VAD | debug > Detected real speech start",
+  "367.1s log VAD | debug > destroy called",
+  "367.1s log [bench] de-p4 pause 1500: cut=true endDelay=860"
+ ]
+}

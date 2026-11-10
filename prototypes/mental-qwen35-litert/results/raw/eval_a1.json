@@ -1,0 +1,1707 @@
+{
+ "platform": "HOST-linux-cpu (verifier) + product validator",
+ "fixture": "/home/user/attune-more/tests/unit/fixtures/mental_spoken_summary_cases.json",
+ "cases": [
+  {
+   "id": "tr-ok-work",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "İş baskısından ve bölünen uykundan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 890006,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-ok-family",
+   "language": "tr",
+   "user": [
+    "Annemle sık sık tartışıyoruz, bu beni üzüyor."
+   ],
+   "candidate": "Annenle yaşadığın tartışmalardan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1405,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-ok-exam",
+   "language": "tr",
+   "user": [
+    "Sınavlarım yaklaşıyor ve odaklanamıyorum."
+   ],
+   "candidate": "Yaklaşan sınavlarından ve odaklanma zorluğundan söz ettin.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": true,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1212,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-ok-rent",
+   "language": "tr",
+   "user": [
+    "Bu ay kiramı ödemekte zorlanıyorum."
+   ],
+   "candidate": "Kiranı ödemekte zorlanmandan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1107,
+   "combinedAccepts": true
+  },
+  {
+   "id": "review-D-sen",
+   "language": "tr",
+   "user": [
+    "Baskılardan yoruldum."
+   ],
+   "candidate": "Baskılardan bahsettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1264,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-negation-flip",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum."
+   ],
+   "candidate": "Uyku sorunundan ve yorgunluğundan söz ettin.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1428,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-added-facts",
+   "language": "tr",
+   "user": [
+    "Bu ay kiramı ödemekte zorlanıyorum."
+   ],
+   "candidate": "Kira ve araba borcundan söz ettin.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1339,
+   "combinedAccepts": false
+  },
+  {
+   "id": "review-D-siz",
+   "language": "tr",
+   "user": [
+    "Baskılardan yoruldum."
+   ],
+   "candidate": "Baskılardan bahsettiniz.",
+   "fixtureFormal": "address-mismatch",
+   "content": "wrong-address",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "address-mismatch",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1228,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-siz-possessive",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "İş baskınızdan söz ettin.",
+   "fixtureFormal": "address-mismatch",
+   "content": "wrong-address",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "address-mismatch",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1498,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-grammar-live",
+   "language": "tr",
+   "user": [
+    "Yeni bir düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırıyor."
+   ],
+   "candidate": "Yeni bir düzen kurmak ve arkadaşlardan uzaklaşmak söz ettin.",
+   "fixtureFormal": "tr-ablative-required",
+   "content": "grammar",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "tr-ablative-required",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1118,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-advice-imperative",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "İşte biraz mola vermelisin.",
+   "fixtureFormal": "advice-or-evaluation",
+   "content": "advice",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "advice-or-evaluation",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1521,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-advice-in-form",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "Destek almayı düşünebileceğinden söz ettin.",
+   "fixtureFormal": "advice-or-evaluation",
+   "content": "advice",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "advice-or-evaluation",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1844,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-evaluation",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "Baskıyı harika yönetmenden söz ettin.",
+   "fixtureFormal": "advice-or-evaluation",
+   "content": "evaluation",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "advice-or-evaluation",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 2139,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-wrong-language",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "You talked about work pressure.",
+   "fixtureFormal": "wrong-language",
+   "content": "wrong-language",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "wrong-language",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1414,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-bridge",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "Paylaştıkların için teşekkür ederim.",
+   "fixtureFormal": "repeats-bridge-phrase",
+   "content": "not-a-recap",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "repeats-bridge-phrase",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1912,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-not-recap",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "İşte baskı var.",
+   "fixtureFormal": "not-recap-form",
+   "content": "not-a-recap",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "not-recap-form",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1538,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-ok-work",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about pressure at work.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1187,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-ok-brother",
+   "language": "en",
+   "user": [
+    "My brother and I argue a lot and it upsets me."
+   ],
+   "candidate": "You talked about arguing with your brother.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1742,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-ok-lonely",
+   "language": "en",
+   "user": [
+    "I feel lonely since I moved to a new city."
+   ],
+   "candidate": "You talked about feeling lonely after moving to a new city.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1463,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-ok-commute",
+   "language": "en",
+   "user": [
+    "My commute is long and I feel tired every evening."
+   ],
+   "candidate": "You talked about a long commute and tired evenings.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1491,
+   "combinedAccepts": true
+  },
+  {
+   "id": "review-B",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about pressure at work and winning a million dollars.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1575,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-one-added-word",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about pressure at work and your boss.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1241,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-added-pain",
+   "language": "en",
+   "user": [
+    "My commute is long and I feel tired every evening."
+   ],
+   "candidate": "You talked about your long commute and your back pain.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1144,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-negation-flip",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "candidate": "You talked about worries about your health.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1673,
+   "combinedAccepts": false
+  },
+  {
+   "id": "review-C",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "Take a break from pressure at work.",
+   "fixtureFormal": "not-recap-form",
+   "content": "advice",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "not-recap-form",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1530,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-reassurance",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "It's normal to feel pressure at work.",
+   "fixtureFormal": "advice-or-evaluation",
+   "content": "reassurance",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "advice-or-evaluation",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1442,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-evaluation",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about handling work pressure really well.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "evaluation",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1219,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-two-sentences",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about work. You talked about pressure.",
+   "fixtureFormal": "more-than-one-sentence",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "more-than-one-sentence",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1289,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-wrong-language",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "Sie sprachen über Druck bei der Arbeit.",
+   "fixtureFormal": "wrong-language",
+   "content": "wrong-language",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "wrong-language",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1327,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-ungrounded",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about your holiday plans.",
+   "fixtureFormal": "not-grounded-in-user-words",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "not-grounded-in-user-words",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1108,
+   "combinedAccepts": false
+  },
+  {
+   "id": "review-A",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "You talked about stress.",
+   "fixtureFormal": "wrong-language",
+   "content": "wrong-language",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "wrong-language",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1554,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-ok-work",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Sie sprachen über Stress bei der Arbeit.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1353,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-ok-sister",
+   "language": "de",
+   "user": [
+    "Ich streite oft mit meiner Schwester und das macht mich traurig."
+   ],
+   "candidate": "Sie sprachen über den Streit mit Ihrer Schwester.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1532,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-ok-lonely",
+   "language": "de",
+   "user": [
+    "Seit dem Umzug fühle ich mich einsam."
+   ],
+   "candidate": "Sie sprachen über Ihre Einsamkeit seit dem Umzug.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1492,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-ok-perfect",
+   "language": "de",
+   "user": [
+    "Die Pflege meines Vaters kostet mich viel Kraft."
+   ],
+   "candidate": "Sie haben über die Pflege Ihres Vaters gesprochen.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1480,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-negation-flip",
+   "language": "de",
+   "user": [
+    "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+   ],
+   "candidate": "Sie sprachen über Ihre Angst vor der Prüfung.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1202,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-one-added-word",
+   "language": "de",
+   "user": [
+    "Die Pflege meines Vaters kostet mich viel Kraft."
+   ],
+   "candidate": "Sie sprachen über die Pflege Ihres Vaters und Geldsorgen.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1493,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-added-facts",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Sie sprachen über Druck bei der Arbeit und gestörten Schlaf.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1283,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-informal",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Du hast über Stress bei der Arbeit gesprochen.",
+   "fixtureFormal": "address-mismatch",
+   "content": "wrong-address",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "address-mismatch",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1404,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-advice",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Sie sollten eine Pause von der Arbeit machen.",
+   "fixtureFormal": "advice-or-evaluation",
+   "content": "advice",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "advice-or-evaluation",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1178,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-bridge",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Ich fasse Ihre Sorgen kurz zusammen.",
+   "fixtureFormal": "repeats-bridge-phrase",
+   "content": "not-a-recap",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "repeats-bridge-phrase",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1130,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-not-recap",
+   "language": "de",
+   "user": [
+    "Ich streite oft mit meiner Schwester und das macht mich traurig."
+   ],
+   "candidate": "Ihre Schwester macht Sie traurig.",
+   "fixtureFormal": "not-recap-form",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "not-recap-form",
+   "validatorAccepts": false,
+   "verifier": "YES",
+   "verifierRaw": "YES",
+   "verifierMs": 1266,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-separable-verb",
+   "language": "de",
+   "user": [
+    "Meine Prüfungen stehen bevor und ich kann mich nicht konzentrieren.",
+    "Mein Handy lenkt mich ständig ab."
+   ],
+   "candidate": "Sie sprachen über Ablenkungen durch Ihr Handy.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1187,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-live-first-person",
+   "language": "tr",
+   "user": [
+    "Bu ay kiramı ödemekte zorlanıyorum.",
+    "Geceleri hesap yapıp duruyorum."
+   ],
+   "candidate": "Kiramı ödemekte zorlandığından ve geceleri hesap yapıp durduğundan söz ettin.",
+   "fixtureFormal": "first-person",
+   "content": "wrong-person",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "first-person",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 873,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-negation-flip-plain",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum."
+   ],
+   "candidate": "Uyku sorunundan söz ettin.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1103,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-negation-kept",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum."
+   ],
+   "candidate": "Uyku sorununun olmadığından ve işte yorulduğundan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 909,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-negation-other-part",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum."
+   ],
+   "candidate": "İşte çok yorulduğundan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1282,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-ok-exam-negation-kept",
+   "language": "tr",
+   "user": [
+    "Sınavlarım yaklaşıyor ve odaklanamıyorum."
+   ],
+   "candidate": "Yaklaşan sınavlarından ve odaklanamadığından söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 611,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-negation-other-part",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "candidate": "You talked about worries about your job.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1311,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-negation-other-part",
+   "language": "de",
+   "user": [
+    "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+   ],
+   "candidate": "Sie sprachen über Ihre Angst vor dem Ergebnis.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1142,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-negation-added",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about not coping with pressure at work.",
+   "fixtureFormal": "negation-added",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-added",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1448,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-first-person",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "candidate": "You talked about worries about my job.",
+   "fixtureFormal": "first-person",
+   "content": "wrong-person",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "first-person",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1349,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-first-person",
+   "language": "de",
+   "user": [
+    "Die Pflege meines Vaters kostet mich viel Kraft."
+   ],
+   "candidate": "Sie sprachen über die Pflege meines Vaters.",
+   "fixtureFormal": "first-person",
+   "content": "wrong-person",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "first-person",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1213,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-first-person-possessive",
+   "language": "tr",
+   "user": [
+    "Bu dönem eğitim hayatım çok yoğun."
+   ],
+   "candidate": "Bu dönem eğitim hayatımın yoğunluğundan söz ettin.",
+   "fixtureFormal": "first-person",
+   "content": "wrong-person",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "first-person",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1127,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-m-stem-is-not-first-person",
+   "language": "tr",
+   "user": [
+    "Bu dönem eğitim hayatım çok yoğun."
+   ],
+   "candidate": "Bu dönem eğitimin yoğunluğundan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1379,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-paraphrase-refused",
+   "language": "de",
+   "user": [
+    "Ich ziehe bald in eine andere Stadt.",
+    "Mit einer Freundin zu telefonieren beruhigt mich."
+   ],
+   "candidate": "Sie sprachen über den Umzug und das Telefonieren mit einer Freundin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1860,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-added-word-inside-part",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about pressure at work from your manager.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1139,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-negation-wrong-target",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "candidate": "You talked about not being worried about your job.",
+   "fixtureFormal": "negation-moved",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-moved",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1112,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-negation-wrong-target",
+   "language": "de",
+   "user": [
+    "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+   ],
+   "candidate": "Sie sprachen über Ihre Angst vor der Prüfung, nicht vor dem Ergebnis.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1348,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-negation-out-of-reach",
+   "language": "en",
+   "user": [
+    "I do not believe my manager will really support me."
+   ],
+   "candidate": "You talked about your manager's support.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1164,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-role-reversal",
+   "language": "tr",
+   "user": [
+    "Annem beni hiç dinlemiyor."
+   ],
+   "candidate": "Anneni hiç dinlemediğinden söz ettin.",
+   "fixtureFormal": "role-changed",
+   "content": "wrong-person",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "role-changed",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1348,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-added-possessor",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about your manager's pressure at work.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1159,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-added-noun-phrase",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Sie sprachen über Stress bei der Arbeit mit Ihrem Chef.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1358,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-added-possessor",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var ve uykum bölünüyor."
+   ],
+   "candidate": "Patronunun baskısından ve bölünen uykundan söz ettin.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 714,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-added-modifier",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about manager pressure at work.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1212,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-added-in-compound",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Sie sprachen über Chefstress bei der Arbeit.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1179,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-variant-false-ground",
+   "language": "de",
+   "user": [
+    "Abends ziehe ich mich oft zurück."
+   ],
+   "candidate": "Sie sprachen über den Zug am Abend.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1153,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-negation-contrast-kept",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "candidate": "You talked about your job, not your health.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1136,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-negation-contrast-swapped",
+   "language": "en",
+   "user": [
+    "I am not worried about my health, only about my job."
+   ],
+   "candidate": "You talked about your health, not your job.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1346,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-negation-contrast-kept",
+   "language": "de",
+   "user": [
+    "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+   ],
+   "candidate": "Sie sprachen über das Ergebnis, nicht über die Prüfung.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1367,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-negation-long-clause-kept",
+   "language": "en",
+   "user": [
+    "I do not believe my manager will really support me."
+   ],
+   "candidate": "You talked about not believing your manager will support you.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1246,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-negation-without-marker",
+   "language": "en",
+   "user": [
+    "I hardly sleep at night."
+   ],
+   "candidate": "You talked about sleeping at night.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1330,
+   "combinedAccepts": false
+  },
+  {
+   "id": "tr-role-kept",
+   "language": "tr",
+   "user": [
+    "Annem beni hiç dinlemiyor."
+   ],
+   "candidate": "Annenin seni hiç dinlemediğinden söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1115,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-role-reversal-object",
+   "language": "tr",
+   "user": [
+    "Annemi hiç dinlemiyorum."
+   ],
+   "candidate": "Annenin seni hiç dinlemediğinden söz ettin.",
+   "fixtureFormal": "role-changed",
+   "content": "wrong-person",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "role-changed",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1129,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-role-reversal",
+   "language": "en",
+   "user": [
+    "My mother never listens to me."
+   ],
+   "candidate": "You talked about never listening to your mother.",
+   "fixtureFormal": "valid",
+   "content": "wrong-person",
+   "knownLimitation": true,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1125,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-live-high-pressure",
+   "language": "de",
+   "user": [
+    "Bei der Arbeit ist das Tempo seit Wochen sehr hoch und abends kann ich nicht abschalten.",
+    "Ich gehe spät ins Bett und mein Schlaf wird oft unterbrochen."
+   ],
+   "candidate": "Sie sprachen über hohen Druck bei der Arbeit.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1244,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-live-sleep-problems",
+   "language": "de",
+   "user": [
+    "Bei der Arbeit ist das Tempo seit Wochen sehr hoch und abends kann ich nicht abschalten.",
+    "Ich gehe spät ins Bett und mein Schlaf wird oft unterbrochen."
+   ],
+   "candidate": "Sie sprachen über hohen Druck bei der Arbeit und Schlafprobleme.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1003,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-strong-verb-noun",
+   "language": "de",
+   "user": [
+    "Ich spreche selten mit meinem Bruder."
+   ],
+   "candidate": "Sie sprachen über seltene Gespräche mit Ihrem Bruder.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1208,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-synonym-refused",
+   "language": "de",
+   "user": [
+    "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+   ],
+   "candidate": "Sie sprachen über Ihre Sorge um das Ergebnis.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": true,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1160,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-recent-is-not-negation",
+   "language": "en",
+   "user": [
+    "Work has been very intense in recent weeks and I feel tired."
+   ],
+   "candidate": "You talked about intense work and feeling tired.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1106,
+   "combinedAccepts": true
+  },
+  {
+   "id": "en-person-modifier-family",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about family pressure at work.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1219,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-person-short-part",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about pressure at work and your son.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1148,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-short-noun-part",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about pressure at work and the car.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1239,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-hardly-kept",
+   "language": "en",
+   "user": [
+    "I hardly sleep at night."
+   ],
+   "candidate": "You talked about hardly sleeping at night.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 932,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-kaum-dropped",
+   "language": "de",
+   "user": [
+    "Ich schlafe kaum."
+   ],
+   "candidate": "Sie sprachen über Ihren Schlaf.",
+   "fixtureFormal": "negation-not-kept",
+   "content": "negation-flip",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "negation-not-kept",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1281,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-short-noun-added",
+   "language": "de",
+   "user": [
+    "Die Arbeit ist anstrengend."
+   ],
+   "candidate": "Sie sprachen über die Arbeit und den Tod.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1070,
+   "combinedAccepts": false
+  },
+  {
+   "id": "de-short-noun-said",
+   "language": "de",
+   "user": [
+    "Der Weg zur Arbeit ist lang."
+   ],
+   "candidate": "Sie sprachen über den langen Weg zur Arbeit.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1325,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-person-modifier",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var."
+   ],
+   "candidate": "İşteki patron baskısından söz ettin.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "added-fact",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1053,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-irregular-form",
+   "language": "en",
+   "user": [
+    "I am moving to another city soon and the change is wearing me out.",
+    "Setting up a new routine and being far from my friends makes me anxious.",
+    "Talking with a friend on the phone calms me down."
+   ],
+   "candidate": "You talked about being anxious and feeling worn out.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1302,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-tired-derivation",
+   "language": "tr",
+   "user": [
+    "Uyku sorunum yok ama işte çok yoruluyorum.",
+    "Öğleden sonra toplantılardan sonra."
+   ],
+   "candidate": "Yorgunluktan ve toplantılardan söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "correct",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 784,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-inference-refused",
+   "language": "de",
+   "user": [
+    "Seit dem Umzug fühle ich mich einsam.",
+    "Die Abende mit meinen Freunden."
+   ],
+   "candidate": "Sie sprachen über Einsamkeit und das Vermissen von Freunden.",
+   "fixtureFormal": "adds-unsaid-content",
+   "content": "inference",
+   "knownLimitation": false,
+   "conservativeReject": false,
+   "validatorStatus": "adds-unsaid-content",
+   "validatorAccepts": false,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 920,
+   "combinedAccepts": false
+  },
+  {
+   "id": "en-added-thing-modifier",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "candidate": "You talked about deadline pressure at work.",
+   "fixtureFormal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1152,
+   "combinedAccepts": true
+  },
+  {
+   "id": "de-added-thing-in-compound",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "candidate": "Sie sprachen über Terminstress bei der Arbeit.",
+   "fixtureFormal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1099,
+   "combinedAccepts": true
+  },
+  {
+   "id": "tr-added-thing-modifier",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var."
+   ],
+   "candidate": "İşteki zaman baskısından söz ettin.",
+   "fixtureFormal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "conservativeReject": false,
+   "validatorStatus": null,
+   "validatorAccepts": true,
+   "verifier": "NO",
+   "verifierRaw": "NO",
+   "verifierMs": 1031,
+   "combinedAccepts": true
+  }
+ ]
+}

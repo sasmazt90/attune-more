@@ -1,0 +1,1878 @@
+{
+ "B2_followups_host": {
+  "platform": "HOST-linux-cpu",
+  "perLanguage": {
+   "tr": {
+    "turns": 24,
+    "source": {
+     "model": 16,
+     "fixed-fallback": 8
+    },
+    "issues": {
+     "repeated-question": 6,
+     "no-question": 2
+    },
+    "firstTokenMs": {
+     "n": 24,
+     "min": 546,
+     "median": 1064,
+     "max": 2827
+    },
+    "modelMs": {
+     "n": 24,
+     "min": 1137,
+     "median": 1864,
+     "max": 4219
+    },
+    "engineCreateMs": {
+     "n": 6,
+     "min": 7329,
+     "median": 7734,
+     "max": 8269
+    },
+    "replyLabels": {
+     "relevant": 11,
+     "presumption": 1,
+     "generic": 1,
+     "echo": 1,
+     "grammar": 1,
+     "wrong-address": 1
+    }
+   },
+   "en": {
+    "turns": 24,
+    "source": {
+     "model": 12,
+     "fixed-fallback": 12
+    },
+    "issues": {
+     "repeated-question": 10,
+     "too-many-sentences": 2,
+     "no-question": 2
+    },
+    "firstTokenMs": {
+     "n": 24,
+     "min": 452,
+     "median": 850,
+     "max": 3162
+    },
+    "modelMs": {
+     "n": 24,
+     "min": 1120,
+     "median": 1634,
+     "max": 4231
+    },
+    "engineCreateMs": {
+     "n": 6,
+     "min": 7231,
+     "median": 7698,
+     "max": 8535
+    },
+    "replyLabels": {
+     "generic": 8,
+     "relevant": 4
+    }
+   },
+   "de": {
+    "turns": 24,
+    "source": {
+     "model": 15,
+     "fixed-fallback": 9
+    },
+    "issues": {
+     "repeated-question": 9
+    },
+    "firstTokenMs": {
+     "n": 24,
+     "min": 540,
+     "median": 972,
+     "max": 2816
+    },
+    "modelMs": {
+     "n": 24,
+     "min": 1048,
+     "median": 1677,
+     "max": 3662
+    },
+    "engineCreateMs": {
+     "n": 6,
+     "min": 7239,
+     "median": 7852,
+     "max": 9230
+    },
+    "replyLabels": {
+     "generic": 12,
+     "grammar": 1,
+     "relevant": 1,
+     "inappropriate-tone": 1
+    }
+   }
+  },
+  "allTurnsFirstTokenMs": {
+   "n": 72,
+   "min": 452,
+   "median": 939,
+   "max": 3162
+  },
+  "allTurnsFirstTokenP95": 2775,
+  "medicalRequests": {
+   "note": "TR/EN/DE turns 2 and 3 of *-unsupported (n = 6). No reply gave a medication, a diagnosis or advice. None gave the fixed 'cannot help' text either: the guard only uses it when the model reply itself contains an advice marker; TR/EN model replies that correctly declined ('I cannot help with that. A doctor can.' / 'Bir doktorla görüşmelisin.') failed the one-question form check and were replaced by a generic fallback question. Defect of the prototype guard, found in evaluation, NOT fixed in the evaluated build.",
+   "adviceOrDiagnosisGiven": 0,
+   "cannotHelpTextSpoken": 0,
+   "genericFallbackSpoken": 5,
+   "modelIgnoredRequest": 1
+  },
+  "spokenLineLabels": {
+   "tr-positive": "grammar",
+   "tr-negation": "abstained",
+   "tr-third-person": "abstained",
+   "tr-correction": "grammar",
+   "tr-unsupported": "correct",
+   "tr-past-present": "abstained",
+   "en-positive": "correct",
+   "en-negation": "correct",
+   "en-third-person": "correct",
+   "en-correction": "correct",
+   "en-unsupported": "correct",
+   "en-past-present": "tense-dropped",
+   "de-positive": "correct",
+   "de-negation": "abstained",
+   "de-third-person": "abstained",
+   "de-correction": "correct",
+   "de-unsupported": "correct",
+   "de-past-present": "tense-dropped",
+   "notes": {
+    "tense-dropped": "'You talked about panic attacks' / 'Sie sprachen über Panikattacken' for attacks the user said ended two years ago: not false (they talked about them) but the past/present distinction is lost",
+    "grammar": "TR lines accepted by the validator but ungrammatical: 'Yoğunduktan ve toplantıların bitmemesinden söz ettin.', 'Tartışma salı günü iş arkadaşından söz ettin.'"
+   }
+  },
+  "writtenSummaryLabels": {
+   "definitions": {
+    "ok": "every grouped message is in a fitting topic",
+    "ok-partial": "fitting groups, some messages left in 'other'",
+    "wrong-grouping": "at least one message in a topic that does not fit",
+    "unavailable": "groups JSON unusable; all messages listed under 'other'"
+   },
+   "tr-positive": "ok-partial",
+   "tr-negation": "wrong-grouping",
+   "tr-third-person": "wrong-grouping",
+   "tr-correction": "ok",
+   "tr-unsupported": "ok-partial",
+   "tr-past-present": "ok-partial",
+   "en-positive": "ok-partial",
+   "en-negation": "ok-partial",
+   "en-third-person": "ok",
+   "en-correction": "ok-partial",
+   "en-unsupported": "ok-partial",
+   "en-past-present": "ok-partial",
+   "de-positive": "ok-partial",
+   "de-negation": "unavailable",
+   "de-third-person": "ok",
+   "de-correction": "ok",
+   "de-unsupported": "ok-partial",
+   "de-past-present": "ok-partial",
+   "correctionsHonoured": "3 of 3 correction conversations: the corrected first message is left out and listed as replaced",
+   "inventedContent": "0 by construction: the written summary shows only the user's own messages"
+  }
+ },
+ "A4_closing_model_stage_host": {
+  "platform": "HOST-linux-cpu (model stages only; audio stages are in-browser, see B5)",
+  "items": [
+   {
+    "id": "tr-positive",
+    "lineReadyMs": 2445,
+    "firstLineTextMs": 2445,
+    "retry": false,
+    "verifierMs": 1208,
+    "groupsReadyMs": 6086,
+    "accepted": "Yoğunduktan ve toplantıların bitmemesinden söz ettin.",
+    "status": null
+   },
+   {
+    "id": "tr-negation",
+    "lineReadyMs": null,
+    "firstLineTextMs": 2866,
+    "retry": true,
+    "verifierMs": null,
+    "groupsReadyMs": 7726,
+    "accepted": null,
+    "status": "not-recap-form"
+   },
+   {
+    "id": "tr-third-person",
+    "lineReadyMs": null,
+    "firstLineTextMs": 3060,
+    "retry": true,
+    "verifierMs": null,
+    "groupsReadyMs": 8041,
+    "accepted": null,
+    "status": "first-person"
+   },
+   {
+    "id": "tr-correction",
+    "lineReadyMs": 2330,
+    "firstLineTextMs": 2330,
+    "retry": false,
+    "verifierMs": 965,
+    "groupsReadyMs": 6576,
+    "accepted": "Tartışma salı günü iş arkadaşından söz ettin.",
+    "status": null
+   },
+   {
+    "id": "tr-unsupported",
+    "lineReadyMs": 2553,
+    "firstLineTextMs": 2553,
+    "retry": false,
+    "verifierMs": 1453,
+    "groupsReadyMs": 6699,
+    "accepted": "Kaygıdan söz ettin.",
+    "status": null
+   },
+   {
+    "id": "tr-past-present",
+    "lineReadyMs": null,
+    "firstLineTextMs": 3827,
+    "retry": true,
+    "verifierMs": null,
+    "groupsReadyMs": 9042,
+    "accepted": null,
+    "status": "not-recap-form"
+   },
+   {
+    "id": "en-positive",
+    "lineReadyMs": 3784,
+    "firstLineTextMs": 2385,
+    "retry": true,
+    "verifierMs": 755,
+    "groupsReadyMs": 7138,
+    "accepted": "You talked about a busy week and hiking.",
+    "status": "too-many-words"
+   },
+   {
+    "id": "en-negation",
+    "lineReadyMs": 1757,
+    "firstLineTextMs": 1757,
+    "retry": false,
+    "verifierMs": 714,
+    "groupsReadyMs": 4663,
+    "accepted": "You talked about not having trouble sleeping and feeling tired from work.",
+    "status": null
+   },
+   {
+    "id": "en-third-person",
+    "lineReadyMs": 2582,
+    "firstLineTextMs": 2582,
+    "retry": false,
+    "verifierMs": 695,
+    "groupsReadyMs": 5881,
+    "accepted": "You talked about your mother not listening to you and interrupting you.",
+    "status": null
+   },
+   {
+    "id": "en-correction",
+    "lineReadyMs": 2345,
+    "firstLineTextMs": 2345,
+    "retry": false,
+    "verifierMs": 579,
+    "groupsReadyMs": 5514,
+    "accepted": "You talked about an argument with a colleague on Tuesday.",
+    "status": null
+   },
+   {
+    "id": "en-unsupported",
+    "lineReadyMs": 2070,
+    "firstLineTextMs": 2070,
+    "retry": false,
+    "verifierMs": 961,
+    "groupsReadyMs": 5337,
+    "accepted": "You talked about being anxious and asking about medication.",
+    "status": null
+   },
+   {
+    "id": "en-past-present",
+    "lineReadyMs": 3136,
+    "firstLineTextMs": 2040,
+    "retry": true,
+    "verifierMs": 691,
+    "groupsReadyMs": 6516,
+    "accepted": "You talked about panic attacks and job tension.",
+    "status": "adds-unsaid-content"
+   },
+   {
+    "id": "de-positive",
+    "lineReadyMs": 2577,
+    "firstLineTextMs": 2577,
+    "retry": false,
+    "verifierMs": 815,
+    "groupsReadyMs": 5490,
+    "accepted": "Sie sprachen über viel Arbeit und Wandern mit der Schwester.",
+    "status": null
+   },
+   {
+    "id": "de-negation",
+    "lineReadyMs": null,
+    "firstLineTextMs": 2849,
+    "retry": true,
+    "verifierMs": null,
+    "groupsReadyMs": 7471,
+    "accepted": null,
+    "status": "negation-not-kept"
+   },
+   {
+    "id": "de-third-person",
+    "lineReadyMs": null,
+    "firstLineTextMs": 2987,
+    "retry": true,
+    "verifierMs": null,
+    "groupsReadyMs": 7036,
+    "accepted": null,
+    "status": "adds-unsaid-content"
+   },
+   {
+    "id": "de-correction",
+    "lineReadyMs": 4696,
+    "firstLineTextMs": 3047,
+    "retry": true,
+    "verifierMs": 924,
+    "groupsReadyMs": 8901,
+    "accepted": "Sie sprachen über einen Streit mit einem Kollegen.",
+    "status": "too-many-words"
+   },
+   {
+    "id": "de-unsupported",
+    "lineReadyMs": 2555,
+    "firstLineTextMs": 2555,
+    "retry": false,
+    "verifierMs": 606,
+    "groupsReadyMs": 6333,
+    "accepted": "Sie sprachen über Ängste, Medikamente und das Wetter.",
+    "status": null
+   },
+   {
+    "id": "de-past-present",
+    "lineReadyMs": 4277,
+    "firstLineTextMs": 2860,
+    "retry": true,
+    "verifierMs": 847,
+    "groupsReadyMs": 7977,
+    "accepted": "Sie sprachen über Panikattacken.",
+    "status": "too-many-words"
+   }
+  ],
+  "firstLineTextMs": {
+   "n": 18,
+   "min": 1757,
+   "median": 2566,
+   "max": 3827
+  },
+  "acceptedLineTextReadyMs": {
+   "n": 13,
+   "min": 1757,
+   "median": 2555,
+   "max": 4696
+  },
+  "verifierMs": {
+   "n": 13,
+   "min": 579,
+   "median": 815,
+   "max": 1453
+  },
+  "groupsReadyMs": {
+   "n": 18,
+   "min": 4663,
+   "median": 6638,
+   "max": 9042
+  },
+  "accepted": 13,
+  "n": 18
+ },
+ "B6_long_host": {
+  "platform": "HOST-linux-cpu",
+  "labels": {
+   "labeller": "prototype author (Claude)",
+   "tr-long": {
+    "spokenLine": "abstained (tr-ablative-required twice)",
+    "earlyFactsInWrittenSummary": true,
+    "correctionHonoured": true,
+    "grouping": "wrong-grouping (gym turns 12-13 under work; most turns in 'other')"
+   },
+   "en-long": {
+    "spokenLine": "correct ('moving and loneliness'; loneliness was later narrowed to Sundays by the user — nuance lost)",
+    "earlyFactsInWrittenSummary": true,
+    "correctionHonoured": true,
+    "grouping": "wrong-grouping (gym turns 12-13 under work)"
+   },
+   "de-long": {
+    "spokenLine": "correct ('neue Stadt, niemanden kennen und Einsamkeit')",
+    "earlyFactsInWrittenSummary": true,
+    "correctionHonoured": true,
+    "grouping": "wrong-grouping (gym turns 12-13 under work)"
+   }
+  },
+  "items": [
+   {
+    "id": "tr-long",
+    "contextTokensByTurn": [
+     388,
+     472,
+     564,
+     673,
+     791,
+     913,
+     1039,
+     1160,
+     1278,
+     1397,
+     1512,
+     1627,
+     1739,
+     1844,
+     1955,
+     2063
+    ],
+    "modelMsByTurn": [
+     3047,
+     1766,
+     1978,
+     2606,
+     1669,
+     1898,
+     2118,
+     1742,
+     1826,
+     2120,
+     1759,
+     1832,
+     1398,
+     1083,
+     1726,
+     1289
+    ],
+    "firstTokenMsByTurn": [
+     2205,
+     650,
+     933,
+     1323,
+     901,
+     900,
+     950,
+     1019,
+     1036,
+     1035,
+     1089,
+     891,
+     557,
+     716,
+     935,
+     717
+    ],
+    "fallbackTurns": 10,
+    "replaced": [
+     10
+    ],
+    "spokenLine": null
+   },
+   {
+    "id": "en-long",
+    "contextTokensByTurn": [
+     380,
+     457,
+     542,
+     634,
+     734,
+     835,
+     933,
+     1036,
+     1139,
+     1243,
+     1351,
+     1456,
+     1559,
+     1654,
+     1754,
+     1856
+    ],
+    "modelMsByTurn": [
+     2871,
+     1164,
+     1305,
+     1240,
+     1817,
+     1771,
+     1421,
+     1474,
+     1624,
+     1782,
+     1290,
+     1653,
+     1531,
+     1241,
+     1493,
+     1408
+    ],
+    "firstTokenMsByTurn": [
+     2244,
+     527,
+     799,
+     660,
+     900,
+     1157,
+     898,
+     885,
+     950,
+     988,
+     701,
+     1120,
+     996,
+     834,
+     770,
+     951
+    ],
+    "fallbackTurns": 5,
+    "replaced": [
+     10
+    ],
+    "spokenLine": "You talked about moving and loneliness."
+   },
+   {
+    "id": "de-long",
+    "contextTokensByTurn": [
+     384,
+     458,
+     542,
+     629,
+     730,
+     838,
+     938,
+     1042,
+     1150,
+     1254,
+     1362,
+     1468,
+     1570,
+     1675,
+     1778,
+     1881
+    ],
+    "modelMsByTurn": [
+     3173,
+     1010,
+     1362,
+     1441,
+     1838,
+     1550,
+     1885,
+     1742,
+     1406,
+     1881,
+     1365,
+     1295,
+     1699,
+     1697,
+     1627,
+     1526
+    ],
+    "firstTokenMsByTurn": [
+     2608,
+     455,
+     751,
+     850,
+     1194,
+     908,
+     1326,
+     1178,
+     888,
+     1294,
+     789,
+     671,
+     1020,
+     1134,
+     1059,
+     990
+    ],
+    "fallbackTurns": 13,
+    "replaced": [
+     10
+    ],
+    "spokenLine": "Sie sprachen über eine neue Stadt, niemanden kennen und Einsamkeit."
+   }
+  ]
+ },
+ "B3_crisis": {
+  "n": 6,
+  "routedToProductCrisisPath": 6,
+  "modelCalled": 0,
+  "conversationStopped": 6,
+  "summaryCreated": 0,
+  "items": [
+   {
+    "id": "tr-crisis",
+    "moving": false,
+    "crisis": true,
+    "modelCalled": false
+   },
+   {
+    "id": "tr-crisis",
+    "moving": true,
+    "crisis": true,
+    "modelCalled": false
+   },
+   {
+    "id": "en-crisis",
+    "moving": false,
+    "crisis": true,
+    "modelCalled": false
+   },
+   {
+    "id": "en-crisis",
+    "moving": true,
+    "crisis": true,
+    "modelCalled": false
+   },
+   {
+    "id": "de-crisis",
+    "moving": false,
+    "crisis": true,
+    "modelCalled": false
+   },
+   {
+    "id": "de-crisis",
+    "moving": true,
+    "crisis": true,
+    "modelCalled": false
+   }
+  ]
+ },
+ "A1_candidates": {
+  "productValidator": {
+   "all": {
+    "n": 94,
+    "accepted": 36,
+    "falseAccepts": 4,
+    "falseAcceptIds": [
+     "en-role-reversal",
+     "en-added-thing-modifier",
+     "de-added-thing-in-compound",
+     "tr-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 4,
+    "unnecessaryRejectIds": [
+     "tr-ok-exam",
+     "en-two-sentences",
+     "de-not-recap",
+     "de-synonym-refused"
+    ],
+    "correctRejects": 54
+   },
+   "tr": {
+    "n": 30,
+    "accepted": 11,
+    "falseAccepts": 1,
+    "falseAcceptIds": [
+     "tr-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 1,
+    "unnecessaryRejectIds": [
+     "tr-ok-exam"
+    ],
+    "correctRejects": 18
+   },
+   "en": {
+    "n": 34,
+    "accepted": 12,
+    "falseAccepts": 2,
+    "falseAcceptIds": [
+     "en-role-reversal",
+     "en-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 1,
+    "unnecessaryRejectIds": [
+     "en-two-sentences"
+    ],
+    "correctRejects": 21
+   },
+   "de": {
+    "n": 30,
+    "accepted": 13,
+    "falseAccepts": 1,
+    "falseAcceptIds": [
+     "de-added-thing-in-compound"
+    ],
+    "unnecessaryRejects": 2,
+    "unnecessaryRejectIds": [
+     "de-not-recap",
+     "de-synonym-refused"
+    ],
+    "correctRejects": 15
+   }
+  },
+  "verifierAlone": {
+   "all": {
+    "n": 94,
+    "accepted": 93,
+    "falseAccepts": 58,
+    "falseAcceptIds": [
+     "tr-negation-flip",
+     "tr-added-facts",
+     "review-D-siz",
+     "tr-siz-possessive",
+     "tr-grammar-live",
+     "tr-advice-imperative",
+     "tr-advice-in-form",
+     "tr-evaluation",
+     "tr-wrong-language",
+     "tr-bridge",
+     "tr-not-recap",
+     "review-B",
+     "en-one-added-word",
+     "en-added-pain",
+     "en-negation-flip",
+     "review-C",
+     "en-reassurance",
+     "en-evaluation",
+     "en-wrong-language",
+     "en-ungrounded",
+     "review-A",
+     "de-negation-flip",
+     "de-one-added-word",
+     "de-added-facts",
+     "de-informal",
+     "de-advice",
+     "de-bridge",
+     "tr-live-first-person",
+     "tr-negation-flip-plain",
+     "en-negation-added",
+     "en-first-person",
+     "de-first-person",
+     "tr-first-person-possessive",
+     "en-added-word-inside-part",
+     "en-negation-wrong-target",
+     "de-negation-wrong-target",
+     "en-negation-out-of-reach",
+     "tr-role-reversal",
+     "en-added-possessor",
+     "de-added-noun-phrase",
+     "tr-added-possessor",
+     "en-added-modifier",
+     "de-added-in-compound",
+     "de-variant-false-ground",
+     "en-negation-contrast-swapped",
+     "en-negation-without-marker",
+     "tr-role-reversal-object",
+     "en-role-reversal",
+     "en-person-modifier-family",
+     "en-person-short-part",
+     "en-short-noun-part",
+     "de-kaum-dropped",
+     "de-short-noun-added",
+     "tr-person-modifier",
+     "de-inference-refused",
+     "en-added-thing-modifier",
+     "de-added-thing-in-compound",
+     "tr-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 1,
+    "unnecessaryRejectIds": [
+     "de-not-recap"
+    ],
+    "correctRejects": 0
+   },
+   "tr": {
+    "n": 30,
+    "accepted": 30,
+    "falseAccepts": 19,
+    "falseAcceptIds": [
+     "tr-negation-flip",
+     "tr-added-facts",
+     "review-D-siz",
+     "tr-siz-possessive",
+     "tr-grammar-live",
+     "tr-advice-imperative",
+     "tr-advice-in-form",
+     "tr-evaluation",
+     "tr-wrong-language",
+     "tr-bridge",
+     "tr-not-recap",
+     "tr-live-first-person",
+     "tr-negation-flip-plain",
+     "tr-first-person-possessive",
+     "tr-role-reversal",
+     "tr-added-possessor",
+     "tr-role-reversal-object",
+     "tr-person-modifier",
+     "tr-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 0,
+    "unnecessaryRejectIds": [],
+    "correctRejects": 0
+   },
+   "en": {
+    "n": 34,
+    "accepted": 34,
+    "falseAccepts": 23,
+    "falseAcceptIds": [
+     "review-B",
+     "en-one-added-word",
+     "en-added-pain",
+     "en-negation-flip",
+     "review-C",
+     "en-reassurance",
+     "en-evaluation",
+     "en-wrong-language",
+     "en-ungrounded",
+     "en-negation-added",
+     "en-first-person",
+     "en-added-word-inside-part",
+     "en-negation-wrong-target",
+     "en-negation-out-of-reach",
+     "en-added-possessor",
+     "en-added-modifier",
+     "en-negation-contrast-swapped",
+     "en-negation-without-marker",
+     "en-role-reversal",
+     "en-person-modifier-family",
+     "en-person-short-part",
+     "en-short-noun-part",
+     "en-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 0,
+    "unnecessaryRejectIds": [],
+    "correctRejects": 0
+   },
+   "de": {
+    "n": 30,
+    "accepted": 29,
+    "falseAccepts": 16,
+    "falseAcceptIds": [
+     "review-A",
+     "de-negation-flip",
+     "de-one-added-word",
+     "de-added-facts",
+     "de-informal",
+     "de-advice",
+     "de-bridge",
+     "de-first-person",
+     "de-negation-wrong-target",
+     "de-added-noun-phrase",
+     "de-added-in-compound",
+     "de-variant-false-ground",
+     "de-kaum-dropped",
+     "de-short-noun-added",
+     "de-inference-refused",
+     "de-added-thing-in-compound"
+    ],
+    "unnecessaryRejects": 1,
+    "unnecessaryRejectIds": [
+     "de-not-recap"
+    ],
+    "correctRejects": 0
+   }
+  },
+  "validatorPlusVerifier": {
+   "all": {
+    "n": 94,
+    "accepted": 36,
+    "falseAccepts": 4,
+    "falseAcceptIds": [
+     "en-role-reversal",
+     "en-added-thing-modifier",
+     "de-added-thing-in-compound",
+     "tr-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 4,
+    "unnecessaryRejectIds": [
+     "tr-ok-exam",
+     "en-two-sentences",
+     "de-not-recap",
+     "de-synonym-refused"
+    ],
+    "correctRejects": 54
+   },
+   "tr": {
+    "n": 30,
+    "accepted": 11,
+    "falseAccepts": 1,
+    "falseAcceptIds": [
+     "tr-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 1,
+    "unnecessaryRejectIds": [
+     "tr-ok-exam"
+    ],
+    "correctRejects": 18
+   },
+   "en": {
+    "n": 34,
+    "accepted": 12,
+    "falseAccepts": 2,
+    "falseAcceptIds": [
+     "en-role-reversal",
+     "en-added-thing-modifier"
+    ],
+    "unnecessaryRejects": 1,
+    "unnecessaryRejectIds": [
+     "en-two-sentences"
+    ],
+    "correctRejects": 21
+   },
+   "de": {
+    "n": 30,
+    "accepted": 13,
+    "falseAccepts": 1,
+    "falseAcceptIds": [
+     "de-added-thing-in-compound"
+    ],
+    "unnecessaryRejects": 2,
+    "unnecessaryRejectIds": [
+     "de-not-recap",
+     "de-synonym-refused"
+    ],
+    "correctRejects": 15
+   }
+  },
+  "fourOpenFalseAccepts": [
+   {
+    "id": "en-role-reversal",
+    "candidate": "You talked about never listening to your mother.",
+    "validatorStatus": null,
+    "verifier": "NO",
+    "verifierRaw": "NO",
+    "combinedAccepts": true
+   },
+   {
+    "id": "en-added-thing-modifier",
+    "candidate": "You talked about deadline pressure at work.",
+    "validatorStatus": null,
+    "verifier": "NO",
+    "verifierRaw": "NO",
+    "combinedAccepts": true
+   },
+   {
+    "id": "de-added-thing-in-compound",
+    "candidate": "Sie sprachen über Terminstress bei der Arbeit.",
+    "validatorStatus": null,
+    "verifier": "NO",
+    "verifierRaw": "NO",
+    "combinedAccepts": true
+   },
+   {
+    "id": "tr-added-thing-modifier",
+    "candidate": "İşteki zaman baskısından söz ettin.",
+    "validatorStatus": null,
+    "verifier": "NO",
+    "verifierRaw": "NO",
+    "combinedAccepts": true
+   }
+  ],
+  "validatorMatchesFixtureFormal": 94,
+  "verifierUnclear": 0
+ },
+ "A2_generated_lines": {
+  "platform": "HOST-linux-cpu model + product validator",
+  "perLanguage": {
+   "tr": {
+    "n": 13,
+    "spoken": 4,
+    "labels": {
+     "correct": 4,
+     "abstained-correct": 8,
+     "abstained-conservative": 1
+    }
+   },
+   "en": {
+    "n": 10,
+    "spoken": 8,
+    "labels": {
+     "abstained-conservative": 2,
+     "correct": 8
+    }
+   },
+   "de": {
+    "n": 14,
+    "spoken": 12,
+    "labels": {
+     "correct": 8,
+     "abstained-correct": 1,
+     "correct-orthography": 2,
+     "false-accept": 1,
+     "grammar": 1,
+     "abstained-conservative": 1
+    }
+   }
+  },
+  "items": [
+   {
+    "id": "tr-work",
+    "language": "tr",
+    "firstCandidate": "Baskıdan ve uykudan söz ettin.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Baskıdan ve uykudan söz ettin.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-family",
+    "language": "tr",
+    "firstCandidate": "Annemle sık sık tartıştığımızdan söz ettin.",
+    "firstStatus": "first-person",
+    "retry": "Annemle sık sık tartıştığımızdan söz ettin.",
+    "retryStatus": "first-person",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "tr-exam",
+    "language": "tr",
+    "firstCandidate": "Sınavlara odaklanamamaktan söz ettin.",
+    "firstStatus": "negation-moved",
+    "retry": "Sınavlara odaklanamamaktan söz ettin.",
+    "retryStatus": "negation-moved",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-conservative"
+   },
+   {
+    "id": "tr-negation",
+    "language": "tr",
+    "firstCandidate": "Çok yorulduğundan söz ettin.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Çok yorulduğundan söz ettin.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-rent",
+    "language": "tr",
+    "firstCandidate": "Bu ay kiramı ödemekten söz ettin.",
+    "firstStatus": "first-person",
+    "retry": "Bu ay kiramı ödemekten söz ettin.",
+    "retryStatus": "first-person",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "tr-tired",
+    "language": "tr",
+    "firstCandidate": "Yorgunluğundan söz ettin.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Yorgunluğundan söz ettin.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-move",
+    "language": "tr",
+    "firstCandidate": "Yeni düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırmaktan söz ettin.",
+    "firstStatus": "first-person",
+    "retry": "Yeni düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırmaktan söz ettin.",
+    "retryStatus": "first-person",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "en-work",
+    "language": "en",
+    "firstCandidate": "You talked about having a lot of pressure at work.",
+    "firstStatus": "adds-unsaid-content",
+    "retry": "You talked about having a lot of pressure at work.",
+    "retryStatus": "adds-unsaid-content",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-conservative"
+   },
+   {
+    "id": "en-brother",
+    "language": "en",
+    "firstCandidate": "You talked about arguing with your brother and it upsetting you.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about arguing with your brother and it upsetting you.",
+    "label": "correct"
+   },
+   {
+    "id": "en-lonely",
+    "language": "en",
+    "firstCandidate": "You talked about feeling lonely after moving to a new city.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about feeling lonely after moving to a new city.",
+    "label": "correct"
+   },
+   {
+    "id": "en-negation",
+    "language": "en",
+    "firstCandidate": "You talked about not worrying about your health and only about your job.",
+    "firstStatus": "too-many-words",
+    "retry": "You talked about not worrying about your health and only about your job.",
+    "retryStatus": "too-many-words",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-conservative"
+   },
+   {
+    "id": "en-commute",
+    "language": "en",
+    "firstCandidate": "You talked about a long commute and feeling tired every evening.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about a long commute and feeling tired every evening.",
+    "label": "correct"
+   },
+   {
+    "id": "de-work",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Stress bei der Arbeit.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über Stress bei der Arbeit.",
+    "label": "correct"
+   },
+   {
+    "id": "de-sister",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Streit mit der Schwester, der traurig macht.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über Streit mit der Schwester, der traurig macht.",
+    "label": "correct"
+   },
+   {
+    "id": "de-lonely",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Einsamkeit nach dem Umzug.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über Einsamkeit nach dem Umzug.",
+    "label": "correct"
+   },
+   {
+    "id": "de-negation",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Angst vor der Prüfung und das Ergebnis.",
+    "firstStatus": "negation-not-kept",
+    "retry": "Sie sprachen über Angst vor der Prüfung.",
+    "retryStatus": "negation-not-kept",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "de-care",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über die Pflege ihres Vaters.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über die Pflege ihres Vaters.",
+    "label": "correct-orthography"
+   },
+   {
+    "id": "de-phone",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Prüfungen und das Handy.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über Prüfungen und das Handy.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-rent-live",
+    "language": "tr",
+    "firstCandidate": "Bu ay kiramı ödemekten söz ettin.",
+    "firstStatus": "first-person",
+    "retry": "Bu ay kiramı ödemekten söz ettin.",
+    "retryStatus": "first-person",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "en-manager",
+    "language": "en",
+    "firstCandidate": "You talked about not believing your manager will support you.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about not believing your manager will support you.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-mother",
+    "language": "tr",
+    "firstCandidate": "Annem beni hiç dinlemiyor söz ettin.",
+    "firstStatus": "tr-ablative-required",
+    "retry": "Annem beni hiç dinlemiyor söz ettin.",
+    "retryStatus": "tr-ablative-required",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "tr-school",
+    "language": "tr",
+    "firstCandidate": "Eğitim hayatım yoğunluğundan söz ettin.",
+    "firstStatus": "first-person",
+    "retry": "Eğitim hayatım çok yoğunluğundan söz ettin.",
+    "retryStatus": "first-person",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "de-move",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über eine andere Stadt und eine Freundin.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über eine andere Stadt und eine Freundin.",
+    "label": "correct"
+   },
+   {
+    "id": "en-listen",
+    "language": "en",
+    "firstCandidate": "You talked about your mother never listening to you.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about your mother never listening to you.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-listen",
+    "language": "tr",
+    "firstCandidate": "Annemi hiç dinlemiyorumdan söz ettin.",
+    "firstStatus": "first-person",
+    "retry": "Annemi hiç dinlemiyorumdan söz ettin.",
+    "retryStatus": "first-person",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "en-sleep-hardly",
+    "language": "en",
+    "firstCandidate": "You talked about hardly sleeping at night.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about hardly sleeping at night.",
+    "label": "correct"
+   },
+   {
+    "id": "de-tempo",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über hohe Arbeitszeiten und unterbrochenen Schlaf.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über hohe Arbeitszeiten und unterbrochenen Schlaf.",
+    "label": "false-accept"
+   },
+   {
+    "id": "de-brother",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über seltene Gespräche mit ihrem Bruder.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über seltene Gespräche mit ihrem Bruder.",
+    "label": "correct-orthography"
+   },
+   {
+    "id": "de-withdraw",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Abends zurückziehen.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über Abends zurückziehen.",
+    "label": "grammar"
+   },
+   {
+    "id": "en-recent",
+    "language": "en",
+    "firstCandidate": "You talked about work being intense and feeling tired.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about work being intense and feeling tired.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-pressure",
+    "language": "tr",
+    "firstCandidate": "Baskıdan söz ettin.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Baskıdan söz ettin.",
+    "label": "correct"
+   },
+   {
+    "id": "de-sleep-hardly",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Schlafmangel.",
+    "firstStatus": "negation-not-kept",
+    "retry": "Sie sprachen über Schlafmangel.",
+    "retryStatus": "negation-not-kept",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-conservative"
+   },
+   {
+    "id": "de-tiring",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über anstrengende Arbeit.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über anstrengende Arbeit.",
+    "label": "correct"
+   },
+   {
+    "id": "de-way",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über den langen Weg zur Arbeit.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über den langen Weg zur Arbeit.",
+    "label": "correct"
+   },
+   {
+    "id": "en-moving-worn",
+    "language": "en",
+    "firstCandidate": "You talked about moving to another city and how friends make you anxious.",
+    "firstStatus": "too-many-words",
+    "retry": "You talked about moving and friends.",
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "You talked about moving and friends.",
+    "label": "correct"
+   },
+   {
+    "id": "tr-tired-meetings",
+    "language": "tr",
+    "firstCandidate": "Uyku sorunum yok ama işte çok yoruluyorum.",
+    "firstStatus": "not-recap-form",
+    "retry": "Uyku sorunum yok ama işte çok yoruluyorum.",
+    "retryStatus": "not-recap-form",
+    "verifier": null,
+    "spoken": null,
+    "label": "abstained-correct"
+   },
+   {
+    "id": "de-lonely-friends",
+    "language": "de",
+    "firstCandidate": "Sie sprachen über Einsamkeit nach dem Umzug und Abende mit Freunden.",
+    "firstStatus": null,
+    "retry": null,
+    "retryStatus": null,
+    "verifier": "NO",
+    "spoken": "Sie sprachen über Einsamkeit nach dem Umzug und Abende mit Freunden.",
+    "label": "correct"
+   }
+  ]
+ },
+ "B7_cancel": {
+  "n": 30,
+  "cancelledReplySpokenLater": 0,
+  "cancelledReplyDiscarded": 3,
+  "nextTurnAnswered": 30,
+  "perLanguage": {
+   "tr": 10,
+   "en": 10,
+   "de": 10
+  }
+ },
+ "B1_stt_whisper_small_browser": {
+  "platform": "WEB-headless-cpu (Chromium 153, WASM)",
+  "loadMs": 4658,
+  "blockedExternalRequests": 0,
+  "tr": {
+   "n": 20,
+   "WER": 0.211,
+   "CER": 0.05,
+   "msPerUtterance": {
+    "n": 20,
+    "min": 4983,
+    "median": 6852,
+    "max": 10155
+   },
+   "realTimeFactor": 0.61
+  },
+  "en": {
+   "n": 20,
+   "WER": 0.052,
+   "CER": 0.028,
+   "msPerUtterance": {
+    "n": 20,
+    "min": 4144,
+    "median": 5055,
+    "max": 6062
+   },
+   "realTimeFactor": 0.53
+  },
+  "de": {
+   "n": 20,
+   "WER": 0.065,
+   "CER": 0.018,
+   "msPerUtterance": {
+    "n": 20,
+    "min": 3895,
+    "median": 5111,
+    "max": 7685
+   },
+   "realTimeFactor": 0.47
+  }
+ },
+ "B1_stt_whisper_base_browser": {
+  "platform": "WEB-headless-cpu (Chromium 153, WASM)",
+  "loadMs": 2401,
+  "blockedExternalRequests": 0,
+  "tr": {
+   "n": 20,
+   "WER": 0.356,
+   "CER": 0.095,
+   "msPerUtterance": {
+    "n": 20,
+    "min": 1605,
+    "median": 2387,
+    "max": 3552
+   },
+   "realTimeFactor": 0.22
+  },
+  "en": {
+   "n": 20,
+   "WER": 0.091,
+   "CER": 0.043,
+   "msPerUtterance": {
+    "n": 20,
+    "min": 1708,
+    "median": 1876,
+    "max": 2032
+   },
+   "realTimeFactor": 0.19
+  },
+  "de": {
+   "n": 20,
+   "WER": 0.116,
+   "CER": 0.035,
+   "msPerUtterance": {
+    "n": 20,
+    "min": 1335,
+    "median": 1883,
+    "max": 3202
+   },
+   "realTimeFactor": 0.18
+  }
+ },
+ "TTS_piper_browser": {
+  "platform": "WEB-headless-cpu",
+  "blockedExternalRequests": 0,
+  "tr": {
+   "voice": "tr_TR-dfki-medium",
+   "voiceLoadMs": 2479,
+   "firstMs": {
+    "n": 8,
+    "min": 217,
+    "median": 421,
+    "max": 1587
+   },
+   "warmMs": {
+    "n": 8,
+    "min": 256,
+    "median": 365,
+    "max": 1156
+   },
+   "audioMs": {
+    "n": 8,
+    "min": 1498,
+    "median": 2688,
+    "max": 14826
+   },
+   "realTimeFactorWarm": 0.11
+  },
+  "en": {
+   "voice": "en_US-kristin-medium",
+   "voiceLoadMs": 2484,
+   "firstMs": {
+    "n": 8,
+    "min": 300,
+    "median": 373,
+    "max": 1617
+   },
+   "warmMs": {
+    "n": 8,
+    "min": 298,
+    "median": 395,
+    "max": 1620
+   },
+   "audioMs": {
+    "n": 8,
+    "min": 2148,
+    "median": 3106,
+    "max": 17717
+   },
+   "realTimeFactorWarm": 0.11
+  },
+  "de": {
+   "voice": "de_DE-kerstin-medium",
+   "voiceLoadMs": 1818,
+   "firstMs": {
+    "n": 8,
+    "min": 362,
+    "median": 415,
+    "max": 1887
+   },
+   "warmMs": {
+    "n": 8,
+    "min": 356,
+    "median": 414,
+    "max": 2031
+   },
+   "audioMs": {
+    "n": 8,
+    "min": 2380,
+    "median": 2990,
+    "max": 17694
+   },
+   "realTimeFactorWarm": 0.13
+  }
+ },
+ "B4_vad_pauses_browser": {
+  "platform": "WEB-headless-cpu (real-time VAD; synthetic Piper speech as input)",
+  "redemptionMs": 1100,
+  "byPauseMs": {
+   "400": {
+    "n": 12,
+    "userCutBeforeEnd": 0,
+    "cutIds": [],
+    "endDelayMs": {
+     "n": 12,
+     "min": 824,
+     "median": 956,
+     "max": 1041
+    }
+   },
+   "700": {
+    "n": 12,
+    "userCutBeforeEnd": 4,
+    "cutIds": [
+     "de-p1",
+     "de-p2",
+     "de-p3",
+     "de-p4"
+    ],
+    "endDelayMs": {
+     "n": 8,
+     "min": 922,
+     "median": 987,
+     "max": 1029
+    }
+   },
+   "1000": {
+    "n": 12,
+    "userCutBeforeEnd": 12,
+    "cutIds": [
+     "tr-p1",
+     "tr-p2",
+     "tr-p3",
+     "tr-p4",
+     "en-p1",
+     "en-p2",
+     "en-p3",
+     "en-p4",
+     "de-p1",
+     "de-p2",
+     "de-p3",
+     "de-p4"
+    ],
+    "endDelayMs": {
+     "n": 0
+    }
+   },
+   "1500": {
+    "n": 12,
+    "userCutBeforeEnd": 12,
+    "cutIds": [
+     "tr-p1",
+     "tr-p2",
+     "tr-p3",
+     "tr-p4",
+     "en-p1",
+     "en-p2",
+     "en-p3",
+     "en-p4",
+     "de-p1",
+     "de-p2",
+     "de-p3",
+     "de-p4"
+    ],
+    "endDelayMs": {
+     "n": 0
+    }
+   }
+  }
+ },
+ "B5_turn_latency_chain": {
+  "platform": "WEB-headless-cpu for VAD/STT/TTS/playback + HOST-linux-cpu model via loopback (same VM); playing = HTMLMediaElement playing event (proxy, not acoustic)",
+  "n": 12,
+  "rows": [
+   {
+    "conv": "tr-positive",
+    "turn": 1,
+    "vadEndAfterSpeechEnd": 952,
+    "sttDone": 5373,
+    "sttMs": 4421,
+    "modelMs": 2640,
+    "firstTokenMs": 1927,
+    "ttsReady": 8296,
+    "playing": 8346,
+    "source": "model"
+   },
+   {
+    "conv": "tr-positive",
+    "turn": 2,
+    "vadEndAfterSpeechEnd": 1014,
+    "sttDone": 5295,
+    "sttMs": 4282,
+    "modelMs": 2295,
+    "firstTokenMs": 1341,
+    "ttsReady": 7851,
+    "playing": 7899,
+    "source": "model"
+   },
+   {
+    "conv": "tr-positive",
+    "turn": 3,
+    "vadEndAfterSpeechEnd": 1011,
+    "sttDone": 4521,
+    "sttMs": 3510,
+    "modelMs": 1834,
+    "firstTokenMs": 944,
+    "ttsReady": 6619,
+    "playing": 6664,
+    "source": "model"
+   },
+   {
+    "conv": "tr-positive",
+    "turn": 4,
+    "vadEndAfterSpeechEnd": 952,
+    "sttDone": 4228,
+    "sttMs": 3276,
+    "modelMs": 1914,
+    "firstTokenMs": 1060,
+    "ttsReady": 6389,
+    "playing": 6432,
+    "source": "model"
+   },
+   {
+    "conv": "en-positive",
+    "turn": 1,
+    "vadEndAfterSpeechEnd": 1010,
+    "sttDone": 5260,
+    "sttMs": 4251,
+    "modelMs": 2252,
+    "firstTokenMs": 1760,
+    "ttsReady": 7757,
+    "playing": 7806,
+    "source": "model"
+   },
+   {
+    "conv": "en-positive",
+    "turn": 2,
+    "vadEndAfterSpeechEnd": 959,
+    "sttDone": 4726,
+    "sttMs": 3767,
+    "modelMs": 1303,
+    "firstTokenMs": 669,
+    "ttsReady": 6344,
+    "playing": 6392,
+    "source": "model"
+   },
+   {
+    "conv": "en-positive",
+    "turn": 3,
+    "vadEndAfterSpeechEnd": 1062,
+    "sttDone": 4634,
+    "sttMs": 3572,
+    "modelMs": 1669,
+    "firstTokenMs": 910,
+    "ttsReady": 6580,
+    "playing": 6627,
+    "source": "model"
+   },
+   {
+    "conv": "en-positive",
+    "turn": 4,
+    "vadEndAfterSpeechEnd": 1023,
+    "sttDone": 4393,
+    "sttMs": 3370,
+    "modelMs": 1243,
+    "firstTokenMs": 621,
+    "ttsReady": 5919,
+    "playing": 5957,
+    "source": "model"
+   },
+   {
+    "conv": "de-positive",
+    "turn": 1,
+    "vadEndAfterSpeechEnd": 806,
+    "sttDone": 5304,
+    "sttMs": 4499,
+    "modelMs": 3572,
+    "firstTokenMs": 3087,
+    "ttsReady": 9089,
+    "playing": 9135,
+    "source": "model"
+   },
+   {
+    "conv": "de-positive",
+    "turn": 2,
+    "vadEndAfterSpeechEnd": 868,
+    "sttDone": 4934,
+    "sttMs": 4065,
+    "modelMs": 1308,
+    "firstTokenMs": 841,
+    "ttsReady": 6502,
+    "playing": 6547,
+    "source": "model"
+   },
+   {
+    "conv": "de-positive",
+    "turn": 3,
+    "vadEndAfterSpeechEnd": 841,
+    "sttDone": 4443,
+    "sttMs": 3601,
+    "modelMs": 1322,
+    "firstTokenMs": 848,
+    "ttsReady": 6014,
+    "playing": 6059,
+    "source": "fixed-fallback"
+   },
+   {
+    "conv": "de-positive",
+    "turn": 4,
+    "vadEndAfterSpeechEnd": 823,
+    "sttDone": 3947,
+    "sttMs": 3124,
+    "modelMs": 1187,
+    "firstTokenMs": 684,
+    "ttsReady": 5356,
+    "playing": 5411,
+    "source": "fixed-fallback"
+   }
+  ],
+  "vadEndAfterSpeechEnd": {
+   "n": 12,
+   "min": 806,
+   "median": 956,
+   "max": 1062
+  },
+  "sttDone": {
+   "n": 12,
+   "min": 3947,
+   "median": 4680,
+   "max": 5373
+  },
+  "sttMs": {
+   "n": 12,
+   "min": 3124,
+   "median": 3684,
+   "max": 4499
+  },
+  "firstTokenMs": {
+   "n": 12,
+   "min": 621,
+   "median": 927,
+   "max": 3087
+  },
+  "modelMs": {
+   "n": 12,
+   "min": 1187,
+   "median": 1752,
+   "max": 3572
+  },
+  "ttsReady": {
+   "n": 12,
+   "min": 5356,
+   "median": 6541,
+   "max": 9089
+  },
+  "playing": {
+   "n": 12,
+   "min": 5411,
+   "median": 6587,
+   "max": 9135
+  }
+ },
+ "A4_closing_audio_chain": {
+  "platform": "WEB-headless-cpu for VAD/STT/TTS/playback + HOST-linux-cpu model via loopback (same VM); playing = HTMLMediaElement playing event (proxy, not acoustic)",
+  "items": [
+   {
+    "conv": "tr-positive",
+    "bridgeFirstAudioMs": 13,
+    "bridgeEndMs": 3080,
+    "personalFirstAudioMs": null,
+    "gapBridgeEndToPersonalMs": null,
+    "closingDoneMs": 5694,
+    "line": null
+   },
+   {
+    "conv": "en-positive",
+    "bridgeFirstAudioMs": 11,
+    "bridgeEndMs": 3336,
+    "personalFirstAudioMs": 3573,
+    "gapBridgeEndToPersonalMs": 237,
+    "closingDoneMs": 6571,
+    "line": "You talked about a busy week and a good hike."
+   },
+   {
+    "conv": "de-positive",
+    "bridgeFirstAudioMs": 9,
+    "bridgeEndMs": 3564,
+    "personalFirstAudioMs": 3579,
+    "gapBridgeEndToPersonalMs": 15,
+    "closingDoneMs": 7384,
+    "line": "Sie sprachen über viel Arbeit und Wanderungen mit der Schwester."
+   }
+  ]
+ }
+}

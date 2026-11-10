@@ -1,0 +1,305 @@
+{
+ "url": "http://127.0.0.1:8731/app/index.html?llm=host&autotest=tr-positive",
+ "browser": "153.0.8010.12",
+ "startedAt": "2026-11-10T23:43:26.490Z",
+ "wallSeconds": 79,
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "result": {
+  "id": "tr-positive",
+  "done": true,
+  "turns": [
+   {
+    "index": 1,
+    "text": "Bu hafta işte çok yoğundum, toplantılar hiç bitmedi.",
+    "userSpeechEndAt": 22759,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 19421
+     },
+     {
+      "stage": "vad-end",
+      "t": 23711,
+      "samples": 73728
+     },
+     {
+      "stage": "stt-done",
+      "t": 28132,
+      "sttMs": 4421
+     },
+     {
+      "stage": "tts-start",
+      "t": 30804
+     },
+     {
+      "stage": "tts-ready",
+      "t": 31055,
+      "audioMs": 2276
+     },
+     {
+      "stage": "playing",
+      "t": 31105
+     },
+     {
+      "stage": "ended",
+      "t": 33432
+     },
+     {
+      "stage": "turn-done",
+      "t": 33432,
+      "source": "model",
+      "modelMs": 2640,
+      "firstTokenMs": 1927,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "text": "Ama hafta sonu kız kardeşimle yürüyüşe çıktım ve bu bana çok iyi geldi.",
+    "userSpeechEndAt": 38499,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 34291
+     },
+     {
+      "stage": "vad-end",
+      "t": 39513,
+      "samples": 88576
+     },
+     {
+      "stage": "stt-done",
+      "t": 43794,
+      "sttMs": 4282
+     },
+     {
+      "stage": "tts-start",
+      "t": 46105
+     },
+     {
+      "stage": "tts-ready",
+      "t": 46350,
+      "audioMs": 2276
+     },
+     {
+      "stage": "playing",
+      "t": 46398
+     },
+     {
+      "stage": "ended",
+      "t": 48721
+     },
+     {
+      "stage": "turn-done",
+      "t": 48721,
+      "source": "model",
+      "modelMs": 2295,
+      "firstTokenMs": 1341,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "text": "Yürüyüşte telefona hiç bakmadım.",
+    "userSpeechEndAt": 51680,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 49611
+     },
+     {
+      "stage": "vad-end",
+      "t": 52691,
+      "samples": 54272
+     },
+     {
+      "stage": "stt-done",
+      "t": 56201,
+      "sttMs": 3510
+     },
+     {
+      "stage": "tts-start",
+      "t": 58048
+     },
+     {
+      "stage": "tts-ready",
+      "t": 58299,
+      "audioMs": 2705
+     },
+     {
+      "stage": "playing",
+      "t": 58344
+     },
+     {
+      "stage": "ended",
+      "t": 61108
+     },
+     {
+      "stage": "turn-done",
+      "t": 61108,
+      "source": "model",
+      "modelMs": 1834,
+      "firstTokenMs": 944,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "text": "Bunu daha sık yapmak istiyorum.",
+    "userSpeechEndAt": 63759,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 61931
+     },
+     {
+      "stage": "vad-end",
+      "t": 64711,
+      "samples": 49664
+     },
+     {
+      "stage": "stt-done",
+      "t": 67987,
+      "sttMs": 3276
+     },
+     {
+      "stage": "tts-start",
+      "t": 69913
+     },
+     {
+      "stage": "tts-ready",
+      "t": 70148,
+      "audioMs": 2229
+     },
+     {
+      "stage": "playing",
+      "t": 70191
+     },
+     {
+      "stage": "ended",
+      "t": 72467
+     },
+     {
+      "stage": "turn-done",
+      "t": 72467,
+      "source": "model",
+      "modelMs": 1914,
+      "firstTokenMs": 1060,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   }
+  ],
+  "closing": {
+   "stages": [
+    {
+     "stage": "closing-trigger",
+     "t": 72891
+    },
+    {
+     "stage": "tts-start",
+     "t": 72892
+    },
+    {
+     "stage": "tts-ready",
+     "t": 72892,
+     "audioMs": 3007
+    },
+    {
+     "stage": "playing",
+     "t": 72904
+    },
+    {
+     "stage": "ended",
+     "t": 75971
+    },
+    {
+     "stage": "closing-done",
+     "t": 78585
+    }
+   ],
+   "result": {
+    "T": {
+     "trigger": 72891.60499999952,
+     "bridgeRequested": 72891.61999999918,
+     "lineText": 75047.37999999989,
+     "bridgeEnd": 75971.55999999959,
+     "lineRetryText": 76350.125,
+     "groupsText": 78226.93999999948,
+     "done": 78227.76999999955
+    },
+    "line": {
+     "candidate": "Yoğunduktan ve toplantılardan söz ettin.",
+     "status": "negation-not-kept",
+     "firstTokenMs": 1263,
+     "modelMs": 2141,
+     "retryCandidate": "Yoğunduktan ve toplantılardan söz ettin.",
+     "retryStatus": "negation-not-kept",
+     "retryMs": 1279,
+     "accepted": null,
+     "finalStatus": "negation-not-kept"
+    },
+    "bridge": {
+     "played": true
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 1867,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "İş yaşamı",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Bu hafta işte çok yoğundun, toplantılar hiç bitmedi."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Söylediğin diğer şeyler",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Ama hafta sonu kız kardeşimle yürüyüşe çıktım ve bu bana çok iyi geldi."
+        },
+        {
+         "turn": 3,
+         "text": "Yürüyüşte telefona hiç bakmadım."
+        },
+        {
+         "turn": 4,
+         "text": "Bunu daha sık yapmak istiyorum."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    }
+   }
+  }
+ },
+ "console": [
+  "19.1s log VAD | debug > Loading VAD...",
+  "19.3s log VAD | debug > ...finished loading VAD",
+  "19.3s log VAD | debug > initializing micVAD",
+  "19.3s log using custom audio context",
+  "19.3s log VAD | debug > started micVAD",
+  "19.9s log VAD | debug > Detected real speech start",
+  "24.1s warning No available adapters.",
+  "34.7s log VAD | debug > Detected real speech start",
+  "50.1s log VAD | debug > Detected real speech start",
+  "62.4s log VAD | debug > Detected real speech start",
+  "78.8s log VAD | debug > destroy called"
+ ]
+}

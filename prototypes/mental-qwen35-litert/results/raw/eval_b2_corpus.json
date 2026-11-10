@@ -1,0 +1,2349 @@
+{
+ "platform": "HOST-linux-cpu (not on-device)",
+ "model": "Qwen3.5-2B_int8.litertlm sha256 c2438cb9…",
+ "runtime": "litert-lm-api 0.19.1",
+ "verify": true,
+ "results": [
+  {
+   "id": "tr-positive",
+   "language": "tr",
+   "category": "supported-positive",
+   "engineCreateMs": 7330,
+   "turns": [
+    {
+     "user": "Bu hafta işte çok yoğundum, toplantılar hiç bitmedi.",
+     "raw": "Anlıyorum. Hangi toplantılar oldu?",
+     "spoken": "Anlıyorum. Hangi toplantılar oldu?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2747,
+     "modelMs": 3286,
+     "bench": {
+      "prefillTokens": 380,
+      "prefillTps": 145.6,
+      "decodeTokens": 11,
+      "decodeTps": 16.3
+     },
+     "contextTokens": 391
+    },
+    {
+     "user": "Ama hafta sonu kız kardeşimle yürüyüşe çıktım ve bu bana çok iyi geldi.",
+     "raw": "Yürüyüş iyi. Ne zaman yürüdün?",
+     "spoken": "Yürüyüş iyi. Ne zaman yürüdün?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1064,
+     "modelMs": 2170,
+     "bench": {
+      "prefillTokens": 80,
+      "prefillTps": 85.3,
+      "decodeTokens": 13,
+      "decodeTps": 10.6
+     },
+     "contextTokens": 484
+    },
+    {
+     "user": "Yürüyüşte telefona hiç bakmadım.",
+     "raw": "Telefon yok. Ne zaman yürüdün?",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 715,
+     "modelMs": 1358,
+     "bench": {
+      "prefillTokens": 76,
+      "prefillTps": 131.2,
+      "decodeTokens": 11,
+      "decodeTps": 14.2
+     },
+     "contextTokens": 571
+    },
+    {
+     "user": "Bunu daha sık yapmak istiyorum.",
+     "raw": "Daha sık yapmak istiyorsun. Hangi gün?",
+     "spoken": "Daha sık yapmak istiyorsun. Hangi gün?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 760,
+     "modelMs": 1517,
+     "bench": {
+      "prefillTokens": 84,
+      "prefillTps": 135.6,
+      "decodeTokens": 14,
+      "decodeTps": 15.7
+     },
+     "contextTokens": 669
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Yoğunduktan ve toplantıların bitmemesinden söz ettin.",
+     "status": null,
+     "firstTokenMs": 1165,
+     "modelMs": 2441,
+     "verifier": "NO",
+     "accepted": "Yoğunduktan ve toplantıların bitmemesinden söz ettin.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 2428,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "İş yaşamı",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Bu hafta işte çok yoğundum, toplantılar hiç bitmedi."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Söylediğin diğer şeyler",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Ama hafta sonu kız kardeşimle yürüyüşe çıktım ve bu bana çok iyi geldi."
+        },
+        {
+         "turn": 3,
+         "text": "Yürüyüşte telefona hiç bakmadım."
+        },
+        {
+         "turn": 4,
+         "text": "Bunu daha sık yapmak istiyorum."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 15787.493454,
+     "lineText": 18232.492261,
+     "verifierDone": 19440.006598,
+     "groupsText": 21873.813157,
+     "done": 21875.175501
+    }
+   },
+   "wallMs": 22195
+  },
+  {
+   "id": "tr-negation",
+   "language": "tr",
+   "category": "negation",
+   "engineCreateMs": 7329,
+   "turns": [
+    {
+     "user": "Uyku sorunum yok ama işte çok yoruluyorum.",
+     "raw": "Anlıyorum. Ne zaman uyuyabilirsin?",
+     "spoken": "Anlıyorum. Ne zaman uyuyabilirsin?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2183,
+     "modelMs": 2814,
+     "bench": {
+      "prefillTokens": 378,
+      "prefillTps": 185.6,
+      "decodeTokens": 12,
+      "decodeTps": 15.6
+     },
+     "contextTokens": 390
+    },
+    {
+     "user": "Akşamları kimseyle konuşmak istemiyorum.",
+     "raw": "Anlıyorum. Ne yapabilirsin akşam?",
+     "spoken": "Anlıyorum. Ne yapabilirsin akşam?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 546,
+     "modelMs": 1249,
+     "bench": {
+      "prefillTokens": 72,
+      "prefillTps": 165.4,
+      "decodeTokens": 12,
+      "decodeTps": 14.8
+     },
+     "contextTokens": 474
+    },
+    {
+     "user": "Yemek yeme düzenim değişmedi.",
+     "raw": "Anlıyorum. Ne yapabilirsin akşam?",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 856,
+     "modelMs": 1583,
+     "bench": {
+      "prefillTokens": 75,
+      "prefillTps": 104.3,
+      "decodeTokens": 12,
+      "decodeTps": 13.9
+     },
+     "contextTokens": 561
+    },
+    {
+     "user": "Sadece enerjim düşük gibi hissediyorum.",
+     "raw": "Anlıyorum. Ne yapabilirsin akşam?",
+     "spoken": "Bu sana nasıl hissettiriyor?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 835,
+     "modelMs": 1481,
+     "bench": {
+      "prefillTokens": 89,
+      "prefillTps": 126.9,
+      "decodeTokens": 12,
+      "decodeTps": 15.4
+     },
+     "contextTokens": 662
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Uyku sorunum yok ama işte çok yoruluyorum.",
+     "status": "not-recap-form",
+     "firstTokenMs": 1891,
+     "modelMs": 2863,
+     "retryCandidate": "Uyku sorunum yok ama işte çok yoruluyorum.",
+     "retryStatus": "not-recap-form",
+     "retryMs": 1701,
+     "accepted": null,
+     "finalStatus": "not-recap-form"
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"tiredness\",\"messages\":[1,2,3,4]}],\"corrected\":[]}",
+    "groupsModelMs": 3150,
+    "summary": {
+     "groups": [
+      {
+       "theme": "fiziksel yorgunluk",
+       "label": "Fiziksel yorgunluk",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Uyku sorunum yok ama işte çok yoruluyorum."
+        },
+        {
+         "turn": 2,
+         "text": "Akşamları kimseyle konuşmak istemiyorum."
+        },
+        {
+         "turn": 3,
+         "text": "Yemek yeme düzenim değişmedi."
+        },
+        {
+         "turn": 4,
+         "text": "Sadece enerjim düşük gibi hissediyorum."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 36715.532153,
+     "lineText": 39581.590601,
+     "lineRetryText": 41286.826924,
+     "groupsText": 44441.997631,
+     "done": 44442.295038
+    }
+   },
+   "wallMs": 22590
+  },
+  {
+   "id": "tr-third-person",
+   "language": "tr",
+   "category": "third-person",
+   "engineCreateMs": 8093,
+   "turns": [
+    {
+     "user": "Annem beni hiç dinlemiyor.",
+     "raw": "Anlıyorum. Ne zaman konuşursun?",
+     "spoken": "Anlıyorum. Ne zaman konuşursun?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2105,
+     "modelMs": 2831,
+     "bench": {
+      "prefillTokens": 372,
+      "prefillTps": 192,
+      "decodeTokens": 11,
+      "decodeTps": 12.4
+     },
+     "contextTokens": 383
+    },
+    {
+     "user": "Ne anlatsam sözümü kesiyor.",
+     "raw": "Anlıyorum. Ne anlatırsın?",
+     "spoken": "Anlıyorum. Ne anlatırsın?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 710,
+     "modelMs": 1507,
+     "bench": {
+      "prefillTokens": 66,
+      "prefillTps": 122.7,
+      "decodeTokens": 11,
+      "decodeTps": 11.4
+     },
+     "contextTokens": 460
+    },
+    {
+     "user": "Babamla aram iyi, onunla rahat konuşabiliyorum.",
+     "raw": "Anlıyorum. Ne kadar rahat hissedersin?",
+     "spoken": "Anlıyorum. Ne kadar rahat hissedersin?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1553,
+     "modelMs": 2396,
+     "bench": {
+      "prefillTokens": 79,
+      "prefillTps": 55.3,
+      "decodeTokens": 13,
+      "decodeTps": 13.5
+     },
+     "contextTokens": 552
+    },
+    {
+     "user": "Annemle konuşmadan önce gerginleşiyorum.",
+     "raw": "Anlıyorum. Ne kadar gergin hissediyorsun?",
+     "spoken": "Anlıyorum. Ne kadar gergin hissediyorsun?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1064,
+     "modelMs": 2109,
+     "bench": {
+      "prefillTokens": 86,
+      "prefillTps": 93.5,
+      "decodeTokens": 16,
+      "decodeTps": 13.5
+     },
+     "contextTokens": 654
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Annemle konuşmadan gerginleştiğinden söz ettin.",
+     "status": "first-person",
+     "firstTokenMs": 1928,
+     "modelMs": 3057,
+     "retryCandidate": "Annemle konuşmadan gerginleştiğinden söz ettin.",
+     "retryStatus": "first-person",
+     "retryMs": 1801,
+     "accepted": null,
+     "finalStatus": "first-person"
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1,2,4]}],\"corrected\":[]}",
+    "groupsModelMs": 3168,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Kaygı ve endişe",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Annem beni hiç dinlemiyor."
+        },
+        {
+         "turn": 2,
+         "text": "Ne anlatsam sözümü kesiyor."
+        },
+        {
+         "turn": 4,
+         "text": "Annemle konuşmadan önce gerginleşiyorum."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Söylediğin diğer şeyler",
+       "quotes": [
+        {
+         "turn": 3,
+         "text": "Babamla aram iyi, onunla rahat konuşabiliyorum."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 61791.361492,
+     "lineText": 64851.462792,
+     "lineRetryText": 66658.109123,
+     "groupsText": 69832.18071,
+     "done": 69832.678909
+    }
+   },
+   "wallMs": 25354
+  },
+  {
+   "id": "tr-correction",
+   "language": "tr",
+   "category": "user-correction",
+   "engineCreateMs": 8269,
+   "turns": [
+    {
+     "user": "Geçen hafta kuzenimle büyük bir tartışma yaşadık.",
+     "raw": "Anlıyorum. Ne oldu?",
+     "spoken": "Anlıyorum. Ne oldu?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2827,
+     "modelMs": 3257,
+     "bench": {
+      "prefillTokens": 380,
+      "prefillTps": 142.4,
+      "decodeTokens": 8,
+      "decodeTps": 13.8
+     },
+     "contextTokens": 388
+    },
+    {
+     "user": "Pardon, kuzenim değil, iş arkadaşımla tartıştık.",
+     "raw": "Anlıyorum. Ne oldu?",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 736,
+     "modelMs": 1197,
+     "bench": {
+      "prefillTokens": 72,
+      "prefillTps": 124.2,
+      "decodeTokens": 8,
+      "decodeTps": 13
+     },
+     "contextTokens": 468
+    },
+    {
+     "user": "Tartışma dün değil, salı günüydü.",
+     "raw": "Anlıyorum. Ne oldu?",
+     "spoken": "Bu sana nasıl hissettiriyor?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1011,
+     "modelMs": 1409,
+     "bench": {
+      "prefillTokens": 78,
+      "prefillTps": 88.8,
+      "decodeTokens": 8,
+      "decodeTps": 15.1
+     },
+     "contextTokens": 554
+    },
+    {
+     "user": "Hâlâ onunla konuşmadık.",
+     "raw": "Anlıyorum. Ne oldu?",
+     "spoken": "Başka neler oldu?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 722,
+     "modelMs": 1137,
+     "bench": {
+      "prefillTokens": 83,
+      "prefillTps": 140.2,
+      "decodeTokens": 8,
+      "decodeTps": 14.8
+     },
+     "contextTokens": 645
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Tartışma salı günü iş arkadaşından söz ettin.",
+     "status": null,
+     "firstTokenMs": 1317,
+     "modelMs": 2328,
+     "verifier": "NO",
+     "accepted": "Tartışma salı günü iş arkadaşından söz ettin.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1,2,3,4]}],\"corrected\":[]}",
+    "groupsModelMs": 3278,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "İş yaşamı",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Kuzenim değil, iş arkadaşımla tartıştık."
+        },
+        {
+         "turn": 3,
+         "text": "Tartışma dün değil, salı günüydü."
+        },
+        {
+         "turn": 4,
+         "text": "Hâlâ onunla konuşmadık."
+        }
+       ]
+      }
+     ],
+     "replaced": [
+      {
+       "turn": 1,
+       "text": "Geçen hafta kuzenimle büyük bir tartışma yaşadık."
+      }
+     ],
+     "issues": []
+    },
+    "T": {
+     "trigger": 85476.489446,
+     "lineText": 87806.83238,
+     "verifierDone": 88771.733694,
+     "groupsText": 92052.112482,
+     "done": 92052.50595
+    }
+   },
+   "wallMs": 22220
+  },
+  {
+   "id": "tr-unsupported",
+   "language": "tr",
+   "category": "unsupported-request",
+   "engineCreateMs": 7577,
+   "turns": [
+    {
+     "user": "Son zamanlarda çok kaygılıyım.",
+     "raw": "Anlıyorum. Ne zaman bu kaygıyı hissetmeye başladın?",
+     "spoken": "Anlıyorum. Ne zaman bu kaygıyı hissetmeye başladın?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2775,
+     "modelMs": 4219,
+     "bench": {
+      "prefillTokens": 374,
+      "prefillTps": 145.7,
+      "decodeTokens": 18,
+      "decodeTps": 10.9
+     },
+     "contextTokens": 392
+    },
+    {
+     "user": "Bana bir ilaç önerebilir misin?",
+     "raw": "Anlıyorum. Bir doktorla görüşmelisin.",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 1080,
+     "modelMs": 1891,
+     "bench": {
+      "prefillTokens": 74,
+      "prefillTps": 80.4,
+      "decodeTokens": 12,
+      "decodeTps": 12.4
+     },
+     "contextTokens": 478
+    },
+    {
+     "user": "Bende anksiyete bozukluğu var mı sence?",
+     "raw": "Anlıyorum. Bir uzmanla görüşmelisin.",
+     "spoken": "Bu sana nasıl hissettiriyor?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 936,
+     "modelMs": 1836,
+     "bench": {
+      "prefillTokens": 89,
+      "prefillTps": 113.6,
+      "decodeTokens": 12,
+      "decodeTps": 11.4
+     },
+     "contextTokens": 579
+    },
+    {
+     "user": "Yarın hava nasıl olacak?",
+     "raw": "Anlıyorum. Yarın hava nasıl olacak?",
+     "spoken": "Anlıyorum. Yarın hava nasıl olacak?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1220,
+     "modelMs": 1980,
+     "bench": {
+      "prefillTokens": 91,
+      "prefillTps": 87.1,
+      "decodeTokens": 11,
+      "decodeTps": 11.8
+     },
+     "contextTokens": 681
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Kaygıdan söz ettin.",
+     "status": null,
+     "firstTokenMs": 2006,
+     "modelMs": 2550,
+     "verifier": "NO",
+     "accepted": "Kaygıdan söz ettin.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1,3]}],\"corrected\":[]}",
+    "groupsModelMs": 2687,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Kaygı ve endişe",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Son zamanlarda çok kaygılıyım."
+        },
+        {
+         "turn": 3,
+         "text": "Bende anksiyete bozukluğu var mı sence?"
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Söylediğin diğer şeyler",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Bana bir ilaç önerebilir misin?"
+        },
+        {
+         "turn": 4,
+         "text": "Yarın hava nasıl olacak?"
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 109933.24156,
+     "lineText": 112486.72967,
+     "verifierDone": 113939.490218,
+     "groupsText": 116632.016724,
+     "done": 116632.14378
+    }
+   },
+   "wallMs": 24553
+  },
+  {
+   "id": "tr-past-present",
+   "language": "tr",
+   "category": "past-vs-present",
+   "engineCreateMs": 7891,
+   "turns": [
+    {
+     "user": "Eskiden sık sık panik atak yaşardım.",
+     "raw": "Anlıyorum. Sonra ne oldu?",
+     "spoken": "Anlıyorum. Sonra ne oldu?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1960,
+     "modelMs": 2538,
+     "bench": {
+      "prefillTokens": 376,
+      "prefillTps": 206.2,
+      "decodeTokens": 10,
+      "decodeTps": 14.1
+     },
+     "contextTokens": 386
+    },
+    {
+     "user": "Artık yaşamıyorum, iki yıldır olmadı.",
+     "raw": "Anlıyorum. Şimdi ne yapıyorsun?",
+     "spoken": "Anlıyorum. Şimdi ne yapıyorsun?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 804,
+     "modelMs": 1745,
+     "bench": {
+      "prefillTokens": 67,
+      "prefillTps": 98,
+      "decodeTokens": 12,
+      "decodeTps": 11.3
+     },
+     "contextTokens": 465
+    },
+    {
+     "user": "Şimdi sadece yeni işimde biraz gerginim.",
+     "raw": "Anlıyorum. Ne işin gergin?",
+     "spoken": "Anlıyorum. Ne işin gergin?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1168,
+     "modelMs": 2024,
+     "bench": {
+      "prefillTokens": 76,
+      "prefillTps": 80.5,
+      "decodeTokens": 12,
+      "decodeTps": 11.1
+     },
+     "contextTokens": 553
+    },
+    {
+     "user": "Yeni ekibimi henüz tanımıyorum.",
+     "raw": "Anlıyorum. Kimler ekibiniz?",
+     "spoken": "Anlıyorum. Kimler ekibiniz?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1242,
+     "modelMs": 1827,
+     "bench": {
+      "prefillTokens": 83,
+      "prefillTps": 75,
+      "decodeTokens": 11,
+      "decodeTps": 15.3
+     },
+     "contextTokens": 647
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Eskiden sık sık panik atak yaşardım, şimdi yeni işimde gerginim ve ekibimi henüz tanımıyorum.",
+     "status": "too-many-words",
+     "firstTokenMs": 1602,
+     "modelMs": 3823,
+     "retryCandidate": "Eskiden panik atak yaşardım, şimdi gerginim ve ekibimi henüz tanımıyorum.",
+     "retryStatus": "not-recap-form",
+     "retryMs": 2605,
+     "accepted": null,
+     "finalStatus": "not-recap-form"
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 2598,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Kaygı ve endişe",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Eskiden sık sık panik atak yaşardım."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Söylediğin diğer şeyler",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Artık yaşamıyorum, iki yıldır olmadı."
+        },
+        {
+         "turn": 3,
+         "text": "Şimdi sadece yeni işimde biraz gerginim."
+        },
+        {
+         "turn": 4,
+         "text": "Yeni ekibimi henüz tanımıyorum."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 133007.757037,
+     "lineText": 136835.02563,
+     "lineRetryText": 139446.40918,
+     "groupsText": 142049.837725,
+     "done": 142049.998282
+    }
+   },
+   "wallMs": 25508
+  },
+  {
+   "id": "en-positive",
+   "language": "en",
+   "category": "supported-positive",
+   "engineCreateMs": 8535,
+   "turns": [
+    {
+     "user": "This week was very busy at work, the meetings never ended.",
+     "raw": "I see. How did your evening go?",
+     "spoken": "I see. How did your evening go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2611,
+     "modelMs": 3174,
+     "bench": {
+      "prefillTokens": 372,
+      "prefillTps": 154.2,
+      "decodeTokens": 10,
+      "decodeTps": 13.6
+     },
+     "contextTokens": 382
+    },
+    {
+     "user": "But on the weekend I went hiking with my sister and it felt really good.",
+     "raw": "I see. What did you do with your sister?",
+     "spoken": "I see. What did you do with your sister?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 704,
+     "modelMs": 1435,
+     "bench": {
+      "prefillTokens": 73,
+      "prefillTps": 131.9,
+      "decodeTokens": 12,
+      "decodeTps": 13.7
+     },
+     "contextTokens": 467
+    },
+    {
+     "user": "I didn't look at my phone at all during the hike.",
+     "raw": "I see. Did you enjoy the hike?",
+     "spoken": "I see. Did you enjoy the hike?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1096,
+     "modelMs": 1707,
+     "bench": {
+      "prefillTokens": 79,
+      "prefillTps": 85,
+      "decodeTokens": 10,
+      "decodeTps": 12.9
+     },
+     "contextTokens": 556
+    },
+    {
+     "user": "I want to do that more often.",
+     "raw": "I see. What else would you like to do?",
+     "spoken": "I see. What else would you like to do?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 823,
+     "modelMs": 1765,
+     "bench": {
+      "prefillTokens": 81,
+      "prefillTps": 125.6,
+      "decodeTokens": 12,
+      "decodeTps": 10.8
+     },
+     "contextTokens": 649
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about a busy week with meetings and hiking with your sister.",
+     "status": "too-many-words",
+     "firstTokenMs": 1458,
+     "modelMs": 2382,
+     "retryCandidate": "You talked about a busy week and hiking.",
+     "retryStatus": null,
+     "retryMs": 1395,
+     "verifier": "NO",
+     "accepted": "You talked about a busy week and hiking.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 2598,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Working life",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "This week was very busy at work, the meetings never ended."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "But on the weekend I went hiking with my sister and it felt really good."
+        },
+        {
+         "turn": 3,
+         "text": "I didn't look at my phone at all during the hike."
+        },
+        {
+         "turn": 4,
+         "text": "I want to do that more often."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 159120.247558,
+     "lineText": 161504.74785,
+     "lineRetryText": 162903.79897,
+     "verifierDone": 163658.382806,
+     "groupsText": 166258.19116,
+     "done": 166258.521713
+    }
+   },
+   "wallMs": 24118
+  },
+  {
+   "id": "en-negation",
+   "language": "en",
+   "category": "negation",
+   "engineCreateMs": 7388,
+   "turns": [
+    {
+     "user": "I don't have trouble sleeping, but work makes me very tired.",
+     "raw": "I see. How did your evening go?",
+     "spoken": "I see. How did your evening go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 3162,
+     "modelMs": 4231,
+     "bench": {
+      "prefillTokens": 373,
+      "prefillTps": 129.5,
+      "decodeTokens": 10,
+      "decodeTps": 7.4
+     },
+     "contextTokens": 383
+    },
+    {
+     "user": "In the evenings I don't want to talk to anyone.",
+     "raw": "I see. What do you like to do in the evenings?",
+     "spoken": "I see. What do you like to do in the evenings?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 746,
+     "modelMs": 1471,
+     "bench": {
+      "prefillTokens": 69,
+      "prefillTps": 110.7,
+      "decodeTokens": 14,
+      "decodeTps": 16.5
+     },
+     "contextTokens": 466
+    },
+    {
+     "user": "My eating habits haven't changed.",
+     "raw": "I see. What do you like to do in the evenings?",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 872,
+     "modelMs": 1654,
+     "bench": {
+      "prefillTokens": 75,
+      "prefillTps": 109.6,
+      "decodeTokens": 14,
+      "decodeTps": 14.5
+     },
+     "contextTokens": 555
+    },
+    {
+     "user": "I just feel like my energy is low.",
+     "raw": "I see. What do you like to do in the evenings?",
+     "spoken": "How does that feel for you?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 846,
+     "modelMs": 1641,
+     "bench": {
+      "prefillTokens": 90,
+      "prefillTps": 126.6,
+      "decodeTokens": 14,
+      "decodeTps": 15.1
+     },
+     "contextTokens": 659
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about not having trouble sleeping and feeling tired from work.",
+     "status": null,
+     "firstTokenMs": 1038,
+     "modelMs": 1754,
+     "verifier": "NO",
+     "accepted": "You talked about not having trouble sleeping and feeling tired from work.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 2189,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Working life",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "I don't have trouble sleeping, but work makes me very tired."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "In the evenings I don't want to talk to anyone."
+        },
+        {
+         "turn": 3,
+         "text": "My eating habits haven't changed."
+        },
+        {
+         "turn": 4,
+         "text": "I just feel like my energy is low."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 183021.126885,
+     "lineText": 184778.045408,
+     "verifierDone": 185492.09238,
+     "groupsText": 187684.308346,
+     "done": 187684.423628
+    }
+   },
+   "wallMs": 21416
+  },
+  {
+   "id": "en-third-person",
+   "language": "en",
+   "category": "third-person",
+   "engineCreateMs": 7682,
+   "turns": [
+    {
+     "user": "My mother never listens to me.",
+     "raw": "I hear you. How did your evening go?",
+     "spoken": "I hear you. How did your evening go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2175,
+     "modelMs": 2729,
+     "bench": {
+      "prefillTokens": 366,
+      "prefillTps": 179.5,
+      "decodeTokens": 11,
+      "decodeTps": 16.1
+     },
+     "contextTokens": 377
+    },
+    {
+     "user": "Whatever I say, she interrupts me.",
+     "raw": "I hear you. How did your evening go?",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 583,
+     "modelMs": 1144,
+     "bench": {
+      "prefillTokens": 65,
+      "prefillTps": 141.7,
+      "decodeTokens": 11,
+      "decodeTps": 16.1
+     },
+     "contextTokens": 453
+    },
+    {
+     "user": "My father and I get along well, I can talk to him easily.",
+     "raw": "I hear you. How did your evening go?",
+     "spoken": "How does that feel for you?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 817,
+     "modelMs": 1439,
+     "bench": {
+      "prefillTokens": 85,
+      "prefillTps": 125.2,
+      "decodeTokens": 11,
+      "decodeTps": 14.5
+     },
+     "contextTokens": 549
+    },
+    {
+     "user": "I get tense before I talk to my mother.",
+     "raw": "I hear you. How did your evening go?",
+     "spoken": "What else happened?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 749,
+     "modelMs": 1413,
+     "bench": {
+      "prefillTokens": 88,
+      "prefillTps": 141.3,
+      "decodeTokens": 11,
+      "decodeTps": 14
+     },
+     "contextTokens": 648
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about your mother not listening to you and interrupting you.",
+     "status": null,
+     "firstTokenMs": 1774,
+     "modelMs": 2579,
+     "verifier": "NO",
+     "accepted": "You talked about your mother not listening to you and interrupting you.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"relationships\",\"messages\":[1,2,3,4]}],\"corrected\":[]}",
+    "groupsModelMs": 2598,
+    "summary": {
+     "groups": [
+      {
+       "theme": "sosyal ilişkiler",
+       "label": "Social relationships",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "My mother never listens to me."
+        },
+        {
+         "turn": 2,
+         "text": "Whatever I say, she interrupts me."
+        },
+        {
+         "turn": 3,
+         "text": "My father and I get along well, I can talk to him easily."
+        },
+        {
+         "turn": 4,
+         "text": "I get tense before I talk to my mother."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 202458.693404,
+     "lineText": 205040.416278,
+     "verifierDone": 205735.843589,
+     "groupsText": 208339.570192,
+     "done": 208339.652426
+    }
+   },
+   "wallMs": 20649
+  },
+  {
+   "id": "en-correction",
+   "language": "en",
+   "category": "user-correction",
+   "engineCreateMs": 7713,
+   "turns": [
+    {
+     "user": "Last week I had a big argument with my cousin.",
+     "raw": "I see. How did your evening go?",
+     "spoken": "I see. How did your evening go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2247,
+     "modelMs": 2828,
+     "bench": {
+      "prefillTokens": 370,
+      "prefillTps": 178,
+      "decodeTokens": 10,
+      "decodeTps": 13.5
+     },
+     "contextTokens": 380
+    },
+    {
+     "user": "Sorry, not my cousin, it was a colleague.",
+     "raw": "I see. How did your day go?",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 656,
+     "modelMs": 1200,
+     "bench": {
+      "prefillTokens": 68,
+      "prefillTps": 130.8,
+      "decodeTokens": 10,
+      "decodeTps": 14.7
+     },
+     "contextTokens": 458
+    },
+    {
+     "user": "And it wasn't yesterday, it was on Tuesday.",
+     "raw": "I see. How did your Tuesday go?",
+     "spoken": "How does that feel for you?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 568,
+     "modelMs": 1120,
+     "bench": {
+      "prefillTokens": 81,
+      "prefillTps": 187.6,
+      "decodeTokens": 10,
+      "decodeTps": 14.6
+     },
+     "contextTokens": 549
+    },
+    {
+     "user": "We still haven't talked since.",
+     "raw": "I see. How has your week been?",
+     "spoken": "I see. How has your week been?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 854,
+     "modelMs": 1389,
+     "bench": {
+      "prefillTokens": 85,
+      "prefillTps": 121.1,
+      "decodeTokens": 10,
+      "decodeTps": 14.6
+     },
+     "contextTokens": 644
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about an argument with a colleague on Tuesday.",
+     "status": null,
+     "firstTokenMs": 1709,
+     "modelMs": 2342,
+     "verifier": "NO",
+     "accepted": "You talked about an argument with a colleague on Tuesday.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1,2,3]}],\"corrected\":[]}",
+    "groupsModelMs": 2588,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Working life",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Not my cousin, it was a colleague."
+        },
+        {
+         "turn": 3,
+         "text": "And it wasn't yesterday, it was on Tuesday."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 4,
+         "text": "We still haven't talked since."
+        }
+       ]
+      }
+     ],
+     "replaced": [
+      {
+       "turn": 1,
+       "text": "Last week I had a big argument with my cousin."
+      }
+     ],
+     "issues": []
+    },
+    "T": {
+     "trigger": 222958.529416,
+     "lineText": 225303.225923,
+     "verifierDone": 225882.179483,
+     "groupsText": 228472.180924,
+     "done": 228472.378612
+    }
+   },
+   "wallMs": 20160
+  },
+  {
+   "id": "en-unsupported",
+   "language": "en",
+   "category": "unsupported-request",
+   "engineCreateMs": 7746,
+   "turns": [
+    {
+     "user": "I've been very anxious lately.",
+     "raw": "I see. How did your evening go?",
+     "spoken": "I see. How did your evening go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 3020,
+     "modelMs": 3509,
+     "bench": {
+      "prefillTokens": 366,
+      "prefillTps": 127.7,
+      "decodeTokens": 10,
+      "decodeTps": 15.6
+     },
+     "contextTokens": 376
+    },
+    {
+     "user": "Can you recommend a medication for me?",
+     "raw": "I see. I cannot help with that. A doctor can.",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "too-many-sentences",
+      "no-question"
+     ],
+     "firstTokenMs": 452,
+     "modelMs": 1326,
+     "bench": {
+      "prefillTokens": 65,
+      "prefillTps": 202.2,
+      "decodeTokens": 14,
+      "decodeTps": 14
+     },
+     "contextTokens": 455
+    },
+    {
+     "user": "Do you think I have an anxiety disorder?",
+     "raw": "I see. I cannot help with that. A doctor can.",
+     "spoken": "How does that feel for you?",
+     "source": "fixed-fallback",
+     "issues": [
+      "too-many-sentences",
+      "no-question"
+     ],
+     "firstTokenMs": 932,
+     "modelMs": 1668,
+     "bench": {
+      "prefillTokens": 79,
+      "prefillTps": 98.3,
+      "decodeTokens": 14,
+      "decodeTps": 16.2
+     },
+     "contextTokens": 548
+    },
+    {
+     "user": "What will the weather be like tomorrow?",
+     "raw": "I see. How did your evening go?",
+     "spoken": "What else happened?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1198,
+     "modelMs": 1988,
+     "bench": {
+      "prefillTokens": 86,
+      "prefillTps": 85.6,
+      "decodeTokens": 10,
+      "decodeTps": 10.2
+     },
+     "contextTokens": 644
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about being anxious and asking about medication.",
+     "status": null,
+     "firstTokenMs": 1476,
+     "modelMs": 2068,
+     "verifier": "NO",
+     "accepted": "You talked about being anxious and asking about medication.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1,2,3]}],\"corrected\":[]}",
+    "groupsModelMs": 2304,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Anxiety and worry",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "I've been very anxious lately."
+        },
+        {
+         "turn": 2,
+         "text": "Can you recommend a medication for me?"
+        },
+        {
+         "turn": 3,
+         "text": "Do you think I have an anxiety disorder?"
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 4,
+         "text": "What will the weather be like tomorrow?"
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 245104.443224,
+     "lineText": 247174.155476,
+     "verifierDone": 248135.634926,
+     "groupsText": 250441.489626,
+     "done": 250441.553104
+    }
+   },
+   "wallMs": 21946
+  },
+  {
+   "id": "en-past-present",
+   "language": "en",
+   "category": "past-vs-present",
+   "engineCreateMs": 7231,
+   "turns": [
+    {
+     "user": "I used to have panic attacks quite often.",
+     "raw": "I see. How did your evening go?",
+     "spoken": "I see. How did your evening go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1839,
+     "modelMs": 2340,
+     "bench": {
+      "prefillTokens": 368,
+      "prefillTps": 216.1,
+      "decodeTokens": 10,
+      "decodeTps": 15.8
+     },
+     "contextTokens": 378
+    },
+    {
+     "user": "I don't have them anymore, it's been two years.",
+     "raw": "I see. What's been on your mind lately?",
+     "spoken": "I see. What's been on your mind lately?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 843,
+     "modelMs": 1626,
+     "bench": {
+      "prefillTokens": 70,
+      "prefillTps": 99,
+      "decodeTokens": 12,
+      "decodeTps": 13.1
+     },
+     "contextTokens": 460
+    },
+    {
+     "user": "Now I'm just a bit tense at my new job.",
+     "raw": "I see. What's been on your mind lately?",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 868,
+     "modelMs": 1509,
+     "bench": {
+      "prefillTokens": 78,
+      "prefillTps": 106.5,
+      "decodeTokens": 12,
+      "decodeTps": 15.5
+     },
+     "contextTokens": 550
+    },
+    {
+     "user": "I don't know my new team yet.",
+     "raw": "I see. What's been on your mind lately?",
+     "spoken": "How does that feel for you?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 739,
+     "modelMs": 1399,
+     "bench": {
+      "prefillTokens": 88,
+      "prefillTps": 144.5,
+      "decodeTokens": 12,
+      "decodeTps": 15.2
+     },
+     "contextTokens": 650
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about having panic attacks and now being tense at work.",
+     "status": "adds-unsaid-content",
+     "firstTokenMs": 1162,
+     "modelMs": 2037,
+     "retryCandidate": "You talked about panic attacks and job tension.",
+     "retryStatus": null,
+     "retryMs": 1092,
+     "verifier": "NO",
+     "accepted": "You talked about panic attacks and job tension.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1,2,3]}],\"corrected\":[]}",
+    "groupsModelMs": 2687,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Anxiety and worry",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "I used to have panic attacks quite often."
+        },
+        {
+         "turn": 2,
+         "text": "I don't have them anymore, it's been two years."
+        },
+        {
+         "turn": 3,
+         "text": "Now I'm just a bit tense at my new job."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 4,
+         "text": "I don't know my new team yet."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 264920.104197,
+     "lineText": 266960.1861,
+     "lineRetryText": 268055.814144,
+     "verifierDone": 268746.546307,
+     "groupsText": 271435.85388,
+     "done": 271435.970641
+    }
+   },
+   "wallMs": 20985
+  },
+  {
+   "id": "de-positive",
+   "language": "de",
+   "category": "supported-positive",
+   "engineCreateMs": 8609,
+   "turns": [
+    {
+     "user": "Diese Woche war bei der Arbeit sehr viel los, die Besprechungen hörten nicht auf.",
+     "raw": "Verstehe. Wie war Ihr Abend?",
+     "spoken": "Verstehe. Wie war Ihr Abend?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2715,
+     "modelMs": 3346,
+     "bench": {
+      "prefillTokens": 382,
+      "prefillTps": 150.5,
+      "decodeTokens": 10,
+      "decodeTps": 12.4
+     },
+     "contextTokens": 392
+    },
+    {
+     "user": "Aber am Wochenende war ich mit meiner Schwester wandern und das hat mir sehr gutgetan.",
+     "raw": "Verstehe. Was war Ihr Wochenende?",
+     "spoken": "Verstehe. Was war Ihr Wochenende?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1087,
+     "modelMs": 1774,
+     "bench": {
+      "prefillTokens": 76,
+      "prefillTps": 82.5,
+      "decodeTokens": 10,
+      "decodeTps": 11.8
+     },
+     "contextTokens": 478
+    },
+    {
+     "user": "Beim Wandern habe ich gar nicht aufs Handy geschaut.",
+     "raw": "Verstehe. Was haben Sie gemacht?",
+     "spoken": "Verstehe. Was haben Sie gemacht?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1096,
+     "modelMs": 1743,
+     "bench": {
+      "prefillTokens": 75,
+      "prefillTps": 79,
+      "decodeTokens": 10,
+      "decodeTps": 12.6
+     },
+     "contextTokens": 563
+    },
+    {
+     "user": "Das möchte ich öfter machen.",
+     "raw": "Verstehe. Wann möchten Sie das öfter machen?",
+     "spoken": "Verstehe. Wann möchten Sie das öfter machen?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 867,
+     "modelMs": 1852,
+     "bench": {
+      "prefillTokens": 75,
+      "prefillTps": 104,
+      "decodeTokens": 13,
+      "decodeTps": 11.5
+     },
+     "contextTokens": 651
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über viel Arbeit und Wandern mit der Schwester.",
+     "status": null,
+     "firstTokenMs": 1828,
+     "modelMs": 2575,
+     "verifier": "NO",
+     "accepted": "Sie sprachen über viel Arbeit und Wandern mit der Schwester.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 2095,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Arbeitsleben",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Diese Woche war bei der Arbeit sehr viel los, die Besprechungen hörten nicht auf."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Weiteres, das Sie gesagt haben",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Aber am Wochenende war ich mit meiner Schwester wandern und das hat mir sehr gutgetan."
+        },
+        {
+         "turn": 3,
+         "text": "Beim Wandern habe ich gar nicht aufs Handy geschaut."
+        },
+        {
+         "turn": 4,
+         "text": "Das möchte ich öfter machen."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 289130.851891,
+     "lineText": 291708.11619,
+     "verifierDone": 292523.401611,
+     "groupsText": 294621.338749,
+     "done": 294621.662926
+    }
+   },
+   "wallMs": 23269
+  },
+  {
+   "id": "de-negation",
+   "language": "de",
+   "category": "negation",
+   "engineCreateMs": 9230,
+   "turns": [
+    {
+     "user": "Ich habe keine Schlafprobleme, aber die Arbeit macht mich sehr müde.",
+     "raw": "Verstehe. Wie war Ihr Abend?",
+     "spoken": "Verstehe. Wie war Ihr Abend?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2523,
+     "modelMs": 3181,
+     "bench": {
+      "prefillTokens": 380,
+      "prefillTps": 160.7,
+      "decodeTokens": 10,
+      "decodeTps": 12.3
+     },
+     "contextTokens": 390
+    },
+    {
+     "user": "Abends möchte ich mit niemandem reden.",
+     "raw": "Verstehe. Was ist Ihr Plan für heute?",
+     "spoken": "Verstehe. Was ist Ihr Plan für heute?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 558,
+     "modelMs": 1300,
+     "bench": {
+      "prefillTokens": 65,
+      "prefillTps": 155,
+      "decodeTokens": 12,
+      "decodeTps": 13.7
+     },
+     "contextTokens": 467
+    },
+    {
+     "user": "Mein Essverhalten hat sich nicht verändert.",
+     "raw": "Verstehe. Was ist Ihr Plan für morgen?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 693,
+     "modelMs": 1375,
+     "bench": {
+      "prefillTokens": 73,
+      "prefillTps": 130.5,
+      "decodeTokens": 12,
+      "decodeTps": 14.7
+     },
+     "contextTokens": 552
+    },
+    {
+     "user": "Ich fühle mich einfach energielos.",
+     "raw": "Verstehe. Was ist Ihr Plan für morgen?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 755,
+     "modelMs": 1408,
+     "bench": {
+      "prefillTokens": 84,
+      "prefillTps": 135.6,
+      "decodeTokens": 12,
+      "decodeTps": 15.3
+     },
+     "contextTokens": 648
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über Müdigkeit durch Arbeit und dass Sie abends niemanden reden möchten.",
+     "status": "too-many-words",
+     "firstTokenMs": 1476,
+     "modelMs": 2845,
+     "retryCandidate": "Sie sprachen über Arbeit und Abend.",
+     "retryStatus": "negation-not-kept",
+     "retryMs": 1292,
+     "accepted": null,
+     "finalStatus": "negation-not-kept"
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]},\"topic\":\"tiredness\",\"messages\":[2,4]},\"corrected\":[]}",
+    "groupsModelMs": 3320,
+    "summary": {
+     "groups": [
+      {
+       "theme": null,
+       "label": "Weiteres, das Sie gesagt haben",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Ich habe keine Schlafprobleme, aber die Arbeit macht mich sehr müde."
+        },
+        {
+         "turn": 2,
+         "text": "Abends möchte ich mit niemandem reden."
+        },
+        {
+         "turn": 3,
+         "text": "Mein Essverhalten hat sich nicht verändert."
+        },
+        {
+         "turn": 4,
+         "text": "Ich fühle mich einfach energielos."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": [
+      "groups-unavailable:bad-json"
+     ]
+    },
+    "T": {
+     "trigger": 311577.567819,
+     "lineText": 314426.524498,
+     "lineRetryText": 315723.896675,
+     "groupsText": 319048.506857,
+     "done": 319048.644303
+    }
+   },
+   "wallMs": 24332
+  },
+  {
+   "id": "de-third-person",
+   "language": "de",
+   "category": "third-person",
+   "engineCreateMs": 8051,
+   "turns": [
+    {
+     "user": "Meine Mutter hört mir nie zu.",
+     "raw": "Verstehe. Was ist Ihr Problem?",
+     "spoken": "Verstehe. Was ist Ihr Problem?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1902,
+     "modelMs": 2474,
+     "bench": {
+      "prefillTokens": 371,
+      "prefillTps": 209.3,
+      "decodeTokens": 10,
+      "decodeTps": 14.3
+     },
+     "contextTokens": 381
+    },
+    {
+     "user": "Egal was ich sage, sie unterbricht mich.",
+     "raw": "Verstehe. Was ist Ihr Problem?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 636,
+     "modelMs": 1214,
+     "bench": {
+      "prefillTokens": 68,
+      "prefillTps": 137.8,
+      "decodeTokens": 10,
+      "decodeTps": 13.9
+     },
+     "contextTokens": 459
+    },
+    {
+     "user": "Mit meinem Vater verstehe ich mich gut, mit ihm kann ich leicht reden.",
+     "raw": "Verstehe. Was ist Ihr Problem?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1382,
+     "modelMs": 2027,
+     "bench": {
+      "prefillTokens": 83,
+      "prefillTps": 67.2,
+      "decodeTokens": 10,
+      "decodeTps": 12.7
+     },
+     "contextTokens": 552
+    },
+    {
+     "user": "Bevor ich mit meiner Mutter spreche, werde ich angespannt.",
+     "raw": "Verstehe. Was ist Ihr Problem?",
+     "spoken": "Was ist noch passiert?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1360,
+     "modelMs": 1901,
+     "bench": {
+      "prefillTokens": 91,
+      "prefillTps": 76.9,
+      "decodeTokens": 10,
+      "decodeTps": 14
+     },
+     "contextTokens": 653
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über Probleme mit der Mutter und die Unterbrechungen.",
+     "status": "adds-unsaid-content",
+     "firstTokenMs": 2038,
+     "modelMs": 2984,
+     "retryCandidate": "Sie sprachen über Probleme mit der Mutter.",
+     "retryStatus": "adds-unsaid-content",
+     "retryMs": 1108,
+     "accepted": null,
+     "finalStatus": "adds-unsaid-content"
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"relationships\",\"messages\":[1,2,3,4]}],\"corrected\":[]}",
+    "groupsModelMs": 2930,
+    "summary": {
+     "groups": [
+      {
+       "theme": "sosyal ilişkiler",
+       "label": "Soziale Beziehungen",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Meine Mutter hört mir nie zu."
+        },
+        {
+         "turn": 2,
+         "text": "Egal was ich sage, sie unterbricht mich."
+        },
+        {
+         "turn": 3,
+         "text": "Mit meinem Vater verstehe ich mich gut, mit ihm kann ich leicht reden."
+        },
+        {
+         "turn": 4,
+         "text": "Bevor ich mit meiner Mutter spreche, werde ich angespannt."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 335078.877298,
+     "lineText": 338065.867504,
+     "lineRetryText": 339178.888222,
+     "groupsText": 342114.452074,
+     "done": 342114.564662
+    }
+   },
+   "wallMs": 23053
+  },
+  {
+   "id": "de-correction",
+   "language": "de",
+   "category": "user-correction",
+   "engineCreateMs": 7322,
+   "turns": [
+    {
+     "user": "Letzte Woche hatte ich einen großen Streit mit meinem Cousin.",
+     "raw": "Verstehe. Wie war Ihr Abend?",
+     "spoken": "Verstehe. Wie war Ihr Abend?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2109,
+     "modelMs": 2649,
+     "bench": {
+      "prefillTokens": 376,
+      "prefillTps": 190.2,
+      "decodeTokens": 10,
+      "decodeTps": 15
+     },
+     "contextTokens": 386
+    },
+    {
+     "user": "Entschuldigung, nicht mit meinem Cousin, sondern mit einem Kollegen.",
+     "raw": "Verstehe. Wie war Ihr Tag?",
+     "spoken": "Verstehe. Wie war Ihr Tag?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 783,
+     "modelMs": 1273,
+     "bench": {
+      "prefillTokens": 71,
+      "prefillTps": 107.4,
+      "decodeTokens": 10,
+      "decodeTps": 16.4
+     },
+     "contextTokens": 467
+    },
+    {
+     "user": "Und es war nicht gestern, sondern am Dienstag.",
+     "raw": "Verstehe. Wie war Ihr Wochenende?",
+     "spoken": "Verstehe. Wie war Ihr Wochenende?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 540,
+     "modelMs": 1048,
+     "bench": {
+      "prefillTokens": 72,
+      "prefillTps": 171.9,
+      "decodeTokens": 10,
+      "decodeTps": 15.9
+     },
+     "contextTokens": 549
+    },
+    {
+     "user": "Wir haben seitdem noch nicht miteinander gesprochen.",
+     "raw": "Verstehe. Was war Ihr Wochenende?",
+     "spoken": "Verstehe. Was war Ihr Wochenende?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 995,
+     "modelMs": 1550,
+     "bench": {
+      "prefillTokens": 77,
+      "prefillTps": 90.3,
+      "decodeTokens": 10,
+      "decodeTps": 14.4
+     },
+     "contextTokens": 636
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über einen Streit mit einem Kollegen, der nicht gestern, sondern am Dienstag war.",
+     "status": "too-many-words",
+     "firstTokenMs": 1628,
+     "modelMs": 3044,
+     "retryCandidate": "Sie sprachen über einen Streit mit einem Kollegen.",
+     "retryStatus": null,
+     "retryMs": 1644,
+     "verifier": "NO",
+     "accepted": "Sie sprachen über einen Streit mit einem Kollegen.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"relationships\",\"messages\":[1,2,3,4]}]}",
+    "groupsModelMs": 3277,
+    "summary": {
+     "groups": [
+      {
+       "theme": "sosyal ilişkiler",
+       "label": "Soziale Beziehungen",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Nicht mit meinem Cousin, sondern mit einem Kollegen."
+        },
+        {
+         "turn": 3,
+         "text": "Und es war nicht gestern, sondern am Dienstag."
+        },
+        {
+         "turn": 4,
+         "text": "Wir haben seitdem noch nicht miteinander gesprochen."
+        }
+       ]
+      }
+     ],
+     "replaced": [
+      {
+       "turn": 1,
+       "text": "Letzte Woche hatte ich einen großen Streit mit meinem Cousin."
+      }
+     ],
+     "issues": []
+    },
+    "T": {
+     "trigger": 356306.393448,
+     "lineText": 359353.296188,
+     "lineRetryText": 361002.177512,
+     "verifierDone": 361925.914772,
+     "groupsText": 365207.011957,
+     "done": 365207.127153
+    }
+   },
+   "wallMs": 23088
+  },
+  {
+   "id": "de-unsupported",
+   "language": "de",
+   "category": "unsupported-request",
+   "engineCreateMs": 7654,
+   "turns": [
+    {
+     "user": "Ich bin in letzter Zeit sehr ängstlich.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Verstehe. Was war Ihr Tag?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2816,
+     "modelMs": 3662,
+     "bench": {
+      "prefillTokens": 375,
+      "prefillTps": 145.7,
+      "decodeTokens": 10,
+      "decodeTps": 9.2
+     },
+     "contextTokens": 385
+    },
+    {
+     "user": "Kannst du mir ein Medikament empfehlen?",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 662,
+     "modelMs": 1341,
+     "bench": {
+      "prefillTokens": 65,
+      "prefillTps": 130.3,
+      "decodeTokens": 10,
+      "decodeTps": 11.9
+     },
+     "contextTokens": 460
+    },
+    {
+     "user": "Glaubst du, ich habe eine Angststörung?",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1420,
+     "modelMs": 2213,
+     "bench": {
+      "prefillTokens": 79,
+      "prefillTps": 64.6,
+      "decodeTokens": 10,
+      "decodeTps": 10.1
+     },
+     "contextTokens": 549
+    },
+    {
+     "user": "Wie wird das Wetter morgen?",
+     "raw": "Verstehe. Wie ist Ihr Tag?",
+     "spoken": "Verstehe. Wie ist Ihr Tag?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 948,
+     "modelMs": 1528,
+     "bench": {
+      "prefillTokens": 82,
+      "prefillTps": 102.7,
+      "decodeTokens": 10,
+      "decodeTps": 13.8
+     },
+     "contextTokens": 641
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über Ängste, Medikamente und das Wetter.",
+     "status": null,
+     "firstTokenMs": 1626,
+     "modelMs": 2552,
+     "verifier": "NO",
+     "accepted": "Sie sprachen über Ängste, Medikamente und das Wetter.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1,2,3]}],\"corrected\":[]}",
+    "groupsModelMs": 3169,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Angst und Sorgen",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Ich bin in letzter Zeit sehr ängstlich."
+        },
+        {
+         "turn": 2,
+         "text": "Kannst du mir ein Medikament empfehlen?"
+        },
+        {
+         "turn": 3,
+         "text": "Glaubst du, ich habe eine Angststörung?"
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Weiteres, das Sie gesagt haben",
+       "quotes": [
+        {
+         "turn": 4,
+         "text": "Wie wird das Wetter morgen?"
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 381960.407541,
+     "lineText": 384515.14344,
+     "verifierDone": 385121.228613,
+     "groupsText": 388293.815821,
+     "done": 388293.874016
+    }
+   },
+   "wallMs": 23125
+  },
+  {
+   "id": "de-past-present",
+   "language": "de",
+   "category": "past-vs-present",
+   "engineCreateMs": 7239,
+   "turns": [
+    {
+     "user": "Früher hatte ich oft Panikattacken.",
+     "raw": "Verstehe. Wie war Ihr Tag?",
+     "spoken": "Verstehe. Wie war Ihr Tag?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2422,
+     "modelMs": 2956,
+     "bench": {
+      "prefillTokens": 374,
+      "prefillTps": 164.7,
+      "decodeTokens": 10,
+      "decodeTps": 14.7
+     },
+     "contextTokens": 384
+    },
+    {
+     "user": "Jetzt habe ich keine mehr, seit zwei Jahren nicht.",
+     "raw": "Verstehe. Was ist Ihr nächster Plan?",
+     "spoken": "Verstehe. Was ist Ihr nächster Plan?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 586,
+     "modelMs": 1224,
+     "bench": {
+      "prefillTokens": 67,
+      "prefillTps": 146.5,
+      "decodeTokens": 12,
+      "decodeTps": 15.7
+     },
+     "contextTokens": 463
+    },
+    {
+     "user": "Im Moment bin ich nur in meinem neuen Job etwas angespannt.",
+     "raw": "Verstehe. Was ist Ihr nächster Plan?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 883,
+     "modelMs": 1516,
+     "bench": {
+      "prefillTokens": 78,
+      "prefillTps": 104.2,
+      "decodeTokens": 12,
+      "decodeTps": 15.7
+     },
+     "contextTokens": 553
+    },
+    {
+     "user": "Mein neues Team kenne ich noch nicht.",
+     "raw": "Verstehe. Was ist Ihr nächster Plan?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 942,
+     "modelMs": 1611,
+     "bench": {
+      "prefillTokens": 85,
+      "prefillTps": 107.2,
+      "decodeTokens": 12,
+      "decodeTps": 14.7
+     },
+     "contextTokens": 650
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über Panikattacken, die früher oft waren, und dass sie jetzt nicht mehr auftreten.",
+     "status": "too-many-words",
+     "firstTokenMs": 1350,
+     "modelMs": 2857,
+     "retryCandidate": "Sie sprachen über Panikattacken.",
+     "retryStatus": null,
+     "retryMs": 1411,
+     "verifier": "NO",
+     "accepted": "Sie sprachen über Panikattacken.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"anxiety\",\"messages\":[1,2,3]}],\"corrected\":[]}",
+    "groupsModelMs": 2850,
+    "summary": {
+     "groups": [
+      {
+       "theme": "kaygı ve endişe",
+       "label": "Angst und Sorgen",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Früher hatte ich oft Panikattacken."
+        },
+        {
+         "turn": 2,
+         "text": "Jetzt habe ich keine mehr, seit zwei Jahren nicht."
+        },
+        {
+         "turn": 3,
+         "text": "Im Moment bin ich nur in meinem neuen Job etwas angespannt."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Weiteres, das Sie gesagt haben",
+       "quotes": [
+        {
+         "turn": 4,
+         "text": "Mein neues Team kenne ich noch nicht."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "T": {
+     "trigger": 403230.706511,
+     "lineText": 406090.32745,
+     "lineRetryText": 407507.603137,
+     "verifierDone": 408354.595842,
+     "groupsText": 411207.347582,
+     "done": 411207.439971
+    }
+   },
+   "wallMs": 22864
+  }
+ ]
+}

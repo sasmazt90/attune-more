@@ -1,0 +1,472 @@
+{
+ "url": "http://127.0.0.1:8731/bench/speech.html?mode=tts&items=%5B%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_01_bridge%22%2C%20%22text%22%3A%20%22Te%5Cu015fekk%5Cu00fcr%20ederim.%20Konu%5Cu015ftuklar%5Cu0131m%5Cu0131z%5Cu0131%20toparl%5Cu0131yorum.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_02_followup%22%2C%20%22text%22%3A%20%22Anl%5Cu0131yorum.%20Hangi%20toplant%5Cu0131lar%20oldu%3F%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_03_followup%22%2C%20%22text%22%3A%20%22Anl%5Cu0131yorum.%20Ne%20zaman%20bu%20kayg%5Cu0131y%5Cu0131%20hissetmeye%20ba%5Cu015flad%5Cu0131n%3F%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_04_fallback%22%2C%20%22text%22%3A%20%22Bunu%20biraz%20daha%20anlatmak%20ister%20misin%3F%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_05_personal%22%2C%20%22text%22%3A%20%22Kayg%5Cu0131dan%20s%5Cu00f6z%20ettin.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_06_personal%22%2C%20%22text%22%3A%20%22Bask%5Cu0131dan%20ve%20uykudan%20s%5Cu00f6z%20ettin.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_07_cannot_help%22%2C%20%22text%22%3A%20%22Bu%20konuda%20yard%5Cu0131mc%5Cu0131%20olamam%3B%20ila%5Cu00e7%20ve%20tan%5Cu0131%20i%5Cu00e7in%20bir%20doktorla%20konu%5Cu015fabilirsin.%22%7D%2C%20%7B%22lang%22%3A%20%22tr%22%2C%20%22id%22%3A%20%22TR_08_crisis_text%22%2C%20%22text%22%3A%20%22S%5Cu00f6yledikleriniz%20benim%20i%5Cu00e7in%20%5Cu00e7ok%20%5Cu00f6nemli%20ve%20%5Cu015fu%20an%20%5Cu00e7ok%20zor%20bir%20s%5Cu00fcre%5Cu00e7ten%20ge%5Cu00e7ti%5Cu011finizi%20anl%5Cu0131yorum.%20Ancak%20ben%20bir%20acil%20durum%20veya%20sa%5Cu011fl%5Cu0131k%20servisi%20de%5Cu011filim.%20L%5Cu00fctfen%20%5Cu015fu%20an%20g%5Cu00fcvende%20kalmak%20i%5Cu00e7in%20gecikmeden%20112%20Acil%20%5Cu00c7a%5Cu011fr%5Cu0131%20Merkezi%20ile%20ileti%5Cu015fime%20ge%5Cu00e7in.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_01_bridge%22%2C%20%22text%22%3A%20%22Thank%20you.%20I%20am%20putting%20together%20what%20we%20talked%20about.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_02_followup%22%2C%20%22text%22%3A%20%22I%20see.%20What%20did%20you%20do%20with%20your%20sister%3F%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_03_followup%22%2C%20%22text%22%3A%20%22I%20see.%20What%20do%20you%20like%20to%20do%20in%20the%20evenings%3F%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_04_fallback%22%2C%20%22text%22%3A%20%22Would%20you%20like%20to%20tell%20me%20a%20bit%20more%20about%20that%3F%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_05_personal%22%2C%20%22text%22%3A%20%22You%20talked%20about%20an%20argument%20with%20a%20colleague%20on%20Tuesday.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_06_personal%22%2C%20%22text%22%3A%20%22You%20talked%20about%20not%20having%20trouble%20sleeping%20and%20feeling%20tired%20from%20work.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_07_cannot_help%22%2C%20%22text%22%3A%20%22I%20cannot%20help%20with%20that%3B%20a%20doctor%20can%20talk%20with%20you%20about%20medication%20or%20a%20diagnosis.%22%7D%2C%20%7B%22lang%22%3A%20%22en%22%2C%20%22id%22%3A%20%22EN_08_crisis_text%22%2C%20%22text%22%3A%20%22What%20you%20are%20saying%20matters%20a%20great%20deal%2C%20and%20I%20understand%20that%20you%20are%20going%20through%20a%20very%20difficult%20time.%20However%2C%20I%20am%20not%20an%20emergency%20or%20healthcare%20service.%20To%20stay%20safe%20now%2C%20please%20contact%20112%20emergency%20services%20without%20delay.%20You%20are%20not%20alone%3B%20professionals%20are%20ready%20to%20help.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_01_bridge%22%2C%20%22text%22%3A%20%22Vielen%20Dank.%20Ich%20fasse%20zusammen%2C%20wor%5Cu00fcber%20wir%20gesprochen%20haben.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_02_followup%22%2C%20%22text%22%3A%20%22Verstehe.%20Wann%20m%5Cu00f6chten%20Sie%20das%20%5Cu00f6fter%20machen%3F%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_03_fallback%22%2C%20%22text%22%3A%20%22M%5Cu00f6chten%20Sie%20mir%20etwas%20mehr%20dar%5Cu00fcber%20erz%5Cu00e4hlen%3F%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_04_fallback%22%2C%20%22text%22%3A%20%22Was%20besch%5Cu00e4ftigt%20Sie%20gerade%20am%20meisten%3F%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_05_personal%22%2C%20%22text%22%3A%20%22Sie%20sprachen%20%5Cu00fcber%20einen%20Streit%20mit%20einem%20Kollegen.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_06_personal%22%2C%20%22text%22%3A%20%22Sie%20sprachen%20%5Cu00fcber%20viel%20Arbeit%20und%20Wandern%20mit%20der%20Schwester.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_07_cannot_help%22%2C%20%22text%22%3A%20%22Dabei%20kann%20ich%20nicht%20helfen%3B%20%5Cu00fcber%20Medikamente%20oder%20eine%20Diagnose%20kann%20ein%20Arzt%20mit%20Ihnen%20sprechen.%22%7D%2C%20%7B%22lang%22%3A%20%22de%22%2C%20%22id%22%3A%20%22DE_08_crisis_text%22%2C%20%22text%22%3A%20%22Was%20Sie%20sagen%2C%20ist%20sehr%20wichtig%2C%20und%20ich%20verstehe%2C%20dass%20Sie%20gerade%20eine%20sehr%20schwierige%20Zeit%20erleben.%20Ich%20bin%20jedoch%20kein%20Notfall-%20oder%20Gesundheitsdienst.%20Wenden%20Sie%20sich%20bitte%20unverz%5Cu00fcglich%20an%20den%20Notruf%20112%2C%20um%20jetzt%20sicher%20zu%20bleiben.%20Sie%20sind%20nicht%20allein%3B%20Fachkr%5Cu00e4fte%20stehen%20bereit%2C%20Ihnen%20zu%20helfen.%22%7D%5D",
+ "browser": "153.0.8010.12",
+ "startedAt": "2026-11-10T23:02:02.387Z",
+ "wallSeconds": 34,
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "result": {
+  "mode": "tts",
+  "done": true,
+  "items": [
+   {
+    "lang": "tr",
+    "id": "TR_01_bridge",
+    "text": "Teşekkür ederim. Konuştuklarımızı toparlıyorum.",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "teʃekːˈør edˈeɾɪm.konʊʃtʊkɫaɾˈɯmɯzɯ toparɫˈɯjoɾʊm.",
+    "idsMatchPhonemizer": false,
+    "firstMs": 745,
+    "phonemizeMs": 131,
+    "warmMs": 566,
+    "audioMs": 2961
+   },
+   {
+    "lang": "tr",
+    "id": "TR_02_followup",
+    "text": "Anlıyorum. Hangi toplantılar oldu?",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "anɫˈɯjoɾʊm.hanɡˈɪ tɔpɫantɯɫˈar ɔɫdˈʊ?",
+    "idsMatchPhonemizer": false,
+    "firstMs": 510,
+    "phonemizeMs": 125,
+    "warmMs": 338,
+    "audioMs": 2415
+   },
+   {
+    "lang": "tr",
+    "id": "TR_03_followup",
+    "text": "Anlıyorum. Ne zaman bu kaygıyı hissetmeye başladın?",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "anɫˈɯjoɾʊm.nˈɛ zamˈan bʊ kajɡɯjˈɯ hɪssˈɛtmejɛ bˈaʃɫadɯn?",
+    "idsMatchPhonemizer": false,
+    "firstMs": 379,
+    "phonemizeMs": 119,
+    "warmMs": 392,
+    "audioMs": 3146
+   },
+   {
+    "lang": "tr",
+    "id": "TR_04_fallback",
+    "text": "Bunu biraz daha anlatmak ister misin?",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "bunˈʊ biɾˈaz dahˈa anɫatmˈak ɪstˈɛrmisɪn?",
+    "idsMatchPhonemizer": true,
+    "firstMs": 322,
+    "phonemizeMs": 109,
+    "warmMs": 256,
+    "audioMs": 2334
+   },
+   {
+    "lang": "tr",
+    "id": "TR_05_personal",
+    "text": "Kaygıdan söz ettin.",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "kajɡɯdˈan sˈœz etːˈɪn.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 217,
+    "phonemizeMs": 120,
+    "warmMs": 264,
+    "audioMs": 1498
+   },
+   {
+    "lang": "tr",
+    "id": "TR_06_personal",
+    "text": "Baskıdan ve uykudan söz ettin.",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "baskɯdˈan vɛ ʊjkudˈan sˈœz etːˈɪn.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 269,
+    "phonemizeMs": 109,
+    "warmMs": 271,
+    "audioMs": 2159
+   },
+   {
+    "lang": "tr",
+    "id": "TR_07_cannot_help",
+    "text": "Bu konuda yardımcı olamam; ilaç ve tanı için bir doktorla konuşabilirsin.",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "bʊ konudˈa jardɯmdʒˈɯ oɫamˈam; iɫˈatʃ vɛ tanˈɯ itʃˈɪn bɪr dɔktˈɔrɫa konuʃabilɪrsˈɪn.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 463,
+    "phonemizeMs": 107,
+    "warmMs": 446,
+    "audioMs": 4435
+   },
+   {
+    "lang": "tr",
+    "id": "TR_08_crisis_text",
+    "text": "Söyledikleriniz benim için çok önemli ve şu an çok zor bir süreçten geçtiğinizi anlıyorum. Ancak ben bir acil durum veya sağlık servisi değilim. Lütfen şu an güvende kalmak için gecikmeden 112 Acil Çağrı Merkezi ile iletişime geçin.",
+    "voice": "tr_TR-dfki-medium",
+    "voiceLoadMs": 2479,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "sœjledɪklˈeɾinɪz benˈɪm itʃˈɪn tʃˈɔk œnæmlˈɪ vɛ ʃʊ ˈan tʃˈɔk zˈɔr bɪr syɾɛtʃtˈæn ɟɛtʃtˈijinizɪ anɫˈɯjoɾʊm.andʒˈak bæn bɪr adʒˈɪl dˈuɾʊm vejˌa saːɫˈɯk sɛrvisˈɪ dˈejilɪm.lˈøtfæn ʃʊ ˈan ɟyvændˈɛ kaɫmˈak itʃˈɪn ɟedʒˈɪkmedæn jˈyz ˈonici adʒˈɪl tʃaːɾˈɯ mɛrkezˈɪ ˌilɛ iletiʃˈimɛ ɟetʃˈɪn.",
+    "idsMatchPhonemizer": false,
+    "firstMs": 1587,
+    "phonemizeMs": 111,
+    "warmMs": 1156,
+    "audioMs": 14826
+   },
+   {
+    "lang": "en",
+    "id": "EN_01_bridge",
+    "text": "Thank you. I am putting together what we talked about.",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "θˈaŋk juː.aɪɐm pˈʊtɪŋ təɡˌɛðə wɒt wiː tˈɔːkt ɐbˈaʊt.",
+    "idsMatchPhonemizer": false,
+    "firstMs": 352,
+    "phonemizeMs": 102,
+    "warmMs": 401,
+    "audioMs": 3379
+   },
+   {
+    "lang": "en",
+    "id": "EN_02_followup",
+    "text": "I see. What did you do with your sister?",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "aɪ sˈiː.wˌɒt dˈɪd juː dˈuː wɪð jɔː sˈɪstə?",
+    "idsMatchPhonemizer": false,
+    "firstMs": 300,
+    "phonemizeMs": 105,
+    "warmMs": 339,
+    "audioMs": 2670
+   },
+   {
+    "lang": "en",
+    "id": "EN_03_followup",
+    "text": "I see. What do you like to do in the evenings?",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "aɪ sˈiː.wˌɒt dˈuː juː lˈaɪk tə dˈuː ɪnðɪ ˈiːvnɪŋz?",
+    "idsMatchPhonemizer": false,
+    "firstMs": 343,
+    "phonemizeMs": 107,
+    "warmMs": 389,
+    "audioMs": 2554
+   },
+   {
+    "lang": "en",
+    "id": "EN_04_fallback",
+    "text": "Would you like to tell me a bit more about that?",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "wʊd juː lˈaɪk tə tˈɛl mˌiː ɐ bˈɪt mˈɔːɹ ɐbˌaʊt ðˈat?",
+    "idsMatchPhonemizer": true,
+    "firstMs": 303,
+    "phonemizeMs": 124,
+    "warmMs": 298,
+    "audioMs": 2148
+   },
+   {
+    "lang": "en",
+    "id": "EN_05_personal",
+    "text": "You talked about an argument with a colleague on Tuesday.",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "juː tˈɔːkt ɐbˌaʊt ɐn ˈɑːɡjuːmənt wɪð ɐ kˈɒliːɡ ˌɒn tjˈuːzdeɪ.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 421,
+    "phonemizeMs": 131,
+    "warmMs": 382,
+    "audioMs": 2833
+   },
+   {
+    "lang": "en",
+    "id": "EN_06_personal",
+    "text": "You talked about not having trouble sleeping and feeling tired from work.",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "juː tˈɔːkt ɐbˌaʊt nˌɒt hˌavɪŋ tɹˈʌbəl slˈiːpɪŋ and fˈiːlɪŋ tˈaɪəd fɹɒm wˈɜːk.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 394,
+    "phonemizeMs": 99,
+    "warmMs": 432,
+    "audioMs": 3843
+   },
+   {
+    "lang": "en",
+    "id": "EN_07_cannot_help",
+    "text": "I cannot help with that; a doctor can talk with you about medication or a diagnosis.",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "aɪ kˈanɒt hˈɛlp wɪð ðˈat; ɐ dˈɒktə kan tˈɔːk wɪð juː ɐbˌaʊt mˌɛdɪkˈeɪʃən ɔːɹ ɐ dˌaɪəɡnˈəʊsɪs.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 454,
+    "phonemizeMs": 119,
+    "warmMs": 447,
+    "audioMs": 5050
+   },
+   {
+    "lang": "en",
+    "id": "EN_08_crisis_text",
+    "text": "What you are saying matters a great deal, and I understand that you are going through a very difficult time. However, I am not an emergency or healthcare service. To stay safe now, please contact 112 emergency services without delay. You are not alone; professionals are ready to help.",
+    "voice": "en_US-kristin-medium",
+    "voiceLoadMs": 2484,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "wˌɒt juː ɑː sˈeɪɪŋ mˈatəz ɐ ɡɹˈeɪt dˈiːl, and aɪ ˌʌndəstˈand ðat juː ɑː ɡˌəʊɪŋ θɹuː ɐ vˈɛɹi dˈɪfɪkəlt tˈaɪm.haʊˈɛvə, aɪɐm nˌɒt ɐn ɪmˈɜːdʒənsi ɔː hˈɛlθkeə sˈɜːvɪs.tə stˈeɪ sˈeɪf nˈaʊ, plˈiːz kˈɒntakt wˈɒnhˈʌndɹɪdən twˈɛlv ɪmˈɜːdʒənsi sˈɜːvɪsɪz wɪðˌaʊt dɪlˈeɪ.juː ɑː nˌɒt ɐlˈəʊn; pɹəfˈɛʃənəlz ɑː ɹˈɛdi tə hˈɛlp.",
+    "idsMatchPhonemizer": false,
+    "firstMs": 1617,
+    "phonemizeMs": 143,
+    "warmMs": 1620,
+    "audioMs": 17717
+   },
+   {
+    "lang": "de",
+    "id": "DE_01_bridge",
+    "text": "Vielen Dank. Ich fasse zusammen, worüber wir gesprochen haben.",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "fˈiːlən dˈaŋk.ɪç fˈasə tsuːzˈamən, vˈoːryːbɜ viːɾ ɡəʃpɾˈɔxən hˈɑːbən.",
+    "idsMatchPhonemizer": false,
+    "firstMs": 436,
+    "phonemizeMs": 108,
+    "warmMs": 514,
+    "audioMs": 3634
+   },
+   {
+    "lang": "de",
+    "id": "DE_02_followup",
+    "text": "Verstehe. Wann möchten Sie das öfter machen?",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "fɛɾʃtˈeːə.vˈan mˈœçtən ziː das ˈœftɜ mˈaxən?",
+    "idsMatchPhonemizer": false,
+    "firstMs": 362,
+    "phonemizeMs": 116,
+    "warmMs": 392,
+    "audioMs": 2577
+   },
+   {
+    "lang": "de",
+    "id": "DE_03_fallback",
+    "text": "Möchten Sie mir etwas mehr darüber erzählen?",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "mˈœçtən ziː miːɾ ˈɛtvɑːs mˈeːɾ dɑːrˈyːbɜ ɛɾtsˈɛːlən?",
+    "idsMatchPhonemizer": true,
+    "firstMs": 415,
+    "phonemizeMs": 125,
+    "warmMs": 395,
+    "audioMs": 2601
+   },
+   {
+    "lang": "de",
+    "id": "DE_04_fallback",
+    "text": "Was beschäftigt Sie gerade am meisten?",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "vˈas bəʃˈɛftɪçt ziː ɡərˈɑːdə am mˈaɪstən?",
+    "idsMatchPhonemizer": true,
+    "firstMs": 370,
+    "phonemizeMs": 138,
+    "warmMs": 373,
+    "audioMs": 2380
+   },
+   {
+    "lang": "de",
+    "id": "DE_05_personal",
+    "text": "Sie sprachen über einen Streit mit einem Kollegen.",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "ziː ʃpɾˈɑːxən ˌyːbɜ ˌaɪnən ʃtɾˈaɪt mɪt ˌaɪnəm kɔlˈeːɡən.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 386,
+    "phonemizeMs": 125,
+    "warmMs": 434,
+    "audioMs": 2694
+   },
+   {
+    "lang": "de",
+    "id": "DE_06_personal",
+    "text": "Sie sprachen über viel Arbeit und Wandern mit der Schwester.",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "ziː ʃpɾˈɑːxən ˌyːbɜ fˈiːl ˈaɾbaɪt ʊnt vˈandɜn mɪt dɛɾ ʃvˈɛstɜ.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 415,
+    "phonemizeMs": 121,
+    "warmMs": 356,
+    "audioMs": 3286
+   },
+   {
+    "lang": "de",
+    "id": "DE_07_cannot_help",
+    "text": "Dabei kann ich nicht helfen; über Medikamente oder eine Diagnose kann ein Arzt mit Ihnen sprechen.",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "dɑːbˈaɪ kˌan ɪç nˈɪçt hˈɛlfən; ˌyːbɜ mˌeːdiːkamˈɛntə ˌoːdɜ ˌaɪnə dˌiːaɡnˈoːzə kˌan aɪn ˈaɾtst mɪt ˌiːnən ʃpɾˈɛçən.",
+    "idsMatchPhonemizer": true,
+    "firstMs": 706,
+    "phonemizeMs": 165,
+    "warmMs": 655,
+    "audioMs": 5387
+   },
+   {
+    "lang": "de",
+    "id": "DE_08_crisis_text",
+    "text": "Was Sie sagen, ist sehr wichtig, und ich verstehe, dass Sie gerade eine sehr schwierige Zeit erleben. Ich bin jedoch kein Notfall- oder Gesundheitsdienst. Wenden Sie sich bitte unverzüglich an den Notruf 112, um jetzt sicher zu bleiben. Sie sind nicht allein; Fachkräfte stehen bereit, Ihnen zu helfen.",
+    "voice": "de_DE-kerstin-medium",
+    "voiceLoadMs": 1818,
+    "inputNames": [
+     "input",
+     "input_lengths",
+     "scales"
+    ],
+    "phonemes": "vˈas ziː zˈɑːɡən, ɪst zˈeːɾ vˈɪçtɪç, ʊnt ɪç fɛɾʃtˈeːə, das ziː ɡərˈɑːdə ˌaɪnə zˈeːɾ ʃvˈiːrɪɡə tsˈaɪt ɛɾlˈeːbən.ɪç bɪn jˈeːdɔx kˈaɪn nˈɔtfal ˌoːdɜ ɡəzˈʊnthaɪtsdˌiːnst.vˈɛndən ziː zɪç bˈɪtə ˈʊnfɛɾtsˌyːklɪç an deːn nˈɔtɾuːf ˈaɪnhˈʊndɜt tsvˈœlf, ʊm jˌɛtst zˈɪçɜ tsuː blˈaɪbən.ziː zɪnt nˈɪçt alˈaɪn; fˈaxkɾɛftə ʃtˈeːən bərˈaɪt, ˌiːnən tsuː hˈɛlfən.",
+    "idsMatchPhonemizer": false,
+    "firstMs": 1887,
+    "phonemizeMs": 166,
+    "warmMs": 2031,
+    "audioMs": 17694
+   }
+  ]
+ },
+ "console": [
+  "4.2s log [bench] TR_01_bridge: 745 ms (warm 566) for 2961 ms audio",
+  "5.1s log [bench] TR_02_followup: 510 ms (warm 338) for 2415 ms audio",
+  "5.9s log [bench] TR_03_followup: 379 ms (warm 392) for 3146 ms audio",
+  "6.5s log [bench] TR_04_fallback: 322 ms (warm 256) for 2334 ms audio",
+  "6.9s log [bench] TR_05_personal: 217 ms (warm 264) for 1498 ms audio",
+  "7.5s log [bench] TR_06_personal: 269 ms (warm 271) for 2159 ms audio",
+  "8.4s log [bench] TR_07_cannot_help: 463 ms (warm 446) for 4435 ms audio",
+  "11.2s log [bench] TR_08_crisis_text: 1587 ms (warm 1156) for 14826 ms audio",
+  "14.4s log [bench] EN_01_bridge: 352 ms (warm 401) for 3379 ms audio",
+  "15.1s log [bench] EN_02_followup: 300 ms (warm 339) for 2670 ms audio",
+  "15.8s log [bench] EN_03_followup: 343 ms (warm 389) for 2554 ms audio",
+  "16.4s log [bench] EN_04_fallback: 303 ms (warm 298) for 2148 ms audio",
+  "17.2s log [bench] EN_05_personal: 421 ms (warm 382) for 2833 ms audio",
+  "18.1s log [bench] EN_06_personal: 394 ms (warm 432) for 3843 ms audio",
+  "19.0s log [bench] EN_07_cannot_help: 454 ms (warm 447) for 5050 ms audio",
+  "22.2s log [bench] EN_08_crisis_text: 1617 ms (warm 1620) for 17717 ms audio",
+  "25.0s log [bench] DE_01_bridge: 436 ms (warm 514) for 3634 ms audio",
+  "25.8s log [bench] DE_02_followup: 362 ms (warm 392) for 2577 ms audio",
+  "26.6s log [bench] DE_03_fallback: 415 ms (warm 395) for 2601 ms audio",
+  "27.3s log [bench] DE_04_fallback: 370 ms (warm 373) for 2380 ms audio",
+  "28.1s log [bench] DE_05_personal: 386 ms (warm 434) for 2694 ms audio",
+  "28.9s log [bench] DE_06_personal: 415 ms (warm 356) for 3286 ms audio",
+  "30.3s log [bench] DE_07_cannot_help: 706 ms (warm 655) for 5387 ms audio",
+  "34.2s log [bench] DE_08_crisis_text: 1887 ms (warm 2031) for 17694 ms audio"
+ ]
+}

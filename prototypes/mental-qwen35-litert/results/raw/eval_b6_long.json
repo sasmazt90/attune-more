@@ -1,0 +1,1171 @@
+{
+ "platform": "HOST-linux-cpu (not on-device)",
+ "model": "Qwen3.5-2B_int8.litertlm sha256 c2438cb9…",
+ "runtime": "litert-lm-api 0.19.1",
+ "verify": true,
+ "results": [
+  {
+   "id": "tr-long",
+   "language": "tr",
+   "engineCreateMs": 7349,
+   "turns": [
+    {
+     "user": "İki ay önce yeni bir şehre taşındım.",
+     "raw": "Anlıyorum. Şehirde nasıl geçiyor?",
+     "spoken": "Anlıyorum. Şehirde nasıl geçiyor?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2205,
+     "modelMs": 3047,
+     "bench": {
+      "prefillTokens": 376,
+      "prefillTps": 182.7,
+      "decodeTokens": 12,
+      "decodeTps": 12.2
+     },
+     "contextTokens": 388
+    },
+    {
+     "user": "Burada henüz kimseyi tanımıyorum.",
+     "raw": "Anlıyorum. Ne zaman ilk tanışıklık yapacaksın?",
+     "spoken": "Anlıyorum. Ne zaman ilk tanışıklık yapacaksın?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 650,
+     "modelMs": 1766,
+     "bench": {
+      "prefillTokens": 69,
+      "prefillTps": 135.3,
+      "decodeTokens": 15,
+      "decodeTps": 12
+     },
+     "contextTokens": 472
+    },
+    {
+     "user": "İşe uyum sağlamaya çalışıyorum.",
+     "raw": "Anlıyorum. İşe nasıl uyum sağladın?",
+     "spoken": "Anlıyorum. İşe nasıl uyum sağladın?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 933,
+     "modelMs": 1978,
+     "bench": {
+      "prefillTokens": 78,
+      "prefillTps": 96.9,
+      "decodeTokens": 14,
+      "decodeTps": 12
+     },
+     "contextTokens": 564
+    },
+    {
+     "user": "Sabahları otobüs çok kalabalık oluyor.",
+     "raw": "Anlıyorum. Otobüs kalabalığı nasıl hissediyorsun?",
+     "spoken": "Anlıyorum. Otobüs kalabalığı nasıl hissediyorsun?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1323,
+     "modelMs": 2606,
+     "bench": {
+      "prefillTokens": 91,
+      "prefillTps": 76.8,
+      "decodeTokens": 18,
+      "decodeTps": 12.7
+     },
+     "contextTokens": 673
+    },
+    {
+     "user": "İşteki ekibim aslında yardımsever.",
+     "raw": "Anlıyorum. Ekibin nasıl yardımsever?",
+     "spoken": "Anlıyorum. Ekibin nasıl yardımsever?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 901,
+     "modelMs": 1669,
+     "bench": {
+      "prefillTokens": 105,
+      "prefillTps": 137.3,
+      "decodeTokens": 13,
+      "decodeTps": 14.4
+     },
+     "contextTokens": 791
+    },
+    {
+     "user": "Ama toplantılarda konuşmaya çekiniyorum.",
+     "raw": "Anlıyorum. Konuşma zorluğu nasıl hissediyorsun?",
+     "spoken": "Anlıyorum. Konuşma zorluğu nasıl hissediyorsun?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 900,
+     "modelMs": 1898,
+     "bench": {
+      "prefillTokens": 105,
+      "prefillTps": 137.8,
+      "decodeTokens": 17,
+      "decodeTps": 15
+     },
+     "contextTokens": 913
+    },
+    {
+     "user": "Akşamları genelde dizi izliyorum.",
+     "raw": "Anlıyorum. Akşam dizi izlemeye devam ediyorsun.",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 950,
+     "modelMs": 2118,
+     "bench": {
+      "prefillTokens": 108,
+      "prefillTps": 134,
+      "decodeTokens": 18,
+      "decodeTps": 13.7
+     },
+     "contextTokens": 1039
+    },
+    {
+     "user": "Annemle haftada bir telefonda konuşuyorum.",
+     "raw": "Anlıyorum. Telefonla konuşuyorsun.",
+     "spoken": "Bu sana nasıl hissettiriyor?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 1019,
+     "modelMs": 1742,
+     "bench": {
+      "prefillTokens": 109,
+      "prefillTps": 127.4,
+      "decodeTokens": 12,
+      "decodeTps": 13.6
+     },
+     "contextTokens": 1160
+    },
+    {
+     "user": "Uykum fena değil, yedi saat uyuyorum.",
+     "raw": "Anlıyorum. Uykun fena değil.",
+     "spoken": "Başka neler oldu?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 1036,
+     "modelMs": 1826,
+     "bench": {
+      "prefillTokens": 106,
+      "prefillTps": 120.5,
+      "decodeTokens": 12,
+      "decodeTps": 12.7
+     },
+     "contextTokens": 1278
+    },
+    {
+     "user": "Hafta sonları biraz yalnız hissediyorum.",
+     "raw": "Anlıyorum. Hafta sonları yalnız hissediyorsun.",
+     "spoken": "Şu an en çok ne aklında?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 1035,
+     "modelMs": 2120,
+     "bench": {
+      "prefillTokens": 103,
+      "prefillTps": 115,
+      "decodeTokens": 16,
+      "decodeTps": 13.1
+     },
+     "contextTokens": 1397
+    },
+    {
+     "user": "Pardon, her hafta sonu değil, sadece pazar günleri.",
+     "raw": "Anlıyorum. Sadece pazar günleri.",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 1089,
+     "modelMs": 1759,
+     "bench": {
+      "prefillTokens": 103,
+      "prefillTps": 108.2,
+      "decodeTokens": 12,
+      "decodeTps": 14.9
+     },
+     "contextTokens": 1512
+    },
+    {
+     "user": "Spor salonuna yazılmayı düşünüyorum.",
+     "raw": "Anlıyorum. Spor salonuna yazılmayı düşünüyorsun.",
+     "spoken": "Bu sana nasıl hissettiriyor?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 891,
+     "modelMs": 1832,
+     "bench": {
+      "prefillTokens": 100,
+      "prefillTps": 134.1,
+      "decodeTokens": 15,
+      "decodeTps": 13.8
+     },
+     "contextTokens": 1627
+    },
+    {
+     "user": "Ama henüz gitmedim.",
+     "raw": "Anlıyorum. Spor salonuna gitmek istiyorsun.",
+     "spoken": "Başka neler oldu?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 557,
+     "modelMs": 1398,
+     "bench": {
+      "prefillTokens": 97,
+      "prefillTps": 218.8,
+      "decodeTokens": 15,
+      "decodeTps": 15.8
+     },
+     "contextTokens": 1739
+    },
+    {
+     "user": "Mahallede güzel bir park var.",
+     "raw": "Anlıyorum. Park var.",
+     "spoken": "Şu an en çok ne aklında?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 716,
+     "modelMs": 1083,
+     "bench": {
+      "prefillTokens": 97,
+      "prefillTps": 166.1,
+      "decodeTokens": 8,
+      "decodeTps": 16.1
+     },
+     "contextTokens": 1844
+    },
+    {
+     "user": "Bazen orada kitap okuyorum.",
+     "raw": "Anlıyorum. Parkta kitap okuyorsun.",
+     "spoken": "Bunu biraz daha anlatmak ister misin?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 935,
+     "modelMs": 1726,
+     "bench": {
+      "prefillTokens": 98,
+      "prefillTps": 125.6,
+      "decodeTokens": 13,
+      "decodeTps": 13.8
+     },
+     "contextTokens": 1955
+    },
+    {
+     "user": "Sanırım bugünlük bu kadar.",
+     "raw": "Anlıyorum. Bugün bu kadar.",
+     "spoken": "Bu sana nasıl hissettiriyor?",
+     "source": "fixed-fallback",
+     "issues": [
+      "no-question"
+     ],
+     "firstTokenMs": 717,
+     "modelMs": 1289,
+     "bench": {
+      "prefillTokens": 98,
+      "prefillTps": 170.4,
+      "decodeTokens": 10,
+      "decodeTps": 14.1
+     },
+     "contextTokens": 2063
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Yeni şehire taşındıktan sonra yalnız hissettiğin için söz ettin.",
+     "status": "tr-ablative-required",
+     "firstTokenMs": 1838,
+     "modelMs": 3055,
+     "retryCandidate": "Yeni şehire taşındıktan sonra yalnız hissettiğin için söz ettin.",
+     "retryStatus": "tr-ablative-required",
+     "retryMs": 1745,
+     "accepted": null,
+     "finalStatus": "tr-ablative-required"
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1,3,12,13]}],\"corrected\":[]}",
+    "groupsModelMs": 3654,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "İş yaşamı",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "İki ay önce yeni bir şehre taşındım."
+        },
+        {
+         "turn": 3,
+         "text": "İşe uyum sağlamaya çalışıyorum."
+        },
+        {
+         "turn": 12,
+         "text": "Spor salonuna yazılmayı düşünüyorum."
+        },
+        {
+         "turn": 13,
+         "text": "Ama henüz gitmedim."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Söylediğin diğer şeyler",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "Burada henüz kimseyi tanımıyorum."
+        },
+        {
+         "turn": 4,
+         "text": "Sabahları otobüs çok kalabalık oluyor."
+        },
+        {
+         "turn": 5,
+         "text": "İşteki ekibim aslında yardımsever."
+        },
+        {
+         "turn": 6,
+         "text": "Ama toplantılarda konuşmaya çekiniyorum."
+        },
+        {
+         "turn": 7,
+         "text": "Akşamları genelde dizi izliyorum."
+        },
+        {
+         "turn": 8,
+         "text": "Annemle haftada bir telefonda konuşuyorum."
+        },
+        {
+         "turn": 9,
+         "text": "Uykum fena değil, yedi saat uyuyorum."
+        },
+        {
+         "turn": 11,
+         "text": "her hafta sonu değil, sadece pazar günleri."
+        },
+        {
+         "turn": 14,
+         "text": "Mahallede güzel bir park var."
+        },
+        {
+         "turn": 15,
+         "text": "Bazen orada kitap okuyorum."
+        },
+        {
+         "turn": 16,
+         "text": "Sanırım bugünlük bu kadar."
+        }
+       ]
+      }
+     ],
+     "replaced": [
+      {
+       "turn": 10,
+       "text": "Hafta sonları biraz yalnız hissediyorum."
+      }
+     ],
+     "issues": []
+    },
+    "T": {
+     "trigger": 37363.715376,
+     "lineText": 40422.296372,
+     "lineRetryText": 42172.060418,
+     "groupsText": 45830.781053,
+     "done": 45832.218475
+    }
+   },
+   "wallMs": 46129
+  },
+  {
+   "id": "en-long",
+   "language": "en",
+   "engineCreateMs": 8426,
+   "turns": [
+    {
+     "user": "I moved to a new city two months ago.",
+     "raw": "I see. How did your new city feel?",
+     "spoken": "I see. How did your new city feel?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2244,
+     "modelMs": 2871,
+     "bench": {
+      "prefillTokens": 369,
+      "prefillTps": 182.5,
+      "decodeTokens": 11,
+      "decodeTps": 13
+     },
+     "contextTokens": 380
+    },
+    {
+     "user": "I don't know anyone here yet.",
+     "raw": "I see. How did your first day go?",
+     "spoken": "I see. How did your first day go?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 527,
+     "modelMs": 1164,
+     "bench": {
+      "prefillTokens": 66,
+      "prefillTps": 164.8,
+      "decodeTokens": 11,
+      "decodeTps": 14.5
+     },
+     "contextTokens": 457
+    },
+    {
+     "user": "I'm trying to settle into my job.",
+     "raw": "I see. How is your work week?",
+     "spoken": "I see. How is your work week?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 799,
+     "modelMs": 1305,
+     "bench": {
+      "prefillTokens": 75,
+      "prefillTps": 112.6,
+      "decodeTokens": 10,
+      "decodeTps": 15.7
+     },
+     "contextTokens": 542
+    },
+    {
+     "user": "The bus is very crowded in the mornings.",
+     "raw": "I see. How does the commute feel?",
+     "spoken": "I see. How does the commute feel?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 660,
+     "modelMs": 1240,
+     "bench": {
+      "prefillTokens": 82,
+      "prefillTps": 151.1,
+      "decodeTokens": 10,
+      "decodeTps": 14.4
+     },
+     "contextTokens": 634
+    },
+    {
+     "user": "My team at work is actually helpful.",
+     "raw": "I see. How do you feel about your team?",
+     "spoken": "I see. How do you feel about your team?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 900,
+     "modelMs": 1817,
+     "bench": {
+      "prefillTokens": 88,
+      "prefillTps": 123.6,
+      "decodeTokens": 12,
+      "decodeTps": 10.9
+     },
+     "contextTokens": 734
+    },
+    {
+     "user": "But I'm hesitant to speak up in meetings.",
+     "raw": "I see. What's holding you back?",
+     "spoken": "I see. What's holding you back?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1157,
+     "modelMs": 1771,
+     "bench": {
+      "prefillTokens": 91,
+      "prefillTps": 90.4,
+      "decodeTokens": 10,
+      "decodeTps": 13.1
+     },
+     "contextTokens": 835
+    },
+    {
+     "user": "In the evenings I usually watch series.",
+     "raw": "I see. What's your favorite show?",
+     "spoken": "I see. What's your favorite show?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 898,
+     "modelMs": 1421,
+     "bench": {
+      "prefillTokens": 88,
+      "prefillTps": 117.2,
+      "decodeTokens": 10,
+      "decodeTps": 15
+     },
+     "contextTokens": 933
+    },
+    {
+     "user": "I talk to my mother on the phone once a week.",
+     "raw": "I see. How does that make you feel?",
+     "spoken": "I see. How does that make you feel?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 885,
+     "modelMs": 1474,
+     "bench": {
+      "prefillTokens": 92,
+      "prefillTps": 121,
+      "decodeTokens": 11,
+      "decodeTps": 15.5
+     },
+     "contextTokens": 1036
+    },
+    {
+     "user": "My sleep is fine, I get seven hours.",
+     "raw": "I see. How do you feel about your sleep?",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 950,
+     "modelMs": 1624,
+     "bench": {
+      "prefillTokens": 91,
+      "prefillTps": 113.1,
+      "decodeTokens": 12,
+      "decodeTps": 14.7
+     },
+     "contextTokens": 1139
+    },
+    {
+     "user": "On weekends I feel a bit lonely.",
+     "raw": "I see. How does that make you feel?",
+     "spoken": "How does that feel for you?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 988,
+     "modelMs": 1782,
+     "bench": {
+      "prefillTokens": 93,
+      "prefillTps": 110.6,
+      "decodeTokens": 11,
+      "decodeTps": 11.7
+     },
+     "contextTokens": 1243
+    },
+    {
+     "user": "Sorry, not every weekend day, only on Sundays.",
+     "raw": "I see. How does Sunday feel to you?",
+     "spoken": "I see. How does Sunday feel to you?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 701,
+     "modelMs": 1290,
+     "bench": {
+      "prefillTokens": 97,
+      "prefillTps": 170.9,
+      "decodeTokens": 11,
+      "decodeTps": 15.3
+     },
+     "contextTokens": 1351
+    },
+    {
+     "user": "I'm thinking about joining a gym.",
+     "raw": "I see. What's your first step?",
+     "spoken": "I see. What's your first step?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 1120,
+     "modelMs": 1653,
+     "bench": {
+      "prefillTokens": 95,
+      "prefillTps": 96.8,
+      "decodeTokens": 10,
+      "decodeTps": 15
+     },
+     "contextTokens": 1456
+    },
+    {
+     "user": "But I haven't gone yet.",
+     "raw": "I see. What's your first step?",
+     "spoken": "What else happened?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 996,
+     "modelMs": 1531,
+     "bench": {
+      "prefillTokens": 93,
+      "prefillTps": 109.1,
+      "decodeTokens": 10,
+      "decodeTps": 14.8
+     },
+     "contextTokens": 1559
+    },
+    {
+     "user": "There's a nice park in my neighbourhood.",
+     "raw": "I see. What else happened?",
+     "spoken": "What is on your mind most right now?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 834,
+     "modelMs": 1241,
+     "bench": {
+      "prefillTokens": 87,
+      "prefillTps": 123,
+      "decodeTokens": 8,
+      "decodeTps": 15.1
+     },
+     "contextTokens": 1654
+    },
+    {
+     "user": "Sometimes I read a book there.",
+     "raw": "I see. What's on your mind most right now?",
+     "spoken": "Would you like to tell me a bit more about that?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 770,
+     "modelMs": 1493,
+     "bench": {
+      "prefillTokens": 87,
+      "prefillTps": 136.1,
+      "decodeTokens": 13,
+      "decodeTps": 15.3
+     },
+     "contextTokens": 1754
+    },
+    {
+     "user": "I think that's it for today.",
+     "raw": "I see. How was your day?",
+     "spoken": "I see. How was your day?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 951,
+     "modelMs": 1408,
+     "bench": {
+      "prefillTokens": 93,
+      "prefillTps": 113.3,
+      "decodeTokens": 9,
+      "decodeTps": 15.4
+     },
+     "contextTokens": 1856
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "You talked about moving to a new city and feeling lonely on weekends.",
+     "status": "too-many-words",
+     "firstTokenMs": 1772,
+     "modelMs": 2540,
+     "retryCandidate": "You talked about moving and loneliness.",
+     "retryStatus": null,
+     "retryMs": 1048,
+     "verifier": "NO",
+     "accepted": "You talked about moving and loneliness.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[3,5,6,12,13]}],\"corrected\":[]}",
+    "groupsModelMs": 2973,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Working life",
+       "quotes": [
+        {
+         "turn": 3,
+         "text": "I'm trying to settle into my job."
+        },
+        {
+         "turn": 5,
+         "text": "My team at work is actually helpful."
+        },
+        {
+         "turn": 6,
+         "text": "But I'm hesitant to speak up in meetings."
+        },
+        {
+         "turn": 12,
+         "text": "I'm thinking about joining a gym."
+        },
+        {
+         "turn": 13,
+         "text": "But I haven't gone yet."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "I moved to a new city two months ago."
+        },
+        {
+         "turn": 2,
+         "text": "I don't know anyone here yet."
+        },
+        {
+         "turn": 4,
+         "text": "The bus is very crowded in the mornings."
+        },
+        {
+         "turn": 7,
+         "text": "In the evenings I usually watch series."
+        },
+        {
+         "turn": 8,
+         "text": "I talk to my mother on the phone once a week."
+        },
+        {
+         "turn": 9,
+         "text": "My sleep is fine, I get seven hours."
+        },
+        {
+         "turn": 11,
+         "text": "not every weekend day, only on Sundays."
+        },
+        {
+         "turn": 14,
+         "text": "There's a nice park in my neighbourhood."
+        },
+        {
+         "turn": 15,
+         "text": "Sometimes I read a book there."
+        },
+        {
+         "turn": 16,
+         "text": "I think that's it for today."
+        }
+       ]
+      }
+     ],
+     "replaced": [
+      {
+       "turn": 10,
+       "text": "On weekends I feel a bit lonely."
+      }
+     ],
+     "issues": []
+    },
+    "T": {
+     "trigger": 79742.758805,
+     "lineText": 82285.413495,
+     "lineRetryText": 83337.971317,
+     "verifierDone": 84917.511504,
+     "groupsText": 87893.374947,
+     "done": 87893.751659
+    }
+   },
+   "wallMs": 42063
+  },
+  {
+   "id": "de-long",
+   "language": "de",
+   "engineCreateMs": 7803,
+   "turns": [
+    {
+     "user": "Ich bin vor zwei Monaten in eine neue Stadt gezogen.",
+     "raw": "Verstehe. Wie war Ihr Wochenende?",
+     "spoken": "Verstehe. Wie war Ihr Wochenende?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 2608,
+     "modelMs": 3173,
+     "bench": {
+      "prefillTokens": 374,
+      "prefillTps": 152.1,
+      "decodeTokens": 10,
+      "decodeTps": 14.1
+     },
+     "contextTokens": 384
+    },
+    {
+     "user": "Hier kenne ich noch niemanden.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Verstehe. Was war Ihr Tag?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 455,
+     "modelMs": 1010,
+     "bench": {
+      "prefillTokens": 64,
+      "prefillTps": 208.4,
+      "decodeTokens": 10,
+      "decodeTps": 14.3
+     },
+     "contextTokens": 458
+    },
+    {
+     "user": "Ich versuche, mich in meinem Job einzuleben.",
+     "raw": "Verstehe. Was war Ihr Wochenende?",
+     "spoken": "Verstehe. Was war Ihr Wochenende?",
+     "source": "model",
+     "issues": [],
+     "firstTokenMs": 751,
+     "modelMs": 1362,
+     "bench": {
+      "prefillTokens": 74,
+      "prefillTps": 118.8,
+      "decodeTokens": 10,
+      "decodeTps": 13.6
+     },
+     "contextTokens": 542
+    },
+    {
+     "user": "Morgens ist der Bus sehr voll.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 850,
+     "modelMs": 1441,
+     "bench": {
+      "prefillTokens": 77,
+      "prefillTps": 111,
+      "decodeTokens": 10,
+      "decodeTps": 13.4
+     },
+     "contextTokens": 629
+    },
+    {
+     "user": "Mein Team bei der Arbeit ist eigentlich hilfsbereit.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1194,
+     "modelMs": 1838,
+     "bench": {
+      "prefillTokens": 91,
+      "prefillTps": 89.3,
+      "decodeTokens": 10,
+      "decodeTps": 12.2
+     },
+     "contextTokens": 730
+    },
+    {
+     "user": "Aber in Besprechungen traue ich mich nicht, etwas zu sagen.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Was ist noch passiert?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 908,
+     "modelMs": 1550,
+     "bench": {
+      "prefillTokens": 98,
+      "prefillTps": 131.3,
+      "decodeTokens": 10,
+      "decodeTps": 12.5
+     },
+     "contextTokens": 838
+    },
+    {
+     "user": "Abends schaue ich meistens Serien.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Was beschäftigt Sie gerade am meisten?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1326,
+     "modelMs": 1885,
+     "bench": {
+      "prefillTokens": 90,
+      "prefillTps": 76.1,
+      "decodeTokens": 10,
+      "decodeTps": 14.3
+     },
+     "contextTokens": 938
+    },
+    {
+     "user": "Mit meiner Mutter telefoniere ich einmal pro Woche.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1178,
+     "modelMs": 1742,
+     "bench": {
+      "prefillTokens": 94,
+      "prefillTps": 90.2,
+      "decodeTokens": 10,
+      "decodeTps": 14.3
+     },
+     "contextTokens": 1042
+    },
+    {
+     "user": "Mein Schlaf ist in Ordnung, ich schlafe sieben Stunden.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 888,
+     "modelMs": 1406,
+     "bench": {
+      "prefillTokens": 98,
+      "prefillTps": 133.8,
+      "decodeTokens": 10,
+      "decodeTps": 14.9
+     },
+     "contextTokens": 1150
+    },
+    {
+     "user": "Am Wochenende fühle ich mich etwas einsam.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Was ist noch passiert?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1294,
+     "modelMs": 1881,
+     "bench": {
+      "prefillTokens": 94,
+      "prefillTps": 85.7,
+      "decodeTokens": 10,
+      "decodeTps": 12.8
+     },
+     "contextTokens": 1254
+    },
+    {
+     "user": "Entschuldigung, nicht das ganze Wochenende, nur sonntags.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Was beschäftigt Sie gerade am meisten?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 789,
+     "modelMs": 1365,
+     "bench": {
+      "prefillTokens": 98,
+      "prefillTps": 151.8,
+      "decodeTokens": 10,
+      "decodeTps": 13.9
+     },
+     "contextTokens": 1362
+    },
+    {
+     "user": "Ich überlege, mich im Fitnessstudio anzumelden.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 671,
+     "modelMs": 1295,
+     "bench": {
+      "prefillTokens": 96,
+      "prefillTps": 181.8,
+      "decodeTokens": 10,
+      "decodeTps": 13.1
+     },
+     "contextTokens": 1468
+    },
+    {
+     "user": "Aber ich war noch nicht dort.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Wie fühlt sich das für Sie an?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1020,
+     "modelMs": 1699,
+     "bench": {
+      "prefillTokens": 92,
+      "prefillTps": 103.7,
+      "decodeTokens": 10,
+      "decodeTps": 12.4
+     },
+     "contextTokens": 1570
+    },
+    {
+     "user": "In meiner Nachbarschaft gibt es einen schönen Park.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Was ist noch passiert?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1134,
+     "modelMs": 1697,
+     "bench": {
+      "prefillTokens": 95,
+      "prefillTps": 95.8,
+      "decodeTokens": 10,
+      "decodeTps": 14.3
+     },
+     "contextTokens": 1675
+    },
+    {
+     "user": "Manchmal lese ich dort ein Buch.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Was beschäftigt Sie gerade am meisten?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 1059,
+     "modelMs": 1627,
+     "bench": {
+      "prefillTokens": 93,
+      "prefillTps": 101.4,
+      "decodeTokens": 10,
+      "decodeTps": 14.1
+     },
+     "contextTokens": 1778
+    },
+    {
+     "user": "Ich glaube, das war es für heute.",
+     "raw": "Verstehe. Was war Ihr Tag?",
+     "spoken": "Möchten Sie mir etwas mehr darüber erzählen?",
+     "source": "fixed-fallback",
+     "issues": [
+      "repeated-question"
+     ],
+     "firstTokenMs": 990,
+     "modelMs": 1526,
+     "bench": {
+      "prefillTokens": 93,
+      "prefillTps": 111.2,
+      "decodeTokens": 10,
+      "decodeTps": 14.6
+     },
+     "contextTokens": 1881
+    }
+   ],
+   "closing": {
+    "line": {
+     "candidate": "Sie sprachen über eine neue Stadt, niemanden kennen und Einsamkeit.",
+     "status": null,
+     "firstTokenMs": 1855,
+     "modelMs": 2915,
+     "verifier": "NO",
+     "accepted": "Sie sprachen über eine neue Stadt, niemanden kennen und Einsamkeit.",
+     "finalStatus": null
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[3,5,6,12,13]}],\"corrected\":[]}",
+    "groupsModelMs": 3651,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Arbeitsleben",
+       "quotes": [
+        {
+         "turn": 3,
+         "text": "Ich versuche, mich in meinem Job einzuleben."
+        },
+        {
+         "turn": 5,
+         "text": "Mein Team bei der Arbeit ist eigentlich hilfsbereit."
+        },
+        {
+         "turn": 6,
+         "text": "Aber in Besprechungen traue ich mich nicht, etwas zu sagen."
+        },
+        {
+         "turn": 12,
+         "text": "Ich überlege, mich im Fitnessstudio anzumelden."
+        },
+        {
+         "turn": 13,
+         "text": "Aber ich war noch nicht dort."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Weiteres, das Sie gesagt haben",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "Ich bin vor zwei Monaten in eine neue Stadt gezogen."
+        },
+        {
+         "turn": 2,
+         "text": "Hier kenne ich noch niemanden."
+        },
+        {
+         "turn": 4,
+         "text": "Morgens ist der Bus sehr voll."
+        },
+        {
+         "turn": 7,
+         "text": "Abends schaue ich meistens Serien."
+        },
+        {
+         "turn": 8,
+         "text": "Mit meiner Mutter telefoniere ich einmal pro Woche."
+        },
+        {
+         "turn": 9,
+         "text": "Mein Schlaf ist in Ordnung, ich schlafe sieben Stunden."
+        },
+        {
+         "turn": 11,
+         "text": "nicht das ganze Wochenende, nur sonntags."
+        },
+        {
+         "turn": 14,
+         "text": "In meiner Nachbarschaft gibt es einen schönen Park."
+        },
+        {
+         "turn": 15,
+         "text": "Manchmal lese ich dort ein Buch."
+        },
+        {
+         "turn": 16,
+         "text": "Ich glaube, das war es für heute."
+        }
+       ]
+      }
+     ],
+     "replaced": [
+      {
+       "turn": 10,
+       "text": "Am Wochenende fühle ich mich etwas einsam."
+      }
+     ],
+     "issues": []
+    },
+    "T": {
+     "trigger": 122594.00936,
+     "lineText": 125511.921422,
+     "verifierDone": 127011.315798,
+     "groupsText": 130665.423507,
+     "done": 130665.829648
+    }
+   },
+   "wallMs": 42858
+  }
+ ]
+}

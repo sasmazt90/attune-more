@@ -1,0 +1,588 @@
+{
+ "url": "http://127.0.0.1:8731/bench/speech.html?mode=stt&model=onnx-community/whisper-base",
+ "browser": "153.0.8010.12",
+ "startedAt": "2026-11-10T23:08:31.657Z",
+ "wallSeconds": 131,
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "result": {
+  "mode": "stt",
+  "done": true,
+  "items": [
+   {
+    "lang": "tr",
+    "index": 0,
+    "file": "fleurs-eval/tr_tr/3453892295047654520.wav",
+    "reference": "günde sadece on sekiz tane madalya alınma imkanı olduğu için birkaç ülke madalya sahnesine çıkmayı başaramadı",
+    "hypothesis": "Günde sadece 18 tane madalya alınmayın kanalı olduğu için birkaç ülke madalya sahnesine çıkmayı başaramadı.",
+    "ms": 3552,
+    "audioS": 8.16
+   },
+   {
+    "lang": "tr",
+    "index": 1,
+    "file": "fleurs-eval/tr_tr/4110479544867812528.wav",
+    "reference": "günde sadece on sekiz tane madalya alınma imkanı olduğu için birkaç ülke madalya sahnesine çıkmayı başaramadı",
+    "hypothesis": "Günde sadece 18 tane madalya alınmayım ki, için birkaç ülke madalya sahnesini çıkmayı başaramadı.",
+    "ms": 2034,
+    "audioS": 7.5
+   },
+   {
+    "lang": "tr",
+    "index": 2,
+    "file": "fleurs-eval/tr_tr/9432534243995106334.wav",
+    "reference": "günde sadece on sekiz tane madalya alınma imkanı olduğu için birkaç ülke madalya sahnesine çıkmayı başaramadı",
+    "hypothesis": "Günde sadece 18 tane madali alınmayın kanı olduğu için birkaç ülke madaliye sahnesini çıkmayı başaramadı.",
+    "ms": 1973,
+    "audioS": 10.74
+   },
+   {
+    "lang": "tr",
+    "index": 3,
+    "file": "fleurs-eval/tr_tr/1769100820085484549.wav",
+    "reference": "2010 federal seçimlerinden önce 1.400 kişiyle yapılan ankete göre avustralya'nın cumhuriyet olmasına karşı çıkanların sayısı 2008'den bu yana yüzde 8 oranında arttı",
+    "hypothesis": "2010 federal seçimlerinden önce 1400 kişiyi yapılan angate göre Avustralya'nın Cumhuriyet olmasına karşı çıkanlarının sayısı 28'dan bu yana 188 orunun da arttı.",
+    "ms": 2575,
+    "audioS": 12.06
+   },
+   {
+    "lang": "tr",
+    "index": 4,
+    "file": "fleurs-eval/tr_tr/14224627544840650435.wav",
+    "reference": "2010 federal seçimlerinden önce 1.400 kişiyle yapılan ankete göre avustralya'nın cumhuriyet olmasına karşı çıkanların sayısı 2008'den bu yana yüzde 8 oranında arttı",
+    "hypothesis": "2010 federal seçimlerinden önce 1400 kişiyi ile yapılan amkete göre Avustralyanın Cumhuriyet olmasına karşı çıkanların sayısı 2008'den bu yana 188 oranında arttı.",
+    "ms": 2488,
+    "audioS": 18.78
+   },
+   {
+    "lang": "tr",
+    "index": 5,
+    "file": "fleurs-eval/tr_tr/6370025475231191052.wav",
+    "reference": "i̇lk başta yurtdışına gittiğinizde insanlar muhtemelen sabırlı ve anlayışlı olurlar yeni bir ülkedeki yolcuların uyum sağlaması gerektiğini bilirler",
+    "hypothesis": "İlk başta yurt dışına gittiğinizde insanlar muhtemelen sabırlı ve anlayışlı olurlar. Yeni bir ülkeleki yolcuların uyum sağlaması gerekliğine verirler.",
+    "ms": 2632,
+    "audioS": 11.58
+   },
+   {
+    "lang": "tr",
+    "index": 6,
+    "file": "fleurs-eval/tr_tr/4497330911968677099.wav",
+    "reference": "i̇lk başta yurtdışına gittiğinizde insanlar muhtemelen sabırlı ve anlayışlı olurlar yeni bir ülkedeki yolcuların uyum sağlaması gerektiğini bilirler",
+    "hypothesis": "İlk başta yurt dışına gittiğinizde insanlar muhtemelen sabırlı ve anlayışlı olurlar. Yeni bir ülkedeki yolcuların uyum sağlaması gerektiğini bilirler.",
+    "ms": 2813,
+    "audioS": 9.06
+   },
+   {
+    "lang": "tr",
+    "index": 7,
+    "file": "fleurs-eval/tr_tr/7679381647076441567.wav",
+    "reference": "i̇lk başta yurtdışına gittiğinizde insanlar muhtemelen sabırlı ve anlayışlı olurlar yeni bir ülkedeki yolcuların uyum sağlaması gerektiğini bilirler",
+    "hypothesis": "İlk başta yurt dışına gittiğinizde insanlar muhteberen sabırlı ve anlayışlı olurlar. Yeni bir ülkede ki yolcuların uyum sağlaması gerekliğine bilirler.",
+    "ms": 2697,
+    "audioS": 11.4
+   },
+   {
+    "lang": "tr",
+    "index": 8,
+    "file": "fleurs-eval/tr_tr/1346256009119966937.wav",
+    "reference": "auckland'ın iki limanın ortasında olması nedeniyle birçok plaj var en popüler olanları üç bölgededir",
+    "hypothesis": "Avuklandın 2 mm ortasında olmasına deriyle birçok plaj var. En popüler olanları 3 bölgedebilir.",
+    "ms": 2010,
+    "audioS": 8.7
+   },
+   {
+    "lang": "tr",
+    "index": 9,
+    "file": "fleurs-eval/tr_tr/6509248758244278997.wav",
+    "reference": "auckland'ın iki limanın ortasında olması nedeniyle birçok plaj var en popüler olanları üç bölgededir",
+    "hypothesis": "Avuklandın 2.000'ın ortasında olmasını derinle birçok placi var. En popüler olanları 3 bölgedebilir.",
+    "ms": 2114,
+    "audioS": 9.96
+   },
+   {
+    "lang": "tr",
+    "index": 10,
+    "file": "fleurs-eval/tr_tr/467308168642307770.wav",
+    "reference": "auckland'ın iki limanın ortasında olması nedeniyle birçok plaj var en popüler olanları üç bölgededir",
+    "hypothesis": "Alklandın 2.5'ın ortasında olması növreniyle birçok plaj var. En popüler olanları 3 bölgedebilir.",
+    "ms": 2117,
+    "audioS": 9.24
+   },
+   {
+    "lang": "tr",
+    "index": 11,
+    "file": "fleurs-eval/tr_tr/11691753474305712919.wav",
+    "reference": "araba çarptığında evde üç kişi vardı ancak hiçbiri zarar görmedi",
+    "hypothesis": "Araba çarptığında evde 3 kişi vardı. Ancak hiç bir zarar görmenin.",
+    "ms": 1605,
+    "audioS": 6.72
+   },
+   {
+    "lang": "tr",
+    "index": 12,
+    "file": "fleurs-eval/tr_tr/15266506538675274778.wav",
+    "reference": "araba çarptığında evde üç kişi vardı ancak hiçbiri zarar görmedi",
+    "hypothesis": "Araba çarptığında evde üç kişi vardı. Ancak hiçbiri zarar görmedi.",
+    "ms": 1685,
+    "audioS": 8.22
+   },
+   {
+    "lang": "tr",
+    "index": 13,
+    "file": "fleurs-eval/tr_tr/13613020886228777864.wav",
+    "reference": "araba çarptığında evde üç kişi vardı ancak hiçbiri zarar görmedi",
+    "hypothesis": "Araba çarptığımda evde 3 kişi vardı. Ancak hiç bir zarar görmedi.",
+    "ms": 1784,
+    "audioS": 8.58
+   },
+   {
+    "lang": "tr",
+    "index": 14,
+    "file": "fleurs-eval/tr_tr/7526071826895652382.wav",
+    "reference": "bu becerilerin her biri gerçek hayatın sorunlarına çözüm sağlamaya odaklanan ayrı disiplinler haline geldi",
+    "hypothesis": "Bu becerilerin her biri gerçeği hayatının sorunlarına çözüm salamaya odaklanan ayrı diziplinler haline geldi.",
+    "ms": 2286,
+    "audioS": 8.28
+   },
+   {
+    "lang": "tr",
+    "index": 15,
+    "file": "fleurs-eval/tr_tr/17672571327414762746.wav",
+    "reference": "bu becerilerin her biri gerçek hayatın sorunlarına çözüm sağlamaya odaklanan ayrı disiplinler haline geldi",
+    "hypothesis": "Bu becerilerin her biri gerçek hayatını sorunlarına çözüm sağlamaya odaklanan ayrı disiplinler haline geldi.",
+    "ms": 2097,
+    "audioS": 10.86
+   },
+   {
+    "lang": "tr",
+    "index": 16,
+    "file": "fleurs-eval/tr_tr/17796961348158723577.wav",
+    "reference": "point marlon ve fairmont arasındaki arazi sık sık tenha geri kalmış bölgelerden geçen buffalo-pittsburgh otoyolu'nun en zorlu sürüş koşullarını sunuyor",
+    "hypothesis": "Point Marlon, Payır Mont arasındaki Arazı ve Sıks, Tenha, Yerik almış bölgelerden geçen bu fola, Pissburg, Otoyolunun en zorlu sürüş koşullarını sunuyor.",
+    "ms": 2937,
+    "audioS": 14.4
+   },
+   {
+    "lang": "tr",
+    "index": 17,
+    "file": "fleurs-eval/tr_tr/12275892972542064140.wav",
+    "reference": "point marlon ve fairmont arasındaki arazi sık sık tenha geri kalmış bölgelerden geçen buffalo-pittsburgh otoyolu'nun en zorlu sürüş koşullarını sunuyor",
+    "hypothesis": "Point Marlon ve Fehr Mont arasındaki arazi sık sık tenha geri kalmış bölgelerden geçen bu falo Pittsburgh otoya olunun en zorlu sürüş koşullarını sunuyor.",
+    "ms": 2580,
+    "audioS": 15.18
+   },
+   {
+    "lang": "tr",
+    "index": 18,
+    "file": "fleurs-eval/tr_tr/6855526516710313488.wav",
+    "reference": "point marlon ve fairmont arasındaki arazi sık sık tenha geri kalmış bölgelerden geçen buffalo-pittsburgh otoyolu'nun en zorlu sürüş koşullarını sunuyor",
+    "hypothesis": "Point Marlon ve Feyrmont arasındaki arazi sık sık tenha geri kalmış bölgelerden geçen bu falo bit pitsburg otoyonun en zorlu sürüş koşullarınız sunuyor.",
+    "ms": 2749,
+    "audioS": 15.9
+   },
+   {
+    "lang": "tr",
+    "index": 19,
+    "file": "fleurs-eval/tr_tr/13112273879309658180.wav",
+    "reference": "özellikle romani olmayanlar arasında yaygın biçimde kullanılsa da çingene kelimesi romani halkına dair olumsuz kalıpyargılar ve doğru olmayan algılarla ilişkilendirilmiş olması nedeniyle genellikle saldırgan olarak kabul edilir",
+    "hypothesis": "Özellikler romani olmayanlar arasında yaygın bir kimle kullanılsa da kim gene kelimesi romani halkına dair olumsuz kalıp yargılar ve doğru olmayan algılarla ilişkilendirilmiş olmasın evde neyle genellikle saldırgan olarak kabul edilir.",
+    "ms": 3511,
+    "audioS": 19.02
+   },
+   {
+    "lang": "en",
+    "index": 0,
+    "file": "fleurs-eval/en_us/15158676295442294624.wav",
+    "reference": "the main local beer is number one' it is not a complex beer but pleasant and refreshing the other local beer is called manta",
+    "hypothesis": "The main local beer is number one. It is not a complex beer but pleasant and refreshing. The other local beer is called a Monta.",
+    "ms": 2030,
+    "audioS": 11.46
+   },
+   {
+    "lang": "en",
+    "index": 1,
+    "file": "fleurs-eval/en_us/12952903060751652532.wav",
+    "reference": "the main local beer is number one' it is not a complex beer but pleasant and refreshing the other local beer is called manta",
+    "hypothesis": "The main local beer is number one. It is not a complex beer but pleasant and refreshing. The other local beer is called Manta.",
+    "ms": 1968,
+    "audioS": 10.58
+   },
+   {
+    "lang": "en",
+    "index": 2,
+    "file": "fleurs-eval/en_us/16131823300806444840.wav",
+    "reference": "insects were the first animals to take to the air their ability to fly helped them evade enemies more easily and find food and mates more efficiently",
+    "hypothesis": "The insects were the first animals to take to the air. Their ability to fly helped them evade enemies more easily and find food and makes more efficiently.",
+    "ms": 2011,
+    "audioS": 12.84
+   },
+   {
+    "lang": "en",
+    "index": 3,
+    "file": "fleurs-eval/en_us/2606692427476446963.wav",
+    "reference": "insects were the first animals to take to the air their ability to fly helped them evade enemies more easily and find food and mates more efficiently",
+    "hypothesis": "insects were the first animals to take to the air. Their ability to fly helped them evade enemies more easily and find food and mates more efficiently.",
+    "ms": 2032,
+    "audioS": 9.12
+   },
+   {
+    "lang": "en",
+    "index": 4,
+    "file": "fleurs-eval/en_us/2812938565630042744.wav",
+    "reference": "insects were the first animals to take to the air their ability to fly helped them evade enemies more easily and find food and mates more efficiently",
+    "hypothesis": "In text for the first animals to take to the air, their ability to fly helped them invade enemies and more easily and find food and mates more efficiently.",
+    "ms": 2028,
+    "audioS": 9.12
+   },
+   {
+    "lang": "en",
+    "index": 5,
+    "file": "fleurs-eval/en_us/4175831345558885921.wav",
+    "reference": "there are many beaches due to auckland's straddling of two harbours the most popular ones are in three areas",
+    "hypothesis": "There are many beaches due to Auckland's rattling of two harbors, and most popular ones are in three areas.",
+    "ms": 1708,
+    "audioS": 6
+   },
+   {
+    "lang": "en",
+    "index": 6,
+    "file": "fleurs-eval/en_us/7939024995221969344.wav",
+    "reference": "there are many beaches due to auckland's straddling of two harbours the most popular ones are in three areas",
+    "hypothesis": "There are many beaches due to Auckland's straddling of two harbours. The most popular ones are in three areas.",
+    "ms": 1769,
+    "audioS": 10.68
+   },
+   {
+    "lang": "en",
+    "index": 7,
+    "file": "fleurs-eval/en_us/665062717314476757.wav",
+    "reference": "after seeing the horrors and atrocities of war during world war i nations desired to avoid such a situation again in the future",
+    "hypothesis": "After seeing the horrors and atrocities of war during World War I, nations desire to avoid such a situation again in the future.",
+    "ms": 1951,
+    "audioS": 7.5
+   },
+   {
+    "lang": "en",
+    "index": 8,
+    "file": "fleurs-eval/en_us/12470893547277455431.wav",
+    "reference": "after seeing the horrors and atrocities of war during world war i nations desired to avoid such a situation again in the future",
+    "hypothesis": "After seeing the horrors and atrocities of war during World War I, nations desired to avoid such a situation again in the future.",
+    "ms": 1827,
+    "audioS": 10.68
+   },
+   {
+    "lang": "en",
+    "index": 9,
+    "file": "fleurs-eval/en_us/16359228487623086121.wav",
+    "reference": "after seeing the horrors and atrocities of war during world war i nations desired to avoid such a situation again in the future",
+    "hypothesis": "After seeing the horrors and atrocities of Boar during World War I nations, it's time to avoid such a situation again in the future.",
+    "ms": 1897,
+    "audioS": 7.8
+   },
+   {
+    "lang": "en",
+    "index": 10,
+    "file": "fleurs-eval/en_us/3165540733904730243.wav",
+    "reference": "robin uthappa made the innings highest score 70 runs in just 41 balls by hitting 11 fours and 2 sixes",
+    "hypothesis": "Robin Uhapa made the innings high score, 70 runs in just 41 balls by hitting 11-4s and 2-6s.",
+    "ms": 1883,
+    "audioS": 10
+   },
+   {
+    "lang": "en",
+    "index": 11,
+    "file": "fleurs-eval/en_us/13432781409214475589.wav",
+    "reference": "robin uthappa made the innings highest score 70 runs in just 41 balls by hitting 11 fours and 2 sixes",
+    "hypothesis": "Robin Lutapa made the innings highest score, 70 runs and just 41 balls by hitting 11-4s and 2-6s.",
+    "ms": 1936,
+    "audioS": 8.64
+   },
+   {
+    "lang": "en",
+    "index": 12,
+    "file": "fleurs-eval/en_us/6055213138267211441.wav",
+    "reference": "robin uthappa made the innings highest score 70 runs in just 41 balls by hitting 11 fours and 2 sixes",
+    "hypothesis": "Robin you hop up made the innings high score. 7 of the runs in just 41 balls by hitting 11 forwards and 2 6s.",
+    "ms": 1823,
+    "audioS": 12.38
+   },
+   {
+    "lang": "en",
+    "index": 13,
+    "file": "fleurs-eval/en_us/9882585482935912523.wav",
+    "reference": "scientists think that ocelots follow and find animals to eat prey by smell sniffing for where they've been on the ground",
+    "hypothesis": "Scientists think that oscillates follow and find animals to eat prey by smell sniffing for where they've been on the ground.",
+    "ms": 1735,
+    "audioS": 7.92
+   },
+   {
+    "lang": "en",
+    "index": 14,
+    "file": "fleurs-eval/en_us/4061126165286017165.wav",
+    "reference": "scientists think that ocelots follow and find animals to eat prey by smell sniffing for where they've been on the ground",
+    "hypothesis": "Scientists think that oscelots follow and find animals to eat prey by smell sniffing for where they've been on the ground.",
+    "ms": 1995,
+    "audioS": 9
+   },
+   {
+    "lang": "en",
+    "index": 15,
+    "file": "fleurs-eval/en_us/15977714626755944007.wav",
+    "reference": "scientists think that ocelots follow and find animals to eat prey by smell sniffing for where they've been on the ground",
+    "hypothesis": "Scientists think that osalas follow and find animals to eat prey by smell, sniffing for where they've been on the ground.",
+    "ms": 1868,
+    "audioS": 11.3
+   },
+   {
+    "lang": "en",
+    "index": 16,
+    "file": "fleurs-eval/en_us/771164859457517955.wav",
+    "reference": "ancient roman meals couldn't have included foods that came to europe from america or from asia in later centuries",
+    "hypothesis": "Ancient Rome meals couldn't have included foods that came to Europe from America or from Asia in later centuries.",
+    "ms": 1708,
+    "audioS": 12.76
+   },
+   {
+    "lang": "en",
+    "index": 17,
+    "file": "fleurs-eval/en_us/4484727000875589449.wav",
+    "reference": "ancient roman meals couldn't have included foods that came to europe from america or from asia in later centuries",
+    "hypothesis": "Ancient Roman meals couldn't have included foods that came to Europe from America or from Asia in later centuries.",
+    "ms": 1749,
+    "audioS": 8.4
+   },
+   {
+    "lang": "en",
+    "index": 18,
+    "file": "fleurs-eval/en_us/5570899521134143454.wav",
+    "reference": "ancient roman meals couldn't have included foods that came to europe from america or from asia in later centuries",
+    "hypothesis": "Ancient Roman meals couldn't have included foods that came to Europe from America or from Asia in later centuries.",
+    "ms": 1833,
+    "audioS": 10.68
+   },
+   {
+    "lang": "en",
+    "index": 19,
+    "file": "fleurs-eval/en_us/4240392157002027036.wav",
+    "reference": "safaris are perhaps the greatest tourism draw in africa and the highlight for many visitors",
+    "hypothesis": "Safari's are perhaps the greatest tourism draw in Africa and the highlight for many visitors.",
+    "ms": 1785,
+    "audioS": 6.58
+   },
+   {
+    "lang": "de",
+    "index": 0,
+    "file": "fleurs-eval/de_de/10271331673746997728.wav",
+    "reference": "die wissenschaft weist nun darauf hin dass diese massive kohlenstoffwirtschaft die biosphäre aus einem ihrer stabilen zustände der die menschliche evolution in den letzten zwei millionen jahren getragen hat herausgebracht hat",
+    "hypothesis": "Die Wissenschaft war jetzt nun darauf hin, dass diese massive Kohlenstoffwirtschaft die Biosphäre aus einer ihrer Stabilen zustände, der die menschliche Evolution in den letzten zwei Millionen Jahren getragen hat herausgebracht hat.",
+    "ms": 2971,
+    "audioS": 12.36
+   },
+   {
+    "lang": "de",
+    "index": 1,
+    "file": "fleurs-eval/de_de/13750556446747319059.wav",
+    "reference": "die wissenschaft weist nun darauf hin dass diese massive kohlenstoffwirtschaft die biosphäre aus einem ihrer stabilen zustände der die menschliche evolution in den letzten zwei millionen jahren getragen hat herausgebracht hat",
+    "hypothesis": "Die Wissenschaft weiß nun darauf hin, dass diese massive Kohlenstoffwirtschaft die Biosphäre aus einem ihrer Stabilen zustände, der die menschliche Evolution in den letzten zwei Millionen Jahren getragen hat, herausgebracht hat.",
+    "ms": 2832,
+    "audioS": 11.28
+   },
+   {
+    "lang": "de",
+    "index": 2,
+    "file": "fleurs-eval/de_de/2451196745503996684.wav",
+    "reference": "er sagte dass er eine wlan-türklingel gebaut habe",
+    "hypothesis": "Er sagte, dass er eine wählen Türklinge gebaut habe.",
+    "ms": 1335,
+    "audioS": 7.14
+   },
+   {
+    "lang": "de",
+    "index": 3,
+    "file": "fleurs-eval/de_de/13222588926109612465.wav",
+    "reference": "er sagte dass er eine wlan-türklingel gebaut habe",
+    "hypothesis": "Er sagte, dass er eine WLAN-Türklinge gebaut habe.",
+    "ms": 1508,
+    "audioS": 3.84
+   },
+   {
+    "lang": "de",
+    "index": 4,
+    "file": "fleurs-eval/de_de/5805285304280538507.wav",
+    "reference": "er sagte dass er eine wlan-türklingel gebaut habe",
+    "hypothesis": "Er sagt, dass er eine Villain-Jew-Klingel gebot haben will.",
+    "ms": 1602,
+    "audioS": 11.82
+   },
+   {
+    "lang": "de",
+    "index": 5,
+    "file": "fleurs-eval/de_de/7146016300570749740.wav",
+    "reference": "die ersten fälle der krankheit dieser saison wurden ende juli gemeldet",
+    "hypothesis": "Die ersten Fälle der Krankheit dieses Saison wurden Ende Juli gemeldet.",
+    "ms": 1506,
+    "audioS": 4.68
+   },
+   {
+    "lang": "de",
+    "index": 6,
+    "file": "fleurs-eval/de_de/6380238142348373676.wav",
+    "reference": "die ersten fälle der krankheit dieser saison wurden ende juli gemeldet",
+    "hypothesis": "Die ersten Fälle der Krankheit dieser Saison wurden in der Juli gemeldet.",
+    "ms": 1683,
+    "audioS": 18.36
+   },
+   {
+    "lang": "de",
+    "index": 7,
+    "file": "fleurs-eval/de_de/16740995870441239732.wav",
+    "reference": "die ersten fälle der krankheit dieser saison wurden ende juli gemeldet",
+    "hypothesis": "Die ersten Fälle der Krankheit dieser Saison wurden Ende Juli gemeldet.",
+    "ms": 1690,
+    "audioS": 8.46
+   },
+   {
+    "lang": "de",
+    "index": 8,
+    "file": "fleurs-eval/de_de/13898887876143205589.wav",
+    "reference": "mit der zeit beginnt sich die neue population an ihre neue umgebung anzupassen und dann sieht sie der anderen population immer weniger ähnlich",
+    "hypothesis": "Mit der Zeit beginnt sich die neue Population an ihre neue Umgebung anzupassen und dann sieht sie der anderen Population immer weniger ähnlich.",
+    "ms": 2065,
+    "audioS": 16.32
+   },
+   {
+    "lang": "de",
+    "index": 9,
+    "file": "fleurs-eval/de_de/12721272933411946980.wav",
+    "reference": "mit der zeit beginnt sich die neue population an ihre neue umgebung anzupassen und dann sieht sie der anderen population immer weniger ähnlich",
+    "hypothesis": "Mit der Zeit beginnt sich die neue Population an ihre neue Umgebung anzupassen und dann sieht sie in der anderen Population immer weniger ähnlich.",
+    "ms": 1967,
+    "audioS": 10.5
+   },
+   {
+    "lang": "de",
+    "index": 10,
+    "file": "fleurs-eval/de_de/314660965035361089.wav",
+    "reference": "mit der zeit beginnt sich die neue population an ihre neue umgebung anzupassen und dann sieht sie der anderen population immer weniger ähnlich",
+    "hypothesis": "Mit der Zeit beginnt sich die neue Population an ihre neue Umgebung anzupassen und dann sieht sie der andere Population immer weniger ähnlich.",
+    "ms": 2081,
+    "audioS": 9.6
+   },
+   {
+    "lang": "de",
+    "index": 11,
+    "file": "fleurs-eval/de_de/17193269426431743622.wav",
+    "reference": "die ursprüngliche population hat sich überhaupt nicht verändert sie braucht noch immer dieselben anpassungen wie zuvor",
+    "hypothesis": "Die ursprüngliche Population hat sich überhaupt nicht verändert. Sie braucht noch immer dieselben Anpassungen wie zuvor.",
+    "ms": 1863,
+    "audioS": 5.88
+   },
+   {
+    "lang": "de",
+    "index": 12,
+    "file": "fleurs-eval/de_de/9609447064783528948.wav",
+    "reference": "die ursprüngliche population hat sich überhaupt nicht verändert sie braucht noch immer dieselben anpassungen wie zuvor",
+    "hypothesis": "Die ursprüngliche Population hat sich überhaupt nicht verändert. Sie braucht noch immer dieselben Anpassungen wie vorher.",
+    "ms": 1903,
+    "audioS": 6.78
+   },
+   {
+    "lang": "de",
+    "index": 13,
+    "file": "fleurs-eval/de_de/11461255463172542185.wav",
+    "reference": "die ursprüngliche population hat sich überhaupt nicht verändert sie braucht noch immer dieselben anpassungen wie zuvor",
+    "hypothesis": "Die ursprüngliche Population hat sich überhaupt nicht verändert. Sie braucht noch immer dieselben Anpassungen wie zuvor.",
+    "ms": 2010,
+    "audioS": 20.58
+   },
+   {
+    "lang": "de",
+    "index": 14,
+    "file": "fleurs-eval/de_de/3811382880837025495.wav",
+    "reference": "im land kanaan gab es keine großen wälder so dass holz extrem teuer war",
+    "hypothesis": "Im Land kann nahen gibt es keinen großen Wälder, sodass Holz extrem teuer war.",
+    "ms": 1704,
+    "audioS": 18.84
+   },
+   {
+    "lang": "de",
+    "index": 15,
+    "file": "fleurs-eval/de_de/11659975836487230624.wav",
+    "reference": "im land kanaan gab es keine großen wälder so dass holz extrem teuer war",
+    "hypothesis": "Im Land Karnereangab ist keine großen Welt, also das Holz extrem teuer war.",
+    "ms": 1575,
+    "audioS": 4.98
+   },
+   {
+    "lang": "de",
+    "index": 16,
+    "file": "fleurs-eval/de_de/9398730551118591238.wav",
+    "reference": "sie versuchen immer noch herauszufinden wie umfangreich der zusammenstoß war und wie die erde davon beeinträchtigt werden wird",
+    "hypothesis": "Sie versuchen immer noch herauszufinden, wie umfangreich der Zusammenstus war und wie die Erde davon beeinträchtig werden wird.",
+    "ms": 1832,
+    "audioS": 11.28
+   },
+   {
+    "lang": "de",
+    "index": 17,
+    "file": "fleurs-eval/de_de/15323796626761319044.wav",
+    "reference": "sie versuchen immer noch herauszufinden wie umfangreich der zusammenstoß war und wie die erde davon beeinträchtigt werden wird",
+    "hypothesis": "Sie versuchen immer noch herauszufinden, wie umfangreich der Zusammenstößer war und wie die Erde davon beeinträchtigt werden wird.",
+    "ms": 1922,
+    "audioS": 10.68
+   },
+   {
+    "lang": "de",
+    "index": 18,
+    "file": "fleurs-eval/de_de/9664053100174928472.wav",
+    "reference": "zu dieser schlussfolgerung kam sie aufgrund der zahlreichen positiven kommentare und der ermutigung die sie sowohl von männern als auch von frauen erhielt die darauf drängten dass verhütungsmittel als medizinische notwendigkeit angesehen werden sollten",
+    "hypothesis": "Zu dieser Schlussvorgrung kam sie aufgrund der zahlreichen positiven Kommentare und der Ermutigung, die sie sowohl von Männern als auch von Frauen erhielt, die darauf drängend das Verhütungsmittel als medizinische Nutwendigkeit angesehen werden sollten.",
+    "ms": 3202,
+    "audioS": 18.66
+   },
+   {
+    "lang": "de",
+    "index": 19,
+    "file": "fleurs-eval/de_de/4681637981934807169.wav",
+    "reference": "zu dieser schlussfolgerung kam sie aufgrund der zahlreichen positiven kommentare und der ermutigung die sie sowohl von männern als auch von frauen erhielt die darauf drängten dass verhütungsmittel als medizinische notwendigkeit angesehen werden sollten",
+    "hypothesis": "Zu dieser Schlussfolgerung kam sie aufgrund der zahlreichen positiven Kommentare und der Ermutigung, die sie sowohl von Männern als auch von Frauen erhielt, die darauf dreht, denn das Verhütungsmittel als medizinische Notwendigkeit angesehen werden sollte.",
+    "ms": 2961,
+    "audioS": 16.68
+   }
+  ],
+  "model": "onnx-community/whisper-base",
+  "loadMs": 2401
+ },
+ "console": [
+  "73.0s log [bench] en#10 1883 ms: Robin Uhapa made the innings high score, 70 runs in just 41 balls by hitting 11-4s and 2-6s.",
+  "75.0s log [bench] en#11 1936 ms: Robin Lutapa made the innings highest score, 70 runs and just 41 balls by hitting 11-4s and 2-6s.",
+  "76.8s log [bench] en#12 1823 ms: Robin you hop up made the innings high score. 7 of the runs in just 41 balls by hitting 11 forwards and 2 6s.",
+  "78.6s log [bench] en#13 1735 ms: Scientists think that oscillates follow and find animals to eat prey by smell sniffing for where they've been on the ground.",
+  "80.6s log [bench] en#14 1995 ms: Scientists think that oscelots follow and find animals to eat prey by smell sniffing for where they've been on the ground.",
+  "82.5s log [bench] en#15 1868 ms: Scientists think that osalas follow and find animals to eat prey by smell, sniffing for where they've been on the ground.",
+  "84.2s log [bench] en#16 1708 ms: Ancient Rome meals couldn't have included foods that came to Europe from America or from Asia in later centuries.",
+  "86.0s log [bench] en#17 1749 ms: Ancient Roman meals couldn't have included foods that came to Europe from America or from Asia in later centuries.",
+  "87.9s log [bench] en#18 1833 ms: Ancient Roman meals couldn't have included foods that came to Europe from America or from Asia in later centuries.",
+  "89.7s log [bench] en#19 1785 ms: Safari's are perhaps the greatest tourism draw in Africa and the highlight for many visitors.",
+  "92.7s log [bench] de#0 2971 ms: Die Wissenschaft war jetzt nun darauf hin, dass diese massive Kohlenstoffwirtschaft die Biosphäre aus einer ihrer Stabilen zustände, der die menschliche Evolution in den letzten zwei Millionen Jahren getragen hat herausgebracht hat.",
+  "95.6s log [bench] de#1 2832 ms: Die Wissenschaft weiß nun darauf hin, dass diese massive Kohlenstoffwirtschaft die Biosphäre aus einem ihrer Stabilen zustände, der die menschliche Evolution in den letzten zwei Millionen Jahren getragen hat, herausgebracht hat.",
+  "96.9s log [bench] de#2 1335 ms: Er sagte, dass er eine wählen Türklinge gebaut habe.",
+  "98.4s log [bench] de#3 1508 ms: Er sagte, dass er eine WLAN-Türklinge gebaut habe.",
+  "100.1s log [bench] de#4 1602 ms: Er sagt, dass er eine Villain-Jew-Klingel gebot haben will.",
+  "101.6s log [bench] de#5 1506 ms: Die ersten Fälle der Krankheit dieses Saison wurden Ende Juli gemeldet.",
+  "103.4s log [bench] de#6 1683 ms: Die ersten Fälle der Krankheit dieser Saison wurden in der Juli gemeldet.",
+  "105.1s log [bench] de#7 1690 ms: Die ersten Fälle der Krankheit dieser Saison wurden Ende Juli gemeldet.",
+  "107.2s log [bench] de#8 2065 ms: Mit der Zeit beginnt sich die neue Population an ihre neue Umgebung anzupassen und dann sieht sie der anderen Population immer weniger ähnlich.",
+  "109.2s log [bench] de#9 1967 ms: Mit der Zeit beginnt sich die neue Population an ihre neue Umgebung anzupassen und dann sieht sie in der anderen Population immer weniger ähnlich.",
+  "111.4s log [bench] de#10 2081 ms: Mit der Zeit beginnt sich die neue Population an ihre neue Umgebung anzupassen und dann sieht sie der andere Population immer weniger ähnlich.",
+  "113.3s log [bench] de#11 1863 ms: Die ursprüngliche Population hat sich überhaupt nicht verändert. Sie braucht noch immer dieselben Anpassungen wie zuvor.",
+  "115.2s log [bench] de#12 1903 ms: Die ursprüngliche Population hat sich überhaupt nicht verändert. Sie braucht noch immer dieselben Anpassungen wie vorher.",
+  "117.3s log [bench] de#13 2010 ms: Die ursprüngliche Population hat sich überhaupt nicht verändert. Sie braucht noch immer dieselben Anpassungen wie zuvor.",
+  "119.0s log [bench] de#14 1704 ms: Im Land kann nahen gibt es keinen großen Wälder, sodass Holz extrem teuer war.",
+  "120.7s log [bench] de#15 1575 ms: Im Land Karnereangab ist keine großen Welt, also das Holz extrem teuer war.",
+  "122.5s log [bench] de#16 1832 ms: Sie versuchen immer noch herauszufinden, wie umfangreich der Zusammenstus war und wie die Erde davon beeinträchtig werden wird.",
+  "124.5s log [bench] de#17 1922 ms: Sie versuchen immer noch herauszufinden, wie umfangreich der Zusammenstößer war und wie die Erde davon beeinträchtigt werden wird.",
+  "127.7s log [bench] de#18 3202 ms: Zu dieser Schlussvorgrung kam sie aufgrund der zahlreichen positiven Kommentare und der Ermutigung, die sie sowohl von Männern als auch von Frauen erhielt, die darauf drängend das Verhütungsmittel als medizinische Nutwendigkeit angesehen werden sollten.",
+  "130.8s log [bench] de#19 2961 ms: Zu dieser Schlussfolgerung kam sie aufgrund der zahlreichen positiven Kommentare und der Ermutigung, die sie sowohl von Männern als auch von Frauen erhielt, die darauf dreht, denn das Verhütungsmittel als medizinische Notwendigkeit angesehen werden sollte."
+ ]
+}

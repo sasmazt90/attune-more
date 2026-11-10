@@ -1,0 +1,328 @@
+{
+ "url": "http://127.0.0.1:8731/app/index.html?llm=host&autotest=en-positive",
+ "browser": "153.0.8010.12",
+ "startedAt": "2026-11-10T23:44:46.389Z",
+ "wallSeconds": 79,
+ "timedOut": false,
+ "blockedExternalRequests": [],
+ "result": {
+  "id": "en-positive",
+  "done": true,
+  "turns": [
+   {
+    "index": 1,
+    "text": "This week was very busy at work, the meetings never ended.",
+    "userSpeechEndAt": 23117,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 19486
+     },
+     {
+      "stage": "vad-end",
+      "t": 24127,
+      "samples": 79360
+     },
+     {
+      "stage": "stt-done",
+      "t": 28377,
+      "sttMs": 4251
+     },
+     {
+      "stage": "tts-start",
+      "t": 30652
+     },
+     {
+      "stage": "tts-ready",
+      "t": 30874,
+      "audioMs": 2322
+     },
+     {
+      "stage": "playing",
+      "t": 30923
+     },
+     {
+      "stage": "ended",
+      "t": 33294
+     },
+     {
+      "stage": "turn-done",
+      "t": 33294,
+      "source": "model",
+      "modelMs": 2252,
+      "firstTokenMs": 1760,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   },
+   {
+    "index": 2,
+    "text": "But on the weekend I went hiking with my sister and it felt really good.",
+    "userSpeechEndAt": 38017,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 34116
+     },
+     {
+      "stage": "vad-end",
+      "t": 38976,
+      "samples": 82944
+     },
+     {
+      "stage": "stt-done",
+      "t": 42743,
+      "sttMs": 3767
+     },
+     {
+      "stage": "tts-start",
+      "t": 44063
+     },
+     {
+      "stage": "tts-ready",
+      "t": 44361,
+      "audioMs": 3100
+     },
+     {
+      "stage": "playing",
+      "t": 44409
+     },
+     {
+      "stage": "ended",
+      "t": 47568
+     },
+     {
+      "stage": "turn-done",
+      "t": 47568,
+      "source": "model",
+      "modelMs": 1303,
+      "firstTokenMs": 669,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   },
+   {
+    "index": 3,
+    "text": "I didn't look at my phone at all during the hike.",
+    "userSpeechEndAt": 50666,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 48406
+     },
+     {
+      "stage": "vad-end",
+      "t": 51728,
+      "samples": 58368
+     },
+     {
+      "stage": "stt-done",
+      "t": 55300,
+      "sttMs": 3572
+     },
+     {
+      "stage": "tts-start",
+      "t": 56983
+     },
+     {
+      "stage": "tts-ready",
+      "t": 57246,
+      "audioMs": 2218
+     },
+     {
+      "stage": "playing",
+      "t": 57293
+     },
+     {
+      "stage": "ended",
+      "t": 59570
+     },
+     {
+      "stage": "turn-done",
+      "t": 59570,
+      "source": "model",
+      "modelMs": 1669,
+      "firstTokenMs": 910,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   },
+   {
+    "index": 4,
+    "text": "I want to do that more often.",
+    "userSpeechEndAt": 61873,
+    "stages": [
+     {
+      "stage": "vad-start",
+      "t": 60406
+     },
+     {
+      "stage": "vad-end",
+      "t": 62896,
+      "samples": 45056
+     },
+     {
+      "stage": "stt-done",
+      "t": 66266,
+      "sttMs": 3370
+     },
+     {
+      "stage": "tts-start",
+      "t": 67529
+     },
+     {
+      "stage": "tts-ready",
+      "t": 67792,
+      "audioMs": 2670
+     },
+     {
+      "stage": "playing",
+      "t": 67830
+     },
+     {
+      "stage": "ended",
+      "t": 70549
+     },
+     {
+      "stage": "turn-done",
+      "t": 70549,
+      "source": "model",
+      "modelMs": 1243,
+      "firstTokenMs": 621,
+      "crisis": false,
+      "discarded": false
+     }
+    ]
+   }
+  ],
+  "closing": {
+   "stages": [
+    {
+     "stage": "closing-trigger",
+     "t": 71032
+    },
+    {
+     "stage": "tts-start",
+     "t": 71033
+    },
+    {
+     "stage": "tts-ready",
+     "t": 71033,
+     "audioMs": 3262
+    },
+    {
+     "stage": "playing",
+     "t": 71043
+    },
+    {
+     "stage": "tts-start",
+     "t": 74347
+    },
+    {
+     "stage": "ended",
+     "t": 74368
+    },
+    {
+     "stage": "tts-ready",
+     "t": 74566,
+     "audioMs": 2624
+    },
+    {
+     "stage": "playing",
+     "t": 74605
+    },
+    {
+     "stage": "ended",
+     "t": 77280
+    },
+    {
+     "stage": "closing-done",
+     "t": 77603
+    }
+   ],
+   "result": {
+    "T": {
+     "trigger": 71032.54999999981,
+     "bridgeRequested": 71032.56500000041,
+     "lineText": 72969.96499999985,
+     "lineRetryText": 74342.12999999989,
+     "bridgeEnd": 74368.12999999989,
+     "lineAudioReady": 74565.63999999966,
+     "lineAudioStart": 74566.38999999966,
+     "groupsText": 76857.74000000022,
+     "lineAudioEnd": 77279.94000000041,
+     "done": 77279.9450000003
+    },
+    "line": {
+     "candidate": "You talked about a busy week with meetings and a good weekend hike.",
+     "status": "too-many-words",
+     "firstTokenMs": 1147,
+     "modelMs": 1925,
+     "retryCandidate": "You talked about a busy week and a good hike.",
+     "retryStatus": null,
+     "retryMs": 1363,
+     "accepted": "You talked about a busy week and a good hike.",
+     "finalStatus": null
+    },
+    "bridge": {
+     "played": true
+    },
+    "groupsRaw": "{\"topics\":[{\"topic\":\"work\",\"messages\":[1]}],\"corrected\":[]}",
+    "groupsModelMs": 2252,
+    "summary": {
+     "groups": [
+      {
+       "theme": "iş yaşamı",
+       "label": "Working life",
+       "quotes": [
+        {
+         "turn": 1,
+         "text": "This week was very busy at work. The meetings never ended."
+        }
+       ]
+      },
+      {
+       "theme": null,
+       "label": "Other things you said",
+       "quotes": [
+        {
+         "turn": 2,
+         "text": "But on the weekend I went hiking with my sister and it felt really good."
+        },
+        {
+         "turn": 3,
+         "text": "I didn't look at my phone at all during the hike."
+        },
+        {
+         "turn": 4,
+         "text": "I want to do that more often."
+        }
+       ]
+      }
+     ],
+     "replaced": [],
+     "issues": []
+    },
+    "lineSpeech": {
+     "played": true
+    }
+   }
+  }
+ },
+ "console": [
+  "19.1s log VAD | debug > Loading VAD...",
+  "19.3s log VAD | debug > ...finished loading VAD",
+  "19.3s log VAD | debug > initializing micVAD",
+  "19.3s log using custom audio context",
+  "19.3s log VAD | debug > started micVAD",
+  "19.9s log VAD | debug > Detected real speech start",
+  "24.5s warning No available adapters.",
+  "34.5s log VAD | debug > Detected real speech start",
+  "48.8s log VAD | debug > Detected real speech start",
+  "60.8s log VAD | debug > Detected real speech start",
+  "77.8s log VAD | debug > destroy called"
+ ]
+}
