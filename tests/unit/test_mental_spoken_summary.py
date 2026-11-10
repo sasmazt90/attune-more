@@ -1,6 +1,7 @@
 """Normal-conversation short spoken summary: same single analysis call, enforced bounds, no truncation (mocked provider).
 
-The validator's checks are formal (form, language, address, listed markers, lexical grounding). Content quality is
+The validator's checks are formal (form, language, address, first person, listed markers, lexical grounding per
+coordinated part, negation parity). Content quality is
 labelled separately in fixtures/mental_spoken_summary_cases.json; formally valid lines with wrong content must be
 declared there as known limitations, so a passing test never claims meaning was verified."""
 import json
@@ -81,11 +82,30 @@ def test_corpus_formal_result(case):
 
 def test_corpus_formally_valid_but_wrong_content_is_declared():
     """Content quality is not what the validator checks. Every accepted line whose content label is not 'correct'
-    must be listed as a known limitation; the list currently holds negation flips and single added words."""
+    must be listed as a known limitation (a negation on the wrong topic or out of reach, one added word inside a part,
+    swapped roles); a test that expects 'valid' for such a line documents a gap, it does not close it."""
     accepted_wrong = {c['id'] for c in CORPUS['cases'] if _corpus_result(c) == 'valid' and c['content'] != 'correct'}
     declared = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
     assert accepted_wrong == declared
     assert {c['content'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {'negation-flip', 'added-fact', 'wrong-person'}
+
+
+def test_corpus_correct_lines_that_are_refused_are_declared():
+    """The word-level checks err towards rejection. A correct recap that is refused for grounding or negation parity is
+    listed as a conservative reject: nothing is spoken for it (the written summary stays), which is the safe direction."""
+    refused_correct = {c['id'] for c in CORPUS['cases'] if c['content'] == 'correct'
+                       and _corpus_result(c) in ('adds-unsaid-content', 'negation-not-kept', 'negation-added', 'first-person')}
+    assert refused_correct == {c['id'] for c in CORPUS['cases'] if c.get('conservativeReject')}
+
+
+def test_round_two_false_accepts_are_now_refused():
+    """The six lines that round 2 accepted with wrong content (three negation flips, two added topics, one copied
+    first person). They are refused now; the remaining accepted-but-wrong shapes are the knownLimitation cases."""
+    six = ('tr-negation-flip', 'en-one-added-word', 'en-negation-flip', 'de-negation-flip', 'de-one-added-word', 'tr-live-first-person')
+    by_id = {c['id']: c for c in CORPUS['cases']}
+    for case_id in six:
+        assert _corpus_result(by_id[case_id]) != 'valid' and not by_id[case_id].get('knownLimitation')
+    assert {_corpus_result(by_id[i]) for i in six} == {'adds-unsaid-content', 'negation-not-kept', 'first-person'}
 
 
 def test_corpus_covers_the_review_counter_examples_and_all_languages():
