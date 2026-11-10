@@ -41,7 +41,7 @@ async def lifespan(_app: FastAPI):
     speech = None
     if os.getenv('ATTUNE_MENTAL_TTS_RESIDENT') == '1':
         import mental_neural_tts as speech
-        speech.schedule_warm()
+        speech.schedule_warm(profiles=speech.warm_profiles())
     try:
         yield
     finally:
