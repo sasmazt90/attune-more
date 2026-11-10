@@ -309,6 +309,18 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
 SPOKEN_SUMMARY_FORM = {'tr': '"... söz ettiniz."', 'en': '"You talked about ..."', 'de': '"Sie sprachen über ..."'}
 
 
+def spoken_summary_rules():
+    """Rules for the normal closing's short spoken line; inserted before the conversation, after the template."""
+    return ('spokenSummary is required. Also return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
+            "It restates in second person one or two things the user said, using the user's own key words, in the form "
+            + SPOKEN_SUMMARY_FORM[current_language()] + '. '
+            'At most 12 words and 100 characters; keep full detail in summaryText. '
+            'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
+            'No evaluation, reassurance, advice or suggestion, including no suggestion to seek support. '
+            'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
+            'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in ' + LANGUAGE_NAMES[current_language()] + '.\n')
+
+
 class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
     """
     Canlı LLM ile JSON schema doğrulamalı oturum özeti çıkarımı.
@@ -336,22 +348,19 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 '  "themes": ["tema1", "tema2"],\n'
                 '  "moodTrend": "STRESSED | RELAXED | TIRED | NEUTRAL",\n'
                 '  "professionalSupportSuggested": true | false,\n'
-                + ('  "professionalSupportReason": null,\n  "spokenSummary": "one short spoken sentence"\n' if spoken else
-                   '  "professionalSupportReason": null\n')
-                + "}\n"
+                '  "professionalSupportReason": null\n'
+                "}\n"
                 "professionalSupportReason: Use JSON null when no reason applies; otherwise use a reason grounded in the conversation, in the requested language. Never copy template instructions into this field.\n"
-                + (('spokenSummary is required. Also return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
-                    'It restates in second person one or two things the user said, using the user\'s own key words, in the form '
-                    + SPOKEN_SUMMARY_FORM[current_language()] + '. '
-                    'At most 12 words and 100 characters; keep full detail in summaryText. '
-                    'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
-                    'No evaluation, reassurance, advice or suggestion, including no suggestion to seek support. '
-                    'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
-                    'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in '+LANGUAGE_NAMES[current_language()]+'.\n') if spoken else '')
-                + "Konuşma Geçmişi:\n"
+                "Konuşma Geçmişi:\n"
                 + "Geçici oturum belleği (kullanıcının birebir eski alıntıları, sonraki düzeltmeler önceliklidir):\n" + json.dumps(getattr(self,"session_memory",[]),ensure_ascii=False) + "\n"
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])
             )
+
+            if spoken:
+                prompt = prompt.replace('  "professionalSupportReason": null\n}\n',
+                                        '  "professionalSupportReason": null,\n  "spokenSummary": "one short spoken sentence"\n}\n', 1)
+                rules_after = 'Never copy template instructions into this field.\n'
+                prompt = prompt.replace(rules_after, rules_after + spoken_summary_rules(), 1)
 
             if current_language() != 'tr':
                 prompt += ('\nWrite summaryText' + (', spokenSummary' if spoken else '') + ' and professionalSupportReason in '
