@@ -169,12 +169,14 @@ _TR_STEM_VARIANTS = (('yorgun', 'yorul'), ('üzgün', 'üzül'))
 _PERSON_NOUNS = {
     'en': tuple('manager boss supervisor mother father mom mum dad parent partner wife wives husband son daughter child children '
                 'kid brother sister friend colleague coworker teacher doctor neighbor neighbour landlord girlfriend boyfriend '
-                'grandmother grandfather grandparent grandma grandpa family families team client customer'.split()),
+                'grandmother grandfather grandparent grandma grandpa family families team client customer uncle aunt cousin '
+                'niece nephew fiance fiancee'.split()),
     'de': ('chef', 'vorgesetzt', 'mutter', 'vater', 'eltern', 'partner', 'ehefrau', 'ehemann', 'sohn', 'söhne', 'tochter',
            'töchter', 'kind', 'bruder', 'brüder', 'schwester', 'freund', 'kolleg', 'lehrer', 'arzt', 'ärzt', 'nachbar', 'vermieter',
-           'oma', 'opa', 'familie', 'team', 'kunde', 'kundin'),
+           'oma', 'opa', 'familie', 'team', 'kunde', 'kundin', 'frau', 'mann', 'onkel', 'tante', 'cousin', 'nichte', 'neffe'),
     'tr': ('patron', 'müdür', 'yönetici', 'amir', 'anne', 'baba', 'kardeş', 'abla', 'ağabey', 'arkadaş', 'çocuk', 'çocuğ', 'oğul',
-           'oğl', 'aile', 'öğretmen', 'doktor', 'komşu', 'meslektaş', 'ev sahib'),
+           'oğl', 'aile', 'öğretmen', 'doktor', 'komşu', 'meslektaş', 'ev sahib', 'eşim', 'eşin', 'kocam', 'kocan', 'karım',
+           'sevgili', 'nişanlı', 'kızım', 'kızın', 'dede', 'nine', 'teyze', 'amca', 'dayı', 'yeğen', 'kuzen', 'hoca'),
 }
 # German nouns or adjective forms whose stem differs from the verb or adjective the user said: strong-verb nouns
 # ("Umzug" for "ich ziehe", "Gespräch" for "sprechen") and hoch -> hohe/hohen. Closed list, after at most one listed
@@ -314,6 +316,92 @@ def _tr_first_person(word):
     shape = re.match(_TR_M_SHAPE, word)
     return bool(shape) and shape.group('stem') not in _TR_M_STEMS and word not in _TR_M_STEMS
 
+# An unsaid word placed before a word the user said modifies it. Only degree, duration or frequency may be added
+# that way ("intense pressure", "yoğun baskı", "hoher Druck"); a domain, cause, person or thing ("deadline pressure",
+# "zaman baskısı", "financial pressure") is a new fact. Closed lists; any other unsaid modifier is refused.
+_DESCRIPTORS = {
+    'en': set('intense high heavy constant ongoing growing great strong deep poor bad little long short recent frequent '
+              'persistent daily nightly general overall current big small extreme severe mild slight sudden rising '
+              'increasing lingering lot lots much many more'.split()),
+    'de': set('hoch hohe hohen hoher hohes stark starke starken starker groß große großen großer ständig ständige ständigen '
+              'dauerhaft dauerhafte dauerhaften anhaltend anhaltende anhaltenden viel viele vielen wenig wenige lang lange '
+              'langen langer kurz kurze kurzen häufig häufige häufigen zunehmend zunehmende zunehmenden allgemein allgemeine '
+              'allgemeinen'.split()),
+    # Turkish relative participles of experience ("yaşadığın tartışmalar") describe the user's own experience.
+    'tr': set('yoğun çok sürekli büyük ağır fazla uzun kısa sık artan genel devamlı aşırı hafif yaşadığın hissettiğin '
+              'duyduğun çektiğin'.split()),
+}
+# German compounds: a part the user did not say may only be one of these generic heads ("Schlafprobleme" for
+# "mein Schlaf wird unterbrochen"); "Terminstress" for "Stress bei der Arbeit" adds "Termin".
+_DE_GENERIC_HEADS = ('problem', 'schwierigkeit')
+# English and German: a person the user named as the one who acts ("My mother never listens to me") may not become
+# the one acted on in the line ("... never listening to your mother"). Possessed person nouns only.
+# "with"/"mit" is reciprocal ("My brother and I argue" -> "arguing with your brother") and is not an object marker.
+_EN_OBJECT_BEFORE = set('to at for from against on of by about'.split())
+_DE_ACTOR_POSSESSIVE = {'mein', 'meine'}
+_DE_OBJECT_POSSESSIVE = {'meinem', 'meiner', 'meinen', 'ihrem', 'ihrer', 'ihren'}
+
+
+def _is_person(word, language):
+    import re
+    stems = _PERSON_NOUNS[language]
+    return re.sub(r'(?:es|s)$', '', word) in stems or word in stems if language == 'en' else word.startswith(stems)
+
+
+def _role_changed(body_words, messages, language):
+    """English/German: a possessed person noun the user only named as the actor stands in the line as an object."""
+    if language not in ('en', 'de'):
+        return False
+    import re
+    breaks = _CLAUSE_BREAK[language] | {'because', 'so', 'when', 'that', 'since', 'while', 'if', 'weil', 'dass', 'wenn', 'als', 'ob'}
+    roles = {}
+    for message in messages:
+        if message.get('role') != 'user':
+            continue
+        for part in re.split(r'[.!?;:,…\n]+', _fold(message.get('content', ''), language)):
+            words = _words(part, language)
+            for i, word in enumerate(words[:-1]):
+                noun = words[i + 1]
+                if not _is_person(noun, language):
+                    continue
+                if language == 'en' and word == 'my':
+                    role = 'actor' if i == 0 or words[i - 1] in breaks else 'object'
+                elif language == 'de' and word in _DE_ACTOR_POSSESSIVE | {'meinem', 'meiner', 'meinen'}:
+                    role = 'actor' if word in _DE_ACTOR_POSSESSIVE and (i == 0 or words[i - 1] in breaks) else 'object'
+                else:
+                    continue
+                roles.setdefault(re.sub(r'(?:es|s|n|en|e)$', '', noun), set()).add(role)
+    for i, word in enumerate(body_words[:-1]):
+        noun = body_words[i + 1]
+        if not _is_person(noun, language):
+            continue
+        key = re.sub(r'(?:es|s|n|en|e)$', '', noun)
+        if key not in roles or 'object' in roles[key]:
+            continue
+        before = body_words[i - 1] if i > 0 else None
+        if language == 'en' and word == 'your' and before is not None and before in _EN_OBJECT_BEFORE - {'about', 'of'}:
+            return True
+        if language == 'de' and word in {'ihrem', 'ihrer', 'ihren'} and before not in ('über', 'von', 'mit'):
+            return True
+    return False
+
+
+def _de_compound_adds(word, said):
+    """German compound containing a word the user said, whose other part is neither said nor a generic head."""
+    import re
+    for user_word in sorted(said, key=len, reverse=True):
+        if len(user_word) >= 5 and user_word in word and user_word != word:
+            for part in word.split(user_word):
+                if re.fullmatch(r'(?:keit|heit|ung|schaft|lich|ig|isch|nis|tum|ling|chen)(?:en|e|s|n|er)?', part):
+                    continue
+                part = re.sub(r'^(?:s|n|en|e|es)$', '', re.sub(r'^(?:s|n|en|es)(?=[a-zäöüß]{3})', '', part))
+                part = re.sub(r'(?:s|es)$', '', part) if len(part) > 4 else part
+                if len(part) >= 3 and not part.startswith(_DE_GENERIC_HEADS) and not _grounded(part, said, 'de'):
+                    return True
+            return False
+    return False
+
+
 def _names_unsaid_person(word, said, language):
     """The word is or contains (German compound) a person the user did not mention."""
     import re
@@ -344,10 +432,12 @@ def validate_spoken_summary(value, language, messages):
     a negation, a negated part may only use words the user said in a negated clause, and the line may not negate when
     the user never did.
 
-    Not guaranteed: meaning. These are word-level checks. A line can still add a fact with an unsaid noun that is not
-    a person, used as a modifier of a word the user said ("deadline pressure", "Terminstress", "zaman baskısı"), or swap
-    roles in English or German word order. A person the user did not mention, a negation expressed without a negation
-    word ("hardly", "kaum") and three-letter German nouns are checked (closed lists). The checks err towards rejection:
+    Not guaranteed: meaning. These are word-level checks over closed lists: an unsaid modifier may only state degree,
+    duration or frequency, an unsaid German compound part only a generic head, a possessed person keeps its role
+    (Turkish case endings; English/German possessive position), a person the user did not mention, a negation without a
+    negation word ("hardly", "kaum") and three-letter German nouns are checked. Anything outside these lists can still
+    be wrong; the catalog closing (mental_closing_catalog) is the spoken path, this is the legacy free-text path. The
+    checks err towards rejection:
     correct paraphrases outside the listed forms ("odaklanma zorluğu" for "odaklanamıyorum") are refused.
 
     Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an invalid line is
@@ -420,7 +510,14 @@ def validate_spoken_summary(value, language, messages):
         opens_phrase = language != 'tr' and (i == 0 or body_words[i - 1] in _PHRASE_OPENER[language])
         if possessor or (opens_phrase and not describes_said):
             return None, 'adds-unsaid-content'
+        # A modifier of a word the user said: only degree, duration or frequency ("deadline pressure", "zaman baskısı").
+        if describes_said and word not in _DESCRIPTORS[language]:
+            return None, 'adds-unsaid-content'
+    if language == 'de' and any(is_content(w) and _de_compound_adds(w, said) for w in body_words):
+        return None, 'adds-unsaid-content'
     if language == 'tr' and _tr_role_changed(words, messages):
+        return None, 'role-changed'
+    if _role_changed(body_words, messages, language):
         return None, 'role-changed'
     # Negation parity (lexical), per coordinated part of the line. A part that rests only on words the user said in a
     # negated clause ("not worried about my health") needs a negation of its own; a part that negates may only use

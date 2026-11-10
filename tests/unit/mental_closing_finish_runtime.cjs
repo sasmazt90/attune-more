@@ -11,7 +11,7 @@ let body;
 global.window=global.window||new EventTarget();global.document=global.document||Object.assign(new EventTarget(),{hidden:false});
 global.localStorage=global.localStorage||{getItem:()=>null,setItem:()=>{}};global.Audio=global.Audio||class{};
 const {shortSpokenSummary}=require('../../apps/vehicle-app/src/utils/mentalClosingBridge.ts');
-async function scenario(name,{structured=false,outcome='played',analyzeOk=true,bridge=true,failed=false,empty=false,withdraw=false,cancelDuring=false,probeGuard=false,spoken='You talked about work and sleep.'}={}){
+async function scenario(name,{structured=false,outcome='played',analyzeOk=true,bridge=true,failed=false,empty=false,withdraw=false,cancelDuring=false,probeGuard=false,spoken='You talked about work and sleep.',catalog=false,catalogId}={}){
  const events=[],no=()=>{};
  const user={id:'s-1-user',turn:1,sender:'USER',text:'Synthetic non-personal statement.',time:'12:00',completed:true};
  const ai={id:'s-1-ai',turn:1,sender:'AI',text:'Synthetic reply.',time:'12:00',completed:true};
@@ -19,7 +19,8 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
   transcript:empty?[]:[user,ai],memory:[],memoryThrough:0,busy:false,failed,pendingTurn:null,pendingSpeech:null,controller:null,closing:null,audio:null,recognition:null,restart:null};
  const settings={current:{parked:true,speechConsent:true,cloudConsent:true,voiceEnabled:true}};
  let phase,voiceNotice,summary,flowHooks,neural=0,run,spokenClosing;
- const flow={mode:'technical-preview',selection:'A1-B2-C3',
+ const flow={mode:'technical-preview',selection:'A1-B2-C3',catalog,
+  catalogReady:(id,text)=>events.push('catalogReady:'+id+':'+text),
   summaryReady:text=>events.push('summaryReady:'+text),
   summaryUnavailable:()=>events.push('summaryUnavailable'),
   complete:async()=>{events.push('complete');
@@ -38,9 +39,9 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
   fetch:async(url,options)=>{
    assert(url.endsWith('/analyze-session'),'only the summary request');events.push('analyze');
    if(withdraw)settings.current.speechConsent=false;
-   events.push('requestSpoken:'+(body=JSON.parse(options.body)).spokenSummary);
+   events.push('requestSpoken:'+(body=JSON.parse(options.body)).spokenSummary);if('spokenCatalog' in body)events.push('requestCatalog:'+body.spokenCatalog);
    if(!analyzeOk)return {ok:false,json:async()=>({})};
-   return {ok:true,json:async()=>({summaryText:'  You described a synthetic situation in detail over several sentences.  ',themes:[],providerType:'LIVE_OPENAI',spokenSummary:structured?'Your short closing.':spoken})};
+   return {ok:true,json:async()=>({summaryText:'  You described a synthetic situation in detail over several sentences.  ',themes:[],providerType:'LIVE_OPENAI',spokenSummary:structured?'Your short closing.':spoken,...(catalogId!==undefined?{spokenCatalogId:catalogId}:{})})};
   }};
  run=new Function(...Object.keys(deps),code+';return {finish,cleanup};')(...Object.values(deps));
  await run.finish();await run.finish();
@@ -81,6 +82,19 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
  s=await scenario('withdrawn',{withdraw:true});assert(!s.events.some(e=>e.startsWith('summaryReady')));assert(s.events.includes('abort'));assert.equal(s.summary,undefined);
  s=await scenario('failed-session',{failed:true});assert(!s.events.includes('startClosingFlow'),'failed/crisis session: no bridge, no summary');
  s=await scenario('empty',{empty:true});assert(!s.events.includes('startClosingFlow'));
+ // Catalog closing: asked for only when the page holds every catalog recording of the language; the checked line's id
+ // and text go to the flow (its recording plays there); no id means nothing is spoken; free text is never used instead.
+ s=await scenario('catalog-played',{catalog:true,catalogId:'C09',spoken:'You talked about difficulties with sleep.'});
+ assert(s.events.includes('requestCatalog:true')&&s.events.includes('requestSpoken:true'));
+ assert(s.events.includes('catalogReady:C09:You talked about difficulties with sleep.'));assert(!s.events.some(e=>e.startsWith('summaryReady')));
+ assert.equal(s.neural,0);assert.equal(s.phase,'completed');
+ s=await scenario('catalog-no-line',{catalog:true,catalogId:null,spoken:null,outcome:'no-spoken-summary'});
+ assert(s.events.includes('summaryUnavailable'));assert(!s.events.some(e=>e.startsWith('catalogReady')||e.startsWith('summaryReady')));
+ assert.equal(s.voiceNotice,'Özet hazır; kısa sesli özet oluşturulamadı.');
+ s=await scenario('catalog-free-text-only',{catalog:true,spoken:'You talked about work and sleep.',outcome:'no-spoken-summary'});
+ assert(s.events.includes('summaryUnavailable'),'a free-text line is not spoken on the catalog path');assert(!s.events.some(e=>e.startsWith('summaryReady')));
+ s=await scenario('catalog-not-available',{catalog:false});assert(!s.events.some(e=>e.startsWith('requestCatalog')),'request unchanged without the catalog recordings');
+ s=await scenario('catalog-structured',{catalog:true,structured:true});assert(!s.events.some(e=>e.startsWith('requestCatalog')));assert(s.events.includes('summaryReady:Your short closing.'));
  s=await scenario('cancel-during',{cancelDuring:true});assert(s.events.filter(e=>e==='abort').length>=1);assert.equal(s.r.closing,null);assert.notEqual(s.phase,'completed');
  console.log('PASS real finish(): bridge starts at the closing trigger before context/summary, preparation starts on validated text, normal and structured paths, fallback keeps existing behaviour, summary failure/consent withdrawal/cancel stop the bridge, failed and empty sessions never start it (fixtures)');
 })().catch(error=>{console.error(error);process.exitCode=1;});

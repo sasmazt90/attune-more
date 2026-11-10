@@ -1,4 +1,5 @@
 import manifest from '../../public/audio/mental/closing-abc/v1/manifest.json';
+import catalogManifest from '../../public/audio/mental/closing-catalog/v1/manifest.json';
 import female from '../../public/audio/mental/v1/female-calm-v1-manifest.json';
 import {getLanguage,type Language} from '../i18n/core';
 import {verifiedClipBytes,type FixedClip} from '../i18n/fixedAudio';
@@ -58,6 +59,51 @@ export function selectClosingBridge(language:Language,groups:ClosingClip[][],ran
  return {language,clips,key};
 }
 
+/**
+ * Catalog closing (shared/mental/closing-catalog/v1): 33 general lines per language, recorded once with the same
+ * profile. The server picks a line only when it is checked against the user's own words; the page then plays that
+ * line's recording instead of generating speech. All 33 of a language must be present and usable, never a subset.
+ */
+export const CATALOG_LINES=33;
+type CatalogManifest={speakerProfile:string;referenceSha256:string;generation:Record<string,number>;catalogVersion:string;
+ approval:{status:string;ownerApprovedAt:string|null};entries:CatalogClip[]};
+export type CatalogClip={assetId:string;language:string;patternId:string;exactText:string;audioPath:string;speakerProfile:string;
+ sha256:string;bytes:number;durationMs:number;approvalStatus:string;ownerApprovedAt:string|null};
+const catalogSource=catalogManifest as unknown as CatalogManifest;
+export function closingCatalogClips(language:Language,mode:ClosingBridgeMode=closingBridgeMode(),source:CatalogManifest=catalogSource):Record<string,CatalogClip>|null{
+ if(mode==='off')return null;
+ if(source.speakerProfile!=='female-calm-v1'||source.referenceSha256!==female.conditioningSha256||!sameGeneration(source.generation,female.generation))return null;
+ const approved=(clip:CatalogClip)=>clip.approvalStatus==='approved'&&typeof clip.ownerApprovedAt==='string'&&source.approval.status==='approved';
+ const usable=(clip:CatalogClip)=>mode==='approved'?approved(clip):approved(clip)||clip.approvalStatus===CLOSING_PREVIEW_STATUS;
+ const list=source.entries.filter(clip=>clip.language===language);
+ const valid=(clip:CatalogClip)=>/^C\d{2}$/.test(clip.patternId)&&clip.speakerProfile==='female-calm-v1'&&usable(clip)&&/^[0-9a-f]{64}$/.test(clip.sha256)
+  &&clip.bytes>44&&clip.durationMs>0&&typeof clip.exactText==='string'&&clip.exactText.length>0
+  &&clip.audioPath==='/audio/mental/closing-catalog/v1/'+language+'/female-calm-v1/'+language.toUpperCase()+'_'+clip.patternId+'.wav';
+ if(list.length!==CATALOG_LINES||new Set(list.map(clip=>clip.patternId)).size!==CATALOG_LINES||!list.every(valid))return null;
+ return Object.fromEntries(list.map(clip=>[clip.patternId,clip]));
+}
+
+/** The chosen catalog line as prepared speech: the recording is fetched and hash-checked during the bridge. */
+function catalogSpeech(clip:CatalogClip,signal:AbortSignal,live:()=>boolean,observe:(stage:string)=>void):PreparedNeuralSpeech{
+ const controller=new AbortController(),stop=()=>controller.abort();
+ if(signal.aborted)controller.abort();else signal.addEventListener('abort',stop,{once:true});
+ let used=false;
+ const bytes=verifiedClipBytes({text:clip.exactText,sourceTextSha256:'',url:clip.audioPath,bytes:clip.bytes,sha256:clip.sha256,mimeType:'audio/wav',durationSeconds:clip.durationMs/1000},controller.signal)
+  .then(value=>!controller.signal.aborted&&live()?value:null,()=>null);
+ return {
+  firstReady:bytes.then(value=>value!==null),
+  play:async(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest,element?:HTMLAudioElement)=>{
+   if(used)return false;used=true;
+   const value=await bytes;
+   if(!value||controller.signal.aborted||!live())return false;
+   const audio=element??new Audio();audioReady(audio);
+   let first=true;
+   return playAudioBytes(audio,value,'audio/wav',clip.durationMs/1000,controller.signal,live,stage=>{if(stage==='playing'&&first){first=false;onPlaying();}observe(stage);},false,requestGesture);
+  },
+  cancel:()=>{controller.abort();signal.removeEventListener('abort',stop);},
+ };
+}
+
 const fixed=(clip:ClosingClip):FixedClip=>({text:clip.exactText,sourceTextSha256:'',url:clip.audioPath,bytes:clip.bytes,sha256:clip.sha256,mimeType:'audio/wav',durationSeconds:clip.durationMs/1000});
 
 function joinPause(ms:number,signal:AbortSignal,live:()=>boolean):Promise<boolean>{
@@ -106,6 +152,11 @@ export type ClosingHooks={
 export type ClosingOutcome='played'|'failed'|'cancelled'|'fallback'|'no-spoken-summary';
 export type ClosingFlow={
  mode:ClosingBridgeMode;selection:string;
+ /** All catalog recordings of this language are usable: the analysis may be asked for a catalog line. */
+ catalog:boolean;
+ /** The server checked catalog line: play its recording after C. A missing recording or a text that differs from
+  * the recording's exact text speaks nothing (the written summary stays). Only the first call counts. */
+ catalogReady:(id:unknown,text:unknown)=>void;
  /** The summary passed every existing check: start preparing its speech now. Only the first call counts. */
  summaryReady:(text:string)=>void;
  /** The analysis produced no usable short spoken summary: after C the closing ends without dynamic speech. */
@@ -122,7 +173,7 @@ export type ClosingFlow={
  * summary part plays at a time; nothing is replayed to fill a wait.
  */
 export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
- const mode=closingBridgeMode(),groups=closingBridgeClips(hooks.language,mode);
+ const mode=closingBridgeMode(),groups=closingBridgeClips(hooks.language,mode),catalogClips=closingCatalogClips(hooks.language,mode);
  if(!groups||mentalSpeechEngine()!=='chatterbox-v3'||getLanguage()!==hooks.language||!hooks.current())return null;
  const selection=selectClosingBridge(hooks.language,groups);
  const controller=new AbortController(),signal=controller.signal;
@@ -176,5 +227,16 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
   }finally{abort();}
  })();
  const summaryUnavailable=()=>{if(text!==null||released)return;unavailable=true;hooks.timing('closing-summary-no-spoken-line');};
- return {mode,selection:selection.key,summaryReady,summaryUnavailable,complete,abort};
+ const catalogReady=(id:unknown,value:unknown)=>{
+  if(text!==null||unavailable||released)return;
+  const clip=typeof id==='string'&&catalogClips&&Object.hasOwn(catalogClips,id)?catalogClips[id]:null;
+  if(!clip||typeof value!=='string'||value!==clip.exactText){hooks.timing('closing-summary-catalog-mismatch');summaryUnavailable();return;}
+  text=value;hooks.timing('closing-summary-text-ready');
+  void assets.then(ok=>{
+   if(!ok||!live()||speech)return;
+   speech=catalogSpeech(clip,signal,live,stage=>hooks.timing('closing-summary-'+stage));
+   void speech.firstReady.then(ready=>{speechReady=ready;hooks.timing(ready?'closing-summary-first-ready':'closing-summary-first-failed');});
+  });
+ };
+ return {mode,selection:selection.key,catalog:catalogClips!==null,summaryReady,summaryUnavailable,catalogReady,complete,abort};
 }

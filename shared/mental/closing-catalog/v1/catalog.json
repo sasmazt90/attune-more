@@ -1,0 +1,1507 @@
+{
+ "schema": "attune-closing-catalog-v1",
+ "version": "1.0.0",
+ "description": "Generic spoken closing lines selected by what the user said. The written summary stays personal; only one of these lines is spoken after C. Each line has a usage condition; the server checks the provider's choice against the user's own words (cues, negation, person, time, later corrections) and speaks nothing when no reliable match remains.",
+ "address": {
+  "tr": "sen",
+  "en": "you",
+  "de": "Sie"
+ },
+ "limits": {
+  "maxWords": 12,
+  "maxCharacters": 100
+ },
+ "patterns": [
+  {
+   "id": "C01",
+   "key": "pressure",
+   "kind": "concern",
+   "text": {
+    "tr": "Üzerindeki baskıdan söz ettin.",
+    "en": "You talked about the pressure you are under.",
+    "de": "Sie sprachen über den Druck, der auf Ihnen lastet."
+   },
+   "condition": "The user says they themselves are under pressure (work, family, time, in general). Not blood pressure, not someone else being pressured.",
+   "cues": {
+    "tr": [
+     "\\bbaskı\\w*",
+     "\\bsıkıştır\\w*"
+    ],
+    "en": [
+     "\\b(?<!blood )pressure\\w*",
+     "\\bpressured\\b"
+    ],
+    "de": [
+     "\\b(?!blut)\\w*druck\\b",
+     "\\bunter druck\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Tansiyonum yüksek, kan basıncım değişiyor.",
+     "why": "blood pressure is a health value, not pressure on the person"
+    },
+    {
+     "language": "en",
+     "user": "My sister is under a lot of pressure at work.",
+     "why": "third person"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C02",
+   "key": "stress",
+   "kind": "concern",
+   "text": {
+    "tr": "Stres altında olduğundan söz ettin.",
+    "en": "You talked about being under stress.",
+    "de": "Sie sprachen darüber, dass Sie unter Stress stehen."
+   },
+   "condition": "The user says they are stressed now. Not when negated (\"I am not stressed\"), not about someone else, not when it is over (\"I used to be stressed, not any more\").",
+   "cues": {
+    "tr": [
+     "\\bstres\\w*",
+     "\\bgergin\\w*"
+    ],
+    "en": [
+     "\\bstress\\w*",
+     "\\btense\\b"
+    ],
+    "de": [
+     "\\bstress\\w*",
+     "\\bgestresst\\b",
+     "\\bangespannt\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Stresli değilim.",
+     "why": "negated"
+    },
+    {
+     "language": "tr",
+     "user": "Arkadaşım çok stresli.",
+     "why": "third person"
+    },
+    {
+     "language": "tr",
+     "user": "Eskiden stresliydim, artık değilim.",
+     "why": "past, no longer"
+    },
+    {
+     "language": "en",
+     "user": "I am not stressed.",
+     "why": "negated"
+    },
+    {
+     "language": "en",
+     "user": "My friend is stressed.",
+     "why": "third person"
+    },
+    {
+     "language": "en",
+     "user": "I used to be stressed, but not anymore.",
+     "why": "past, no longer"
+    },
+    {
+     "language": "de",
+     "user": "Ich bin nicht gestresst.",
+     "why": "negated"
+    },
+    {
+     "language": "de",
+     "user": "Mein Freund ist gestresst.",
+     "why": "third person"
+    },
+    {
+     "language": "de",
+     "user": "Früher war ich gestresst, jetzt nicht mehr.",
+     "why": "past, no longer"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C03",
+   "key": "self-expression",
+   "kind": "concern",
+   "text": {
+    "tr": "Kendini ifade etmekte zorlandığından bahsettin.",
+    "en": "You talked about finding it hard to express yourself.",
+    "de": "Sie sprachen darüber, dass es Ihnen schwerfällt, sich auszudrücken."
+   },
+   "condition": "The user says they find it hard to put their own thoughts or feelings into words. Never inferred from others not listening (\"my mother does not listen to me\" is C07).",
+   "cues": {
+    "tr": [
+     "\\b(kendimi|düşüncelerimi|duygularımı|hislerimi|derdimi)\\s+(ifade|anlat)\\w*\\s+(edemi\\w*|edem\\w*|zorlan\\w*)",
+     "\\banlatamıyorum\\b",
+     "\\bifade edemiyorum\\b",
+     "\\bne hissettiğimi (söyleyemiyorum|anlatamıyorum)"
+    ],
+    "en": [
+     "\\b(can't|cannot|hard to|struggle to|struggling to|difficult to|unable to|having trouble|hard time|haven't been able to|couldn't)\\b[^.]{0,25}\\bexpress (myself|my feelings|what i feel)",
+     "\\bput (it|my feelings|things) into words\\b"
+    ],
+    "de": [
+     "(schwer|kann\\w* nicht|schaffe\\w* nicht)[^.]{0,30}(mich auszudrücken|ausdrücken|in worte (zu )?fassen)"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Annem beni hiç dinlemiyor.",
+     "why": "others not listening is C07, not self-expression"
+    },
+    {
+     "language": "en",
+     "user": "My mother never listens to me.",
+     "why": "C07, not C03"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C04",
+   "key": "rest",
+   "kind": "concern",
+   "text": {
+    "tr": "Yeterince dinlenemediğinden söz ettin.",
+    "en": "You talked about not getting enough rest.",
+    "de": "Sie sprachen darüber, dass Sie sich nicht genug erholen können."
+   },
+   "condition": "The user says they cannot rest or recover enough (dinlenmek / istirahat). Not about being listened to (\"sözüm dinlenmiyor\" is C07).",
+   "cues": {
+    "tr": [
+     "\\bdinlenemi\\w*",
+     "\\bdinlenemedi\\w*",
+     "\\bdinlenmeye (vakit|zaman)\\w*\\s+(yok|bulamı\\w*)",
+     "\\byeterince dinlenmi\\w*",
+     "\\bistirahat edemi\\w*",
+     "\\bdinlenecek (vakit|zaman)\\w*\\s+(yok|kalmı\\w*)"
+    ],
+    "en": [
+     "\\b(can't|cannot|don't|never|not)\\b[^.]{0,20}\\b(rest|recover)\\b",
+     "\\bno time to rest\\b",
+     "\\bnot (getting|get) enough rest\\b"
+    ],
+    "de": [
+     "\\b(kann|komme)\\w*\\b[^.]{0,20}\\b(nicht|kaum)\\b[^.]{0,12}\\b(zur ruhe|erholen|ausruhen)",
+     "\\bkeine zeit (zum|zu) (erholen|ausruhen)",
+     "\\bnicht genug (ruhe|erholung)",
+     "\\berhole mich (nicht|kaum)"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Sözüm hiç dinlenmiyor.",
+     "why": "listening, not rest (C07)"
+    },
+    {
+     "language": "tr",
+     "user": "Dinlenmek istiyorum.",
+     "why": "a wish, not a difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C05",
+   "key": "interest",
+   "kind": "concern",
+   "text": {
+    "tr": "Bazı şeylere ilgini kaybettiğini belirttin.",
+    "en": "You mentioned losing interest in some things.",
+    "de": "Sie erwähnten, dass Sie an manchen Dingen das Interesse verloren haben."
+   },
+   "condition": "The user says they lost interest or enjoyment in things they used to like.",
+   "cues": {
+    "tr": [
+     "\\bilgimi kaybet\\w*",
+     "\\bilgim kalmadı",
+     "\\beskisi gibi (keyif|zevk) al(a|ama)\\w*",
+     "\\b(isteğim|hevesim) kalmadı"
+    ],
+    "en": [
+     "\\blost (all )?interest\\b",
+     "\\blosing interest\\b",
+     "\\bdon't enjoy [^.]{0,30}anymore\\b"
+    ],
+    "de": [
+     "\\binteresse [^.]{0,30}verloren",
+     "\\bkeine lust mehr\\b",
+     "\\bmacht mir keinen spaß mehr\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I have no interest in football.",
+     "why": "a preference, not a loss"
+    }
+   ],
+   "changeIsTopic": true,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C06",
+   "key": "attention",
+   "kind": "concern",
+   "text": {
+    "tr": "Sana yeterince ilgi gösterilmediğinden bahsettin.",
+    "en": "You talked about not getting enough attention.",
+    "de": "Sie sprachen darüber, dass Ihnen zu wenig Aufmerksamkeit geschenkt wird."
+   },
+   "condition": "The user says others do not pay enough attention to them or care about them. The user is the one receiving (or not) attention.",
+   "cues": {
+    "tr": [
+     "\\b(bana|bize) (yeterince )?(ilgi|önem) (göster|ver)\\w*m\\w*",
+     "\\b(kimse|kimsenin) (beni|benimle) (umursa|ilgilen)\\w*",
+     "\\bbeni umursamıyor\\w*",
+     "\\bbenimle ilgilenmiyor\\w*"
+    ],
+    "en": [
+     "\\b(no one|nobody|doesn't|don't|never)\\b[^.]{0,20}\\b(cares? about me|pays? attention to me|notices? me)",
+     "\\bnot getting (enough )?attention\\b",
+     "\\bignores? me\\b"
+    ],
+    "de": [
+     "\\b(niemand|keiner|nicht)\\b[^.]{0,20}(kümmert sich um mich|beachtet mich|interessiert sich für mich)",
+     "\\bzu wenig aufmerksamkeit\\b",
+     "\\bignoriert mich\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Ben anneme yeterince ilgi göstermiyorum.",
+     "why": "the user is the one not giving attention"
+    },
+    {
+     "language": "en",
+     "user": "I do not pay attention to my mother.",
+     "why": "roles reversed"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": true,
+   "exclude": {}
+  },
+  {
+   "id": "C07",
+   "key": "not-listened",
+   "kind": "concern",
+   "text": {
+    "tr": "Söylediklerine kulak verilmemesinden söz ettin.",
+    "en": "You talked about not being listened to.",
+    "de": "Sie sprachen darüber, dass Ihnen nicht zugehört wird."
+   },
+   "condition": "The user says others do not listen to them (the user is the one not heard). Not when the user does not listen to someone else; not about resting.",
+   "cues": {
+    "tr": [
+     "\\b(beni|bizi|söylediklerimi|sözümü|dediklerimi) (hiç |pek |kimse )?(dinlemiyor\\w*|dinlemez\\w*|dinlemedi\\w*)",
+     "\\bsözüm (hiç )?dinlenmiyor",
+     "\\bkulak (vermiyor|asmıyor)\\w*",
+     "\\bbeni duymuyor\\w*"
+    ],
+    "en": [
+     "\\b(doesn't|don't|never|won't|no one|nobody)\\b[^.]{0,15}\\blisten\\w* to me\\b",
+     "\\bnot (being )?listened to\\b",
+     "\\bnobody hears me\\b"
+    ],
+    "de": [
+     "\\b(hört|hören) mir (nie|nicht|kaum)\\w* zu\\b",
+     "\\bniemand hört mir zu\\b",
+     "\\bmir wird nicht zugehört\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Ben annemi hiç dinlemiyorum.",
+     "why": "the user does not listen to someone else"
+    },
+    {
+     "language": "en",
+     "user": "I never listen to my mother.",
+     "why": "roles reversed"
+    },
+    {
+     "language": "tr",
+     "user": "Dinlenemiyorum.",
+     "why": "rest (C04)"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": true,
+   "exclude": {}
+  },
+  {
+   "id": "C08",
+   "key": "tired",
+   "kind": "concern",
+   "text": {
+    "tr": "Kendini yorgun hissettiğinden söz ettin.",
+    "en": "You talked about feeling tired.",
+    "de": "Sie sprachen darüber, dass Sie sich müde fühlen."
+   },
+   "condition": "The user says they feel tired or exhausted.",
+   "cues": {
+    "tr": [
+     "\\byorgun\\w*",
+     "\\byorul\\w*",
+     "\\bbitkin\\w*",
+     "\\btüken\\w*"
+    ],
+    "en": [
+     "\\btired\\b",
+     "\\bexhausted\\b",
+     "\\bworn out\\b",
+     "\\bwearing me out\\b",
+     "\\bdrained\\b"
+    ],
+    "de": [
+     "\\bmüde\\b",
+     "\\berschöpf\\w*",
+     "\\bausgelaugt\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "My father is tired all the time.",
+     "why": "third person"
+    },
+    {
+     "language": "tr",
+     "user": "Yorgun değilim.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C09",
+   "key": "sleep",
+   "kind": "concern",
+   "text": {
+    "tr": "Uykuyla ilgili yaşadığın güçlüklerden söz ettin.",
+    "en": "You talked about difficulties with sleep.",
+    "de": "Sie sprachen über Ihre Schwierigkeiten mit dem Schlaf."
+   },
+   "condition": "The user describes their own sleep difficulty (interrupted, too little, cannot fall asleep). Not \"my sleep is good\", not \"I have no sleep problem\".",
+   "cues": {
+    "tr": [
+     "\\buyku\\w*\\s+(sorun|problem|bölün|kaç|düzensiz|zor|bozul|bozuk)\\w*",
+     "\\buyuyam\\w*",
+     "\\buykusuz\\w*",
+     "\\bgece\\w* (sık sık |sürekli )?uyan\\w*",
+     "\\buykuya dal(a|ama)\\w*",
+     "\\buykumu alamı\\w*"
+    ],
+    "en": [
+     "\\b(can't|cannot|trouble|hard|difficult|struggle)\\b[^.]{0,20}\\bsleep",
+     "\\bsleep\\w*[^.]{0,20}\\b(interrupted|bad|poor|broken|disrupted|disturbed)\\b",
+     "\\binsomnia\\b",
+     "\\bwake up[^.]{0,15}\\b(often|at night|several)",
+     "\\bsleepless\\b",
+     "\\bsleep problems?\\b"
+    ],
+    "de": [
+     "\\b(kann|konnte|könnte)\\b[^.]{0,15}\\b(nicht|kaum)\\b[^.]{0,40}(ein)?schlafen\\b",
+     "\\bschlaf\\w*[^.]{0,20}(unterbrochen|gestört)",
+     "\\bschlafprobleme?\\b",
+     "\\bschlafstörung\\w*",
+     "\\bschlafe\\b[^.]{0,12}\\bschlecht\\b",
+     "\\bwache[^.]{0,15}auf\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Uyku sorunum yok.",
+     "why": "negated"
+    },
+    {
+     "language": "en",
+     "user": "I sleep well these days.",
+     "why": "no difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C10",
+   "key": "focus",
+   "kind": "concern",
+   "text": {
+    "tr": "Odaklanmakta zorlandığından söz ettin.",
+    "en": "You talked about finding it hard to concentrate.",
+    "de": "Sie sprachen darüber, dass es Ihnen schwerfällt, sich zu konzentrieren."
+   },
+   "condition": "The user says they find it hard to concentrate or focus.",
+   "cues": {
+    "tr": [
+     "\\bodaklanam\\w*",
+     "\\bkonsantre ol(a|ama)m\\w*",
+     "\\bdikkatimi (toplayam|veremi)\\w*",
+     "\\bdikkatim dağıl\\w*"
+    ],
+    "en": [
+     "\\b(can't|cannot|hard to|struggle to|struggling to|difficult to|unable to|having trouble|hard time|haven't been able to|couldn't)\\b[^.]{0,10}\\b(focus|concentrate)",
+     "\\bdistracted\\b"
+    ],
+    "de": [
+     "\\b(kann|konnte|könnte)\\b[^.]{0,15}\\b(nicht|kaum)\\b[^.]{0,40}konzentrieren\\b",
+     "\\bkonzentrationsprobleme?\\b",
+     "\\bschwer, mich zu konzentrieren",
+     "\\babgelenkt\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I focus well at work.",
+     "why": "no difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C11",
+   "key": "worry",
+   "kind": "concern",
+   "text": {
+    "tr": "Seni kaygılandıran konulardan söz ettin.",
+    "en": "You talked about things that worry you.",
+    "de": "Sie sprachen über Dinge, die Ihnen Sorgen machen."
+   },
+   "condition": "The user says something worries them or makes them anxious.",
+   "cues": {
+    "tr": [
+     "\\bkaygı\\w*",
+     "\\bendişe\\w*",
+     "\\btedirgin\\w*",
+     "\\bhuzursuz\\w*"
+    ],
+    "en": [
+     "\\bworr\\w*",
+     "\\banxious\\b",
+     "\\banxiety\\b",
+     "\\bnervous\\b"
+    ],
+    "de": [
+     "\\bsorge\\w*",
+     "\\bsorgen\\b",
+     "\\bangst\\b",
+     "\\bängstlich\\w*",
+     "\\bnervös\\b",
+     "\\bunruhig\\b",
+     "\\bbeunruhigt\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "de",
+     "user": "Ich habe keine Angst vor der Prüfung.",
+     "why": "negated"
+    },
+    {
+     "language": "en",
+     "user": "My brother is anxious.",
+     "why": "third person"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C12",
+   "key": "uncertainty",
+   "kind": "concern",
+   "text": {
+    "tr": "Belirsizlikle baş etmekte zorlandığından söz ettin.",
+    "en": "You talked about finding uncertainty hard to cope with.",
+    "de": "Sie sprachen darüber, dass Ihnen der Umgang mit Ungewissheit schwerfällt."
+   },
+   "condition": "The user says not knowing what will happen weighs on them.",
+   "cues": {
+    "tr": [
+     "\\bbelirsiz\\w*",
+     "\\bne olacağını bilme\\w*",
+     "\\bne olacağı belli değil"
+    ],
+    "en": [
+     "\\buncertain\\w*",
+     "\\bdon't know what (will|is going to) happen",
+     "\\bnot knowing\\b"
+    ],
+    "de": [
+     "\\bungewiss\\w*",
+     "\\bunsicherheit\\b",
+     "\\bweiß nicht, was (kommt|passiert|wird)"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I know exactly what will happen next.",
+     "why": "no uncertainty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C13",
+   "key": "decisions",
+   "kind": "concern",
+   "text": {
+    "tr": "Karar vermekte zorlandığın konulardan söz ettin.",
+    "en": "You talked about decisions you find hard to make.",
+    "de": "Sie sprachen über Entscheidungen, die Ihnen schwerfallen."
+   },
+   "condition": "The user says they find it hard to decide something.",
+   "cues": {
+    "tr": [
+     "\\bkarar\\w*\\s+(ver(e|a)m\\w*|vermekte\\s+(\\w+\\s+)?zorlan\\w*|veremi\\w*)",
+     "\\bkararsız\\w*"
+    ],
+    "en": [
+     "\\b(can't|cannot|hard to|struggle to|struggling to|difficult to|unable to|having trouble|hard time|haven't been able to|couldn't)\\b[^.]{0,10}\\b(decide|make (a|the|this) decision)",
+     "\\bindecisive\\b",
+     "\\btorn between\\b"
+    ],
+    "de": [
+     "\\b(kann|konnte|könnte)\\b[^.]{0,15}\\b(nicht|kaum)\\b[^.]{0,40}entscheiden\\b",
+     "\\bentscheidung\\w* (fällt|fallen) mir schwer",
+     "\\bunentschlossen\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I decided to change jobs.",
+     "why": "a decision made, no difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C14",
+   "key": "responsibilities",
+   "kind": "concern",
+   "text": {
+    "tr": "Sorumluluklarının seni zorladığından söz ettin.",
+    "en": "You talked about your responsibilities weighing on you.",
+    "de": "Sie sprachen darüber, dass Ihre Verantwortung Sie belastet."
+   },
+   "condition": "The user says their responsibilities strain or overwhelm them. Having many responsibilities alone (\"I have a lot of responsibilities\") is not enough.",
+   "cues": {
+    "tr": [
+     "\\bsorumluluk\\w*[^.]{0,40}(zorl|bunal|ağır|yetişemi|ezil|fazla geliyor)\\w*",
+     "\\b(zorl|bunal|ezil)\\w*[^.]{0,40}sorumluluk\\w*"
+    ],
+    "en": [
+     "\\bresponsibilit\\w*[^.]{0,40}(overwhelm|too much|weigh|struggl|keep up|crush)\\w*",
+     "\\b(overwhelm|struggl)\\w*[^.]{0,40}responsibilit\\w*"
+    ],
+    "de": [
+     "\\bverantwortung\\w*[^.]{0,40}(überfordert|zu viel|belastet|lastet|erdrückt)",
+     "\\b(überfordert|belastet)[^.]{0,40}verantwortung\\w*"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Çok sorumluluğum var.",
+     "why": "having responsibilities is not being strained by them"
+    },
+    {
+     "language": "en",
+     "user": "I have a lot of responsibilities.",
+     "why": "no strain stated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C15",
+   "key": "expectations",
+   "kind": "concern",
+   "text": {
+    "tr": "Beklentileri karşılamakta zorlandığından söz ettin.",
+    "en": "You talked about struggling to meet expectations.",
+    "de": "Sie sprachen darüber, dass es Ihnen schwerfällt, Erwartungen zu erfüllen."
+   },
+   "condition": "The user says they struggle to meet expectations (their own or others').",
+   "cues": {
+    "tr": [
+     "\\bbeklenti\\w*[^.]{0,40}(karşılayam|yetişemi|zorlan|yetemi|başaram)\\w*"
+    ],
+    "en": [
+     "\\bexpectation\\w*[^.]{0,40}(meet|live up|struggl|hard)",
+     "\\b(can't|cannot|hard to|struggle to|struggling to|difficult to|unable to|having trouble|hard time|haven't been able to|couldn't)\\b[^.]{0,10}\\b(meet|live up to)\\b[^.]{0,20}expectation"
+    ],
+    "de": [
+     "\\berwartung\\w*[^.]{0,40}(erfüllen|gerecht|schaffe|schwer)"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "My expectations for the trip are high.",
+     "why": "no struggle stated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C16",
+   "key": "me-time",
+   "kind": "concern",
+   "text": {
+    "tr": "Kendine zaman ayırmakta zorlandığından söz ettin.",
+    "en": "You talked about finding it hard to make time for yourself.",
+    "de": "Sie sprachen darüber, dass Sie kaum Zeit für sich selbst finden."
+   },
+   "condition": "The user says they have little or no time for themselves.",
+   "cues": {
+    "tr": [
+     "\\bkendime (vakit|zaman) (ayıram|bulam|kalmı|yok)\\w*",
+     "\\bkendime ayıracak (vakit|zaman)\\w*\\s+(yok|kalmı\\w*)"
+    ],
+    "en": [
+     "\\b(no|not enough|never have|can't find|hard to find|don't have|little) (any )?time for myself\\b",
+     "\\bno time for me\\b"
+    ],
+    "de": [
+     "\\b(keine|kaum|wenig) zeit für mich\\b",
+     "\\bkomme nicht dazu, etwas für mich"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I took time for myself this weekend.",
+     "why": "no difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C17",
+   "key": "lonely",
+   "kind": "concern",
+   "text": {
+    "tr": "Kendini yalnız hissettiğinden söz ettin.",
+    "en": "You talked about feeling lonely.",
+    "de": "Sie sprachen darüber, dass Sie sich einsam fühlen."
+   },
+   "condition": "The user says they feel lonely. Living alone (\"Yalnız yaşıyorum\", \"I live alone\") is not loneliness.",
+   "cues": {
+    "tr": [
+     "\\byalnız hissed\\w*",
+     "\\bkendimi yalnız\\w*",
+     "\\byalnızlık\\w*",
+     "\\byapayalnız\\w*"
+    ],
+    "en": [
+     "\\blonely\\b",
+     "\\bloneliness\\b",
+     "\\bfeel (so )?alone\\b",
+     "\\bisolated\\b"
+    ],
+    "de": [
+     "\\beinsam\\w*",
+     "\\bfühle mich allein\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Yalnız yaşıyorum.",
+     "why": "living alone is not loneliness"
+    },
+    {
+     "language": "en",
+     "user": "I live alone.",
+     "why": "living alone is not loneliness"
+    },
+    {
+     "language": "de",
+     "user": "Ich wohne allein.",
+     "why": "living alone is not loneliness"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C18",
+   "key": "missing",
+   "kind": "concern",
+   "text": {
+    "tr": "Özlem duyduğun kişilerden söz ettin.",
+    "en": "You talked about people you miss.",
+    "de": "Sie sprachen über Menschen, die Sie vermissen."
+   },
+   "condition": "The user says they miss people.",
+   "cues": {
+    "tr": [
+     "\\bözlü(yorum|yoruz)\\b",
+     "\\bözledi(m|k)\\b",
+     "\\bözlem\\w*",
+     "\\bhasret\\w*"
+    ],
+    "en": [
+     "\\bi (really |so )?miss(ed)? (my|him|her|them|you|our|home|family|friends)\\b",
+     "\\bhomesick\\b"
+    ],
+    "de": [
+     "\\bvermisse\\b",
+     "\\bsehnsucht\\b",
+     "\\bfehlt mir\\b",
+     "\\bfehlen mir\\b",
+     "\\bheimweh\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I missed the bus this morning.",
+     "why": "missing a bus is not missing people"
+    },
+    {
+     "language": "de",
+     "user": "Die Abende mit meinen Freunden.",
+     "why": "a fragment; missing is not said"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C19",
+   "key": "misunderstood",
+   "kind": "concern",
+   "text": {
+    "tr": "Anlaşılmadığını hissettiğinden söz ettin.",
+    "en": "You talked about feeling misunderstood.",
+    "de": "Sie sprachen darüber, dass Sie sich nicht verstanden fühlen."
+   },
+   "condition": "The user says others do not understand them.",
+   "cues": {
+    "tr": [
+     "\\b(kimse )?beni anlamıyor\\w*",
+     "\\banlaşılmıyor\\w*",
+     "\\banlaşılmadığ\\w*"
+    ],
+    "en": [
+     "\\b(nobody|no one|doesn't|don't)\\b[^.]{0,15}\\bunderstands? me\\b",
+     "\\bmisunderstood\\b",
+     "\\bnot understood\\b"
+    ],
+    "de": [
+     "\\b(niemand|keiner) versteht mich\\b",
+     "\\bversteh\\w* mich nicht\\b",
+     "\\bmissverstanden\\b",
+     "\\bnicht verstanden\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I do not understand my teacher.",
+     "why": "the user does not understand someone"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": true,
+   "exclude": {}
+  },
+  {
+   "id": "C20",
+   "key": "disagreements",
+   "kind": "concern",
+   "text": {
+    "tr": "Yaşadığın anlaşmazlıklardan söz ettin.",
+    "en": "You talked about disagreements you have had.",
+    "de": "Sie sprachen über Meinungsverschiedenheiten, die Sie erlebt haben."
+   },
+   "condition": "The user says they argue or have conflicts with someone (the user is one of the parties).",
+   "cues": {
+    "tr": [
+     "\\btartış\\w*",
+     "\\bkavga\\w*",
+     "\\banlaşmazlık\\w*",
+     "\\banlaşam\\w*"
+    ],
+    "en": [
+     "\\bargu\\w*",
+     "\\bfight\\w*",
+     "\\bconflict\\w*",
+     "\\bdisagree\\w*",
+     "\\bfell out\\b"
+    ],
+    "de": [
+     "\\bstreit\\w*",
+     "\\bgestritten\\b",
+     "\\bkonflikt\\w*",
+     "\\bmeinungsverschiedenheit\\w*"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Annemle babam sürekli kavga ediyor.",
+     "why": "the user is not a party"
+    },
+    {
+     "language": "en",
+     "user": "My parents argue a lot.",
+     "why": "the user is not a party"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C21",
+   "key": "boundaries",
+   "kind": "concern",
+   "text": {
+    "tr": "Sınır koymakta zorlandığın durumlardan söz ettin.",
+    "en": "You talked about finding it hard to set boundaries.",
+    "de": "Sie sprachen darüber, dass es Ihnen schwerfällt, Grenzen zu setzen."
+   },
+   "condition": "The user says they find it hard to say no or set limits.",
+   "cues": {
+    "tr": [
+     "\\bhayır diyemi\\w*",
+     "\\bhayır demekte zorlan\\w*",
+     "\\bsınır (koy|çiz)(a|ama)m\\w*",
+     "\\bsınır koymakta zorlan\\w*"
+    ],
+    "en": [
+     "\\b(can't|cannot|hard to|struggle to|struggling to|difficult to|unable to|having trouble|hard time|haven't been able to|couldn't)\\b[^.]{0,10}\\b(say no|set boundaries|set limits)\\b"
+    ],
+    "de": [
+     "\\b(kann|konnte) nicht nein sagen\\b",
+     "\\bschwer, nein zu sagen\\b",
+     "\\bnein sagen fällt mir schwer\\b",
+     "\\bgrenzen (zu )?setzen[^.]{0,20}(schwer|kann nicht)"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I said no to my boss today.",
+     "why": "a boundary set, no difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C22",
+   "key": "change",
+   "kind": "concern",
+   "text": {
+    "tr": "Değişimlere uyum sağlamakta zorlandığından söz ettin.",
+    "en": "You talked about finding it hard to adapt to changes.",
+    "de": "Sie sprachen darüber, dass Ihnen die Anpassung an Veränderungen schwerfällt."
+   },
+   "condition": "The user says they find it hard to adapt to a change (move, new job, new routine).",
+   "cues": {
+    "tr": [
+     "\\b(değişim|değişiklik|yeni düzen|taşın)\\w*[^.]{0,40}(uyum sağlay(a|ama)m|alışam|zorlan|adapte olam)\\w*",
+     "\\balışamıyorum\\b",
+     "\\balışamadım\\b"
+    ],
+    "en": [
+     "\\b(hard|difficult|struggl\\w*|can't|cannot|hard to|struggle to|struggling to|difficult to|unable to|having trouble|hard time|haven't been able to|couldn't)\\b[^.]{0,10}\\b(adjust|adapt|get used)",
+     "\\bthe change is (wearing me out|hard)\\b"
+    ],
+    "de": [
+     "\\b(schwer|kann\\b[^.]{0,10}\\bnicht|schaffe es nicht)[^.]{0,30}(gewöhnen|anpassen|umstellen)",
+     "\\bgewöhne mich (nicht|kaum)\\b",
+     "\\bdie veränderung erschöpft mich\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "The change went smoothly.",
+     "why": "no difficulty"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C23",
+   "key": "sad",
+   "kind": "concern",
+   "text": {
+    "tr": "Seni üzen konulardan söz ettin.",
+    "en": "You talked about things that make you sad.",
+    "de": "Sie sprachen über Dinge, die Sie traurig machen."
+   },
+   "condition": "The user says something makes them sad or upset.",
+   "cues": {
+    "tr": [
+     "\\büzgün\\w*",
+     "\\büzül\\w*",
+     "\\büzüyor\\w*",
+     "\\bmutsuz\\w*"
+    ],
+    "en": [
+     "\\bsad\\b",
+     "\\bsadness\\b",
+     "\\bupset\\w*",
+     "\\bunhappy\\b",
+     "\\bfeel(ing)? down\\b"
+    ],
+    "de": [
+     "\\btraurig\\w*",
+     "\\bbedrückt\\b",
+     "\\bniedergeschlagen\\b",
+     "\\bunglücklich\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "My friend is sad.",
+     "why": "third person"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C24",
+   "key": "disappointment",
+   "kind": "concern",
+   "text": {
+    "tr": "Yaşadığın hayal kırıklığından söz ettin.",
+    "en": "You talked about a disappointment you experienced.",
+    "de": "Sie sprachen über eine Enttäuschung, die Sie erlebt haben."
+   },
+   "condition": "The user says they were disappointed.",
+   "cues": {
+    "tr": [
+     "\\bhayal kırıklığı\\w*"
+    ],
+    "en": [
+     "\\bdisappoint\\w*",
+     "\\blet down\\b"
+    ],
+    "de": [
+     "\\benttäusch\\w*"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I was not disappointed at all.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C25",
+   "key": "anger",
+   "kind": "concern",
+   "text": {
+    "tr": "Seni öfkelendiren durumlardan söz ettin.",
+    "en": "You talked about situations that make you angry.",
+    "de": "Sie sprachen über Situationen, die Sie wütend machen."
+   },
+   "condition": "The user says something makes them angry.",
+   "cues": {
+    "tr": [
+     "\\bsinirlen\\w*",
+     "\\bsinirim\\w*",
+     "\\böfke\\w*",
+     "\\bkızgın\\w*",
+     "\\bkızıyorum\\b",
+     "\\bkızdım\\b"
+    ],
+    "en": [
+     "\\bangry\\b",
+     "\\banger\\b",
+     "\\bfurious\\b",
+     "\\bmad at\\b",
+     "\\bannoyed\\b",
+     "\\bfrustrat\\w*"
+    ],
+    "de": [
+     "\\bwütend\\b",
+     "\\bwut\\b",
+     "\\bärger\\w*",
+     "\\bsauer\\b",
+     "\\bzornig\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Kız kardeşim bugün geldi.",
+     "why": "\"kız\" is not anger"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C26",
+   "key": "self-trust",
+   "kind": "concern",
+   "text": {
+    "tr": "Kendine güvenmekte zorlandığından söz ettin.",
+    "en": "You talked about finding it hard to trust yourself.",
+    "de": "Sie sprachen darüber, dass es Ihnen schwerfällt, sich selbst zu vertrauen."
+   },
+   "condition": "The user says they doubt themselves or lack self-confidence.",
+   "cues": {
+    "tr": [
+     "\\bkendime güven(em|emi|im yok|miyorum)\\w*",
+     "\\bözgüven\\w*\\s+(yok|düşük|eksik)\\w*",
+     "\\bkendimden şüphe\\w*"
+    ],
+    "en": [
+     "\\b(don't|can't|hard to) trust myself\\b",
+     "\\bself-doubt\\b",
+     "\\bdoubt myself\\b",
+     "\\b(no|lack of|low) (self-)?confidence\\b",
+     "\\blow self-esteem\\b"
+    ],
+    "de": [
+     "\\b(vertraue|traue) mir (selbst )?nicht\\b",
+     "\\bzweifle an mir\\b",
+     "\\bselbstzweifel\\b",
+     "\\b(kein|wenig) selbstvertrauen\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I trust myself with this decision.",
+     "why": "no doubt"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": true,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C27",
+   "key": "helps",
+   "kind": "positive",
+   "text": {
+    "tr": "Sana iyi gelen şeylerden söz ettin.",
+    "en": "You talked about things that do you good.",
+    "de": "Sie sprachen über Dinge, die Ihnen guttun."
+   },
+   "condition": "The user says something helps them or does them good.",
+   "cues": {
+    "tr": [
+     "\\biyi (geliyor|geldi|gelir)\\b",
+     "\\brahatlatıyor\\b",
+     "\\bsakinleştiriyor\\b",
+     "\\bişe yarıyor\\b",
+     "\\bkeyif alıyorum\\b"
+    ],
+    "en": [
+     "\\bhelps? (me|a bit|a little|somewhat)\\b",
+     "\\bdoes me good\\b",
+     "\\bcalms me( down)?\\b",
+     "\\bmakes? me feel better\\b",
+     "\\brelaxes me\\b"
+    ],
+    "de": [
+     "\\btut mir gut\\b",
+     "\\b(hilft|helfen) (mir|etwas)\\b",
+     "\\bberuhigt mich\\b",
+     "\\bentspannt mich\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "Nothing helps me.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C28",
+   "key": "support",
+   "kind": "positive",
+   "text": {
+    "tr": "Çevrenden gördüğün destekten söz ettin.",
+    "en": "You talked about the support you get from people around you.",
+    "de": "Sie sprachen über die Unterstützung aus Ihrem Umfeld."
+   },
+   "condition": "The user says people around them support them.",
+   "cues": {
+    "tr": [
+     "\\b(bana )?destek (oluyor|veriyor|oldu|aldım|alıyorum)\\w*",
+     "\\byanımda\\b"
+    ],
+    "en": [
+     "\\bsupports? me\\b",
+     "\\bsupported me\\b",
+     "\\bsupportive\\b",
+     "\\bthere for me\\b"
+    ],
+    "de": [
+     "\\bunterstütz\\w* mich\\b",
+     "\\bunterstützung (von|durch|meiner|meines)\\b",
+     "\\b(ist|sind)\\b[^.]{0,15}\\bfür mich da\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "Nobody supports me.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": true,
+   "exclude": {}
+  },
+  {
+   "id": "C29",
+   "key": "relief",
+   "kind": "positive",
+   "text": {
+    "tr": "Kendini rahatlamış hissettiğinden söz ettin.",
+    "en": "You talked about feeling relieved.",
+    "de": "Sie sprachen darüber, dass Sie sich erleichtert fühlen."
+   },
+   "condition": "The user says they feel relieved or lighter now.",
+   "cues": {
+    "tr": [
+     "\\brahatladım\\b",
+     "\\brahatlamış\\w*",
+     "\\bferahladım\\b",
+     "\\biçim rahatladı\\b",
+     "\\bhafifledim\\b"
+    ],
+    "en": [
+     "\\brelieved\\b",
+     "\\brelief\\b",
+     "\\bfeel (lighter|calmer)\\b"
+    ],
+    "de": [
+     "\\berleichter\\w*",
+     "\\bfühle mich leichter\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I do not feel relieved.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": true,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C30",
+   "key": "happy",
+   "kind": "positive",
+   "text": {
+    "tr": "Seni mutlu eden gelişmelerden söz ettin.",
+    "en": "You talked about developments that make you happy.",
+    "de": "Sie sprachen über Entwicklungen, die Sie glücklich machen."
+   },
+   "condition": "The user says something made them happy.",
+   "cues": {
+    "tr": [
+     "\\bmutlu\\w*",
+     "\\bsevindim\\b",
+     "\\bsevindir\\w*",
+     "\\bgüzel (bir )?(gelişme|haber)"
+    ],
+    "en": [
+     "\\bhappy\\b",
+     "\\bglad\\b",
+     "\\bdelighted\\b",
+     "\\bgood news\\b"
+    ],
+    "de": [
+     "\\bglücklich\\b",
+     "\\bfreue mich\\b",
+     "\\bfreut mich\\b",
+     "\\bgute nachricht\\w*"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "tr",
+     "user": "Mutlu değilim.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C31",
+   "key": "hope",
+   "kind": "positive",
+   "text": {
+    "tr": "Geleceğe ilişkin umutlarından söz ettin.",
+    "en": "You talked about your hopes for the future.",
+    "de": "Sie sprachen über Ihre Hoffnungen für die Zukunft."
+   },
+   "condition": "The user expresses hope about what is coming.",
+   "cues": {
+    "tr": [
+     "\\bumut\\w*",
+     "\\bumuyorum\\b"
+    ],
+    "en": [
+     "\\bhope\\w*",
+     "\\blooking forward\\b",
+     "\\boptimistic\\b"
+    ],
+    "de": [
+     "\\bhoffe\\b",
+     "\\bhoffnung\\w*",
+     "\\bzuversichtlich\\b",
+     "\\bfreue mich auf\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I have no hope.",
+     "why": "negated"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": false,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C32",
+   "key": "goals",
+   "kind": "positive",
+   "text": {
+    "tr": "Ulaşmak istediğin hedeflerden söz ettin.",
+    "en": "You talked about goals you want to reach.",
+    "de": "Sie sprachen über Ziele, die Sie erreichen möchten."
+   },
+   "condition": "The user names something they want to achieve or plan to do.",
+   "cues": {
+    "tr": [
+     "\\bhedef\\w*",
+     "\\bamacım\\b",
+     "\\b(ulaşmak|başarmak) istiyorum\\b",
+     "\\bçalışacağım\\b",
+     "\\bplanlıyorum\\b"
+    ],
+    "en": [
+     "\\bgoals?\\b",
+     "\\baim to\\b",
+     "\\bplan to\\b",
+     "\\bi (will|\\'ll) try to\\b"
+    ],
+    "de": [
+     "\\bziel\\w*",
+     "\\bmöchte [^.]{0,20}erreichen\\b",
+     "\\bversuche ich\\b",
+     "\\bhabe mir vorgenommen\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "I have no goals right now.",
+     "why": "negated"
+    },
+    {
+     "language": "en",
+     "user": "My boss has goals for me.",
+     "why": "someone else's goal"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": true,
+   "objectOk": false,
+   "exclude": {}
+  },
+  {
+   "id": "C33",
+   "key": "proud",
+   "kind": "positive",
+   "text": {
+    "tr": "Kendinle gurur duyduğun bir deneyimden söz ettin.",
+    "en": "You talked about an experience you are proud of.",
+    "de": "Sie sprachen über eine Erfahrung, auf die Sie stolz sind."
+   },
+   "condition": "The user says they are proud of something they did.",
+   "cues": {
+    "tr": [
+     "\\bgurur (duy|duyuyorum|duydum)\\w*",
+     "\\bgururlu\\w*",
+     "\\bbaşardım\\b"
+    ],
+    "en": [
+     "\\bproud\\b",
+     "\\bi managed to\\b",
+     "\\bi achieved\\b"
+    ],
+    "de": [
+     "\\bstolz\\b",
+     "\\bhabe es geschafft\\b"
+    ]
+   },
+   "falseMatches": [
+    {
+     "language": "en",
+     "user": "My sister is proud of me.",
+     "why": "someone else is proud"
+    },
+    {
+     "language": "tr",
+     "user": "Kız kardeşim benimle gurur duyuyor.",
+     "why": "someone else is proud"
+    },
+    {
+     "language": "en",
+     "user": "I am proud of my brother.",
+     "why": "proud of someone else, not of oneself"
+    }
+   ],
+   "changeIsTopic": false,
+   "negatedCue": false,
+   "subjectOnly": true,
+   "objectOk": false,
+   "exclude": {
+    "tr": [
+     "\\b(onunla|onlarla|seninle|sizinle|(?!kendim)\\w+(ım|im|um|üm)(la|le)) gurur"
+    ],
+    "en": [
+     "\\bproud of (him|her|them|you|my (?!self)\\w+|his|their|our)"
+    ],
+    "de": [
+     "\\bstolz auf (ihn|sie|dich|euch|mein\\w* (?!selbst)\\w+|unser\\w*)"
+    ]
+   }
+  }
+ ]
+}

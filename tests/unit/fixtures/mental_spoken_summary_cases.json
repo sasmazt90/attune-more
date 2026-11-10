@@ -1,5 +1,5 @@
 {
- "description": "Synthetic counter-examples and positives for validate_spoken_summary. 'formal' is the validator result the code must produce; 'content' is a reviewer label of meaning (written by the assistant, not by a human listener). A case that the validator accepts although its content is wrong must be listed with knownLimitation=true: the validator checks form, language, address, first person, lexical grounding per coordinated part (an unsaid word may only describe a word the user said), Turkish possessed-noun roles and negation parity per part, not meaning. A correct line that the validator refuses is listed with conservativeReject=true: nothing is spoken for it and the written summary stays. Round 5 (2026-11-10): person nouns the user did not mention, negation without a negation word (hardly/kaum), three-letter German nouns and short coordinated parts are refused; irregular English verb forms and the Turkish yorgun/yorul and üzgün/üzül pairs are grounded. Still accepted with wrong content (knownLimitation): swapped roles in English/German word order, and an unsaid non-person noun used as a modifier or inside a German compound.",
+ "description": "Synthetic counter-examples and positives for validate_spoken_summary. 'formal' is the validator result the code must produce; 'content' is a reviewer label of meaning (written by the assistant, not by a human listener). A case that the validator accepts although its content is wrong must be listed with knownLimitation=true: the validator checks form, language, address, first person, lexical grounding per coordinated part (an unsaid word may only describe a word the user said), Turkish possessed-noun roles and negation parity per part, not meaning. A correct line that the validator refuses is listed with conservativeReject=true: nothing is spoken for it and the written summary stays. Round 5 (2026-11-10): person nouns the user did not mention, negation without a negation word (hardly/kaum), three-letter German nouns and short coordinated parts are refused; irregular English verb forms and the Turkish yorgun/yorul and üzgün/üzül pairs are grounded. Still accepted with wrong content (knownLimitation): swapped roles in English/German word order, and an unsaid non-person noun used as a modifier or inside a German compound. Round 6: no knownLimitation remains; an unsaid modifier may only state degree, duration or frequency (closed lists), an unsaid compound part only a generic head, and an English/German possessed person keeps the role the user gave it.",
  "users": {
   "tr-work": [
    "İşte çok baskı var ve uykum bölünüyor."
@@ -119,6 +119,16 @@
   "de-lonely-friends": [
    "Seit dem Umzug fühle ich mich einsam.",
    "Die Abende mit meinen Freunden."
+  ],
+  "en-mother-listen": [
+   "My mother never listens to me."
+  ],
+  "de-sleep-interrupted": [
+   "Mein Schlaf wird oft unterbrochen."
+  ],
+  "en-lonely-breakfast": [
+   "I feel lonely since I moved to a new city.",
+   "Weekend breakfasts with my friends."
   ]
  },
  "cases": [
@@ -737,10 +747,9 @@
    "language": "en",
    "user": "en-listen",
    "candidate": "You talked about never listening to your mother.",
-   "formal": "valid",
+   "formal": "role-changed",
    "content": "wrong-person",
-   "knownLimitation": true,
-   "note": "English and German roles are carried by word order, which is not checked"
+   "note": "round-5 knownLimitation, refused from round 6: a possessed person the user named as the one who acts ('My mother') may not become the one acted on ('listening to your mother')"
   },
   {
    "id": "de-live-high-pressure",
@@ -888,30 +897,99 @@
    "language": "en",
    "user": "en-work",
    "candidate": "You talked about deadline pressure at work.",
-   "formal": "valid",
+   "formal": "adds-unsaid-content",
    "content": "added-fact",
-   "knownLimitation": true,
-   "note": "still accepted: an unsaid noun that is not a person, used as a modifier, reads like an adjective (\"intense pressure\")"
+   "note": "round-5 knownLimitation, refused from round 6: an unsaid modifier of a word the user said may only state degree, duration or frequency (closed list); 'deadline' adds a cause"
   },
   {
    "id": "de-added-thing-in-compound",
    "language": "de",
    "user": "de-work",
    "candidate": "Sie sprachen über Terminstress bei der Arbeit.",
-   "formal": "valid",
+   "formal": "adds-unsaid-content",
    "content": "added-fact",
-   "knownLimitation": true,
-   "note": "still accepted: a compound that contains the user's word; the added part is checked only against the person list"
+   "note": "round-5 knownLimitation, refused from round 6: the unsaid part of a compound ('Termin') is neither said nor a generic head (Problem, Schwierigkeit)"
   },
   {
    "id": "tr-added-thing-modifier",
    "language": "tr",
    "user": "tr-pressure",
    "candidate": "İşteki zaman baskısından söz ettin.",
-   "formal": "valid",
+   "formal": "adds-unsaid-content",
    "content": "added-fact",
-   "knownLimitation": true,
-   "note": "still accepted: an unsaid noun that is not a person, used as a modifier"
+   "note": "round-5 knownLimitation, refused from round 6: 'zaman' is an unsaid modifier that is not degree, duration or frequency"
+  },
+  {
+   "id": "en-role-kept-actor",
+   "language": "en",
+   "user": "en-mother-listen",
+   "candidate": "You talked about your mother never listening to you.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "round 6: the person keeps the role of the one who acts"
+  },
+  {
+   "id": "en-reciprocal-with",
+   "language": "en",
+   "user": "en-brother",
+   "candidate": "You talked about arguing with your brother.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "round 6: \"with\" is reciprocal, not an object marker"
+  },
+  {
+   "id": "en-degree-modifier-kept",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about intense pressure at work.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "round 6: degree modifier from the closed list"
+  },
+  {
+   "id": "en-domain-modifier",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about financial pressure at work.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 6: a domain adjective is a new fact"
+  },
+  {
+   "id": "de-compound-both-said",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Arbeitsstress.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "round 6: both parts of the compound were said"
+  },
+  {
+   "id": "de-compound-generic-head",
+   "language": "de",
+   "user": "de-sleep-interrupted",
+   "candidate": "Sie sprachen über Schlafprobleme.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "round 6: generic head (Probleme) after a word the user said"
+  },
+  {
+   "id": "tr-degree-modifier-kept",
+   "language": "tr",
+   "user": "tr-pressure",
+   "candidate": "İşteki yoğun baskıdan söz ettin.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "round 6: degree modifier from the closed list"
+  },
+  {
+   "id": "en-missing-inference",
+   "language": "en",
+   "user": "en-lonely-breakfast",
+   "candidate": "You talked about feeling lonely and missing friends.",
+   "formal": "adds-unsaid-content",
+   "content": "inference",
+   "note": "recorded live line accepted until round 5; the user never said \"miss\" (same as the German \"Vermissen\" line)"
   }
  ]
 }

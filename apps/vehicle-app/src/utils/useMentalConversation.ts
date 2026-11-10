@@ -328,7 +328,7 @@ export function useMentalConversation(parked: boolean) {
       timing('closing-summary-request');
       const response = await fetch(API + '/analyze-session', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memory:r.memory, messages: completed.slice(r.memoryThrough).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text })), cloudConsent: settings.current.cloudConsent,
-          ...(closing&&!r.structured?{spokenSummary:true}:{}),
+          ...(closing&&!r.structured?{spokenSummary:true,...(closing.catalog?{spokenCatalog:true}:{})}:{}),
           ...(r.structured?{engine:'structured-v1',noAdvice:!!r.structuredState?.listenOnly,historyConsent:mentalHistoryAllowed(),
             priorSessions:mentalHistoryAllowed()&&settings.current.cloudConsent&&isMentalSummarySavingAllowed()?readMentalHistory().filter(h=>h.id!==r.id&&h.completed&&h.consented&&[2,3].includes(h.schemaVersion||0)).slice(-5).map(h=>({id:h.id,summaryText:h.summaryText.slice(0,2000),themes:h.themes.slice(0,12)})):[]}:{}) }), signal: controller.signal });
       if (!response.ok) throw new Error('Summary service');
@@ -340,7 +340,9 @@ export function useMentalConversation(parked: boolean) {
       if(r.structured&&(typeof data.spokenSummary!=='string'||!data.spokenSummary.trim()))throw Error('Invalid spoken summary');
       // Validated text only. Generation may overlap the bridge; playback waits for it and for storage below.
       // The normal path speaks only its short spokenSummary; without one, the written summary stays text-only.
-      if(closing){const spoken=r.structured?data.spokenSummary:shortSpokenSummary(data.spokenSummary);if(spoken)closing.summaryReady(spoken);else closing.summaryUnavailable();}
+      // Catalog closing: the server checked the line against the user's words; its fixed recording plays (no speech generation).
+      if(closing&&!r.structured&&closing.catalog){if(typeof data.spokenCatalogId==='string')closing.catalogReady(data.spokenCatalogId,data.spokenSummary);else closing.summaryUnavailable();}
+      else if(closing){const spoken=r.structured?data.spokenSummary:shortSpokenSummary(data.spokenSummary);if(spoken)closing.summaryReady(spoken);else closing.summaryUnavailable();}
       const item: MentalHistoryItem = { id: r.id, date: new Date().toISOString(), summaryText: data.summaryText, themes: data.themes.map(canonicalMentalTheme),
         moodTrend: typeof data.moodTrend === 'string' ? data.moodTrend : undefined, moodTrendSource:typeof data.moodTrend==='string'?'assistant-inferred':undefined, providerType: data.providerType, schemaVersion: 3, startedAt: r.startedAt, completedAt: new Date().toISOString(), completed: true, consented: false };
       if(r.structured){item.recommendations=data.recommendations;item.relatedSessionIds=data.relatedSessionIds;item.recurringThemes=data.recurringThemes;

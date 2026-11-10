@@ -87,7 +87,7 @@ def test_corpus_formally_valid_but_wrong_content_is_declared():
     accepted_wrong = {c['id'] for c in CORPUS['cases'] if _corpus_result(c) == 'valid' and c['content'] != 'correct'}
     declared = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
     assert accepted_wrong == declared
-    assert {c['content'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {'added-fact', 'wrong-person'}
+    assert declared == set()
 
 
 def test_corpus_correct_lines_that_are_refused_are_declared():
@@ -120,7 +120,7 @@ def test_round_three_known_limitations_are_now_refused():
         assert _corpus_result(by_id[case_id]) == reason and not by_id[case_id].get('knownLimitation')
         assert by_id[case_id]['content'] != 'correct'
     still_open = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
-    assert still_open and not still_open & set(five)
+    assert not still_open & set(five)
 
 
 def test_round_four_known_limitations_are_now_refused_and_the_rest_stay_declared():
@@ -136,8 +136,24 @@ def test_round_four_known_limitations_are_now_refused_and_the_rest_stay_declared
     for case_id in ('en-person-modifier-family', 'en-person-short-part', 'en-short-noun-part', 'de-kaum-dropped', 'de-short-noun-added',
                     'tr-person-modifier'):
         assert _corpus_result(by_id[case_id]) != 'valid' and by_id[case_id]['content'] != 'correct'
-    assert {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {
-        'en-role-reversal', 'en-added-thing-modifier', 'de-added-thing-in-compound', 'tr-added-thing-modifier'}
+    # Round 6 closed the remaining four (see test_round_five_known_limitations_are_refused).
+    assert {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')} == set()
+
+
+def test_round_five_known_limitations_are_refused():
+    """Round 6: the four shapes still accepted in round 5 are refused, without refusing the correct counter-examples
+    (a person keeping the role of the one who acts, reciprocal "with", degree modifiers, compounds whose parts were said
+    or end in a generic head)."""
+    by_id = {c['id']: c for c in CORPUS['cases']}
+    four = {'en-role-reversal': 'role-changed', 'en-added-thing-modifier': 'adds-unsaid-content',
+            'de-added-thing-in-compound': 'adds-unsaid-content', 'tr-added-thing-modifier': 'adds-unsaid-content'}
+    for case_id, reason in four.items():
+        assert _corpus_result(by_id[case_id]) == reason and not by_id[case_id].get('knownLimitation')
+    for case_id in ('en-role-kept-actor', 'en-reciprocal-with', 'en-degree-modifier-kept', 'de-compound-both-said',
+                    'de-compound-generic-head', 'tr-degree-modifier-kept'):
+        assert _corpus_result(by_id[case_id]) == 'valid' and by_id[case_id]['content'] == 'correct'
+    for case_id in ('en-domain-modifier', 'en-missing-inference'):
+        assert _corpus_result(by_id[case_id]) == 'adds-unsaid-content'
 
 
 def test_live_conservative_rejects_of_round_four_are_grounded_without_accepting_the_inference():

@@ -1,0 +1,28 @@
+{
+ "schema": "attune-mental-closing-catalog-manifest-v1",
+ "catalogVersion": "1.0.0",
+ "catalogTextsSha256": "4230a1fcbd5d124e936915d53b12f1c6eb66108395f69ca5698546aa8eda404c",
+ "speakerProfile": "female-calm-v1",
+ "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+ "generation": {
+  "exaggeration": 0.35,
+  "cfg_weight": 0.0,
+  "temperature": 0.8
+ },
+ "model": {
+  "repository": "ResembleAI/chatterbox",
+  "revision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+  "file": "t3_mtl23ls_v3.safetensors",
+  "package": "chatterbox-tts",
+  "packageVersion": "0.1.7",
+  "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2"
+ },
+ "seedRule": "int(sha256(assetId).hexdigest()[:8], 16)",
+ "postProcessing": "PCM16 encoding by the product worker only; upstream watermark retained; no pitch/rate/silence edits",
+ "approval": {
+  "status": "not-generated",
+  "ownerApprovedAt": null,
+  "note": "No recording exists yet. Entries are added only by the one-off synthesis on WEB; owner listening is a separate step."
+ },
+ "entries": []
+}
