@@ -404,6 +404,7 @@ async function closing(session, language, options, check, out, r) {
     row.notice = await page.evaluate(() => [...document.querySelectorAll('[role=status],[role=alert]')].map(n => n.textContent).join(' | ').slice(0, 300));
     row.requests = plan.requests.filter(q => q.id === options.name);
     row.lateSpeechResponses = row.requests.filter(q => q.kind === 'tts-answered' && q.at > actedAt).length;
+    row.pageEvents = pageEvents.slice(firstEvent).filter(e => ['play', 'play-ok', 'play-rejected', 'audio-created', 'guidance', 'voice-unavailable', 'focus', 'pause-call'].includes(e.kind) || (e.kind === 'stage' && /summary-(audio-start|complete)|cleanup/.test(e.stage)));
     const closingPlaysAfter = row.playsAfterAction.filter(p => !p.guidance);
     if (options.action === 'language') {
       check(`${options.name}: the closing continues to its end in the session language`, row.metrics.summaryComplete !== null, row.metrics);
@@ -436,10 +437,12 @@ async function closing(session, language, options, check, out, r) {
   const m = row.metrics;
   // After the spoken closing nothing else should speak (the separate 'mental-complete' guidance would be a second
   // completion message in another voice). Watch 12 s more and record every play() with its source.
-  const donePm = await page.evaluate(() => performance.now());
+  // Counted from the end of the closing's own audio (its 'closing-summary-complete' stage), not from when the harness
+  // noticed completion: a message queued on completion would otherwise fall before the window.
+  const donePm = await page.evaluate(() => (window.__timeline.filter(e => e.stage === 'closing-summary-complete').at(-1) || {atMs: performance.now()}).atMs);
   await sleep(12000);
   row.playsAfterCompletion = await page.evaluate(t => window.__plays.filter(x => x.atMs > t), donePm);
-  row.guidanceEventsAfterCompletion = pageEvents.slice(firstEvent).filter(e => ['guidance', 'voice-unavailable', 'play-rejected'].includes(e.kind) && e.pm > donePm);
+  row.guidanceEventsAfterCompletion = pageEvents.slice(firstEvent).filter(e => ['guidance', 'voice-unavailable', 'play-rejected', 'play-ok'].includes(e.kind) && e.pm > donePm);
   row.notice = await page.evaluate(() => [...document.querySelectorAll('[role=status],[role=alert]')].map(n => n.textContent).join(' | ').slice(0, 300));
   row.pageEvents = pageEvents.slice(firstEvent).filter(e => !['vehicle', 'stage'].includes(e.kind));
   check(`${options.name}: nothing else plays in the 12 s after the spoken closing (no second completion message)`, row.playsAfterCompletion.length === 0 && !row.guidanceEventsAfterCompletion.some(e => e.kind === 'voice-unavailable'),
