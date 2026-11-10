@@ -213,7 +213,15 @@ def main():
     parser.add_argument('--product-port', type=int, default=8000)
     parser.add_argument('--languages', default='tr,en,de')
     parser.add_argument('--short-only', action='store_true', help='short spoken lines only (one process per language)')
+    parser.add_argument('--third-conversation', action='store_true',
+                        help='add a third conversation per language (the first different-topic conversation of spoken_summary_probe)')
     args = parser.parse_args()
+    if args.third_conversation:
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from spoken_summary_probe import DIVERSE
+        for language, conversations in CONVERSATIONS.items():
+            conversations.append(DIVERSE[language][0])
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=False)
     base_env, product_pid = product_api_environment(args.product_port)
