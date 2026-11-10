@@ -181,6 +181,64 @@ In every case the output frame counter kept rising for 2.9–3.1 s after the pla
 
 **AAOS coverage.** Real calibrated Android touches (`adb input tap`, mapping measured with two swallowed probe taps) started the closing in TR, EN and DE, and those closings completed A→B→C→personal summary without a tap prompt; CDP clicks likewise in TR, EN and DE. With `CLOSING_TTS=product` the closing speech was generated live through the existing product AAOS chain (WebView → AAOS Caddy → WEB Caddy mTLS → `web-aaos` → `api-aaos`, nothing reconfigured): TR first request 24.8 s, EN 12.2 s, DE 15.8 s server time, personal audio 9.2–20.5 s after C; the analysis stayed replayed because the deployed AAOS backend runs `main`, which has no `spokenSummary`. A fully live path to a test API from AAOS is not possible without a configuration change: the AAOS security group reaches WEB only on 8443 (Caddy mTLS to product services); opening 8190 or adding a route needs approval.
 
+## Review 2026-11-10, round 3: the same model on a GPU
+
+Details, every row and the logs: [review-20261110-round3.json](review-20261110-round3.json); fixed texts: [gpu-benchmark-texts.json](gpu-benchmark-texts.json); tool: `scripts/mental_closing_abc/tts_device_benchmark.py`. Speed only: no listening review was done, and nothing here approves audio quality. The feature stays off; nothing was merged or deployed.
+
+**What ran.** One temporary `g5.xlarge` (NVIDIA A10G 24 GB, 4 vCPU; eu-central-1b, because eu-central-1c had no capacity for the same type) for 92 minutes, with a separate CUDA environment: `torch 2.6.0+cu124`, FP32, TF32 off for matmul and cuDNN, the other packages at the WEB host's versions. The model files, the reference voice, the license evidence, the installed `chatterbox` sources, the Perth watermark package (22 files, weights included) and the segmenter cache hashed identical to WEB before any run. CPU baseline: the WEB host (`r7i.2xlarge`, Xeon 8488C, 4 inference threads as in the service), same tool, same texts, same seeds. Python was 3.11.18 on the GPU machine and 3.11.17 on WEB.
+
+**Same texts and seeds, warm, product worker** (median, min–max; 9 short lines and 6 long parts, 5 seeds each on both devices; the GPU ran 5 more seeds, shown as “all”):
+
+| | CPU | GPU, same seeds | Faster by | GPU, all seeds |
+| --- | --- | --- | --- | --- |
+| Short lines (6–11 words, ≈ 3.8 s audio) | 15.57 s (13.55–18.93), n = 45 | 3.14 s (2.45–3.85), n = 45 | 4.96× | 3.06 s (2.45–4.14), n = 90, p95 3.80 s |
+| — Turkish / English / German | 16.21 / 15.09 / 14.40 s | 3.37 / 2.94 / 2.92 s | 4.8× / 5.1× / 4.9× | n = 30 each |
+| Long parts (12–28 words, ≈ 9 s audio) | 28.18 s (18.62–39.33), n = 30 | 6.65 s (4.03–8.94), n = 30 | 4.24× | 6.64 s (4.03–9.05), n = 60, p95 8.81 s |
+| Real-time factor, short / long | 4.02 / 3.15 | 0.82 / 0.72 | | |
+
+Where the time goes for a short line (medians; every step timer synchronizes CUDA at both ends):
+
+| Step | CPU | GPU | Faster by |
+| --- | --- | --- | --- |
+| Conditioning from the reference voice | 0.37 s | 0.06 s | 5.9× |
+| Speech-token generation (T3) | 6.13 s (16 tokens/s) | 2.46 s (40 tokens/s) | 2.5× |
+| Waveform decoding (S3Gen) | 9.05 s | 0.57 s | 16× |
+| Watermark | 0.015 s | 0.026 s | — |
+
+On the GPU the token loop is what remains (one decoding step at a time, bound by one CPU core). No failures in 181 GPU and 76 CPU rows. All 257 outputs are 24 kHz mono PCM16 with matching length; 3 CPU rows and 1 GPU row (German long parts) contain 1–7 full-scale samples. The same seed gives different audio on the two devices (75 of 75 pairs) and is not bit-reproducible on the GPU either (same length, different bytes; CPU repeats are identical). Timers cost nothing measurable (real-time factor 0.788 with and 0.792 without them, n = 30). Host memory: 5.0 GB resident on CPU, 3.1 GB on the GPU machine plus 3.2–3.4 GB of GPU memory for one model (the service holds two: default and female; that case was not measured).
+
+**Cold.** A fresh process's first request took 29.9 and 28.4 s on CPU (n = 2) and 42.3, 23.7 and 24.4 s on the GPU (n = 3; imports ≈ 5 s, model to the device ≈ 12–13 s, first inference 4–21 s). In the service order (default model warmed at start, then the first female request) the GPU needed 19.1–22.1 s (n = 3), the CPU 25.9 s (n = 1; 26.2–27.7 s over HTTP, n = 3). A GPU does not fix the first closing after a service start.
+
+**Service path** (the product's `verify_speaker` and resident worker subprocess, no seed; the seven lines the live analysis returned on WEB in this window with the current prompt and validator — German conversations 1 and 2 were refused, the third gave a line):
+
+| | CPU | GPU |
+| --- | --- | --- |
+| Warm request | 16.59 s (15.38–20.22), n = 13 | 5.16 s (4.60–6.33), n = 60, p95 6.25 s |
+| — of which bundle verification | 2.35 s | 2.32 s |
+| — of which worker | 14.27 s | 2.84 s |
+
+The service path has no HTTP layer. On CPU the same lines over the real HTTP endpoint took 15.13–19.17 s (n = 6) and its own timing header puts the HTTP part at ≈ 2 ms; the endpoint itself was not run on the GPU machine. Per-request verification (re-hashing 3.2 GB) is now 45 % of a GPU request.
+
+**Closing in a browser and in the AAOS WebView — replays, not live.** The analysis responses are the ones measured live on WEB (1.8–4.2 s); the speech responses are the GPU service-path results for the same lines, delivered after their measured request time. Chromium (this branch's production build) and the AAOS 15 emulator's WebView played the real A/B/C recordings and ran the real closing code.
+
+| | CPU speech (HTTP, this run) | GPU speech (service path) |
+| --- | --- | --- |
+| Browser, warm: personal audio ready | 18.1–21.7 s after the end tap | 6.7–9.0 s — before C ends in 6 of 7 closings |
+| Browser, warm: C ends → personal audio | 9.7–11.4 s (n = 6) | 0.13–0.14 s, the configured pause (n = 7; same under strict autoplay) |
+| Browser, first female request after a service start | 18.4–21.7 s after C (n = 3) | 10.2–15.9 s after C (n = 3) |
+| AAOS WebView, warm: C ends → personal audio | 9.2–20.5 s in round 2 (product chain, CPU) | 0.13 s in 6 complete closings (3 by CDP click, 3 by calibrated real touch; TR/EN/DE) |
+| AAOS WebView, first female request | — | 15.1 s after C (n = 1) |
+
+A started 27–128 ms after the end tap in the browser and 188–226 ms in the WebView; A→B and B→C 128–133 ms (one transition 215 ms in the strict-autoplay run); no overlap; the summary text was ready at 1.8–4.4 s. The margin is thin for English, whose A+B+C can be as short as 7.5 s: with the slowest measured analysis (4.2 s) and GPU request (6.3 s) the personal audio would come up to ≈ 3 s after C; that combination did not occur in the 13 warm replays (7 browser, 6 AAOS).
+
+AAOS interruptions with the same replay set (48 checks, 47 passed): cancel (+ new conversation), cancel during the summary and mute stopped the app's player 116–139 ms after the action; driving 63–286 ms (the web saw it after 22–232 ms); background 54–71 ms; nothing of the closing played later, also after the late speech response and after returning to the app; no sound and no failure notice after any of the 6 complete-closing cases. **One check failed and is not counted as passed:** for consent withdrawal during A the stop time could not be measured — in 3 of 3 samples the Android player had not yet reached `started` when consent was withdrawn (the page paused the element 19–42 ms later and the player never started; nothing played afterwards). The frame counter's ≈ 3 s tail after every stop is the mixer's silent standby, as in round 2, not audible output.
+
+**Not done, and why.** A fully live closing against the GPU (browser or AAOS → test API → provider and GPU speech in one request chain) needs either an inbound rule on the GPU machine's security group or the provider key on that machine; neither was in the approved scope. The HTTP endpoint was not run on the GPU machine. No real speaker, no OEM audio focus, no physical vehicle signal. The emulator runs are not an OEM safety approval.
+
+**Before this could be used in the product.** Listening review of GPU audio (it is different audio, not bit-reproducible); a decision on running a GPU host (≈ 1.26 USD/h on demand for this type) and its capacity (one zone had none); the cold start (19–22 s) — for example warming the female profile at service start, not tried here; the per-request bundle verification (2.3 s); measuring two resident models and concurrent requests on the GPU; a live end-to-end run through the HTTP endpoint; German lines (both closing conversations refused by the stricter validator); and the open items of the earlier rounds (owner listening approval of the 45 recordings, Turkish *sen* in the normal closing vs. *siz* in structured-v1).
+
+**AWS.** WEB 09:40–10:52, 11:04–11:15 and 11:20–11:47 UTC; AAOS 09:57–10:49 and 11:15–11:47; GPU 09:44:03–11:16:13 (limit 150 min; OS timer at 12:10 and a local guard). The session was paused by a usage limit from about 10:06 to 11:02: the OS timers stopped WEB and AAOS on their own, and the GPU, whose jobs had finished at 10:14, stayed up inside its limit until the results were pulled. Final state by API at 11:48 UTC: GPU terminated, its volume and security group gone, WEB and AAOS stopped, product configuration hashes unchanged. Calculated cost 3.88 USD of the approved 5 (not yet on a bill; taxes excluded).
+
 ## Tests
 
-`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing.
+`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison.
