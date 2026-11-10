@@ -345,6 +345,14 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                        + '; use [] if none applies. Do not invent a new category or a diagnosis.')
 
             structured = getattr(self,'structured',False)
+            # Normal conversation closing: an opt-in short spoken line in this same call (no second request).
+            spoken = getattr(self,'spoken_summary',False) and not structured
+            if spoken:
+                prompt += ('\nAlso return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
+                           'At most 12 words and 100 characters; keep full detail in summaryText. '
+                           'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
+                           'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
+                           'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in '+LANGUAGE_NAMES[current_language()]+'.')
             if structured:
                 prompt += ('\nAlso return recommendations (array of short strings), relatedSessionIds (array), '
                            'recurringThemes (stable theme keys), spokenSummary (concise supportive spoken text). '
@@ -378,6 +386,12 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 from mental_analysis import validate_analysis
                 data=validate_analysis(data,getattr(self,'prior_sessions',[]),getattr(self,'no_advice',False))
                 data['metrics']={'analysisOpenAICalls':1}
+            elif spoken:
+                from mental_analysis import validate_spoken_summary
+                text, reason = validate_spoken_summary(data.get('spokenSummary'), current_language(), messages)
+                # An invalid line is dropped, never shortened; the written summary is unaffected.
+                data['spokenSummary'] = text
+                data['spokenSummaryStatus'] = 'valid' if text else reason
             data['themes'] = stable_session_themes(data.get('themes'))
             data["analyzerType"] = "LIVE_LLM"
             data["providerType"] = "LIVE_OPENAI"

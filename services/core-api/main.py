@@ -260,6 +260,8 @@ class AnalyzeSessionPayload(MemoryPayload):
     messages: List[Dict[str, str]] = Field(max_length=200)
     cloudConsent: StrictBool = False
     engine: Literal['legacy','structured-v1'] = 'legacy'
+    # Normal-conversation closing bridge only: ask the same analysis call for a short spoken line.
+    spokenSummary: StrictBool = False
     historyConsent: StrictBool = False
     priorSessions: List[HistoricalMentalSummary] = Field(default_factory=list,max_length=5)
     noAdvice: StrictBool = False
@@ -459,6 +461,8 @@ def analyze_mental_session(payload: AnalyzeSessionPayload):
         analyzer.prior_sessions = relevant_history(payload.messages,payload.priorSessions) if payload.historyConsent and payload.cloudConsent else []
     if payload.memory:
         analyzer.session_memory = payload.memory
+    if payload.spokenSummary and payload.engine == 'legacy':
+        analyzer.spoken_summary = True
     return analyzer.analyze_session(payload.messages)
 
 class CompactContextPayload(AnalyzeSessionPayload):

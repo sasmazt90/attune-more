@@ -81,6 +81,18 @@ export async function playClosingBridge(selection:ClosingSelection,bytes:ArrayBu
  return live();
 }
 
+/**
+ * The normal path speaks the analysis' short spokenSummary, never the longer written summaryText. The server
+ * validates the full contract (language, address, grounding, no repeated bridge phrases); this mirrors the
+ * length/sentence bounds as a second guard. Nothing is shortened: an invalid line is simply not spoken.
+ */
+export function shortSpokenSummary(value:unknown):string|null{
+ if(typeof value!=='string')return null;
+ const text=value.normalize('NFC').replace(/\s+/g,' ').trim();
+ if(!text||text.length>100||text.split(' ').length>12||/[.!?…]["'”’)]?\s+\S/.test(text))return null;
+ return text;
+}
+
 export type ClosingState='closingBridge'|'closingSummaryPending'|'closingSpeechPending'|'speaking';
 export type ClosingHooks={
  language:Language;
@@ -91,11 +103,13 @@ export type ClosingHooks={
  state:(state:ClosingState)=>void;
  timing:(stage:string)=>void;
 };
-export type ClosingOutcome='played'|'failed'|'cancelled'|'fallback';
+export type ClosingOutcome='played'|'failed'|'cancelled'|'fallback'|'no-spoken-summary';
 export type ClosingFlow={
  mode:ClosingBridgeMode;selection:string;
  /** The summary passed every existing check: start preparing its speech now. Only the first call counts. */
  summaryReady:(text:string)=>void;
+ /** The analysis produced no usable short spoken summary: after C the closing ends without dynamic speech. */
+ summaryUnavailable:()=>void;
  /** After the bridge ends, play the prepared summary. 'fallback': the bridge never started. Only the first call runs. */
  complete:()=>Promise<ClosingOutcome>;
  /** Stops recordings, generation and playback; releases focus. Idempotent. */
@@ -115,7 +129,7 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
  const live=()=>!signal.aborted&&hooks.current()&&getLanguage()===hooks.language;
  const owner={},focus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event&{owner:object;active:boolean};event.owner=owner;event.active=active;window.dispatchEvent(event);};
  focus(true);
- let released=false,text:string|null=null,speech:PreparedNeuralSpeech|null=null,speechReady=false,completion:Promise<ClosingOutcome>|null=null;
+ let released=false,unavailable=false,text:string|null=null,speech:PreparedNeuralSpeech|null=null,speechReady=false,completion:Promise<ClosingOutcome>|null=null;
  const abort=()=>{if(released)return;released=true;controller.abort();speech?.cancel();focus(false);};
  hooks.timing('closing-bridge-selected');
  let verified:(ok:boolean)=>void=()=>{};
@@ -131,11 +145,11 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
   if(!played)return live()?'failed':'cancelled';
   hooks.timing('closing-bridge-ended');
   // Honest state while waiting; no recording is repeated to cover it.
-  if(text===null)hooks.state('closingSummaryPending');else if(!speechReady)hooks.state('closingSpeechPending');
+  if(text===null&&!unavailable)hooks.state('closingSummaryPending');else if(text!==null&&!speechReady)hooks.state('closingSpeechPending');
   return 'played';
  })();
  const summaryReady=(value:string)=>{
-  if(text!==null||released)return;
+  if(text!==null||unavailable||released)return;
   text=value;hooks.timing('closing-summary-text-ready');
   void assets.then(ok=>{
    if(!ok||!live()||speech)return;
@@ -147,6 +161,7 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
   try{
    const result=await bridge;
    if(result==='unavailable')return 'fallback';
+   if(result==='played'&&text===null&&unavailable)return live()?'no-spoken-summary':'cancelled';
    if(result!=='played'||text===null)return result==='cancelled'||!live()?'cancelled':'failed';
    await assets;await Promise.resolve();
    if(!speech)return live()?'failed':'cancelled';
@@ -157,5 +172,6 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
    return played?'played':live()?'failed':'cancelled';
   }finally{abort();}
  })();
- return {mode,selection:selection.key,summaryReady,complete,abort};
+ const summaryUnavailable=()=>{if(text!==null||released)return;unavailable=true;hooks.timing('closing-summary-no-spoken-line');};
+ return {mode,selection:selection.key,summaryReady,summaryUnavailable,complete,abort};
 }

@@ -58,6 +58,61 @@ def structured_analysis_response_format():
     return {'type':'json_schema','json_schema':{'name':'mental_session_analysis','strict':True,'schema':schema}}
 
 
+SPOKEN_SUMMARY_MAX_WORDS = 12
+SPOKEN_SUMMARY_MAX_CHARS = 100
+# The closing bridge already thanks the user (A), closes the conversation (B) and announces the summary (C).
+_BRIDGE_PHRASES = {
+    'tr': (r'teşekkür', r'sağ ?ol', r'sonuna geldi', r'kapanış', r'sonlandır', r'noktalı', r'tamamlıyoruz',
+           r'özet\w* hazırl', r'özetliyorum', r'bir araya getir', r'topluyorum', r'toparlıyorum'),
+    'en': (r'\bthank', r'\bend of (our|the|this|today\'s) (conversation|session)', r'\bto a close\b', r'\bclosing\b',
+           r'\bwrap(ping)? up\b', r"\bi'?m (preparing|summari[sz]ing|bringing together|gathering|putting)", r'\bsummary\b'),
+    'de': (r'\bdank', r'\babschluss', r'\bbeende', r'\bschließen\b', r'\bam ende unseres', r'\bfasse\b',
+           r'\bzusammenfassung', r'\btrage\b.*\bzusammen'),
+}
+# Characters that cannot occur in the requested language's own words (a heuristic language check).
+_FOREIGN_LETTERS = {'en': 'ğĞıİşŞçÇöÖüÜäÄß', 'de': 'ğĞıİşŞçÇ', 'tr': 'äÄß'}
+_INFORMAL = {'de': r'\b(du|dich|dir|dein\w*|euch|euer\w*)\b', 'tr': r'\b(sen|seni|sana|senin|seninle)\b', 'en': None}
+
+
+def _stems(text):
+    import re
+    return {w[:5] for w in re.findall(r'\w+', text.casefold()) if len(w) >= 5 and not w.isdigit()}
+
+
+def validate_spoken_summary(value, language, messages):
+    """Short closing line for the normal conversation: one sentence, <= 12 words and <= 100 characters.
+
+    Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an
+    invalid line is rejected, the written summary stays, and the caller does not speak a longer text instead.
+    """
+    import re
+    import unicodedata
+    if not isinstance(value, str):
+        return None, 'missing'
+    text = re.sub(r'\s+', ' ', unicodedata.normalize('NFC', value)).strip()
+    if not text:
+        return None, 'empty'
+    if len(text) > SPOKEN_SUMMARY_MAX_CHARS:
+        return None, 'too-many-characters'
+    if len(text.split(' ')) > SPOKEN_SUMMARY_MAX_WORDS:
+        return None, 'too-many-words'
+    if re.search(r'[.!?…]["\'”’)]?\s+\S', text):
+        return None, 'more-than-one-sentence'
+    if language not in _BRIDGE_PHRASES:
+        return None, 'unsupported-language'
+    if any(ch in _FOREIGN_LETTERS[language] for ch in text):
+        return None, 'wrong-language'
+    lowered = text.casefold()
+    if _INFORMAL[language] and re.search(_INFORMAL[language], lowered):
+        return None, 'informal-address'
+    if any(re.search(pattern, lowered) for pattern in _BRIDGE_PHRASES[language]):
+        return None, 'repeats-bridge-phrase'
+    said = _stems(' '.join(m.get('content', '') for m in messages if m.get('role') == 'user'))
+    if not _stems(text) & said:
+        return None, 'not-grounded-in-user-words'
+    return text, None
+
+
 def validate_analysis(data, history, no_advice=False):
     result=SessionAnalysis.model_validate(data).model_dump()
     result['themes']=stable_session_themes(result['themes'])

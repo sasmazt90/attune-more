@@ -6,7 +6,12 @@ const ast=ts.createSourceFile('mental.ts',source,ts.ScriptTarget.Latest,true),fu
 (function visit(node){if(ts.isFunctionDeclaration(node)&&node.name)functions[node.name.text]=node.getText(ast);ts.forEachChild(node,visit);})(ast);
 const code=ts.transpileModule(['finish','updateContext','speakClosing','cleanup'].map(n=>functions[n]).join('\n'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText;
 
-async function scenario(name,{structured=false,outcome='played',analyzeOk=true,bridge=true,failed=false,empty=false,withdraw=false,cancelDuring=false,probeGuard=false}={}){
+let body;
+// The real client-side bound check from the bridge module (needs only minimal browser globals to load).
+global.window=global.window||new EventTarget();global.document=global.document||Object.assign(new EventTarget(),{hidden:false});
+global.localStorage=global.localStorage||{getItem:()=>null,setItem:()=>{}};global.Audio=global.Audio||class{};
+const {shortSpokenSummary}=require('../../apps/vehicle-app/src/utils/mentalClosingBridge.ts');
+async function scenario(name,{structured=false,outcome='played',analyzeOk=true,bridge=true,failed=false,empty=false,withdraw=false,cancelDuring=false,probeGuard=false,spoken='You talked about work and sleep.'}={}){
  const events=[],no=()=>{};
  const user={id:'s-1-user',turn:1,sender:'USER',text:'Synthetic non-personal statement.',time:'12:00',completed:true};
  const ai={id:'s-1-ai',turn:1,sender:'AI',text:'Synthetic reply.',time:'12:00',completed:true};
@@ -16,6 +21,7 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
  let phase,voiceNotice,summary,flowHooks,neural=0,run;
  const flow={mode:'technical-preview',selection:'A1-B2-C3',
   summaryReady:text=>events.push('summaryReady:'+text),
+  summaryUnavailable:()=>events.push('summaryUnavailable'),
   complete:async()=>{events.push('complete');
    if(probeGuard){assert.equal(flowHooks.current(),true,'live during the closing');for(const key of ['parked','speechConsent','cloudConsent','voiceEnabled']){settings.current[key]=false;events.push('guard:'+key+':'+flowHooks.current());settings.current[key]=true;}r.mounted=false;events.push('guard:mounted:'+flowHooks.current());r.mounted=true;}
    if(cancelDuring){r.epoch++;run.cleanup();return 'cancelled';}return outcome;},
@@ -26,13 +32,15 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
   canonicalMentalTheme:v=>v,setPhase:v=>{phase=v;},setNotice:no,setActive:no,setSummary:v=>{summary=v;events.push('setSummary');},setVoiceState:v=>events.push('state:'+v),setVoiceNotice:v=>{voiceNotice=v;},setClosingAudio:v=>events.push('closingAudio:'+v),
   API:'fixture',closingTranscript:require('../../apps/vehicle-app/src/utils/mentalSessionClose.ts').closingTranscript,setMessages:no,pendingAudioPlay:{current:null},setAudioNeedsGesture:no,
   readMentalHistory:()=>[],saveMentalHistory:async()=>[],setHistory:no,contextWindowThrough:(m,t)=>t,
+  shortSpokenSummary,
   startClosingFlow:hooks=>{events.push('startClosingFlow');flowHooks=hooks;return bridge?flow:null;},
   mentalNeuralSpeech:async(text,signal,current,onPlaying,audioReady,options)=>{neural++;events.push('neural:'+options.speakerProfile+':'+text);return true;},
   fetch:async(url,options)=>{
    assert(url.endsWith('/analyze-session'),'only the summary request');events.push('analyze');
    if(withdraw)settings.current.speechConsent=false;
+   events.push('requestSpoken:'+(body=JSON.parse(options.body)).spokenSummary);
    if(!analyzeOk)return {ok:false,json:async()=>({})};
-   return {ok:true,json:async()=>({summaryText:'  You described a synthetic situation.  ',themes:[],providerType:'LIVE_OPENAI',...(structured?{spokenSummary:'Your short closing.'}:{})})};
+   return {ok:true,json:async()=>({summaryText:'  You described a synthetic situation in detail over several sentences.  ',themes:[],providerType:'LIVE_OPENAI',spokenSummary:structured?'Your short closing.':spoken})};
   }};
  run=new Function(...Object.keys(deps),code+';return {finish,cleanup};')(...Object.values(deps));
  await run.finish();await run.finish();
@@ -43,7 +51,13 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
  // Normal (non-structured) conversation: bridge starts before context/summary work; text-ready triggers preparation.
  let s=await scenario('normal-played');
  const order=s.events.filter(e=>!e.startsWith('t:')&&!e.startsWith('state:'));
- assert.deepEqual(order,['stopAudio','startClosingFlow','analyze','summaryReady:You described a synthetic situation.','setSummary','closingAudio:true','complete','closingAudio:false','stopAudio','abort']);
+ assert.deepEqual(order,['stopAudio','startClosingFlow','analyze','requestSpoken:true','summaryReady:You talked about work and sleep.','setSummary','closingAudio:true','complete','closingAudio:false','stopAudio','abort']);
+ // Normal path: only the short spokenSummary is spoken; an invalid or missing line never falls back to summaryText.
+ for(const bad of [null,'','One sentence here. And a second sentence.','This spoken line is far too long because it keeps going on and on beyond twelve words.']){
+  const v=await scenario('normal-invalid-spoken',{spoken:bad,outcome:'no-spoken-summary'});
+  assert(v.events.includes('summaryUnavailable'));assert(!v.events.some(e=>e.startsWith('summaryReady')),'no long-text fallback');
+  assert.equal(v.voiceNotice,'Özet hazır; kısa sesli özet oluşturulamadı.');assert.equal(v.phase,'completed');assert(v.summary.summaryText.includes('several sentences'));
+ }
  assert(s.events.indexOf('t:closing-trigger')<s.events.indexOf('startClosingFlow'));
  assert(s.events.indexOf('startClosingFlow')<s.events.indexOf('t:closing-context-start'),'bridge does not wait for context or summary');
  assert.equal(s.phase,'completed');assert.equal(s.neural,0,'normal path speaks only through the closing flow');assert.equal(s.voiceNotice,undefined);
@@ -57,8 +71,8 @@ async function scenario(name,{structured=false,outcome='played',analyzeOk=true,b
  s=await scenario('normal-fallback',{outcome:'fallback'});assert.equal(s.neural,0,'normal fallback = existing text-only closing');assert.equal(s.phase,'completed');
  s=await scenario('structured-fallback',{structured:true,outcome:'fallback'});
  assert.equal(s.neural,1);assert(s.events.includes('neural:female-calm-v1:Your short closing.'),'structured fallback keeps the existing dynamic closing');
- s=await scenario('structured-played',{structured:true});assert.equal(s.neural,0);assert(s.events.includes('summaryReady:Your short closing.'),'structured speaks its spokenSummary');
- s=await scenario('bridge-off',{bridge:false});assert.equal(s.neural,0);assert.equal(s.phase,'completed');assert(!s.events.includes('complete'));
+ s=await scenario('structured-played',{structured:true});assert(s.events.includes('requestSpoken:undefined'),'structured request unchanged');assert.equal(s.neural,0);assert(s.events.includes('summaryReady:Your short closing.'),'structured speaks its spokenSummary');
+ s=await scenario('bridge-off',{bridge:false});assert.equal(s.neural,0);assert(s.events.includes('requestSpoken:undefined'),'request unchanged when the bridge is off');assert.equal(s.phase,'completed');assert(!s.events.includes('complete'));
  s=await scenario('bridge-off-structured',{bridge:false,structured:true});assert.equal(s.neural,1,'unchanged structured closing');
  s=await scenario('summary-error',{analyzeOk:false});
  assert(!s.events.some(e=>e.startsWith('summaryReady')));assert(!s.events.includes('complete'));assert(s.events.includes('abort'),'summary failure stops the bridge');assert.equal(s.phase,'error');

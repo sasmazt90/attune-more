@@ -146,6 +146,14 @@ const reset=()=>{log=[];active=0;maxActive=0;ttsRequests=[];failLabel=null;corru
  reset();playMs=20;h=hooks();f=B.startClosingFlow(h);failLabel='tr:'+f.selection.split('-')[1];f.summaryReady('Oynatma hatasında sesli özet çalınmaz.');
  assert.equal(await f.complete(),'failed');assert(!log.some(l=>l.includes('start tts')));assert(!log.some(l=>l.startsWith('start tr:C')));
 
+ // 10b. No usable short spoken summary: the bridge ends honestly, no speech request, no recording replayed.
+ reset();playMs=10;h=hooks();f=B.startClosingFlow(h);f.summaryUnavailable();f.summaryReady('Sonradan gelen metin yok sayılır altı kelime.');
+ assert.equal(await f.complete(),'no-spoken-summary');assert.equal(ttsRequests.length,0);assert.equal(log.filter(l=>l.startsWith('start tr:')).length,3);
+ assert(!h.states.includes('closingSpeechPending')&&!h.states.includes('closingSummaryPending'));
+ assert.equal(B.shortSpokenSummary('  İş   ve uyku   konusunu konuştunuz. '),'İş ve uyku konusunu konuştunuz.');
+ for(const bad of [null,42,'',' ','Bir. İki cümle.','x'.repeat(101),'one two three four five six seven eight nine ten eleven twelve thirteen'])assert.equal(B.shortSpokenSummary(bad),null);
+ assert.equal(B.shortSpokenSummary('You scored 3.5 out of ten on sleep today.'),'You scored 3.5 out of ten on sleep today.','a decimal is not a sentence end');
+
  // 11. Neural engine not selected: no bridge (existing behaviour), nothing played.
  store.set('attune.mental-speech-engine.v1','browser-system');assert.equal(B.startClosingFlow(hooks()),null);store.delete('attune.mental-speech-engine.v1');
  assert.equal(focus,0);
