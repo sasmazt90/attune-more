@@ -108,6 +108,48 @@ def test_round_two_false_accepts_are_now_refused():
     assert {_corpus_result(by_id[i]) for i in six} == {'adds-unsaid-content', 'negation-not-kept', 'first-person'}
 
 
+def test_round_three_known_limitations_are_now_refused():
+    """The five accepted-but-wrong lines of round 3 (one added word inside a part, a negation moved to another topic in
+    English and German, a negation further than four words away, swapped Turkish roles) are refused now. The shapes
+    still accepted with wrong content are declared as knownLimitation cases, not hidden."""
+    five = {'en-added-word-inside-part': 'adds-unsaid-content', 'en-negation-wrong-target': 'negation-moved',
+            'de-negation-wrong-target': 'negation-not-kept', 'en-negation-out-of-reach': 'negation-not-kept',
+            'tr-role-reversal': 'role-changed'}
+    by_id = {c['id']: c for c in CORPUS['cases']}
+    for case_id, reason in five.items():
+        assert _corpus_result(by_id[case_id]) == reason and not by_id[case_id].get('knownLimitation')
+        assert by_id[case_id]['content'] != 'correct'
+    still_open = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
+    assert still_open and not still_open & set(five)
+
+
+def test_german_paraphrases_refused_in_round_three_are_accepted_without_new_false_accepts():
+    """'Umzug' for 'ich ziehe', 'hohen' for 'hoch' (closed stem list), while the added-fact and negation shapes of the
+    same languages stay refused; a synonym ('Sorge' for 'Angst') is still refused (conservativeReject)."""
+    by_id = {c['id']: c for c in CORPUS['cases']}
+    for case_id in ('de-paraphrase-refused', 'de-live-high-pressure', 'de-live-sleep-problems', 'de-strong-verb-noun'):
+        assert _corpus_result(by_id[case_id]) == 'valid' and by_id[case_id]['content'] == 'correct'
+    for case_id in ('de-added-noun-phrase', 'de-one-added-word', 'de-added-facts', 'de-negation-flip', 'de-negation-wrong-target'):
+        assert _corpus_result(by_id[case_id]) != 'valid'
+    assert by_id['de-synonym-refused'].get('conservativeReject') and _corpus_result(by_id['de-synonym-refused']) != 'valid'
+
+
+@pytest.mark.parametrize('language,text', [
+    ('en', 'Work has been very intense in recent weeks.'), ('en', 'My parents want me to visit.'),
+    ('en', 'It is a different kind of event.'),
+])
+def test_words_ending_in_nt_are_not_negations(language, text):
+    from mental_analysis import _negated_user_words
+    plain, negated = _negated_user_words([{'role': 'user', 'content': text}], language)
+    assert not negated and plain
+
+
+@pytest.mark.parametrize('text', ["I don't sleep well.", 'I dont sleep well.', 'I cannot sleep.', "I can't sleep.", 'I never sleep well.'])
+def test_contractions_and_negation_words_are_negations(text):
+    from mental_analysis import _negated_user_words
+    assert 'sleep' in _negated_user_words([{'role': 'user', 'content': text}], 'en')[1]
+
+
 def test_corpus_covers_the_review_counter_examples_and_all_languages():
     ids = {c['id'] for c in CORPUS['cases']}
     assert {'review-A', 'review-B', 'review-C', 'review-D-sen', 'review-D-siz'} <= ids

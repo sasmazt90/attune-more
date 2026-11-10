@@ -116,13 +116,16 @@ _ADVICE_OR_EVALUATION = {
 
 # Negation markers. Lexical only: they show that a negation is present near a word, not what it means.
 _NEGATION = {
-    'en': r"^(?:not|no|never|without|nor|neither|cannot|nothing|nobody|none|\w+n['’]?t)$",
+    # Contractions need the apostrophe, except a closed list typed without one ("dont"); a bare "-nt" ending is not a
+    # negation ("recent", "different", "want").
+    'en': r"^(?:not|no|never|without|nor|neither|cannot|nothing|nobody|none|\w+n['’]t|"
+          r"(?:do|does|did|is|are|was|were|has|have|had|could|should|would|must|might|need|ca|wo|ai)nt)$",
     'de': r'^(?:nicht|nichts|nie|niemals|niemand\w*|ohne|weder|kein\w*)$',
     'tr': r'^(?:yok\w*|değil\w*|hiç|hiçbir|asla|olmadan|kimse\w*|\w+m[ıiuü]yor\w*|\w+m[ae]d[ıiğ]\w*|\w+m[ae]z\w*|\w+m[ae]mak\w*|\w+m[ae]mek\w*|\w+m[ae]m[ae]\w*|\w+m[ae]yan\w*|\w+m[ae]yen\w*|\w+s[ıiuü]z\w*)$',
 }
 _NEGATION_EXCEPT = {'en': set(), 'de': set(), 'tr': {'tamam', 'tamamen', 'yalnız', 'yalnızca', 'komedi', 'namaz', 'temiz'}}
-# A negation counts for the words of its own clause that are at most this many words away.
-_NEGATION_REACH = 4
+# A negation in the user's words counts for its whole clause (up to punctuation or a clause break): "I do not believe
+# my manager will really support me" negates "support" as well, however far it stands from "not".
 _CLAUSE_BREAK = {'en': {'but', 'only', 'though', 'although', 'however', 'yet', 'and', 'or'},
                  'de': {'aber', 'sondern', 'nur', 'doch', 'jedoch', 'und', 'oder'},
                  'tr': {'ama', 'fakat', 'ancak', 'sadece', 'yalnızca', 'oysa', 've', 'veya'}}
@@ -144,6 +147,34 @@ _TR_M_STEMS = set('durum yorum ölüm doğum eğitim öğretim öğrenim iletiş
 _TR_M_SHAPE = r'^(?P<stem>\w+[aeıioöuü]m)(?:dan|den|a|e|ı|i|u|ü|da|de|daki|deki|la|le|ın|in|un|ün|ları|leri|lar|ler|lardan|lerden)?$'
 # Turkish three-letter roots (yol, gün): the line's word is that root plus a case or possessive ending.
 _TR_SHORT_ROOT_ENDING = r'^(?:[ıiuü]n|[ıiuü]|[ae]|[dt][ae]n|[dt][ae]|l[ae]|l[ae]r\w{0,6}|[ıiuü]n(?:d[ae]n|[ae]|[ıiuü]|d[ae]|l[ae])|s[ıiuü](?:n(?:d[ae]n|[ae]|[ıiuü]|d[ae]))?)$'
+# English inflection: the same stem with -s/-es/-ed/-ing and a dropped final e or y ("moved" / "moving", "worry" /
+# "worried") is the same word.
+_EN_INFLECTION = r'(?:ies|ied|ying|ing|ed|es|s|e|y)$'
+# German nouns or adjective forms whose stem differs from the verb or adjective the user said: strong-verb nouns
+# ("Umzug" for "ich ziehe", "Gespräch" for "sprechen") and hoch -> hohe/hohen. Closed list, after at most one listed
+# prefix; any other derivation is still not grounded (the line is refused and nothing is spoken).
+_DE_STEM_VARIANTS = (('zug', 'zieh'), ('züg', 'zieh'), ('flug', 'flieg'), ('flüg', 'flieg'), ('gang', 'geh'), ('gäng', 'geh'),
+                     ('fahrt', 'fahr'), ('verlust', 'verlier'), ('hilf', 'helf'), ('spräch', 'sprech'), ('schluss', 'schließ'),
+                     ('schlüss', 'schließ'), ('bruch', 'brech'), ('brüch', 'brech'), ('hoh', 'hoch'))
+_DE_VARIANT_SHAPE = (r'^(?:um|aus|ein|an|ab|auf|zu|ge|weg)?(?P<variant>' + '|'.join(v for v, _ in _DE_STEM_VARIANTS) +
+                     r')(?:e|en|er|es|em|s|n|ern)?$')
+_DE_VERB_ENDING = r'(?:e|st|t|en|et|end)?$'
+# Words that open a noun phrase of their own (article, possessive, preposition). A content word the user did not say
+# right after one of them, and not modifying a word the user said, names a new person or thing ("... from your manager").
+_PHRASE_OPENER = {
+    'en': set('a an the your his her their its our from with by of about for to at in on over after before during between '
+              'against without toward towards into through because'.split()),
+    'de': set('der die das den dem des ein eine einen einem einer eines ihr ihre ihren ihrem ihrer ihres von vom mit durch bei beim '
+              'über für zu zum zur vor nach aus gegen ohne wegen seit unter zwischen im am ins'.split()),
+    'tr': set(),
+}
+# Turkish possessor in the genitive ("patronunun", "ailenin"): a new person or thing when the user did not say it.
+_TR_GENITIVE_POSSESSOR = r'^\w+n[ıiuü]n$'
+# Turkish nouns with the speaker's possessive (user: annem / annemi / annemin) and the line's (annen / anneni / annenin):
+# nominative or genitive marks who acts, accusative whom it is done to. A line that swaps them ("Annem beni hiç
+# dinlemiyor" -> "Anneni hiç dinlemediğinden") changes who did what.
+_TR_USER_POSSESSED = r'^(?P<root>\w{2,}?)(?:(?<=[aeıioöuü])m|[ıiuü]m)(?P<case>[ıiuü]n|[ıiuü]|)$'
+_TR_LINE_POSSESSED = r'^(?P<root>\w{2,}?)(?:(?<=[aeıioöuü])n|[ıiuü]n)(?P<case>[ıiuü]n|[ıiuü]|)$'
 
 
 def _fold(text, language):
@@ -162,7 +193,17 @@ def _grounded(token, said, language):
     """Lexical grounding only: a shared stem (>= 5 letters, or >= 4 letters covering 60% of the shorter word; Turkish
     roots: >= 4 letters, as suffixes change the stem's end), or one word containing the other (compounds). It cannot
     tell whether the meaning, e.g. a negation, was kept."""
-    token = token.split("'")[0]
+    token = re.split(r"['’]", token)[0]
+    if language == 'de':
+        variant = re.match(_DE_VARIANT_SHAPE, token)
+        if variant:
+            stems = [verb for noun, verb in _DE_STEM_VARIANTS if noun == variant.group('variant')]
+            if any(word.startswith(stem) and re.match(_DE_VERB_ENDING, word[len(stem):]) for stem in stems for word in said):
+                return True
+    if language == 'en':
+        stem = re.sub(_EN_INFLECTION, '', token)
+        if len(stem) >= 3 and any(re.sub(_EN_INFLECTION, '', word) == stem for word in said):
+            return True
     for word in said:
         if len(word) == 3:
             if language == 'tr' and token.startswith(word) and re.match(_TR_SHORT_ROOT_ENDING, token[3:]):
@@ -192,7 +233,8 @@ def _is_negation(word, language):
 
 
 def _negated_user_words(messages, language):
-    """Per user word: was it ever said away from a negation, and was it said next to one (same clause, a few words)?"""
+    """Per user word: was it ever said in a clause without a negation (plain), and in a clause with one (negated)?
+    A clause ends at punctuation or a clause break (but, only, and, ama, ve, aber, nur, ...)."""
     import re
     plain, negated = set(), set()
     for message in messages:
@@ -202,13 +244,29 @@ def _negated_user_words(messages, language):
             clause = []
             for word in _words(part, language) + [None]:
                 if word is None or word in _CLAUSE_BREAK[language]:
-                    marks = [i for i, w in enumerate(clause) if _is_negation(w, language)]
-                    for i, w in enumerate(clause):
-                        (negated if any(abs(i - m) <= _NEGATION_REACH for m in marks) else plain).add(w)
+                    (negated if any(_is_negation(w, language) for w in clause) else plain).update(clause)
                     clause = []
                 else:
                     clause.append(word)
     return plain, negated
+
+
+def _tr_role_changed(line_words, messages):
+    """Turkish: a noun the user said with their possessive as the one who acts (annem, annemin) now stands in the line as
+    the one acted on (anneni), or the reverse. Only nominative/genitive versus accusative of possessed nouns."""
+    import re
+    user_roles = {}
+    for word in _words(' '.join(m.get('content', '') for m in messages if m.get('role') == 'user'), 'tr'):
+        shape = re.match(_TR_USER_POSSESSED, word)
+        if shape and word not in _TR_M_STEMS:
+            user_roles.setdefault(shape.group('root'), set()).add('object' if len(shape.group('case')) == 1 else 'actor')
+    for word in line_words:
+        shape = re.match(_TR_LINE_POSSESSED, word)
+        if shape and shape.group('root') in user_roles:
+            role = 'object' if len(shape.group('case')) == 1 else 'actor'
+            if role not in user_roles[shape.group('root')]:
+                return True
+    return False
 
 
 def _tr_first_person(word):
@@ -223,13 +281,17 @@ def validate_spoken_summary(value, language, messages):
     Turkish sen / German Sie (matching the recorded closing); none of the A/B/C bridge phrases; no listed advice,
     suggestion, reassurance or evaluation marker; the recap form ("You talked about ...", "Sie sprachen über ...",
     "...dan/den söz ettin"); Turkish ablative before the verb; no first person (a copied "my ..."/"kiramı"); at least
-    one content word the user said, at most one the user did not say (only next to two that they did), and every
-    coordinated part of the line resting on a word the user said; negation parity: a part built only from words the
-    user said next to a negation needs a negation in the line, and the line may not negate when the user never did.
+    one content word the user said, at most one the user did not say (only next to two that they did, only describing
+    a word the user said, never a new noun phrase or possessor of its own), and every coordinated part of the line
+    resting on a word the user said; Turkish possessed nouns keep their role (who acts / who is acted on); negation
+    parity per part: a negation in the user's words covers its whole clause, a part built only from negated words needs
+    a negation, a negated part may only use words the user said in a negated clause, and the line may not negate when
+    the user never did.
 
-    Not guaranteed: meaning. These are word-level checks. A line can still attach its negation to the wrong topic,
-    drop a negation that stood further away, add one word inside a part, or swap who did what. The checks err towards
-    rejection: correct paraphrases ("Umzug" for "ich ziehe um", "odaklanma zorluğu" for "odaklanamıyorum") are refused.
+    Not guaranteed: meaning. These are word-level checks. A line can still add a fact as a modifier of a word the user
+    said ("manager pressure"), swap roles in English or German word order, or carry a negation the user expressed
+    without a negation word. The checks err towards rejection: correct paraphrases outside the listed forms
+    ("odaklanma zorluğu" for "odaklanamıyorum") are refused.
 
     Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an invalid line is
     rejected, the written summary stays, and the caller does not speak a longer text instead.
@@ -281,22 +343,43 @@ def validate_spoken_summary(value, language, messages):
     items = [item for item in items if item]
     if unsaid >= 2 or (unsaid == 1 and grounded < 2) or any(not any(_grounded(w, said, language) for w in item) for item in items):
         return None, 'adds-unsaid-content'
-    # Negation parity (lexical). A part of the line that rests only on words the user said next to a negation
-    # ("not worried about my health") needs a negation in the line; a line may not negate when the user never did.
-    # Which word the line's negation belongs to, and negations further away than a few words, are not checked.
+    # The one unsaid word may describe a word the user said ("interrupted sleep", "work pressure"), not name a new person
+    # or thing: not right after an article, possessive or preposition unless a word the user said follows it, never a
+    # possessor ("manager's", Turkish genitive "patronunun").
+    body_words = [w.strip("'’") for w in re.findall(r"[^\W\d_]+(?:['’][^\W\d_]+)?", _fold(body, language))]
+    for i, word in enumerate(body_words):
+        if not is_content(word) or _grounded(word, said, language):
+            continue
+        follows = body_words[i + 1] if i + 1 < len(body_words) else None
+        describes_said = follows is not None and is_content(follows) and _grounded(follows, said, language)
+        possessor = re.search(r"['’]s$", word) or (language == 'tr' and re.match(_TR_GENITIVE_POSSESSOR, word))
+        opens_phrase = language != 'tr' and (i == 0 or body_words[i - 1] in _PHRASE_OPENER[language])
+        if possessor or (opens_phrase and not describes_said):
+            return None, 'adds-unsaid-content'
+    if language == 'tr' and _tr_role_changed(words, messages):
+        return None, 'role-changed'
+    # Negation parity (lexical), per coordinated part of the line. A part that rests only on words the user said in a
+    # negated clause ("not worried about my health") needs a negation of its own; a part that negates may only use
+    # words the user also said in a negated clause (the line may not move the negation onto "job" or "Ergebnis");
+    # a line may not negate when the user never did.
     plain, negated = _negated_user_words(messages, language)
     negated_only = [n for n in negated if len(n) >= 3 and n not in plain]
     plain_said = [p for p in plain if len(p) >= 3]
+    negated_said = [n for n in negated if len(n) >= 3]
     line_negates = any(_is_negation(w, language) for w in _words(body, language))
-    for part in re.split(_ITEM_BREAK[language], body):
-        from_user = [w for w in _words(part, language) if is_content(w) and _grounded(w, said, language)]
-        # Short words (job, son, Weg) are not content words above, but one said away from a negation anchors the part.
-        anchored = any(len(w) == 3 and w not in _FUNCTION_WORDS[language] and w in plain for w in _words(part, language))
-        if from_user and not line_negates and not anchored and all(
-                _grounded(w, negated_only, language) and not _grounded(w, plain_said, language) for w in from_user):
-            return None, 'negation-not-kept'
     if line_negates and not negated:
         return None, 'negation-added'
+    for part in re.split(_ITEM_BREAK[language], body):
+        part_words = _words(part, language)
+        from_user = [w for w in part_words if is_content(w) and _grounded(w, said, language)]
+        # Short words (job, son, Weg) are not content words above, but one the user said anchors the part.
+        short = [w for w in part_words if len(w) == 3 and w not in _FUNCTION_WORDS[language] and (w in plain or w in negated)]
+        if any(_is_negation(w, language) for w in part_words):
+            if any(not _grounded(w, negated_said, language) for w in from_user) or any(w not in negated for w in short):
+                return None, 'negation-moved'
+        elif from_user and not any(w in plain for w in short) and all(
+                _grounded(w, negated_only, language) and not _grounded(w, plain_said, language) for w in from_user):
+            return None, 'negation-not-kept'
     return text, None
 
 
