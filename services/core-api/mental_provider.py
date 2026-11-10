@@ -364,7 +364,7 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
             if catalog:
                 from mental_closing_catalog import prompt_rules
                 prompt = prompt.replace('  "professionalSupportReason": null\n}\n',
-                                        '  "professionalSupportReason": null,\n  "closingCandidates": [{"id": "Cnn", "messageIndex": 0, "quote": "exact user words"}]\n}\n', 1)
+                                        '  "professionalSupportReason": null,\n  "closingCandidates": []\n}\n', 1)
                 rules_after = 'Never copy template instructions into this field.\n'
                 prompt = prompt.replace(rules_after, rules_after + prompt_rules(current_language()), 1)
             elif spoken:

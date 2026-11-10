@@ -272,8 +272,10 @@ def spoken_text(pattern_id, language):
 def prompt_rules(language):
     """Inserted into the analysis prompt (normal closing only)."""
     lines = '\n'.join(f"{p['id']}: {p['text'][language]} — use when: {p['condition']}" for p in catalog()['patterns'])
-    return ('closingCandidates is required: up to 3 objects {"id": "Cnn", "messageIndex": n, "quote": "..."} choosing the '
-            'catalog line(s) below that state what the user said about themselves, ordered by what the user stressed most. '
+    return ('closingCandidates is required: a list of up to 3 objects with the keys id (a catalog id from the list below, '
+            'such as C09), messageIndex (the number in brackets before the user message) and quote (words copied from that '
+            'message); fill it with the catalog line(s) that state what the user said about themselves, ordered by what the '
+            'user stressed most; never copy an example value. '
             'messageIndex is the number in brackets before a USER message; quote is copied character for character from '
             'that user message (never from the assistant). Choose a line only when the user said it about themselves, now, '
             'without negation; not for someone else, not for something that is over, not from an assistant suggestion, '
