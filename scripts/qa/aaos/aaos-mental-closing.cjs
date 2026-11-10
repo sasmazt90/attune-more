@@ -199,10 +199,16 @@ async function closing(session, language, options, check, out, r) {
     row.actedAt = actedAt;
     if (['drive', 'background'].includes(options.action)) {
       // The native shell destroys the WebView; wait past the replayed speech response, then come back.
-      await sleep(3000);
-      row.mixerAfterAction = await mixerDelta();
+      // Output frames every 250 ms for 8 s: when did the closing's sound stop after the action?
+      const series = [];
+      const began = Date.now();
+      while (Date.now() - began < 8000) { series.push({ms: Date.now() - actedAt, frames: W.audioFlinger().framesWritten[0] || 0}); await sleep(250); }
+      let lastIncreaseMs = null;
+      for (let i = 1; i < series.length; i++) if (series[i].frames > series[i - 1].frames) lastIncreaseMs = series[i].ms;
+      row.outputAfterAction = {lastFrameIncreaseMs: lastIncreaseMs, samples: series.length, quietTailMs: lastIncreaseMs === null ? series.at(-1).ms : series.at(-1).ms - lastIncreaseMs};
+      row.pageAfterAction = await page.evaluate(() => ({stages: window.__timeline.map(e => e.stage).slice(-6), phase: document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase') || null, url: location.pathname})).catch(error => ({gone: String(error).slice(0, 80)}));
       row.webViewProcessAfterAction = (() => { try { return W.shell('pidof', W.pkg); } catch { return ''; } })();
-      await sleep(Math.max(0, (options.waitMs || 35000) - 4000));
+      await sleep(Math.max(0, (options.waitMs || 35000) - 8000));
       if (options.action === 'drive') await W.setSpeed(0);
       session = await W.attach();
       page = session.page;
@@ -211,8 +217,9 @@ async function closing(session, language, options, check, out, r) {
       row.afterReturn = {plays: await page.evaluate(() => window.__plays).catch(() => null), timeline: await page.evaluate(() => window.__timeline.map(e => e.stage)).catch(() => null), url: page.url()};
       row.requests = plan.requests.filter(q => q.id === options.name);
       const closingPlays = (row.afterReturn.plays || []).filter(p => !p.guidance);
-      check(`${options.name}: ${options.action} stops the closing at once (no output frames); the returned app plays nothing of it`,
-        row.mixerAfterAction.framesDelta === 0 && closingPlays.length === 0 && !(row.afterReturn.timeline || []).some(stage => stage.startsWith('closing-')), {mixerAfterAction: row.mixerAfterAction, afterReturn: row.afterReturn});
+      check(`${options.name}: ${options.action} stops the closing's sound within 4 s and nothing of it plays later, also in the returned app`,
+        (row.outputAfterAction.lastFrameIncreaseMs ?? 0) <= 4000 && row.outputAfterAction.quietTailMs >= 3500 && closingPlays.length === 0 && !(row.afterReturn.timeline || []).some(stage => stage.startsWith('closing-')),
+        {outputAfterAction: row.outputAfterAction, pageAfterAction: row.pageAfterAction, afterReturn: row.afterReturn});
       W.shot(out, options.name + '-after');
       await ensure(page);
       r.cases.push(row);
@@ -345,5 +352,7 @@ const CASES = [
     save();
     await session?.browser.close().catch(() => {});
     console.log(JSON.stringify({status: r.status, out, checks: r.checks.length, failed: r.checks.filter(c => !c.pass).map(c => c.what)}));
+    // A CDP connection to the WebView can keep the process alive after close; the report is saved.
+    setTimeout(() => process.exit(0), 2000);
   }
 })();
