@@ -239,7 +239,7 @@ AAOS interruptions with the same replay set (48 checks, 47 passed): cancel (+ ne
 
 **AWS.** WEB 09:40–10:52, 11:04–11:15 and 11:20–11:47 UTC; AAOS 09:57–10:49 and 11:15–11:47; GPU 09:44:03–11:16:13 (limit 150 min; OS timer at 12:10 and a local guard). The session was paused by a usage limit from about 10:06 to 11:02: the OS timers stopped WEB and AAOS on their own, and the GPU, whose jobs had finished at 10:14, stayed up inside its limit until the results were pulled. Final state by API at 11:48 UTC: GPU terminated, its volume and security group gone, WEB and AAOS stopped, product configuration hashes unchanged. Calculated cost 3.88 USD of the approved 5 (not yet on a bill; taxes excluded).
 
-## Review 2026-11-10, round 4 (local work; the live GPU run awaits approval)
+## Review 2026-11-10, round 4 (local work before the live run)
 
 Raw data: [review-20261110-round4-local.json](review-20261110-round4-local.json); plan, costs and fixed criteria of the
 live GPU run: [GPU-E2E-PLAN-20261110-round4.md](GPU-E2E-PLAN-20261110-round4.md). Nothing in this section was measured
@@ -299,15 +299,75 @@ only) and kept in `warm_log`; a request that arrives during it records the wait 
 the preparation is never hidden in warm request times. The live run measures cold, prepared and warm closings
 separately (P2/P3), and the memory of two resident models (P6).
 
-**Live GPU run: prepared, not run.** Tools: `remote_resident_bridge.py` / `remote_resident_server.py` (the resident
+**Live GPU run: prepared here, run later the same day (next section).** Tools: `remote_resident_bridge.py` / `remote_resident_server.py` (the resident
 worker's unchanged line protocol over one private TCP connection; the API, gates, verification and cancellation stay on
 WEB), `closing_live_probe.py` (cold / prepared / warm closings per language, warm-up rows, concurrency pairs) and an
 optional live mode of the AAOS harness (`CLOSING_LIVE_API`). Scope, costs (≈ 4.2 USD expected, ≈ 5.05 USD at the hard
 limits) and criteria: see the plan.
 
+## Review 2026-11-10, round 4: live run (WEB, GPU, AAOS emulator)
+
+Raw data: [review-20261110-round4-live.json](review-20261110-round4-live.json); the raw files (timelines, server and
+GPU logs with the 1 s memory series, AAOS assertions, personal-line WAVs, listening samples, cost, read-back hashes)
+are in the owner's Drive folder named there. Criteria and limits were fixed before the run in
+[GPU-E2E-PLAN-20261110-round4.md](GPU-E2E-PLAN-20261110-round4.md) section 6 and were not changed afterwards; the
+numbers below come from `scripts/mental_closing_abc/closing_live_report.py`. Live, replay (round 3) and unit results are
+kept apart. The test servers were built from this branch; product services were not touched and the feature stays off.
+
+Path (WEB): system Chrome → the branch's Next test server → test API (product API environment, one-off bearer) → real
+provider analysis → GPU synthesis over a private connection (g5.xlarge, only WEB → TCP 8191) → playback in Chrome.
+Only the microphone is replaced, by one synthetic non-personal utterance per closing. Same model, weights, reference
+voice, FP32 with TF32 off, settings and watermark; hashes verified on the GPU before the server started.
+
+| Criterion | Result |
+| --- | --- |
+| P1 warm, C ends → personal line ≤ 1.0 s, 8 of 8 per language, ≥ 22 of 24 | **not met**: TR 8/8, EN 8/8, **DE 7/8**, overall 23/24. In de-warm-5 the validator refused the provider's line (`adds-unsaid-content`): written summary kept, nothing spoken |
+| P2 prepared start (9 fresh processes) | met, 9/9, C → personal 125–127 ms |
+| P3 cold (report only) | 1 process per language instead of the planned 3 (time); C → personal 11.6 / 13.7 / 13.9 s (DE/TR/EN); an earlier stopped attempt's TR cold closing: 23.5 s |
+| P4 ready vs played | warm 23/24, prepared 9/9, cold 3/3 |
+| P5 errors | 36 analyses and 107 speech responses, all 200; one refused line counted on its own |
+| P6 memory, two resident models | met: GPU at most 7,123 MiB of 23,028 MiB; host RSS 7.27–7.48 GiB per worker (first worker 11.15 GiB peak, host has 16 GiB) |
+| P7 two simultaneous requests ×3 | met: one 200 (4.45–4.53 s) and one 429 (0.002 s) per pair; no overlapping worker |
+| P8 AAOS | timing 5 of 6 (≥ 5 needed); stop criterion **not fully met**: 1 of 11 stop cases not measurable, 1 extra in-flight check failed (below) |
+| P9 live provider, 24 per language | TR 20, EN 23, DE 23 accepted (round-3 validator on the same lines: DE 18) |
+
+Warm closings (n = 24), median (min–max) in ms: end tap → A 19; A → B and B → C 126; C → personal 126 (125–128, p95
+128); analysis 2,697 (1,818–3,158); speech request 5,516 (4,610–6,330), of which speaker verification 2,170 and GPU
+worker 3,363; `warm-wait` ≤ 0.003. The personal line was ready before C ended in every warm and prepared closing, so the
+only gap is the configured ≈ 0.13 s join. Warm-up rows (never inside a closing's numbers): default 22.7–23.3 s,
+female-calm-v1 15.8–16.0 s; process start → warm ≈ 24 s (cold) and ≈ 39.4 s (prepared). Cold female request
+19.6–20.6 s: verification 2.2 s, model load 11.7–12.4 s, inference 3.3–3.9 s.
+
+GPU step diagnostic (separate run; its timers synchronize the GPU, so it is not mixed into P1–P8), warm medians:
+speech-token generation 2.19 (EN) – 2.87 s (DE), about 75–79 % of synthesis; waveform decoding 0.61–0.63 s;
+conditioning 0.065 s; ≈ 25.6 ms per speech token; real-time factor 0.82–0.88. Per-request speaker verification
+(bundle re-hash + manifest + approval) is about 40 % of a warm request on WEB; it was kept unchanged. When a closing is
+cancelled or refused mid-request the worker is killed and the API re-warms a new one with female-calm-v1 (23.3–23.5 s,
+three times in the AAOS run); a closing starting inside that window would wait.
+
+AAOS emulator, live: the WebView's own request went to the branch's real `/api/mental-neural-speech` route on the AAOS
+host, then to the test API on WEB (only AAOS → TCP 8190) and the GPU. **Not the product deployment** (no web-aaos on
+WEB, no mTLS hop, one-off bearer, park gate fed by a harness mirror); no product-security or OEM conclusion. 18 cases,
+71 checks, 69 passed. Complete closings, C → personal: 1,604 / 129 / 128 / 128 / 127 / 127 ms. In the first case the
+emulator played every element about twice as fast (personal line over in 1.95 s of 3.84 s audio; Android mixer 82,944
+frames per 1 s window against 49,536–50,688 in every other case), which shortened A+B+C to 5.8 s; the sample is kept,
+cause not determined. Stops, measured from a player Android reported `started`: 74–221 ms in 9 cases. Failed:
+`de-consent-revoked-during-A` — the player was seen started 30 ms after the stage but not at the consent (−2 ms), so the
+stop time is not measurable and the case is not passed; `tr-drive-during-C` — the speech request in flight was answered
+by the test API's park gate with 409 after 90 ms instead of being aborted (no audio played; the check is kept as
+defined). Consent before start: the player never started. No case played closing audio afterwards.
+
+Open: P1 German 7/8; the five declared `knownLimitation` lines; conservative rejects (“odaklanma zorluğu”, “Sorge”,
+“worn out”, “Yorgunluktan …”, and “das Vermissen von Freunden”, which round 3 accepted but the user never said); cold
+closings without preparation; per-request verification cost; the AAOS consent-during-A stop time; owner listening
+approval. Cost of the run (list prices × API timestamps, taxes excluded): AWS ≈ 3.11 USD (GPU 83.5 min, WEB 89.5 min,
+AAOS 43.1 min) + provider ≈ 0.1 USD estimated, within the 5.50 USD cap. Final state read from the API: AAOS stopped
+first, then WEB; GPU terminated with its volume and security group; the temporary WEB group detached and deleted and
+the WEB and AAOS group rules equal to the pre-run snapshot; no extra volume, address or running instance.
+
 ## Tests
 
-`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison. Round 4 adds the five round-3 limitations as refused cases, the German stem cases and new declared limitations (80
+`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison. Round 4 adds `tests/unit/test_closing_live_probe.py` and `tests/unit/test_closing_live_report.py` (warm-up gate; the 8-of-8 rule and blocked samples), the five round-3 limitations as refused cases, the German stem cases and new declared limitations (80
 cases), `tests/unit/aaos_closing_stop_verdict_runtime.cjs` (AAOS stop decisions on recorded player series),
 `tests/unit/test_mental_remote_resident.py` (remote worker bridge with a stub model), warm-up tests in
 `tests/unit/test_mental_neural_resident.py` and `scripts/mental_closing_abc/validator_recorded_lines_eval.py`.

@@ -181,3 +181,16 @@ given or implied by the run.
    in flight at the stop were aborted and never answered. **Not the product deployment:** the route runs on the AAOS
    host instead of web-aaos on WEB, there is no mTLS Caddy hop, the API is a test process with a one-off bearer, and its
    park gate is fed by the harness mirror of the vehicle speed. These results do not establish product security.
+
+## 9. Outcome (added after the run; sections 1–8 are unchanged)
+
+Run on 2026-11-10 within the approved limits: GPU 83.5 of 120 min, WEB 89.5 of 150 min, AAOS 43.1 of 100 min; cost
+≈ 3.11 USD AWS + ≈ 0.1 USD provider (estimate), taxes excluded. The GPU timer was verified against LaunchTime before any
+work (`gpu-timer-verified`); no prepared or warm closing ran without its warm-up rows. Deviations: P3 with 1 instead of 3
+processes per language; one attempt stopped to apply that reduction and one failed at start (port still held), neither
+counted. Results against section 6: P1 **not met** (DE 7/8; TR 8/8, EN 8/8, overall 23/24); P2 met (9/9); P4 warm
+23/24, prepared 9/9, cold 3/3; P5 no failed request, one refused line; P6 met (7,123 MiB GPU); P7 met (3/3 pairs);
+P8 timing 5/6, stop criterion not fully met (one stop not measurable, one in-flight check failed as defined); P9 TR 20,
+EN 23, DE 23 of 24. Details and raw data: [review-20261110-round4-live.json](review-20261110-round4-live.json) and the
+README section “round 4: live run”. Final state: AAOS stopped, then WEB; GPU terminated; temporary groups and the GPU
+volume deleted; WEB's network configuration back to its original single group.
