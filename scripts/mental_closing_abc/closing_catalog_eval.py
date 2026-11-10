@@ -116,7 +116,14 @@ def main():
     parser.add_argument('mode', choices=['oracle', 'live'])
     parser.add_argument('--repeat', type=int, default=1)
     parser.add_argument('--inputs', default=str(INPUTS))
+    parser.add_argument('--product-env', action='store_true',
+                        help='live on the WEB host: use the running product API process environment, read in memory only')
     args = parser.parse_args()
+    if args.product_env:
+        sys.path.insert(0, str(ROOT / 'scripts/mental_closing_abc'))
+        import os
+        from closing_realpath_probe import product_api_environment
+        os.environ.update(product_api_environment(8000)[0])
     spec = json.loads(Path(args.inputs).read_text('utf-8'))
     out = run_oracle(spec) if args.mode == 'oracle' else run_live(spec, args.repeat)
     json.dump(out, sys.stdout, ensure_ascii=False, indent=1)

@@ -795,7 +795,15 @@ const NOT_APPLICABLE6 = [
     await assetParity(session.page, check, r);
     save();
     if (ROUND === 6) for (const c of NOT_APPLICABLE6) check.tri(`${c.name}: not applicable to the catalog closing`, 'NOT_APPLICABLE', {reason: c.reason});
+    // CLOSING_DEADLINE_EPOCH (seconds): a case that could not finish before it is not started; it is reported as not run
+    // (BLOCKED), never dropped. Cases are listed in priority order (L3, L1, L2, then the kept controls).
+    const deadline = Number(process.env.CLOSING_DEADLINE_EPOCH || 0) * 1000, perCase = Number(process.env.CLOSING_CASE_BUDGET_MS || 90000);
     for (const c of (ROUND === 6 ? CASES6 : CASES).filter(c => !only.length || only.includes(c.name))) {
+      if (deadline && Date.now() + perCase > deadline) {
+        check.tri(`${c.name}: not run (window time limit reached before the case could finish)`, 'BLOCKED', {deadline: new Date(deadline).toISOString()});
+        r.notRun = [...(r.notRun || []), c.name];
+        continue;
+      }
       try {
         session = c.reply ? await replyDrive(session, c.language, c, check, out, r) : await closing(session, c.language, c, check, out, r);
       } catch (error) {
