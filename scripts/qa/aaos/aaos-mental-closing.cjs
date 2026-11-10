@@ -201,8 +201,8 @@ async function calibrateTap(page) {
     dpr: await page.evaluate(() => devicePixelRatio)};
 }
 async function realTap(page, locator) {
-  tapMap = await calibrateTap(page);
-  if (!tapMap.ok) return {kind: 'adb input tap', calibrated: false, calibration: tapMap};
+  // The mapping is measured on page entry (calibrateTap), before the conversation, so the tap itself is immediate.
+  if (!tapMap || !tapMap.ok) return {kind: 'adb input tap', calibrated: false, calibration: tapMap};
   const box = await locator.boundingBox();
   const cx = box.x + box.width / 2, cy = box.y + box.height / 2;
   const x = Math.round(tapMap.ox + cx * tapMap.sx), y = Math.round(tapMap.oy + cy * tapMap.sy);
@@ -311,6 +311,7 @@ async function closing(session, language, options, check, out, r) {
   const tr = W.translator(language);
   plan.language = language; plan.conversation = options.conversation || 1; plan.start = options.start || 'warm'; plan.id = options.name;
   const build = await open(page, language);
+  if (options.realTap) tapMap = await calibrateTap(page);
   const turnTaps = await conversation(page, language, tr);
   const t0 = await page.evaluate(() => performance.now());
   const finish = page.getByRole('button', {name: tr('Görüşmeyi Bitir'), exact: true});

@@ -27,15 +27,20 @@ One controller and one audio-focus owner cover the whole closing. Only one outpu
 
 The normal path used to speak the written `summaryText` (TR 19, EN 24, DE 22 words in the first probe; 25–42 words from the live provider on 2026-11-10). It now asks the **same** `/analyze-session` call for an additional `spokenSummary` (`spokenSummary: true`, legacy engine only; no second provider request). `summaryText` is unchanged and remains the screen/history text.
 
-Server contract (`validate_spoken_summary` in `services/core-api/mental_analysis.py`, enforced on every response): one sentence, ≤ 12 words, ≤ 100 characters, the session language (TR/EN/DE), formal address (*siz*/*Sie*), at least one word stem the user actually said, none of the A/B/C bridge phrases (thanks, closing, “summary”), and no advice, suggestion, reassurance or evaluation. NFC and whitespace are normalised; nothing is ever cut. A failing line is returned as `spokenSummary: null` with `spokenSummaryStatus` (`missing`, `too-many-words`, `not-grounded-in-user-words`, `advice-or-evaluation`, …); the client then speaks nothing (it re-checks the same bounds before speaking).
+Server contract (`validate_spoken_summary` in `services/core-api/mental_analysis.py`, enforced on every response). These are **formal** checks: one sentence, ≤ 12 words, ≤ 100 characters; the session language (letters, and no function words exclusive to another language); the address of the recorded closing (Turkish *sen*, German *Sie*); none of the A/B/C bridge phrases; none of the listed advice, suggestion, reassurance or evaluation markers; the recap form (“… söz ettin.” / “You talked about …” / “Sie sprachen über …”); in Turkish the ablative before the verb; lexical grounding — at least one content word the user said, and at most one content word the user did not say (only next to two that they did). NFC and whitespace are normalised; nothing is ever cut. A failing line is returned as `spokenSummary: null` with `spokenSummaryStatus` (`missing`, `too-many-words`, `wrong-language`, `address-mismatch`, `not-recap-form`, `tr-ablative-required`, `adds-unsaid-content`, `not-grounded-in-user-words`, `advice-or-evaluation`, …); the client then speaks nothing (it re-checks the bounds before speaking).
 
-The prompt puts `spokenSummary` in the JSON template with a second-person recap form (“… söz ettiniz.” / “You talked about …” / “Sie sprachen über …”). Two earlier prompt versions were rejected by measurement with the live provider (`gpt-4o-mini` on WEB):
+**Not guaranteed: meaning.** A line made of the user's own words can still reverse a negation (“I am not worried about my health” → “You talked about worries about your health”) or add a single unsaid word (“… and your boss”). `tests/unit/fixtures/mental_spoken_summary_cases.json` keeps formal acceptance and content labels apart (42 synthetic TR/EN/DE cases, the reviewers' four counter-examples included); a test fails unless every formally accepted line with wrong content is declared there as a known limitation.
+
+Turkish address: the recorded A/B/C closing (owner's verbatim texts) uses *sen* (“Paylaştıkların…”, “Seni…”), so the dynamic line in the normal closing now uses *sen* too. The structured-v1 library keeps its documented formal-address rule (*siz*); in that path A/B/C and the structured `spokenSummary` therefore still differ in address — an open decision for the owner (new *siz* recordings or a changed structured rule), not changed here. No recording was regenerated.
+
+The prompt puts `spokenSummary` in the JSON template with the recap form, asks for the user's own words, kept negations and the address above. Earlier prompt versions were rejected by measurement with the live provider (`gpt-4o-mini` on WEB):
 
 | Prompt | Result with the real provider |
 | --- | --- |
 | Rule appended after the conversation, key not in the template | No `spokenSummary` at all (`missing`, TR 2/2) |
-| Key in the template, no recap form | Lines were reassurance/advice (“It's normal to feel anxious…”, “…destek almayı düşünebilirsiniz”, “…effectively”); DE 3 of 4 rejected as not grounded |
-| Recap form, no advice/evaluation (current) | 29 of 30 valid (TR 10/10, EN 10/10, DE 9/10; one 13-word DE line rejected, not shortened); 5–11 words |
+| Key in the template, no recap form | Lines were reassurance/advice (“It's normal to feel anxious…”, “…destek almayı düşünebilirsiniz”, “…effectively”); DE 3 of 4 failed grounding |
+| Recap form, Turkish *siz* (2026-11-10 morning) | 29 of 30 passed the then-current formal checks; one TR line had a grammar error (“…uzaklaşmak söz ettiniz”) |
+| Recap form, Turkish *sen*, user's own words, kept negations (current) | see *Review 2026-11-10, round 2* |
 
 ## Enable, disable, fall back
 
