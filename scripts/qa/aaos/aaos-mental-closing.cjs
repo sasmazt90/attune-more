@@ -104,7 +104,7 @@ async function install(page) {
           return await route.continue();
         }
         // Ordinary conversation turns are not under test: they get the second conversation's short recording.
-        const row = body.speakerProfile === 'female-calm-v1' ? speech(body.text, plan.start) : replay.tts.find(t => t.status === 200 && t.label === `${plan.language}-c2-short-warm`);
+        const row = body.speakerProfile === 'female-calm-v1' ? speech(body.text, plan.start) : (replay.tts.find(t => t.status === 200 && t.label === `${plan.language}-c2-short-warm`) || replay.tts.find(t => t.status === 200 && t.language === plan.language));
         if (!row) { plan.requests.push({kind: 'tts', id, missing: crypto.createHash('sha256').update(body.text || '').digest('hex')}); return await route.fulfill({status: 503, body: '{}'}); }
         const delay = body.speakerProfile ? row.seconds * 1000 : 1500;
         plan.requests.push({kind: 'tts', id, closing: !!body.speakerProfile, label: row.label, at: Date.now(), delayMs: Math.round(delay)});
@@ -309,7 +309,7 @@ function metrics(events, t0) {
 async function closing(session, language, options, check, out, r) {
   let {page} = session;
   const tr = W.translator(language);
-  plan.language = language; plan.conversation = options.conversation || 1; plan.start = options.start || 'warm'; plan.id = options.name;
+  plan.language = language; plan.conversation = CONVERSATION_OVERRIDE[language] || options.conversation || 1; plan.start = options.start || 'warm'; plan.id = options.name;
   const build = await open(page, language);
   if (options.realTap) tapMap = await calibrateTap(page);
   const turnTaps = await conversation(page, language, tr);
@@ -477,6 +477,9 @@ async function assetParity(page, check, r) {
   check('All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest', seen.length === 45 && mismatched.length === 0, r.assetParity);
 }
 
+// CLOSING_CONVERSATIONS=de:3,tr:1 uses that conversation for every case of the language (a replay set may hold no valid
+// spoken line for a language's first conversations; the stricter validator refuses both German ones of 2026-11-10).
+const CONVERSATION_OVERRIDE = Object.fromEntries((process.env.CLOSING_CONVERSATIONS || '').split(',').filter(Boolean).map(x => x.split(':')).map(([l, n]) => [l, Number(n)]));
 const CASES = [
   // Complete closings: CDP click and calibrated real Android touch, TR/EN/DE.
   {name: 'tr-complete-cold-cdp', language: 'tr', start: 'cold', conversation: 1},
