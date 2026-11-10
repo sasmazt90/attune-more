@@ -17,7 +17,9 @@
   "de-sister": ["Ich streite oft mit meiner Schwester und das macht mich traurig."],
   "de-lonely": ["Seit dem Umzug fühle ich mich einsam."],
   "de-negation": ["Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."],
-  "de-care": ["Die Pflege meines Vaters kostet mich viel Kraft."]
+  "de-care": ["Die Pflege meines Vaters kostet mich viel Kraft."],
+  "de-phone": ["Meine Prüfungen stehen bevor und ich kann mich nicht konzentrieren.", "Mein Handy lenkt mich ständig ab."],
+  "tr-rent-live": ["Bu ay kiramı ödemekte zorlanıyorum.", "Geceleri hesap yapıp duruyorum."]
  },
  "cases": [
   {"id": "tr-ok-work", "language": "tr", "user": "tr-work", "candidate": "İş baskısından ve bölünen uykundan söz ettin.", "formal": "valid", "content": "correct"},
@@ -61,6 +63,8 @@
   {"id": "de-informal", "language": "de", "user": "de-work", "candidate": "Du hast über Stress bei der Arbeit gesprochen.", "formal": "address-mismatch", "content": "wrong-address"},
   {"id": "de-advice", "language": "de", "user": "de-work", "candidate": "Sie sollten eine Pause von der Arbeit machen.", "formal": "advice-or-evaluation", "content": "advice"},
   {"id": "de-bridge", "language": "de", "user": "de-work", "candidate": "Ich fasse Ihre Sorgen kurz zusammen.", "formal": "repeats-bridge-phrase", "content": "not-a-recap"},
-  {"id": "de-not-recap", "language": "de", "user": "de-sister", "candidate": "Ihre Schwester macht Sie traurig.", "formal": "not-recap-form", "content": "correct"}
+  {"id": "de-not-recap", "language": "de", "user": "de-sister", "candidate": "Ihre Schwester macht Sie traurig.", "formal": "not-recap-form", "content": "correct"},
+  {"id": "de-separable-verb", "language": "de", "user": "de-phone", "candidate": "Sie sprachen über Ablenkungen durch Ihr Handy.", "formal": "valid", "content": "correct"},
+  {"id": "tr-live-first-person", "language": "tr", "user": "tr-rent-live", "candidate": "Kiramı ödemekte zorlandığından ve geceleri hesap yapıp durduğundan söz ettin.", "formal": "valid", "content": "wrong-person", "knownLimitation": true}
  ]
 }

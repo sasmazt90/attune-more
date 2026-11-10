@@ -316,7 +316,7 @@ def spoken_summary_rules():
             + SPOKEN_SUMMARY_FORM[current_language()] + '. '
             'Every topic word must be a word the user said (not a word only the assistant used); add no fact, cause, '
             'quotation, history, diagnosis or medication advice the user did not state, and keep negations as the user said them. '
-            'At most 12 words and 100 characters; keep full detail in summaryText. '
+            'Aim for 6 to 10 words; never more than 12 words or 100 characters; keep full detail in summaryText. '
             'No evaluation, reassurance, advice or suggestion, including no suggestion to seek support. '
             'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
             'Address: Turkish informal singular (sen), as the recorded closing does, with the topic in the ablative case '

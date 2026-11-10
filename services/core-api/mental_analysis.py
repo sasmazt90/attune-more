@@ -125,6 +125,7 @@ def _words(text, language):
 
 
 def _grounded(token, said, language):
+    import re
     """Lexical grounding only: a shared stem (>= 5 letters, or >= 4 letters covering 60% of the shorter word; Turkish
     roots: >= 4 letters, as suffixes change the stem's end), or one word containing the other (compounds). It cannot
     tell whether the meaning, e.g. a negation, was kept."""
@@ -139,6 +140,11 @@ def _grounded(token, said, language):
             return True
         if (len(word) >= 5 and word in token) or (len(token) >= 5 and token in word):
             return True
+        # German separable verbs and nouns made from them ("lenkt ... ab" -> "Ablenkungen"): the verb stem inside the word.
+        if language == 'de':
+            stem = re.sub(r'(en|st|t|e|n)$', '', word)
+            if len(stem) >= 4 and stem in token:
+                return True
     return False
 
 

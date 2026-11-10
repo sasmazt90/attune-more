@@ -85,7 +85,7 @@ def test_corpus_formally_valid_but_wrong_content_is_declared():
     accepted_wrong = {c['id'] for c in CORPUS['cases'] if _corpus_result(c) == 'valid' and c['content'] != 'correct'}
     declared = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
     assert accepted_wrong == declared
-    assert {c['content'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {'negation-flip', 'added-fact'}
+    assert {c['content'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {'negation-flip', 'added-fact', 'wrong-person'}
 
 
 def test_corpus_covers_the_review_counter_examples_and_all_languages():
@@ -130,7 +130,7 @@ def test_one_call_requests_and_validates_spoken_line(monkeypatch, language):
     result, calls = _analyzer(monkeypatch, {**BASE, 'spokenSummary': line}, language)
     assert len(calls) == 1, 'no second provider call'
     prompt = calls[0]['messages'][-1]['content']
-    assert 'Also return spokenSummary' in prompt and 'At most 12 words and 100 characters' in prompt
+    assert 'Also return spokenSummary' in prompt and 'never more than 12 words or 100 characters' in prompt
     assert 'Do not thank the user' in prompt and 'Every topic word must be a word the user said' in prompt
     # The key is in the JSON template itself and the rule precedes the conversation: a live provider ignored a
     # trailing instruction for a key the template did not list.
