@@ -69,14 +69,43 @@ _BRIDGE_PHRASES = {
     'de': (r'\bdank', r'\babschluss', r'\bbeende', r'\bschließen\b', r'\bam ende unseres', r'\bfasse\b',
            r'\bzusammenfassung', r'\btrage\b.*\bzusammen'),
 }
-# Characters that cannot occur in the requested language's own words (a heuristic language check).
+# Characters that cannot occur in the requested language's own words.
 _FOREIGN_LETTERS = {'en': 'ğĞıİşŞçÇöÖüÜäÄß', 'de': 'ğĞıİşŞçÇ', 'tr': 'äÄß'}
-_INFORMAL = {'de': r'\b(du|dich|dir|dein\w*|euch|euer\w*)\b', 'tr': r'\b(sen|seni|sana|senin|seninle)\b', 'en': None}
-# The line restates what the user said. Clear markers of advice, suggestion, reassurance or evaluation reject it
-# (a live provider returned "It's normal to feel ...", "... effectively" and "... destek almayı düşünebilirsiniz").
+# Function words: what is not a content word, and (when exclusive to another language) a sign of the wrong language.
+_FUNCTION_WORDS = {
+    'en': set('a an the and or but of to in on at for with about from by into over after before as is are was were be been '
+              'being am i me my you your yours we our they them their he she it its this that these those there here very '
+              'really much many lot lots some any more most also just still so too not no than then when while how what '
+              'which who do does did have has had can could will would may might must talked spoke'.split()),
+    'de': set('der die das den dem des ein eine einen einem einer eines und oder aber von zu zum zur in im an am auf für mit '
+              'bei über unter nach vor aus als ist sind war waren sein bin bist hat haben hatte ich mich mir mein meine '
+              'meinen meinem meiner sie ihr ihre ihren ihrem ihrer ihres ihnen es sich nicht kein keine sehr viel viele '
+              'auch noch so wie was wer wenn dass da dann seit sprachen gesprochen'.split()),
+    'tr': set('ve veya ile için bir bu şu o çok daha en de da ki mi mı mu mü ama ya gibi kadar sonra önce her hiç ben beni '
+              'bana benim sen seni sana senin söz ettin bahsettin'.split()),
+}
+# Exclusive markers: words that only the other languages use (a line containing one is in the wrong language).
+_EXCLUSIVE = {lang: words - set().union(*(w for l, w in _FUNCTION_WORDS.items() if l != lang)) for lang, words in _FUNCTION_WORDS.items()}
+# The required sentence form of the recap, per language (Turkish uses sen, as the recorded A/B/C closing does).
+_RECAP_FORM = {
+    'en': r'^you (?:talked|spoke) about (?P<body>.+)$',
+    'de': r'^sie (?:sprachen über (?P<body>.+)|haben über (?P<body2>.+) gesprochen)$',
+    'tr': r'^(?P<body>.+) (?:söz ettin|bahsettin)$',
+}
+_ADDRESS = {
+    # Turkish: second person singular (sen). Plural/polite forms (siz, -ınız/-iniz + case, ettiniz) do not match the recordings.
+    'tr': r'\b(siz|sizin|size|sizi|sizinle|sizden|sizde)\b|\w*[ıiuü]n[ıiuü]z(dan|den|tan|ten|a|e|ı|i|u|ü|da|de|la|le|ın|in|un|ün)?\b|(ettiniz|bahsettiniz)\b',
+    'de': r'\b(du|dich|dir|dein\w*|euch|euer\w*|hast|bist)\b',
+    'en': None,
+}
+# Words that state no fact of their own and may appear without the user having said them.
+_NEUTRAL = {'en': {'feeling', 'feelings', 'things', 'being', 'topic', 'topics'}, 'de': {'gefühl', 'gefühle', 'thema', 'themen'},
+            'tr': {'konu', 'konular', 'konulardan', 'konusundan', 'duygu', 'duygulardan'}}
+# Clear markers of advice, suggestion, reassurance or evaluation (live examples: "It's normal to feel ...",
+# "... effectively", "... destek almayı düşünebilirsiniz").
 _ADVICE_OR_EVALUATION = {
-    'tr': (r'düşünebilirsiniz', r'öneri', r'almalısınız', r'yapmalısınız', r'\bdeneyin', r'deneyebilirsiniz', r'normaldir',
-           r'\bnormal\b', r'anlaşılır', r'başarıyla', r'harika', r'çok iyi'),
+    'tr': (r'düşünebil', r'öneri', r'\w+m[ae]l[ıi]s[ıi]n', r'\bdeneyin', r'deneyebilir', r'normaldir', r'\bnormal\b',
+           r'anlaşılır', r'başarıyla', r'harika', r'çok iyi', r'\biyi ki\b'),
     'en': (r'\bshould\b', r'\bconsider', r'\bmight want\b', r'\btry\b', r"\bit'?s (normal|okay|ok|fine|good|great|understandable)\b",
            r'\b(normal|understandable)\b', r'\beffectively\b', r'\bwell done\b', r'\bgreat\b', r'\brecommend'),
     'de': (r'\bsollten\b', r'\bempfehl', r'\bversuchen sie\b', r'\bkönnten sie\b', r'\b(ist|sei) (normal|verständlich|gut|okay)\b',
@@ -84,17 +113,48 @@ _ADVICE_OR_EVALUATION = {
 }
 
 
-def _stems(text):
+def _fold(text, language):
+    if language == 'tr':
+        text = text.replace('I', 'ı').replace('İ', 'i')
+    return text.lower()
+
+
+def _words(text, language):
     import re
-    return {w[:5] for w in re.findall(r'\w+', text.casefold()) if len(w) >= 5 and not w.isdigit()}
+    return [w.strip("'’") for w in re.findall(r"[^\W\d_]+(?:['’][^\W\d_]+)?", _fold(text, language))]
+
+
+def _grounded(token, said, language):
+    """Lexical grounding only: a shared stem (>= 5 letters, or >= 4 letters covering 60% of the shorter word; Turkish
+    roots: >= 4 letters, as suffixes change the stem's end), or one word containing the other (compounds). It cannot
+    tell whether the meaning, e.g. a negation, was kept."""
+    token = token.split("'")[0]
+    for word in said:
+        common = 0
+        for a, b in zip(token, word):
+            if a != b:
+                break
+            common += 1
+        if common >= 5 or (common >= 4 and (language == 'tr' or common >= 0.6 * min(len(token), len(word)))):
+            return True
+        if (len(word) >= 5 and word in token) or (len(token) >= 5 and token in word):
+            return True
+    return False
 
 
 def validate_spoken_summary(value, language, messages):
-    """Short closing line for the normal conversation: one sentence, <= 12 words and <= 100 characters, a recap of
-    what the user said (no advice, suggestion, reassurance or evaluation).
+    """Short closing line for the normal conversation. Formal checks only, applied to every provider response.
 
-    Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an
-    invalid line is rejected, the written summary stays, and the caller does not speak a longer text instead.
+    Enforced: one sentence, <= 12 words and <= 100 characters; letters and function words of the session language;
+    Turkish sen / German Sie (matching the recorded closing); none of the A/B/C bridge phrases; no listed advice,
+    suggestion, reassurance or evaluation marker; the recap form ("You talked about ...", "Sie sprachen über ...",
+    "...dan/den söz ettin"); Turkish ablative before the verb; at least one content word the user said and at most one
+    content word the user did not say (and then only next to two that they did).
+
+    Not guaranteed: meaning. A line built from the user's own words can still reverse a negation or join facts wrongly.
+
+    Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an invalid line is
+    rejected, the written summary stays, and the caller does not speak a longer text instead.
     """
     import re
     import unicodedata
@@ -109,20 +169,32 @@ def validate_spoken_summary(value, language, messages):
         return None, 'too-many-words'
     if re.search(r'[.!?…]["\'”’)]?\s+\S', text):
         return None, 'more-than-one-sentence'
-    if language not in _BRIDGE_PHRASES:
+    if language not in _RECAP_FORM:
         return None, 'unsupported-language'
-    if any(ch in _FOREIGN_LETTERS[language] for ch in text):
+    words = _words(text, language)
+    if any(ch in _FOREIGN_LETTERS[language] for ch in text) or any(w in other for w in words for l, other in _EXCLUSIVE.items() if l != language):
         return None, 'wrong-language'
-    lowered = text.casefold()
-    if _INFORMAL[language] and re.search(_INFORMAL[language], lowered):
-        return None, 'informal-address'
+    lowered = _fold(text, language)
+    if _ADDRESS[language] and re.search(_ADDRESS[language], lowered):
+        return None, 'address-mismatch'
     if any(re.search(pattern, lowered) for pattern in _BRIDGE_PHRASES[language]):
         return None, 'repeats-bridge-phrase'
     if any(re.search(pattern, lowered) for pattern in _ADVICE_OR_EVALUATION[language]):
         return None, 'advice-or-evaluation'
-    said = _stems(' '.join(m.get('content', '') for m in messages if m.get('role') == 'user'))
-    if not _stems(text) & said:
+    form = re.match(_RECAP_FORM[language], lowered.rstrip('.').strip())
+    if not form or not text.endswith('.'):
+        return None, 'not-recap-form'
+    body = form.group('body') or form.groupdict().get('body2') or ''
+    if language == 'tr' and not re.search(r"(d|t)(a|e)n$", body.split(' ')[-1]):
+        return None, 'tr-ablative-required'
+    said = [w for w in _words(' '.join(m.get('content', '') for m in messages if m.get('role') == 'user'), language) if len(w) >= 4]
+    content = [w for w in _words(body, language) if len(w) >= 4 and w not in _FUNCTION_WORDS[language] and w not in _NEUTRAL[language]]
+    grounded = sum(_grounded(w, said, language) for w in content)
+    unsaid = len(content) - grounded
+    if grounded == 0:
         return None, 'not-grounded-in-user-words'
+    if unsaid >= 2 or (unsaid == 1 and grounded < 2):
+        return None, 'adds-unsaid-content'
     return text, None
 
 

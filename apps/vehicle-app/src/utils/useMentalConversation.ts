@@ -61,6 +61,8 @@ export function useMentalConversation(parked: boolean) {
   const [summary, setSummary] = useState<MentalHistoryItem | null>(null);
   // True only while the closing speaks a summary that is already shown and stored.
   const [closingAudio, setClosingAudio] = useState(false);
+  // The bridge spoke (or started speaking) this closing: the page then skips its separate 'mental-complete' guidance.
+  const [spokenClosing, setSpokenClosing] = useState(false);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
   const runtime = useRef({ mounted: false, active: false, paused: false, pendingPause: false, pendingFinish: false, epoch: 0, turn: 0, busy: false, failed: false,
     structured:false,structuredState:null as StructuredState|null,
@@ -292,7 +294,7 @@ export function useMentalConversation(parked: boolean) {
   function start() {
     if (!settings.current.parked || runtime.current.active || !settings.current.speechConsent || !serviceAllowed('mental')) return;
     if(structuredConversationEnabled()&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Attune.more sesini seçin.'));return;}
-    cleanup(); const r = runtime.current;
+    cleanup(); const r = runtime.current; setSpokenClosing(false);
     r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];r.memory=[];r.memoryThrough=0;r.pendingTurn=null;r.pendingSpeech=null;
     r.structured=structuredConversationEnabled();r.structuredState=r.structured?{language:getLanguage(),speakerProfile:'female-calm-v1',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
     settings.current.textMode = false;
@@ -357,6 +359,7 @@ export function useMentalConversation(parked: boolean) {
         setClosingAudio(true);
         const outcome=await closing.complete();
         if(r.mounted)setClosingAudio(false);
+        if(r.mounted&&r.epoch===epoch)setSpokenClosing(outcome!=='fallback');
         // Assets unusable before anything played: unchanged closing (structured speaks, normal shows text only).
         if(outcome==='fallback'&&r.structured)await speakClosing(data.spokenSummary,epoch);
         else if(outcome==='failed'&&closingCurrent())setVoiceNotice(t('Özet hazır; kapanış sesi oynatılamadı.'));
@@ -432,7 +435,7 @@ export function useMentalConversation(parked: boolean) {
     setSpeechConsent(value); setCloudConsent(value && !isDemoMode());
   }
   return { phase, active, messages, notice, voiceNotice, voiceState, audioNeedsGesture, playPendingAudio:()=>pendingAudioPlay.current?.(), textMode, voiceEnabled, setVoiceEnabled,
-    structuredMode:structuredConversationEnabled(),historyConsent,closingPreview:closingBridgeMode()==='technical-preview',closingAudio,stopClosingAudio:()=>runtime.current.closing?.abort(),
+    structuredMode:structuredConversationEnabled(),historyConsent,closingPreview:closingBridgeMode()==='technical-preview',closingAudio,spokenClosing,stopClosingAudio:()=>runtime.current.closing?.abort(),
     serviceConsent: speechConsent, setServiceConsent: changeServiceConsent,
     cloudConsent, setCloudConsent: changeCloud, speechConsent, setSpeechConsent: changeSpeech, speechSource,
     history, summary, provider, start, finish, send, pause, continueConversation, cancelConversation: () => cancel('Görüşme başlatma iptal edildi.'), cancelSummary: () => { cancel('Özet hazırlama iptal edildi. Görüşme geçmişe kaydedilmedi.'); setPhase('ready'); } };

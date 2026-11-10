@@ -34,7 +34,7 @@ export default function MentalPage() {
   const c = useMentalConversation(isParked);
   useLocaleSwitchLock('mental',(c.active&&c.phase!=='paused')||c.phase==='ending');
   const guidance=useGuidance('mental',isParked&&c.voiceEnabled);
-  useEffect(()=>{if(!c.active&&isParked&&c.voiceEnabled&&['ready','completed'].includes(c.phase))guidance.phase(c.phase,c.phase==='completed'?'mental-complete':'mental-entry');else guidance.cancel();},[guidance,c.phase,c.active,c.voiceEnabled,isParked]);
+  useEffect(()=>{if(!c.active&&isParked&&c.voiceEnabled&&['ready','completed'].includes(c.phase))guidance.phase(c.phase,c.phase==='completed'?(c.spokenClosing?undefined:'mental-complete'):'mental-entry');else guidance.cancel();},[guidance,c.phase,c.active,c.voiceEnabled,isParked,c.spokenClosing]);
   const [completionOpen, setCompletionOpen] = useState(false);
   useEffect(() => { if (c.phase === 'completed') setCompletionOpen(true); else setCompletionOpen(false); }, [c.phase]);
   const [theme, setTheme] = useState<string | null>(null);

@@ -7,6 +7,7 @@ import React, { createContext, useContext, useEffect, useState, useRef, useCallb
 import { mockVehicleInstance } from '@packages/vehicle-context/MockVehicleProvider';
 import { VehicleState } from '@packages/vehicle-context/types';
 import { localBackend } from '../utils/localBackend';
+import { streamFocusTracker, vehiclePollInterval } from '../utils/vehiclePolling';
 
 interface VehicleContextType {
   state: VehicleState;
@@ -65,15 +66,24 @@ export const VehicleContextProvider: React.FC<{ children: React.ReactNode }> = (
         clearTimeout(deadline);
       }
     };
+    // 1 s normally; 250 ms while app audio owns output, so a driving change stops that audio sooner.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const schedule = () => {
+      clearTimeout(timer);
+      timer = setTimeout(async () => { await refresh(); if (mounted.current) schedule(); }, vehiclePollInterval(streams.owners.size));
+    };
+    const streams = streamFocusTracker(() => { void refresh(); schedule(); });
     void refresh();
-    const timer = setInterval(refresh, 1000);
+    schedule();
     window.addEventListener('focus', refresh);
+    window.addEventListener('attune-stream-focus', streams.listener);
     return () => {
       mounted.current = false;
       requestId.current += 1;
       activeRequest.current?.abort();
-      clearInterval(timer);
+      clearTimeout(timer);
       window.removeEventListener('focus', refresh);
+      window.removeEventListener('attune-stream-focus', streams.listener);
     };
   }, [applyState]);
 

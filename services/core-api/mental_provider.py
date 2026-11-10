@@ -306,19 +306,21 @@ class LocalFallbackSessionAnalyzer(MentalSessionAnalyzer):
 
 
 # Sentence form of the normal closing's short spoken line (form only, no content to copy).
-SPOKEN_SUMMARY_FORM = {'tr': '"... söz ettiniz."', 'en': '"You talked about ..."', 'de': '"Sie sprachen über ..."'}
+SPOKEN_SUMMARY_FORM = {'tr': '"... söz ettin."', 'en': '"You talked about ..."', 'de': '"Sie sprachen über ..."'}
 
 
 def spoken_summary_rules():
     """Rules for the normal closing's short spoken line; inserted before the conversation, after the template."""
     return ('spokenSummary is required. Also return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
-            "It restates in second person one or two things the user said, using the user's own key words, in the form "
+            "It restates in second person one or two things the user said, in the form "
             + SPOKEN_SUMMARY_FORM[current_language()] + '. '
+            'Every topic word must be a word the user said (not a word only the assistant used); add no fact, cause, '
+            'quotation, history, diagnosis or medication advice the user did not state, and keep negations as the user said them. '
             'At most 12 words and 100 characters; keep full detail in summaryText. '
-            'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
             'No evaluation, reassurance, advice or suggestion, including no suggestion to seek support. '
             'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
-            'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in ' + LANGUAGE_NAMES[current_language()] + '.\n')
+            'Address: Turkish informal singular (sen), as the recorded closing does, with the topic in the ablative case '
+            '(...dan/...den söz ettin); German formal (Sie). Write spokenSummary in ' + LANGUAGE_NAMES[current_language()] + '.\n')
 
 
 class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):

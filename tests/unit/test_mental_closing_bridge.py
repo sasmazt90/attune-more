@@ -18,7 +18,7 @@ VOICE = json.loads((ROOT / 'shared/mental/voices/female-calm-v1.json').read_text
 SOURCE = json.loads((ROOT / 'shared/localization/chatterbox-v3-source.json').read_text('utf-8'))
 
 
-@pytest.mark.parametrize('script', ['mental_closing_bridge_runtime.cjs', 'mental_closing_finish_runtime.cjs'])
+@pytest.mark.parametrize('script', ['mental_closing_bridge_runtime.cjs', 'mental_closing_finish_runtime.cjs', 'vehicle_polling_runtime.cjs'])
 def test_closing_bridge_frontend_closures(script):
     result = subprocess.run(['node', 'tests/unit/' + script], cwd=ROOT, text=True, capture_output=True, timeout=60)
     assert result.returncode == 0, result.stdout + result.stderr
@@ -99,3 +99,12 @@ def test_all_125_combinations_per_language_are_computable():
         groups = [[e for e in MANIFEST['entries'] if e['language'] == language and e['group'] == g] for g in 'ABC']
         totals = [sum(c['durationSeconds'] for c in combo) + 2 * MANIFEST['joinSilenceMs'] / 1000 for combo in itertools.product(*groups)]
         assert len(totals) == 125 and all(t > 0 for t in totals)
+
+
+def test_page_skips_completion_guidance_after_a_spoken_closing():
+    """After the bridge spoke (or the user stopped it), the separate 'mental-complete' guidance would be a second
+    completion message in another voice; the page only plays it when nothing was spoken."""
+    page = (ROOT / 'apps/vehicle-app/src/app/mental/page.tsx').read_text('utf-8')
+    hook = (ROOT / 'apps/vehicle-app/src/utils/useMentalConversation.ts').read_text('utf-8')
+    assert "c.phase==='completed'?(c.spokenClosing?undefined:'mental-complete'):'mental-entry'" in page
+    assert "setSpokenClosing(outcome!=='fallback')" in hook and 'setSpokenClosing(false);' in hook
