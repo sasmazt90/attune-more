@@ -435,6 +435,126 @@ personal line, out of 24 attempts (P1 failed); the line was ready before C in th
 with the smallest margin in English (145 ms); all times are browser media events, not acoustic measurements; the
 WAV archive holds 35 lines of the measured run and 1 of the stopped first attempt, in separate folders.
 
+## Review 2026-11-10, round 6 (track A): catalog closing line, checked against the user's own words
+
+Raw data: [review-20261110-round6.json](review-20261110-round6.json); comparison inputs and results in
+[comparison/](comparison/).
+
+**What changed.** The personal line after C is no longer generated text or generated speech. The same single analysis
+call returns up to three candidates from a reviewed catalog of 33 general meanings
+([shared/mental/closing-catalog/v1/catalog.json](../../../shared/mental/closing-catalog/v1/catalog.json)), each with
+the index of the user message it rests on and the user's exact words. The server
+([mental_closing_catalog.py](../../../services/core-api/mental_closing_catalog.py)) checks every candidate and speaks
+only a line that passes; the page then plays that line's prepared recording on the same element as A/B/C. Without a
+checked line nothing is spoken and the written summary (unchanged, still personal) is shown. Opt-in per request
+(`spokenCatalog`, with `spokenSummary`, legacy engine) and only when the page holds all 33 recordings of the language;
+the feature stays off.
+
+**The checks (server side; a quote or one keyword is never taken as proof of meaning).** Known catalog id; the message
+is a user message (an assistant suggestion is not the user's statement); the quote occurs verbatim in it; the line's
+cue occurs in the quote; no negation of the cue in its clause, including a negation inside the cue's own words ("uykum
+hiç bölünmüyor", "my sleep is not disrupted") — a cue that is negative by itself ("uyuyamıyorum", "I can't sleep",
+"kimse beni anlamıyor") stays valid; the clause is about the user (first person, or impersonal without another person;
+a possessed person — "my mother", "annem", "meine Frau" — is a third person, and after a third person only a subject
+pronoun makes the user the experiencer: "My mother is worried about me" is not the user's worry); line-specific
+exclusions (pride in someone else is not the user's pride); not past ("eskiden", "used to", "früher") and not "no
+longer"; not corrected by a later user message. No inference: "Yalnız yaşıyorum" ≠ loneliness, "çok sorumluluğum var"
+≠ strain, "annem beni dinlemiyor" ≠ difficulty expressing oneself; resting ≠ being listened to; a conversation about
+good things gets a positive line. Among checked candidates the one the user stressed (emphasis words, repeated
+support) wins, then the provider's order. Every line is ≤ 11 words and ≤ 76 characters, one address per language
+(TR sen, EN you, DE Sie), and states no diagnosis, advice or evaluation.
+
+**The four content errors of round 5 (free-text validator, kept as a reachable path) are refused, not declared as
+known limitations:**
+
+| Case | User | Line | 4b3f596 | now |
+| --- | --- | --- | --- | --- |
+| EN role reversal | My mother never listens to me. | You talked about never listening to your mother. | accepted | `role-changed` |
+| EN added thing (modifier) | There is a lot of pressure at work. | You talked about deadline pressure at work. | accepted | `adds-unsaid-content` |
+| DE added thing (compound) | Stress bei der Arbeit belastet mich. | Sie sprachen über Terminstress bei der Arbeit. | accepted | `adds-unsaid-content` |
+| TR added thing (modifier) | İşte çok baskı var. | İşteki zaman baskısından söz ettin. | accepted | `adds-unsaid-content` |
+
+On the 265 recorded and live provider lines, only 9 English lines changed (valid → refused), all with "missing …",
+which the user had not said; no other line changed.
+
+**Server check, fixed inputs (no provider; a candidate for every acceptable and forbidden line).** Tuning set 51/51
+acceptable lines accepted, 54/54 forbidden refused (not independent: the rules were tuned on it). Holdout v1, first
+run before any change: 6/18 accepted, **4/9 forbidden refused** — 5 false accepts (pride in someone else ×3, a spouse's
+tiredness ×2); after general fixes 12/18 and 9/9 (not independent). Holdout v2, written afterwards and run once: 8/12
+accepted, **29/30 refused** (one false accept: "My mother is very worried about my father's health" → worry); after the
+third-person fix 30/30 (not independent for that fix). A negation inside the cue's own words ("uykum hiç bölünmüyor")
+was found with the harness sentence and fixed; it changed no count above. The remaining misses are deliberate: no
+pressure line without the word pressure, no "happy" line for pride in someone else, no goal line for "I want to …"
+(too broad).
+
+**Live comparison with the real provider (WEB, product API environment in memory; one analysis per input; 93
+analyses).** The first attempt failed in a way that matters: the provider copied the template's placeholder id
+("Cnn") in 27 of 28 candidates, so only 1 of 39 expected lines was spoken (kept as `attempt1-template-placeholder-*`).
+With the template holding an empty list and the keys named only in the rule:
+
+| Set | Content accuracy | Fitting personal line | Safe abstention | Forbidden spoken | Salience | Written summary topics |
+| --- | --- | --- | --- | --- | --- | --- |
+| Tuning (48) | 26/26 | 26/39 (TR 10/13, EN 8/13, DE 8/13) | 9/9 | 0 | 3/3 | 43/48 |
+| Holdout v1 (18) | 9/9 | 9/15 | 3/3 | 0 | – | – |
+| Holdout v2 (27) | 7/7 | 7/12 | 15/15 | 0 | 7/12 | – |
+
+Every spoken line was an acceptable one; the misses are abstentions (the provider proposed nothing in 44 of 93; the
+server refused 13 candidates). Of those 13, **8 were forbidden lines the provider proposed** and the server refused
+them: an inference ("Ich habe viel Verantwortung, aber ich komme mit allem zurecht" → strain), an assistant suggestion taken as the user's
+("Vielleicht fühlen Sie sich einsam?" → lonely), a past state ("eskiden…" → self-doubt), stress put as pressure, and
+four statements the user corrected later (tired ×3, worry ×1). 3 acceptable candidates were refused (quote not
+verbatim ×2, cue outside the quote ×1) and cost coverage; 2 fitted neither list. Analysis time: first
+call of a process 2.7–3.2 s, then median 1.6–2.0 s (provider round trip; not the closing's critical path, which waits
+only for C to end). One run per input: repeat runs were not made.
+
+**Recordings.** 99 lines (33 × TR/EN/DE) synthesized once on WEB (`r7i.2xlarge`, CPU, 4 threads) with the A/B/C
+profile, model files, reference and settings; one take per line, seeds from the asset id; integrity of the six model
+files and the reference identical before and after; 1,184 s of synthesis (median 12.3 / 10.6 / 12.2 s per line for
+TR / EN / DE; audio 1.9–5.1 s) plus a 21 s warm-up. Technical findings, recorded and not re-generated: DE_C21 has 3
+full-scale samples. Every entry is `technical-preview-awaiting-owner-listening`; nobody has listened to them.
+
+**AAOS emulator, live (WEB test API with the real provider and the CPU worker; branch build 7dcf505 in the real AAOS
+WebView; three-state checks; plan fixed before the run: [LIVE-CHECK-PLAN-20261110-round6.md](LIVE-CHECK-PLAN-20261110-round6.md)).**
+21 cases: **16 PASS, 4 FAIL, 1 BLOCKED**; plus 45 + 99 recordings byte-identical in the WebView (PASS) and the two
+round-5 subjects that no longer exist reported NOT_APPLICABLE.
+
+| Check | TR | EN | DE | Notes |
+| --- | --- | --- | --- | --- |
+| L1 consent withdrawn during A | PASS (≤ 86 ms) | PASS (≤ 76 ms) | PASS (≤ 103 ms) | fresh `started` snapshot ≤ 150 ms before the action; stop upper bound; no audio afterwards |
+| L2a driving during C, analysis held in flight | PASS (≤ 133 ms) | PASS (≤ 162 ms) | PASS (≤ 160 ms) | C stopped; personal recording never started; the held analysis request (3.1–5.1 s) ended aborted by the page; nothing later |
+| L2b driving while the reply speech is generated | PASS (page abort) | PASS (409 park gate) | PASS (409 park gate) | 409 with JSON and 0 audio bytes; no player started; nothing later |
+| L3 four parts (recorded) | FAIL ×2 (cold, warm) | FAIL | FAIL | A's element duration read as null at `ended` (harness listener order, see below) |
+| L3 recomputed offline (labelled) | PASS ×2 | PASS | PASS | A's duration from its `playing` event; elapsed/WAV 0.95–1.03 for all 16 parts; no overlap |
+| C end → personal line | 129 ms (cold), 128 ms (warm) | 137 ms | 128 ms | page media events, not acoustics; A→B and B→C 126–131 ms |
+
+Kept controls: cancel during A with the analysis in flight (≤ 191 ms, request aborted), cancel during the catalog line
+(≤ 191 ms), mute during C (≤ 189 ms), background during B (≤ 145 ms) and during the catalog line (≤ 80 ms), cancel
+during B then a new conversation (≤ 160 ms), language locked during B: PASS. Consent withdrawn at the closing trigger:
+**BLOCKED** — a started player of the app was already reported 8 ms before the action, so the precondition "not yet
+started" was not met; nothing of the closing played afterwards and the analysis request was aborted, but the case is
+not counted as passed. Every complete closing spoke the server-checked line C09 (sleep) for the synthetic sentence and
+sent no closing-voice request; the analysis took 2.4–3.2 s and was ready before C ended.
+
+**Why L3 failed as recorded.** The closing plays A, B, C and the line on one shared element. For A, the product's own
+`ended` handler (registered before the harness started watching the element) resets the source before the harness
+listener reads `duration`, so A's duration was recorded as null and the rule reported "not the expected recording".
+B, C and the line were read correctly. The rule now takes the element's duration from its `playing` event in that
+case and reports a part with neither as BLOCKED, never as FAIL or PASS (commit 8cfbff8, unit-tested). The recorded
+verdicts are kept; the recomputation above is labelled and uses only recorded events.
+
+**Window and cost.** Before starting: no other instance running, no active remote session, no remote command on these
+hosts since this tooling's last one, no foreign process or work directory (the other track did not use them). WEB
+22:14–23:03 UTC (49 min of 75), AAOS 22:28–23:02 (34 min of 60), each with a verified OS shutdown timer and a local
+guard; started WEB first, stopped AAOS first. Temporary group (TCP 8190 from the AAOS group only) 22:43–23:02, deleted,
+WEB's groups restored and no 8190 rule left; product configuration hashes unchanged; both instances stopped (read by
+API). Cost ≈ 0.52 + 0.29 USD for the instances plus ≈ 0.12 USD estimated provider calls ≈ **0.93 USD** of the
+1.50 USD cap (list prices, taxes excluded, not yet on a bill).
+
+**Not done.** Repeated live comparison runs (one analysis per input); listening approval (nobody has listened to the
+99 lines); a live crisis conversation (crisis sessions never start the closing, unit-tested); the recorded L3 cases
+were not re-run with the corrected rule. Track B is pending; the comparison stays open until it is measured on the
+same inputs.
+
 ## Tests
 
 `tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison. Round 5 adds the round-4 recorded AAOS series to `tests/unit/aaos_closing_stop_verdict_runtime.cjs` (pre-action sampling rule, upper-bound stop, driving in-flight rule, media clock) and 14 validator cases (94). Round 4 adds `tests/unit/test_closing_live_probe.py` and `tests/unit/test_closing_live_report.py` (warm-up gate; the 8-of-8 rule and blocked samples), the five round-3 limitations as refused cases, the German stem cases and new declared limitations (80

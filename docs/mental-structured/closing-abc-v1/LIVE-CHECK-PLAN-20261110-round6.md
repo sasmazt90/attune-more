@@ -1,5 +1,8 @@
 # Round 6 (track A): catalog closing — test plan, recording time and cost (fixed before any AWS resource is started)
 
+> Status: run on 2026-11-10 22:14–23:03 UTC as planned; results in the README (round 6) and
+> [review-20261110-round6.json](review-20261110-round6.json). The plan text below is unchanged.
+
 Track A only. No GPU, no "drain instead of kill", no model change, no merge, no deployment; the feature stays off.
 Hosts: the existing WEB (`r7i.2xlarge`) and AAOS (`m8i.2xlarge`) instances only. The other track does not run on them;
 before the start the window checks that no other instance runs and that neither host shows another experiment

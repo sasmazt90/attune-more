@@ -1,0 +1,1338 @@
+{
+ "schema": "attune-closing-review-round6-v1",
+ "track": "A (catalog closing; the Qwen/LiteRT track B is separate and not touched)",
+ "testedCommit": {
+  "code": "7dcf50536bed4a93cf6d44cad5a47ae167b0f64e",
+  "note": "WEB synthesis ran from 3774f52 (synthesis script, catalog texts and recording settings identical to 7dcf505). Live comparison: first attempt from f24ee2b (placeholder-copy failure, kept), reported run from 7dcf505. AAOS build, test API and harness from 7dcf505. The later commit 8cfbff8 only changes the L3 verdict code of the harness, not the product."
+ },
+ "fourContentErrors": [
+  {
+   "id": "legacy-en-role-reversal",
+   "language": "en",
+   "user": [
+    "My mother never listens to me."
+   ],
+   "line": "You talked about never listening to your mother.",
+   "before4b3f596": "accepted",
+   "after": "role-changed"
+  },
+  {
+   "id": "legacy-en-added-thing-modifier",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "line": "You talked about deadline pressure at work.",
+   "before4b3f596": "accepted",
+   "after": "adds-unsaid-content"
+  },
+  {
+   "id": "legacy-de-added-thing-in-compound",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "line": "Sie sprachen über Terminstress bei der Arbeit.",
+   "before4b3f596": "accepted",
+   "after": "adds-unsaid-content"
+  },
+  {
+   "id": "legacy-tr-added-thing-modifier",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var."
+   ],
+   "line": "İşteki zaman baskısından söz ettin.",
+   "before4b3f596": "accepted",
+   "after": "adds-unsaid-content"
+  }
+ ],
+ "legacyValidatorOnRecordedLines": {
+  "baseline": "4b3f596",
+  "lines": 265,
+  "changed": 9,
+  "changedKinds": [
+   [
+    "valid",
+    "adds-unsaid-content"
+   ]
+  ],
+  "note": "All changed lines are English \"missing ...\" inferences the user did not state."
+ },
+ "catalog": {
+  "version": "1.0.0",
+  "meanings": 33,
+  "languages": [
+   "tr",
+   "en",
+   "de"
+  ],
+  "maxCharacters": 76,
+  "maxWords": 11,
+  "kinds": {
+   "concern": 26,
+   "positive": 7
+  }
+ },
+ "serverCheckOracle": {
+  "tuningSet": {
+   "acceptableAccepted": 51,
+   "acceptable": 51,
+   "forbiddenRefused": 54,
+   "forbidden": 54,
+   "label": "tuning set (not independent)"
+  },
+  "holdoutV1FirstRun": {
+   "acceptableAccepted": 6,
+   "acceptable": 18,
+   "forbiddenRefused": 4,
+   "forbidden": 9,
+   "label": null,
+   "mismatches": [
+    [
+     "tr-h01",
+     "C01",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "tr-h02",
+     "C30",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "tr-h02",
+     "C33",
+     "refuse",
+     "accepted"
+    ],
+    [
+     "tr-h04",
+     "C28",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "tr-h05",
+     "C13",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "tr-h06",
+     "C08",
+     "refuse",
+     "accepted"
+    ],
+    [
+     "en-h01",
+     "C01",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "en-h02",
+     "C30",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "en-h02",
+     "C33",
+     "refuse",
+     "accepted"
+    ],
+    [
+     "en-h05",
+     "C13",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h01",
+     "C01",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h02",
+     "C30",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h02",
+     "C33",
+     "refuse",
+     "accepted"
+    ],
+    [
+     "de-h03",
+     "C09",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h04",
+     "C28",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h05",
+     "C13",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h06",
+     "C08",
+     "refuse",
+     "accepted"
+    ]
+   ]
+  },
+  "holdoutV1AfterTuning": {
+   "acceptableAccepted": 12,
+   "acceptable": 18,
+   "forbiddenRefused": 9,
+   "forbidden": 9,
+   "label": "holdout v1 after tuning (not independent)"
+  },
+  "holdoutV2FirstRun": {
+   "acceptableAccepted": 8,
+   "acceptable": 12,
+   "forbiddenRefused": 29,
+   "forbidden": 30,
+   "label": "holdout v2, single run, no tuning afterwards",
+   "mismatches": [
+    [
+     "en-h2-04",
+     "C11",
+     "refuse",
+     "accepted"
+    ],
+    [
+     "de-h2-05",
+     "C27",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "tr-h2-08",
+     "C32",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "en-h2-08",
+     "C32",
+     "accept",
+     "no-cue-in-quote"
+    ],
+    [
+     "de-h2-08",
+     "C32",
+     "accept",
+     "no-cue-in-quote"
+    ]
+   ]
+  },
+  "holdoutV2AfterFix": {
+   "acceptableAccepted": 8,
+   "acceptable": 12,
+   "forbiddenRefused": 30,
+   "forbidden": 30,
+   "label": "holdout v2 after the third-person fix and the inside-cue negation rule (not independent for those fixes)"
+  }
+ },
+ "recordings": {
+  "host": "existing WEB (r7i.2xlarge, CPU, 4 threads)",
+  "takesPerLine": 1,
+  "warmupSeconds": 21.109,
+  "rows": 99,
+  "notStarted": [],
+  "complete": true,
+  "integrityBefore": {
+   "Cangjie5_TC.json": true,
+   "conds.pt": true,
+   "grapheme_mtl_merged_expanded_v1.json": true,
+   "s3gen.pt": true,
+   "t3_mtl23ls_v3.safetensors": true,
+   "ve.pt": true,
+   "reference": true
+  },
+  "integrityAfter": {
+   "Cangjie5_TC.json": true,
+   "conds.pt": true,
+   "grapheme_mtl_merged_expanded_v1.json": true,
+   "s3gen.pt": true,
+   "t3_mtl23ls_v3.safetensors": true,
+   "ve.pt": true,
+   "reference": true
+  },
+  "runtime": {
+   "python": "3.11.17",
+   "torch": "2.6.0+cpu",
+   "torchaudio": "2.6.0+cpu",
+   "transformers": "5.2.0",
+   "chatterbox-tts": "0.1.7",
+   "threads": "4",
+   "cpuCount": 8,
+   "machine": "x86_64"
+  },
+  "generation": {
+   "exaggeration": 0.35,
+   "cfg_weight": 0.0,
+   "temperature": 0.8
+  },
+  "referenceSha256": "4d2bd83ff0f7fe33491b03193abdf623f1b4cc2d8103972b33638d3607d86dc5",
+  "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+  "totalSynthesisSeconds": 1184.1,
+  "byLanguage": {
+   "tr": {
+    "clips": 33,
+    "synthesisSeconds": {
+     "min": 10.455,
+     "median": 12.264,
+     "max": 15.595
+    },
+    "audioSeconds": {
+     "min": 2.6,
+     "median": 3.48,
+     "max": 5.0
+    },
+    "clippedSamples": 0,
+    "technicalFindings": []
+   },
+   "en": {
+    "clips": 33,
+    "synthesisSeconds": {
+     "min": 8.957,
+     "median": 10.583,
+     "max": 12.661
+    },
+    "audioSeconds": {
+     "min": 1.92,
+     "median": 2.68,
+     "max": 3.64
+    },
+    "clippedSamples": 0,
+    "technicalFindings": []
+   },
+   "de": {
+    "clips": 33,
+    "synthesisSeconds": {
+     "min": 10.572,
+     "median": 12.202,
+     "max": 16.132
+    },
+    "audioSeconds": {
+     "min": 2.72,
+     "median": 3.44,
+     "max": 5.12
+    },
+    "clippedSamples": 3,
+    "technicalFindings": [
+     [
+      "DE_C21.wav",
+      [
+       "clipped-samples:3"
+      ]
+     ]
+    ]
+   }
+  },
+  "approval": "technical-preview-awaiting-owner-listening (nobody has listened; not approved)"
+ },
+ "liveComparison": {
+  "comparison": {
+   "metrics": {
+    "contentAccuracy": {
+     "n": 26,
+     "hits": 26,
+     "rate": 1.0
+    },
+    "personalClosingRate": {
+     "n": 39,
+     "hits": 26,
+     "rate": 0.667
+    },
+    "safeAbstentionRate": {
+     "n": 9,
+     "hits": 9,
+     "rate": 1.0
+    },
+    "salience": {
+     "n": 3,
+     "hits": 3,
+     "rate": 1.0
+    },
+    "forbiddenSpoken": [],
+    "writtenSummaryCoverage": {
+     "n": 48,
+     "hits": 43,
+     "rate": 0.896
+    }
+   },
+   "perLanguage": {
+    "tr": {
+     "contentAccuracy": {
+      "n": 10,
+      "hits": 10,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 13,
+      "hits": 10,
+      "rate": 0.769
+     },
+     "safeAbstentionRate": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 1,
+      "hits": 1,
+      "rate": 1.0
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 16,
+      "hits": 14,
+      "rate": 0.875
+     }
+    },
+    "en": {
+     "contentAccuracy": {
+      "n": 8,
+      "hits": 8,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 13,
+      "hits": 8,
+      "rate": 0.615
+     },
+     "safeAbstentionRate": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 1,
+      "hits": 1,
+      "rate": 1.0
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 16,
+      "hits": 14,
+      "rate": 0.875
+     }
+    },
+    "de": {
+     "contentAccuracy": {
+      "n": 8,
+      "hits": 8,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 13,
+      "hits": 8,
+      "rate": 0.615
+     },
+     "safeAbstentionRate": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 1,
+      "hits": 1,
+      "rate": 1.0
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 16,
+      "hits": 15,
+      "rate": 0.938
+     }
+    }
+   },
+   "analysisSeconds": {
+    "first (cold process)": 3.219,
+    "restMedian": 1.866,
+    "max": 3.219
+   },
+   "statuses": {
+    "catalog": 26,
+    "no-candidate": 21,
+    "no-reliable-match": 1
+   },
+   "spokenOutsideAcceptable": []
+  },
+  "holdout": {
+   "metrics": {
+    "contentAccuracy": {
+     "n": 9,
+     "hits": 9,
+     "rate": 1.0
+    },
+    "personalClosingRate": {
+     "n": 15,
+     "hits": 9,
+     "rate": 0.6
+    },
+    "safeAbstentionRate": {
+     "n": 3,
+     "hits": 3,
+     "rate": 1.0
+    },
+    "salience": {
+     "n": 0,
+     "hits": 0,
+     "rate": null
+    },
+    "forbiddenSpoken": [],
+    "writtenSummaryCoverage": {
+     "n": 0,
+     "hits": 0,
+     "rate": null
+    }
+   },
+   "perLanguage": {
+    "tr": {
+     "contentAccuracy": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 5,
+      "hits": 3,
+      "rate": 0.6
+     },
+     "safeAbstentionRate": {
+      "n": 1,
+      "hits": 1,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     }
+    },
+    "en": {
+     "contentAccuracy": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 5,
+      "hits": 3,
+      "rate": 0.6
+     },
+     "safeAbstentionRate": {
+      "n": 1,
+      "hits": 1,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     }
+    },
+    "de": {
+     "contentAccuracy": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 5,
+      "hits": 3,
+      "rate": 0.6
+     },
+     "safeAbstentionRate": {
+      "n": 1,
+      "hits": 1,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     }
+    }
+   },
+   "analysisSeconds": {
+    "first (cold process)": 2.731,
+    "restMedian": 1.95,
+    "max": 2.731
+   },
+   "statuses": {
+    "catalog": 9,
+    "no-candidate": 9
+   },
+   "spokenOutsideAcceptable": []
+  },
+  "holdout2": {
+   "metrics": {
+    "contentAccuracy": {
+     "n": 7,
+     "hits": 7,
+     "rate": 1.0
+    },
+    "personalClosingRate": {
+     "n": 12,
+     "hits": 7,
+     "rate": 0.583
+    },
+    "safeAbstentionRate": {
+     "n": 15,
+     "hits": 15,
+     "rate": 1.0
+    },
+    "salience": {
+     "n": 12,
+     "hits": 7,
+     "rate": 0.583
+    },
+    "forbiddenSpoken": [],
+    "writtenSummaryCoverage": {
+     "n": 0,
+     "hits": 0,
+     "rate": null
+    }
+   },
+   "perLanguage": {
+    "tr": {
+     "contentAccuracy": {
+      "n": 2,
+      "hits": 2,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 4,
+      "hits": 2,
+      "rate": 0.5
+     },
+     "safeAbstentionRate": {
+      "n": 5,
+      "hits": 5,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 4,
+      "hits": 2,
+      "rate": 0.5
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     }
+    },
+    "en": {
+     "contentAccuracy": {
+      "n": 3,
+      "hits": 3,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 4,
+      "hits": 3,
+      "rate": 0.75
+     },
+     "safeAbstentionRate": {
+      "n": 5,
+      "hits": 5,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 4,
+      "hits": 3,
+      "rate": 0.75
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     }
+    },
+    "de": {
+     "contentAccuracy": {
+      "n": 2,
+      "hits": 2,
+      "rate": 1.0
+     },
+     "personalClosingRate": {
+      "n": 4,
+      "hits": 2,
+      "rate": 0.5
+     },
+     "safeAbstentionRate": {
+      "n": 5,
+      "hits": 5,
+      "rate": 1.0
+     },
+     "salience": {
+      "n": 4,
+      "hits": 2,
+      "rate": 0.5
+     },
+     "forbiddenSpoken": [],
+     "writtenSummaryCoverage": {
+      "n": 0,
+      "hits": 0,
+      "rate": null
+     }
+    }
+   },
+   "analysisSeconds": {
+    "first (cold process)": 3.157,
+    "restMedian": 1.6360000000000001,
+    "max": 3.157
+   },
+   "statuses": {
+    "catalog": 7,
+    "no-candidate": 14,
+    "no-reliable-match": 6
+   },
+   "spokenOutsideAcceptable": []
+  }
+ },
+ "aaos": {
+  "run": "mental-closing",
+  "status": "FAIL",
+  "countsChecks": {
+   "PASS": 77,
+   "FAIL": 4,
+   "BLOCKED": 2,
+   "NOT_APPLICABLE": 2
+  },
+  "caseVerdicts": {
+   "All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest": "PASS",
+   "All 99 catalog recordings reach the AAOS WebView byte-identical to their manifest": "PASS",
+   "en-drive-during-summary": "NOT_APPLICABLE",
+   "closing-voice-409-park-gate": "NOT_APPLICABLE",
+   "tr-complete-catalog-cold": "FAIL",
+   "en-complete-catalog-warm": "FAIL",
+   "de-complete-catalog-warm": "FAIL",
+   "tr-complete-catalog-warm": "FAIL",
+   "tr-consent-revoked-during-A": "PASS",
+   "en-consent-revoked-during-A": "PASS",
+   "de-consent-revoked-during-A": "PASS",
+   "tr-drive-during-C-catalog": "PASS",
+   "en-drive-during-C-catalog": "PASS",
+   "de-drive-during-C-catalog": "PASS",
+   "tr-drive-during-reply-speech": "PASS",
+   "en-drive-during-reply-speech": "PASS",
+   "de-drive-during-reply-speech": "PASS",
+   "de-cancel-during-A-analysis-in-flight": "PASS",
+   "en-cancel-during-catalog-line": "PASS",
+   "en-mute-during-C": "PASS",
+   "de-consent-revoked-before-start": "BLOCKED",
+   "tr-language-locked-during-B": "PASS",
+   "de-background-during-B": "PASS",
+   "tr-background-during-catalog-line": "PASS",
+   "tr-cancel-during-B-then-new": "PASS"
+  },
+  "caseCounts": {
+   "PASS": 18,
+   "NOT_APPLICABLE": 2,
+   "FAIL": 4,
+   "BLOCKED": 1
+  },
+  "notRun": [],
+  "errors": [],
+  "complete": [
+   {
+    "case": "tr-complete-catalog-cold",
+    "start": "cold",
+    "cToPersonalMs": 129,
+    "aToB": 126,
+    "bToC": 130,
+    "overlap": false,
+    "catalogLine": "C09",
+    "sequence": "FAIL",
+    "ratios": [
+     0.95,
+     0.98,
+     1,
+     0.99
+    ],
+    "analysisMs": 3153
+   },
+   {
+    "case": "en-complete-catalog-warm",
+    "start": "warm",
+    "cToPersonalMs": 137,
+    "aToB": 126,
+    "bToC": 127,
+    "overlap": false,
+    "catalogLine": "C09",
+    "sequence": "FAIL",
+    "ratios": [
+     0.97,
+     1,
+     0.99,
+     1.03
+    ],
+    "analysisMs": 2395
+   },
+   {
+    "case": "de-complete-catalog-warm",
+    "start": "warm",
+    "cToPersonalMs": 128,
+    "aToB": 127,
+    "bToC": 127,
+    "overlap": false,
+    "catalogLine": "C09",
+    "sequence": "FAIL",
+    "ratios": [
+     0.96,
+     1,
+     1,
+     1.01
+    ],
+    "analysisMs": 2412
+   },
+   {
+    "case": "tr-complete-catalog-warm",
+    "start": "warm",
+    "cToPersonalMs": 128,
+    "aToB": 127,
+    "bToC": 131,
+    "overlap": false,
+    "catalogLine": "C09",
+    "sequence": "FAIL",
+    "ratios": [
+     0.95,
+     1,
+     1.01,
+     1
+    ],
+    "analysisMs": 2728
+   }
+  ],
+  "stops": [
+   {
+    "case": "tr-consent-revoked-during-A",
+    "stoppedByMs": 86,
+    "status": "PASS"
+   },
+   {
+    "case": "en-consent-revoked-during-A",
+    "stoppedByMs": 76,
+    "status": "PASS"
+   },
+   {
+    "case": "de-consent-revoked-during-A",
+    "stoppedByMs": 103,
+    "status": "PASS"
+   },
+   {
+    "case": "tr-drive-during-C-catalog",
+    "stoppedByMs": 133,
+    "status": "PASS"
+   },
+   {
+    "case": "en-drive-during-C-catalog",
+    "stoppedByMs": 162,
+    "status": "PASS"
+   },
+   {
+    "case": "de-drive-during-C-catalog",
+    "stoppedByMs": 160,
+    "status": "PASS"
+   },
+   {
+    "case": "de-cancel-during-A-analysis-in-flight",
+    "stoppedByMs": 191,
+    "status": "PASS"
+   },
+   {
+    "case": "en-cancel-during-catalog-line",
+    "stoppedByMs": 191,
+    "status": "PASS"
+   },
+   {
+    "case": "en-mute-during-C",
+    "stoppedByMs": 189,
+    "status": "PASS"
+   },
+   {
+    "case": "de-background-during-B",
+    "stoppedByMs": 145,
+    "status": "PASS"
+   },
+   {
+    "case": "tr-background-during-catalog-line",
+    "stoppedByMs": 80,
+    "status": "PASS"
+   },
+   {
+    "case": "tr-cancel-during-B-then-new",
+    "stoppedByMs": 160,
+    "status": "PASS"
+   }
+  ],
+  "inFlight": [
+   {
+    "case": "tr-consent-revoked-during-A",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "en-consent-revoked-during-A",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "de-consent-revoked-during-A",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "tr-drive-during-C-catalog",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      3505
+     ]
+    ]
+   },
+   {
+    "case": "en-drive-during-C-catalog",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      3140
+     ]
+    ]
+   },
+   {
+    "case": "de-drive-during-C-catalog",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      5089
+     ]
+    ]
+   },
+   {
+    "case": "tr-drive-during-reply-speech",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "tts-live",
+      "aborted",
+      null,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "en-drive-during-reply-speech",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "tts-live",
+      "refused-409-park-gate",
+      409,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "de-drive-during-reply-speech",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "tts-live",
+      "refused-409-park-gate",
+      409,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "de-cancel-during-A-analysis-in-flight",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "en-cancel-during-catalog-line",
+    "status": "BLOCKED",
+    "reason": "no-request-in-flight",
+    "rows": []
+   },
+   {
+    "case": "en-mute-during-C",
+    "status": "BLOCKED",
+    "reason": "no-request-in-flight",
+    "rows": []
+   },
+   {
+    "case": "de-consent-revoked-before-start",
+    "status": "PASS",
+    "reason": null,
+    "rows": [
+     [
+      "analysis-live",
+      "aborted",
+      null,
+      null
+     ]
+    ]
+   },
+   {
+    "case": "de-background-during-B",
+    "status": "BLOCKED",
+    "reason": "no-request-in-flight",
+    "rows": []
+   },
+   {
+    "case": "tr-background-during-catalog-line",
+    "status": "BLOCKED",
+    "reason": "no-request-in-flight",
+    "rows": []
+   },
+   {
+    "case": "tr-cancel-during-B-then-new",
+    "status": "BLOCKED",
+    "reason": "no-request-in-flight",
+    "rows": []
+   }
+  ],
+  "notPassed": [
+   "NOT_APPLICABLE en-drive-during-summary: not applicable to the catalog closing",
+   "NOT_APPLICABLE closing-voice-409-park-gate: not applicable to the catalog closing",
+   "FAIL tr-complete-catalog-cold: A, B, C and the personal line each played once, in order, without overlap, on the closing element, each within 10 % of its own WAV duration",
+   "FAIL en-complete-catalog-warm: A, B, C and the personal line each played once, in order, without overlap, on the closing element, each within 10 % of its own WAV duration",
+   "FAIL de-complete-catalog-warm: A, B, C and the personal line each played once, in order, without overlap, on the closing element, each within 10 % of its own WAV duration",
+   "FAIL tr-complete-catalog-warm: A, B, C and the personal line each played once, in order, without overlap, on the closing element, each within 10 % of its own WAV duration",
+   "BLOCKED de-consent-revoked-before-start: precondition: the app's player was not yet 'started' at the consent",
+   "BLOCKED de-consent-revoked-before-start: the app's player never entered 'started' in the 8000 ms after the consent"
+  ],
+  "l3RecomputedOffline": {
+   "note": "Labelled recomputation; the recorded FAIL verdicts stand. The harness read part A's element duration at its ended event after the page had reset the shared element (null); the same element reported it at playing. Re-evaluated with the same rules.",
+   "rows": [
+    {
+     "case": "tr-complete-catalog-cold",
+     "recorded": "FAIL",
+     "recordedFailed": [
+      "A:not-the-expected-recording"
+     ],
+     "recomputed": "PASS",
+     "failed": [],
+     "blocked": [],
+     "ratios": [
+      0.95,
+      0.98,
+      1,
+      0.99
+     ],
+     "elementDurations": [
+      [
+       "A",
+       2.88,
+       2.88,
+       "playing (recomputed)"
+      ],
+      [
+       "B",
+       2.72,
+       2.72,
+       "ended"
+      ],
+      [
+       "C",
+       3.68,
+       3.68,
+       "ended"
+      ],
+      [
+       "P",
+       4.32,
+       4.32,
+       "ended"
+      ]
+     ],
+     "gaps": {
+      "aToB": 126,
+      "bToC": 130,
+      "cToSummary": 129,
+      "overlap": false
+     }
+    },
+    {
+     "case": "en-complete-catalog-warm",
+     "recorded": "FAIL",
+     "recordedFailed": [
+      "A:not-the-expected-recording"
+     ],
+     "recomputed": "PASS",
+     "failed": [],
+     "blocked": [],
+     "ratios": [
+      0.97,
+      1,
+      0.99,
+      1.03
+     ],
+     "elementDurations": [
+      [
+       "A",
+       3.04,
+       3.04,
+       "playing (recomputed)"
+      ],
+      [
+       "B",
+       2.96,
+       2.96,
+       "ended"
+      ],
+      [
+       "C",
+       3.36,
+       3.36,
+       "ended"
+      ],
+      [
+       "P",
+       2.32,
+       2.32,
+       "ended"
+      ]
+     ],
+     "gaps": {
+      "aToB": 126,
+      "bToC": 127,
+      "cToSummary": 137,
+      "overlap": false
+     }
+    },
+    {
+     "case": "de-complete-catalog-warm",
+     "recorded": "FAIL",
+     "recordedFailed": [
+      "A:not-the-expected-recording"
+     ],
+     "recomputed": "PASS",
+     "failed": [],
+     "blocked": [],
+     "ratios": [
+      0.96,
+      1,
+      1,
+      1.01
+     ],
+     "elementDurations": [
+      [
+       "A",
+       4.2,
+       4.2,
+       "playing (recomputed)"
+      ],
+      [
+       "B",
+       3.16,
+       3.16,
+       "ended"
+      ],
+      [
+       "C",
+       3,
+       3,
+       "ended"
+      ],
+      [
+       "P",
+       3.08,
+       3.08,
+       "ended"
+      ]
+     ],
+     "gaps": {
+      "aToB": 127,
+      "bToC": 127,
+      "cToSummary": 128,
+      "overlap": false
+     }
+    },
+    {
+     "case": "tr-complete-catalog-warm",
+     "recorded": "FAIL",
+     "recordedFailed": [
+      "A:not-the-expected-recording"
+     ],
+     "recomputed": "PASS",
+     "failed": [],
+     "blocked": [],
+     "ratios": [
+      0.95,
+      1,
+      1.01,
+      1
+     ],
+     "elementDurations": [
+      [
+       "A",
+       3.48,
+       3.48,
+       "playing (recomputed)"
+      ],
+      [
+       "B",
+       3.4,
+       3.4,
+       "ended"
+      ],
+      [
+       "C",
+       3.72,
+       3.72,
+       "ended"
+      ],
+      [
+       "P",
+       4.32,
+       4.32,
+       "ended"
+      ]
+     ],
+     "gaps": {
+      "aToB": 127,
+      "bToC": 131,
+      "cToSummary": 128,
+      "overlap": false
+     }
+    }
+   ]
+  },
+  "caseOutcomes": {
+   "cases": 21,
+   "PASS": 16,
+   "FAIL": "tr-complete-catalog-cold, en/de/tr-complete-catalog-warm: L3 recorded FAIL (A element duration null: harness listener order); offline recompute PASS",
+   "BLOCKED": "de-consent-revoked-before-start: a started player was already reported 8 ms before the consent at closing-trigger (precondition not met); no closing audio afterwards and the analysis request was aborted",
+   "NOT_APPLICABLE_rows": 2,
+   "assetParity": "45 A/B/C + 99 catalog recordings byte-identical in the AAOS WebView (PASS)"
+  }
+ },
+ "awsWindow": {
+  "web": {
+   "instance": "r7i.2xlarge",
+   "startSent": "2026-11-10T22:14:18Z",
+   "stoppedObserved": "2026-11-10T23:03:18Z",
+   "minutes": 49.0,
+   "limit": 75,
+   "osTimerVerified": true
+  },
+  "aaos": {
+   "instance": "m8i.2xlarge",
+   "startSent": "2026-11-10T22:28:17Z",
+   "stoppedObserved": "2026-11-10T23:02:26Z",
+   "minutes": 34.1,
+   "limit": 60,
+   "osTimerVerified": true
+  },
+  "order": "WEB first, AAOS second; AAOS stopped first, WEB second",
+  "otherExperimentCheck": "no other instance running; no active SSM session; no remote command on WEB/AAOS since this tooling's last command (latest foreign command 2026-11-09 21:50Z); no foreign process or work directory on either host",
+  "temporarySecurityGroup": {
+   "rule": "TCP 8190 from the AAOS group only",
+   "opened": "22:43:47Z",
+   "closed": "23:02:46Z",
+   "deleted": true,
+   "webNetworkRestored": true,
+   "webGroupRulesFor8190": []
+  },
+  "productConfiguration": "protected file hashes unchanged; attune-api@web and attune-web@web active; no leftover window process on WEB",
+  "synthesisConcurrency": "nothing else measured on WEB while the 99 lines were synthesized; the live comparison and the test API ran after it",
+  "finalState": "both stopped, nothing running, temporary group gone (read by API after the session worker restart)"
+ },
+ "cost": {
+  "web": 0.521,
+  "aaos": 0.289,
+  "providerCallsEstimate": 0.12,
+  "total": 0.93,
+  "cap": 1.5,
+  "currency": "USD",
+  "note": "list prices eu-central-1 (WEB 0.6384/h, AAOS 0.50716/h); provider estimate from about 204 analyses at about 3k input tokens; not on a bill yet; taxes excluded"
+ }
+}
