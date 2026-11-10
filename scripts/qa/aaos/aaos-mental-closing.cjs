@@ -174,6 +174,11 @@ async function closing(session, language, options, check, out, r) {
   const finish = page.getByRole('button', {name: tr('Görüşmeyi Bitir'), exact: true});
   const tap = options.realTap ? await realTap(page, finish) : (await finish.click(), null);
   const row = {name: options.name, language, action: options.action || null, at: options.at || null, build, finishInput: tap ? {kind: 'adb input tap', ...tap} : 'CDP click', turnTaps};
+  if (tap) {
+    row.realTapStartedClosing = await waitStage(page, 'closing-trigger', 6000).then(() => true, () => false);
+    check(`${options.name}: a real Android touch (adb input tap) on "end conversation" starts the closing`, row.realTapStartedClosing, row.finishInput);
+    if (!row.realTapStartedClosing) { W.shot(out, options.name + '-tap-missed'); await finish.click(); }
+  }
   await waitStage(page, 'closing-A-playing', 20000).catch(() => {});
   row.mixerDuringA = await mixerDelta(1000);
   row.focusDuringA = focusOwners();
@@ -242,7 +247,7 @@ async function closing(session, language, options, check, out, r) {
     row.stagesAfterAction = events.filter(e => e.atMs >= after).map(e => e.stage);
     row.playsAfterAction = await page.evaluate(t => window.__plays.filter(p => p.atMs > t), after);
     row.mixerAfter = await mixerDelta();
-    row.phase = await page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase');
+    row.phase = await page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase', {timeout: 2000}).catch(() => 'panel-not-shown');
     row.notice = await page.evaluate(() => [...document.querySelectorAll('[role=status],[role=alert]')].map(n => n.textContent).join(' | ').slice(0, 300));
     row.requests = plan.requests.filter(q => q.id === options.name);
     row.lateSpeechResponses = row.requests.filter(q => q.kind === 'tts-answered' && q.at > actedAt).length;
