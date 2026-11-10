@@ -127,19 +127,25 @@ def cpu_seconds(pids):
 
 
 class TestApi:
-    def __init__(self, source, base_env, port, log, token=None):
+    def __init__(self, source, base_env, port, log, token=None, extra_env=None, host='127.0.0.1'):
         self.port, self.token = port, token or secrets.token_hex(32)
         user = pwd.getpwnam('attune')
         env = dict(base_env)
         env.update(PORT=str(port), ATTUNE_MENTAL_TTS_TOKEN=self.token, ATTUNE_LOAD_LOCAL_ENV='0',
                    ATTUNE_TRUSTED_ORIGINS='http://127.0.0.1:3190', HOME=user.pw_dir)
+        # Test-only additions (remote worker address, warm-up profiles); removals with value None.
+        for key, value in (extra_env or {}).items():
+            if value is None:
+                env.pop(key, None)
+            else:
+                env[key] = value
 
         def drop():
             os.setgid(user.pw_gid)
             os.initgroups('attune', user.pw_gid)
             os.setuid(user.pw_uid)
         self.started = time.time()
-        self.proc = subprocess.Popen(['/opt/attune-venv/bin/uvicorn', 'main:app', '--host', '127.0.0.1', '--port', str(port),
+        self.proc = subprocess.Popen(['/opt/attune-venv/bin/uvicorn', 'main:app', '--host', host, '--port', str(port),
                                       '--workers', '1', '--no-access-log'], cwd=str(Path(source) / 'services/core-api'), env=env,
                                      stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, preexec_fn=drop,
                                      start_new_session=True)
