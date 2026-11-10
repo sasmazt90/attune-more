@@ -175,6 +175,8 @@ services/core-api/models/skin-type-local-v1/*.onnx
 !apps/vehicle-app/public/audio/mental/v1/en/female-calm-v1/*/*.wav
 !apps/vehicle-app/public/audio/mental/v1/de/female-calm-v1/*/*.wav
 !docs/mental-structured/closing-female-calm-v1/??-closing.wav
+# Closing A/B/C bridge: 45 generated female-calm-v1 recordings (no user audio); manifest pins each hash.
+!apps/vehicle-app/public/audio/mental/closing-abc/v1/*/female-calm-v1/[ABC]/[A-Z][A-Z]_[ABC][1-5].wav
 
 # Task 13 runtime secrets, identities and disposable output.
 infra/aws/private/
