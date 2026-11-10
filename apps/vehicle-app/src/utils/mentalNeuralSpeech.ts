@@ -35,8 +35,9 @@ export type NeuralSpeechOptions={requestGesture?:PlaybackGestureRequest;observe?
 export type PreparedNeuralSpeech={
  /** True once the first part is generated and still permitted. Never rejects. */
  firstReady:Promise<boolean>;
- /** Plays every part in order; a later part keeps generating while an earlier one plays. Only the first call plays. */
- play:(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest)=>Promise<boolean>;
+ /** Plays every part in order; a later part keeps generating while an earlier one plays. Only the first call plays.
+  * An element passed in is reused for every part (keeps an Android WebView gesture unlock); otherwise each part gets a new one. */
+ play:(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest,element?:HTMLAudioElement)=>Promise<boolean>;
  /** Stops generation and playback and releases listeners/focus. Idempotent. */
  cancel:()=>void;
 };
@@ -94,7 +95,7 @@ export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current
  };
  start(0);
  const firstReady=results[0].then(bytes=>!!bytes&&permitted());
- const play=async(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest)=>{
+ const play=async(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest,element?:HTMLAudioElement)=>{
   if(played||released)return false;
   played=true;
   try{
@@ -102,7 +103,7 @@ export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current
     const bytes=await results[index];
     if(!bytes||!permitted())return false;
     options.observe?.('response-ready');
-    const audio=new Audio();audioReady(audio);
+    const audio=element??new Audio();audioReady(audio);
     const done=await playAudioBytes(audio,bytes,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{options.observe?.(stage);if(stage==='playing'&&index===0)onPlaying();},false,requestGesture);
     if(!done)return false;
    }

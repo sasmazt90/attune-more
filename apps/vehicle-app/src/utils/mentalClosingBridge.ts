@@ -69,11 +69,11 @@ function joinPause(ms:number,signal:AbortSignal,live:()=>boolean):Promise<boolea
  });
 }
 
-/** A, B, C in order, each only after the previous one ended. */
-export async function playClosingBridge(selection:ClosingSelection,bytes:ArrayBuffer[],signal:AbortSignal,live:()=>boolean,audioReady:(audio:HTMLAudioElement)=>void,observe:(stage:string)=>void,requestGesture?:PlaybackGestureRequest):Promise<boolean>{
+/** A, B, C in order, each only after the previous one ended, on one reused media element when given. */
+export async function playClosingBridge(selection:ClosingSelection,bytes:ArrayBuffer[],signal:AbortSignal,live:()=>boolean,audioReady:(audio:HTMLAudioElement)=>void,observe:(stage:string)=>void,requestGesture?:PlaybackGestureRequest,element?:HTMLAudioElement):Promise<boolean>{
  for(let index=0;index<selection.clips.length;index++){
   if(!live())return false;
-  const clip=selection.clips[index],audio=new Audio();audioReady(audio);
+  const clip=selection.clips[index],audio=element??new Audio();audioReady(audio);
   const played=await playAudioBytes(audio,bytes[index],'audio/wav',clip.durationMs/1000,signal,live,stage=>observe(clip.group+'-'+stage),false,requestGesture);
   if(!played)return false;
   if(index<selection.clips.length-1&&!await joinPause(catalog.joinSilenceMs,signal,live))return false;
@@ -129,6 +129,9 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
  const live=()=>!signal.aborted&&hooks.current()&&getLanguage()===hooks.language;
  const owner={},focus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event&{owner:object;active:boolean};event.owner=owner;event.active=active;window.dispatchEvent(event);};
  focus(true);
+ // Created inside the user's Finish tap and reused for every recording and summary part: Android WebView requires a
+ // user gesture per new media element (setMediaPlaybackRequiresUserGesture); the unlock stays with this element.
+ const element=new Audio();
  let released=false,unavailable=false,text:string|null=null,speech:PreparedNeuralSpeech|null=null,speechReady=false,completion:Promise<ClosingOutcome>|null=null;
  const abort=()=>{if(released)return;released=true;controller.abort();speech?.cancel();focus(false);};
  hooks.timing('closing-bridge-selected');
@@ -141,7 +144,7 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
   verified(live());
   if(!live())return 'cancelled';
   hooks.timing('closing-bridge-verified');hooks.state('closingBridge');
-  const played=await playClosingBridge(selection,bytes,signal,live,hooks.audioReady,stage=>hooks.timing('closing-'+stage),hooks.requestGesture);
+  const played=await playClosingBridge(selection,bytes,signal,live,hooks.audioReady,stage=>hooks.timing('closing-'+stage),hooks.requestGesture,element);
   if(!played)return live()?'failed':'cancelled';
   hooks.timing('closing-bridge-ended');
   // Honest state while waiting; no recording is repeated to cover it.
@@ -167,7 +170,7 @@ export function startClosingFlow(hooks:ClosingHooks):ClosingFlow|null{
    if(!speech)return live()?'failed':'cancelled';
    if(!speechReady)hooks.state('closingSpeechPending');
    else if(!await joinPause(catalog.joinSilenceMs,signal,live))return live()?'failed':'cancelled';
-   const played=await speech.play(()=>{hooks.state('speaking');hooks.timing('closing-summary-audio-start');},hooks.audioReady,hooks.requestGesture);
+   const played=await speech.play(()=>{hooks.state('speaking');hooks.timing('closing-summary-audio-start');},hooks.audioReady,hooks.requestGesture,element);
    if(played)hooks.timing('closing-summary-complete');
    return played?'played':live()?'failed':'cancelled';
   }finally{abort();}

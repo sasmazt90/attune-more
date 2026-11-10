@@ -11,10 +11,11 @@ const sha=b=>crypto.createHash('sha256').update(Buffer.from(b)).digest('hex');
 const labels=new Map(manifest.entries.map(e=>[e.sha256,e.language+':'+e.variantId]));
 
 // Playback fixture: one active output at a time is asserted; every start/end is logged with a label.
-let log=[],active=0,maxActive=0,playMs=25,failLabel=null,onStart=null;
+let elements=[],log=[],active=0,maxActive=0,playMs=25,failLabel=null,onStart=null;
 const original=Module._load;
 Module._load=function(request,parent,...args){
  if(request==='./fixedFileSpeech'&&/mental(ClosingBridge|NeuralSpeech)\.ts$/.test(parent.filename))return {playAudioBytes:(audio,bytes,mime,duration,signal,current,observe)=>new Promise(resolve=>{
+  elements.push(audio);
   const label=labels.get(sha(bytes))||'tts:'+Buffer.from(bytes).toString('utf8',44,60).trim();
   // Mirrors the real guard: session, mute and visibility end output.
   const allowed=()=>!signal.aborted&&current()&&!document.hidden&&!window.attuneOutputMuted;
@@ -51,7 +52,7 @@ function hooks(extra={}){
  return Object.assign(h,{current:()=>h.live,audioReady:()=>{},requestGesture:()=>()=>{},state:s=>h.states.push(s),timing:s=>h.timings.push(s)},extra);
 }
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
-const reset=()=>{log=[];active=0;maxActive=0;ttsRequests=[];failLabel=null;corrupt=null;onStart=null;ttsDelay=0;playMs=25;};
+const reset=()=>{elements=[];log=[];active=0;maxActive=0;ttsRequests=[];failLabel=null;corrupt=null;onStart=null;ttsDelay=0;playMs=25;};
 
 (async()=>{
  // 1. Gate: off by default; approved-only finds nothing approved yet; preview needs complete, matching groups.
@@ -103,6 +104,7 @@ const reset=()=>{log=[];active=0;maxActive=0;ttsRequests=[];failLabel=null;corru
  assert(log.findIndex(l=>l.includes('start tts'))>cEnd,'summary plays only after C ended');
  assert(h.timings.includes('closing-summary-first-ready')&&h.timings.indexOf('closing-summary-first-ready')<h.timings.indexOf('closing-bridge-ended'));
  assert.equal(h.states.at(-1),'speaking');assert.equal(focus,0,'focus released');
+ assert.equal(elements.length,5);assert.equal(new Set(elements).size,1,'one media element for A, B, C and every summary part (keeps a WebView gesture unlock)');
 
  // 4. Slow speech: honest pending state after C, no recording replayed to fill the wait.
  reset();ttsDelay=400;playMs=20;h=hooks();
