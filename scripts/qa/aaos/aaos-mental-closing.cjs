@@ -477,7 +477,7 @@ const CASES = [
   // Complete closings: CDP click and calibrated real Android touch, TR/EN/DE.
   {name: 'tr-complete-cold-cdp', language: 'tr', start: 'cold', conversation: 1},
   {name: 'en-complete-warm-cdp', language: 'en', start: 'warm', conversation: 1},
-  {name: 'de-complete-warm-cdp', language: 'de', start: 'warm', conversation: 1},
+  {name: 'de-complete-warm-cdp', language: 'de', start: 'warm', conversation: 2},
   {name: 'tr-complete-warm-real-tap', language: 'tr', start: 'warm', conversation: 2, realTap: true},
   {name: 'en-complete-warm-real-tap', language: 'en', start: 'warm', conversation: 2, realTap: true},
   {name: 'de-complete-warm-real-tap', language: 'de', start: 'warm', conversation: 2, realTap: true},
