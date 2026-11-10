@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Attune Mental – KOL B prototype</title>
+<script type="importmap">{"imports":{"@litert-lm/core":"/node_modules/@litert-lm/core/dist/index.js","@litertjs/wasm-utils":"/node_modules/@litertjs/wasm-utils/dist/index.js"}}</script>
+<style>
+ body{font-family:system-ui,sans-serif;margin:16px;max-width:860px;background:#0f1720;color:#e6edf3}
+ button,select{font-size:16px;padding:8px 14px;margin:4px;border-radius:8px;border:1px solid #3b4b5c;background:#18232f;color:#e6edf3}
+ .badge{display:inline-block;padding:2px 8px;border-radius:6px;background:#3b2a12;color:#ffcc80;font-size:13px}
+ #log{white-space:pre-wrap;font-size:14px;background:#131c26;padding:10px;border-radius:8px;min-height:120px}
+ .grp{margin:8px 0;padding:8px;border-left:3px solid #00c2e7;background:#131c26}
+</style></head>
+<body>
+<h2>Attune Mental — Qwen3.5-2B / LiteRT-LM (KOL B prototipi)</h2>
+<p><span class="badge">Teknik prototip</span> <span class="badge" id="voiceBadge">Prototip sesi (Piper) — onaylı female-calm-v1 değildir</span> <span class="badge" id="llmBadge"></span></p>
+<div>
+ <select id="lang"><option value="tr">Türkçe</option><option value="en">English</option><option value="de">Deutsch</option></select>
+ <label><input type="checkbox" id="consent"> Ses ve metin bu cihazda işlenir (onay)</label>
+ <label><input type="checkbox" id="parkSim" checked> Park (tarayıcı simülasyonu)</label>
+ <label><input type="checkbox" id="mute"> Sesi kapat</label>
+</div>
+<div><button id="start">Görüşmeyi başlat</button><button id="end">Görüşmeyi bitir</button><button id="cancel">İptal</button></div>
+<p id="state">Hazır</p>
+<div id="log"></div>
+<h3>Özet</h3><div id="summary"></div>
+<script type="module" src="./app.js"></script>
+</body></html>

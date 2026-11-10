@@ -1,6 +1,6 @@
 // HOST-linux-cpu adapter (evaluation only): talks to host/llm_host_server.py on loopback. Not on-device.
 import {verifierPrompt} from '../core/prompts.js';
-const BASE = 'http://127.0.0.1:8790';
+const BASE = typeof window === 'undefined' ? 'http://127.0.0.1:8790' : '/llm';   // page: same-origin proxy of tools/serve.mjs
 async function post(path, body) {
   const r = await fetch(BASE + path, {method: 'POST', body: JSON.stringify(body)});
   const j = await r.json(); if (!r.ok) throw new Error(`${path}: ${j.error || r.status}`); return j;

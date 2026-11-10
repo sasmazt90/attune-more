@@ -16,9 +16,15 @@ const log = (line) => { if (logFile) fs.appendFileSync(logFile, `${new Date().to
 
 http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
+  if (url.pathname.startsWith('/llm/')) {   // evaluation only: same-origin pass-through to the HOST LLM adapter (not on-device)
+    const up = http.request({host: '127.0.0.1', port: 8790, method: req.method, path: url.pathname.slice(4), headers: {'content-type': 'application/json', ...(req.headers['content-length'] ? {'content-length': req.headers['content-length']} : {})}},
+      r => { res.writeHead(r.statusCode, {'Content-Type': 'application/json', 'Cross-Origin-Resource-Policy': 'same-origin'}); r.pipe(res); });
+    up.on('error', e => { res.writeHead(502).end(String(e)); }); req.pipe(up); log(`proxy ${url.pathname}`); return;
+  }
   let rel = decodeURIComponent(url.pathname);
-  const base = rel.startsWith('/models/') ? modelsDir : root;
-  if (rel.startsWith('/models/')) rel = rel.slice('/models'.length);
+  let base = root;
+  if (rel.startsWith('/models/')) { base = modelsDir; rel = rel.slice('/models'.length); }
+  else if (rel.startsWith('/eval-corpus/')) { base = path.resolve(root, '../eval/corpus'); rel = rel.slice('/eval-corpus'.length); }
   const file = path.join(base, path.normalize(rel).replace(/^([/\\])+/, ''));
   if (!file.startsWith(base)) { res.writeHead(403).end(); return; }
   let stat;

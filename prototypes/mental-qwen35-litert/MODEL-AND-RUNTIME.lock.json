@@ -1,0 +1,41 @@
+{
+ "description": "Everything the KOL B prototype downloads, pinned. Weights are NOT stored in git or Drive; fetch them from these exact sources and verify SHA-256 (see README 'Setup').",
+ "llm": {
+  "model": "litert-community/Qwen3.5-2B (base: Qwen/Qwen3.5-2B, Apache-2.0)",
+  "revision": "f24013ba6844bd39be2d1f68e8d2421a77eed1f2",
+  "file": "Qwen3.5-2B_int8.litertlm",
+  "url": "https://huggingface.co/litert-community/Qwen3.5-2B/resolve/f24013ba6844bd39be2d1f68e8d2421a77eed1f2/Qwen3.5-2B_int8.litertlm",
+  "sha256": "c2438cb9c050220e667366b4beeca4daac56e693b226420674f53fc40f007c49",
+  "bytes": 2119843840,
+  "license": "apache-2.0",
+  "quantization": "int8 dynamic on linears + embedding; 36 GatedDeltaNet decay/gate projections float; fp32 activations declared; weights in TFLiteWeights sections (external weights, since 2026-11-09)",
+  "context": 4096,
+  "modelCardNotes": ["one Engine per conversation (LiteRT-LM #3165; fix on main e1f86b05, not in 0.19.1)", "Android GPU needs LiteRT-LM >= 0.19.0 for this file", "Android: CPU backend recommended", "Qwen3.5-2B is NOT in the official 'Web LLM Models' collection"],
+  "alternativeTestedForWebOnly": {
+   "revision": "895dd827bca539c532b359d9fec3b4fe512f8426", "file": "Qwen3.5-2B_int8.litertlm", "sha256": "fa4ac3259404567c7f82533746549eed94e2e1c8222095706c63cce17653c68a", "bytes": 2119744416,
+   "why": "same TFLite graph/weights with the weights inside the graph; tried only because the WASM CPU path cannot read external weights; it failed too (XNNPACK runtime creation, wasm32 4 GB). Not used by the prototype."
+  }
+ },
+ "runtimes": {
+  "web": {"package": "@litert-lm/core", "version": "0.19.0", "tarballSha256": "03a1514c16102132eaf26227e79cf6468b303e802bd0a1e8595a2b851433c761", "license": "Apache-2.0",
+          "comparedOnly": {"version": "0.20.0-nightly.20261109", "tarballSha256": "b0bda57797cb8aff8e32862a6cee48c9d29764b26070fe5de7ba1c2705e8a84e", "result": "same external-weight failure on CPU; not used"}},
+  "android": {"artifact": "com.google.ai.edge.litertlm:litertlm-android:0.19.1", "aarSha256": "341f66349ac962e0b6733b8da419b045a4834fca2f7db0bd13e049ce1cfcca72", "abis": ["arm64-v8a", "x86_64"], "license": "Apache-2.0"},
+  "hostEvaluationOnly": {"package": "litert-lm-api 0.19.1 (PyPI)", "wheelSha256": "93db43085401b208815a636150ae87576bb7e82adbada9f083ec16114dff8898", "note": "content evaluation on the VM CPU; not an on-device result"}
+ },
+ "speech": {
+  "vad": {"package": "@ricky0123/vad-web 0.0.31 (ISC)", "model": "silero_vad_v5.onnx (bundled in the npm package; Silero VAD, MIT)"},
+  "stt": {"runtime": "@huggingface/transformers 4.3.2 (Apache-2.0) with onnxruntime-web (MIT)",
+          "models": [{"repo": "onnx-community/whisper-small", "revision": "36050c46d777d46dc4b5f43f6d90574fc38f8732", "files": ["onnx/encoder_model_quantized.onnx", "onnx/decoder_model_merged_quantized.onnx"], "weightsLicense": "MIT (OpenAI Whisper)"},
+                     {"repo": "onnx-community/whisper-base", "revision": "27a07b4b52b3a4c5886134bb4320e93e1a4bbc7c", "files": ["onnx/encoder_model_quantized.onnx", "onnx/decoder_model_merged_quantized.onnx"], "weightsLicense": "MIT (OpenAI Whisper)"}]},
+  "tts": {"runtime": "onnxruntime-web 1.31.1 (MIT) + @diffusionstudio/piper-wasm 1.0.0 (MIT, espeak-ng phonemizer; espeak-ng is GPL-3.0 — check before product use)",
+          "voicesRepo": "rhasspy/piper-voices", "revision": "cf910fb59f1d79ab3b625a63993a108751c6c25d",
+          "voices": {
+           "tr": {"id": "tr_TR-dfki-medium", "sha256": "2844717f524ab965d3fe86e60562cbb601d3e456836efcc2196cc3a14112a8fb", "datasetLicense": "CC BY-NC-SA 4.0 (NON-COMMERCIAL — evaluation only)", "speaker": "DFKI Turkish corpus"},
+           "en": {"id": "en_US-kristin-medium", "sha256": "5849957f929cbf720c258f8458692d6103fff2f0e3d3b19c8259474bb06a18d4", "datasetLicense": "public domain (LibriVox)", "speaker": "female"},
+           "de": {"id": "de_DE-kerstin-medium", "sha256": "c56d70475fb99248a20e60dafbcd107475e60d7e01deec18ba65201d288d015d", "datasetLicense": "CC0", "speaker": "female"}},
+          "notUsed": {"tr_TR-fettah/fahrettin": "removed upstream on 2025-12-30 'at request of contributors' (rhasspy/piper-voices b145f2ac26)", "ilkiz (third party)": "MIT, dataset provenance not stated"},
+          "voiceIdentity": "Prototype-specific voices. NOT the approved female-calm-v1 voice and not presented as equivalent."}
+ },
+ "validator": {"source": "services/core-api/mental_analysis.py at 4b3f596 (unchanged)", "onDevice": "Pyodide 314.0.7 (MPL-2.0) in the page; pydantic replaced by a stand-in module for the import only"},
+ "evaluationData": {"fleurs": {"dataset": "google/fleurs", "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd", "license": "CC BY 4.0", "split": "dev, first 20 rows per language", "archives": {"tr_tr": "7476fc01bc50750f2854dbc1b4fa285f00092808e7e43244e0b978e031cbe712", "en_us": "2658fda72f199e12676ecac9415094667a4e14e149b146e568ea00b2a2f0954c", "de_de": "72cac13bbddbddf674d8102a9e7b90a3b1db5d777ed92e88eccc5ae69cb8fc9d"}}}
+}

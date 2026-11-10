@@ -1,0 +1,42 @@
+// KOL B prototype APK. Separate application id; it never replaces or updates the product AAOS app.
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'more.attune.prototype.mentalqwen'
+    compileSdk 35
+    buildToolsVersion '35.0.0'
+    useLibrary 'android.car'
+    defaultConfig {
+        applicationId 'more.attune.prototype.mentalqwen'
+        minSdk 29
+        targetSdk 35
+        versionCode 1
+        versionName '0.0.1-kol-b'
+        ndk { abiFilters 'arm64-v8a', 'x86_64' }
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    packaging { jniLibs { useLegacyPackaging true } }
+    sourceSets { main { assets.srcDirs += ["$buildDir/generated/prototypeAssets"] } }
+}
+
+dependencies {
+    implementation 'com.google.ai.edge.litertlm:litertlm-android:0.19.1'   // >= 0.19.0 required by the model's external weights
+    implementation 'androidx.webkit:webkit:1.12.1'
+}
+
+// The web prototype (same JS core and in-browser speech as WEB) is copied into the APK. Models are NOT packaged:
+// they are pushed to the app's files directory (see README).
+def web = file('../../web')
+tasks.register('copyPrototypeWeb', Copy) {
+    into "$buildDir/generated/prototypeAssets/web"
+    from(web) {
+        include 'app/**', 'core/**', 'adapters/**', 'generated/**', 'dist/**', 'speech/**'
+        include 'node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.*'
+        include 'node_modules/@huggingface/transformers/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.*'
+        include 'node_modules/@ricky0123/vad-web/dist/*.onnx', 'node_modules/@ricky0123/vad-web/dist/vad.worklet.bundle.min.js'
+        include 'node_modules/@diffusionstudio/piper-wasm/build/**'
+        include 'node_modules/pyodide/pyodide.mjs', 'node_modules/pyodide/pyodide.asm.mjs', 'node_modules/pyodide/pyodide.asm.wasm'
+        include 'node_modules/pyodide/python_stdlib.zip', 'node_modules/pyodide/pyodide-lock.json'
+    }
+}
+preBuild.dependsOn 'copyPrototypeWeb'

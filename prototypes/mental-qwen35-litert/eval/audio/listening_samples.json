@@ -1,0 +1,149 @@
+{
+ "description": "Texts synthesized with the prototype's Piper voices for listening (not the approved female-calm-v1 voice). Sources: B2/A2 outputs and the prototype's fixed texts; crisis text = the product's fixed text, here in the prototype voice only for listening.",
+ "items": [
+  {
+   "lang": "tr",
+   "id": "TR_01_bridge",
+   "kind": "closing-bridge (prepared at start)",
+   "text": "Teşekkür ederim. Konuştuklarımızı toparlıyorum."
+  },
+  {
+   "lang": "tr",
+   "id": "TR_02_followup",
+   "kind": "model follow-up (B2 tr-positive#1)",
+   "text": "Anlıyorum. Hangi toplantılar oldu?"
+  },
+  {
+   "lang": "tr",
+   "id": "TR_03_followup",
+   "kind": "model follow-up (B2 tr-unsupported#1)",
+   "text": "Anlıyorum. Ne zaman bu kaygıyı hissetmeye başladın?"
+  },
+  {
+   "lang": "tr",
+   "id": "TR_04_fallback",
+   "kind": "fixed fallback question",
+   "text": "Bunu biraz daha anlatmak ister misin?"
+  },
+  {
+   "lang": "tr",
+   "id": "TR_05_personal",
+   "kind": "accepted personal closing line (B2 tr-unsupported)",
+   "text": "Kaygıdan söz ettin."
+  },
+  {
+   "lang": "tr",
+   "id": "TR_06_personal",
+   "kind": "accepted personal closing line (A2 tr-work)",
+   "text": "Baskıdan ve uykudan söz ettin."
+  },
+  {
+   "lang": "tr",
+   "id": "TR_07_cannot_help",
+   "kind": "fixed cannot-help text",
+   "text": "Bu konuda yardımcı olamam; ilaç ve tanı için bir doktorla konuşabilirsin."
+  },
+  {
+   "lang": "tr",
+   "id": "TR_08_crisis_text",
+   "kind": "product crisis text (parked) in prototype voice",
+   "text": "Söyledikleriniz benim için çok önemli ve şu an çok zor bir süreçten geçtiğinizi anlıyorum. Ancak ben bir acil durum veya sağlık servisi değilim. Lütfen şu an güvende kalmak için gecikmeden 112 Acil Çağrı Merkezi ile iletişime geçin. Yalnız değilsiniz, profesyonel uzmanlar size yardımcı olmak için hazır."
+  },
+  {
+   "lang": "en",
+   "id": "EN_01_bridge",
+   "kind": "closing-bridge (prepared at start)",
+   "text": "Thank you. I am putting together what we talked about."
+  },
+  {
+   "lang": "en",
+   "id": "EN_02_followup",
+   "kind": "model follow-up (B2 en-positive#2)",
+   "text": "I see. What did you do with your sister?"
+  },
+  {
+   "lang": "en",
+   "id": "EN_03_followup",
+   "kind": "model follow-up (B2 en-negation#2)",
+   "text": "I see. What do you like to do in the evenings?"
+  },
+  {
+   "lang": "en",
+   "id": "EN_04_fallback",
+   "kind": "fixed fallback question",
+   "text": "Would you like to tell me a bit more about that?"
+  },
+  {
+   "lang": "en",
+   "id": "EN_05_personal",
+   "kind": "accepted personal closing line (B2 en-correction)",
+   "text": "You talked about an argument with a colleague on Tuesday."
+  },
+  {
+   "lang": "en",
+   "id": "EN_06_personal",
+   "kind": "accepted personal closing line (B2 en-negation)",
+   "text": "You talked about not having trouble sleeping and feeling tired from work."
+  },
+  {
+   "lang": "en",
+   "id": "EN_07_cannot_help",
+   "kind": "fixed cannot-help text",
+   "text": "I cannot help with that; a doctor can talk with you about medication or a diagnosis."
+  },
+  {
+   "lang": "en",
+   "id": "EN_08_crisis_text",
+   "kind": "product crisis text (parked, product translation) in prototype voice",
+   "text": "What you are saying matters a great deal, and I understand that you are going through a very difficult time. However, I am not an emergency or healthcare service. To stay safe now, please contact 112 emergency services without delay. You are not alone; professionals are ready to help."
+  },
+  {
+   "lang": "de",
+   "id": "DE_01_bridge",
+   "kind": "closing-bridge (prepared at start)",
+   "text": "Vielen Dank. Ich fasse zusammen, worüber wir gesprochen haben."
+  },
+  {
+   "lang": "de",
+   "id": "DE_02_followup",
+   "kind": "model follow-up (B2 de-positive#4)",
+   "text": "Verstehe. Wann möchten Sie das öfter machen?"
+  },
+  {
+   "lang": "de",
+   "id": "DE_03_fallback",
+   "kind": "fixed fallback question",
+   "text": "Möchten Sie mir etwas mehr darüber erzählen?"
+  },
+  {
+   "lang": "de",
+   "id": "DE_04_fallback",
+   "kind": "fixed fallback question",
+   "text": "Was beschäftigt Sie gerade am meisten?"
+  },
+  {
+   "lang": "de",
+   "id": "DE_05_personal",
+   "kind": "accepted personal closing line (B2 de-correction)",
+   "text": "Sie sprachen über einen Streit mit einem Kollegen."
+  },
+  {
+   "lang": "de",
+   "id": "DE_06_personal",
+   "kind": "accepted personal closing line (B2 de-positive)",
+   "text": "Sie sprachen über viel Arbeit und Wandern mit der Schwester."
+  },
+  {
+   "lang": "de",
+   "id": "DE_07_cannot_help",
+   "kind": "fixed cannot-help text",
+   "text": "Dabei kann ich nicht helfen; über Medikamente oder eine Diagnose kann ein Arzt mit Ihnen sprechen."
+  },
+  {
+   "lang": "de",
+   "id": "DE_08_crisis_text",
+   "kind": "product crisis text (parked, product translation) in prototype voice",
+   "text": "Was Sie sagen, ist sehr wichtig, und ich verstehe, dass Sie gerade eine sehr schwierige Zeit erleben. Ich bin jedoch kein Notfall- oder Gesundheitsdienst. Wenden Sie sich bitte unverzüglich an den Notruf 112, um jetzt sicher zu bleiben. Sie sind nicht allein; Fachkräfte stehen bereit, Ihnen zu helfen."
+  }
+ ]
+}
