@@ -61,7 +61,7 @@ add(8, 'tired', 'Kendini yorgun hissettiğinden söz ettin.', 'You talked about 
     [('en', 'My father is tired all the time.', 'third person'), ('tr', 'Yorgun değilim.', 'negated')])
 add(9, 'sleep', 'Uykuyla ilgili yaşadığın güçlüklerden söz ettin.', 'You talked about difficulties with sleep.', 'Sie sprachen über Ihre Schwierigkeiten mit dem Schlaf.',
     'The user describes their own sleep difficulty (interrupted, too little, cannot fall asleep). Not "my sleep is good", not "I have no sleep problem".',
-    {'tr': [r'\buyku\w*\s+(sorun|problem|bölün|kaç|düzensiz|zor|bozul|bozuk)\w*', r'\buyuyam\w*', r'\buykusuz\w*', r'\bgece\w* (sık sık |sürekli )?uyan\w*', r'\buykuya dal(a|ama)\w*', r'\buykumu alamı\w*'],
+    {'tr': [r'\buyku\w*\s+(\w+\s+){0,2}(sorun|problem|bölün|kaç|düzensiz|zor|bozul|bozuk)\w*', r'\buyuyam\w*', r'\buykusuz\w*', r'\bgece\w* (sık sık |sürekli )?uyan\w*', r'\buykuya dal(a|ama)\w*', r'\buykumu alamı\w*'],
      'en': [r"\b(can't|cannot|trouble|hard|difficult|struggle)\b[^.]{0,20}\bsleep", r'\bsleep\w*[^.]{0,20}\b(interrupted|bad|poor|broken|disrupted|disturbed)\b', r'\binsomnia\b', r'\bwake up[^.]{0,15}\b(often|at night|several)', r'\bsleepless\b', r'\bsleep problems?\b'],
      'de': [r'\b' + D_DE + r'(ein)?schlafen\b', r'\bschlaf\w*[^.]{0,20}(unterbrochen|gestört)', r'\bschlafprobleme?\b', r'\bschlafstörung\w*', r'\bschlafe\b[^.]{0,12}\bschlecht\b', r'\bwache[^.]{0,15}auf\b']},
     [('tr', 'Uyku sorunum yok.', 'negated'), ('en', 'I sleep well these days.', 'no difficulty')])
@@ -97,7 +97,7 @@ add(15, 'expectations', 'Beklentileri karşılamakta zorlandığından söz etti
     [('en', 'My expectations for the trip are high.', 'no struggle stated')])
 add(16, 'me-time', 'Kendine zaman ayırmakta zorlandığından söz ettin.', 'You talked about finding it hard to make time for yourself.', 'Sie sprachen darüber, dass Sie kaum Zeit für sich selbst finden.',
     'The user says they have little or no time for themselves.',
-    {'tr': [r'\bkendime (vakit|zaman) (ayıram|bulam|kalmı|yok)\w*', r'\bkendime ayıracak (vakit|zaman)\w*\s+(yok|kalmı\w*)'], 'en': [r"\b(no|not enough|never have|can't find|hard to find|don't have|little) (any )?time for myself\b", r'\bno time for me\b'],
+    {'tr': [r'\bkendime (hiç |pek )?(vakit|zaman) (ayıram|bulam|kalmı|yok)\w*', r'\bkendime ayıracak (vakit|zaman)\w*\s+(yok|kalmı\w*)'], 'en': [r"\b(no|not enough|never have|can't find|hard to find|don't have|little) (any )?time for myself\b", r'\bno time for me\b'],
      'de': [r'\b(keine|kaum|wenig) zeit für mich\b', r'\bkomme nicht dazu, etwas für mich']},
     [('en', 'I took time for myself this weekend.', 'no difficulty')], negated_cue=True)
 add(17, 'lonely', 'Kendini yalnız hissettiğinden söz ettin.', 'You talked about feeling lonely.', 'Sie sprachen darüber, dass Sie sich einsam fühlen.',

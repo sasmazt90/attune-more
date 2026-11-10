@@ -60,9 +60,15 @@ const reset=()=>{elements=[];log=[];active=0;maxActive=0;corrupt=null;onStart=nu
 const C=(language,id)=>catalog.patterns.find(p=>p.id===id).text[language];
 
 (async()=>{
- // 1. Availability: the committed manifest holds no recording yet, so the catalog is off and the request stays unchanged.
- assert.equal(committed.entries.length,0);
- assert.equal(B.closingCatalogClips('tr','technical-preview',committed),null);
+ // 1. Availability. The committed manifest: no recording yet (catalog off, request unchanged), or whole languages of 33
+ // technical previews (usable only in technical-preview mode, never in approved mode).
+ for(const language of ['tr','en','de']){
+  const count=committed.entries.filter(e=>e.language===language).length;
+  assert([0,33].includes(count),language);
+  const clips=B.closingCatalogClips(language,'technical-preview',committed);
+  assert.equal(clips===null?0:Object.keys(clips).length,count,language);
+  assert.equal(B.closingCatalogClips(language,'approved',committed),null,'no owner approval yet');
+ }
  assert.equal(Object.keys(B.closingCatalogClips('tr','technical-preview',synthetic)).length,33);
  assert.equal(B.closingCatalogClips('tr','off',synthetic),null);
  assert.equal(B.closingCatalogClips('tr','approved',synthetic),null,'technical previews never play in approved mode');

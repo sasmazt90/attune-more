@@ -40,8 +40,8 @@ def main():
     female = json.loads(FEMALE_MANIFEST.read_text('utf-8'))
     abc = json.loads(ABC_MANIFEST.read_text('utf-8'))
     current = json.loads((TARGET / 'manifest.json').read_text('utf-8'))
-    if record['catalogSha256'] != hashlib.sha256(catalog_bytes).hexdigest():
-        raise SystemExit('CATALOG_CHANGED_SINCE_SYNTHESIS')
+    # The recorded texts must be the catalog's current texts (checked per line below through textSha256); conditions and
+    # cues may be refined later without new recordings, so the whole-file hash at synthesis is kept as provenance only.
     if not all(record['integrityAfter'].values()) or not all(record['integrityBefore'].values()):
         raise SystemExit('INTEGRITY')
     if (record['referenceSha256'] != female['conditioningSha256'] or record['referenceSha256'] != abc['referenceSha256'] or record['generation'] != female['generation']
@@ -92,7 +92,7 @@ def main():
                 'approvalStatus': PREVIEW, 'ownerApprovedAt': None,
             })
     manifest = {**current,
-                'runtime': record['runtime'], 'synthesisRecordSha256': hashlib.sha256((args.synthesis / 'synthesis.json').read_bytes()).hexdigest(),
+                'runtime': record['runtime'], 'catalogFileSha256AtSynthesis': record['catalogSha256'], 'synthesisRecordSha256': hashlib.sha256((args.synthesis / 'synthesis.json').read_bytes()).hexdigest(),
                 'languagesLeftOut': left_out,
                 'approval': {'status': PREVIEW if entries else 'not-generated', 'ownerApprovedAt': None,
                              'note': 'Technically verified only (hashes, format, one take per line). Nobody has listened to '

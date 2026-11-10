@@ -143,10 +143,39 @@ def _third(clause, language):
     return any(w in _THIRD_PERSON[language] or _is_person(w, language) for w in words)
 
 
-def _negated(clause, cue_span, language, negated_cue=False):
+# Verbal negation in Turkish (-mıyor, -madı, -maz, -mamak, -mama, -mayan); the privative -sız/-suz ("uykusuzluk") is
+# part of a noun, not a negation the user could drop.
+_TR_NEGATIVE_MORPHEME = re.compile(r'(m[ıiuü]yor|m[ae]d[ıiğ]|m[ae]z|m[ae]mak|m[ae]mek|m[ae]m[ae]|m[ae]yan|m[ae]yen)\w*$')
+
+
+def _without_negation(word, language):
+    """The word with its negation removed: a negation word disappears; a Turkish verb loses its negative suffix; a
+    word whose negation is part of the word itself stays unchanged."""
+    if language == 'tr' and not word.startswith(('yok', 'değil', 'hiç', 'asla', 'kimse')):
+        return _TR_NEGATIVE_MORPHEME.sub('', word, count=1)
+    return ''
+
+
+def _negated(clause, cue_span, language, negated_cue=False, pattern=None):
+    """Negation of the cue in its clause. Outside the cue: any negation word. Inside the cue (round 6): when the cue
+    still matches with every removable negation inside it removed, the user negated it ("uykum hiç bölünmüyor", "my
+    sleep is not disrupted", "karar vermekte zorlanmıyorum"); otherwise the cue itself is negative ("uyuyamıyorum",
+    "I can't sleep", "kimse beni anlamıyor") and an intensifier around it ("hiç", "never", "nie") is emphasis."""
     a, b = cue_span
+    inherent = negated_cue
+    if pattern is not None:
+        inside = clause[a:b]
+        negations = [w for w in _words(inside, language) if _is_negation(w, language)]
+        removable = [w for w in negations if _without_negation(w, language) != w]
+        if removable:
+            probe = inside
+            for word in removable:
+                probe = re.sub(r'(?<!\w)' + re.escape(word) + r'(?!\w)', _without_negation(word, language), probe, count=1)
+            if _cue(pattern, probe, language):
+                return True
+        inherent = inherent or bool(negations)
     outside = clause[:a] + ' ' + clause[b:]
-    skip = _INTENSIFIER[language] if negated_cue else set()
+    skip = _INTENSIFIER[language] if inherent else set()
     return any(_is_negation(w, language) and w not in skip for w in _words(outside, language))
 
 
@@ -175,7 +204,7 @@ def check(candidate, language, messages):
     cue_start, cue_end = at + cue.start(), at + cue.end()
     clause = next(((a, b) for a, b in _clause_spans(text, language) if a <= cue_start < b), (0, len(text)))
     body = text[clause[0]:clause[1]]
-    if _negated(body, (cue_start - clause[0], min(cue_end, clause[1]) - clause[0]), language, pattern.get('negatedCue')):
+    if _negated(body, (cue_start - clause[0], min(cue_end, clause[1]) - clause[0]), language, pattern.get('negatedCue'), pattern):
         return 'negated'
     sentence = next((text[a:b] for a, b in _sentence_spans(text) if a <= cue_start < b), text)
     # A subject shared over "and" ("I'm very happy and proud of myself") counts when the clause names no other person.
@@ -196,7 +225,7 @@ def check(candidate, language, messages):
             part = later_text[a:b]
             again = _cue(pattern, part, language)
             negation = any(_is_negation(w, language) for w in _words(part, language))
-            if (again and _negated(part, again.span(), language)) or (_CORRECTION[language].search(part) and negation):
+            if (again and _negated(part, again.span(), language, pattern.get('negatedCue'), pattern)) or (_CORRECTION[language].search(part) and negation):
                 return 'corrected-later'
     return None
 
@@ -209,7 +238,7 @@ def _support(pattern, language, messages):
         text = _norm(message.get('content', ''), language)
         for a, b in _clause_spans(text, language):
             found = _cue(pattern, text[a:b], language)
-            if found and not _negated(text[a:b], found.span(), language) and _about_user(text[a:b], language, pattern.get('subjectOnly'), pattern.get('objectOk')):
+            if found and not _negated(text[a:b], found.span(), language, pattern.get('negatedCue'), pattern) and _about_user(text[a:b], language, pattern.get('subjectOnly'), pattern.get('objectOk')):
                 count += 1
     return count
 

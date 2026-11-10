@@ -422,7 +422,7 @@
    "condition": "The user describes their own sleep difficulty (interrupted, too little, cannot fall asleep). Not \"my sleep is good\", not \"I have no sleep problem\".",
    "cues": {
     "tr": [
-     "\\buyku\\w*\\s+(sorun|problem|bölün|kaç|düzensiz|zor|bozul|bozuk)\\w*",
+     "\\buyku\\w*\\s+(\\w+\\s+){0,2}(sorun|problem|bölün|kaç|düzensiz|zor|bozul|bozuk)\\w*",
      "\\buyuyam\\w*",
      "\\buykusuz\\w*",
      "\\bgece\\w* (sık sık |sürekli )?uyan\\w*",
@@ -724,7 +724,7 @@
    "condition": "The user says they have little or no time for themselves.",
    "cues": {
     "tr": [
-     "\\bkendime (vakit|zaman) (ayıram|bulam|kalmı|yok)\\w*",
+     "\\bkendime (hiç |pek )?(vakit|zaman) (ayıram|bulam|kalmı|yok)\\w*",
      "\\bkendime ayıracak (vakit|zaman)\\w*\\s+(yok|kalmı\\w*)"
     ],
     "en": [

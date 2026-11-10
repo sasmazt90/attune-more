@@ -318,3 +318,27 @@ def test_one_take_per_line_and_findings_are_only_recorded():
     assert [r['language'] for r in rows[:33]] == ['tr'] * 33 and rows[33]['language'] == 'en', 'language by language'
     assert syn.findings({'clippedSamples': 2, 'leadingSilenceMs': 100, 'trailingSilenceMs': 300, 'durationSeconds': 3.0}, 'a b c d e f') == ['clipped-samples:2']
     assert syn.findings({'clippedSamples': 0, 'leadingSilenceMs': 100, 'trailingSilenceMs': 300, 'durationSeconds': 9.0}, 'a b c') == ['seconds-per-word:3.00']
+
+
+@pytest.mark.parametrize('language,pid,text,accepted', [
+    # A negation inside the cue's own match is the user's when the cue holds without it ...
+    ('tr', 'C09', 'Uykum hiç bölünmüyor.', False),
+    ('en', 'C09', 'My sleep is not disrupted.', False),
+    ('de', 'C09', 'Mein Schlaf wird nicht unterbrochen.', False),
+    ('tr', 'C13', 'Karar vermekte zorlanmıyorum.', False),
+    # ... and part of the line's meaning when the cue needs it (an intensifier around it is emphasis).
+    ('tr', 'C09', 'Hiç uyuyamıyorum.', True),
+    ('en', 'C09', "I can't sleep at night.", True),
+    ('de', 'C09', 'Ich kann nachts nicht schlafen.', True),
+    ('tr', 'C19', 'Kimse beni anlamıyor.', True),
+    ('tr', 'C07', 'Kimse beni dinlemiyor.', True),
+    ('tr', 'C09', 'En çok uykusuzluk beni zorluyor.', True),
+    # Words between the parts of a cue ("sık sık", "hiç").
+    ('tr', 'C09', 'Son haftalarda işte tempo çok yoğun ve uykum sık sık bölünüyor.', True),
+    ('tr', 'C16', 'Kendime hiç zaman ayıramıyorum.', True),
+])
+def test_negation_inside_the_cue(language, pid, text, accepted):
+    sys.path.insert(0, str(ROOT / 'scripts/mental_closing_abc'))
+    import closing_catalog_eval as ev
+    msgs = user(text)
+    assert (cc.check(ev.oracle_candidate(pid, language, msgs), language, msgs) is None) == accepted
