@@ -1037,14 +1037,14 @@
    },
    {
     "case": "en-cancel-during-catalog-line",
-    "status": "BLOCKED",
-    "reason": "no-request-in-flight",
+    "status": "not a check (no request was in flight and the case requires none)",
+    "reason": null,
     "rows": []
    },
    {
     "case": "en-mute-during-C",
-    "status": "BLOCKED",
-    "reason": "no-request-in-flight",
+    "status": "not a check (no request was in flight and the case requires none)",
+    "reason": null,
     "rows": []
    },
    {
@@ -1062,20 +1062,20 @@
    },
    {
     "case": "de-background-during-B",
-    "status": "BLOCKED",
-    "reason": "no-request-in-flight",
+    "status": "not a check (no request was in flight and the case requires none)",
+    "reason": null,
     "rows": []
    },
    {
     "case": "tr-background-during-catalog-line",
-    "status": "BLOCKED",
-    "reason": "no-request-in-flight",
+    "status": "not a check (no request was in flight and the case requires none)",
+    "reason": null,
     "rows": []
    },
    {
     "case": "tr-cancel-during-B-then-new",
-    "status": "BLOCKED",
-    "reason": "no-request-in-flight",
+    "status": "not a check (no request was in flight and the case requires none)",
+    "reason": null,
     "rows": []
    }
   ],
@@ -1293,7 +1293,8 @@
    "BLOCKED": "de-consent-revoked-before-start: a started player was already reported 8 ms before the consent at closing-trigger (precondition not met); no closing audio afterwards and the analysis request was aborted",
    "NOT_APPLICABLE_rows": 2,
    "assetParity": "45 A/B/C + 99 catalog recordings byte-identical in the AAOS WebView (PASS)"
-  }
+  },
+  "inFlightNote": "Only rows whose case recorded an in-flight check carry PASS/FAIL/BLOCKED; the others are informational."
  },
  "awsWindow": {
   "web": {
