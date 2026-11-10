@@ -2,7 +2,7 @@
  * in round 3 (run aaos-mental-closing-1794309651918, first 14 samples) and round 4 (run aaos-mental-closing-1794331528693)
  * and synthetic dumpsys lines. No device. */
 const assert = require('node:assert/strict');
-const {players, startedPiids, stopChecks, stopBound, inFlightVerdict, playbackClock} = require('../../scripts/qa/aaos/closing_stop_verdict.cjs');
+const {players, startedPiids, stopChecks, stopBound, inFlightVerdict, closingSequence, verdictCounts, playbackClock} = require('../../scripts/qa/aaos/closing_stop_verdict.cjs');
 
 const rows = list => list.map(([ms, started]) => ({ms, started}));
 // Round 3, recorded: consent revoked 1.3 s after A's 'playing' event; Android never reported a started player.
@@ -68,15 +68,69 @@ assert.deepEqual(verdict({beforeStart: true, preAction: {msBefore: 6, started: [
 assert.deepEqual(verdict({beforeStart: true, preAction: {msBefore: 6, started: ['9']}, series: withDump([[-4, [], 40]])}), [false, false]);
 
 // In-flight requests. Round 4, tr-drive-during-C: the speech request was answered 409 by the park gate 90 ms after the
-// drive (no audio). The round-4 check required "aborted and never answered" and failed; that result stays. Proposed
-// rule for driving only: a 409 refusal is the server half of the stop chain and passes; any 2xx fails.
+// drive (no audio); the round-4 check required "aborted and never answered" and failed; that result stays. Round 6: a 409
+// passes only for driving, only for the speech request, and only with evidence (JSON answer, no audio bytes): the
+// product route answers 409 solely for its backend's park gate. The round-4 row has no such evidence recorded.
 const driveC = [{kind: 'tts-live', aborted: false, status: 409, answeredAfterActionMs: 90}];
-assert.equal(inFlightVerdict('drive', driveC).pass, true);
-assert.equal(inFlightVerdict('drive', driveC).rows[0].outcome, 'refused-409-park-gate');
-assert.equal(inFlightVerdict('cancel', driveC).pass, false);
-assert.equal(inFlightVerdict('drive', [{kind: 'tts-live', aborted: false, status: 200, answeredAfterActionMs: 40}]).pass, false);
-assert.equal(inFlightVerdict('consent', [{kind: 'analysis-live', aborted: true, status: null, answeredAfterActionMs: null}]).pass, true);
-assert.equal(inFlightVerdict('mute', [{kind: 'tts-live', aborted: false, status: null, answeredAfterActionMs: null}]).pass, false);
+assert.equal(inFlightVerdict('drive', driveC).status, 'FAIL');
+assert.equal(inFlightVerdict('drive', driveC).rows[0].outcome, 'refused-409-without-park-gate-evidence');
+const proven = [{kind: 'tts-live', aborted: false, status: 409, answeredAfterActionMs: 90, contentType: 'application/json', audioBytes: 0}];
+assert.equal(inFlightVerdict('drive', proven, {require: ['tts-live']}).status, 'PASS');
+assert.equal(inFlightVerdict('drive', proven).rows[0].outcome, 'refused-409-park-gate');
+// Not for any other stop, not for the analysis request, not with audio bytes.
+assert.equal(inFlightVerdict('cancel', proven).status, 'FAIL');
+assert.equal(inFlightVerdict('consent', proven).status, 'FAIL');
+assert.equal(inFlightVerdict('drive', [{...proven[0], kind: 'analysis-live'}]).status, 'FAIL');
+assert.equal(inFlightVerdict('drive', [{...proven[0], contentType: 'audio/wav', audioBytes: 96044}]).status, 'FAIL');
+assert.equal(inFlightVerdict('drive', [{kind: 'tts-live', aborted: false, status: 200, answeredAfterActionMs: 40}]).status, 'FAIL');
+assert.equal(inFlightVerdict('consent', [{kind: 'analysis-live', aborted: true, status: null, answeredAfterActionMs: null}]).status, 'PASS');
+assert.equal(inFlightVerdict('mute', [{kind: 'tts-live', aborted: false, status: null, answeredAfterActionMs: null}]).status, 'FAIL');
+// Nothing in flight is never a pass (round 5 counted it as one): blocked, with the reason.
+assert.deepEqual([inFlightVerdict('drive', []).status, inFlightVerdict('drive', []).pass, inFlightVerdict('drive', []).reason], ['BLOCKED', false, 'no-request-in-flight']);
+assert.equal(inFlightVerdict('drive', [], {require: ['tts-live']}).status, 'BLOCKED');
+// The speech drive test needs a speech request in flight: only the analysis in flight is blocked, not passed.
+const onlyAnalysis = [{kind: 'analysis-live', aborted: true, status: null, answeredAfterActionMs: null}];
+assert.deepEqual([inFlightVerdict('drive', onlyAnalysis, {require: ['tts-live']}).status, inFlightVerdict('drive', onlyAnalysis, {require: ['tts-live']}).reason],
+  ['BLOCKED', 'required-request-not-in-flight']);
+// A failure is not hidden behind a missing requirement.
+assert.equal(inFlightVerdict('drive', [{kind: 'analysis-live', aborted: false, status: 200, answeredAfterActionMs: 30}], {require: ['tts-live']}).status, 'FAIL');
+// The catalog closing: the analysis must be in flight and end aborted.
+assert.equal(inFlightVerdict('drive', onlyAnalysis, {require: ['analysis-live']}).status, 'PASS');
+
+// L3: four parts, each with its own stage and media evidence on the closing element, within 10 % of its own duration.
+const seq = ({drop = [], el = {}, dur = {}, durEl = {}, extraStages = [], shift = {}} = {}) => {
+  const parts = [['A', 2.0], ['B', 2.5], ['C', 3.0], ['P', 3.4]];
+  const stages = [], media = [];
+  let t = 1000;
+  for (const [part, s] of parts) {
+    const prefix = part === 'P' ? 'closing-summary-' : `closing-${part}-`, length = (dur[part] ?? s) * 1000, start = t + (shift[part] || 0);
+    if (!drop.includes(part + ':playing')) stages.push({stage: prefix + 'playing', pm: start + 2});
+    if (!drop.includes(part + ':ended')) stages.push({stage: prefix + 'ended', pm: start + length + 2});
+    if (!drop.includes(part + ':media')) media.push({type: 'playing', el: el[part] ?? 1, pm: start, duration: durEl[part] ?? s}, {type: 'ended', el: el[part] ?? 1, pm: start + length, duration: durEl[part] ?? s});
+    t = start + length + 127;
+  }
+  return {parts: parts.map(([part, expectedS]) => ({part, expectedS})), stages: [...stages, ...extraStages], media};
+};
+assert.equal(closingSequence(seq()).status, 'PASS');
+assert.deepEqual(closingSequence(seq()).rows.map(r => r.ratio), [1, 1, 1, 1]);
+// Missing part or evidence: blocked, never a pass from the remaining parts.
+assert.deepEqual([closingSequence(seq({drop: ['P:playing', 'P:ended', 'P:media']})).status, closingSequence(seq({drop: ['P:playing', 'P:ended', 'P:media']})).blocked], ['BLOCKED', ['P:no-playing-stage']]);
+assert.equal(closingSequence(seq({drop: ['B:ended']})).status, 'BLOCKED');
+assert.equal(closingSequence(seq({drop: ['C:media']})).status, 'BLOCKED');
+assert.equal(closingSequence({...seq(), parts: seq().parts.map(p => p.part === 'P' ? {part: 'P', expectedS: null} : p)}).status, 'BLOCKED');
+// Another element's sound cannot stand in for the personal part.
+const other = seq({el: {P: 9}});
+assert.deepEqual([closingSequence(other).status, closingSequence(other).blocked], ['BLOCKED', ['P:no-playing-media-event-on-the-closing-element']]);
+// Elapsed outside 10 % (the round-4 2x clock), a different recording, an overlap, a repeated part: failed.
+assert.deepEqual(closingSequence(seq({dur: {C: 1.5}})).failed, ['C:elapsed-outside-10%']);
+assert.deepEqual(closingSequence(seq({durEl: {P: 2.1}})).failed, ['P:not-the-expected-recording']);
+assert.deepEqual(closingSequence(seq({shift: {B: -600}})).failed, ['B:overlaps-the-previous-part']);
+assert.deepEqual(closingSequence(seq({extraStages: [{stage: 'closing-summary-playing', pm: 99999}]})).failed, ['P:repeated']);
+// Run summary: not applicable never counts as a pass; any failure fails, any blocked blocks.
+assert.deepEqual(verdictCounts([{pass: true}, {status: 'NOT_APPLICABLE', pass: false}]), {counts: {PASS: 1, FAIL: 0, BLOCKED: 0, NOT_APPLICABLE: 1}, status: 'PASS'});
+assert.equal(verdictCounts([{pass: true}, {status: 'BLOCKED', pass: false}]).status, 'BLOCKED');
+assert.equal(verdictCounts([{pass: false}, {status: 'BLOCKED', pass: false}]).status, 'FAIL');
+assert.equal(verdictCounts([{status: 'NOT_APPLICABLE', pass: false}]).status, 'BLOCKED');
 
 // Media clock. Round 4, first case: personal line 1.949 s for 3.84 s of audio (ratio 1.97); second case 3.12 s for 3.12 s.
 assert.deepEqual(playbackClock([{elapsedMs: 1949, durationS: 3.84}]), {ok: false, ratios: [1.97]});

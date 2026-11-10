@@ -61,18 +61,81 @@ function stopChecks({name, action, at, beforeStart, startedBeforeAction, series,
   ];
 }
 
-// Live requests of the closing that were in flight at a stop condition. Every one must end without audio. For a
-// client-side stop (cancel, mute, consent, background) that means: aborted by the page and never answered. For
-// driving the API's own park gate may answer first (it polls the vehicle state every 100 ms while synthesis runs,
-// kills the worker and answers 409); round 4 recorded exactly that 90 ms after the drive, before the page saw the
-// motion at 232 ms. Proposed from round 5 on, for driving only: aborted, or answered 409 by the park gate. A 2xx or any
-// other answer fails in every case. requests: [{kind, aborted, status, answeredAfterActionMs}].
-function inFlightVerdict(action, requests) {
+// Live requests that were in flight at a stop condition. Every one must end without audio. For a client-side stop
+// (cancel, mute, consent, background) that means: aborted by the page and never answered. For driving the API's own
+// park gate may answer first (it polls the vehicle state every 100 ms while synthesis runs, kills the worker and answers
+// 409). requests: [{kind, aborted, status, answeredAfterActionMs, contentType, audioBytes}].
+//
+// Round 6: three outcomes. 'BLOCKED' when nothing was tested: no request in flight, or none of the kinds the case
+// requires (`require`, e.g. ['tts-live'] for the speech drive test, ['analysis-live'] for the catalog closing). An empty
+// list never passes (round 5 counted inFlightVerdict('drive', []) as a pass). A failure stays a failure even when a
+// required kind is missing. A 409 is accepted only for driving, only for the speech request, and only with evidence that
+// the park gate produced it: the product route answers 409 solely when its backend's park/authentication gate refused
+// (a client cancellation is 499 there), and the answer carried no audio (JSON, no bytes of audio). A 409 without that
+// evidence fails.
+function inFlightVerdict(action, requests, {require = []} = {}) {
   const rows = requests.map(q => {
-    const refused = action === 'drive' && !q.aborted && q.status === 409;
-    return {...q, outcome: q.aborted && q.answeredAfterActionMs === null ? 'aborted' : refused ? 'refused-409-park-gate' : q.answeredAfterActionMs !== null ? 'answered' : 'unresolved'};
+    const parkGate = action === 'drive' && q.kind === 'tts-live' && !q.aborted && q.status === 409
+      && /^application\/json/.test(q.contentType || '') && q.audioBytes === 0;
+    const outcome = q.aborted && (q.answeredAfterActionMs === null || q.answeredAfterActionMs === undefined) ? 'aborted'
+      : parkGate ? 'refused-409-park-gate'
+      : q.answeredAfterActionMs !== null && q.answeredAfterActionMs !== undefined ? (q.status === 409 ? 'refused-409-without-park-gate-evidence' : 'answered')
+      : 'unresolved';
+    return {...q, outcome};
   });
-  return {pass: rows.every(q => q.outcome === 'aborted' || q.outcome === 'refused-409-park-gate'), rows};
+  const missing = require.filter(kind => !rows.some(q => q.kind === kind));
+  const failed = rows.filter(q => !['aborted', 'refused-409-park-gate'].includes(q.outcome));
+  const status = failed.length ? 'FAIL' : !rows.length || missing.length ? 'BLOCKED' : 'PASS';
+  const reason = failed.length ? 'request-ended-otherwise' : !rows.length ? 'no-request-in-flight' : missing.length ? 'required-request-not-in-flight' : null;
+  return {status, pass: status === 'PASS', reason, missing, rows};
+}
+
+// Round 6 (L3): the four parts of a complete closing (A, B, C, then the personal line P), each with its own evidence.
+// parts: [{part, expectedS}] in playing order, expectedS = the part's own WAV duration (manifest) or, for a generated
+// line, the decoded duration of its own response; stages: [{stage, pm}] (page timeline); media: [{type, el, pm, duration}]
+// (media events, same clock). A part needs exactly one 'playing' and one 'ended' stage, each matched within matchMs by a
+// media event of the closing element (the element that played A): a sound on another element can never stand in for a
+// missing part. Missing evidence (stage, media event or duration) blocks the closing: it is reported, never filtered
+// away into a pass. Elapsed playing->ended must be within +-tolerance of the part's own duration, the element must
+// report that duration (the right recording), and each part must start only after the previous one ended.
+function closingSequence({parts, stages, media, tolerance = 0.1, matchMs = 80, durationMatchS = 0.05}) {
+  const prefix = {A: 'closing-A-', B: 'closing-B-', C: 'closing-C-', P: 'closing-summary-'};
+  const blocked = [], failed = [], rows = [];
+  let element = null, previousEnd = null;
+  for (const {part, expectedS} of parts) {
+    const row = {part, expectedS: expectedS ?? null};
+    rows.push(row);
+    const plays = stages.filter(s => s.stage === prefix[part] + 'playing'), ends = stages.filter(s => s.stage === prefix[part] + 'ended');
+    row.stageCounts = {playing: plays.length, ended: ends.length};
+    if (plays.length > 1 || ends.length > 1) { failed.push(`${part}:repeated`); continue; }
+    if (!plays.length || !ends.length) { blocked.push(`${part}:no-${plays.length ? 'ended' : 'playing'}-stage`); continue; }
+    const near = (type, at) => media.filter(m => m.type === type && Math.abs(m.pm - at) <= matchMs && (element === null || m.el === element))
+      .sort((a, b) => Math.abs(a.pm - at) - Math.abs(b.pm - at))[0];
+    const playing = near('playing', plays[0].pm);
+    if (playing && element === null) element = playing.el;
+    const ended = near('ended', ends[0].pm);
+    if (!playing || !ended) { blocked.push(`${part}:no-${playing ? 'ended' : 'playing'}-media-event-on-the-closing-element`); continue; }
+    row.element = playing.el;
+    row.elapsedMs = Math.round(ended.pm - playing.pm);
+    row.elementDurationS = ended.duration ?? null;
+    if (!(expectedS > 0)) { blocked.push(`${part}:no-duration`); continue; }
+    row.ratio = Math.round(row.elapsedMs / 1000 / expectedS * 100) / 100;
+    if (Math.abs(row.elapsedMs / 1000 - expectedS) > tolerance * expectedS) failed.push(`${part}:elapsed-outside-${Math.round(tolerance * 100)}%`);
+    if (row.elementDurationS === null || Math.abs(row.elementDurationS - expectedS) > durationMatchS) failed.push(`${part}:not-the-expected-recording`);
+    if (previousEnd !== null && playing.pm < previousEnd) failed.push(`${part}:overlaps-the-previous-part`);
+    previousEnd = ended.pm;
+  }
+  const status = failed.length ? 'FAIL' : blocked.length ? 'BLOCKED' : 'PASS';
+  return {status, pass: status === 'PASS', failed, blocked, rows, element};
+}
+
+// Counts of a run's checks by outcome. A check without a status is PASS or FAIL from its boolean; 'NOT_APPLICABLE'
+// never counts as a pass. The run is FAIL if anything failed, else BLOCKED if anything was blocked, else PASS.
+function verdictCounts(checks) {
+  const counts = {PASS: 0, FAIL: 0, BLOCKED: 0, NOT_APPLICABLE: 0};
+  for (const c of checks) counts[c.status || (c.pass ? 'PASS' : 'FAIL')]++;
+  const status = counts.FAIL ? 'FAIL' : counts.BLOCKED ? 'BLOCKED' : counts.PASS ? 'PASS' : 'BLOCKED';
+  return {counts, status};
 }
 
 // Media clock check: a media element's 'playing' -> 'ended' time against its own duration. Round 4's first AAOS case
@@ -84,4 +147,4 @@ function playbackClock(pairs, tolerance = 0.1) {
   return {ok: ratios.length > 0 && ratios.every(r => Math.abs(r - 1) <= tolerance), ratios};
 }
 
-module.exports = {players, startedPiids, stopChecks, stopBound, inFlightVerdict, playbackClock};
+module.exports = {players, startedPiids, stopChecks, stopBound, inFlightVerdict, closingSequence, verdictCounts, playbackClock};

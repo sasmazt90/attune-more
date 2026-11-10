@@ -22,7 +22,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const W = require('./webview.cjs');
-const {players, startedPiids, stopChecks, inFlightVerdict, playbackClock} = require('./closing_stop_verdict.cjs');
+const {players, startedPiids, stopChecks, inFlightVerdict, closingSequence, verdictCounts, playbackClock} = require('./closing_stop_verdict.cjs');
 
 const BUILD = process.env.CLOSING_BUILD_ORIGIN || 'http://127.0.0.1:3100';
 // CLOSING_LIVE_API (test only, e.g. http://127.0.0.1:8190, a loopback forwarder to the test API): live closing. The
@@ -35,6 +35,8 @@ const BUILD = process.env.CLOSING_BUILD_ORIGIN || 'http://127.0.0.1:3100';
 const LIVE_API = process.env.CLOSING_LIVE_API || null;
 const {cancellationRegistry, forwardVerbatim, fulfillHeaders} = require('./closing_live_forward.cjs');
 const TTS_MODE = LIVE_API ? 'live-api' : process.env.CLOSING_TTS === 'product' ? 'product' : 'replay';
+// CLOSING_ROUND=6: the catalog closing cases (CASES6) with three-state checks (PASS / FAIL / BLOCKED / NOT_APPLICABLE).
+const ROUND = Number(process.env.CLOSING_ROUND || 5);
 const CONFIG = JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_AAOS_CONFIG, 'utf8').replace(/^\uFEFF/, ''));
 const {execFile} = require('node:child_process');
 // Asynchronous adb so that page events keep arriving (with host receipt times) while the device is sampled.
@@ -66,7 +68,7 @@ const PAGE_SCRIPT = `(()=>{if(window.__closingQa)return;window.__closingQa=true;
  addEventListener('attune-voice-unavailable',()=>emit('voice-unavailable',{}));
  const owners=new WeakMap();let oseq=0;addEventListener('attune-stream-focus',e=>{if(!e.owner)return;if(!owners.has(e.owner))owners.set(e.owner,++oseq);emit('focus',{owner:owners.get(e.owner),active:!!e.active});});
  document.addEventListener('visibilitychange',()=>emit('visibility',{hidden:document.hidden}));addEventListener('pagehide',()=>emit('pagehide',{}));
- const nativeFetch=window.fetch;window.fetch=function(input,init){const url=String(input&&input.url||input);const p=nativeFetch.apply(this,arguments);if(url.includes('/api/vehicle/state'))p.then(r=>r.clone().json()).then(d=>emit('vehicle',{moving:d.vehicleMoving,parked:d.vehicleParked,speed:d.currentSpeed})).catch(()=>{});return p;};
+ const nativeFetch=window.fetch;window.fetch=function(input,init){const url=String(input&&input.url||input);if(url.includes('/audio/mental/closing-'))emit('asset',{url:url.replace(/^https?:\\/\\/[^/]+/,'')});const p=nativeFetch.apply(this,arguments);if(url.includes('/api/vehicle/state'))p.then(r=>r.clone().json()).then(d=>emit('vehicle',{moving:d.vehicleMoving,parked:d.vehicleParked,speed:d.currentSpeed})).catch(()=>{});return p;};
  class QaRecognition{constructor(){this.lang='';this.continuous=false;this.interimResults=false;this.maxAlternatives=1;}
   start(){this.timer=setTimeout(()=>{this.onstart&&this.onstart();this.timer=setTimeout(()=>{const text=window.__qaUtterances.shift();
    if(text){const item=Object.assign([{transcript:text,confidence:.9}],{isFinal:true});this.onresult&&this.onresult({resultIndex:0,results:[item]});}
@@ -93,7 +95,7 @@ const analysis = (language, n) => replay.analyses.find(a => a.conversation === `
 const speech = (text, start) => replay.tts.find(t => t.status === 200 && t.text === text && t.scenarioStart === start) || replay.tts.find(t => t.status === 200 && t.text === text);
 const wav = row => fs.readFileSync(path.join(REPLAY, row.label + '.wav'));
 
-const plan = {language: 'tr', conversation: 1, start: 'warm', requests: [], late: []};
+const plan = {language: 'tr', conversation: 1, start: 'warm', requests: [], late: [], hold: null, liveReply: false};
 async function install(page) {
   const json = (route, body, status = 200) => route.fulfill({status, contentType: 'application/json', headers: {'Cache-Control': 'no-store'}, body: JSON.stringify(body)});
   const registry = cancellationRegistry(page);
@@ -103,11 +105,27 @@ async function install(page) {
     plan.requests.push(row);
     try {
       const answer = await forwardVerbatim(request, target, entry.controller.signal);
+      const contentType = String(answer.headers['content-type'] || '');
       Object.assign(row, {ms: Date.now() - at, status: answer.status, ttsSeconds: answer.headers['x-tts-seconds'] || null, ttsStart: answer.headers['x-tts-start'] || null,
-        serverTiming: answer.headers['server-timing'] || null, bytes: answer.body.length});
-      if (kind === 'analysis-live') { try { const d = JSON.parse(answer.body.toString('utf8')); Object.assign(row, {spokenSummaryStatus: d.spokenSummaryStatus ?? null, spokenSummary: d.spokenSummary ?? null, providerType: d.providerType ?? null}); } catch {} }
+        serverTiming: answer.headers['server-timing'] || null, bytes: answer.body.length, contentType,
+        audioBytes: /^audio\//.test(contentType) ? answer.body.length : 0,
+        // PCM16 mono 24 kHz WAV (the worker's only format): its own duration, for the L3 check of a generated line.
+        audioSeconds: contentType.startsWith('audio/wav') && answer.body.length > 44 ? (answer.body.length - 44) / 48000 : null,
+        upstreamAnsweredAt: Date.now()});
+      if (kind === 'analysis-live') { try { const d = JSON.parse(answer.body.toString('utf8')); Object.assign(row, {spokenSummaryStatus: d.spokenSummaryStatus ?? null, spokenSummary: d.spokenSummary ?? null, providerType: d.providerType ?? null, spokenCatalogId: d.spokenCatalogId ?? null, spokenCatalogChecks: d.spokenCatalogChecks ?? null}); } catch {} }
+      // Test-only hold (labelled in the row): keep the analysis answer from the page until a stage plus a delay, so that
+      // it is still in flight at the stop condition. The page's own abort during the hold ends it like any other abort.
+      if (kind === 'analysis-live' && plan.hold) {
+        const hold = plan.hold, until = Date.now() + (hold.maxMs || 30000);
+        row.heldUntilStage = hold.untilStage;
+        while (Date.now() < until && !entry.controller.signal.aborted && !pageEvents.some(e => e.kind === 'stage' && e.stage === hold.untilStage && e.host >= at)) await sleep(20);
+        const release = Date.now() + (hold.extraMs || 0);
+        while (Date.now() < release && !entry.controller.signal.aborted) await sleep(20);
+        row.heldMs = Date.now() - row.upstreamAnsweredAt;
+        if (entry.controller.signal.aborted) throw Object.assign(Error('aborted during the test hold'), {name: 'AbortError'});
+      }
       row.answeredAt = Date.now();
-      if (kind === 'tts-live') plan.requests.push({kind: 'tts-answered', id: plan.id, live: true, at: row.answeredAt, status: answer.status});
+      if (kind === 'tts-live') plan.requests.push({kind: 'tts-answered', id: plan.id, live: true, closing: row.closing, at: row.answeredAt, status: answer.status});
       return await route.fulfill({status: answer.status, headers: fulfillHeaders(answer.headers), body: answer.body});
     } catch (error) {
       Object.assign(row, {aborted: entry.abortedAt !== null, abortedAfterMs: entry.abortedAt ? entry.abortedAt - at : null, abortReason: entry.reason, error: String(error && error.name || error)});
@@ -134,6 +152,9 @@ async function install(page) {
         // The real product route on the branch's Next server (it checks origin, consent, language and size, adds the bearer,
         // calls its loopback backend and checks the answer); the WebView's request is not rebuilt.
         if (LIVE_API && body.speakerProfile === 'female-calm-v1') return await live(route, request, BUILD, 'tts-live', {closing: true, speechConsent: body.speechConsent});
+        // Round 6: the conversation reply's own speech (default profile), live through the real route, for the case
+        // that drives while it is generated (the dynamic speech path the catalog closing keeps).
+        if (LIVE_API && plan.liveReply && !body.speakerProfile) return await live(route, request, BUILD, 'tts-live', {closing: false, reply: true, speechConsent: body.speechConsent});
         if (TTS_MODE === 'product' && body.speakerProfile === 'female-calm-v1') {
           // Live speech through the existing product AAOS chain; the response headers are recorded by the page listener.
           plan.requests.push({kind: 'tts-live', id, closing: true, at: Date.now()});
@@ -166,9 +187,20 @@ function liveCancellation(options, actedAt, check) {
   if (TTS_MODE !== 'live-api') return null;
   const rows = plan.requests.filter(q => q.id === options.name && ['tts-live', 'analysis-live'].includes(q.kind) && q.at < actedAt);
   const pending = rows.filter(q => !(q.answeredAt && q.answeredAt <= actedAt));
-  const result = {inFlightAtAction: pending.map(q => ({kind: q.kind, issuedBeforeMs: actedAt - q.at, aborted: !!q.aborted, abortReason: q.abortReason || null,
+  const result = {inFlightAtAction: pending.map(q => ({kind: q.kind, closing: q.closing ?? null, issuedBeforeMs: actedAt - q.at, aborted: !!q.aborted, abortReason: q.abortReason || null,
     abortedAfterActionMs: q.aborted ? q.at + q.abortedAfterMs - actedAt : null, answeredAfterActionMs: q.answeredAt ? q.answeredAt - actedAt : null,
-    status: q.answeredAt ? q.status ?? null : null}))};
+    status: q.answeredAt ? q.status ?? null : null, contentType: q.answeredAt ? q.contentType ?? null : null, audioBytes: q.answeredAt ? q.audioBytes ?? null : null,
+    heldMs: q.heldMs ?? null}))};
+  if (ROUND === 6) {
+    // Round 6: PASS / FAIL / BLOCKED; a case that names the request it needs is blocked without one (never passed).
+    const verdict = inFlightVerdict(options.action, result.inFlightAtAction, {require: options.require || []});
+    Object.assign(result, {inFlightAtAction: verdict.rows, status: verdict.status, reason: verdict.reason, missing: verdict.missing});
+    // Driving always needs something in flight to be a test of the stop chain; nothing in flight is blocked, not passed.
+    if (pending.length || options.require || options.action === 'drive') check.tri(`${options.name}: requests in flight at the ${options.action}${options.require ? ' (needed: ' + options.require.join(', ') + ')' : ''} ended without audio: aborted by the page${options.action === 'drive' ? ', or refused 409 by the park gate with no audio (speech only)' : ''}`,
+      verdict.status, result);
+    else result.note = 'no live request was in flight at the action, and the case needs none';
+    return result;
+  }
   // Round 4 rule: aborted and never answered. From round 5 on, for driving only, the API's park-gate refusal (409, no
   // audio) is the server half of the stop chain and is accepted; a 2xx or any other answer fails (closing_stop_verdict).
   const verdict = inFlightVerdict(options.action, result.inFlightAtAction);
@@ -343,17 +375,27 @@ function stopStages(actedAt, ackAt, events, series, offset) {
 // Proposed criterion, fixed before these measurements (no repository or OEM requirement exists): the app's player leaves
 // 'started' within 1000 ms of the stop condition (backend acknowledgement of driving, the key event, or the UI action).
 const STOP_CRITERION_MS = 1000;
+// Stop checks: the first is the precondition. Round 6 reports an unmet precondition as BLOCKED (and the stop check with
+// it), never as a measured result; earlier rounds keep their binary checks.
+function stopCheckRows(list, check, extra = {}) {
+  const precondition = list[0];
+  for (const c of list) {
+    if (ROUND !== 6) check(c.what, c.pass, {...c.detail, ...extra});
+    else check.tri(c.what, c.pass ? 'PASS' : precondition.pass ? 'FAIL' : 'BLOCKED', {...c.detail, ...extra});
+  }
+}
 
 async function waitStage(page, stage, timeout = 60000) {
   await page.waitForFunction(s => window.__timeline.some(e => e.stage === s), stage, {timeout});
 }
 
+// One synthetic utterance per language (no personal data); the catalog closing's checked line for it is the sleep line.
+const UTTERANCE = {tr: 'Son haftalarda işte tempo çok yoğun ve uykum sık sık bölünüyor.', en: 'Work has been very intense lately and my sleep keeps getting interrupted.',
+  de: 'Bei der Arbeit ist es sehr intensiv und mein Schlaf wird oft unterbrochen.'};
 async function conversation(page, language, tr) {
   const phase = () => page.locator('[data-conversation-phase]').getAttribute('data-conversation-phase');
   const taps = [];
-  await page.evaluate(text => window.__qaUtterances.push(text), {
-    tr: 'Son haftalarda işte tempo çok yoğun ve uykum sık sık bölünüyor.', en: 'Work has been very intense lately and my sleep keeps getting interrupted.',
-    de: 'Bei der Arbeit ist es sehr intensiv und mein Schlaf wird oft unterbrochen.'}[language]);
+  await page.evaluate(text => window.__qaUtterances.push(text), UTTERANCE[language]);
   await page.getByRole('button', {name: tr('Görüşmeyi Başlat'), exact: true}).click();
   const end = Date.now() + 90000;
   while (Date.now() < end) {
@@ -383,6 +425,7 @@ async function closing(session, language, options, check, out, r) {
   let {page} = session;
   const tr = W.translator(language);
   plan.language = language; plan.conversation = CONVERSATION_OVERRIDE[language] || options.conversation || 1; plan.start = options.start || 'warm'; plan.id = options.name;
+  plan.hold = options.holdAnalysis || null; plan.liveReply = false;
   const build = await open(page, language);
   if (options.realTap) tapMap = await calibrateTap(page);
   const turnTaps = await conversation(page, language, tr);
@@ -446,9 +489,9 @@ async function closing(session, language, options, check, out, r) {
       const st = row.stopStages, reference = options.action === 'drive' ? st.backendAcknowledgedMs : 0;
       // During playback: acted only after Android reported 'started' (blocked otherwise). Before start: the player was
       // not started at the action and must not start afterwards.
-      for (const c of stopChecks({name: options.name, action: options.action, at: options.at, beforeStart: !!options.beforeStart,
+      stopCheckRows(stopChecks({name: options.name, action: options.action, at: options.at, beforeStart: !!options.beforeStart,
         startedBeforeAction: row.playerStartedBeforeAction, series: row.playerSeries, appPlayerStoppedMs: st.appPlayerStoppedMs,
-        reference, criterionMs: STOP_CRITERION_MS, sampleMs: options.sampleMs || 8000, preAction: row.preAction || undefined})) check(c.what, c.pass, {...c.detail, stopStages: st});
+        reference, criterionMs: STOP_CRITERION_MS, sampleMs: options.sampleMs || 8000, preAction: row.preAction || undefined}), check, {stopStages: st});
     }
     if (['drive', 'background'].includes(options.action)) {
       // The native shell destroys the WebView; wait past the replayed speech response, then come back.
@@ -537,6 +580,16 @@ async function closing(session, language, options, check, out, r) {
   check(`${options.name}: nothing else plays in the 12 s after the spoken closing (no second completion message)`, row.playsAfterCompletion.length === 0 && !row.guidanceEventsAfterCompletion.some(e => e.kind === 'voice-unavailable'),
     {plays: row.playsAfterCompletion, guidance: row.guidanceEventsAfterCompletion});
   if (TTS_MODE !== 'replay') row.liveSpeech = plan.requests.filter(q => q.id === options.name && ['tts-live', 'tts-response', 'tts-answered', 'analysis-live'].includes(q.kind));
+  if (ROUND === 6) {
+    // L3: each of A, B, C and the personal line with its own playing/ended evidence on the closing element and within
+    // 10 % of its own WAV duration; missing evidence blocks (never filtered into a pass).
+    row.sequence = l3(row, pageEvents.slice(firstEvent));
+    check.tri(`${options.name}: A, B, C and the personal line each played once, in order, without overlap, on the closing element, each within 10 % of its own WAV duration`, row.sequence.status, {sequence: row.sequence, metrics: m});
+    row.catalogLine = (row.requests.find(q => q.kind === 'analysis-live') || {}).spokenCatalogId ?? null;
+    check.tri(`${options.name}: the personal line is the server-checked catalog line's recording (no speech generation in the closing)`,
+      row.catalogLine && !row.requests.some(q => q.kind === 'tts-live' && q.closing) ? 'PASS' : row.requests.some(q => q.kind === 'tts-live' && q.closing) ? 'FAIL' : 'BLOCKED',
+      {catalogLine: row.catalogLine, closingSpeechRequests: row.requests.filter(q => q.kind === 'tts-live' && q.closing).length});
+  } else
   check(`${options.name}: A, B, C and the personal summary played in order without overlap`, m.aPlaying !== null && m.aEnded < m.bPlaying && m.bEnded < m.cPlaying && m.cEnded <= m.summaryPlaying && m.summaryComplete !== null, m);
   check(`${options.name}: no extra tap needed during the closing (one shared, gesture-unlocked element)`, m.gestureRequired.length === 0, m.gestureRequired);
   check(`${options.name}: Android mixer writes frames during A and during the summary`, row.mixerDuringA.framesDelta > 0 && row.mixerDuringSummary.framesDelta > 0, {a: row.mixerDuringA, summary: row.mixerDuringSummary});
@@ -545,12 +598,33 @@ async function closing(session, language, options, check, out, r) {
   const media = row.pageEvents.filter(e => e.kind === 'media' && ['playing', 'ended'].includes(e.type));
   const pairs = media.filter(e => e.type === 'ended').map(e => { const p = media.filter(x => x.type === 'playing' && x.el === e.el && x.at <= e.at).at(-1); return p ? {elapsedMs: e.at - p.at, durationS: e.duration} : null; }).filter(Boolean);
   row.playbackClock = playbackClock(pairs);
-  check(`${options.name}: media clock matches the audio length in every element (otherwise the timing is blocked, not a sample)`, row.playbackClock.ok, row.playbackClock);
+  if (ROUND !== 6) check(`${options.name}: media clock matches the audio length in every element (otherwise the timing is blocked, not a sample)`, row.playbackClock.ok, row.playbackClock);
   W.shot(out, options.name);
   const dialog = page.getByRole('dialog');
   if (await dialog.count()) await dialog.getByRole('button', {name: tr('Tamam'), exact: true}).click().catch(() => {});
   r.cases.push(row);
   return session;
+}
+
+// WAV durations of every committed closing recording, by URL (A/B/C and, once generated, the catalog lines).
+const MANIFEST_DURATIONS = (() => {
+  const map = new Map();
+  for (const file of ['closing-abc/v1/manifest.json', 'closing-catalog/v1/manifest.json']) {
+    try { for (const e of JSON.parse(fs.readFileSync(path.join(repository, 'apps/vehicle-app/public/audio/mental', file), 'utf8')).entries) map.set(e.audioPath, e.durationMs / 1000); } catch {}
+  }
+  return map;
+})();
+// L3 inputs: which recordings this closing fetched (one per part), their manifest durations, the timeline and media events.
+function l3(row, events) {
+  const assets = [...new Set(events.filter(e => e.kind === 'asset').map(e => e.url))];
+  const only = list => list.length === 1 ? MANIFEST_DURATIONS.get(list[0]) ?? null : null;
+  const parts = ['A', 'B', 'C'].map(group => ({part: group, expectedS: only(assets.filter(u => new RegExp(`/closing-abc/v1/[a-z]{2}/female-calm-v1/${group}/`).test(u)))}));
+  const catalog = assets.filter(u => u.includes('/closing-catalog/v1/'));
+  const generated = (row.requests || []).filter(q => q.kind === 'tts-live' && q.closing && q.audioSeconds);
+  parts.push({part: 'P', expectedS: catalog.length ? only(catalog) : generated.length === 1 ? generated[0].audioSeconds : null});
+  const result = closingSequence({parts, stages: events.filter(e => e.kind === 'stage').map(e => ({stage: e.stage, pm: e.pm})),
+    media: events.filter(e => e.kind === 'media').map(e => ({type: e.type, el: e.el, pm: e.pm, duration: e.duration}))});
+  return {...result, assets, personalSource: catalog.length ? 'catalog-recording' : generated.length ? 'generated' : null};
 }
 
 async function assetParity(page, check, r) {
@@ -569,6 +643,69 @@ async function assetParity(page, check, r) {
   const mismatched = seen.filter((s, i) => s.status !== 200 || s.sha256 !== urls[i].sha256);
   r.assetParity = {count: seen.length, mismatched, totalBytes: seen.reduce((a, s) => a + s.bytes, 0)};
   check('All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest', seen.length === 45 && mismatched.length === 0, r.assetParity);
+  if (ROUND === 6) {
+    const cat = JSON.parse(fs.readFileSync(path.join(repository, 'apps/vehicle-app/public/audio/mental/closing-catalog/v1/manifest.json'), 'utf8'));
+    const list = cat.entries.map(e => ({url: e.audioPath, sha256: e.sha256}));
+    const got = await page.evaluate(async items => Promise.all(items.map(async item => { const response = await fetch(item.url, {cache: 'no-store'}); const bytes = await response.arrayBuffer();
+      return {url: item.url, status: response.status, sha256: [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('')}; })), list);
+    const bad = got.filter((g, i) => g.status !== 200 || g.sha256 !== list[i].sha256);
+    r.catalogParity = {count: got.length, mismatched: bad};
+    check.tri('All 99 catalog recordings reach the AAOS WebView byte-identical to their manifest', list.length !== 99 ? 'BLOCKED' : bad.length ? 'FAIL' : 'PASS', r.catalogParity);
+  }
+}
+
+// Round 6: the dynamic speech path kept beside the catalog closing. The conversation reply's speech (default profile) is
+// generated live through the real route by the test API's CPU worker; driving starts while that request is in flight.
+// Expected: the request ends aborted by the page, or refused 409 by the park gate with no audio; no player of the app
+// starts; nothing plays later, also in the returned app. Without a speech request in flight the case is blocked.
+async function replyDrive(session, language, options, check, out, r) {
+  let {page} = session;
+  const tr = W.translator(language);
+  plan.language = language; plan.id = options.name; plan.hold = null; plan.liveReply = true;
+  const row = {name: options.name, language, action: 'drive', at: 'reply-speech-in-flight', tts: TTS_MODE, run: process.env.CLOSING_RUN_LABEL || null};
+  try {
+    row.build = await open(page, language);
+    const firstEvent = pageEvents.length;
+    await page.evaluate(text => window.__qaUtterances.push(text), UTTERANCE[language]);
+    const pid = appPid();
+    await page.getByRole('button', {name: tr('Görüşmeyi Başlat'), exact: true}).click();
+    const deadline = Date.now() + 30000;
+    let inFlight = null;
+    while (Date.now() < deadline && !inFlight) {
+      inFlight = plan.requests.find(q => q.id === options.name && q.kind === 'tts-live' && q.reply && !q.answeredAt && !q.aborted && Date.now() - q.at >= (options.afterMs || 1500));
+      if (!inFlight) await sleep(50);
+    }
+    row.speechRequestInFlight = Boolean(inFlight);
+    const pre = await snapshotPlayers(pid);
+    const sampler = sampleOutput(pid, options.sampleMs || 8000);
+    const actedAt = Date.now();
+    await setSpeed(75);
+    row.backendAcknowledgedAfterMs = Date.now() - actedAt;
+    row.actedAt = actedAt;
+    row.preAction = {msBefore: actedAt - pre.doneAt, started: pre.started};
+    const series = await sampler;
+    row.playerSeries = series.map(x => ({ms: x.host - actedAt, started: x.started, frames: x.frames ?? null, dumpMs: x.dumpMs}));
+    stopCheckRows(stopChecks({name: options.name, action: 'drive', at: 'reply-speech-in-flight', beforeStart: true, series: row.playerSeries,
+      sampleMs: options.sampleMs || 8000, preAction: row.preAction}), check);
+    await sleep(Math.max(0, (options.waitMs || 30000) - (options.sampleMs || 8000)));
+    await setSpeed(0);
+    session = await W.attach();
+    page = session.page;
+    await ensure(page);
+    await page.evaluate(PAGE_SCRIPT).catch(() => {});
+    await sleep(3000);
+    row.afterReturn = {plays: await page.evaluate(() => window.__plays).catch(() => null), url: page.url()};
+    row.requests = plan.requests.filter(q => q.id === options.name);
+    row.liveCancellation = liveCancellation({...options, action: 'drive', require: ['tts-live']}, actedAt, check);
+    const later = pageEvents.slice(firstEvent).filter(e => e.kind === 'play' && e.host >= actedAt && !e.guidance);
+    check(`${options.name}: no speech plays after the drive, also in the returned app (late reply speech included)`,
+      later.length === 0 && !(row.afterReturn.plays || []).some(x => !x.guidance), {later, afterReturn: row.afterReturn});
+  } finally {
+    plan.liveReply = false;
+    W.shot(out, options.name + '-after');
+    r.cases.push(row);
+  }
+  return session;
 }
 
 // CLOSING_CONVERSATIONS=de:3,tr:1 uses that conversation for every case of the language (a replay set may hold no valid
@@ -601,8 +738,42 @@ const CASES = [
   {name: 'tr-background-during-summary', language: 'tr', action: 'background', at: 'closing-summary-audio-start'},
 ];
 
+// Round 6 (CLOSING_ROUND=6, live API, catalog closing). L3 runs in every complete closing; L1 consent during A; L2 drive
+// during C with the analysis held in flight (the catalog closing has no closing-voice request), and drive while the
+// conversation reply's speech is generated (the dynamic speech path that remains); the earlier controls are kept.
+const HOLD_C = {untilStage: 'closing-C-playing', extraMs: 8000};
+const CASES6 = [
+  {name: 'tr-complete-catalog-cold', language: 'tr', start: 'cold'},
+  {name: 'en-complete-catalog-warm', language: 'en'},
+  {name: 'de-complete-catalog-warm', language: 'de'},
+  {name: 'tr-complete-catalog-warm', language: 'tr'},
+  ...['tr', 'en', 'de'].map(language => ({name: `${language}-consent-revoked-during-A`, language, action: 'consent', at: 'closing-A-playing', waitMs: 15000})),
+  ...['tr', 'en', 'de'].map(language => ({name: `${language}-drive-during-C-catalog`, language, action: 'drive', at: 'closing-C-playing', holdAnalysis: HOLD_C, require: ['analysis-live'], waitMs: 20000})),
+  ...['tr', 'en', 'de'].map(language => ({name: `${language}-drive-during-reply-speech`, language, reply: true, waitMs: 25000})),
+  {name: 'de-cancel-during-A-analysis-in-flight', language: 'de', action: 'cancel', at: 'closing-A-playing', holdAnalysis: {untilStage: 'closing-A-playing', extraMs: 6000}, require: ['analysis-live'], waitMs: 15000},
+  {name: 'en-cancel-during-catalog-line', language: 'en', action: 'cancel', at: 'closing-summary-audio-start', waitMs: 15000},
+  {name: 'en-mute-during-C', language: 'en', action: 'mute', at: 'closing-C-playing', waitMs: 15000},
+  {name: 'de-consent-revoked-before-start', language: 'de', action: 'consent', at: 'closing-trigger', beforeStart: true, waitMs: 15000},
+  {name: 'tr-language-locked-during-B', language: 'tr', action: 'language', at: 'closing-B-playing', sampleMs: 1000, waitMs: 15000},
+  {name: 'de-background-during-B', language: 'de', action: 'background', at: 'closing-B-playing', waitMs: 20000},
+  {name: 'tr-background-during-catalog-line', language: 'tr', action: 'background', at: 'closing-summary-audio-start', waitMs: 20000},
+  {name: 'tr-cancel-during-B-then-new', language: 'tr', action: 'cancel', at: 'closing-B-playing', thenNewConversation: true, waitMs: 15000},
+];
+// Round-5 cases whose subject the catalog closing removed: reported as not applicable, never as passed.
+const NOT_APPLICABLE6 = [
+  {name: 'en-drive-during-summary', reason: 'checked the closing-voice request in flight while the personal line was generated; the catalog closing sends no such request (driving during C with the analysis in flight and driving during the reply speech replace it)'},
+  {name: 'closing-voice-409-park-gate', reason: 'the park-gate 409 of the closing-voice request cannot occur without that request; the 409 rule is exercised by the reply-speech drive cases'},
+];
+
 (async () => {
   const {out, r, check, save} = W.report('mental-closing');
+  // Three-state check (round 6): PASS, FAIL, BLOCKED (precondition or evidence missing) or NOT_APPLICABLE; only PASS passes.
+  check.tri = (what, status, observed) => {
+    r.checks.push({what, pass: status === 'PASS', status, observed, at: new Date().toISOString()});
+    save();
+    console.log(status + ' ' + what);
+    return status === 'PASS';
+  };
   r.testMode = TTS_MODE === 'live-api'
     ? 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; conversation reply and its speech replayed; the closing\'s analysis request forwarded unchanged to the test API (branch code, real provider) and its closing-voice request forwarded unchanged to the real Next route of the branch build on the AAOS host, whose loopback backend reaches the test API (resident worker on the GPU host) over a private TCP forward; WebView cancellation aborts the forwarded requests. Not the product deployment: no mTLS Caddy hop, test API and test bearer, park gate of the test API fed by the harness mirror.'
     : TTS_MODE === 'product'
@@ -623,9 +794,10 @@ const CASES = [
     await W.startClean(session.page);
     await assetParity(session.page, check, r);
     save();
-    for (const c of CASES.filter(c => !only.length || only.includes(c.name))) {
+    if (ROUND === 6) for (const c of NOT_APPLICABLE6) check.tri(`${c.name}: not applicable to the catalog closing`, 'NOT_APPLICABLE', {reason: c.reason});
+    for (const c of (ROUND === 6 ? CASES6 : CASES).filter(c => !only.length || only.includes(c.name))) {
       try {
-        session = await closing(session, c.language, c, check, out, r);
+        session = c.reply ? await replyDrive(session, c.language, c, check, out, r) : await closing(session, c.language, c, check, out, r);
       } catch (error) {
         r.errors.push({case: c.name, error: String(error && error.stack || error).slice(0, 600)});
         check(`${c.name}: completed without harness error`, false, String(error).slice(0, 300));
@@ -633,7 +805,11 @@ const CASES = [
       }
       save();
     }
-    r.status = r.checks.every(c => c.pass) && !r.errors.length ? 'PASS' : 'FAIL';
+    if (ROUND === 6) {
+      const v = verdictCounts(r.checks);
+      r.counts = v.counts;
+      r.status = r.errors.length ? 'FAIL' : v.status;
+    } else r.status = r.checks.every(c => c.pass) && !r.errors.length ? 'PASS' : 'FAIL';
   } catch (error) {
     r.errors.push(String(error && error.stack || error).slice(0, 800));
     r.status = 'FAIL';
@@ -642,7 +818,7 @@ const CASES = [
     r.finished = new Date().toISOString();
     save();
     await session?.browser.close().catch(() => {});
-    console.log(JSON.stringify({status: r.status, out, checks: r.checks.length, failed: r.checks.filter(c => !c.pass).map(c => c.what)}));
+    console.log(JSON.stringify({status: r.status, out, checks: r.checks.length, counts: r.counts || null, notPassed: r.checks.filter(c => !c.pass).map(c => (c.status || 'FAIL') + ' ' + c.what)}));
     // A CDP connection to the WebView can keep the process alive after close; the report is saved.
     setTimeout(() => process.exit(0), 2000);
   }

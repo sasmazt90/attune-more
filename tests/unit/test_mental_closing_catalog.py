@@ -233,12 +233,14 @@ def test_catalog_recordings_manifest_matches_the_catalog_and_the_closing_voice()
     for key in ('speakerProfile', 'referenceSha256', 'generation', 'model', 'seedRule'):
         assert manifest[key] == abc[key], key
     entries = manifest['entries']
-    # Either no recording yet (the page keeps the catalog off) or all 99, each with its own file and hash.
-    assert len(entries) in (0, 99)
+    # Either no recording yet (the page keeps the catalog off) or whole languages of 33, each with its own file and hash.
+    languages = sorted({e['language'] for e in entries})
+    assert len(entries) == 33 * len(languages)
     if not entries:
         assert manifest['approval']['status'] == 'not-generated'
         return
-    assert {(e['language'], e['patternId']) for e in entries} == {(lang, pid) for lang in ('tr', 'en', 'de') for pid in texts}
+    assert {(e['language'], e['patternId']) for e in entries} == {(lang, pid) for lang in languages for pid in texts}
+    assert sorted(set(('tr', 'en', 'de')) - set(languages)) == sorted(manifest['languagesLeftOut'])
     for e in entries:
         assert e['exactText'] == texts[e['patternId']][e['language']]
         assert e['textSha256'] == hashlib.sha256(e['exactText'].encode()).hexdigest()
@@ -246,3 +248,73 @@ def test_catalog_recordings_manifest_matches_the_catalog_and_the_closing_voice()
         data = path.read_bytes()
         assert len(data) == e['bytes'] and hashlib.sha256(data).hexdigest() == e['sha256']
         assert e['approvalStatus'] == 'technical-preview-awaiting-owner-listening' and e['ownerApprovedAt'] is None
+
+
+def _fake_synthesis(tmp, languages=('tr', 'en', 'de')):
+    """A synthesis record and WAV tree in the format of synthesize_closing_catalog.py (silent PCM, no inference)."""
+    import hashlib
+    import io
+    import wave
+    sys.path.insert(0, str(ROOT / 'scripts/mental_closing_abc'))
+    import synthesize_closing_catalog as syn
+    abc = json.loads((ROOT / 'apps/vehicle-app/public/audio/mental/closing-abc/v1/manifest.json').read_text('utf-8'))
+    catalog_bytes = (ROOT / 'shared/mental/closing-catalog/v1/catalog.json').read_bytes()
+    rows = []
+    for row in syn.rows_of(json.loads(catalog_bytes)):
+        if row['language'] not in languages:
+            continue
+        frames = 24000 * 2 + len(row['patternId']) * 240
+        buffer = io.BytesIO()
+        with wave.open(buffer, 'wb') as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(b'\x10\x00' * frames)
+        raw = buffer.getvalue()
+        (tmp / row['language']).mkdir(exist_ok=True)
+        (tmp / row['language'] / row['fileName']).write_bytes(raw)
+        rows.append({'assetId': row['assetId'], 'language': row['language'], 'patternId': row['patternId'], 'fileName': row['fileName'],
+                     'textSha256': hashlib.sha256(row['exactText'].encode()).hexdigest(), 'seed': syn.seed_for(row['assetId']),
+                     'sha256': hashlib.sha256(raw).hexdigest(), 'synthesisSeconds': 1.0,
+                     'metrics': {**syn.pcm_metrics(raw)}, 'technicalFindings': [], 'createdAtUtc': '2026-11-10T00:00:00Z'})
+    record = {'catalogSha256': hashlib.sha256(catalog_bytes).hexdigest(), 'integrityBefore': {'m': True}, 'integrityAfter': {'m': True},
+              'referenceSha256': abc['referenceSha256'], 'generation': abc['generation'], 'speakerProfile': 'female-calm-v1',
+              'sourceRevision': abc['model']['sourceRevision'], 'modelRevision': abc['model']['revision'], 'workerMode': 'resident-model-v1',
+              'runtime': {'python': 'test'}, 'rows': rows}
+    (tmp / 'synthesis.json').write_text(json.dumps(record), 'utf-8')
+    return record
+
+
+@pytest.mark.parametrize('languages,left_out', [(('tr', 'en', 'de'), []), (('tr', 'en'), ['de'])])
+def test_manifest_builder_publishes_whole_languages_only_and_never_approves(tmp_path, monkeypatch, languages, left_out):
+    import shutil
+    sys.path.insert(0, str(ROOT / 'scripts/mental_closing_abc'))
+    import build_closing_catalog_manifest as build
+    synthesis, public = tmp_path / 'synthesis', tmp_path / 'public'
+    synthesis.mkdir()
+    target = public / 'audio/mental/closing-catalog/v1'
+    target.mkdir(parents=True)
+    shutil.copy(CATALOG_MANIFEST, target / 'manifest.json')
+    record = _fake_synthesis(synthesis, languages)
+    monkeypatch.setattr(build, 'PUBLIC', public)
+    monkeypatch.setattr(build, 'TARGET', target)
+    monkeypatch.setattr(sys, 'argv', ['build', '--synthesis', str(synthesis)])
+    assert build.main() == 0
+    manifest = json.loads((target / 'manifest.json').read_text('utf-8'))
+    assert len(manifest['entries']) == 33 * len(languages) and manifest['languagesLeftOut'] == left_out
+    assert {e['approvalStatus'] for e in manifest['entries']} == {'technical-preview-awaiting-owner-listening'}
+    assert all(e['ownerApprovedAt'] is None for e in manifest['entries'])
+    for e in manifest['entries']:
+        assert (public / e['audioPath'].lstrip('/')).read_bytes() == (synthesis / e['language'] / e['fileName']).read_bytes()
+    # A changed recording is refused, and an existing different file is never overwritten.
+    record['rows'][0]['sha256'] = '0' * 64
+    (synthesis / 'synthesis.json').write_text(json.dumps(record), 'utf-8')
+    with pytest.raises(SystemExit, match='ASSET_VERIFICATION_FAILED'):
+        build.main()
+
+
+def test_one_take_per_line_and_findings_are_only_recorded():
+    sys.path.insert(0, str(ROOT / 'scripts/mental_closing_abc'))
+    import synthesize_closing_catalog as syn
+    rows = syn.rows_of(cc.catalog())
+    assert len(rows) == 99 and len({r['assetId'] for r in rows}) == 99
+    assert [r['language'] for r in rows[:33]] == ['tr'] * 33 and rows[33]['language'] == 'en', 'language by language'
+    assert syn.findings({'clippedSamples': 2, 'leadingSilenceMs': 100, 'trailingSilenceMs': 300, 'durationSeconds': 3.0}, 'a b c d e f') == ['clipped-samples:2']
+    assert syn.findings({'clippedSamples': 0, 'leadingSilenceMs': 100, 'trailingSilenceMs': 300, 'durationSeconds': 9.0}, 'a b c') == ['seconds-per-word:3.00']
