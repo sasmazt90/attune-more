@@ -127,8 +127,8 @@ def cpu_seconds(pids):
 
 
 class TestApi:
-    def __init__(self, source, base_env, port, log):
-        self.port, self.token = port, secrets.token_hex(32)
+    def __init__(self, source, base_env, port, log, token=None):
+        self.port, self.token = port, token or secrets.token_hex(32)
         user = pwd.getpwnam('attune')
         env = dict(base_env)
         env.update(PORT=str(port), ATTUNE_MENTAL_TTS_TOKEN=self.token, ATTUNE_LOAD_LOCAL_ENV='0',

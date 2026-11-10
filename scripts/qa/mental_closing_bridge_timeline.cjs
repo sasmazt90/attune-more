@@ -11,10 +11,15 @@
  * 24 kHz mono PCM16, duration equal to the measured audio, text hash, speaker profile and measurement label. During
  * the run the app's request text must equal the measured text, or the scenario fails.
  *
+ * A scenario with mode 'live' replays nothing: the page talks to a running Next server and test API (real provider,
+ * real TTS endpoint). Only the microphone is replaced, by recognition results carrying the scenario's synthetic
+ * utterances. Live results record the response headers (TTS start/seconds, Server-Timing) and the analysis result.
+ *
  * Usage: node scripts/qa/mental_closing_bridge_timeline.cjs <baseURL> <scenarios.json> <out.json> [autoplay]
  *   autoplay: default (no override) | user-gesture-required | no-user-gesture-required
+ *   env: PLAYWRIGHT_MODULE (path of a playwright package), CHROME_PATH (browser executable), ONLY (one label)
  */
-const {chromium}=require('playwright');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const [baseURL,scenarioFile,outFile,autoplay='default']=process.argv.slice(2);
 const LOCALE={tr:'tr-TR',en:'en-US',de:'de-DE'};
@@ -33,6 +38,7 @@ function wavInfo(file){
 
 /** Automatic mapping checks; returns a list of problems (empty means the scenario may run). */
 function validate(s,root){
+ if(s.mode==='live')return Array.isArray(s.live?.utterances)&&s.live.utterances.length?[]:['live scenario without utterances'];
  const problems=[],expected=s.mode==='short'?[s.summary.spokenSummary]:speechParts(s.summary.summaryText);
  if(s.tts.length!==expected.length)problems.push(`expected ${expected.length} speech parts, scenario has ${s.tts.length}`);
  s.tts.forEach((t,i)=>{
@@ -52,17 +58,29 @@ function validate(s,root){
 
 async function run(s,root){
  const args=autoplay==='default'?[]:['--autoplay-policy='+autoplay];
- const browser=await chromium.launch({args});
+ const browser=await chromium.launch({args,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
+ const live=s.mode==='live',liveResponses=[];
  const page=await browser.newPage();
  const requests=[],mismatches=[];
- await page.addInitScript(({language})=>{
+ await page.addInitScript(({language,utterances})=>{
   localStorage.setItem('attune.language.v1',language);
   window.__timeline=[];
   window.addEventListener('attune-speech-timing',e=>window.__timeline.push({stage:e.detail.stage,atMs:e.detail.atMs}));
   // Recognition fixture: the first listen hears one synthetic sentence; later listens stay silent.
-  let heard=false;
-  window.SpeechRecognition=class{start(){setTimeout(()=>{this.onstart?.();if(!heard){heard=true;setTimeout(()=>this.onresult?.({resultIndex:0,results:[Object.assign([{transcript:'Bu sentetik ve kişisel olmayan bir test cümlesidir.'}],{isFinal:true})]}),200);}},50);}abort(){}stop(){}};
- },{language:s.language});
+  const queue=[...utterances];
+  window.SpeechRecognition=class{start(){setTimeout(()=>{this.onstart?.();const text=queue.shift();if(text)setTimeout(()=>this.onresult?.({resultIndex:0,results:[Object.assign([{transcript:text}],{isFinal:true})]}),200);},50);}abort(){}stop(){}};
+ },{language:s.language,utterances:live?s.live.utterances:['Bu sentetik ve kişisel olmayan bir test cümlesidir.']});
+ if(live){
+  page.on('request',request=>{if(request.url().includes('/api/mental/analyze-session'))try{requests.push({kind:'analyze',at:Date.now(),spokenSummaryRequested:JSON.parse(request.postData()).spokenSummary===true});}catch{}});
+  page.on('response',async response=>{
+   const url=response.url();
+   if(url.includes('/api/mental-neural-speech')){let profile=null;try{profile=JSON.parse(response.request().postData()).speakerProfile||null;}catch{}
+    liveResponses.push({kind:'tts',at:Date.now(),status:response.status(),profile,start:response.headers()['x-tts-start']||null,seconds:response.headers()['x-tts-seconds']||null,serverTiming:response.headers()['server-timing']||null});}
+   if(url.includes('/api/mental/analyze-session')){let body=null;try{body=await response.json();}catch{}
+    liveResponses.push({kind:'analysis',at:Date.now(),status:response.status(),providerType:body?.providerType,summaryText:body?.summaryText,spokenSummary:body?.spokenSummary,spokenSummaryStatus:body?.spokenSummaryStatus});}
+  });
+ }
+ if(!live){
  const json=(route,body,status=200)=>route.fulfill({status,contentType:'application/json',headers:{'Access-Control-Allow-Origin':'*'},body:JSON.stringify(body)});
  await page.route(/^http:\/\/(localhost|127\.0\.0\.1):8000\//,async route=>{
   const url=new URL(route.request().url());
@@ -90,6 +108,7 @@ async function run(s,root){
   await new Promise(r=>setTimeout(r,t.delayMs));
   return route.fulfill({status:200,headers:{'Content-Type':'audio/wav','X-TTS-Source':'chatterbox-multilingual-v3','X-TTS-Locale':LOCALE[s.language],'X-TTS-Speaker-Profile':'female-calm-v1'},body:fs.readFileSync(path.resolve(root,t.wav))});
  });
+ }
  await page.goto(baseURL+'/mental');
  const boxes=page.locator('input[type=checkbox]');await boxes.first().waitFor();
  for(let i=0;i<3;i++)await boxes.nth(i).check();
@@ -101,7 +120,7 @@ async function run(s,root){
  const taps=[];
  const tapper=setInterval(async()=>{try{const b=page.locator('[data-neural-play-response]');if(await b.count()&&await b.first().isEnabled()){taps.push({at:Date.now(),phase:await page.evaluate(()=>document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase'))});await b.first().click();}}catch{}},250);
  try{
-  await page.waitForFunction(()=>window.__timeline.some(e=>e.stage==='ended'),null,{timeout:60000});
+  await page.waitForFunction(()=>window.__timeline.some(e=>e.stage==='ended'),null,{timeout:live?150000:60000});
   await page.waitForFunction(()=>document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase')==='listening',null,{timeout:30000});
   const previewSeen=page.locator('[data-closing-preview]').first().waitFor({timeout:15000}).then(()=>true,()=>false);
   await page.getByRole('button').filter({hasText:/Görüşmeyi Bitir|End conversation|Gespräch beenden/}).first().click();
@@ -120,9 +139,10 @@ async function run(s,root){
    gestureRequired:all('closing-A-gesture-required').concat(all('closing-B-gesture-required'),all('closing-C-gesture-required'),all('closing-summary-gesture-required')).length};
   const closingTaps=taps.filter(t=>t.phase==='ending').length;
   const result={label:s.label,language:s.language,mode:s.mode,autoplay,finalPhase:'completed',previewLabelShown:await previewSeen,notice,
-   sources:{summary:s.summary.source,tts:s.tts.map(t=>t.row.label+' ('+t.row.source+')')},mismatches,
+   sources:live?{summary:'live: test API -> real provider',tts:'live: Next route -> test API -> resident worker'}:{summary:s.summary.source,tts:s.tts.map(t=>t.row.label+' ('+t.row.source+')')},mismatches,liveResponses,
    spokenSummaryRequested:requests.find(r=>r.kind==='analyze')?.spokenSummaryRequested,
-   spokenText:s.mode==='short'?s.summary.spokenSummary:s.summary.summaryText,spokenWords:words(s.mode==='short'?(s.summary.spokenSummary||''):s.summary.summaryText),
+   spokenText:live?(liveResponses.find(r=>r.kind==='analysis')?.spokenSummary??null):s.mode==='short'?s.summary.spokenSummary:s.summary.summaryText,
+   spokenWords:live?words(liveResponses.find(r=>r.kind==='analysis')?.spokenSummary||''):words(s.mode==='short'?(s.summary.spokenSummary||''):s.summary.summaryText),
    msFromTrigger:{firstPreparedAudio:m.aPlaying,summaryTextReady:m.summaryTextReady??m.summaryResponse,firstDynamicPartReady:m.firstPartReady,cEnded:m.cEnded,
     firstPersonalizedAudio:m.summaryPlaying,closingAudioEnd:m.summaryComplete??m.cEnded},
    durationsMs:{summaryRequest:m.summaryResponse!==null&&m.summaryRequest!==null?m.summaryResponse-m.summaryRequest:null,
