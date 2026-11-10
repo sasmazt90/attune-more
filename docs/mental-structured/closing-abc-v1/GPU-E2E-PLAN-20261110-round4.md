@@ -1,8 +1,10 @@
 # Round 4 plan: live closing end to end with GPU speech (prepared, awaiting the owner's approval)
 
-**Status (2026-11-10, 15:10 UTC):** prepared only. No AWS resource was created for it. The earlier 5 USD approval
-belonged to round 3 and is closed; this run needs a new explicit approval of the scope, the cost cap and the time limits
-below. The feature stays off; nothing is merged or deployed; the 45 A/B/C recordings are not regenerated, lengthened or
+**Status (2026-11-10):** approved by the owner on 2026-11-10 with these limits: one g5.xlarge in eu-central-1, GPU
+≤ 120 min, WEB ≤ 150 min, AAOS ≤ 100 min, extra cost of AWS and the analysis provider together ≤ 5.50 USD + tax (the
+continuing cost of the existing disks reported separately), no scope or time increase; inbound TCP 8191 on the GPU group
+only from the WEB group and TCP 8190 on the temporary WEB group only from the AAOS group; no internet ingress, IAM or
+instance-type change. Before any resource was created three corrections were made and tested locally (section 8). The feature stays off; nothing is merged or deployed; the 45 A/B/C recordings are not regenerated, lengthened or
 repeated; the normal closing keeps *sen* and structured-v1 keeps *siz*; no listening approval is implied by any result.
 
 ## 1. What is measured, and what is not replayed
@@ -119,7 +121,7 @@ repository or OEM requirement exists for them.
 
 | # | Samples | Criterion |
 | --- | --- | --- |
-| P1 warm | WEB live, 8 warm closings per language (n = 24) | C ends → personal audio starts ≤ 1.0 s in ≥ 90 % overall and per language; no overlap; no extra tap |
+| P1 warm | WEB live, 8 warm closings per language (n = 24) | C ends → personal audio starts ≤ 1.0 s in ≥ 90 % overall and per language; no overlap; no extra tap. **With 8 per language, ≥ 90 % means 8 of 8 (7 of 8 is 87.5 %); overall ≥ 90 % of 24 means at least 22.** Not changed after the results |
 | P2 prepared start | 3 fresh API starts per language with the closing voice prepared at start (`ATTUNE_MENTAL_TTS_WARM_PROFILES=female-calm-v1`), first closing after the warm-up | C → personal ≤ 1.0 s in each of the 9; the warm-up's own time reported per profile (default, female), never inside a closing's numbers |
 | P3 cold | 3 fresh API starts per language without preparation (today's start-up), first closing | reported only (no pass/fail); shows what P2 removes |
 | P4 ready vs played | every live closing | playback starts ≤ 0.2 s after C ends when the audio was ready earlier, else ≤ 0.2 s after it is ready |
@@ -140,9 +142,42 @@ in Turkish (10.56) and 8.52–11.40 s in German (10.20) over the 125 combination
 This is the time the personal line can be prepared during the closing; it is not a fixed 8–9 s and not a guarantee. The
 goal is that the personal line follows C fluently, with as little waiting as possible.
 
+Blocked samples (warm-up failed, missing or timed out; Android player not observed `started`) are reported as blocked:
+they are neither passed nor part of any timing number, and they count against the criterion they belong to.
+
 ## 7. Evidence
 
 Raw JSON/CSV, server logs (numbers only), WAVs of the personal lines, timelines and the report go to a new Google Drive
 folder (`Review-2026-11-10-round4-…`); each uploaded file is read back and its size and SHA-256 compared; earlier folders
 are not touched. Listening links for TR/EN/DE (A/B/C + personal line) are given for the owner; no quality approval is
 given or implied by the run.
+
+## 8. Corrections made before the run (requested with the approval) and tested locally
+
+1. **GPU deadline from the real LaunchTime** (`gpu_round4.py`, container tool). The user data no longer arms a relative
+   `+120`: it gets an absolute deadline (time of the launch call + 120 min − 2 min) and counts the minutes when it runs,
+   rounded down, so a late boot shortens the timer instead of moving the deadline. The armed record is written only if
+   the shutdown command succeeded and its schedule file exists; if arming fails, the instance shuts down (= terminates)
+   at once. After launch the deadline is checked against the API's LaunchTime, and the experiment starts only after a
+   mandatory check of the armed record, the systemd schedule (≤ LaunchTime + 120 min, in the future) and the absence of a
+   failure record; one re-arm over SSM is tried for LaunchTime + 120 min, otherwise the instance is terminated and
+   nothing runs. The local guard terminates at LaunchTime + 115 min. Tested with a stub `shutdown` (normal boot, late
+   boot, failed command, past deadline) and the verdict on late, past and missing schedules.
+2. **Prepared closings only after successful warm-up** (`closing_live_probe.py`, `closing_test_api_serve.py`). Every
+   required profile (cold: default; prepared: default and female-calm-v1) needs a successful warm-up row; a failed row,
+   a missing row or a timeout blocks the process: its closings do not run, are recorded as blocked with the reason, and
+   never enter the cold, prepared or warm numbers (`tests/unit/test_closing_live_probe.py`).
+3. **AAOS live through the real product route and its cancellation chain** (`aaos-mental-closing.cjs`,
+   `closing_live_forward.cjs`, `tcp_forward.py`). The harness no longer builds the speech request or adds the bearer:
+   the WebView's own closing-voice request (method, Host, Origin, body with the page's own `speechConsent`) goes
+   unchanged to the branch's Next server on the AAOS host, i.e. the real `/api/mental-neural-speech` route, which
+   checks origin, consent, language and size, adds the bearer and calls its loopback backend
+   (`http://127.0.0.1:8190`, a TCP forward to the test API on WEB:8190 — inside the approved AAOS → WEB TCP 8190). The
+   analysis request goes unchanged to the test API. When the WebView abandons a request, the harness aborts the
+   forwarded one, which closes its connection; the route aborts its backend request, the API kills the bridge, and the
+   GPU server kills the worker. Tested in a real Chromium with CDP interception (verbatim Host/Origin/body; page abort
+   closed the upstream request after 7 ms) and the forward with a loopback server (close reached upstream at once). A
+   new AAOS case cancels early in A while requests are in flight, and in live mode every stop case checks that requests
+   in flight at the stop were aborted and never answered. **Not the product deployment:** the route runs on the AAOS
+   host instead of web-aaos on WEB, there is no mTLS Caddy hop, the API is a test process with a one-off bearer, and its
+   park gate is fed by the harness mirror of the vehicle speed. These results do not establish product security.

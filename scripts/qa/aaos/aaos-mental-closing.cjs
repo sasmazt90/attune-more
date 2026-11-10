@@ -25,11 +25,15 @@ const W = require('./webview.cjs');
 const {players, startedPiids, stopChecks} = require('./closing_stop_verdict.cjs');
 
 const BUILD = process.env.CLOSING_BUILD_ORIGIN || 'http://127.0.0.1:3100';
-// CLOSING_LIVE_API (test only): analysis and the closing voice go to a test API (branch code, real provider, its resident
-// worker possibly on a GPU host) at that private address, with the one-off bearer in CLOSING_LIVE_API_BEARER_FILE. The
-// harness then stands in for the Next speech route (same request, same headers checked); the conversation reply and
-// ordinary speech stay replayed. Vehicle speed set by a case is mirrored to the test API so its park gate sees it too.
+// CLOSING_LIVE_API (test only, e.g. http://127.0.0.1:8190, a loopback forwarder to the test API): live closing. The
+// WebView's own closing requests are forwarded unchanged (method, Host, Origin, body; closing_live_forward.cjs):
+// /api/mental/analyze-session to the test API (branch code, real provider), /api/mental-neural-speech for the closing
+// voice to the branch's Next server at CLOSING_BUILD_ORIGIN, i.e. the real product route, which holds the bearer and
+// calls its loopback backend (ATTUNE_MENTAL_TTS_BACKEND_URL of that server). When the WebView abandons a request, the
+// forwarded one is aborted. Replayed and labelled: the conversation reply and ordinary speech. Vehicle speed set by a
+// case is mirrored to the test API, whose own park gate does not see the native vehicle state otherwise.
 const LIVE_API = process.env.CLOSING_LIVE_API || null;
+const {cancellationRegistry, forwardVerbatim, fulfillHeaders} = require('./closing_live_forward.cjs');
 const TTS_MODE = LIVE_API ? 'live-api' : process.env.CLOSING_TTS === 'product' ? 'product' : 'replay';
 const CONFIG = JSON.parse(fs.readFileSync(process.env.ATTUNE_QA_AAOS_CONFIG, 'utf8').replace(/^\uFEFF/, ''));
 const {execFile} = require('node:child_process');
@@ -40,7 +44,6 @@ const replay = JSON.parse(fs.readFileSync(path.join(REPLAY, 'realpath.json'), 'u
 const LOCALE = {tr: 'tr-TR', en: 'en-US', de: 'de-DE'};
 const REPLY = {tr: 'Anlıyorum. Bunu paylaştığınız için teşekkür ederim.', en: 'I understand. Thank you for sharing that.', de: 'Ich verstehe. Danke, dass Sie das teilen.'};
 const sleep = ms => new Promise(ok => setTimeout(ok, ms));
-const liveBearer = () => fs.readFileSync(process.env.CLOSING_LIVE_API_BEARER_FILE, 'utf8').trim();
 async function setSpeed(kmh) {
   await W.setSpeed(kmh);
   if (LIVE_API) await fetch(LIVE_API + '/api/vehicle/speed', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({speedKmH: kmh})}).catch(() => {});
@@ -93,6 +96,24 @@ const wav = row => fs.readFileSync(path.join(REPLAY, row.label + '.wav'));
 const plan = {language: 'tr', conversation: 1, start: 'warm', requests: [], late: []};
 async function install(page) {
   const json = (route, body, status = 200) => route.fulfill({status, contentType: 'application/json', headers: {'Cache-Control': 'no-store'}, body: JSON.stringify(body)});
+  const registry = cancellationRegistry(page);
+  // Live: the WebView's request unchanged to target; its cancellation aborts the forwarded request.
+  const live = async (route, request, target, kind, extra) => {
+    const entry = registry.signalFor(request), at = Date.now(), row = {kind, id: plan.id, at, ...extra};
+    plan.requests.push(row);
+    try {
+      const answer = await forwardVerbatim(request, target, entry.controller.signal);
+      Object.assign(row, {ms: Date.now() - at, status: answer.status, ttsSeconds: answer.headers['x-tts-seconds'] || null, ttsStart: answer.headers['x-tts-start'] || null,
+        serverTiming: answer.headers['server-timing'] || null, bytes: answer.body.length});
+      if (kind === 'analysis-live') { try { const d = JSON.parse(answer.body.toString('utf8')); Object.assign(row, {spokenSummaryStatus: d.spokenSummaryStatus ?? null, spokenSummary: d.spokenSummary ?? null, providerType: d.providerType ?? null}); } catch {} }
+      row.answeredAt = Date.now();
+      if (kind === 'tts-live') plan.requests.push({kind: 'tts-answered', id: plan.id, live: true, at: row.answeredAt, status: answer.status});
+      return await route.fulfill({status: answer.status, headers: fulfillHeaders(answer.headers), body: answer.body});
+    } catch (error) {
+      Object.assign(row, {aborted: entry.abortedAt !== null, abortedAfterMs: entry.abortedAt ? entry.abortedAt - at : null, abortReason: entry.reason, error: String(error && error.name || error)});
+      return await route.abort().catch(() => {});
+    } finally { registry.release(request); }
+  };
   await page.route(url => url.origin === W.origin, async route => {
     const request = route.request(), url = new URL(request.url());
     try {
@@ -100,15 +121,7 @@ async function install(page) {
       if (url.pathname === '/api/mental/provider-status') return await json(route, {isLiveLLM: true, apiKeyConfigured: true, providerName: 'replay of the WEB real-path run'});
       if (url.pathname === '/api/mental/compact-context') return await json(route, {memory: [], method: 'extractive-user-quotes-v1'});
       if (url.pathname === '/api/mental/converse') return await json(route, {reply: REPLY[plan.language], isCrisis: false, providerType: 'LIVE_OPENAI'});
-      if (url.pathname === '/api/mental/analyze-session' && LIVE_API) {
-        const id = plan.id, at = Date.now();
-        const response = await fetch(LIVE_API + url.pathname + url.search, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: request.postData()});
-        const text = await response.text();
-        let parsed = null; try { parsed = JSON.parse(text); } catch {}
-        plan.requests.push({kind: 'analysis-live', id, at, ms: Date.now() - at, status: response.status, spokenSummaryStatus: parsed?.spokenSummaryStatus ?? null,
-          spokenSummary: parsed?.spokenSummary ?? null, providerType: parsed?.providerType ?? null});
-        return await route.fulfill({status: response.status, contentType: 'application/json', headers: {'Cache-Control': 'no-store'}, body: text});
-      }
+      if (url.pathname === '/api/mental/analyze-session' && LIVE_API) return await live(route, request, LIVE_API, 'analysis-live', {spokenSummaryRequested: request.postDataJSON()?.spokenSummary === true});
       if (url.pathname === '/api/mental/analyze-session') {
         const body = request.postDataJSON(), a = analysis(plan.language, plan.conversation), id = plan.id;
         plan.requests.push({kind: 'analysis', id, spokenSummaryRequested: body.spokenSummary === true, at: Date.now(), delayMs: Math.round(a.seconds * 1000)});
@@ -118,23 +131,9 @@ async function install(page) {
       }
       if (url.pathname === '/api/mental-neural-speech') {
         const body = request.postDataJSON(), id = plan.id;
-        if (LIVE_API && body.speakerProfile === 'female-calm-v1') {
-          // The Next route's job: bearer to the test API, then the same checks of the answer.
-          const at = Date.now();
-          plan.requests.push({kind: 'tts-live', id, closing: true, at});
-          const response = await fetch(LIVE_API + '/api/mental/neural-speech?language=' + encodeURIComponent(body.language), {method: 'POST',
-            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + liveBearer()},
-            body: JSON.stringify({text: body.text, language: body.language, speechConsent: true, speakerProfile: body.speakerProfile})});
-          const audio = Buffer.from(await response.arrayBuffer()), h = name => response.headers.get(name);
-          const valid = response.ok && h('content-type')?.split(';')[0] === 'audio/wav' && h('x-tts-source') === 'chatterbox-multilingual-v3' &&
-            h('x-tts-locale') === LOCALE[body.language] && h('x-tts-speaker-profile') === body.speakerProfile && audio.length > 44;
-          plan.requests.push({kind: 'tts-answered', id, live: true, at: Date.now(), ms: Date.now() - at, status: response.status, valid,
-            ttsSeconds: h('x-tts-seconds'), ttsStart: h('x-tts-start'), serverTiming: h('server-timing'), bytes: audio.length});
-          if (!valid) return await route.fulfill({status: response.ok ? 502 : response.status, contentType: 'application/json', body: '{"detail":"NEURAL_TTS_UNAVAILABLE"}'});
-          return await route.fulfill({status: 200, headers: {'Content-Type': 'audio/wav', 'Cache-Control': 'no-store', 'X-TTS-Source': 'chatterbox-multilingual-v3',
-            'X-TTS-Locale': h('x-tts-locale'), 'X-TTS-Speaker-Profile': body.speakerProfile, 'X-TTS-Seconds': h('x-tts-seconds') || '', 'X-TTS-Start': h('x-tts-start') || '',
-            'Server-Timing': h('server-timing') || ''}, body: audio});
-        }
+        // The real product route on the branch's Next server (it checks origin, consent, language and size, adds the bearer,
+        // calls its loopback backend and checks the answer); the WebView's request is not rebuilt.
+        if (LIVE_API && body.speakerProfile === 'female-calm-v1') return await live(route, request, BUILD, 'tts-live', {closing: true, speechConsent: body.speechConsent});
         if (TTS_MODE === 'product' && body.speakerProfile === 'female-calm-v1') {
           // Live speech through the existing product AAOS chain; the response headers are recorded by the page listener.
           plan.requests.push({kind: 'tts-live', id, closing: true, at: Date.now()});
@@ -159,6 +158,21 @@ async function install(page) {
       plan.requests.push({kind: 'route-ended', path: url.pathname, error: String(error).slice(0, 80)});
     }
   });
+}
+
+// Live mode: a closing request (analysis or closing voice) still in flight when the stop condition came must end aborted,
+// not answered later; the forwarded request's abort is what reaches the route, the API and the remote worker.
+function liveCancellation(options, actedAt, check) {
+  if (TTS_MODE !== 'live-api') return null;
+  const rows = plan.requests.filter(q => q.id === options.name && ['tts-live', 'analysis-live'].includes(q.kind) && q.at < actedAt);
+  const pending = rows.filter(q => !(q.answeredAt && q.answeredAt <= actedAt));
+  const answeredLater = pending.filter(q => q.answeredAt && q.answeredAt > actedAt);
+  const result = {inFlightAtAction: pending.map(q => ({kind: q.kind, issuedBeforeMs: actedAt - q.at, aborted: !!q.aborted, abortReason: q.abortReason || null,
+    abortedAfterActionMs: q.aborted ? q.at + q.abortedAfterMs - actedAt : null, answeredAfterActionMs: q.answeredAt ? q.answeredAt - actedAt : null}))};
+  if (pending.length) check(`${options.name}: live closing requests in flight at the ${options.action} were aborted and never answered (${pending.length})`,
+    answeredLater.length === 0 && pending.every(q => q.aborted), result);
+  else result.note = 'no closing request was in flight at the action';
+  return result;
 }
 
 // Each WebView page (a new one after the native shell destroyed the old) gets the page script and routes once.
@@ -434,6 +448,7 @@ async function closing(session, language, options, check, out, r) {
       await sleep(3000);
       row.afterReturn = {plays: await page.evaluate(() => window.__plays).catch(() => null), timeline: await page.evaluate(() => window.__timeline.map(e => e.stage)).catch(() => null), url: page.url()};
       row.requests = plan.requests.filter(q => q.id === options.name);
+      row.liveCancellation = liveCancellation(options, actedAt, check);
       row.pageEvents = pageEvents.slice(firstEvent).filter(e => e.kind !== 'vehicle' || e.moving);
       const closingPlays = (row.afterReturn.plays || []).filter(x => !x.guidance);
       check(`${options.name}: nothing of the closing plays later, also in the returned app (late speech response included)`,
@@ -463,6 +478,7 @@ async function closing(session, language, options, check, out, r) {
     row.notice = await page.evaluate(() => [...document.querySelectorAll('[role=status],[role=alert]')].map(n => n.textContent).join(' | ').slice(0, 300));
     row.requests = plan.requests.filter(q => q.id === options.name);
     row.lateSpeechResponses = row.requests.filter(q => q.kind === 'tts-answered' && q.at > actedAt).length;
+    if (options.action !== 'language') row.liveCancellation = liveCancellation(options, actedAt, check);
     row.pageEvents = pageEvents.slice(firstEvent).filter(e => ['play', 'play-ok', 'play-rejected', 'audio-created', 'guidance', 'voice-unavailable', 'focus', 'pause-call'].includes(e.kind) || (e.kind === 'stage' && /summary-(audio-start|complete)|cleanup/.test(e.stage)));
     const closingPlaysAfter = row.playsAfterAction.filter(p => !p.guidance);
     if (options.action === 'language') {
@@ -549,6 +565,9 @@ const CASES = [
   // Interruptions.
   {name: 'tr-cancel-during-B-then-new', language: 'tr', action: 'cancel', at: 'closing-B-playing', thenNewConversation: true},
   {name: 'en-cancel-during-summary', language: 'en', action: 'cancel', at: 'closing-summary-audio-start', waitMs: 15000},
+  // Cancel early in A, when the analysis or the closing-voice request is usually still in flight (live: the abort must
+  // travel through the route, the API and the remote worker).
+  {name: 'de-cancel-during-A-requests-in-flight', language: 'de', action: 'cancel', at: 'closing-A-playing'},
   {name: 'en-mute-during-C', language: 'en', action: 'mute', at: 'closing-C-playing'},
   // Consent withdrawn while A is audibly playing (acted on once Android reports the player 'started'), and separately
   // right at the closing's start, before any player has started (nothing may start afterwards).
@@ -565,7 +584,7 @@ const CASES = [
 (async () => {
   const {out, r, check, save} = W.report('mental-closing');
   r.testMode = TTS_MODE === 'live-api'
-    ? 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; conversation reply replayed; analysis LIVE (test API, real provider) and closing speech LIVE (test API, its resident worker on the configured host); the harness stands in for the Next speech route.'
+    ? 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; conversation reply and its speech replayed; the closing\'s analysis request forwarded unchanged to the test API (branch code, real provider) and its closing-voice request forwarded unchanged to the real Next route of the branch build on the AAOS host, whose loopback backend reaches the test API (resident worker on the GPU host) over a private TCP forward; WebView cancellation aborts the forwarded requests. Not the product deployment: no mTLS Caddy hop, test API and test bearer, park gate of the test API fed by the harness mirror.'
     : TTS_MODE === 'product'
     ? 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; reply and analysis replayed from WEB real-path recordings; closing speech LIVE through the existing product AAOS chain.'
     : 'Real AAOS WebView, APK, native gates and audio path; branch frontend served by CDP interception; recognizer scripted; reply, analysis and female-calm-v1 speech replayed from the WEB real-path recordings.';

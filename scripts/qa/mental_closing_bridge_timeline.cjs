@@ -71,11 +71,18 @@ async function run(s,root){
   window.SpeechRecognition=class{start(){setTimeout(()=>{this.onstart?.();const text=queue.shift();if(text)setTimeout(()=>this.onresult?.({resultIndex:0,results:[Object.assign([{transcript:text}],{isFinal:true})]}),200);},50);}abort(){}stop(){}};
  },{language:s.language,utterances:live?s.live.utterances:['Bu sentetik ve kişisel olmayan bir test cümlesidir.']});
  if(live){
-  page.on('request',request=>{if(request.url().includes('/api/mental/analyze-session'))try{requests.push({kind:'analyze',at:Date.now(),spokenSummaryRequested:JSON.parse(request.postData()).spokenSummary===true});}catch{}});
+  page.on('request',request=>{if(request.url().includes('/api/mental/analyze-session'))try{requests.push({kind:'analyze',at:Date.now(),spokenSummaryRequested:JSON.parse(request.postData()).spokenSummary===true});}catch{}
+   // Which committed A/B/C recordings this closing fetched (the selection is random; the files are not regenerated).
+   const clip=/\/audio\/mental\/closing-abc\/v1\/(tr|en|de)\/female-calm-v1\/([ABC])\/([^/?]+\.wav)/.exec(request.url());
+   if(clip)requests.push({kind:'clip',at:Date.now(),group:clip[2],file:clip[1]+'/female-calm-v1/'+clip[2]+'/'+clip[3]});});
   page.on('response',async response=>{
    const url=response.url();
    if(url.includes('/api/mental-neural-speech')){let profile=null;try{profile=JSON.parse(response.request().postData()).speakerProfile||null;}catch{}
-    liveResponses.push({kind:'tts',at:Date.now(),status:response.status(),profile,start:response.headers()['x-tts-start']||null,seconds:response.headers()['x-tts-seconds']||null,serverTiming:response.headers()['server-timing']||null});}
+    const row={kind:'tts',at:Date.now(),status:response.status(),profile,start:response.headers()['x-tts-start']||null,seconds:response.headers()['x-tts-seconds']||null,serverTiming:response.headers()['server-timing']||null};
+    liveResponses.push(row);
+    // The closing voice's audio as served, for listening (LIVE_AUDIO_DIR); never the conversation's own text.
+    if(profile==='female-calm-v1'&&response.status()===200&&process.env.LIVE_AUDIO_DIR){try{const bytes=await response.body();const n=liveResponses.filter(r=>r.kind==='tts'&&r.profile==='female-calm-v1').length;
+     const name=s.label+'-personal-'+n+'.wav';fs.writeFileSync(path.join(process.env.LIVE_AUDIO_DIR,name),bytes);row.audio={file:name,bytes:bytes.length,sha256:crypto.createHash('sha256').update(bytes).digest('hex')};}catch(e){row.audioError=String(e).slice(0,80);}}}
    if(url.includes('/api/mental/analyze-session')){let body=null;try{body=await response.json();}catch{}
     liveResponses.push({kind:'analysis',at:Date.now(),status:response.status(),providerType:body?.providerType,summaryText:body?.summaryText,spokenSummary:body?.spokenSummary,spokenSummaryStatus:body?.spokenSummaryStatus});}
   });
@@ -165,6 +172,6 @@ async function run(s,root){
   console.log(JSON.stringify({label:r.label,valid:r.valid,autoplay,ms:r.msFromTrigger,gaps:r.gapsMs,taps:r.userTaps}));
  }
  fs.writeFileSync(outFile,JSON.stringify({schema:'attune-mental-closing-bridge-browser-timeline-v2',
-  kind:'Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.',
+  kind:results.some(r=>r.mode==='live')?'LIVE: real production build + Chromium playback + real hook code + trusted CDP clicks; only the microphone is scripted; analysis, conversation and speech come from the running servers (see sources).':'Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.',
   autoplayPolicy:autoplay,scenarioFile:path.basename(scenarioFile),description:spec.description,results},null,2)+'\n');
 })().catch(error=>{console.error(error);process.exitCode=1;});

@@ -44,6 +44,34 @@ def warm_rows(log_path, offset):
     return [json.loads(m.group(1)) for m in WARM_ROW.finditer(text)]
 
 
+def warm_gate(result, profiles):
+    """(ok, reason). A process's closings are measured only when every required profile has a successful warm-up row and
+    the wait did not time out; otherwise they are recorded as blocked and never enter the cold/prepared/warm numbers."""
+    rows = result.get('rows') or []
+    if result.get('timeout'):
+        return False, 'warm-up-timeout'
+    failed = sorted({str(r.get('profile')) for r in rows if not r.get('ok')})
+    if failed:
+        return False, 'warm-up-failed:' + ','.join(failed)
+    missing = [p for p in profiles if not any(r.get('profile') == p and r.get('ok') for r in rows)]
+    if missing:
+        return False, 'warm-up-missing:' + ','.join(missing)
+    return True, None
+
+
+def build_plan(languages, cold_runs, profile_runs, warm_runs):
+    """Processes per language: cold ones, then prepared ones; the last of the later kind also serves the warm closings."""
+    plan = []
+    for language in languages:
+        for kind, count in (('cold', cold_runs), ('prepared', profile_runs)):
+            for i in range(count):
+                last = kind == ('prepared' if profile_runs else 'cold') and i == count - 1
+                plan.append({'language': language, 'process': f'{language}-{kind}-{i + 1}', 'kind': kind,
+                             'required': ['default', 'female-calm-v1'] if kind == 'prepared' else ['default'],
+                             'closings': [(f'{language}-{kind}-{i + 1}', kind)] + ([(f'{language}-warm-{w + 1}', 'warm') for w in range(warm_runs)] if last else [])})
+    return plan
+
+
 def wait_warm_rows(log_path, offset, profiles, timeout=300):
     """The API logs one numerical row per warm-up step; wait until every expected profile has one (or one failed)."""
     started, rows = time.time(), []
@@ -72,6 +100,9 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     user = pwd.getpwnam('attune')
     os.chown(out, user.pw_uid, user.pw_gid)
+    audio_dir = out / 'audio'
+    audio_dir.mkdir()
+    os.chown(audio_dir, user.pw_uid, user.pw_gid)
     base_env, _ = product_api_environment(8000)
     remote = {}
     if args.remote_tts:
@@ -79,15 +110,7 @@ def main():
         remote = {'ATTUNE_MENTAL_TTS_PYTHON': str(bridge), 'ATTUNE_REMOTE_TTS_ADDRESS': args.remote_tts,
                   'ATTUNE_REMOTE_TTS_HANDSHAKE_FILE': args.handshake_file, 'ATTUNE_MENTAL_TTS_RESIDENT': '1'}
     token = secrets.token_hex(32)
-    plan = []
-    for language in args.languages.split(','):
-        n = 0
-        for kind, count in (('cold', args.cold_runs), ('prepared', args.profile_runs)):
-            for i in range(count):
-                n += 1
-                last = kind == ('prepared' if args.profile_runs else 'cold') and i == count - 1
-                plan.append({'language': language, 'process': f'{language}-{kind}-{i + 1}', 'kind': kind,
-                             'closings': [(f'{language}-{kind}-{i + 1}', kind)] + ([(f'{language}-warm-{w + 1}', 'warm') for w in range(args.warm_runs)] if last else [])})
+    plan = build_plan(args.languages.split(','), args.cold_runs, args.profile_runs, args.warm_runs)
     scenarios, used = [], {}
     for process in plan:
         for label, _ in process['closings']:
@@ -132,16 +155,27 @@ def main():
             try:
                 record['readySeconds'] = api.wait_ready()
                 # Start-up warm-up: the default model always; the closing voice too when prepared. Logged by the API.
-                record['warmUp'] = wait_warm_rows(log_path, offset, ['default', 'female-calm-v1'] if prepared else ['default'])
+                record['warmUp'] = wait_warm_rows(log_path, offset, process['required'])
                 record['secondsFromStartToWarm'] = round(time.time() - api.started, 3)
+                ok, reason = warm_gate(record['warmUp'], process['required'])
+                record['warmGate'] = {'ok': ok, 'reason': reason, 'required': process['required']}
+                if not ok:
+                    # Blocked, not measured: no closing of this process runs or enters any number.
+                    for label, kind in process['closings']:
+                        result['runs'].append({'label': label, 'process': process['process'], 'closing': kind, 'status': 'blocked', 'reason': reason})
+                    if index == len(plan) - 1 and args.concurrency_pairs:
+                        result['concurrency'].append({'status': 'blocked', 'reason': reason})
+                    save()
+                    continue
                 for label, kind in process['closings']:
                     started = time.time()
                     env = {'PATH': '/opt/node/bin:/usr/bin:/bin', 'HOME': user.pw_dir, 'PLAYWRIGHT_MODULE': PLAYWRIGHT,
-                           'CHROME_PATH': '/usr/bin/google-chrome', 'ONLY': label}
+                           'CHROME_PATH': '/usr/bin/google-chrome', 'ONLY': label, 'LIVE_AUDIO_DIR': str(audio_dir)}
                     done = subprocess.run(['/opt/node/bin/node', str(source / 'scripts/qa/mental_closing_bridge_timeline.cjs'),
                                            'http://127.0.0.1:3190', str(spec), str(out / f'{label}.json'), args.autoplay],
                                           env=env, preexec_fn=drop, capture_output=True, text=True, timeout=420)
                     result['runs'].append({'label': label, 'process': process['process'], 'closing': kind, 'exit': done.returncode,
+                                           'status': 'measured' if done.returncode == 0 else 'failed',
                                            'seconds': round(time.time() - started, 1), 'stdout': done.stdout[-600:], 'stderr': done.stderr[-800:]})
                     save()
                 if index == len(plan) - 1 and args.concurrency_pairs:
