@@ -30,12 +30,29 @@ export function speechParts(text:string):string[]{
  const rest=sentences.slice(at).join(' ');
  return rest?[first,rest]:[text];
 }
+export type NeuralSpeechOptions={requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1'};
+/** Speech whose generation has started but whose playback is a separate, single step. */
+export type PreparedNeuralSpeech={
+ /** True once the first part is generated and still permitted. Never rejects. */
+ firstReady:Promise<boolean>;
+ /** Plays every part in order; a later part keeps generating while an earlier one plays. Only the first call plays. */
+ play:(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest)=>Promise<boolean>;
+ /** Stops generation and playback and releases listeners/focus. Idempotent. */
+ cancel:()=>void;
+};
 /** Dynamic response text only. Authentication is handled by the same-origin server. */
-export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,options:{requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1'}={}):Promise<boolean>{
+export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,options:NeuralSpeechOptions={}):Promise<boolean>{
+ return prepareMentalNeuralSpeech(text,signal,current,options).play(onPlaying,audioReady,options.requestGesture);
+}
+/**
+ * Start generating now and play later. Used where earlier output (for example a prepared recording) is still
+ * playing: generation overlaps it, playback never does. Playback has the same guards as mentalNeuralSpeech.
+ */
+export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current:()=>boolean,options:NeuralSpeechOptions={}):PreparedNeuralSpeech{
  const language=getLanguage(),locale=getLocale(),controller=new AbortController();
  const permitted=()=>{try{return !signal.aborted&&!controller.signal.aborted&&current()&&!speechMuted()&&!document.hidden&&getLanguage()===language&&mentalSpeechEngine()==='chatterbox-v3'&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
  const check=()=>{if(!permitted())controller.abort();},cancel=()=>controller.abort();
- if(!permitted())return false;
+ if(!permitted())return {firstReady:Promise.resolve(false),play:async()=>false,cancel:()=>{}};
  signal.addEventListener('abort',cancel,{once:true});
  for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.addEventListener(event,cancel);
  document.addEventListener('visibilitychange',check);
@@ -43,6 +60,8 @@ export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:
  // Claim focus during generation too, preventing fixed guidance overlap.
  const owner={},focus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event&{owner:object;active:boolean};event.owner=owner;event.active=active;window.dispatchEvent(event);};
  focus(true);
+ let released=false,played=false;
+ const release=()=>{if(released)return;released=true;controller.abort();clearInterval(timer);clearTimeout(deadline);signal.removeEventListener('abort',cancel);for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.removeEventListener(event,cancel);document.removeEventListener('visibilitychange',check);focus(false);};
  // Null means this part cannot be played, for whatever reason. It never rejects, because the next part is generated
  // while this one plays and nothing is waiting on it yet.
  const generate=async(part:string,index:number):Promise<ArrayBuffer|null>=>{
@@ -60,22 +79,36 @@ export async function mentalNeuralSpeech(text:string,signal:AbortSignal,current:
    return bytes.buffer;
   }catch{return null;}
  };
- try{
-  const parts=speechParts(text);
-  let pending=generate(parts[0],0);
-  for(let index=0;index<parts.length;index++){
-   const bytes=await pending;
-   if(!bytes||!permitted())return false;
+ const parts=speechParts(text),results:Promise<ArrayBuffer|null>[]=[];
+ // One part generates at a time. A part starts as soon as the previous one is ready, so the next part is
+ // generated while the current one plays (or while it waits to be played).
+ const start=(index:number)=>{
+  results[index]=generate(parts[index],index).then(bytes=>{
+   if(!bytes||!permitted())return null;
    // A part's generation budget ends here; playback has its own bounded deadline.
    // Keep live mute/consent/locale/session/motion and abort observation active.
    clearTimeout(deadline);
-   if(index+1<parts.length){deadline=setTimeout(cancel,limits.generationMilliseconds);pending=generate(parts[index+1],index+1);}
-   options.observe?.('response-ready');
-   const audio=new Audio();audioReady(audio);
-   const played=await playAudioBytes(audio,bytes,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{options.observe?.(stage);if(stage==='playing'&&index===0)onPlaying();},false,options.requestGesture);
-   if(!played)return false;
-  }
-  return true;
- }catch{return false;}
- finally{controller.abort();clearInterval(timer);clearTimeout(deadline);signal.removeEventListener('abort',cancel);for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.removeEventListener(event,cancel);document.removeEventListener('visibilitychange',check);focus(false);}
+   if(index+1<parts.length){deadline=setTimeout(cancel,limits.generationMilliseconds);start(index+1);}
+   return bytes;
+  });
+ };
+ start(0);
+ const firstReady=results[0].then(bytes=>!!bytes&&permitted());
+ const play=async(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest)=>{
+  if(played||released)return false;
+  played=true;
+  try{
+   for(let index=0;index<parts.length;index++){
+    const bytes=await results[index];
+    if(!bytes||!permitted())return false;
+    options.observe?.('response-ready');
+    const audio=new Audio();audioReady(audio);
+    const done=await playAudioBytes(audio,bytes,'audio/wav',limits.audioSeconds,controller.signal,permitted,stage=>{options.observe?.(stage);if(stage==='playing'&&index===0)onPlaying();},false,requestGesture);
+    if(!done)return false;
+   }
+   return true;
+  }catch{return false;}
+  finally{release();}
+ };
+ return {firstReady,play,cancel:release};
 }
