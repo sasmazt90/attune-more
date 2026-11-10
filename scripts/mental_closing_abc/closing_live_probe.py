@@ -31,6 +31,7 @@ def main():
     parser.add_argument('--out', required=True)
     parser.add_argument('--languages', default='tr,en,de')
     parser.add_argument('--autoplay', default='default')
+    parser.add_argument('--warm-runs', type=int, default=1, help='warm closings after the cold one, per language')
     args = parser.parse_args()
     source, out = Path(args.source), Path(args.out)
     out.mkdir(parents=True, exist_ok=False)
@@ -39,8 +40,10 @@ def main():
     base_env, _ = product_api_environment(8000)
     token = secrets.token_hex(32)
     scenarios = []
+    runs = 1 + args.warm_runs
     for language in args.languages.split(','):
-        for n, turns in enumerate(CONVERSATIONS[language], 1):
+        for n in range(1, runs + 1):
+            turns = CONVERSATIONS[language][(n - 1) % len(CONVERSATIONS[language])]
             scenarios.append({'label': f'{language}-live-{n}', 'language': language, 'mode': 'live',
                               'live': {'utterances': [' '.join(text for role, text in turns if role == 'user')]}})
     spec = out / 'live-scenarios.json'
@@ -71,7 +74,7 @@ def main():
             try:
                 record['readySeconds'] = api.wait_ready()
                 record['warm'] = api.wait_warm()
-                for n in (1, 2):
+                for n in range(1, runs + 1):
                     label = f'{language}-live-{n}'
                     started = time.time()
                     env = {'PATH': '/opt/node/bin:/usr/bin:/bin', 'HOME': user.pw_dir, 'PLAYWRIGHT_MODULE': PLAYWRIGHT,

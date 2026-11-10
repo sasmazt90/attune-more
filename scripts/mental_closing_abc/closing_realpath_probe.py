@@ -212,12 +212,13 @@ def main():
     parser.add_argument('--port', type=int, default=8190)
     parser.add_argument('--product-port', type=int, default=8000)
     parser.add_argument('--languages', default='tr,en,de')
+    parser.add_argument('--short-only', action='store_true', help='short spoken lines only (one process per language)')
     args = parser.parse_args()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=False)
     base_env, product_pid = product_api_environment(args.product_port)
     run_id = 'closing-realpath:' + time.strftime('%Y%m%dT%H%M%SZ', time.gmtime()) + ':' + secrets.token_hex(3)
-    result = {'schema': 'attune-mental-closing-realpath-v1', 'runId': run_id, 'host': os.uname().nodename,
+    result = {'schema': 'attune-mental-closing-realpath-v1', 'runId': run_id, 'host': 'WEB (this host)', 'shortOnly': args.short_only,
               'scope': __doc__.strip().split('\n\n')[0], 'productApiPid': product_pid,
               'environmentVariableCount': len(base_env), 'cpus': os.cpu_count(), 'loadBefore': os.getloadavg(),
               'processes': [], 'analyses': [], 'tts': []}
@@ -251,7 +252,7 @@ def main():
     index = 0
     try:
         for language in args.languages.split(','):
-            for first in ('short', 'long'):
+            for first in (('short',) if args.short_only else ('short', 'long')):
                 index += 1
                 api = TestApi(args.source, base_env, args.port, log)
                 record = {'index': index, 'language': language, 'firstRequest': first, 'loadAtStart': os.getloadavg()}
@@ -282,14 +283,14 @@ def main():
                         c1 = convs[0]
                         if c1.get('spokenSummary'):
                             speak(api, f'{language}-c1-short-cold', c1['spokenSummary'], language, 'cold', index)
-                        for i, text in enumerate(c1.get('longParts') or []):
+                        for i, text in enumerate([] if args.short_only else (c1.get('longParts') or [])):
                             speak(api, f'{language}-c1-long{i}-warm', text, language, 'warm', index)
                         if c1.get('spokenSummary'):
                             speak(api, f'{language}-c1-short-warm', c1['spokenSummary'], language, 'warm', index)
                         for c in convs[1:]:
                             if c.get('spokenSummary'):
                                 speak(api, f"{c['conversation']}-short-warm", c['spokenSummary'], language, 'warm', index)
-                            for i, text in enumerate(c.get('longParts') or []):
+                            for i, text in enumerate([] if args.short_only else (c.get('longParts') or [])):
                                 speak(api, f"{c['conversation']}-long{i}-warm", text, language, 'warm', index)
                     else:
                         c1 = next(a for a in result['analyses'] if a['conversation'] == f'{language}-c1')
