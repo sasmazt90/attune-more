@@ -1841,5 +1841,16 @@
  "evidence": {
   "driveFolder": "https://drive.google.com/drive/folders/15I8rq25M4LuXs6gRXI0ZGf3JK3HJu_Ks",
   "note": "each uploaded file is read back and compared (size, SHA-256); see 13-drive-sha256-verification.json in that folder"
+ },
+ "corrections": {
+  "madeIn": "round 5 (2026-11-10, no new run); the measured values above are unchanged",
+  "items": [
+   "C -> personal 126 ms (125-128, p95 128) is over the 23 warm closings that produced a personal line; the warm criterion had 24 attempts and P1 failed (DE 7/8). de-warm-5 has no personal line and no C -> personal value.",
+   "The personal line was ready before C ended in those 23 warm closings (margin 145-3,588 ms) and in all 9 prepared ones (530-2,657 ms), not in every warm closing. English has the smallest margin (warm median 880 ms; en-warm-8: 145 ms).",
+   "All latencies are page media events in the browser (HTMLMediaElement playing/ended and the app timing stages), not an acoustic measurement of silence at a speaker.",
+   "Personal-line WAV archive: 35 files from the measured run (attempt 3: warm TR 8, EN 8, DE 7; prepared 3 per language; cold 1 per language) and 1 from the stopped attempt 1 (tr-cold-1). They are in different folders of the archive (web/live4/audio and web/live4-attempt1-stopped/audio).",
+   "de-warm-5: the provider line was not returned (only its status adds-unsaid-content), so no meaning label is given for it.",
+   "The AAOS-phase test API files were recovered on 2026-11-10 18:54-18:55Z (WEB only, verified shutdown limit 10 min, stopped again): they hold the warm-up rows, including three re-warms of female-calm-v1 after killed workers (23.98 / 23.86 / 23.61 s); no access log (not enabled in the product environment)."
+  ]
  }
 }

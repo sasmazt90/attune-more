@@ -22,7 +22,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const W = require('./webview.cjs');
-const {players, startedPiids, stopChecks} = require('./closing_stop_verdict.cjs');
+const {players, startedPiids, stopChecks, inFlightVerdict, playbackClock} = require('./closing_stop_verdict.cjs');
 
 const BUILD = process.env.CLOSING_BUILD_ORIGIN || 'http://127.0.0.1:3100';
 // CLOSING_LIVE_API (test only, e.g. http://127.0.0.1:8190, a loopback forwarder to the test API): live closing. The
@@ -58,7 +58,7 @@ const PAGE_SCRIPT = `(()=>{if(window.__closingQa)return;window.__closingQa=true;
  let seq=0;const ids=new WeakMap();const id=el=>{if(!ids.has(el))ids.set(el,++seq);return ids.get(el);};
  const stack=()=>String(new Error().stack||'').split('\\n').slice(2,7).map(l=>l.trim().replace(/https?:\\/\\/[^/]+/,'')).join(' | ').slice(0,600);
  const watched=new WeakSet();
- const watch=el=>{if(watched.has(el))return;watched.add(el);for(const t of ['playing','pause','ended','emptied','error'])el.addEventListener(t,()=>emit('media',{type:t,el:id(el),guidance:el.dataset.guidanceId||null,recording:el.dataset.recordingId||null}));};
+ const watch=el=>{if(watched.has(el))return;watched.add(el);for(const t of ['playing','pause','ended','emptied','error'])el.addEventListener(t,()=>emit('media',{type:t,el:id(el),guidance:el.dataset.guidanceId||null,recording:el.dataset.recordingId||null,duration:Number.isFinite(el.duration)?el.duration:null,position:el.currentTime,rate:el.playbackRate}));};
  const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){watch(this);const entry={atMs:performance.now(),src:String(this.currentSrc||this.src||'').slice(0,12),guidance:this.dataset&&this.dataset.guidanceId||null,recording:this.dataset&&this.dataset.recordingId||null,el:id(this),stack:stack()};window.__plays.push(entry);emit('play',entry);const p=play.apply(this,arguments);if(p&&p.then)p.then(()=>emit('play-ok',{el:entry.el}),err=>emit('play-rejected',{el:entry.el,name:err&&err.name}));return p;};
  const pause=HTMLMediaElement.prototype.pause;HTMLMediaElement.prototype.pause=function(){if(!this.paused)emit('pause-call',{el:id(this),stack:stack()});return pause.apply(this,arguments);};
  const NativeAudio=window.Audio;const QaAudio=function(...a){const el=new NativeAudio(...a);emit('audio-created',{el:id(el),stack:stack()});return el;};QaAudio.prototype=NativeAudio.prototype;window.Audio=QaAudio;
@@ -166,11 +166,15 @@ function liveCancellation(options, actedAt, check) {
   if (TTS_MODE !== 'live-api') return null;
   const rows = plan.requests.filter(q => q.id === options.name && ['tts-live', 'analysis-live'].includes(q.kind) && q.at < actedAt);
   const pending = rows.filter(q => !(q.answeredAt && q.answeredAt <= actedAt));
-  const answeredLater = pending.filter(q => q.answeredAt && q.answeredAt > actedAt);
   const result = {inFlightAtAction: pending.map(q => ({kind: q.kind, issuedBeforeMs: actedAt - q.at, aborted: !!q.aborted, abortReason: q.abortReason || null,
-    abortedAfterActionMs: q.aborted ? q.at + q.abortedAfterMs - actedAt : null, answeredAfterActionMs: q.answeredAt ? q.answeredAt - actedAt : null}))};
-  if (pending.length) check(`${options.name}: live closing requests in flight at the ${options.action} were aborted and never answered (${pending.length})`,
-    answeredLater.length === 0 && pending.every(q => q.aborted), result);
+    abortedAfterActionMs: q.aborted ? q.at + q.abortedAfterMs - actedAt : null, answeredAfterActionMs: q.answeredAt ? q.answeredAt - actedAt : null,
+    status: q.answeredAt ? q.status ?? null : null}))};
+  // Round 4 rule: aborted and never answered. From round 5 on, for driving only, the API's park-gate refusal (409, no
+  // audio) is the server half of the stop chain and is accepted; a 2xx or any other answer fails (closing_stop_verdict).
+  const verdict = inFlightVerdict(options.action, result.inFlightAtAction);
+  result.inFlightAtAction = verdict.rows;
+  if (pending.length) check(`${options.name}: live closing requests in flight at the ${options.action} ended without audio: aborted by the page${options.action === 'drive' ? ' or refused 409 by the park gate' : ''}, never answered with audio (${pending.length})`,
+    verdict.pass, result);
   else result.note = 'no closing request was in flight at the action';
   return result;
 }
@@ -298,9 +302,14 @@ async function waitPlayerStarted(pid, timeoutMs) {
   while (Date.now() - began < timeoutMs) {
     const started = startedPiids(await adbAsync('shell', 'dumpsys', 'audio'), pid);
     polls++;
-    if (started.length) return {observed: true, afterStageMs: Date.now() - began, polls, piids: started};
+    if (started.length) return {observed: true, afterStageMs: Date.now() - began, polls, piids: started, doneAt: Date.now()};
   }
   return {observed: false, afterStageMs: null, waitedMs: Date.now() - began, polls};
+}
+// One completed snapshot of the app's started players (used before acting in before-start cases).
+async function snapshotPlayers(pid) {
+  const started = startedPiids(await adbAsync('shell', 'dumpsys', 'audio'), pid);
+  return {started, doneAt: Date.now()};
 }
 async function logcatSince(guestEpochMs) {
   const raw = await adbAsync('logcat', '-d', '-v', 'epoch', '-t', '1500');
@@ -403,6 +412,10 @@ async function closing(session, language, options, check, out, r) {
     await waitStage(page, options.at, 90000);
     const offset = await clockOffset(page), pid = pidBeforeTap || appPid();
     if (options.action !== 'language' && !options.beforeStart) row.playerStartedBeforeAction = await waitPlayerStarted(pid, options.startedTimeoutMs || 5000);
+    // The at-action state must come from a snapshot that completed before the action (round 4: a snapshot running
+    // concurrently with a fast action saw the pause and the case read "not started at the action").
+    const pre = options.beforeStart ? await snapshotPlayers(pid) : row.playerStartedBeforeAction && row.playerStartedBeforeAction.observed
+      ? {started: row.playerStartedBeforeAction.piids, doneAt: row.playerStartedBeforeAction.doneAt} : null;
     const actionPm = await page.evaluate(() => performance.now());
     const sampler = sampleOutput(pid, options.sampleMs || 8000);
     let ackAt = null;
@@ -424,6 +437,7 @@ async function closing(session, language, options, check, out, r) {
       check(`${options.name}: language selector is locked while the closing plays`, row.languageSelector.disabled === true, row.languageSelector);
     }
     row.actedAt = actedAt;
+    row.preAction = pre ? {msBefore: actedAt - pre.doneAt, started: pre.started} : null;
     const series = await sampler;
     if (options.action !== 'language') {
       row.stopStages = stopStages(actedAt, ackAt, pageEvents.slice(firstEvent), series, offset);
@@ -434,7 +448,7 @@ async function closing(session, language, options, check, out, r) {
       // not started at the action and must not start afterwards.
       for (const c of stopChecks({name: options.name, action: options.action, at: options.at, beforeStart: !!options.beforeStart,
         startedBeforeAction: row.playerStartedBeforeAction, series: row.playerSeries, appPlayerStoppedMs: st.appPlayerStoppedMs,
-        reference, criterionMs: STOP_CRITERION_MS, sampleMs: options.sampleMs || 8000})) check(c.what, c.pass, {...c.detail, stopStages: st});
+        reference, criterionMs: STOP_CRITERION_MS, sampleMs: options.sampleMs || 8000, preAction: row.preAction || undefined})) check(c.what, c.pass, {...c.detail, stopStages: st});
     }
     if (['drive', 'background'].includes(options.action)) {
       // The native shell destroys the WebView; wait past the replayed speech response, then come back.
@@ -526,6 +540,12 @@ async function closing(session, language, options, check, out, r) {
   check(`${options.name}: A, B, C and the personal summary played in order without overlap`, m.aPlaying !== null && m.aEnded < m.bPlaying && m.bEnded < m.cPlaying && m.cEnded <= m.summaryPlaying && m.summaryComplete !== null, m);
   check(`${options.name}: no extra tap needed during the closing (one shared, gesture-unlocked element)`, m.gestureRequired.length === 0, m.gestureRequired);
   check(`${options.name}: Android mixer writes frames during A and during the summary`, row.mixerDuringA.framesDelta > 0 && row.mixerDuringSummary.framesDelta > 0, {a: row.mixerDuringA, summary: row.mixerDuringSummary});
+  // Validity of the timing sample: every element's 'playing' -> 'ended' wall time matches its own duration within 10 %
+  // (round 4's first case played at about 2x; its timing is not a valid latency sample and is reported as blocked).
+  const media = row.pageEvents.filter(e => e.kind === 'media' && ['playing', 'ended'].includes(e.type));
+  const pairs = media.filter(e => e.type === 'ended').map(e => { const p = media.filter(x => x.type === 'playing' && x.el === e.el && x.at <= e.at).at(-1); return p ? {elapsedMs: e.at - p.at, durationS: e.duration} : null; }).filter(Boolean);
+  row.playbackClock = playbackClock(pairs);
+  check(`${options.name}: media clock matches the audio length in every element (otherwise the timing is blocked, not a sample)`, row.playbackClock.ok, row.playbackClock);
   W.shot(out, options.name);
   const dialog = page.getByRole('dialog');
   if (await dialog.count()) await dialog.getByRole('button', {name: tr('Tamam'), exact: true}).click().catch(() => {});

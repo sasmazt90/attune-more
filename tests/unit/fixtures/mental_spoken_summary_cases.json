@@ -1,5 +1,5 @@
 {
- "description": "Synthetic counter-examples and positives for validate_spoken_summary. 'formal' is the validator result the code must produce; 'content' is a reviewer label of meaning (written by the assistant, not by a human listener). A case that the validator accepts although its content is wrong must be listed with knownLimitation=true: the validator checks form, language, address, first person, lexical grounding per coordinated part (an unsaid word may only describe a word the user said), Turkish possessed-noun roles and negation parity per part, not meaning. A correct line that the validator refuses is listed with conservativeReject=true: nothing is spoken for it and the written summary stays.",
+ "description": "Synthetic counter-examples and positives for validate_spoken_summary. 'formal' is the validator result the code must produce; 'content' is a reviewer label of meaning (written by the assistant, not by a human listener). A case that the validator accepts although its content is wrong must be listed with knownLimitation=true: the validator checks form, language, address, first person, lexical grounding per coordinated part (an unsaid word may only describe a word the user said), Turkish possessed-noun roles and negation parity per part, not meaning. A correct line that the validator refuses is listed with conservativeReject=true: nothing is spoken for it and the written summary stays. Round 5 (2026-11-10): person nouns the user did not mention, negation without a negation word (hardly/kaum), three-letter German nouns and short coordinated parts are refused; irregular English verb forms and the Turkish yorgun/yorul and üzgün/üzül pairs are grounded. Still accepted with wrong content (knownLimitation): swapped roles in English/German word order, and an unsaid non-person noun used as a modifier or inside a German compound.",
  "users": {
   "tr-work": [
    "İşte çok baskı var ve uykum bölünüyor."
@@ -94,6 +94,31 @@
   ],
   "en-recent": [
    "Work has been very intense in recent weeks and I feel tired."
+  ],
+  "tr-pressure": [
+   "İşte çok baskı var."
+  ],
+  "de-sleep-hardly": [
+   "Ich schlafe kaum."
+  ],
+  "de-tiring": [
+   "Die Arbeit ist anstrengend."
+  ],
+  "de-way": [
+   "Der Weg zur Arbeit ist lang."
+  ],
+  "en-moving-worn": [
+   "I am moving to another city soon and the change is wearing me out.",
+   "Setting up a new routine and being far from my friends makes me anxious.",
+   "Talking with a friend on the phone calms me down."
+  ],
+  "tr-tired-meetings": [
+   "Uyku sorunum yok ama işte çok yoruluyorum.",
+   "Öğleden sonra toplantılardan sonra."
+  ],
+  "de-lonely-friends": [
+   "Seit dem Umzug fühle ich mich einsam.",
+   "Die Abende mit meinen Freunden."
   ]
  },
  "cases": [
@@ -144,9 +169,9 @@
    "language": "tr",
    "user": "tr-negation",
    "candidate": "Uyku sorunundan ve yorgunluğundan söz ettin.",
-   "formal": "adds-unsaid-content",
+   "formal": "negation-not-kept",
    "content": "negation-flip",
-   "note": "round-2 false accept; now refused (the second part is not the user's word)"
+   "note": "round-2 false accept; refused since round 3. Round 5: 'yorgunluğundan' is grounded in 'yoruluyorum' (closed yorgun/yorul pair), so the refusal reason is now the dropped negation of 'uyku sorunum yok'"
   },
   {
    "id": "tr-added-facts",
@@ -628,30 +653,27 @@
    "language": "en",
    "user": "en-work",
    "candidate": "You talked about manager pressure at work.",
-   "formal": "valid",
+   "formal": "adds-unsaid-content",
    "content": "added-fact",
-   "knownLimitation": true,
-   "note": "an unsaid word directly before a word the user said reads as a description ('intense pressure'); a noun used that way adds a fact unseen"
+   "note": "round-4 knownLimitation, refused from round 5: a person the user did not mention ('manager') is a new fact also as a modifier (closed person-noun list)"
   },
   {
    "id": "de-added-in-compound",
    "language": "de",
    "user": "de-work",
    "candidate": "Sie sprachen über Chefstress bei der Arbeit.",
-   "formal": "valid",
+   "formal": "adds-unsaid-content",
    "content": "added-fact",
-   "knownLimitation": true,
-   "note": "a compound that contains the user's word is grounded; the added part ('Chef') is not seen"
+   "note": "round-4 knownLimitation, refused from round 5: the compound's added part is a person ('Chef') the user did not mention"
   },
   {
    "id": "de-variant-false-ground",
    "language": "de",
    "user": "de-withdraw",
    "candidate": "Sie sprachen über den Zug am Abend.",
-   "formal": "valid",
+   "formal": "adds-unsaid-content",
    "content": "added-fact",
-   "knownLimitation": true,
-   "note": "the closed stem list grounds 'Zug' in 'ziehe' whatever the meaning (here: train)"
+   "note": "round-4 knownLimitation, refused from round 5: 'Zug' had three letters and was not counted as a content word; capitalized three-letter German nouns are content words now, and bare 'Zug'/'Gang' need a prefix to be grounded in 'ziehen'/'gehen'"
   },
   {
    "id": "en-negation-contrast-kept",
@@ -690,10 +712,9 @@
    "language": "en",
    "user": "en-sleep-hardly",
    "candidate": "You talked about sleeping at night.",
-   "formal": "valid",
+   "formal": "negation-not-kept",
    "content": "negation-flip",
-   "knownLimitation": true,
-   "note": "'hardly' is not a negation word; a negation said without one is not seen"
+   "note": "round-4 knownLimitation, refused from round 5: 'hardly', 'barely', 'scarcely', 'rarely', 'seldom' (German 'kaum', 'selten') count as negation markers"
   },
   {
    "id": "tr-role-kept",
@@ -764,6 +785,133 @@
    "formal": "valid",
    "content": "correct",
    "note": "'recent' ends in -nt but is not a negation"
+  },
+  {
+   "id": "en-person-modifier-family",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about family pressure at work.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 5: an unsaid person noun as a modifier"
+  },
+  {
+   "id": "en-person-short-part",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work and your son.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 5: a three-letter person noun the user did not mention"
+  },
+  {
+   "id": "en-short-noun-part",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work and the car.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 4 accepted this: a part with only a three-letter noun had no content word; from round 5 such a part must rest on a word the user said"
+  },
+  {
+   "id": "en-hardly-kept",
+   "language": "en",
+   "user": "en-sleep-hardly",
+   "candidate": "You talked about hardly sleeping at night.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-kaum-dropped",
+   "language": "de",
+   "user": "de-sleep-hardly",
+   "candidate": "Sie sprachen über Ihren Schlaf.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "round 4 accepted this; \"kaum\" is a negation marker from round 5"
+  },
+  {
+   "id": "de-short-noun-added",
+   "language": "de",
+   "user": "de-tiring",
+   "candidate": "Sie sprachen über die Arbeit und den Tod.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 4 accepted this (three-letter noun not counted); found while fixing de-variant-false-ground"
+  },
+  {
+   "id": "de-short-noun-said",
+   "language": "de",
+   "user": "de-way",
+   "candidate": "Sie sprachen über den langen Weg zur Arbeit.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-person-modifier",
+   "language": "tr",
+   "user": "tr-pressure",
+   "candidate": "İşteki patron baskısından söz ettin.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 5: an unsaid person noun (patron) as a modifier"
+  },
+  {
+   "id": "en-irregular-form",
+   "language": "en",
+   "user": "en-moving-worn",
+   "candidate": "You talked about being anxious and feeling worn out.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "live P9 line refused in round 4 (conservative): \"worn\" for \"wearing\" (closed irregular-verb list from round 5)"
+  },
+  {
+   "id": "tr-tired-derivation",
+   "language": "tr",
+   "user": "tr-tired-meetings",
+   "candidate": "Yorgunluktan ve toplantılardan söz ettin.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "live P9 line refused in round 4 (conservative): \"yorgunluk\" for \"yoruluyorum\" (closed yorgun/yorul pair from round 5)"
+  },
+  {
+   "id": "de-inference-refused",
+   "language": "de",
+   "user": "de-lonely-friends",
+   "candidate": "Sie sprachen über Einsamkeit und das Vermissen von Freunden.",
+   "formal": "adds-unsaid-content",
+   "content": "inference",
+   "note": "live P9 line accepted by the round-3 validator, refused since round 4: the user never said \"vermissen\"; the line adds an interpretation of the fragment \"Die Abende mit meinen Freunden.\" Correct refusal of an unstated meaning, even if plausible"
+  },
+  {
+   "id": "en-added-thing-modifier",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about deadline pressure at work.",
+   "formal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "note": "still accepted: an unsaid noun that is not a person, used as a modifier, reads like an adjective (\"intense pressure\")"
+  },
+  {
+   "id": "de-added-thing-in-compound",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Terminstress bei der Arbeit.",
+   "formal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "note": "still accepted: a compound that contains the user's word; the added part is checked only against the person list"
+  },
+  {
+   "id": "tr-added-thing-modifier",
+   "language": "tr",
+   "user": "tr-pressure",
+   "candidate": "İşteki zaman baskısından söz ettin.",
+   "formal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "note": "still accepted: an unsaid noun that is not a person, used as a modifier"
   }
  ]
 }

@@ -119,8 +119,11 @@ _NEGATION = {
     # Contractions need the apostrophe, except a closed list typed without one ("dont"); a bare "-nt" ending is not a
     # negation ("recent", "different", "want").
     'en': r"^(?:not|no|never|without|nor|neither|cannot|nothing|nobody|none|\w+n['’]t|"
-          r"(?:do|does|did|is|are|was|were|has|have|had|could|should|would|must|might|need|ca|wo|ai)nt)$",
-    'de': r'^(?:nicht|nichts|nie|niemals|niemand\w*|ohne|weder|kein\w*)$',
+          r"(?:do|does|did|is|are|was|were|has|have|had|could|should|would|must|might|need|ca|wo|ai)nt|"
+          # Negation in effect without a negation word ("I hardly sleep"): a line dropping it states the opposite.
+          # Infrequency counts the same way, also as an adjective in the line ("rare talks" for "I rarely talk").
+          r"hardly|barely|scarcely|rarely|rare|seldom)$",
+    'de': r'^(?:nicht|nichts|nie|niemals|niemand\w*|ohne|weder|kein\w*|kaum|selten\w*)$',
     'tr': r'^(?:yok\w*|değil\w*|hiç|hiçbir|asla|olmadan|kimse\w*|\w+m[ıiuü]yor\w*|\w+m[ae]d[ıiğ]\w*|\w+m[ae]z\w*|\w+m[ae]mak\w*|\w+m[ae]mek\w*|\w+m[ae]m[ae]\w*|\w+m[ae]yan\w*|\w+m[ae]yen\w*|\w+s[ıiuü]z\w*)$',
 }
 _NEGATION_EXCEPT = {'en': set(), 'de': set(), 'tr': {'tamam', 'tamamen', 'yalnız', 'yalnızca', 'komedi', 'namaz', 'temiz'}}
@@ -150,6 +153,29 @@ _TR_SHORT_ROOT_ENDING = r'^(?:[ıiuü]n|[ıiuü]|[ae]|[dt][ae]n|[dt][ae]|l[ae]|l
 # English inflection: the same stem with -s/-es/-ed/-ing and a dropped final e or y ("moved" / "moving", "worry" /
 # "worried") is the same word.
 _EN_INFLECTION = r'(?:ies|ied|ying|ing|ed|es|s|e|y)$'
+# English irregular verb forms (closed list): "worn" for "wearing", "felt" for "feel". Same verb, same meaning.
+_EN_IRREGULAR = {form: base for base, forms in {
+    'wear': 'wore worn', 'feel': 'felt', 'lose': 'lost', 'sleep': 'slept', 'keep': 'kept', 'tell': 'told', 'break': 'broke broken',
+    'fall': 'fell fallen', 'drive': 'drove driven', 'give': 'gave given', 'take': 'took taken', 'begin': 'began begun',
+    'bring': 'brought', 'catch': 'caught', 'teach': 'taught', 'fight': 'fought', 'make': 'made', 'spend': 'spent', 'stand': 'stood',
+    'understand': 'understood', 'wake': 'woke woken', 'write': 'wrote written', 'forget': 'forgot forgotten', 'hold': 'held',
+    'hear': 'heard', 'find': 'found', 'grow': 'grew grown', 'know': 'knew known', 'build': 'built', 'send': 'sent',
+    'mean': 'meant', 'think': 'thought', 'feed': 'fed', 'leave': 'left', 'speak': 'spoke spoken', 'choose': 'chose chosen'}.items()
+    for form in forms.split()}
+# Turkish adjective / passive-verb pairs of one root (closed list): "yorgunluk" for "yoruluyorum", "üzgün" for "üzülüyorum".
+_TR_STEM_VARIANTS = (('yorgun', 'yorul'), ('üzgün', 'üzül'))
+# People a line may not introduce: a person the user did not mention is a new fact, also as a modifier ("manager
+# pressure") or inside a German compound ("Chefstress"). Stems, matched at the start of a word; closed lists.
+_PERSON_NOUNS = {
+    'en': tuple('manager boss supervisor mother father mom mum dad parent partner wife wives husband son daughter child children '
+                'kid brother sister friend colleague coworker teacher doctor neighbor neighbour landlord girlfriend boyfriend '
+                'grandmother grandfather grandparent grandma grandpa family families team client customer'.split()),
+    'de': ('chef', 'vorgesetzt', 'mutter', 'vater', 'eltern', 'partner', 'ehefrau', 'ehemann', 'sohn', 'söhne', 'tochter',
+           'töchter', 'kind', 'bruder', 'brüder', 'schwester', 'freund', 'kolleg', 'lehrer', 'arzt', 'ärzt', 'nachbar', 'vermieter',
+           'oma', 'opa', 'familie', 'team', 'kunde', 'kundin'),
+    'tr': ('patron', 'müdür', 'yönetici', 'amir', 'anne', 'baba', 'kardeş', 'abla', 'ağabey', 'arkadaş', 'çocuk', 'çocuğ', 'oğul',
+           'oğl', 'aile', 'öğretmen', 'doktor', 'komşu', 'meslektaş', 'ev sahib'),
+}
 # German nouns or adjective forms whose stem differs from the verb or adjective the user said: strong-verb nouns
 # ("Umzug" for "ich ziehe", "Gespräch" for "sprechen") and hoch -> hohe/hohen. Closed list, after at most one listed
 # prefix; any other derivation is still not grounded (the line is refused and nothing is spoken).
@@ -159,6 +185,8 @@ _DE_STEM_VARIANTS = (('zug', 'zieh'), ('züg', 'zieh'), ('flug', 'flieg'), ('fl�
 _DE_VARIANT_SHAPE = (r'^(?:um|aus|ein|an|ab|auf|zu|ge|weg)?(?P<variant>' + '|'.join(v for v, _ in _DE_STEM_VARIANTS) +
                      r')(?:e|en|er|es|em|s|n|ern)?$')
 _DE_VERB_ENDING = r'(?:e|st|t|en|et|end)?$'
+# Bare "Zug" (train) and "Gang" (corridor, gear) are not "ziehen"/"gehen": only with a listed prefix (Umzug, Ausgang).
+_DE_PREFIX_REQUIRED = {'zug', 'züg', 'gang', 'gäng'}
 # Words that open a noun phrase of their own (article, possessive, preposition). A content word the user did not say
 # right after one of them, and not modifying a word the user said, names a new person or thing ("... from your manager").
 _PHRASE_OPENER = {
@@ -196,15 +224,27 @@ def _grounded(token, said, language):
     token = re.split(r"['’]", token)[0]
     if language == 'de':
         variant = re.match(_DE_VARIANT_SHAPE, token)
-        if variant:
+        if variant and not (variant.group('variant') in _DE_PREFIX_REQUIRED and variant.start('variant') == 0):
             stems = [verb for noun, verb in _DE_STEM_VARIANTS if noun == variant.group('variant')]
             if any(word.startswith(stem) and re.match(_DE_VERB_ENDING, word[len(stem):]) for stem in stems for word in said):
                 return True
+        if len(token) == 3:
+            # A three-letter German noun (Weg, Tag, Zug) is grounded only by the same word or as the head of the user's
+            # compound (Arbeitstag -> Tag), never by a shared prefix.
+            return any(word == token or (len(word) > 3 and word.endswith(token)) for word in said)
     if language == 'en':
-        stem = re.sub(_EN_INFLECTION, '', token)
-        if len(stem) >= 3 and any(re.sub(_EN_INFLECTION, '', word) == stem for word in said):
+        base = lambda w: re.sub(_EN_INFLECTION, '', _EN_IRREGULAR.get(w, w))
+        stem = base(token)
+        if len(stem) >= 3 and any(base(word) == stem for word in said):
             return True
+    if language == 'tr':
+        for adjective, verb in _TR_STEM_VARIANTS:
+            for a, b in ((adjective, verb), (verb, adjective)):
+                if token.startswith(a) and any(word.startswith(b) or word.startswith(a) for word in said):
+                    return True
     for word in said:
+        if token == word:
+            return True
         if len(word) == 3:
             if language == 'tr' and token.startswith(word) and re.match(_TR_SHORT_ROOT_ENDING, token[3:]):
                 return True
@@ -274,6 +314,22 @@ def _tr_first_person(word):
     shape = re.match(_TR_M_SHAPE, word)
     return bool(shape) and shape.group('stem') not in _TR_M_STEMS and word not in _TR_M_STEMS
 
+def _names_unsaid_person(word, said, language):
+    """The word is or contains (German compound) a person the user did not mention."""
+    import re
+    stems = _PERSON_NOUNS[language]
+    if not _grounded(word, said, language):
+        # English: whole words with a plural -s/-es (not "song" or "kidney"); German and Turkish: stems (endings, cases).
+        return re.sub(r'(?:es|s)$', '', word) in stems or word in stems if language == 'en' else word.startswith(stems)
+    if language == 'de':
+        for user_word in sorted(said, key=len, reverse=True):
+            if len(user_word) >= 5 and user_word in word and user_word != word:
+                rest = re.sub(r'^(?:s|n|en|e)', '', word.replace(user_word, ' ', 1).strip()).strip()
+                parts = [p for p in rest.split(' ') if p]
+                return any(p.startswith(stems) and not _grounded(p, said, language) for p in parts)
+    return False
+
+
 def validate_spoken_summary(value, language, messages):
     """Short closing line for the normal conversation. Formal checks only, applied to every provider response.
 
@@ -288,10 +344,11 @@ def validate_spoken_summary(value, language, messages):
     a negation, a negated part may only use words the user said in a negated clause, and the line may not negate when
     the user never did.
 
-    Not guaranteed: meaning. These are word-level checks. A line can still add a fact as a modifier of a word the user
-    said ("manager pressure"), swap roles in English or German word order, or carry a negation the user expressed
-    without a negation word. The checks err towards rejection: correct paraphrases outside the listed forms
-    ("odaklanma zorluğu" for "odaklanamıyorum") are refused.
+    Not guaranteed: meaning. These are word-level checks. A line can still add a fact with an unsaid noun that is not
+    a person, used as a modifier of a word the user said ("deadline pressure", "Terminstress", "zaman baskısı"), or swap
+    roles in English or German word order. A person the user did not mention, a negation expressed without a negation
+    word ("hardly", "kaum") and three-letter German nouns are checked (closed lists). The checks err towards rejection:
+    correct paraphrases outside the listed forms ("odaklanma zorluğu" for "odaklanamıyorum") are refused.
 
     Returns (text, None) or (None, reason). Never trims words or characters to make a text fit: an invalid line is
     rejected, the written summary stays, and the caller does not speak a longer text instead.
@@ -330,8 +387,10 @@ def validate_spoken_summary(value, language, messages):
     if re.search(_FIRST_PERSON[language], lowered) or (language == 'tr' and any(_tr_first_person(w) for w in words)):
         return None, 'first-person'
     said = [w for w in _words(' '.join(m.get('content', '') for m in messages if m.get('role') == 'user'), language)
-            if len(w) >= 4 or (language == 'tr' and len(w) == 3 and w not in _FUNCTION_WORDS['tr'])]
-    is_content = lambda w: len(w) >= 4 and w not in _FUNCTION_WORDS[language] and w not in _NEUTRAL[language]
+            if len(w) >= 4 or (len(w) == 3 and w not in _FUNCTION_WORDS[language])]
+    # German nouns are capitalized: a three-letter noun of the line (Zug, Weg, Tag) is a content word like any longer one.
+    nouns3 = {w.lower() for w in re.findall(r'(?<!\w)[A-ZÄÖÜ][a-zäöüß]{2}(?!\w)', text)[1:]} - {'sie', 'ihr'} if language == 'de' else set()
+    is_content = lambda w: (len(w) >= 4 or w in nouns3) and w not in _FUNCTION_WORDS[language] and w not in _NEUTRAL[language]
     content = [w for w in _words(body, language) if is_content(w)]
     grounded = sum(_grounded(w, said, language) for w in content)
     unsaid = len(content) - grounded
@@ -339,7 +398,10 @@ def validate_spoken_summary(value, language, messages):
         return None, 'not-grounded-in-user-words'
     # At most one content word the user did not say, only next to two that they did, and never a coordinated part of
     # its own ("... and your boss"): every part of the line must contain a word the user said.
-    items = [[w for w in _words(part, language) if is_content(w)] for part in re.split(_ITEM_BREAK[language], body)]
+    # A part without a longer word still names something with a short one ("... and the car"): that word must be said.
+    short_word = lambda w: len(w) == 3 and w not in _FUNCTION_WORDS[language] and w not in _NEUTRAL[language]
+    items = [[w for w in _words(part, language) if is_content(w)] or [w for w in _words(part, language) if short_word(w)]
+             for part in re.split(_ITEM_BREAK[language], body)]
     items = [item for item in items if item]
     if unsaid >= 2 or (unsaid == 1 and grounded < 2) or any(not any(_grounded(w, said, language) for w in item) for item in items):
         return None, 'adds-unsaid-content'
@@ -347,6 +409,8 @@ def validate_spoken_summary(value, language, messages):
     # or thing: not right after an article, possessive or preposition unless a word the user said follows it, never a
     # possessor ("manager's", Turkish genitive "patronunun").
     body_words = [w.strip("'’") for w in re.findall(r"[^\W\d_]+(?:['’][^\W\d_]+)?", _fold(body, language))]
+    if any(len(word) >= 3 and word not in _FUNCTION_WORDS[language] and _names_unsaid_person(word, said, language) for word in body_words):
+        return None, 'adds-unsaid-content'
     for i, word in enumerate(body_words):
         if not is_content(word) or _grounded(word, said, language):
             continue

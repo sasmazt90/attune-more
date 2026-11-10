@@ -331,10 +331,18 @@ voice, FP32 with TF32 off, settings and watermark; hashes verified on the GPU be
 | P8 AAOS | timing 5 of 6 (≥ 5 needed); stop criterion **not fully met**: 1 of 11 stop cases not measurable, 1 extra in-flight check failed (below) |
 | P9 live provider, 24 per language | TR 20, EN 23, DE 23 accepted (round-3 validator on the same lines: DE 18) |
 
-Warm closings (n = 24), median (min–max) in ms: end tap → A 19; A → B and B → C 126; C → personal 126 (125–128, p95
-128); analysis 2,697 (1,818–3,158); speech request 5,516 (4,610–6,330), of which speaker verification 2,170 and GPU
-worker 3,363; `warm-wait` ≤ 0.003. The personal line was ready before C ended in every warm and prepared closing, so the
-only gap is the configured ≈ 0.13 s join. Warm-up rows (never inside a closing's numbers): default 22.7–23.3 s,
+Warm closings: 24 attempts; P1 failed. Median (min–max) in ms: end tap → A 19; A → B and B → C 126 (n = 24);
+C → personal **126 (125–128, p95 128) over the 23 warm closings that produced a personal line** — de-warm-5 had none
+(its line was refused) and is not in this number; analysis 2,697 (1,818–3,158; n = 24); speech request 5,516
+(4,610–6,330; n = 23), of which speaker verification 2,170 and GPU worker 3,363; `warm-wait` ≤ 0.003. In those 23
+warm closings and in all 9 prepared ones the personal line was ready before C ended, by 145–3,588 ms (warm) and
+530–2,657 ms (prepared); the margin is smallest in English (warm median 880 ms, minimum 145 ms in en-warm-8, whose
+A+B+C was among the shortest), so a slower request or a shorter A/B/C selection there would add waiting. All times
+are page media events in the browser (the element's `playing` and `ended` events and the app's timing stages), not
+an acoustic measurement of silence at a speaker; the ≈ 0.13 s gap after C is the configured join. Personal-line
+WAVs: 35 from the measured run (attempt 3: warm TR 8, EN 8, DE 7, prepared 3 per language, cold 1 per language) and
+1 from the stopped attempt 1 (tr-cold-1), kept apart in the archive.
+Warm-up rows (never inside a closing's numbers): default 22.7–23.3 s,
 female-calm-v1 15.8–16.0 s; process start → warm ≈ 24 s (cold) and ≈ 39.4 s (prepared). Cold female request
 19.6–20.6 s: verification 2.2 s, model load 11.7–12.4 s, inference 3.3–3.9 s.
 
@@ -365,9 +373,71 @@ AAOS 43.1 min) + provider ≈ 0.1 USD estimated, within the 5.50 USD cap. Final 
 first, then WEB; GPU terminated with its volume and security group; the temporary WEB group detached and deleted and
 the WEB and AAOS group rules equal to the pre-run snapshot; no extra volume, address or running instance.
 
+## Review 2026-11-10, round 5: open issues closed with the round-4 evidence (no new live run)
+
+Raw data: [review-20261110-round5-followup.json](review-20261110-round5-followup.json); the only plan for further live
+work is [LIVE-CHECK-PLAN-20261110-round5.md](LIVE-CHECK-PLAN-20261110-round5.md) (awaiting approval). No GPU or AAOS
+was started; WEB ran 19 s to copy the AAOS-phase test API files (verified 10-minute shutdown limit, stopped again,
+state read from the API). The round-4 results stand; wording corrections are listed in
+`review-20261110-round4-live.json` → `corrections`. The feature stays off; no listening approval.
+
+**Validator** (`services/core-api/mental_analysis.py`; contract unchanged: ≤ 12 words, ≤ 100 characters, no trimming,
+the long summary is never spoken). Classes used: *false accept* = accepted although it adds to or contradicts the
+user's words; *conservative reject* = refused although faithful, because the rules cannot verify it lexically;
+*erroneous reject* = refused although the rules as specified should accept it; *correct reject* = refused and the line
+does add, move or change something. Changes, each a closed list or a narrow rule:
+
+- a person the user did not mention is refused, also as a modifier or inside a German compound
+  (“manager pressure”, “Chefstress”, “patron baskısı”, “… and your son”);
+- negation without a negation word counts (EN *hardly, barely, scarcely, rarely, rare, seldom*; DE *kaum, selten*);
+- capitalized three-letter German nouns are content words (round 4 ignored “Zug”, so “den Zug am Abend” passed;
+  bare *Zug/Gang* also need a prefix to be grounded in *ziehen/gehen*), and a coordinated part with only a
+  three-letter word must rest on a word the user said (“… and the car”);
+- irregular English verb forms (“worn” for “wearing”) and Turkish *yorgun/yorul*, *üzgün/üzül* are the same word.
+
+Of the five round-4 limitations four are refused now; swapped roles in English word order stays open, and an unsaid
+non-person noun as a modifier (“deadline pressure”, “Terminstress”, “zaman baskısı”) is declared as a remaining
+`knownLimitation`. Three further false-accept shapes found on the way (the “Tod”, “car” and “kaum” cases) are refused.
+Live rejects of round 4: “worn out” and “Yorgunluktan …” were conservative and are accepted now (content correct);
+“… toplantılardan sonra söz ettin” (breaks the recap form) and the two “Kiramı …” lines (first person) are correct
+rejects; “das Vermissen von Freunden” is a correct reject of an inference the user never stated; de-warm-5 gets no
+meaning label because its line was not returned. No erroneous reject was found. Corpus 80 → 94 cases. Offline
+re-validation against the round-4 validator: 144 recorded lines 0 changed, 72 live P9 lines 2 changed (both correct
+lines now accepted), 35 WEB live lines 0, 14 AAOS live lines 0 (and the round-4 validator agrees with the API on all
+14). Accepting more lines is not the measure; the changes remove wrong-content acceptances without new refusals of
+recorded correct lines.
+
+**AAOS, with the round-4 evidence (FAILs unchanged).** *Consent during A:* a harness sampling race. The app paused the
+media 22 ms after the consent; the sampler's first `dumpsys audio` (issued 2 ms before, 30 ms long) most likely saw
+that pause and read “not started at the action”. Click actions pause after 108–250 ms, so their first sample still saw
+the player started. The harness now takes the at-action state from the last snapshot completed before the action and
+measures the stop as the completion of the first later snapshot without a started player (an upper bound, stricter
+than before); re-analysed this way the round-4 data bound the stop at ≤ 80 ms, which is reported, not counted as a
+pass. *Driving during C:* the API's park gate (checked every 100 ms during synthesis) answered 409 90 ms after the
+drive, killed the worker and re-warmed; the page saw the motion only at 232 ms (250 ms polling) and closed at 294 ms;
+no audio played. That is the server half of the stop chain arriving first. A changed check for driving only (aborted
+by the page or refused 409 by the park gate; any 2xx fails) is implemented and unit-tested but needs the owner's
+acceptance before it is used. *First case at 2× speed:* page, guest and host clocks agree; the media elements ended
+at their true end after half the wall time and the Android mixer wrote 82,944 frames per second-window against about
+50,700 in every other case; round 3's first case was normal; the app sets no playback rate. Cause not determined. Every
+complete closing now checks its media clock (within 10 %) and an off-clock closing's timing is blocked.
+
+**After a cancelled request.** Any cancel or refusal during synthesis kills the resident worker; the API re-warms only
+that request's profile (recovered API rows: 23.98 / 23.86 / 23.61 s for female-calm-v1). A new closing in that window
+waits for it; and because conversation replies use the default profile in the same worker, the next reply after a
+cancelled closing waits for the re-warm and then loads the default model cold — estimated, not measured, at roughly
+40 s for the first spoken reply. Proposed, not implemented: drain the pending reply (bounded, audio discarded, guards
+unchanged) instead of killing, or at least re-warm the start-up set after a kill. Speaker hash verification is not
+cached.
+
+**Wording corrections to round 4.** C → personal 126 ms (125–128) is over the 23 warm closings that produced a
+personal line, out of 24 attempts (P1 failed); the line was ready before C in those 23 and in all 9 prepared ones,
+with the smallest margin in English (145 ms); all times are browser media events, not acoustic measurements; the
+WAV archive holds 35 lines of the measured run and 1 of the stopped first attempt, in separate folders.
+
 ## Tests
 
-`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison. Round 4 adds `tests/unit/test_closing_live_probe.py` and `tests/unit/test_closing_live_report.py` (warm-up gate; the 8-of-8 rule and blocked samples), the five round-3 limitations as refused cases, the German stem cases and new declared limitations (80
+`tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison. Round 5 adds the round-4 recorded AAOS series to `tests/unit/aaos_closing_stop_verdict_runtime.cjs` (pre-action sampling rule, upper-bound stop, driving in-flight rule, media clock) and 14 validator cases (94). Round 4 adds `tests/unit/test_closing_live_probe.py` and `tests/unit/test_closing_live_report.py` (warm-up gate; the 8-of-8 rule and blocked samples), the five round-3 limitations as refused cases, the German stem cases and new declared limitations (80
 cases), `tests/unit/aaos_closing_stop_verdict_runtime.cjs` (AAOS stop decisions on recorded player series),
 `tests/unit/test_mental_remote_resident.py` (remote worker bridge with a stub model), warm-up tests in
 `tests/unit/test_mental_neural_resident.py` and `scripts/mental_closing_abc/validator_recorded_lines_eval.py`.

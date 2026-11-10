@@ -87,7 +87,7 @@ def test_corpus_formally_valid_but_wrong_content_is_declared():
     accepted_wrong = {c['id'] for c in CORPUS['cases'] if _corpus_result(c) == 'valid' and c['content'] != 'correct'}
     declared = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
     assert accepted_wrong == declared
-    assert {c['content'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {'negation-flip', 'added-fact', 'wrong-person'}
+    assert {c['content'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {'added-fact', 'wrong-person'}
 
 
 def test_corpus_correct_lines_that_are_refused_are_declared():
@@ -121,6 +121,34 @@ def test_round_three_known_limitations_are_now_refused():
         assert by_id[case_id]['content'] != 'correct'
     still_open = {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')}
     assert still_open and not still_open & set(five)
+
+
+def test_round_four_known_limitations_are_now_refused_and_the_rest_stay_declared():
+    """Round 5: four of the five accepted-but-wrong shapes of round 4 are refused (an unsaid person as a modifier or in
+    a German compound, a three-letter German noun grounded by the stem list, a negation without a negation word). The
+    shapes still accepted with wrong content stay declared: swapped roles in English word order and an unsaid
+    non-person noun used as a modifier (English, Turkish) or inside a German compound."""
+    four = {'en-added-modifier': 'adds-unsaid-content', 'de-added-in-compound': 'adds-unsaid-content',
+            'de-variant-false-ground': 'adds-unsaid-content', 'en-negation-without-marker': 'negation-not-kept'}
+    by_id = {c['id']: c for c in CORPUS['cases']}
+    for case_id, reason in four.items():
+        assert _corpus_result(by_id[case_id]) == reason and not by_id[case_id].get('knownLimitation')
+    for case_id in ('en-person-modifier-family', 'en-person-short-part', 'en-short-noun-part', 'de-kaum-dropped', 'de-short-noun-added',
+                    'tr-person-modifier'):
+        assert _corpus_result(by_id[case_id]) != 'valid' and by_id[case_id]['content'] != 'correct'
+    assert {c['id'] for c in CORPUS['cases'] if c.get('knownLimitation')} == {
+        'en-role-reversal', 'en-added-thing-modifier', 'de-added-thing-in-compound', 'tr-added-thing-modifier'}
+
+
+def test_live_conservative_rejects_of_round_four_are_grounded_without_accepting_the_inference():
+    """Two correct live P9 lines refused in round 4 ("worn out" for "wearing me out", "yorgunluk" for "yoruluyorum") are
+    accepted through closed lists (irregular English verbs, Turkish yorgun/yorul); the German line that adds "Vermissen",
+    which the user never said, stays refused; correct lines with the new negation markers and short nouns stay valid."""
+    by_id = {c['id']: c for c in CORPUS['cases']}
+    for case_id in ('en-irregular-form', 'tr-tired-derivation', 'en-hardly-kept', 'de-short-noun-said', 'de-strong-verb-noun'):
+        assert _corpus_result(by_id[case_id]) == 'valid' and by_id[case_id]['content'] == 'correct'
+    assert _corpus_result(by_id['de-inference-refused']) == 'adds-unsaid-content'
+    assert _corpus_result(by_id['tr-negation-flip']) == 'negation-not-kept'
 
 
 def test_german_paraphrases_refused_in_round_three_are_accepted_without_new_false_accepts():
