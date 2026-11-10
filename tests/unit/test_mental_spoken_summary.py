@@ -85,6 +85,11 @@ def test_one_call_requests_and_validates_spoken_line(monkeypatch, language):
     prompt = calls[0]['messages'][-1]['content']
     assert 'Also return spokenSummary' in prompt and 'At most 12 words and 100 characters' in prompt
     assert 'Do not thank the user' in prompt and 'Ground it only in what the user actually said' in prompt
+    # The key is in the JSON template itself and the rule precedes the conversation: a live provider ignored a
+    # trailing instruction for a key the template did not list.
+    template = prompt[prompt.index('JSON formatı'):prompt.index('}')]
+    assert '"spokenSummary"' in template
+    assert prompt.index('spokenSummary is required') < prompt.index('Konuşma Geçmişi')
     assert result['spokenSummary'] == line and result['spokenSummaryStatus'] == 'valid'
     assert result['summaryText'] == BASE['summaryText']
 
@@ -100,6 +105,7 @@ def test_invalid_provider_line_keeps_written_summary_and_is_not_trimmed(monkeypa
 def test_not_requested_leaves_the_normal_prompt_and_response_unchanged(monkeypatch):
     result, calls = _analyzer(monkeypatch, dict(BASE), spoken=False)
     assert 'spokenSummary' not in calls[0]['messages'][-1]['content']
+    assert '"professionalSupportReason": null\n}' in calls[0]['messages'][-1]['content']
     assert 'spokenSummary' not in result and 'spokenSummaryStatus' not in result
 
 

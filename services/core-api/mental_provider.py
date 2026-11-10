@@ -318,6 +318,11 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
     def analyze_session(self, messages: List[Dict[str, str]]) -> Dict[str, Any]:
         try:
             client = get_openai_client(self.api_key, self.base_url)
+            structured = getattr(self,'structured',False)
+            # Normal conversation closing: an opt-in short spoken line in this same call (no second request).
+            # It is part of the JSON template itself: a live provider ignored a key that only a trailing
+            # instruction mentioned and returned the five template keys.
+            spoken = getattr(self,'spoken_summary',False) and not structured
 
             prompt = (
                 "Aşağıdaki kullanıcı-asistan araç içi konuşmasını analiz et ve kesinlikle geçerli tek bir JSON nesnesi üret.\n"
@@ -327,16 +332,22 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                 '  "themes": ["tema1", "tema2"],\n'
                 '  "moodTrend": "STRESSED | RELAXED | TIRED | NEUTRAL",\n'
                 '  "professionalSupportSuggested": true | false,\n'
-                '  "professionalSupportReason": null\n'
-                "}\n"
+                + ('  "professionalSupportReason": null,\n  "spokenSummary": "one short spoken sentence"\n' if spoken else
+                   '  "professionalSupportReason": null\n')
+                + "}\n"
                 "professionalSupportReason: Use JSON null when no reason applies; otherwise use a reason grounded in the conversation, in the requested language. Never copy template instructions into this field.\n"
-                "Konuşma Geçmişi:\n"
+                + (('spokenSummary is required. Also return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
+                    'At most 12 words and 100 characters; keep full detail in summaryText. '
+                    'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
+                    'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
+                    'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in '+LANGUAGE_NAMES[current_language()]+'.\n') if spoken else '')
+                + "Konuşma Geçmişi:\n"
                 + "Geçici oturum belleği (kullanıcının birebir eski alıntıları, sonraki düzeltmeler önceliklidir):\n" + json.dumps(getattr(self,"session_memory",[]),ensure_ascii=False) + "\n"
                 + "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in messages])
             )
 
             if current_language() != 'tr':
-                prompt += ('\nWrite summaryText and professionalSupportReason in '
+                prompt += ('\nWrite summaryText' + (', spokenSummary' if spoken else '') + ' and professionalSupportReason in '
                            + LANGUAGE_NAMES[current_language()]
                            + '. Preserve the JSON schema, enum values and verbatim user quotations. Do not invent facts.')
 
@@ -344,15 +355,6 @@ class OpenAICompatibleSessionAnalyzer(MentalSessionAnalyzer):
                        'Choose only supported keys from ' + json.dumps(SESSION_THEME_KEYS, ensure_ascii=False)
                        + '; use [] if none applies. Do not invent a new category or a diagnosis.')
 
-            structured = getattr(self,'structured',False)
-            # Normal conversation closing: an opt-in short spoken line in this same call (no second request).
-            spoken = getattr(self,'spoken_summary',False) and not structured
-            if spoken:
-                prompt += ('\nAlso return spokenSummary: one short sentence spoken aloud to the user right after the closing. '
-                           'At most 12 words and 100 characters; keep full detail in summaryText. '
-                           'Ground it only in what the user actually said; no invented facts, quotations, history, diagnosis or medication advice. '
-                           'Do not thank the user, do not say that the conversation is ending and do not announce a summary: those are said just before it. '
-                           'Use formal address in Turkish (siz) and German (Sie). Write spokenSummary in '+LANGUAGE_NAMES[current_language()]+'.')
             if structured:
                 prompt += ('\nAlso return recommendations (array of short strings), relatedSessionIds (array), '
                            'recurringThemes (stable theme keys), spokenSummary (concise supportive spoken text). '
