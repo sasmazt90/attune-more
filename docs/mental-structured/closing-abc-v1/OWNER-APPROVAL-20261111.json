@@ -1,0 +1,27 @@
+{
+  "schema": "attune-mental-closing-owner-approval-v1",
+  "owner": "Tolgar Şaşmaz",
+  "approvalDate": "2026-11-11",
+  "recordedAtUtc": "2026-11-11T03:02:27Z",
+  "ownerStatement": "144 kaydı onaylıyorum.",
+  "scope": {
+    "abc": 45,
+    "catalog": 99,
+    "total": 144,
+    "languages": [
+      "tr",
+      "en",
+      "de"
+    ]
+  },
+  "basis": "Explicit approval to use all 144 recordings after listening to the supplied combined examples. Individual listening to every recording is not claimed.",
+  "manifestOwnerApprovedAtMeaning": "Time this explicit approval was recorded in the repository; not a reconstructed message timestamp.",
+  "knownFindingRetained": "DE_C21 contains 3 clipped PCM samples. The original file and technical finding are retained; no audio was regenerated.",
+  "manifests": [
+    "apps/vehicle-app/public/audio/mental/closing-abc/v1/manifest.json",
+    "apps/vehicle-app/public/audio/mental/closing-catalog/v1/manifest.json"
+  ],
+  "deploymentAuthorized": true,
+  "deploymentStatus": "Not performed in the preparation environment: no AWS credential provider or federation was available. Enable approved mode at build time in the authorized AWS environment; verify WEB and AAOS separately.",
+  "dynamicConversationLatencyResolved": false
+}

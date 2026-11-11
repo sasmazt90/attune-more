@@ -1,3 +1,15 @@
+# Güncel kullanım onayı — 11 Kasım 2026
+
+PR #29 main'e birleşti. Kullanıcı 45 A/B/C ve 99 kişisel kapanış kaydının tamamının kullanımını
+onayladı; manifest onayları [onay kaydına](OWNER-APPROVAL-20261111.json) göre güncellendi.
+Aşağıdaki eski turların "onay bekliyor / dağıtım yapılmadı" ifadeleri kendi tarihlerindeki kayıtlardır.
+Güncel dağıtım hazırlığı: [DEPLOYMENT-20261111.md](DEPLOYMENT-20261111.md).
+Bu hazırlık oturumunda AWS erişimi olmadığı için dağıtım yapılmadı; build-time `approved` etkinleştirmesi
+ve WEB/AAOS kısa kontrolü yetkili Cloud ortamına devrediliyor. Dinamik normal konuşma gecikmesi
+ayrı konudur: [inceleme](DYNAMIC-TTS-REVIEW-20261111.md).
+
+---
+
 # Mental closing bridge (A/B/C) — female-calm-v1, technical preview
 
 When a Mental conversation ends, three prepared recordings play — **A** thanks, **B** closes the conversation, **C** says the summary is being prepared — while the existing context preparation, summary request and checks run, and while the personalised summary's speech is generated. The summary then plays in the same `female-calm-v1` voice.

@@ -1,5 +1,5 @@
 /** Catalog closing in the page: the bridge plays A, B, C and then the fixed recording of the server-checked catalog line.
- * Real module; a synthetic catalog manifest and synthetic WAV bytes (the committed manifest has no recordings yet);
+ * Real module; approved committed-manifest gates plus synthetic preview recordings for the playback fixtures;
  * explicit playback and HTTP fixtures; no browser or inference. */
 require('./ts_loader.js');
 const assert=require('node:assert/strict'),Module=require('node:module'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
@@ -60,15 +60,20 @@ const reset=()=>{elements=[];log=[];active=0;maxActive=0;corrupt=null;onStart=nu
 const C=(language,id)=>catalog.patterns.find(p=>p.id===id).text[language];
 
 (async()=>{
- // 1. Availability. The committed manifest: no recording yet (catalog off, request unchanged), or whole languages of 33
- // technical previews (usable only in technical-preview mode, never in approved mode).
+ // 1. Availability. The owner approved all 33 committed recordings per language. Preview-only fixtures stay gated.
  for(const language of ['tr','en','de']){
   const count=committed.entries.filter(e=>e.language===language).length;
-  assert([0,33].includes(count),language);
+  assert.equal(count,33,language);
   const clips=B.closingCatalogClips(language,'technical-preview',committed);
   assert.equal(clips===null?0:Object.keys(clips).length,count,language);
-  assert.equal(B.closingCatalogClips(language,'approved',committed),null,'no owner approval yet');
+  assert.equal(Object.keys(B.closingCatalogClips(language,'approved',committed)).length,33,'owner approved this catalog');
  }
+ const revoked=JSON.parse(JSON.stringify(committed));revoked.entries.find(e=>e.language==='en').approvalStatus='rejected';
+ assert.equal(B.closingCatalogClips('en','approved',revoked),null,'one rejected recording closes the approved gate');
+ const missingDate=JSON.parse(JSON.stringify(committed));missingDate.entries.find(e=>e.language==='en').ownerApprovedAt=null;
+ assert.equal(B.closingCatalogClips('en','approved',missingDate),null,'owner approval date required');
+ const unapprovedLibrary=JSON.parse(JSON.stringify(committed));unapprovedLibrary.approval.status='technical-preview-awaiting-owner-listening';
+ assert.equal(B.closingCatalogClips('en','approved',unapprovedLibrary),null,'library approval required too');
  assert.equal(Object.keys(B.closingCatalogClips('tr','technical-preview',synthetic)).length,33);
  assert.equal(B.closingCatalogClips('tr','off',synthetic),null);
  assert.equal(B.closingCatalogClips('tr','approved',synthetic),null,'technical previews never play in approved mode');

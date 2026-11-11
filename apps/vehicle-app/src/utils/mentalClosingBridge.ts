@@ -9,7 +9,7 @@ import {mentalSpeechEngine,prepareMentalNeuralSpeech,type PreparedNeuralSpeech} 
 /**
  * Closing bridge: three prepared female-calm-v1 recordings (A thanks, B close, C summary preparation) play while
  * the personalised summary and its speech are prepared. Off unless explicitly enabled at build time:
- *  - 'approved': only recordings the owner approved after listening (none are approved yet);
+ *  - 'approved': only recordings covered by the owner's explicit usage approval;
  *  - 'technical-preview': test environments only; also plays recordings that passed technical checks and still
  *    await owner listening. The page labels this mode.
  * Missing, altered, unapproved or mismatched recordings return null and the existing closing behaviour runs.

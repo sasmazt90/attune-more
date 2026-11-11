@@ -20,9 +20,9 @@
  "seedRule": "int(sha256(assetId).hexdigest()[:8], 16)",
  "postProcessing": "PCM16 encoding by the product worker only; upstream watermark retained; no pitch/rate/silence edits",
  "approval": {
-  "status": "technical-preview-awaiting-owner-listening",
-  "ownerApprovedAt": null,
-  "note": "Technically verified only (hashes, format, one take per line). Nobody has listened to these recordings yet; the owner must listen before production use."
+  "status": "approved",
+  "ownerApprovedAt": "2026-11-11T03:02:27Z",
+  "note": "Owner Tolgar explicitly approved use of all 144 recordings on 2026-11-11, after approving the supplied listening samples. This records blanket usage approval, not individual listening to every file. See docs/mental-structured/closing-abc-v1/OWNER-APPROVAL-20261111.json. Existing technical findings remain unchanged."
  },
  "entries": [
   {
@@ -62,8 +62,8 @@
     "trailingSilenceMs": 540
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C02",
@@ -102,8 +102,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C03",
@@ -142,8 +142,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C04",
@@ -182,8 +182,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C05",
@@ -222,8 +222,8 @@
     "trailingSilenceMs": 560
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C06",
@@ -262,8 +262,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C07",
@@ -302,8 +302,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C08",
@@ -342,8 +342,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C09",
@@ -382,8 +382,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C10",
@@ -422,8 +422,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C11",
@@ -462,8 +462,8 @@
     "trailingSilenceMs": 540
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C12",
@@ -502,8 +502,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C13",
@@ -542,8 +542,8 @@
     "trailingSilenceMs": 360
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C14",
@@ -582,8 +582,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C15",
@@ -622,8 +622,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C16",
@@ -662,8 +662,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C17",
@@ -702,8 +702,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C18",
@@ -742,8 +742,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C19",
@@ -782,8 +782,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C20",
@@ -822,8 +822,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C21",
@@ -862,8 +862,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C22",
@@ -902,8 +902,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C23",
@@ -942,8 +942,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C24",
@@ -982,8 +982,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C25",
@@ -1022,8 +1022,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C26",
@@ -1062,8 +1062,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C27",
@@ -1102,8 +1102,8 @@
     "trailingSilenceMs": 340
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C28",
@@ -1142,8 +1142,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C29",
@@ -1182,8 +1182,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C30",
@@ -1222,8 +1222,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C31",
@@ -1262,8 +1262,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C32",
@@ -1302,8 +1302,8 @@
     "trailingSilenceMs": 380
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/tr/female-calm-v1/C33",
@@ -1342,8 +1342,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C01",
@@ -1382,8 +1382,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C02",
@@ -1422,8 +1422,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C03",
@@ -1462,8 +1462,8 @@
     "trailingSilenceMs": 560
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C04",
@@ -1502,8 +1502,8 @@
     "trailingSilenceMs": 420
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C05",
@@ -1542,8 +1542,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C06",
@@ -1582,8 +1582,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C07",
@@ -1622,8 +1622,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C08",
@@ -1662,8 +1662,8 @@
     "trailingSilenceMs": 420
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C09",
@@ -1702,8 +1702,8 @@
     "trailingSilenceMs": 420
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C10",
@@ -1742,8 +1742,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C11",
@@ -1782,8 +1782,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C12",
@@ -1822,8 +1822,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C13",
@@ -1862,8 +1862,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C14",
@@ -1902,8 +1902,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C15",
@@ -1942,8 +1942,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C16",
@@ -1982,8 +1982,8 @@
     "trailingSilenceMs": 580
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C17",
@@ -2022,8 +2022,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C18",
@@ -2062,8 +2062,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C19",
@@ -2102,8 +2102,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C20",
@@ -2142,8 +2142,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C21",
@@ -2182,8 +2182,8 @@
     "trailingSilenceMs": 420
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C22",
@@ -2222,8 +2222,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C23",
@@ -2262,8 +2262,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C24",
@@ -2302,8 +2302,8 @@
     "trailingSilenceMs": 420
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C25",
@@ -2342,8 +2342,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C26",
@@ -2382,8 +2382,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C27",
@@ -2422,8 +2422,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C28",
@@ -2462,8 +2462,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C29",
@@ -2502,8 +2502,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C30",
@@ -2542,8 +2542,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C31",
@@ -2582,8 +2582,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C32",
@@ -2622,8 +2622,8 @@
     "trailingSilenceMs": 420
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/en/female-calm-v1/C33",
@@ -2662,8 +2662,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C01",
@@ -2702,8 +2702,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C02",
@@ -2742,8 +2742,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C03",
@@ -2782,8 +2782,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C04",
@@ -2822,8 +2822,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C05",
@@ -2862,8 +2862,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C06",
@@ -2902,8 +2902,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C07",
@@ -2942,8 +2942,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C08",
@@ -2982,8 +2982,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C09",
@@ -3022,8 +3022,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C10",
@@ -3062,8 +3062,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C11",
@@ -3102,8 +3102,8 @@
     "trailingSilenceMs": 360
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C12",
@@ -3142,8 +3142,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C13",
@@ -3182,8 +3182,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C14",
@@ -3222,8 +3222,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C15",
@@ -3262,8 +3262,8 @@
     "trailingSilenceMs": 520
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C16",
@@ -3302,8 +3302,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C17",
@@ -3342,8 +3342,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C18",
@@ -3382,8 +3382,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C19",
@@ -3422,8 +3422,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C20",
@@ -3462,8 +3462,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C21",
@@ -3504,8 +3504,8 @@
    "technicalFindings": [
     "clipped-samples:3"
    ],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C22",
@@ -3544,8 +3544,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C23",
@@ -3584,8 +3584,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C24",
@@ -3624,8 +3624,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C25",
@@ -3664,8 +3664,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C26",
@@ -3704,8 +3704,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C27",
@@ -3744,8 +3744,8 @@
     "trailingSilenceMs": 500
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C28",
@@ -3784,8 +3784,8 @@
     "trailingSilenceMs": 400
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C29",
@@ -3824,8 +3824,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C30",
@@ -3864,8 +3864,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C31",
@@ -3904,8 +3904,8 @@
     "trailingSilenceMs": 460
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C32",
@@ -3944,8 +3944,8 @@
     "trailingSilenceMs": 440
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   },
   {
    "assetId": "closing-catalog/v1/de/female-calm-v1/C33",
@@ -3984,8 +3984,8 @@
     "trailingSilenceMs": 480
    },
    "technicalFindings": [],
-   "approvalStatus": "technical-preview-awaiting-owner-listening",
-   "ownerApprovedAt": null
+   "approvalStatus": "approved",
+   "ownerApprovedAt": "2026-11-11T03:02:27Z"
   }
  ],
  "runtime": {

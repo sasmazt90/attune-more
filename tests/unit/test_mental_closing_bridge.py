@@ -78,11 +78,13 @@ def test_committed_wav_bytes_match_manifest():
         assert e['qualityMetrics']['leadingSilenceMs'] <= 1000 and e['qualityMetrics']['trailingSilenceMs'] <= 1200
 
 
-def test_no_unearned_owner_approval_and_no_drive_urls():
-    assert MANIFEST['approval']['status'] == 'technical-preview-awaiting-owner-listening'
-    assert MANIFEST['approval']['ownerApprovedAt'] is None
+def test_recorded_owner_approval_and_no_drive_urls():
+    approval = json.loads((ROOT / 'docs/mental-structured/closing-abc-v1/OWNER-APPROVAL-20261111.json').read_text('utf-8'))
+    assert approval['scope'] == {'abc': 45, 'catalog': 99, 'total': 144, 'languages': ['tr', 'en', 'de']}
+    assert MANIFEST['approval']['status'] == 'approved'
+    assert MANIFEST['approval']['ownerApprovedAt'] == approval['recordedAtUtc']
     for e in MANIFEST['entries']:
-        assert e['approvalStatus'] == 'technical-preview-awaiting-owner-listening' and e['ownerApprovedAt'] is None
+        assert e['approvalStatus'] == 'approved' and e['ownerApprovedAt'] == approval['recordedAtUtc']
     text = json.dumps(MANIFEST)
     assert 'drive.google.com' not in text and 'http' not in text.replace('https://huggingface.co', '')
 

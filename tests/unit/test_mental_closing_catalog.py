@@ -241,13 +241,16 @@ def test_catalog_recordings_manifest_matches_the_catalog_and_the_closing_voice()
         return
     assert {(e['language'], e['patternId']) for e in entries} == {(lang, pid) for lang in languages for pid in texts}
     assert sorted(set(('tr', 'en', 'de')) - set(languages)) == sorted(manifest['languagesLeftOut'])
+    approval = json.loads((ROOT / 'docs/mental-structured/closing-abc-v1/OWNER-APPROVAL-20261111.json').read_text('utf-8'))
+    assert manifest['approval']['status'] == 'approved'
+    assert manifest['approval']['ownerApprovedAt'] == approval['recordedAtUtc']
     for e in entries:
         assert e['exactText'] == texts[e['patternId']][e['language']]
         assert e['textSha256'] == hashlib.sha256(e['exactText'].encode()).hexdigest()
         path = ROOT / 'apps/vehicle-app/public' / e['audioPath'].lstrip('/')
         data = path.read_bytes()
         assert len(data) == e['bytes'] and hashlib.sha256(data).hexdigest() == e['sha256']
-        assert e['approvalStatus'] == 'technical-preview-awaiting-owner-listening' and e['ownerApprovedAt'] is None
+        assert e['approvalStatus'] == 'approved' and e['ownerApprovedAt'] == approval['recordedAtUtc']
 
 
 def _fake_synthesis(tmp, languages=('tr', 'en', 'de')):

@@ -55,11 +55,11 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const reset=()=>{elements=[];log=[];active=0;maxActive=0;ttsRequests=[];failLabel=null;corrupt=null;onStart=null;ttsDelay=0;playMs=25;};
 
 (async()=>{
- // 1. Gate: off by default; approved-only finds nothing approved yet; preview needs complete, matching groups.
+ // 1. Gate: still off by default; the owner's recorded approval enables all three languages in approved mode.
  delete process.env.NEXT_PUBLIC_MENTAL_CLOSING_BRIDGE;
  assert.equal(B.closingBridgeMode(),'off');assert.equal(B.startClosingFlow(hooks()),null);
  for(const language of ['tr','en','de']){
-  assert.equal(B.closingBridgeClips(language,'approved'),null,'unapproved recordings never play in approved mode');
+  assert.equal(B.closingBridgeClips(language,'approved').flat().length,15,'owner approved these 15 recordings');
   const groups=B.closingBridgeClips(language,'technical-preview');
   assert.deepEqual(groups.map(g=>g.map(c=>c.variantId)),['A','B','C'].map(g=>[1,2,3,4,5].map(i=>g+i)));
   assert(groups.flat().every(c=>c.language===language&&c.speakerProfile==='female-calm-v1'));
@@ -73,8 +73,13 @@ const reset=()=>{elements=[];log=[];active=0;maxActive=0;ttsRequests=[];failLabe
  assert.equal(variant(m=>{m.entries.find(e=>e.language==='en').approvalStatus='rejected';}),null,'unapproved status');
  assert.equal(variant(m=>{m.entries.find(e=>e.language==='en').sha256='x';}),null,'malformed hash');
  assert.equal(variant(m=>{m.entries.find(e=>e.language==='en').audioPath='https://drive.google.com/file/d/x/view';}),null,'no external/Drive URLs');
- const approvedCopy=JSON.parse(JSON.stringify(manifest));approvedCopy.approval={status:'approved',ownerApprovedAt:'2026-11-10T00:00:00Z'};approvedCopy.entries.forEach(e=>{e.approvalStatus='approved';e.ownerApprovedAt='2026-11-10T00:00:00Z';});
- assert(B.closingBridgeClips('en','approved',approvedCopy),'owner approval would enable approved mode');
+ const unapprovedCopy=JSON.parse(JSON.stringify(manifest));
+ unapprovedCopy.entries.find(e=>e.language==='en').approvalStatus=B.CLOSING_PREVIEW_STATUS;
+ assert.equal(B.closingBridgeClips('en','approved',unapprovedCopy),null,'one unapproved recording closes the gate');
+ const missingDate=JSON.parse(JSON.stringify(manifest));missingDate.entries.find(e=>e.language==='en').ownerApprovedAt=null;
+ assert.equal(B.closingBridgeClips('en','approved',missingDate),null,'owner approval date required');
+ const unapprovedLibrary=JSON.parse(JSON.stringify(manifest));unapprovedLibrary.approval.status=B.CLOSING_PREVIEW_STATUS;
+ assert.equal(B.closingBridgeClips('en','approved',unapprovedLibrary),null,'library approval required too');
 
  // 2. Selection: one per group, same language, never the previous combination; all 125 reachable.
  const groups=B.closingBridgeClips('de','technical-preview');
