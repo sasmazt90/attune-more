@@ -7,9 +7,9 @@ const {cancellationRegistry,forwardVerbatim,fulfillHeaders}=require('./aaos/clos
 const {closingSequence}=require('./aaos/closing_stop_verdict.cjs');
 const surface=process.env.HYBRID_SURFACE||'WEB',aaos=surface==='AAOS';
 const out=process.env.HYBRID_OUT;fs.mkdirSync(out,{recursive:true});
-const origin=aaos?'http://127.0.0.1:3000':'http://127.0.0.1:13102',front=aaos?'http://127.0.0.1:13103':origin;
-const api='http://127.0.0.1:18192',vehicle=aaos?'http://127.0.0.1:18001':api;
-const report={surface,commit:process.env.HYBRID_SHA,buildId:process.env.HYBRID_BUILD_ID,startedAt:new Date().toISOString(),boundary:'Separate test build via existing SSM connections; installed AAOS shell/native gates retained. Synthetic microphone+ASR only. Real provider, existing female-calm-v1 TTS and approved recordings. Media playing/ended indicators; not acoustic microphone measurement or public DNS validation.',runs:[]};
+const origin=aaos?'http://127.0.0.1:3000':'http://127.0.0.1:13102',front=process.env.HYBRID_FRONT||(aaos?'http://127.0.0.1:13103':origin);
+const api=process.env.HYBRID_API||'http://127.0.0.1:18192',vehicle=process.env.HYBRID_VEHICLE||(aaos?'http://127.0.0.1:18001':api);
+const report={surface,commit:process.env.HYBRID_SHA,buildId:process.env.HYBRID_BUILD_ID,startedAt:new Date().toISOString(),boundary:'Separate test build; WEB host loopback, AAOS existing mTLS connection with temporary isolated test routes; installed AAOS shell/native gates retained. Synthetic microphone+ASR only. Real provider, existing female-calm-v1 TTS and approved recordings. Media playing/ended indicators; not acoustic microphone measurement or public DNS validation.',runs:[]};
 const save=()=>fs.writeFileSync(path.join(out,surface+'.json'),JSON.stringify(report,null,2));
 const inputs={tr:['Son haftalarda işte tempo çok yoğun ve uykum sık sık bölünüyor.','Her gece oluyor; gün içinde odaklanmakta zorlanıyorum.','Düzeltmek istiyorum: üzgün değilim. Şimdilik tavsiye istemiyorum, sadece konuşmak istiyorum.'],en:['Work has been very intense lately and my sleep keeps getting interrupted.','It happens every night; during the day I cannot concentrate.','To clarify, I am not sad. For now I only want to talk, no advice.'],de:['Bei der Arbeit ist es sehr intensiv und mein Schlaf wird oft unterbrochen.','Es passiert jede Nacht; tagsüber kann ich mich nicht konzentrieren.','Zur Klarstellung: Ich bin nicht traurig. Ich möchte im Moment nur reden, keine Ratschläge.']};
 const source=fs.readFileSync(path.join(__dirname,'aaos/aaos-mental-closing.cjs'),'utf8');
@@ -32,7 +32,7 @@ async function speed(kmh){for(const target of new Set([api,vehicle])){const r=aw
   const entry=registry.signalFor(request);let target=u.pathname.startsWith('/api/vehicle/')?vehicle:u.pathname.startsWith('/api/')&&u.pathname!='/api/mental-neural-speech'?api:front;
   let row;
   if(current&&['/api/mental/converse','/api/mental/analyze-session','/api/mental-neural-speech'].includes(u.pathname)){row={path:u.pathname,at:Date.now(),body:request.postDataJSON()};current.requests.push(row);}
-  try{const response=await forwardVerbatim(request,target,entry.controller.signal);if(row){row.status=response.status;row.answeredAt=Date.now();if(response.headers['content-type']?.includes('json'))row.response=JSON.parse(response.body.toString());}
+  try{const prefix=new URL(target).pathname.replace(/\/$/,'');const forwarded=prefix?{url:()=>origin+prefix+u.pathname+u.search,allHeaders:()=>request.allHeaders(),postDataBuffer:()=>request.postDataBuffer(),method:()=>request.method()}:request;const response=await forwardVerbatim(forwarded,target,entry.controller.signal);if(row){row.status=response.status;row.answeredAt=Date.now();if(response.headers['content-type']?.includes('json'))row.response=JSON.parse(response.body.toString());}
    await route.fulfill({status:response.status,headers:fulfillHeaders(response.headers),body:response.body});
   }catch(e){if(row){row.aborted=entry.controller.signal.aborted;row.abortReason=entry.reason;row.endedAt=Date.now();}await route.abort().catch(()=>{});}
   finally{registry.release(request);}
