@@ -220,7 +220,7 @@ class ConversePayload(MemoryPayload):
     sessionId: Optional[str] = Field(default=None,min_length=1,max_length=128)
     history: Optional[List[Dict[str, str]]] = Field(default=None,max_length=40)
     cloudConsent: StrictBool = False
-    engine: Literal['legacy','structured-v1'] = 'legacy'
+    engine: Literal['legacy','structured-v1','hybrid-prepared-v1','hybrid-personal-v1'] = 'legacy'
     structuredState: Optional[FlowState] = None
     finishAfterReply: StrictBool = False
 
@@ -422,6 +422,20 @@ def converse_mental_assistant(payload: ConversePayload):
 
     from conversation_control import conversation_control
     control = conversation_control(user_msg) if not is_driving else None
+    if payload.engine in ('hybrid-prepared-v1','hybrid-personal-v1'):
+        from mental_hybrid import candidate, personalize
+        if os.getenv('ATTUNE_MENTAL_HYBRID_ENABLED') != '1':
+            raise HTTPException(409,'HYBRID_ENGINE_DISABLED')
+        if is_driving or vehicle_state.get('vehicleParked') is not True or vehicle_state.get('driverAuthenticated') is not True:
+            raise HTTPException(409,'PARK_AND_AUTHENTICATION_REQUIRED')
+        prepared = candidate(user_msg,current_language(),payload.structuredState,control,payload.finishAfterReply)
+        if payload.engine == 'hybrid-prepared-v1' or control or prepared.get('sessionAction'):
+            return prepared
+        if not payload.cloudConsent or not os.getenv('OPENAI_API_KEY','').strip():
+            raise HTTPException(503,'HYBRID_PERSONAL_UNAVAILABLE')
+        provider = get_active_mental_provider()
+        if payload.memory: provider.session_memory = payload.memory
+        return personalize(provider,user_msg,payload.history or [],prepared,payload.structuredState)
     if payload.engine == 'structured-v1':
         from mental_structured import require_approved_library, route
         if os.getenv('ATTUNE_MENTAL_STRUCTURED_ENABLED') != '1':

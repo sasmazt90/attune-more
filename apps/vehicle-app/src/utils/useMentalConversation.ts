@@ -9,10 +9,11 @@ import {speechRecognitionConstructor} from './speechRecognition';
 import { spokenText } from './spokenText';
 import {canonicalMentalTheme} from '../i18n/mentalThemes';
 import {mentalSystemSpeech} from '../i18n/systemSpeech';
-import {mentalNeuralSpeech,mentalSpeechEngine} from './mentalNeuralSpeech';
+import {mentalNeuralSpeech,prepareMentalNeuralSpeech,mentalSpeechEngine} from './mentalNeuralSpeech';
 import {approvedMentalTemplate} from '../i18n/approvedAudio';
 import {playFixedSpeech} from './fixedFileSpeech';
-import {playPreparedMental,structuredConversationEnabled,type StructuredState} from './mentalPreparedSpeech';
+import {chooseHybridTurn} from './mentalHybridRace';
+import {playPreparedMental,prepareMentalRecording,hybridConversationEnabled,structuredConversationEnabled,type StructuredState} from './mentalPreparedSpeech';
 import {cancelQueuedSessionSpeech} from '../i18n/sessionSpeech';
 import {closingBridgeMode,shortSpokenSummary,startClosingFlow,type ClosingFlow} from './mentalClosingBridge';
 
@@ -65,7 +66,7 @@ export function useMentalConversation(parked: boolean) {
   const [spokenClosing, setSpokenClosing] = useState(false);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
   const runtime = useRef({ mounted: false, active: false, paused: false, pendingPause: false, pendingFinish: false, epoch: 0, turn: 0, busy: false, failed: false,
-    structured:false,structuredState:null as StructuredState|null,
+    structured:false,hybrid:false,hybridElements:null as HTMLAudioElement[]|null,structuredState:null as StructuredState|null,
     memory:[] as string[], memoryThrough:0, id: '', startedAt: '', transcript: [] as ConversationMessage[], pendingTurn:null as PendingTurn|null, pendingSpeech:null as {text:string;crisis:boolean;assetIds?:string[]}|null, recognition: null as any,
     audio: null as HTMLAudioElement | null,
     audioUrl: null as string | null, streamCancel: null as (()=>void) | null, controller: null as AbortController | null,
@@ -75,7 +76,7 @@ export function useMentalConversation(parked: boolean) {
   const actions = useRef({ listen: () => {}, cancel: (_reason?: string) => {}, send: (_text: string) => {}, audioOff: () => {}, pause: () => {}, consent: (_value:boolean) => {} });
 
   // Content-free observation only: no storage or telemetry.
-  function timing(stage:string,bytes?:number) { window.dispatchEvent(new CustomEvent('attune-speech-timing',{detail:{stage,atMs:performance.now(),clock:'browser-performance',turn:runtime.current.turn,bytes}})); }
+  function timing(stage:string,bytes?:number,atMs=performance.now()) { window.dispatchEvent(new CustomEvent('attune-speech-timing',{detail:{stage,atMs,clock:'browser-performance',turn:runtime.current.turn,bytes}})); }
   function abortRecognition() {
     const r = runtime.current;
     const recognition = r.recognition;
@@ -214,7 +215,7 @@ export function useMentalConversation(parked: boolean) {
 
   async function updateContext(epoch:number,completed:ConversationMessage[]) {
     const r=runtime.current;
-    if(r.structured)return; // One complete bounded transcript, no per-turn cloud compaction.
+    if(r.structured||r.hybrid)return; // One complete bounded transcript, no per-turn cloud compaction.
     const through=contextWindowThrough(completed,r.memoryThrough);
     if(through===r.memoryThrough)return;
     const controller=new AbortController();r.controller=controller;
@@ -233,19 +234,80 @@ export function useMentalConversation(parked: boolean) {
     runtime.current.transcript = [...runtime.current.transcript, message];
     setMessages(runtime.current.transcript);
   }
+  async function sendHybrid(user:ConversationMessage,epoch:number,receivedAt:number) {
+    const r=runtime.current,language=getLanguage();
+    stopAudio();const audioEpoch=r.audioEpoch,controller=new AbortController();r.controller=controller;r.streamCancel=()=>controller.abort();r.voiceWaiting=true;
+    const current=()=>valid(epoch)&&r.audioEpoch===audioEpoch&&settings.current.voiceEnabled&&!speechMuted()&&!document.hidden&&getLanguage()===language&&mentalSpeechEngine()==='chatterbox-v3'&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();
+    const gesture=(play:()=>void)=>{if(!current())return()=>{};pendingAudioPlay.current=play;setAudioNeedsGesture(true);return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};};
+    const prior=r.transcript.filter(m=>m.completed).slice(-40).map(m=>({role:m.sender==='USER'?'user':'assistant',content:m.text}));
+    type Candidate={data:any;play:()=>Promise<boolean>};
+    const request=async(engine:string,signal:AbortSignal)=>{
+      const response=await fetch(API+'/converse',{method:'POST',headers:{'Content-Type':'application/json'},signal,
+        body:JSON.stringify({engine,userMessage:user.text,history:prior,memory:r.memory,sessionId:r.id,cloudConsent:settings.current.cloudConsent,structuredState:r.structuredState,finishAfterReply:r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)>=94000})});
+      // An authoritative safety/authentication refusal invalidates BOTH candidates, even before the next vehicle poll.
+      if([401,403,409].includes(response.status))controller.abort();
+      if(!response.ok)throw Error('HYBRID_CANDIDATE_UNAVAILABLE');
+      const data=await response.json();if(!current()||signal.aborted)throw Error('HYBRID_CANCELLED');
+      if(typeof data.reply!=='string'||!data.reply.trim())throw Error('HYBRID_INVALID_REPLY');
+      if(!data.isCrisis&&(!data.structuredState||data.structuredState.language!==language||data.structuredState.speakerProfile!=='female-calm-v1'))throw Error('HYBRID_INVALID_STATE');
+      return data;
+    };
+    let first=false;
+    const observe=(stage:string)=>{if(!current())return;timing(stage);if(stage==='playing'||stage==='prepared-0-playing'){
+      if(!first){first=true;timing('hybrid-first-playing');}setPhase('speaking');setVoiceState('speaking');
+    }};
+    setVoiceState('loadingSpeech');
+    try{
+      const winner=await chooseHybridTurn<Candidate>({receivedAt,signal:controller.signal,current,observe:timing,
+        priority:value=>!!value.data.isCrisis||!!value.data.sessionAction,
+        prepared:async signal=>{
+          const data=await request('hybrid-prepared-v1',signal);
+          if(data.isCrisis||data.sessionAction==='finish')return {data,play:async()=>true};
+          if(data.providerType!=='STRUCTURED_LOCAL'||!Array.isArray(data.audioAssetIds))return null;
+          const speech=await prepareMentalRecording(data.reply,data.audioAssetIds,signal,current,r.hybridElements?.slice(0,2));
+          if(!speech)return null;timing('hybrid-prepared-ready');
+          return {data,play:()=>speech.play(audio=>{r.audio=audio;},observe,gesture)};
+        },
+        personal:async signal=>{
+          const data=await request('hybrid-personal-v1',signal);
+          if(data.isCrisis||data.sessionAction||data.providerType!=='LIVE_OPENAI')return null;
+          const speech=prepareMentalNeuralSpeech(spokenText(data.reply),signal,current,{speakerProfile:'female-calm-v1',wholeReply:true,preparedElement:r.hybridElements?.[2],onSafetyRefusal:()=>controller.abort(),observe:stage=>timing('personal-'+stage)});
+          if(!await speech.firstReady){speech.cancel();return null;}timing('hybrid-personal-ready');
+          return {data,play:()=>speech.play(()=>observe('playing'),audio=>{r.audio=audio;},gesture)};
+        }});
+      if(!winner||!current()){if(valid(epoch)){r.busy=false;r.voiceWaiting=false;r.pendingTurn=null;r.paused=true;setPhase('paused');}return;}
+      const data=winner.value.data;
+      r.pendingTurn=null;r.transcript=r.transcript.map(m=>m.id===user.id?{...m,completed:true}:m);
+      if(data.isCrisis){r.failed=true;append({id:`${r.id}-${user.turn}-ai`,turn:user.turn,sender:'AI',text:data.reply,time:user.time,completed:true,isCrisis:true,providerBadge:'Kriz Güvenlik Filtresi'});await speak(spokenText(data.reply),epoch,true);return;}
+      r.structuredState=data.structuredState;
+      // F01 would duplicate the approved closing. Complete once, without playing or storing an unheard goodbye.
+      if(data.sessionAction==='finish'){setMessages(r.transcript);r.busy=false;r.voiceWaiting=false;await finish();return;}
+      append({id:`${r.id}-${user.turn}-ai`,turn:user.turn,sender:'AI',text:data.reply,time:new Date().toLocaleTimeString(getLocale(),{hour:'2-digit',minute:'2-digit'}),timestamp:new Date().toISOString(),completed:true,providerBadge:winner.path==='prepared'?'STRUCTURED_LOCAL':'LIVE_OPENAI — OpenAI Canlı'});
+      r.pendingPause=data.sessionAction==='pause';
+      const played=await winner.value.play();
+      if(!current())return;
+      if(!played){cancel('Seçilen dil veya ses kullanılamıyor. Sesli görüşme durduruldu; dil ve ses seçeneklerini kontrol edin.');return;}
+      timing('ended');stopAudio();setVoiceState('ready');resume(epoch);
+    }catch{
+      if(current())cancel('Seçilen dil veya ses kullanılamıyor. Sesli görüşme durduruldu; dil ve ses seçeneklerini kontrol edin.');
+    }finally{controller.abort();if(r.controller===controller)r.controller=null;}
+  }
+
   async function send(value: string, pending?:PendingTurn) {
+    const receivedAt=performance.now();
     const r = runtime.current, epoch = r.epoch, text = value.trim();
     if (!text || !valid(epoch) || r.paused || r.busy || r.voiceWaiting || r.failed) return;
     const crisis = checkCrisisTrigger(text, !settings.current.parked);
-    const finishAtBoundary=r.structured&&!pending&&!crisis.isCrisis&&(r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)+text.length>100000);
+    const finishAtBoundary=(r.structured||r.hybrid)&&!pending&&!crisis.isCrisis&&(r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)+text.length>100000);
     r.busy = true; abortRecognition();
     const timestamp = new Date().toISOString();
     const turn = pending?pending.user.turn:++r.turn, time = pending?pending.user.time:new Date(timestamp).toLocaleTimeString(getLocale(), { hour: '2-digit', minute: '2-digit' });
-    timing('send');
+    timing('send');if(r.hybrid)timing('hybrid-t0',undefined,receivedAt);
     let prior = pending?pending.prior:r.transcript.filter(m => m.completed).slice(r.memoryThrough).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text }));
     const user: ConversationMessage = pending?pending.user:{ id: `${r.id}-${turn}-user`, turn, sender: 'USER', text, time, timestamp, completed: false };
     if(finishAtBoundary){append({...user,completed:true});r.pendingTurn=null;r.busy=false;await finish();return;}
     r.pendingTurn={user,prior};if(!pending)append(user); setPhase('preparing'); setNotice(null);
+    if(r.hybrid&&!crisis.isCrisis){await sendHybrid(user,epoch,receivedAt);return;}
     const controller = new AbortController(); r.controller = controller;
     let deadline:ReturnType<typeof setTimeout>|undefined;
     try {
@@ -293,10 +355,11 @@ export function useMentalConversation(parked: boolean) {
   }
   function start() {
     if (!settings.current.parked || runtime.current.active || !settings.current.speechConsent || !serviceAllowed('mental')) return;
-    if(structuredConversationEnabled()&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Attune.more sesini seçin.'));return;}
+    if((structuredConversationEnabled()||hybridConversationEnabled())&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Attune.more sesini seçin.'));return;}
     cleanup(); const r = runtime.current; setSpokenClosing(false);
     r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];r.memory=[];r.memoryThrough=0;r.pendingTurn=null;r.pendingSpeech=null;
-    r.structured=structuredConversationEnabled();r.structuredState=r.structured?{language:getLanguage(),speakerProfile:'female-calm-v1',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
+    r.structured=structuredConversationEnabled();r.hybrid=hybridConversationEnabled();r.structuredState=(r.structured||r.hybrid)?{language:getLanguage(),speakerProfile:'female-calm-v1',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
+    r.hybridElements=r.hybrid?[new Audio(),new Audio(),new Audio()]:null; // Created in the Start gesture, reused across turns.
     settings.current.textMode = false;
     setActive(true); setMessages([]); setSummary(null); setNotice(null); setVoiceNotice(null); setVoiceState('ready'); setPhase('ready');
     listen();
@@ -387,14 +450,14 @@ export function useMentalConversation(parked: boolean) {
   }
   function pause() {
     const r=runtime.current;if(!r.active)return;
-    r.epoch++;cleanup();r.busy=false;r.paused=true;r.pendingPause=false;
+    r.epoch++;cleanup();r.busy=false;r.paused=true;r.pendingPause=false;if(r.hybrid){r.pendingTurn=null;r.pendingSpeech=null;}
     setPhase('paused');setVoiceState('ready');setNotice('Görüşme duraklatıldı. Mikrofon dinlemiyor.');
   }
   function continueConversation() {
     const r=runtime.current;if(!r.active||!r.paused||!settings.current.parked)return;
     r.paused=false;setNotice(null);resume(r.epoch);
   }
-  actions.current = { listen, cancel, send, pause, consent: changeServiceConsent, audioOff: () => { setVoiceNotice(null); if (runtime.current.voiceWaiting) { const epoch = runtime.current.epoch; runtime.current.controller?.abort(); runtime.current.controller = null; runtime.current.pendingSpeech=null;stopAudio(); setVoiceState('ready'); resume(epoch); } } };
+  actions.current = { listen, cancel, send, pause, consent: changeServiceConsent, audioOff: () => { setVoiceNotice(null); if(runtime.current.hybrid&&runtime.current.busy){pause();return;} if (runtime.current.voiceWaiting) { const epoch = runtime.current.epoch; runtime.current.controller?.abort(); runtime.current.controller = null; runtime.current.pendingSpeech=null;stopAudio(); setVoiceState('ready'); resume(epoch); } } };
   useEffect(() => {
     const r = runtime.current; r.mounted = true;
     setHistory(readMentalHistory());
@@ -419,7 +482,7 @@ export function useMentalConversation(parked: boolean) {
   useEffect(() => { if (!parked && (runtime.current.active || phase === 'ending')) actions.current.cancel('Sürüş geçişinde görüşme güvenle kapatıldı. Park ettiğinizde yeni görüşme başlatabilirsiniz.'); }, [parked, phase]);
   useEffect(() => { if (!voiceEnabled) actions.current.audioOff(); }, [voiceEnabled]);
   useEffect(()=>{const hidden=()=>{if(document.hidden&&runtime.current.active)actions.current.pause();};document.addEventListener('visibilitychange',hidden);return()=>document.removeEventListener('visibilitychange',hidden);},[]);
-  useEffect(()=>{const changed=()=>{if(runtime.current.structured&&(runtime.current.active||phaseRef.current==='ending')){actions.current.cancel(t('Dil veya ses değişti. Yeni bir görüşme başlatın.'));return;}cancelQueuedSessionSpeech(runtime.current,{
+  useEffect(()=>{const changed=()=>{if((runtime.current.structured||runtime.current.hybrid)&&(runtime.current.active||phaseRef.current==='ending')){actions.current.cancel(t('Dil veya ses değişti. Yeni bir görüşme başlatın.'));return;}cancelQueuedSessionSpeech(runtime.current,{
     pause:()=>actions.current.pause(),
     crisis:()=>actions.current.cancel('Normal görüşme durduruldu. Acil Kriz Destek: 112 Acil Çağrı.'),
     notice:()=>setNotice('Dil veya ses değişti. Konuşma metni korundu; eski seslendirme yeniden başlatılmaz. Devam et ile sürdürebilirsiniz.'),
