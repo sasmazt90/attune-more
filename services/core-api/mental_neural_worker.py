@@ -11,6 +11,33 @@ from pathlib import Path
 from time import monotonic
 from mental_neural_tts import load_configuration, MAX_SECONDS, verify_runtime_source
 
+REUSE_CONDITIONING = 'ATTUNE_MENTAL_TTS_REUSE_CONDITIONING'
+
+
+def reference_options(model, runtime, reference, profile):
+    """Generation options for the verified reference voice.
+
+    By default the upstream API re-derives conditioning from the reference clip
+    on every call. With the opt-in flag a resident runtime derives it once per
+    loaded model, verified reference hash and exaggeration, then passes the same
+    upstream generation settings. Integrity checks still run on every request.
+    Conditioning uses no random numbers, so seeded output is expected to be
+    byte-identical; that must be confirmed on the pinned runtime before enabling.
+    """
+    generation = dict(profile['generation'])
+    if runtime is None or os.getenv(REUSE_CONDITIONING) != '1':
+        return {'audio_prompt_path': str(reference), **generation}
+    exaggeration = generation.get('exaggeration', 0.5)  # upstream generate default
+    key = (profile.get('referenceSha256'), str(reference), float(exaggeration))
+    cached = runtime.get('conditioning')
+    if cached and cached[0] is model and cached[1] == key:
+        model.conds = cached[2]
+    else:
+        runtime.pop('conditioning', None)
+        model.prepare_conditionals(str(reference), exaggeration=exaggeration)
+        runtime['conditioning'] = (model, key, model.conds)
+    return generation
+
 
 def synthesize(payload, runtime=None):
     started = monotonic()
@@ -91,8 +118,8 @@ def synthesize(payload, runtime=None):
     if model.conds is None:
         raise ValueError('OFFICIAL_DEFAULT_CONDITIONING_MISSING')
     progress('inference')
-    options = {} if reference is None else {'audio_prompt_path': str(reference), **profile['generation']}
     with torch.inference_mode():
+        options = {} if reference is None else reference_options(model, runtime, reference, profile)
         audio = model.generate(text, language_id=payload['language'], **options)
     progress('encode-wav')
     samples = audio.detach().cpu().numpy().reshape(-1)
