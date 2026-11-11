@@ -342,3 +342,60 @@ def test_negation_inside_the_cue(language, pid, text, accepted):
     import closing_catalog_eval as ev
     msgs = user(text)
     assert (cc.check(ev.oracle_candidate(pid, language, msgs), language, msgs) is None) == accepted
+
+
+# Round 7: the independent review's C02 false accepts (provider candidate: C02, message 0, the whole message quoted).
+# The cue word is there, the user's own current stress is not: a topic, a condition, a past state set against now.
+REVIEW_C02 = [
+    ('tr', 'Stres hakkında bir kitap okuyorum.', 'topic-only'),
+    ('tr', 'Stresli olursam sana söylerim.', 'conditional'),
+    ('tr', 'Stresliydim ama artık iyiyim.', 'past-then-now'),
+    ('en', 'I am reading a book about stress.', 'topic-only'),
+    ('en', 'If I feel stressed, I will tell you.', 'conditional'),
+    ('en', 'I was stressed, but now I feel fine.', 'past-then-now'),
+    ('de', 'Ich lese ein Buch über Stress.', 'topic-only'),
+    ('de', 'Falls ich gestresst bin, sage ich Bescheid.', 'conditional'),
+    ('de', 'Ich war gestresst, aber jetzt geht es mir gut.', 'past-then-now'),
+]
+
+
+@pytest.mark.parametrize('language,text,reason', REVIEW_C02)
+def test_review_c02_candidates_without_a_present_self_statement_are_refused(language, text, reason):
+    msgs = user(text)
+    assert cc.check(cand('C02', text), language, msgs) == reason
+    chosen, status, checks = cc.select([cand('C02', text)], language, msgs)
+    assert (chosen, status) == (None, 'no-reliable-match') and checks == [{'id': 'C02', 'result': reason}]
+    # The clause quote the oracle builds is refused for the same reason.
+    sys.path.insert(0, str(ROOT / 'scripts/mental_closing_abc'))
+    import closing_catalog_eval as ev
+    assert cc.check(ev.oracle_candidate('C02', language, msgs), language, msgs) == reason
+
+
+@pytest.mark.parametrize('language,text', [
+    ('tr', 'Çok stresliyim.'), ('en', 'I am very stressed.'), ('de', 'Ich bin sehr gestresst.'),
+])
+def test_present_self_statement_of_stress_is_still_selected(language, text):
+    assert cc.select([cand('C02', text)], language, user(text))[:2] == ('C02', 'catalog')
+
+
+@pytest.mark.parametrize('language,pid,text,result', [
+    # The user's own words in the topic phrase make it theirs; a pronoun object ends the topic phrase.
+    ('tr', 'C02', 'Stresim hakkında konuşmak istiyorum.', None),
+    ('en', 'C27', 'Talking about it helps me.', None),
+    ('en', 'C27', 'Reading about stress management helps me.', None),
+    ('en', 'C02', 'I am reading a book about anxiety and stress.', 'topic-only'),
+    ('tr', 'C02', 'Stres ve kaygı hakkında bir kitap okuyorum.', 'topic-only'),
+    # A condition after the statement does not make the statement conditional.
+    ('en', 'C02', 'I get stressed when my boss calls.', None),
+    ('de', 'C02', 'Ich bin gestresst, wenn mein Chef anruft.', None),
+    ('tr', 'C02', 'Stresli olduğumda sana söylerim.', 'conditional'),
+    ('de', 'C02', 'Wenn ich gestresst bin, sage ich Bescheid.', 'conditional'),
+    # A later "now" that repeats the cue keeps it current; a past state alone is still the user's statement.
+    ('en', 'C02', 'I was stressed and now I am even more stressed.', None),
+    ('en', 'C02', 'I was stressed all week and I still am.', None),
+    ('tr', 'C09', 'Dün gece uyuyamadım.', None),
+    ('tr', 'C02', 'Stresliydim, şimdi iyiyim.', 'past-then-now'),
+    ('de', 'C02', 'Ich war letzte Woche gestresst. Jetzt geht es mir gut.', 'past-then-now'),
+])
+def test_topic_condition_and_past_then_now_read_the_construction_not_a_word(language, pid, text, result):
+    assert cc.check(cand(pid, text), language, user(text)) == result

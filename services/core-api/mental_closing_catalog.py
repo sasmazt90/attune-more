@@ -13,7 +13,12 @@ it rests on and a verbatim quote from it. The server accepts a candidate only wh
   stressed"); a possessed person ("my mother", "annem") is not the user;
 - not past and over ("Eskiden stresliydim, artık değilim", "I used to be ...", "nicht mehr"), unless the change is the
   pattern's own topic (lost interest, relief);
-- no later user message corrects it (the same cue negated, or a correction marker with a negation).
+- no later user message corrects it (the same cue negated, or a correction marker with a negation);
+- the cue states the user's own state, not something else the sentence carries (round 7): not the topic of something
+  ("a book about stress", "Stres hakkında bir kitap", "ein Buch über Stress") unless the user's own words in that
+  phrase make it theirs ("about my stress", "stresim hakkında"); not a condition ("If I feel stressed, ...", "Stresli
+  olursam", "Falls ich gestresst bin"); not a past state the same message then sets against the present ("I was
+  stressed, but now I feel fine", "Stresliydim ama artık iyiyim"). Without such a statement the check abstains.
 
 Among accepted candidates the one the user stressed is preferred (emphasis words, how many user messages carry the
 pattern), then the provider's order; never a random choice. Nothing accepted: no catalog line, the written summary
@@ -68,6 +73,43 @@ _EMPHASIS = {
     'en': re.compile(r'\b(most|especially|mainly|biggest|above all)\b'),
     'de': re.compile(r'\b(vor allem|besonders|am meisten|hauptsächlich)\b'),
 }
+# Round 7: constructions that carry a cue without stating the user's own current state. They are grammatical markers
+# (a preposition or postposition of topic, a conditional, a present-time adverb), never topic nouns such as "book".
+# Topic: the cue is what something is about. English and German put the marker before the cue, Turkish after it.
+_TOPIC = {
+    'en': {'about', 'regarding', 'concerning', 'on', 'topic', 'subject'},
+    'de': {'über', 'bezüglich', 'betreffend', 'hinsichtlich', 'thema'},
+    'tr': {'hakkında', 'hakkındaki', 'ilgili', 'konusunda', 'konusundaki', 'konulu', 'üzerine', 'dair', 'alakalı'},
+}
+TOPIC_WINDOW = 4  # words between the marker and the cue, nearest first ("a book about anxiety and stress")
+# A pronoun between the marker and the cue is the marker's object; the cue then starts its own statement ("Talking
+# about it helps me", "Bunun hakkında konuşmak").
+_ANAPHOR = {'en': {'it', 'this', 'that', 'these', 'those', 'them', 'him', 'her', 'you', 'everything', 'something', 'anything', 'things'},
+            'de': {'es', 'das', 'dies', 'dieses', 'alles', 'ihn', 'ihm', 'ihnen'},
+            'tr': {'bu', 'bunun', 'bunu', 'bunlar', 'bunların', 'şu', 'şunun', 'şunu', 'o', 'onun', 'onu'}}
+_CONTRAST = {lang: words - {'and', 'or', 'und', 'oder', 've', 'veya'} for lang, words in _BREAKS.items()}
+# Conditional: a subordinator before the cue in the same part of the sentence (up to a comma or a contrast); in
+# Turkish also the conditional or "when" suffix on the cue's predicate ("stresli olursam", "gerginsem", "stresli
+# olduğumda").
+_CONDITIONAL = {
+    'en': re.compile(r'\b(if|unless|when|whenever|in case|suppose|supposing)\b'),
+    'de': re.compile(r'\b(falls|wenn|sofern|sobald|angenommen|im falle?)\b'),
+    'tr': re.compile(r'\b(eğer|şayet)\b'),
+}
+_TR_CONDITIONAL_ENDING = re.compile(r'(?:[^\Waeıioöuüsy]s[ae](?:m|n|n[ıi]z|l[ae]r)?|[aeıioöuü]ys[ae](?:m|n|k|n[ıi]z|l[ae]r)?|[rz]s[ae]k)$')
+_TR_CONDITIONAL_WORDS = {'ise', 'isem', 'isen', 'isek'}
+_TR_WHEN_ENDING = re.compile(r'[dt][ıiuü]ğ[ıiuü](?:m|n|m[ıiuü]z|n[ıiuü]z)?n?d[ae]$')
+# Past, then present in the same message: the cue's clause is in the past and a later clause of that message speaks
+# of now without the cue ("I was stressed, but now I feel fine"). A later clause that repeats the cue keeps it current.
+_PAST_WORDS = {'en': {'was', 'were', "wasn't", "weren't", 'had', 'felt', 'got', 'became'},
+               'de': {'war', 'waren', 'warst', 'wart', 'hatte', 'hatten', 'hattest', 'fühlte', 'fühlten', 'wurde', 'wurden', 'gewesen'}}
+_TR_PAST_ENDING = re.compile(r'(?:[dt][ıiuü](?:m|n|k|n[ıi]z|l[ae]r)?|m[ıiuü]ş(?:[ıiuü]m|s[ıiuü]n|[ıiuü]z|l[ae]r)?)$')
+_NOW = {
+    'en': re.compile(r'\b(now|nowadays|today|these days|currently|at the moment|at present)\b'),
+    'de': re.compile(r'\b(jetzt|nun|inzwischen|mittlerweile|heute|derzeit|momentan|aktuell|zurzeit)\b'),
+    'tr': re.compile(r'\b(şimdi|artık|şu an(?:da)?|bugün\w*|günümüzde)\b'),
+}
+_TR_NOT_PAST = {'şimdi', 'kendi', 'altı', 'üstü', 'yedi'}
 
 
 @lru_cache(maxsize=1)
@@ -130,12 +172,88 @@ def _about_user(clause, language, subject_only=False, object_ok=False):
             if third and not object_ok and word not in _SUBJECT_PRONOUN[language]:
                 continue
             return True
-        if language == 'tr' and len(word) > 3 and _TR_FIRST_PERSON_ENDING.search(word) and not _is_person(word, 'tr') \
-                and word not in _TR_M_STEMS and not any(word.startswith(s) for s in _TR_M_STEMS):
+        if language == 'tr' and _tr_first_person(word):
             return True
         if word in _THIRD_PERSON[language] or _is_person(word, language):
             third = True
     return not third and not subject_only
+
+
+def _tr_first_person(word):
+    return len(word) > 3 and bool(_TR_FIRST_PERSON_ENDING.search(word)) and not _is_person(word, 'tr') \
+        and word not in _TR_M_STEMS and not any(word.startswith(s) for s in _TR_M_STEMS)
+
+
+def _own(word, language):
+    return word in _FIRST_PERSON[language] or (language == 'tr' and _tr_first_person(word))
+
+
+def _word_end(text, at):
+    while at < len(text) and (text[at].isalnum() or text[at] in "'’"):
+        at += 1
+    return at
+
+
+def _predicate(text, clause, cue_start, cue_end, language):
+    """Turkish: the cue's last word and the two words after it in its clause, where the predicate carries tense and
+    condition ("stresli olursam", "stresliydim", "kimse beni anlamıyor" -> "anlamıyor")."""
+    cue_words = len(_words(text[cue_start:_word_end(text, cue_end)], language))
+    return _words(text[cue_start:clause[1]], language)[max(cue_words - 1, 0):][:3]
+
+
+def _topic(text, sentence, cue_start, cue_end, language):
+    """The cue is what something is about, not the user's state: a topic marker within TOPIC_WINDOW words before the
+    cue (after it in Turkish), with no first-person word in the cue or in between ("about my stress", "stresim
+    hakkında" are the user's own) and no pronoun in between (the marker's object; the cue then starts its own clause)."""
+    own_cue = _words(text[cue_start:_word_end(text, cue_end)], language)
+    if any(_own(w, language) for w in own_cue):
+        return False
+    if language == 'tr':
+        window = _words(text[_word_end(text, cue_end):sentence[1]], language)[:TOPIC_WINDOW]
+    else:
+        window = _words(text[sentence[0]:cue_start], language)[::-1][:TOPIC_WINDOW]
+    for word in window:
+        if word in _TOPIC[language]:
+            return True
+        if _own(word, language) or word in _ANAPHOR[language] or word in _CONTRAST[language]:
+            return False
+    return False
+
+
+def _conditional(text, sentence, clause, cue_start, cue_end, language):
+    """The cue is inside a condition: a conditional subordinator before it in the same part of the sentence, or in
+    Turkish a conditional / "when" suffix on the cue's predicate (_predicate)."""
+    part = re.split(r'[,;:]', text[sentence[0]:cue_start])[-1]
+    words = _words(part, language)
+    cut = max((i for i, w in enumerate(words) if w in _CONTRAST[language]), default=-1)
+    if _CONDITIONAL[language].search(' '.join(words[cut + 1:])):
+        return True
+    if language != 'tr':
+        return False
+    after = _predicate(text, clause, cue_start, cue_end, language)
+    return any(w in _TR_CONDITIONAL_WORDS or (len(w) > 3 and (_TR_CONDITIONAL_ENDING.search(w) or _TR_WHEN_ENDING.search(w)))
+               for w in after)
+
+
+def _past_then_now(text, clause, cue_start, cue_end, pattern, language):
+    """The cue's clause is in the past and a later clause of the same message speaks of now without repeating the cue
+    ("I was stressed, but now I feel fine", "Stresliydim ama artık iyiyim", "Ich war gestresst, aber jetzt geht es
+    mir gut"). Turkish marks the past on the cue's predicate (_predicate); English and German with a past verb."""
+    if language == 'tr':
+        after = _predicate(text, clause, cue_start, cue_end, language)
+        past = any(len(w) > 3 and w not in _TR_NOT_PAST and _TR_PAST_ENDING.search(w) for w in after)
+    else:
+        past = any(w in _PAST_WORDS[language] for w in _words(text[clause[0]:clause[1]], language))
+    if not past:
+        return False
+    for a, b in _clause_spans(text, language):
+        if a < clause[1] or not _NOW[language].search(text[a:b]):
+            continue
+        again = _cue(pattern, text[a:b], language)
+        if again and not _negated(text[a:b], again.span(), language, pattern.get('negatedCue'), pattern):
+            return False
+        return True
+    return False
 
 
 def _third(clause, language):
@@ -206,7 +324,8 @@ def check(candidate, language, messages):
     body = text[clause[0]:clause[1]]
     if _negated(body, (cue_start - clause[0], min(cue_end, clause[1]) - clause[0]), language, pattern.get('negatedCue'), pattern):
         return 'negated'
-    sentence = next((text[a:b] for a, b in _sentence_spans(text) if a <= cue_start < b), text)
+    sentence_span = next(((a, b) for a, b in _sentence_spans(text) if a <= cue_start < b), (0, len(text)))
+    sentence = text[sentence_span[0]:sentence_span[1]]
     # A subject shared over "and" ("I'm very happy and proud of myself") counts when the clause names no other person.
     shared = pattern.get('subjectOnly') and not _third(body, language) and _about_user(sentence, language, True)
     if not _about_user(body, language, pattern.get('subjectOnly'), pattern.get('objectOk')) and not shared:
@@ -217,6 +336,12 @@ def check(candidate, language, messages):
         return 'past'
     if not pattern.get('changeIsTopic') and _NO_LONGER[language].search(sentence):
         return 'no-longer'
+    if _topic(text, sentence_span, cue_start, cue_end, language):
+        return 'topic-only'
+    if _conditional(text, sentence_span, clause, cue_start, cue_end, language):
+        return 'conditional'
+    if not pattern.get('changeIsTopic') and _past_then_now(text, clause, cue_start, cue_end, pattern, language):
+        return 'past-then-now'
     for later in messages[index + 1:]:
         if later.get('role') != 'user':
             continue
