@@ -15,7 +15,7 @@ const js=ts.transpileModule(send,{compilerOptions:{target:ts.ScriptTarget.ES2022
   const r={epoch:1,active:true,paused:false,busy:false,voiceWaiting:false,failed:false,turn:42,id:'synthetic',memoryThrough:0,transcript:structuredClone(originals)};
   let contextCalls=0,speech,phase,notice,network=0;
   const bindings={runtime:{current:r},settings:{current:{parked:true,cloudConsent:false}},valid:epoch=>epoch===r.epoch&&r.active,
-   getLocale:()=>C.getLocale(),checkCrisisTrigger,t:C.t,spokenText:v=>v,isDemoMode:()=>true,AbortController,Date,setTimeout,clearTimeout,
+   getLocale:()=>C.getLocale(),checkCrisisTrigger,t:C.t,spokenText:v=>v,isDemoMode:()=>true,AbortController,Date,setTimeout,clearTimeout,performance:{now:()=>0},
    abortRecognition:()=>{},timing:()=>{},append:row=>r.transcript.push(row),setPhase:v=>phase=v,setNotice:v=>notice=v,
    updateContext:async()=>{contextCalls++;throw Error('CONTEXT_UPDATE_FAILED');},
    fetch:async()=>{network++;throw Error('Network forbidden for crisis');},
