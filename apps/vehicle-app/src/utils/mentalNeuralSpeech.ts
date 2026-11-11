@@ -30,7 +30,7 @@ export function speechParts(text:string):string[]{
  const rest=sentences.slice(at).join(' ');
  return rest?[first,rest]:[text];
 }
-export type NeuralSpeechOptions={requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1';wholeReply?:boolean;preparedElement?:HTMLAudioElement};
+export type NeuralSpeechOptions={requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1';wholeReply?:boolean;preparedElement?:HTMLAudioElement;onSafetyRefusal?:()=>void};
 /** Speech whose generation has started but whose playback is a separate, single step. */
 export type PreparedNeuralSpeech={
  /** First part ready; wholeReply requires the entire reply decoded/prebuffered. Never rejects. */
@@ -69,6 +69,8 @@ export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current
   try{
    options.observe?.('segment-request-'+index);
    const response=await fetch('/api/mental-neural-speech',{method:'POST',headers:{'Content-Type':'application/json'},cache:'no-store',body:JSON.stringify({text:part,language,speechConsent:true,...(options.speakerProfile?{speakerProfile:options.speakerProfile}:{})}),signal:controller.signal});
+   // Safety/auth refusals invalidate the shared turn before any audio/profile header validation.
+   if([401,403,409].includes(response.status)){release();options.onSafetyRefusal?.();return null;}
    if(options.speakerProfile&&response.headers.get('x-tts-speaker-profile')!==options.speakerProfile)return null;
    if(!response.ok||!permitted()||response.headers.get('content-type')?.split(';')[0]!=='audio/wav'||response.headers.get('x-tts-source')!=='chatterbox-multilingual-v3'||response.headers.get('x-tts-locale')!==locale)return null;
    options.observe?.('segment-headers-'+index);

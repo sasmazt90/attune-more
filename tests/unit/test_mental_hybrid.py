@@ -48,6 +48,6 @@ def test_hybrid_api_safety_precedes_generation(monkeypatch):
     monkeypatch.setitem(main.vehicle_state,'driverAuthenticated',False)
     with pytest.raises(HTTPException):main.converse_mental_assistant(main.ConversePayload(userMessage='I feel tired',engine='hybrid-prepared-v1'))
 
-@pytest.mark.parametrize('script',['mental_hybrid_race_runtime.cjs','mental_hybrid_lifecycle_runtime.cjs','mental_hybrid_audio_runtime.cjs'])
+@pytest.mark.parametrize('script',['mental_hybrid_race_runtime.cjs','mental_hybrid_lifecycle_runtime.cjs','mental_hybrid_audio_runtime.cjs','mental_hybrid_neural_refusal_runtime.cjs'])
 def test_hybrid_browser_runtime(script):
     subprocess.run(['node',str(ROOT/'tests/unit'/script)],cwd=ROOT,check=True,timeout=40)

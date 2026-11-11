@@ -271,7 +271,7 @@ export function useMentalConversation(parked: boolean) {
         personal:async signal=>{
           const data=await request('hybrid-personal-v1',signal);
           if(data.isCrisis||data.sessionAction||data.providerType!=='LIVE_OPENAI')return null;
-          const speech=prepareMentalNeuralSpeech(spokenText(data.reply),signal,current,{speakerProfile:'female-calm-v1',wholeReply:true,preparedElement:r.hybridElements?.[2],observe:stage=>timing('personal-'+stage)});
+          const speech=prepareMentalNeuralSpeech(spokenText(data.reply),signal,current,{speakerProfile:'female-calm-v1',wholeReply:true,preparedElement:r.hybridElements?.[2],onSafetyRefusal:()=>controller.abort(),observe:stage=>timing('personal-'+stage)});
           if(!await speech.firstReady){speech.cancel();return null;}timing('hybrid-personal-ready');
           return {data,play:()=>speech.play(()=>observe('playing'),audio=>{r.audio=audio;},gesture)};
         }});
