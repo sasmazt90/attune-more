@@ -1,0 +1,2086 @@
+{
+ "schema": "attune-closing-final-decision-v1",
+ "date": "2026-11-11",
+ "decision": {
+  "selected": "track A (PR #29): prepared A/B/C recordings and the prepared recording of a server-checked catalog line",
+  "trackB": "PR #30 kept as an experiment: not merged, not deleted, not changed in this task; no code or voices moved to track A",
+  "scope": "conversation closing only; dynamic TTS latency of normal conversation turns is not solved by this decision",
+  "featureDefault": "off",
+  "merge": false,
+  "deployment": false
+ },
+ "heads": {
+  "pr29Reviewed": "5e4c494f93919febd4006a633a13d16c8ec33791",
+  "pr29AtTaskStart": "5e4c494f93919febd4006a633a13d16c8ec33791",
+  "pr30Reviewed": "ac26ee0d53d6a3415275b3771af0f117490e819e",
+  "pr30AtTaskStart": "ac26ee0d53d6a3415275b3771af0f117490e819e",
+  "selectionFixCommit": "bab8801"
+ },
+ "selectionFix": {
+  "reviewCases": [
+   {
+    "language": "tr",
+    "user": "Stres hakkında bir kitap okuyorum.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "topic-only",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "tr",
+    "user": "Stresli olursam sana söylerim.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "conditional",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "tr",
+    "user": "Stresliydim ama artık iyiyim.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "past-then-now",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "en",
+    "user": "I am reading a book about stress.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "topic-only",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "en",
+    "user": "If I feel stressed, I will tell you.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "conditional",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "en",
+    "user": "I was stressed, but now I feel fine.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "past-then-now",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "de",
+    "user": "Ich lese ein Buch über Stress.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "topic-only",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "de",
+    "user": "Falls ich gestresst bin, sage ich Bescheid.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "conditional",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   },
+   {
+    "language": "de",
+    "user": "Ich war gestresst, aber jetzt geht es mir gut.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "past-then-now",
+    "select": [
+     null,
+     "no-reliable-match"
+    ]
+   }
+  ],
+  "presentStatementsStillSelected": [
+   {
+    "language": "tr",
+    "user": "Çok stresliyim.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "accepted",
+    "select": [
+     "C02",
+     "catalog"
+    ]
+   },
+   {
+    "language": "en",
+    "user": "I am very stressed.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "accepted",
+    "select": [
+     "C02",
+     "catalog"
+    ]
+   },
+   {
+    "language": "de",
+    "user": "Ich bin sehr gestresst.",
+    "candidate": "C02, messageIndex 0, quote = whole message",
+    "before5e4c494": "accepted (select -> C02)",
+    "check": "accepted",
+    "select": [
+     "C02",
+     "catalog"
+    ]
+   }
+  ],
+  "newRefusalReasons": [
+   "topic-only",
+   "conditional",
+   "past-then-now"
+  ],
+  "oracleRowByRow": {
+   "comparison": {
+    "inputs": "docs/mental-structured/closing-abc-v1/comparison/round6-comparison-inputs.json",
+    "before": [
+     51,
+     51,
+     54,
+     54
+    ],
+    "after": [
+     51,
+     51,
+     54,
+     54
+    ],
+    "rowsChanged": 0,
+    "rows": 105,
+    "legacyFourRefused": true
+   },
+   "holdout": {
+    "inputs": "docs/mental-structured/closing-abc-v1/comparison/round6-holdout-inputs.json",
+    "before": [
+     12,
+     18,
+     9,
+     9
+    ],
+    "after": [
+     12,
+     18,
+     9,
+     9
+    ],
+    "rowsChanged": 0,
+    "rows": 27,
+    "legacyFourRefused": true
+   },
+   "holdout2": {
+    "inputs": "docs/mental-structured/closing-abc-v1/comparison/round6-holdout2-inputs.json",
+    "before": [
+     8,
+     12,
+     30,
+     30
+    ],
+    "after": [
+     8,
+     12,
+     30,
+     30
+    ],
+    "rowsChanged": 0,
+    "rows": 42,
+    "legacyFourRefused": true
+   }
+  },
+  "note": "Direct regression checks only. These checks reduce wrong lines; they do not prove meaning. The 93 live analyses were recorded at 7dcf505 before this fix and were not re-run; their provider quotes were not recorded."
+ },
+ "recordingsDelivery": {
+  "source": "PR #29 branch, apps/vehicle-app/public/audio/mental/closing-catalog/v1 (added in 7dcf505, unchanged at bab8801)",
+  "manifestCheck": "99/99 bytes and SHA-256 equal to the manifest; byte-equal to the git blobs",
+  "driveFolders": {
+   "tr": "1yxDAZOJMtJBwg4ZOvZASyG1lgLQDRTLJ",
+   "en": "1ex_hM6BP4o7DyhMdw-Dw6K5XxEo-RdNV",
+   "de": "1DSiGeKXimzyIMVyqphrJOIV-2coMm-Fn"
+  },
+  "uploaded": 99,
+  "perLanguage": {
+   "tr": 33,
+   "en": 33,
+   "de": 33
+  },
+  "maxBytes": 245804,
+  "totalBytes": 15863556,
+  "readBack": "99/99 downloaded through the Drive connector; bytes and SHA-256 equal to the manifest; Drive ids equal to the upload responses",
+  "awsOrRegeneration": false,
+  "rows": [
+   {
+    "language": "tr",
+    "patternId": "C01",
+    "fileName": "TR_C01.wav",
+    "exactText": "Üzerindeki baskıdan söz ettin.",
+    "durationSeconds": 2.6,
+    "bytes": 124844,
+    "sha256": "a9f449699985e9ae105942e5a423c8e52b75915ff20d6ea626be3d147deef199",
+    "driveFileId": "1C7nml4v5HVFDAFUgK29Pp8IJctnJZ6Dm",
+    "driveReadBack": {
+     "bytes": 124844,
+     "sha256": "a9f449699985e9ae105942e5a423c8e52b75915ff20d6ea626be3d147deef199",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C02",
+    "fileName": "TR_C02.wav",
+    "exactText": "Stres altında olduğundan söz ettin.",
+    "durationSeconds": 3.36,
+    "bytes": 161324,
+    "sha256": "af8c0f9e1f6c425956507ffb7f8612383b5eeed6d5958b0d4a80423c3ce52db4",
+    "driveFileId": "1wNIxHQ25AnDpvNUoGAfl2z4cJ82UFWfX",
+    "driveReadBack": {
+     "bytes": 161324,
+     "sha256": "af8c0f9e1f6c425956507ffb7f8612383b5eeed6d5958b0d4a80423c3ce52db4",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C03",
+    "fileName": "TR_C03.wav",
+    "exactText": "Kendini ifade etmekte zorlandığından bahsettin.",
+    "durationSeconds": 3.48,
+    "bytes": 167084,
+    "sha256": "e90085ad8f0ebe48399eae91be30ad54e46494dd2406ac5eca6e853f7c27b153",
+    "driveFileId": "1X7ByfrqtJ3ZsJCPe3M61FbzRY1sDOarg",
+    "driveReadBack": {
+     "bytes": 167084,
+     "sha256": "e90085ad8f0ebe48399eae91be30ad54e46494dd2406ac5eca6e853f7c27b153",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C04",
+    "fileName": "TR_C04.wav",
+    "exactText": "Yeterince dinlenemediğinden söz ettin.",
+    "durationSeconds": 3.08,
+    "bytes": 147884,
+    "sha256": "4004467a34cbb6c4e94cbeb4d9bcefc7be7090d710be7eee6724add0a0bad161",
+    "driveFileId": "1UZVH_idP0_vMQbycQMe8scrcXTDhNf3f",
+    "driveReadBack": {
+     "bytes": 147884,
+     "sha256": "4004467a34cbb6c4e94cbeb4d9bcefc7be7090d710be7eee6724add0a0bad161",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C05",
+    "fileName": "TR_C05.wav",
+    "exactText": "Bazı şeylere ilgini kaybettiğini belirttin.",
+    "durationSeconds": 3.68,
+    "bytes": 176684,
+    "sha256": "e337e6bea21543df4c70859befba8f2fe6add359690d4fa9fa90da420cfb2ef8",
+    "driveFileId": "1JHJXftOMTsI0XgvQnoKAZQRDpCOQeHAq",
+    "driveReadBack": {
+     "bytes": 176684,
+     "sha256": "e337e6bea21543df4c70859befba8f2fe6add359690d4fa9fa90da420cfb2ef8",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C06",
+    "fileName": "TR_C06.wav",
+    "exactText": "Sana yeterince ilgi gösterilmediğinden bahsettin.",
+    "durationSeconds": 4.04,
+    "bytes": 193964,
+    "sha256": "97bef71fa90972de510dc2abb79c5cb9c958443b3450161ffd6e1ad2d336096a",
+    "driveFileId": "1-HCp53HH4iE11CaUd84JAD44a7HdlFeI",
+    "driveReadBack": {
+     "bytes": 193964,
+     "sha256": "97bef71fa90972de510dc2abb79c5cb9c958443b3450161ffd6e1ad2d336096a",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C07",
+    "fileName": "TR_C07.wav",
+    "exactText": "Söylediklerine kulak verilmemesinden söz ettin.",
+    "durationSeconds": 3.72,
+    "bytes": 178604,
+    "sha256": "e1bd3ec4b76a070e1420973da494dacff97e4e2ec99e9fc908df60c229b90171",
+    "driveFileId": "1R5Z2O_sl8cD7ZcS_fsCNzFFClfBwsy_Q",
+    "driveReadBack": {
+     "bytes": 178604,
+     "sha256": "e1bd3ec4b76a070e1420973da494dacff97e4e2ec99e9fc908df60c229b90171",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C08",
+    "fileName": "TR_C08.wav",
+    "exactText": "Kendini yorgun hissettiğinden söz ettin.",
+    "durationSeconds": 2.84,
+    "bytes": 136364,
+    "sha256": "0f3347af94288f29e9e47f1c7aa48ecc0d23629be8f58d5e626f5c545ef3ffc3",
+    "driveFileId": "1_ja0jOdY5GXYex8ak40-F9ZvFi3L83Bv",
+    "driveReadBack": {
+     "bytes": 136364,
+     "sha256": "0f3347af94288f29e9e47f1c7aa48ecc0d23629be8f58d5e626f5c545ef3ffc3",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C09",
+    "fileName": "TR_C09.wav",
+    "exactText": "Uykuyla ilgili yaşadığın güçlüklerden söz ettin.",
+    "durationSeconds": 4.32,
+    "bytes": 207404,
+    "sha256": "7ee16a964a248387863a4ba57dd55e4b1082886336b3c6f7fa1f333edeadc062",
+    "driveFileId": "1liULDpUn8L-5KCzZlTUK85vwkncyDryA",
+    "driveReadBack": {
+     "bytes": 207404,
+     "sha256": "7ee16a964a248387863a4ba57dd55e4b1082886336b3c6f7fa1f333edeadc062",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C10",
+    "fileName": "TR_C10.wav",
+    "exactText": "Odaklanmakta zorlandığından söz ettin.",
+    "durationSeconds": 3.24,
+    "bytes": 155564,
+    "sha256": "cfe4903f83f516179d59e79f2bcd8999cc8cdc2a46ec56b1792f46f233797713",
+    "driveFileId": "1WPcSKr_lUm0D5_fNFO4OnQfxYM87ftbk",
+    "driveReadBack": {
+     "bytes": 155564,
+     "sha256": "cfe4903f83f516179d59e79f2bcd8999cc8cdc2a46ec56b1792f46f233797713",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C11",
+    "fileName": "TR_C11.wav",
+    "exactText": "Seni kaygılandıran konulardan söz ettin.",
+    "durationSeconds": 3.6,
+    "bytes": 172844,
+    "sha256": "8cb8b8a8068a452e99422d5d80f7c2f9d2b7b3b4d880f49df414abda3fa234b6",
+    "driveFileId": "1H9s6_aZE7ZOhVuKb8T8yFXern8g7BwwG",
+    "driveReadBack": {
+     "bytes": 172844,
+     "sha256": "8cb8b8a8068a452e99422d5d80f7c2f9d2b7b3b4d880f49df414abda3fa234b6",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C12",
+    "fileName": "TR_C12.wav",
+    "exactText": "Belirsizlikle baş etmekte zorlandığından söz ettin.",
+    "durationSeconds": 5.0,
+    "bytes": 240044,
+    "sha256": "f3cfc34c9ad47f7ca625ae4db03930829e579b8802b9600a8906778cb7f78cbe",
+    "driveFileId": "1iHyh05kag-d74JlNyZQHr5cHisOxAOf2",
+    "driveReadBack": {
+     "bytes": 240044,
+     "sha256": "f3cfc34c9ad47f7ca625ae4db03930829e579b8802b9600a8906778cb7f78cbe",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C13",
+    "fileName": "TR_C13.wav",
+    "exactText": "Karar vermekte zorlandığın konulardan söz ettin.",
+    "durationSeconds": 3.96,
+    "bytes": 190124,
+    "sha256": "aada4f7af5c9091ba41abe4b87f72a5eb1550d5e7da8a498fb29000bbfc4357a",
+    "driveFileId": "1xt2C0k1gSZiIr4UPvl9gj7Z94RWet4dB",
+    "driveReadBack": {
+     "bytes": 190124,
+     "sha256": "aada4f7af5c9091ba41abe4b87f72a5eb1550d5e7da8a498fb29000bbfc4357a",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C14",
+    "fileName": "TR_C14.wav",
+    "exactText": "Sorumluluklarının seni zorladığından söz ettin.",
+    "durationSeconds": 3.64,
+    "bytes": 174764,
+    "sha256": "eb12f58c785d5b58362d932248f022cf96ab021b28c82452af59aabdae24e1a1",
+    "driveFileId": "1lXu-BLNppwlDTLxEkvWoOkMYcaKFGClh",
+    "driveReadBack": {
+     "bytes": 174764,
+     "sha256": "eb12f58c785d5b58362d932248f022cf96ab021b28c82452af59aabdae24e1a1",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C15",
+    "fileName": "TR_C15.wav",
+    "exactText": "Beklentileri karşılamakta zorlandığından söz ettin.",
+    "durationSeconds": 4.04,
+    "bytes": 193964,
+    "sha256": "907a3e7a4bb9463748875c22cd7fa0d44fc266db729c83636ab9dd475497a02d",
+    "driveFileId": "1Y8Z65_yAbzz_x-QXp6z7nGj02bLTnso3",
+    "driveReadBack": {
+     "bytes": 193964,
+     "sha256": "907a3e7a4bb9463748875c22cd7fa0d44fc266db729c83636ab9dd475497a02d",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C16",
+    "fileName": "TR_C16.wav",
+    "exactText": "Kendine zaman ayırmakta zorlandığından söz ettin.",
+    "durationSeconds": 4.4,
+    "bytes": 211244,
+    "sha256": "5675cc8d31efb58326c8cbd8a762bf3fd3bb1f6ac4ad6f7dbd7d337e8e69e2e2",
+    "driveFileId": "1AY_Rg72UNCvFu_1tPA4f0I2gwaXjHdw9",
+    "driveReadBack": {
+     "bytes": 211244,
+     "sha256": "5675cc8d31efb58326c8cbd8a762bf3fd3bb1f6ac4ad6f7dbd7d337e8e69e2e2",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C17",
+    "fileName": "TR_C17.wav",
+    "exactText": "Kendini yalnız hissettiğinden söz ettin.",
+    "durationSeconds": 2.76,
+    "bytes": 132524,
+    "sha256": "9b187f42ff8f7d264eff18d4b65ab6c173f98525a2fa6da32051fc049b61a653",
+    "driveFileId": "17D4CatPGilCDDgQmN5jt8bdcYSldoT31",
+    "driveReadBack": {
+     "bytes": 132524,
+     "sha256": "9b187f42ff8f7d264eff18d4b65ab6c173f98525a2fa6da32051fc049b61a653",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C18",
+    "fileName": "TR_C18.wav",
+    "exactText": "Özlem duyduğun kişilerden söz ettin.",
+    "durationSeconds": 3.24,
+    "bytes": 155564,
+    "sha256": "bd5cedde1c143ddc6663a59c920e355fa472f67683fc187796b9b4b830715ce0",
+    "driveFileId": "18Bn-2G6sBoe2QMz9yLxfj0hgg1_SfmU2",
+    "driveReadBack": {
+     "bytes": 155564,
+     "sha256": "bd5cedde1c143ddc6663a59c920e355fa472f67683fc187796b9b4b830715ce0",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C19",
+    "fileName": "TR_C19.wav",
+    "exactText": "Anlaşılmadığını hissettiğinden söz ettin.",
+    "durationSeconds": 3.0,
+    "bytes": 144044,
+    "sha256": "7aeb9da491eeceaff36e075c30474a3fca9176dac0fbda1ac7137706d905977f",
+    "driveFileId": "1Mfb_uKrVmE9kUDPaBIbzgWMA2ZgURJgv",
+    "driveReadBack": {
+     "bytes": 144044,
+     "sha256": "7aeb9da491eeceaff36e075c30474a3fca9176dac0fbda1ac7137706d905977f",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C20",
+    "fileName": "TR_C20.wav",
+    "exactText": "Yaşadığın anlaşmazlıklardan söz ettin.",
+    "durationSeconds": 3.44,
+    "bytes": 165164,
+    "sha256": "f524aded75ead2f26d714f4837e99e8562435d70ec8e29ade77b313263ca217b",
+    "driveFileId": "1ch6rTQhd11BomXVJUrore8CCWuwDmv6Z",
+    "driveReadBack": {
+     "bytes": 165164,
+     "sha256": "f524aded75ead2f26d714f4837e99e8562435d70ec8e29ade77b313263ca217b",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C21",
+    "fileName": "TR_C21.wav",
+    "exactText": "Sınır koymakta zorlandığın durumlardan söz ettin.",
+    "durationSeconds": 3.72,
+    "bytes": 178604,
+    "sha256": "739be22eab8ae074f3b5ced638d901a7815d73fcf292e0ddc28ca0c0f505745b",
+    "driveFileId": "1Lo5y3kxT7LTuBvyMMccDUO8jTlJFtmG_",
+    "driveReadBack": {
+     "bytes": 178604,
+     "sha256": "739be22eab8ae074f3b5ced638d901a7815d73fcf292e0ddc28ca0c0f505745b",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C22",
+    "fileName": "TR_C22.wav",
+    "exactText": "Değişimlere uyum sağlamakta zorlandığından söz ettin.",
+    "durationSeconds": 4.04,
+    "bytes": 193964,
+    "sha256": "dad00ce3c835e2378b0c16f2b97781778d88c83f969b5b1d387447c3dc09ca77",
+    "driveFileId": "1Krvzxv0NyK3_M7JftxRq1Y8kH1PVKWAX",
+    "driveReadBack": {
+     "bytes": 193964,
+     "sha256": "dad00ce3c835e2378b0c16f2b97781778d88c83f969b5b1d387447c3dc09ca77",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C23",
+    "fileName": "TR_C23.wav",
+    "exactText": "Seni üzen konulardan söz ettin.",
+    "durationSeconds": 2.72,
+    "bytes": 130604,
+    "sha256": "94fd6a2ede217e0247b1b4c0788a01693b6621b03a0801feab8f99494fc8b44f",
+    "driveFileId": "1Q6enf_3YDQR0BVF9wphknHGZ-RSzr45o",
+    "driveReadBack": {
+     "bytes": 130604,
+     "sha256": "94fd6a2ede217e0247b1b4c0788a01693b6621b03a0801feab8f99494fc8b44f",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C24",
+    "fileName": "TR_C24.wav",
+    "exactText": "Yaşadığın hayal kırıklığından söz ettin.",
+    "durationSeconds": 2.88,
+    "bytes": 138284,
+    "sha256": "be0ae537d7dc59cbdd08a77ad3b23a2b4c9619bb7599fdf416609cb5ada454f9",
+    "driveFileId": "1exX112nwaYyjYOFplpEgI4ke7heADaPv",
+    "driveReadBack": {
+     "bytes": 138284,
+     "sha256": "be0ae537d7dc59cbdd08a77ad3b23a2b4c9619bb7599fdf416609cb5ada454f9",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C25",
+    "fileName": "TR_C25.wav",
+    "exactText": "Seni öfkelendiren durumlardan söz ettin.",
+    "durationSeconds": 3.64,
+    "bytes": 174764,
+    "sha256": "28e209455bff2fbd49bc444b8a44b4aa81c11352136f846d2e28327879095c96",
+    "driveFileId": "1vtQPsNXLNvPc8kAtmpkokyarWZzJ7eIg",
+    "driveReadBack": {
+     "bytes": 174764,
+     "sha256": "28e209455bff2fbd49bc444b8a44b4aa81c11352136f846d2e28327879095c96",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C26",
+    "fileName": "TR_C26.wav",
+    "exactText": "Kendine güvenmekte zorlandığından söz ettin.",
+    "durationSeconds": 3.36,
+    "bytes": 161324,
+    "sha256": "a79d8a3480a753f453721061d4e21b738fabdde322c9f0b25b1be2ca66b556c1",
+    "driveFileId": "1xVkfUfv-OK1-FG-Uk0iYtSUDQcgSeRkj",
+    "driveReadBack": {
+     "bytes": 161324,
+     "sha256": "a79d8a3480a753f453721061d4e21b738fabdde322c9f0b25b1be2ca66b556c1",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C27",
+    "fileName": "TR_C27.wav",
+    "exactText": "Sana iyi gelen şeylerden söz ettin.",
+    "durationSeconds": 2.76,
+    "bytes": 132524,
+    "sha256": "78f0bb7055a66d088cb71138d8d92a11c05db60e5fa267836b73c5b75e3d4eff",
+    "driveFileId": "1WeMDMcFn3qaak5Qrud7caYd0SsxJOQV9",
+    "driveReadBack": {
+     "bytes": 132524,
+     "sha256": "78f0bb7055a66d088cb71138d8d92a11c05db60e5fa267836b73c5b75e3d4eff",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C28",
+    "fileName": "TR_C28.wav",
+    "exactText": "Çevrenden gördüğün destekten söz ettin.",
+    "durationSeconds": 3.04,
+    "bytes": 145964,
+    "sha256": "b7fcdb48828efb13e4a9dceaab68a18aa5c0af80c9152434f323087c592d0102",
+    "driveFileId": "1LYZbNdY6pG9m1hQufCs_R22cuXialhGq",
+    "driveReadBack": {
+     "bytes": 145964,
+     "sha256": "b7fcdb48828efb13e4a9dceaab68a18aa5c0af80c9152434f323087c592d0102",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C29",
+    "fileName": "TR_C29.wav",
+    "exactText": "Kendini rahatlamış hissettiğinden söz ettin.",
+    "durationSeconds": 3.56,
+    "bytes": 170924,
+    "sha256": "813595e6a9fc5e32346ffba1f75a306042e2b76d9d832856759ee5cb0955d765",
+    "driveFileId": "1ex-3qsOcX_269paJ8O3obCjnVhSdP79A",
+    "driveReadBack": {
+     "bytes": 170924,
+     "sha256": "813595e6a9fc5e32346ffba1f75a306042e2b76d9d832856759ee5cb0955d765",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C30",
+    "fileName": "TR_C30.wav",
+    "exactText": "Seni mutlu eden gelişmelerden söz ettin.",
+    "durationSeconds": 3.68,
+    "bytes": 176684,
+    "sha256": "4f3276116dd9dbe209405f5ef3d666c4caa86bd4887f98d6d6cc8c0fb4c79beb",
+    "driveFileId": "18sepLu6MQY49kf6Qo32JP6B6iTdvXELg",
+    "driveReadBack": {
+     "bytes": 176684,
+     "sha256": "4f3276116dd9dbe209405f5ef3d666c4caa86bd4887f98d6d6cc8c0fb4c79beb",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C31",
+    "fileName": "TR_C31.wav",
+    "exactText": "Geleceğe ilişkin umutlarından söz ettin.",
+    "durationSeconds": 3.4,
+    "bytes": 163244,
+    "sha256": "d563fdf22999d4963cfac08f66beb71b1569b31268d6f6e567a27ee806f56a45",
+    "driveFileId": "1WHR3RM2B4EKe5FNLwmXEyYDHF8kTg3ri",
+    "driveReadBack": {
+     "bytes": 163244,
+     "sha256": "d563fdf22999d4963cfac08f66beb71b1569b31268d6f6e567a27ee806f56a45",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C32",
+    "fileName": "TR_C32.wav",
+    "exactText": "Ulaşmak istediğin hedeflerden söz ettin.",
+    "durationSeconds": 3.4,
+    "bytes": 163244,
+    "sha256": "bdb9e30f60f2251ed5ffa6646bded6c42f74c045822b6f9554a3b05188ac1ee7",
+    "driveFileId": "140KVfnl_ipeh0Lj6Hij0_kGLqSzS5TVz",
+    "driveReadBack": {
+     "bytes": 163244,
+     "sha256": "bdb9e30f60f2251ed5ffa6646bded6c42f74c045822b6f9554a3b05188ac1ee7",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "tr",
+    "patternId": "C33",
+    "fileName": "TR_C33.wav",
+    "exactText": "Kendinle gurur duyduğun bir deneyimden söz ettin.",
+    "durationSeconds": 4.56,
+    "bytes": 218924,
+    "sha256": "ee7cad7ef5759b7b6400c1e98bae40f47f923f0e63b95ebb35e8690bf17e081b",
+    "driveFileId": "1oOxkgoL-ZwOTSJ1HswChowxHAzV71h_d",
+    "driveReadBack": {
+     "bytes": 218924,
+     "sha256": "ee7cad7ef5759b7b6400c1e98bae40f47f923f0e63b95ebb35e8690bf17e081b",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C01",
+    "fileName": "EN_C01.wav",
+    "exactText": "You talked about the pressure you are under.",
+    "durationSeconds": 2.48,
+    "bytes": 119084,
+    "sha256": "706009a700ce05071496fc3285278bff5d0f20eac41cd391075d631b26786e31",
+    "driveFileId": "1daCz9AMvtInRr_NOK9nNn3FgklMnBVqg",
+    "driveReadBack": {
+     "bytes": 119084,
+     "sha256": "706009a700ce05071496fc3285278bff5d0f20eac41cd391075d631b26786e31",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C02",
+    "fileName": "EN_C02.wav",
+    "exactText": "You talked about being under stress.",
+    "durationSeconds": 2.36,
+    "bytes": 113324,
+    "sha256": "1d26e9ba888f5315f551845ed7dd799dd0753f77b2189539f99abed81d4be025",
+    "driveFileId": "1rGh2Hutq72E5tWxJGhGwolT5v7WNcnIJ",
+    "driveReadBack": {
+     "bytes": 113324,
+     "sha256": "1d26e9ba888f5315f551845ed7dd799dd0753f77b2189539f99abed81d4be025",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C03",
+    "fileName": "EN_C03.wav",
+    "exactText": "You talked about finding it hard to express yourself.",
+    "durationSeconds": 3.16,
+    "bytes": 151724,
+    "sha256": "22e26f59ab661f0e965cc84eec197025c253869178097c9ec895c74c3e25d50b",
+    "driveFileId": "1IZdgnIGxYDXg2CJG5R7fw6ToSdSiqQkj",
+    "driveReadBack": {
+     "bytes": 151724,
+     "sha256": "22e26f59ab661f0e965cc84eec197025c253869178097c9ec895c74c3e25d50b",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C04",
+    "fileName": "EN_C04.wav",
+    "exactText": "You talked about not getting enough rest.",
+    "durationSeconds": 2.64,
+    "bytes": 126764,
+    "sha256": "35bad1aafae8451a70d175470e83e9ee81a40648b4a429dde4e554da089174a2",
+    "driveFileId": "12ntrjQUTNQHTrz5aErNAdSD4jMMGCa21",
+    "driveReadBack": {
+     "bytes": 126764,
+     "sha256": "35bad1aafae8451a70d175470e83e9ee81a40648b4a429dde4e554da089174a2",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C05",
+    "fileName": "EN_C05.wav",
+    "exactText": "You mentioned losing interest in some things.",
+    "durationSeconds": 2.56,
+    "bytes": 122924,
+    "sha256": "0d8875aa9be8e22688ea61da704c8728bc6b3690367832c37cb11ee5492e4527",
+    "driveFileId": "1HIXOCWJx9x6OS9nsCNv2d7kAYUltLTDO",
+    "driveReadBack": {
+     "bytes": 122924,
+     "sha256": "0d8875aa9be8e22688ea61da704c8728bc6b3690367832c37cb11ee5492e4527",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C06",
+    "fileName": "EN_C06.wav",
+    "exactText": "You talked about not getting enough attention.",
+    "durationSeconds": 2.68,
+    "bytes": 128684,
+    "sha256": "b3e4c3254f78c5be6ca6f2abaf8b180f674a79966654842426a52d330798f5e0",
+    "driveFileId": "1eQUfHzTtEe8113redyZooOkAs2oqZ7bv",
+    "driveReadBack": {
+     "bytes": 128684,
+     "sha256": "b3e4c3254f78c5be6ca6f2abaf8b180f674a79966654842426a52d330798f5e0",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C07",
+    "fileName": "EN_C07.wav",
+    "exactText": "You talked about not being listened to.",
+    "durationSeconds": 2.24,
+    "bytes": 107564,
+    "sha256": "fd0a54d50bd07e2497fd3b97d2a3147d2a13648718ff0959294893cf742c6316",
+    "driveFileId": "1MhOXHPTfRUgB85OMp6KxtURQpJH2ZP3Z",
+    "driveReadBack": {
+     "bytes": 107564,
+     "sha256": "fd0a54d50bd07e2497fd3b97d2a3147d2a13648718ff0959294893cf742c6316",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C08",
+    "fileName": "EN_C08.wav",
+    "exactText": "You talked about feeling tired.",
+    "durationSeconds": 1.92,
+    "bytes": 92204,
+    "sha256": "1b43c21bff103d19bfcc591e85e6e177199b39a2094f9fe098149b4ecedf34a2",
+    "driveFileId": "1FmdgSA3bxJvDh8Gh1zdHjwTb3jDJZttd",
+    "driveReadBack": {
+     "bytes": 92204,
+     "sha256": "1b43c21bff103d19bfcc591e85e6e177199b39a2094f9fe098149b4ecedf34a2",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C09",
+    "fileName": "EN_C09.wav",
+    "exactText": "You talked about difficulties with sleep.",
+    "durationSeconds": 2.32,
+    "bytes": 111404,
+    "sha256": "3492907dd033d019d5d6b78e99e4f06a2b3022d5392ed469e6a2680e89b94600",
+    "driveFileId": "1_BmEgRlUypvtb6LPzHME3oGn8p6J0UgT",
+    "driveReadBack": {
+     "bytes": 111404,
+     "sha256": "3492907dd033d019d5d6b78e99e4f06a2b3022d5392ed469e6a2680e89b94600",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C10",
+    "fileName": "EN_C10.wav",
+    "exactText": "You talked about finding it hard to concentrate.",
+    "durationSeconds": 3.08,
+    "bytes": 147884,
+    "sha256": "43a428524b01abf7d46a8ca3212a00385678f1582be471b8fa6335713df77233",
+    "driveFileId": "1XWzzNxo-8l7bQdFg9Im3MG1tnvX8yhZe",
+    "driveReadBack": {
+     "bytes": 147884,
+     "sha256": "43a428524b01abf7d46a8ca3212a00385678f1582be471b8fa6335713df77233",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C11",
+    "fileName": "EN_C11.wav",
+    "exactText": "You talked about things that worry you.",
+    "durationSeconds": 2.48,
+    "bytes": 119084,
+    "sha256": "bd4500249d17ad82e952277a0e15ccb06c1e17b6912a9bfbae4c7d2179869ad1",
+    "driveFileId": "1nask2NOmMiZxrjGY5WoUxtZr8E4JqDsQ",
+    "driveReadBack": {
+     "bytes": 119084,
+     "sha256": "bd4500249d17ad82e952277a0e15ccb06c1e17b6912a9bfbae4c7d2179869ad1",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C12",
+    "fileName": "EN_C12.wav",
+    "exactText": "You talked about finding uncertainty hard to cope with.",
+    "durationSeconds": 3.52,
+    "bytes": 169004,
+    "sha256": "f26c2078e20d3986ff270eff649afef5948506f34d6970181bbf89317d800615",
+    "driveFileId": "1vhnect-2ky3IBdtlyNorJRMkFZbdtjh4",
+    "driveReadBack": {
+     "bytes": 169004,
+     "sha256": "f26c2078e20d3986ff270eff649afef5948506f34d6970181bbf89317d800615",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C13",
+    "fileName": "EN_C13.wav",
+    "exactText": "You talked about decisions you find hard to make.",
+    "durationSeconds": 2.8,
+    "bytes": 134444,
+    "sha256": "a012b3a8e034cbdf2137405ff9194cf7c74c56a09e0b66e6e942ec1cc64f9780",
+    "driveFileId": "176lxXx7zztK5ugjq5qi7S02dQelz76x4",
+    "driveReadBack": {
+     "bytes": 134444,
+     "sha256": "a012b3a8e034cbdf2137405ff9194cf7c74c56a09e0b66e6e942ec1cc64f9780",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C14",
+    "fileName": "EN_C14.wav",
+    "exactText": "You talked about your responsibilities weighing on you.",
+    "durationSeconds": 3.24,
+    "bytes": 155564,
+    "sha256": "bd5d565fb9ddab5c8b0d29370ff97c728a4e40f7806747a8b7b987803aa3e696",
+    "driveFileId": "1vMdaz_dLCv313MxIqOy6PA92cSzV4gt4",
+    "driveReadBack": {
+     "bytes": 155564,
+     "sha256": "bd5d565fb9ddab5c8b0d29370ff97c728a4e40f7806747a8b7b987803aa3e696",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C15",
+    "fileName": "EN_C15.wav",
+    "exactText": "You talked about struggling to meet expectations.",
+    "durationSeconds": 3.2,
+    "bytes": 153644,
+    "sha256": "c3231a56f62ff3ade17a8bd6455b19219a292ab0cc07036dbac44b12993c877e",
+    "driveFileId": "1o3XW2UfOlVfET8aWX4CM-1H6oQd_H40s",
+    "driveReadBack": {
+     "bytes": 153644,
+     "sha256": "c3231a56f62ff3ade17a8bd6455b19219a292ab0cc07036dbac44b12993c877e",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C16",
+    "fileName": "EN_C16.wav",
+    "exactText": "You talked about finding it hard to make time for yourself.",
+    "durationSeconds": 3.24,
+    "bytes": 155564,
+    "sha256": "51cf8349f804c6c53dc0d94bc9478578472115e73e0ae3002cdc37c4f1bfeba0",
+    "driveFileId": "10Y626bM1EWT2hZ-IV1NyIHFLZO8nKoT4",
+    "driveReadBack": {
+     "bytes": 155564,
+     "sha256": "51cf8349f804c6c53dc0d94bc9478578472115e73e0ae3002cdc37c4f1bfeba0",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C17",
+    "fileName": "EN_C17.wav",
+    "exactText": "You talked about feeling lonely.",
+    "durationSeconds": 2.4,
+    "bytes": 115244,
+    "sha256": "611e4eedce7f1b9410985c909507c8c34ff37a22c0398e6c1888dda4004e094f",
+    "driveFileId": "19tZntSy1JmO8whUnz873r6noJChcV_Da",
+    "driveReadBack": {
+     "bytes": 115244,
+     "sha256": "611e4eedce7f1b9410985c909507c8c34ff37a22c0398e6c1888dda4004e094f",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C18",
+    "fileName": "EN_C18.wav",
+    "exactText": "You talked about people you miss.",
+    "durationSeconds": 2.08,
+    "bytes": 99884,
+    "sha256": "4a62dc60db186782625cbf78d37d80ca9544cccc71f9651f08d191b81eadc74b",
+    "driveFileId": "1eYt-44ijaO3e7Rw5Nl1-RWtqJispKt5D",
+    "driveReadBack": {
+     "bytes": 99884,
+     "sha256": "4a62dc60db186782625cbf78d37d80ca9544cccc71f9651f08d191b81eadc74b",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C19",
+    "fileName": "EN_C19.wav",
+    "exactText": "You talked about feeling misunderstood.",
+    "durationSeconds": 2.44,
+    "bytes": 117164,
+    "sha256": "12f1412605fc426d86b60017fed3567595c478afc3799ae33662d7c615f9bbbc",
+    "driveFileId": "1rI4LSQ-XbOu5ivZDqtabM7IDPtnvCkF8",
+    "driveReadBack": {
+     "bytes": 117164,
+     "sha256": "12f1412605fc426d86b60017fed3567595c478afc3799ae33662d7c615f9bbbc",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C20",
+    "fileName": "EN_C20.wav",
+    "exactText": "You talked about disagreements you have had.",
+    "durationSeconds": 2.76,
+    "bytes": 132524,
+    "sha256": "466582917f39372b81764633fde31611814b1ec62364f10c6c277116e716070d",
+    "driveFileId": "1uQFvcTtxTmq24ha07RQWAG9INC-29loC",
+    "driveReadBack": {
+     "bytes": 132524,
+     "sha256": "466582917f39372b81764633fde31611814b1ec62364f10c6c277116e716070d",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C21",
+    "fileName": "EN_C21.wav",
+    "exactText": "You talked about finding it hard to set boundaries.",
+    "durationSeconds": 2.8,
+    "bytes": 134444,
+    "sha256": "cd5e4f232f1798a931c531099156b2f42a07e607ecf6e7745387d62a102ed5d5",
+    "driveFileId": "1fpHUsMzYNsacvV5ozmX_1wSPoEG3H86g",
+    "driveReadBack": {
+     "bytes": 134444,
+     "sha256": "cd5e4f232f1798a931c531099156b2f42a07e607ecf6e7745387d62a102ed5d5",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C22",
+    "fileName": "EN_C22.wav",
+    "exactText": "You talked about finding it hard to adapt to changes.",
+    "durationSeconds": 3.64,
+    "bytes": 174764,
+    "sha256": "b29cb8d106261f3ed63918999132cf0a3f5e039519c915c1430aa1f2bd9029f7",
+    "driveFileId": "1hOxAqqPup3HsDxb_fZWJyOUkiE-kPxek",
+    "driveReadBack": {
+     "bytes": 174764,
+     "sha256": "b29cb8d106261f3ed63918999132cf0a3f5e039519c915c1430aa1f2bd9029f7",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C23",
+    "fileName": "EN_C23.wav",
+    "exactText": "You talked about things that make you sad.",
+    "durationSeconds": 2.64,
+    "bytes": 126764,
+    "sha256": "b2fe47661bd4fa8ee87c6740fb296189eac84d15a07d6304817ea04e41d87d57",
+    "driveFileId": "1FU5BKZQSLt4KBLVWX7jyHyQpZWdUBM1K",
+    "driveReadBack": {
+     "bytes": 126764,
+     "sha256": "b2fe47661bd4fa8ee87c6740fb296189eac84d15a07d6304817ea04e41d87d57",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C24",
+    "fileName": "EN_C24.wav",
+    "exactText": "You talked about a disappointment you experienced.",
+    "durationSeconds": 2.84,
+    "bytes": 136364,
+    "sha256": "d0e1a777450fe90ad9e26566b1583045ec157616fc73929d77a167d39b0dfe4c",
+    "driveFileId": "1upHv0Bg_4-UOgf_IbYNFZsEAygp6WbZ2",
+    "driveReadBack": {
+     "bytes": 136364,
+     "sha256": "d0e1a777450fe90ad9e26566b1583045ec157616fc73929d77a167d39b0dfe4c",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C25",
+    "fileName": "EN_C25.wav",
+    "exactText": "You talked about situations that make you angry.",
+    "durationSeconds": 2.96,
+    "bytes": 142124,
+    "sha256": "dcc1166bdf8645128170a67d2e03492c02facac9fbe37400d680b155576720ec",
+    "driveFileId": "1ar3LAaXVfOkFdY2puErq15d9ZPal8BJX",
+    "driveReadBack": {
+     "bytes": 142124,
+     "sha256": "dcc1166bdf8645128170a67d2e03492c02facac9fbe37400d680b155576720ec",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C26",
+    "fileName": "EN_C26.wav",
+    "exactText": "You talked about finding it hard to trust yourself.",
+    "durationSeconds": 2.88,
+    "bytes": 138284,
+    "sha256": "16f06c4a86339d9df07beb689c2dff429a42c63aeff6dd0c8e9f99be708bf970",
+    "driveFileId": "1yCs4_HIoSJDPgqr6ABNVAP6oWNcbDAdU",
+    "driveReadBack": {
+     "bytes": 138284,
+     "sha256": "16f06c4a86339d9df07beb689c2dff429a42c63aeff6dd0c8e9f99be708bf970",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C27",
+    "fileName": "EN_C27.wav",
+    "exactText": "You talked about things that do you good.",
+    "durationSeconds": 2.84,
+    "bytes": 136364,
+    "sha256": "31459253f6a03b24a439f3bbf487c9eb0ae269216be6bfaa73464e0e5b31b2c6",
+    "driveFileId": "1tT69RzWcm7HwpMNop736HPZcEjIWqiZo",
+    "driveReadBack": {
+     "bytes": 136364,
+     "sha256": "31459253f6a03b24a439f3bbf487c9eb0ae269216be6bfaa73464e0e5b31b2c6",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C28",
+    "fileName": "EN_C28.wav",
+    "exactText": "You talked about the support you get from people around you.",
+    "durationSeconds": 3.12,
+    "bytes": 149804,
+    "sha256": "d7b67ae0f038edbc09e43b578dd68639b72e7995ef395f7cdf30e3e42567605d",
+    "driveFileId": "101QsGVcicpsKwppIojrE5-wy1PoOCgyj",
+    "driveReadBack": {
+     "bytes": 149804,
+     "sha256": "d7b67ae0f038edbc09e43b578dd68639b72e7995ef395f7cdf30e3e42567605d",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C29",
+    "fileName": "EN_C29.wav",
+    "exactText": "You talked about feeling relieved.",
+    "durationSeconds": 2.16,
+    "bytes": 103724,
+    "sha256": "48774ba82caa98e6bf7b575417dfe73de75c0e24d00225d3960da0b70672f082",
+    "driveFileId": "1REp_iqobqO1ZF1kfs9JA6bfDWP6ryC90",
+    "driveReadBack": {
+     "bytes": 103724,
+     "sha256": "48774ba82caa98e6bf7b575417dfe73de75c0e24d00225d3960da0b70672f082",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C30",
+    "fileName": "EN_C30.wav",
+    "exactText": "You talked about developments that make you happy.",
+    "durationSeconds": 2.6,
+    "bytes": 124844,
+    "sha256": "8ab96675f2c75d419000d2fc0d254690a69d5fd067122f2f101194dc90391005",
+    "driveFileId": "1s1OiTHpfhUhiSmHVibPKApO4-bzED3iG",
+    "driveReadBack": {
+     "bytes": 124844,
+     "sha256": "8ab96675f2c75d419000d2fc0d254690a69d5fd067122f2f101194dc90391005",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C31",
+    "fileName": "EN_C31.wav",
+    "exactText": "You talked about your hopes for the future.",
+    "durationSeconds": 2.4,
+    "bytes": 115244,
+    "sha256": "f8c9ef229ea29fa8e2079300fe51c17701b3cbcda626bd87739dda4c32d37657",
+    "driveFileId": "1m3KZfKwWiWqKTZYqY04HHoNVVHZGYRAX",
+    "driveReadBack": {
+     "bytes": 115244,
+     "sha256": "f8c9ef229ea29fa8e2079300fe51c17701b3cbcda626bd87739dda4c32d37657",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C32",
+    "fileName": "EN_C32.wav",
+    "exactText": "You talked about goals you want to reach.",
+    "durationSeconds": 2.52,
+    "bytes": 121004,
+    "sha256": "8d4c2e198755445ca7d1f3b8afcd87ff031382dc2b7b6b4c951fc7902dac7997",
+    "driveFileId": "1ehA14iaRUHNjffXi7KlYQ6PwaHQAqyXE",
+    "driveReadBack": {
+     "bytes": 121004,
+     "sha256": "8d4c2e198755445ca7d1f3b8afcd87ff031382dc2b7b6b4c951fc7902dac7997",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "en",
+    "patternId": "C33",
+    "fileName": "EN_C33.wav",
+    "exactText": "You talked about an experience you are proud of.",
+    "durationSeconds": 2.84,
+    "bytes": 136364,
+    "sha256": "5fcf6782e7c546664bda6c35c52580f24b8e621899b763e6659e730937f94e28",
+    "driveFileId": "1BMt5Zy8KCtP_YPiGhLQ8KwNPXGxftvwB",
+    "driveReadBack": {
+     "bytes": 136364,
+     "sha256": "5fcf6782e7c546664bda6c35c52580f24b8e621899b763e6659e730937f94e28",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C01",
+    "fileName": "DE_C01.wav",
+    "exactText": "Sie sprachen über den Druck, der auf Ihnen lastet.",
+    "durationSeconds": 3.32,
+    "bytes": 159404,
+    "sha256": "a7d9a5645d3e43592ce582f7871e4e3fd5a5f2495bd20a89e44dd59dc937f5f3",
+    "driveFileId": "1o6BFcW-jmxJ0Y5x-seOK2pJqyC5IBRdr",
+    "driveReadBack": {
+     "bytes": 159404,
+     "sha256": "a7d9a5645d3e43592ce582f7871e4e3fd5a5f2495bd20a89e44dd59dc937f5f3",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C02",
+    "fileName": "DE_C02.wav",
+    "exactText": "Sie sprachen darüber, dass Sie unter Stress stehen.",
+    "durationSeconds": 3.32,
+    "bytes": 159404,
+    "sha256": "bd3e58e126532d228b024808945995f11f973412deb184b59a914d62591b741a",
+    "driveFileId": "1W6DOX0FpQMCwH3GXKujroN5HaC2tfcuG",
+    "driveReadBack": {
+     "bytes": 159404,
+     "sha256": "bd3e58e126532d228b024808945995f11f973412deb184b59a914d62591b741a",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C03",
+    "fileName": "DE_C03.wav",
+    "exactText": "Sie sprachen darüber, dass es Ihnen schwerfällt, sich auszudrücken.",
+    "durationSeconds": 4.32,
+    "bytes": 207404,
+    "sha256": "dcd98159b4bf22c82b5197f2610069af5c73f48ecd786c732b344c7ce40851b8",
+    "driveFileId": "1pkUo-s7Ud0N3Brwr2AG--z9VUY_zuRLJ",
+    "driveReadBack": {
+     "bytes": 207404,
+     "sha256": "dcd98159b4bf22c82b5197f2610069af5c73f48ecd786c732b344c7ce40851b8",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C04",
+    "fileName": "DE_C04.wav",
+    "exactText": "Sie sprachen darüber, dass Sie sich nicht genug erholen können.",
+    "durationSeconds": 4.4,
+    "bytes": 211244,
+    "sha256": "1548799ccbd4f6139ca373caabc9bb1d339ffe575fa9db55c2ec196c107bd578",
+    "driveFileId": "1Ib_Fwfvvj6GLArMoXay_qhyjcVPZ8mQI",
+    "driveReadBack": {
+     "bytes": 211244,
+     "sha256": "1548799ccbd4f6139ca373caabc9bb1d339ffe575fa9db55c2ec196c107bd578",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C05",
+    "fileName": "DE_C05.wav",
+    "exactText": "Sie erwähnten, dass Sie an manchen Dingen das Interesse verloren haben.",
+    "durationSeconds": 4.44,
+    "bytes": 213164,
+    "sha256": "31d483450995a4a07ceb6ca11b1fdf4b7658ca5f7b0df929c38a17c9d4925cde",
+    "driveFileId": "1WFP9oVf9t0HX-G5jBmMdqieS24Pb1Cxx",
+    "driveReadBack": {
+     "bytes": 213164,
+     "sha256": "31d483450995a4a07ceb6ca11b1fdf4b7658ca5f7b0df929c38a17c9d4925cde",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C06",
+    "fileName": "DE_C06.wav",
+    "exactText": "Sie sprachen darüber, dass Ihnen zu wenig Aufmerksamkeit geschenkt wird.",
+    "durationSeconds": 4.6,
+    "bytes": 220844,
+    "sha256": "f489188534a415f8a4cb14556c8265873f3afae7bc481b6cdacdd310cd2711e8",
+    "driveFileId": "1eXh5FwVCLawT32QmKyVA45En1_Tmcr_v",
+    "driveReadBack": {
+     "bytes": 220844,
+     "sha256": "f489188534a415f8a4cb14556c8265873f3afae7bc481b6cdacdd310cd2711e8",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C07",
+    "fileName": "DE_C07.wav",
+    "exactText": "Sie sprachen darüber, dass Ihnen nicht zugehört wird.",
+    "durationSeconds": 3.24,
+    "bytes": 155564,
+    "sha256": "58f65f111e154c6a46bc079c6fb72b83c05c3e4650af676b76abc08ae2bfc780",
+    "driveFileId": "10mg-fKF2lKbI2CdNbg9QZT5iSN2CKKKJ",
+    "driveReadBack": {
+     "bytes": 155564,
+     "sha256": "58f65f111e154c6a46bc079c6fb72b83c05c3e4650af676b76abc08ae2bfc780",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C08",
+    "fileName": "DE_C08.wav",
+    "exactText": "Sie sprachen darüber, dass Sie sich müde fühlen.",
+    "durationSeconds": 3.16,
+    "bytes": 151724,
+    "sha256": "8538ad69366e32d1d601ee69e540a3212035a1b298b665c3a3abd8976154a97a",
+    "driveFileId": "11s0li6-3jREe7D9ErD2LdQmrhm3-jXIE",
+    "driveReadBack": {
+     "bytes": 151724,
+     "sha256": "8538ad69366e32d1d601ee69e540a3212035a1b298b665c3a3abd8976154a97a",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C09",
+    "fileName": "DE_C09.wav",
+    "exactText": "Sie sprachen über Ihre Schwierigkeiten mit dem Schlaf.",
+    "durationSeconds": 3.08,
+    "bytes": 147884,
+    "sha256": "b7c672802ea83288410f7ffed55083b6400d8d5675bdf0b6d2aea1edcfc66709",
+    "driveFileId": "1xf5YalRgtYeStbLGiM-hCdILr08SzOro",
+    "driveReadBack": {
+     "bytes": 147884,
+     "sha256": "b7c672802ea83288410f7ffed55083b6400d8d5675bdf0b6d2aea1edcfc66709",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C10",
+    "fileName": "DE_C10.wav",
+    "exactText": "Sie sprachen darüber, dass es Ihnen schwerfällt, sich zu konzentrieren.",
+    "durationSeconds": 4.76,
+    "bytes": 228524,
+    "sha256": "70a44c0ef1a6317598559d2632dc8f99605cb26c1de0a49f0a1e76482ae8ff47",
+    "driveFileId": "1TcEFN0eEk7fWcDTSygM_HPz5_WHm5bou",
+    "driveReadBack": {
+     "bytes": 228524,
+     "sha256": "70a44c0ef1a6317598559d2632dc8f99605cb26c1de0a49f0a1e76482ae8ff47",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C11",
+    "fileName": "DE_C11.wav",
+    "exactText": "Sie sprachen über Dinge, die Ihnen Sorgen machen.",
+    "durationSeconds": 3.24,
+    "bytes": 155564,
+    "sha256": "398305f6e08a6472f884f3a0d79baf83c4e7bdfa61c002fd8d2b60dbe9e60397",
+    "driveFileId": "19mdw66xCMItaA2zeOWhaEryN-6W-fw4F",
+    "driveReadBack": {
+     "bytes": 155564,
+     "sha256": "398305f6e08a6472f884f3a0d79baf83c4e7bdfa61c002fd8d2b60dbe9e60397",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C12",
+    "fileName": "DE_C12.wav",
+    "exactText": "Sie sprachen darüber, dass Ihnen der Umgang mit Ungewissheit schwerfällt.",
+    "durationSeconds": 4.68,
+    "bytes": 224684,
+    "sha256": "d68e09f4fe7c3bf1a01548f22662094c164e33be98e353b03ad6415baa31e62c",
+    "driveFileId": "1HlcuiAyIowkiiDh8cwK2LPQ2EVgqord1",
+    "driveReadBack": {
+     "bytes": 224684,
+     "sha256": "d68e09f4fe7c3bf1a01548f22662094c164e33be98e353b03ad6415baa31e62c",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C13",
+    "fileName": "DE_C13.wav",
+    "exactText": "Sie sprachen über Entscheidungen, die Ihnen schwerfallen.",
+    "durationSeconds": 3.36,
+    "bytes": 161324,
+    "sha256": "bef02c90b8789cc42f711ecb0ff1013bb7dbd956b6667893d1ea42c80921fb94",
+    "driveFileId": "1uUXjERiGt5OsNGKTH-eTHRTgTjGwjRPS",
+    "driveReadBack": {
+     "bytes": 161324,
+     "sha256": "bef02c90b8789cc42f711ecb0ff1013bb7dbd956b6667893d1ea42c80921fb94",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C14",
+    "fileName": "DE_C14.wav",
+    "exactText": "Sie sprachen darüber, dass Ihre Verantwortung Sie belastet.",
+    "durationSeconds": 4.04,
+    "bytes": 193964,
+    "sha256": "0812550ada4cc96633f9e2528ef0280569ac381acbf13e1f2b428b501314f723",
+    "driveFileId": "1vY6DpE3apHh53B3ZI0Lf9iv5wxtl83nQ",
+    "driveReadBack": {
+     "bytes": 193964,
+     "sha256": "0812550ada4cc96633f9e2528ef0280569ac381acbf13e1f2b428b501314f723",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C15",
+    "fileName": "DE_C15.wav",
+    "exactText": "Sie sprachen darüber, dass es Ihnen schwerfällt, Erwartungen zu erfüllen.",
+    "durationSeconds": 4.32,
+    "bytes": 207404,
+    "sha256": "027d6cc045973faf91f12b32b25cb9c71342c56ca5490070b7ac963c98eab7cd",
+    "driveFileId": "1inJIn9dZYkNMsj_5bJnt4WvvuuT9g-Qw",
+    "driveReadBack": {
+     "bytes": 207404,
+     "sha256": "027d6cc045973faf91f12b32b25cb9c71342c56ca5490070b7ac963c98eab7cd",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C16",
+    "fileName": "DE_C16.wav",
+    "exactText": "Sie sprachen darüber, dass Sie kaum Zeit für sich selbst finden.",
+    "durationSeconds": 4.16,
+    "bytes": 199724,
+    "sha256": "309c4dd9f91c6da76babe6a1f1179e0398e3d0c9c7c660604c58affb14292a8f",
+    "driveFileId": "11JFd9By-4rFZGehJqvR5FNUouJ-VdzI6",
+    "driveReadBack": {
+     "bytes": 199724,
+     "sha256": "309c4dd9f91c6da76babe6a1f1179e0398e3d0c9c7c660604c58affb14292a8f",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C17",
+    "fileName": "DE_C17.wav",
+    "exactText": "Sie sprachen darüber, dass Sie sich einsam fühlen.",
+    "durationSeconds": 4.2,
+    "bytes": 201644,
+    "sha256": "a39a019147903a4bb40b8678e914c52ccc1cd59ca62a7cbb374a2e63f9db563e",
+    "driveFileId": "1xf0gh0DQqRLurN_jj0XW_lwa2pP7tUeU",
+    "driveReadBack": {
+     "bytes": 201644,
+     "sha256": "a39a019147903a4bb40b8678e914c52ccc1cd59ca62a7cbb374a2e63f9db563e",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C18",
+    "fileName": "DE_C18.wav",
+    "exactText": "Sie sprachen über Menschen, die Sie vermissen.",
+    "durationSeconds": 2.92,
+    "bytes": 140204,
+    "sha256": "807acee9a4c228f67db3987552db3fea5fc997b26f9822e9a7e682baea7983c7",
+    "driveFileId": "1qf8RHOqApmetc-rIR8MD64tUo14jjPUz",
+    "driveReadBack": {
+     "bytes": 140204,
+     "sha256": "807acee9a4c228f67db3987552db3fea5fc997b26f9822e9a7e682baea7983c7",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C19",
+    "fileName": "DE_C19.wav",
+    "exactText": "Sie sprachen darüber, dass Sie sich nicht verstanden fühlen.",
+    "durationSeconds": 3.8,
+    "bytes": 182444,
+    "sha256": "30406ad4333ca2fc4a3a53a12434153e9500c4f0f4b496b1fc026a5cb540d24a",
+    "driveFileId": "1dzkKQHIlobjHZBpVTjm0FPl4dTk1hhUi",
+    "driveReadBack": {
+     "bytes": 182444,
+     "sha256": "30406ad4333ca2fc4a3a53a12434153e9500c4f0f4b496b1fc026a5cb540d24a",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C20",
+    "fileName": "DE_C20.wav",
+    "exactText": "Sie sprachen über Meinungsverschiedenheiten, die Sie erlebt haben.",
+    "durationSeconds": 3.72,
+    "bytes": 178604,
+    "sha256": "8b64d8db6f590854cace338698b5cf01df78d7aed54754ef21cecaa13da91848",
+    "driveFileId": "1aHdHUqO7kK5LPw_OsaVQhAkY7XtGYc-l",
+    "driveReadBack": {
+     "bytes": 178604,
+     "sha256": "8b64d8db6f590854cace338698b5cf01df78d7aed54754ef21cecaa13da91848",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C21",
+    "fileName": "DE_C21.wav",
+    "exactText": "Sie sprachen darüber, dass es Ihnen schwerfällt, Grenzen zu setzen.",
+    "durationSeconds": 5.12,
+    "bytes": 245804,
+    "sha256": "c7432a2692d503079bf1332ede7773bff4fb527f44c987d2069273c8d4f63ab9",
+    "driveFileId": "15kNllYjF582GDmFwgzkm3Ue16tYJPLCL",
+    "driveReadBack": {
+     "bytes": 245804,
+     "sha256": "c7432a2692d503079bf1332ede7773bff4fb527f44c987d2069273c8d4f63ab9",
+     "matchesManifest": true
+    },
+    "technicalFindings": [
+     "clipped-samples:3"
+    ],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C22",
+    "fileName": "DE_C22.wav",
+    "exactText": "Sie sprachen darüber, dass Ihnen die Anpassung an Veränderungen schwerfällt.",
+    "durationSeconds": 4.92,
+    "bytes": 236204,
+    "sha256": "94ce6ec3736d6337c3b0e3ac1e6df2b6177aa688bf48d64167b14980bae820aa",
+    "driveFileId": "1KwA5MygJ3XxHc1wu6WsILzn8xb8h-KAr",
+    "driveReadBack": {
+     "bytes": 236204,
+     "sha256": "94ce6ec3736d6337c3b0e3ac1e6df2b6177aa688bf48d64167b14980bae820aa",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C23",
+    "fileName": "DE_C23.wav",
+    "exactText": "Sie sprachen über Dinge, die Sie traurig machen.",
+    "durationSeconds": 3.08,
+    "bytes": 147884,
+    "sha256": "00d88eea98d93d3fa6eaec7fc198cc3ecd5ec352039a86305baba158292bc155",
+    "driveFileId": "1-3wFFPYHahp8VewRtq6NoYe2jXKicYDI",
+    "driveReadBack": {
+     "bytes": 147884,
+     "sha256": "00d88eea98d93d3fa6eaec7fc198cc3ecd5ec352039a86305baba158292bc155",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C24",
+    "fileName": "DE_C24.wav",
+    "exactText": "Sie sprachen über eine Enttäuschung, die Sie erlebt haben.",
+    "durationSeconds": 3.44,
+    "bytes": 165164,
+    "sha256": "f7fbb33b0fe7a04d7546631aba3e76b4bb64139ebc2b44f05420338588c777f3",
+    "driveFileId": "1gXd5ObUvBk1Y3zCRt742zX9KlA8WqUKr",
+    "driveReadBack": {
+     "bytes": 165164,
+     "sha256": "f7fbb33b0fe7a04d7546631aba3e76b4bb64139ebc2b44f05420338588c777f3",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C25",
+    "fileName": "DE_C25.wav",
+    "exactText": "Sie sprachen über Situationen, die Sie wütend machen.",
+    "durationSeconds": 3.36,
+    "bytes": 161324,
+    "sha256": "c8fc26a61dc15c98cdcbbd37ee9ddda1099c29bbfc59bc9697002e793bc88d31",
+    "driveFileId": "1iN1xKnh8d_cRUT2y9jGW9Ak3qVfcUqJj",
+    "driveReadBack": {
+     "bytes": 161324,
+     "sha256": "c8fc26a61dc15c98cdcbbd37ee9ddda1099c29bbfc59bc9697002e793bc88d31",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C26",
+    "fileName": "DE_C26.wav",
+    "exactText": "Sie sprachen darüber, dass es Ihnen schwerfällt, sich selbst zu vertrauen.",
+    "durationSeconds": 4.48,
+    "bytes": 215084,
+    "sha256": "26da5630156e703eae420b6901255d49845815c12a1c14b60afa47b64cd4cfd9",
+    "driveFileId": "1O-JsMhrgn87TrB4ErBhVGPwBH04O-eAj",
+    "driveReadBack": {
+     "bytes": 215084,
+     "sha256": "26da5630156e703eae420b6901255d49845815c12a1c14b60afa47b64cd4cfd9",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C27",
+    "fileName": "DE_C27.wav",
+    "exactText": "Sie sprachen über Dinge, die Ihnen guttun.",
+    "durationSeconds": 2.72,
+    "bytes": 130604,
+    "sha256": "a0363f3dbad48ed745da4c2e7b6b24d728fc40fad3cf529c3222206636335053",
+    "driveFileId": "126pN-0FFyMo5KEq9Txogksh9PWCsaRlP",
+    "driveReadBack": {
+     "bytes": 130604,
+     "sha256": "a0363f3dbad48ed745da4c2e7b6b24d728fc40fad3cf529c3222206636335053",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C28",
+    "fileName": "DE_C28.wav",
+    "exactText": "Sie sprachen über die Unterstützung aus Ihrem Umfeld.",
+    "durationSeconds": 3.6,
+    "bytes": 172844,
+    "sha256": "91e620ff5dafe688b1fbf2a090a70a5b9bfab382caa01079c31cb9aa85886b01",
+    "driveFileId": "1h6ctI0qOmEOdMZEFgebK_gxvHt0C3G0K",
+    "driveReadBack": {
+     "bytes": 172844,
+     "sha256": "91e620ff5dafe688b1fbf2a090a70a5b9bfab382caa01079c31cb9aa85886b01",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C29",
+    "fileName": "DE_C29.wav",
+    "exactText": "Sie sprachen darüber, dass Sie sich erleichtert fühlen.",
+    "durationSeconds": 3.44,
+    "bytes": 165164,
+    "sha256": "47b542bdd804a3193fac6bce52f478e109d5a98c5a55e76660b7f0692b400883",
+    "driveFileId": "1x6lOanxMavN7xHOXa2xvABp-Ql41h9vp",
+    "driveReadBack": {
+     "bytes": 165164,
+     "sha256": "47b542bdd804a3193fac6bce52f478e109d5a98c5a55e76660b7f0692b400883",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C30",
+    "fileName": "DE_C30.wav",
+    "exactText": "Sie sprachen über Entwicklungen, die Sie glücklich machen.",
+    "durationSeconds": 3.4,
+    "bytes": 163244,
+    "sha256": "0e550d22a778c5707b0aa51ae1b3c02db7d82a74a8e6cba74377316e632b2a3c",
+    "driveFileId": "1uJHds5UCniNg0MGFQCJngjYxa4tieU9i",
+    "driveReadBack": {
+     "bytes": 163244,
+     "sha256": "0e550d22a778c5707b0aa51ae1b3c02db7d82a74a8e6cba74377316e632b2a3c",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C31",
+    "fileName": "DE_C31.wav",
+    "exactText": "Sie sprachen über Ihre Hoffnungen für die Zukunft.",
+    "durationSeconds": 3.2,
+    "bytes": 153644,
+    "sha256": "bb2f13e4bb0192e2d22602ef2cba0927fda85d0401c3784bb775ace82b9c3dcf",
+    "driveFileId": "1N86fXUTqjp_qw1PmFNhhluIJwMnyZZ1u",
+    "driveReadBack": {
+     "bytes": 153644,
+     "sha256": "bb2f13e4bb0192e2d22602ef2cba0927fda85d0401c3784bb775ace82b9c3dcf",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C32",
+    "fileName": "DE_C32.wav",
+    "exactText": "Sie sprachen über Ziele, die Sie erreichen möchten.",
+    "durationSeconds": 3.16,
+    "bytes": 151724,
+    "sha256": "a81dd2bcb71fdeafc4893e5379fab761d1a4794e184c8c9b94b2794a8761af93",
+    "driveFileId": "1KgWYw48brUSjvUw3TmA05SXtVVL_E96E",
+    "driveReadBack": {
+     "bytes": 151724,
+     "sha256": "a81dd2bcb71fdeafc4893e5379fab761d1a4794e184c8c9b94b2794a8761af93",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   },
+   {
+    "language": "de",
+    "patternId": "C33",
+    "fileName": "DE_C33.wav",
+    "exactText": "Sie sprachen über eine Erfahrung, auf die Sie stolz sind.",
+    "durationSeconds": 3.36,
+    "bytes": 161324,
+    "sha256": "2e8d0f7bd934a1fc82109173f4d3bdc145256ce89416d6a1ed9d9c9aea8e5bf1",
+    "driveFileId": "1Jrh3oPdssuMo5JKdW4o7Aqb3aaM40Lrg",
+    "driveReadBack": {
+     "bytes": 161324,
+     "sha256": "2e8d0f7bd934a1fc82109173f4d3bdc145256ce89416d6a1ed9d9c9aea8e5bf1",
+     "matchesManifest": true
+    },
+    "technicalFindings": [],
+    "approvalStatus": "technical-preview-awaiting-owner-listening",
+    "ownerApprovedAt": null
+   }
+  ]
+ },
+ "listeningSamplesABCPlusPersonal": {
+  "folder": "1HNdauaaxgZiFMUcZBiQG5wiPZX0_QQr6",
+  "description": "1kvTVITc9kt0ap-CsSxwIS371ImOsZ8XW",
+  "note": "uploaded in the previous round; not re-verified in this task",
+  "files": [
+   {
+    "file": "TR_A1-B2-C3_C09_technical-preview.wav",
+    "driveFileId": "1l5EcMhu0i7oktt05ivXrmFfljDHpkptN"
+   },
+   {
+    "file": "TR_A4-B5-C1_C30_technical-preview.wav",
+    "driveFileId": "1ceMOdHX0STdy4JgYa-UX7C8cdaAKTEhS"
+   },
+   {
+    "file": "TR_A2-B3-C4_C17_technical-preview.wav",
+    "driveFileId": "1NyBVZW9fIRhPVTQ1I2ZRo53MJZi4NzXK"
+   },
+   {
+    "file": "EN_A1-B2-C3_C09_technical-preview.wav",
+    "driveFileId": "1h8AAuwmhPb4-E6SHHpEIkYAQCRkrZ7Iu"
+   },
+   {
+    "file": "EN_A4-B5-C1_C30_technical-preview.wav",
+    "driveFileId": "1JYLOYhDNkNW6xMn2GKOYk0pJHrzCRGes"
+   },
+   {
+    "file": "EN_A2-B3-C4_C17_technical-preview.wav",
+    "driveFileId": "1sku8dbampOb1dHurckji7Jdh-eDr51E5"
+   },
+   {
+    "file": "DE_A1-B2-C3_C09_technical-preview.wav",
+    "driveFileId": "1fjKKj9cuNp-x4o_mba2_zPMsJryQ9DVo"
+   },
+   {
+    "file": "DE_A4-B5-C1_C30_technical-preview.wav",
+    "driveFileId": "1CI30iYIJp2dTTcgRHwmOebMPeQ6Wph5Q"
+   },
+   {
+    "file": "DE_A2-B3-C4_C17_technical-preview.wav",
+    "driveFileId": "1jhqkKRq-hUjPveA5L0bX1hMGPTFgn9KH"
+   }
+  ]
+ },
+ "approval": {
+  "status": "technical-preview-awaiting-owner-listening",
+  "ownerApprovedAt": null,
+  "flagged": [
+   "DE_C21.wav: clipped-samples:3"
+  ]
+ },
+ "trackB": {
+  "statement93Rejections": "wrong: the Qwen verifier answer NO meant no problem; it accepted 93 of 94 candidate lines including all 58 wrong lines (58 false accepts) and refused 1 correct line",
+  "driveFiles": "44/44 bytes and SHA-256 verified on read-back by the independent review in ChatGPT, as reported to this task; not verified in this session; no new environment or token attempt, no re-upload"
+ },
+ "openItems": [
+  "owner listening approval of 144 recordings (DE_C21 flagged) and of the address forms",
+  "L3: recorded 4 x FAIL; offline recompute with the corrected rule (8cfbff8) 4 x PASS; no live re-run",
+  "consent withdrawal at the closing trigger: BLOCKED",
+  "the selection fix is not measured with the live provider",
+  "dynamic TTS latency of normal conversation turns: out of scope, not solved",
+  "merge and deployment: owner decision; feature off by default"
+ ]
+}

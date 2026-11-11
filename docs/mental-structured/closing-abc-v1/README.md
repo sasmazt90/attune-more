@@ -555,6 +555,45 @@ API). Cost ≈ 0.52 + 0.29 USD for the instances plus ≈ 0.12 USD estimated pro
 were not re-run with the corrected rule. Track B is pending; the comparison stays open until it is measured on the
 same inputs.
 
+## Final decision 2026-11-11: track A (prepared recordings) selected
+
+Full report (Turkish, identical to the copy in the track A Drive folder `Reports`):
+[FINAL-DECISION-20261111.md](FINAL-DECISION-20261111.md); evidence:
+[review-20261111-final.json](review-20261111-final.json).
+
+- **Decision.** The conversation closing uses track A: prepared A/B/C recordings, then the prepared recording of a
+  server-checked catalog line; without a reliable match no personal recording plays and A+B+C and the personal written
+  summary stay (no fallback that speaks the long written summary). Track B (PR #30, Qwen 3.5 2B + LiteRT-LM) stays an
+  experiment: not merged, not deleted, not changed; none of its code or voices moved here. The decision covers the
+  closing only; the dynamic TTS latency of normal conversation turns is **not** solved by it. Feature off by default;
+  no merge, no deployment.
+- **Selection fix (commit bab8801).** An independent review found C02 accepted for the whole message in nine cases
+  without a present self-statement — a topic ("I am reading a book about stress", "Stres hakkında bir kitap okuyorum",
+  "Ich lese ein Buch über Stress"), a condition ("If I feel stressed, I will tell you", "Stresli olursam sana söylerim",
+  "Falls ich gestresst bin, sage ich Bescheid") and a past state set against now in the same message ("I was stressed,
+  but now I feel fine", "Stresliydim ama artık iyiyim", "Ich war gestresst, aber jetzt geht es mir gut"). The check now
+  reads the construction with grammatical markers only (no topic nouns): a topic marker unless the user's own words in
+  that phrase make it theirs; a conditional subordinator before the cue or a Turkish conditional / "when" suffix on its
+  predicate; a past cue clause followed in the same message by a present-time clause that does not repeat the cue. New
+  reasons `topic-only`, `conditional`, `past-then-now`; all nine refused, `select` abstains. "Çok stresliyim", "I am
+  very stressed", "Ich bin sehr gestresst" are still selected. The four legacy content errors stay refused. The fixed
+  oracle sets are unchanged row by row (51/51 · 54/54; 12/18 · 9/9; 8/12 · 30/30). CI on bab8801 (run #452):
+  backend unit tests and frontend build passed.
+- **Recordings delivered.** The 99 catalog WAVs, taken from this branch and verified against the manifest (99/99 bytes
+  and SHA-256), were uploaded one by one to the track A Drive folder (`Audio/TR`, `Audio/EN`, `Audio/DE`, 33 each,
+  largest 245,804 bytes) and every Drive copy was read back: 99/99 equal. No AWS, no regeneration. The listening list
+  with full texts and links is in the report; nobody has listened yet (`technical-preview-awaiting-owner-listening`);
+  DE_C21 (3 clipped samples) is flagged.
+- **Results as they stand.** Round 6 (prepared recordings) is the reference: C end → personal line 128–137 ms on the
+  AAOS emulator. The track A times in the track B comparison are round-4 times (generated personal speech) and are not
+  current; no speed ratio is drawn across different hardware and inputs. Live comparison at 7dcf505 (93 analyses,
+  before this fix, not re-run): selected lines matching the expectation 42/42; personal line where one was expected
+  42/66; abstention where none was expected 27/27 — not a guarantee of meaning. L3: recorded 4 × FAIL, harness fix
+  8cfbff8, offline recompute 4 × PASS, no live re-run; consent withdrawal at the trigger stays BLOCKED. Track B's
+  "93 rejections" was wrong: the verifier's NO meant "no problem" — 93 accepted, 58 false accepts.
+- **Open.** Owner listening approval (144 recordings, address forms); L3 live re-run; the BLOCKED trigger case; the
+  fix is not measured with the live provider; normal-turn TTS latency (out of scope); merge/deployment (owner).
+
 ## Tests
 
 `tests/unit/test_mental_closing_bridge.py` (assets, manifest, hashes, profile pins, approval state) runs `mental_closing_bridge_runtime.cjs` (gate, single selection without repeats with all 125 reachable, A→B→C order without overlap, overlap of preparation, next-part prefetch, honest waits, cancel/session/mute/hidden/language, altered/failed assets) and `mental_closing_finish_runtime.cjs` (real `finish()` for normal and structured paths, fallback, summary failure, consent withdrawal, cancel, failed/empty sessions). `tests/unit/test_mental_spoken_summary.py` covers the short line (bounds, language, address, grounding, bridge phrases, advice/evaluation, no truncation, one provider call, template and recap form, opt-in API flag). `scripts/qa/mental_closing_bridge_timeline.cjs` (replay or live mode, `mental_closing_bridge_scenarios.py` builds scenarios from measurement rows), `scripts/mental_closing_abc/closing_realpath_probe.py`, `closing_live_probe.py`, `spoken_summary_probe.py` and `scripts/qa/aaos/aaos-mental-closing.cjs` produced the 2026-11-10 measurements. Round 2 adds `tests/unit/fixtures/mental_spoken_summary_cases.json` (formal vs content), `tests/unit/vehicle_polling_runtime.cjs` and a page/hook check that the completion guidance is skipped after a spoken closing. Round 3 adds the negation, coordinated-part and first-person cases to that corpus (61 cases; accepted-but-wrong and refused-but-correct lines must both be declared) and `scripts/mental_closing_abc/tts_device_benchmark.py`, which produced the CPU/GPU comparison. Round 5 adds the round-4 recorded AAOS series to `tests/unit/aaos_closing_stop_verdict_runtime.cjs` (pre-action sampling rule, upper-bound stop, driving in-flight rule, media clock) and 14 validator cases (94). Round 4 adds `tests/unit/test_closing_live_probe.py` and `tests/unit/test_closing_live_report.py` (warm-up gate; the 8-of-8 rule and blocked samples), the five round-3 limitations as refused cases, the German stem cases and new declared limitations (80
