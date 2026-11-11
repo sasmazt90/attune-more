@@ -43,10 +43,9 @@ async function speed(kmh){for(const target of new Set([api,vehicle])){const r=aw
  for(const language of ['tr','en','de']){
   current={language,status:'RUNNING',events:[],requests:[],turns:[],startedAt:new Date().toISOString()};report.runs.push(current);save();
   try{
-   await open(language);await page.evaluate(t=>window.__qaUtterances.push(t),inputs[language][0]);
+   await open(language);await page.evaluate(ts=>window.__qaUtterances.push(...ts),inputs[language]);
    await page.getByRole('button').filter({hasText:/Görüşmeyi Başlat|Start conversation|Gespräch starten/}).first().click();
    for(let i=0;i<3;i++){
-    if(i)await page.evaluate(t=>window.__qaUtterances.push(t),inputs[language][i]);
     await page.waitForFunction(n=>document.querySelectorAll('[data-chat-author=AI]').length>=n&&document.querySelector('[data-conversation-phase]')?.getAttribute('data-conversation-phase')==='listening',i+1,{timeout:25000});
     const events=current.events.filter(e=>e.kind==='stage'&&e.turn===i+1),at=s=>events.find(e=>e.stage===s)?.pm;
     const t0=at('hybrid-t0'),start=at('hybrid-first-playing'),select=events.find(e=>e.stage.startsWith('hybrid-selected-'));
