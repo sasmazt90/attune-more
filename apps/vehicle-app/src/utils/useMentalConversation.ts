@@ -244,6 +244,8 @@ export function useMentalConversation(parked: boolean) {
     const request=async(engine:string,signal:AbortSignal)=>{
       const response=await fetch(API+'/converse',{method:'POST',headers:{'Content-Type':'application/json'},signal,
         body:JSON.stringify({engine,userMessage:user.text,history:prior,memory:r.memory,sessionId:r.id,cloudConsent:settings.current.cloudConsent,structuredState:r.structuredState,finishAfterReply:r.turn>=39||r.transcript.reduce((n,m)=>n+m.text.length,0)>=94000})});
+      // An authoritative safety/authentication refusal invalidates BOTH candidates, even before the next vehicle poll.
+      if([401,403,409].includes(response.status))controller.abort();
       if(!response.ok)throw Error('HYBRID_CANDIDATE_UNAVAILABLE');
       const data=await response.json();if(!current()||signal.aborted)throw Error('HYBRID_CANCELLED');
       if(typeof data.reply!=='string'||!data.reply.trim())throw Error('HYBRID_INVALID_REPLY');

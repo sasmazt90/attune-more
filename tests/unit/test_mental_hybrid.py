@@ -42,6 +42,9 @@ def test_hybrid_api_safety_precedes_generation(monkeypatch):
     crisis=main.converse_mental_assistant(main.ConversePayload(userMessage='I want to kill myself',engine='hybrid-personal-v1'))
     assert crisis['isCrisis'] and crisis['providerType']=='CRISIS_SAFETY_GUARD'
     monkeypatch.setitem(main.vehicle_state,'vehicleMoving',False)
+    monkeypatch.setitem(main.vehicle_state,'vehicleParked',False)
+    with pytest.raises(HTTPException):main.converse_mental_assistant(main.ConversePayload(userMessage='I feel tired',engine='hybrid-prepared-v1'))
+    monkeypatch.setitem(main.vehicle_state,'vehicleParked',True)
     monkeypatch.setitem(main.vehicle_state,'driverAuthenticated',False)
     with pytest.raises(HTTPException):main.converse_mental_assistant(main.ConversePayload(userMessage='I feel tired',engine='hybrid-prepared-v1'))
 

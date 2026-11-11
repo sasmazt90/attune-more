@@ -28,7 +28,8 @@ export function chooseHybridTurn<T>(options:{receivedAt:number;signal:AbortSigna
    if(c.now()>=deadline){settled=true;cleanup();prepared.abort();reject(Error('HYBRID_PREPARED_NOT_READY'));}
   };
   const watch=()=>{if(!allowed()){cancel();return;}guard=c.set(watch,50);};
-  timer=c.set(fallback,Math.max(0,deadline-c.now()));guard=c.set(watch,50);
+  const due=()=>{const remaining=deadline-c.now();if(remaining>0)timer=c.set(due,Math.ceil(remaining));else fallback();};
+  timer=c.set(due,Math.max(0,Math.ceil(deadline-c.now())));guard=c.set(watch,50);
   options.signal.addEventListener('abort',cancel,{once:true});
   if(!allowed()){cancel();return;}
   // Launch both without awaiting selection, chat, TTS, or worker cancellation.

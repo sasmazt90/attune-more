@@ -426,7 +426,7 @@ def converse_mental_assistant(payload: ConversePayload):
         from mental_hybrid import candidate, personalize
         if os.getenv('ATTUNE_MENTAL_HYBRID_ENABLED') != '1':
             raise HTTPException(409,'HYBRID_ENGINE_DISABLED')
-        if is_driving or not vehicle_state.get('driverAuthenticated'):
+        if is_driving or vehicle_state.get('vehicleParked') is not True or vehicle_state.get('driverAuthenticated') is not True:
             raise HTTPException(409,'PARK_AND_AUTHENTICATION_REQUIRED')
         prepared = candidate(user_msg,current_language(),payload.structuredState,control,payload.finishAfterReply)
         if payload.engine == 'hybrid-prepared-v1' or control or prepared.get('sessionAction'):

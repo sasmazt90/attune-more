@@ -18,5 +18,6 @@ const deferred=()=>{let resolve,reject;const promise=new Promise((a,b)=>{resolve
  }
  // T0 is immutable even if the task is scheduled late; exactly-at-deadline is prepared.
  {const c=new Clock();await c.advance(3000);const ctrl=new AbortController();let resolvePersonal;const out=chooseHybridTurn({receivedAt:1000,signal:ctrl.signal,current:()=>true,clock:c,personal:()=>Promise.resolve('text-and-URL-only'),prepared:()=>Promise.resolve('ready-recording')});await tick();assert.equal((await out).path,'prepared');ctrl.abort();count++;}
+ {const c=new Clock(),ctrl=new AbortController(),p=deferred(),f=deferred();const result=chooseHybridTurn({receivedAt:1000,signal:ctrl.signal,current:()=>true,clock:c,personal:()=>p.promise,prepared:()=>f.promise});await tick();f.resolve('prepared');await tick();const deadlineJob=[...c.jobs].find(([,j])=>j.at===4000);c.jobs.delete(deadlineJob[0]);c.nowMs=3999.5;deadlineJob[1].fn();await tick();assert(!ctrl.signal.aborted);p.resolve('before-deadline');await tick();assert.equal((await result).path,'personal');ctrl.abort();count++;}
  console.log(`PASS ${count} controlled-clock hybrid decisions: <3000 whole playable personal, deadline/early error prepared, exact boundary single winner, late discard, cancellation and unavailable prepared failure`);
 })().catch(e=>{console.error(e);process.exitCode=1;});

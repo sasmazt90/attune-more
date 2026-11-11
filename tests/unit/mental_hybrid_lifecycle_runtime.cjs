@@ -5,7 +5,7 @@ const source=fs.readFileSync('apps/vehicle-app/src/utils/useMentalConversation.t
 (function visit(n){if(ts.isFunctionDeclaration(n)&&n.name)functions[n.name.text]=n.getText(ast);ts.forEachChild(n,visit);})(ast);
 const code=ts.transpileModule(['send','sendHybrid','finish','updateContext','speakClosing'].map(n=>functions[n]).join('\n'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText;
 (async()=>{let count=0;
- for(const scenario of ['prepared-three-turns','personal','cancel','consent','drive','finish-control']){
+ for(const scenario of ['prepared-three-turns','personal','cancel','consent','drive','finish-control','server-safety-refusal']){
   const r={hybrid:true,structured:false,structuredState:{language:'tr',speakerProfile:'female-calm-v1',turn:0,asked:[]},mounted:true,active:true,epoch:1,audioEpoch:0,turn:0,id:'synthetic',transcript:[],memory:[],memoryThrough:0,busy:false,failed:false};
   let phase,summary,plays=0,personalPlays=0,pendingJobs=0,catalog=0,analysis=0,requestStates=[],lateResolvers=[],notices=[];const no=()=>{};
   const deps={performance,Date,AbortController,setTimeout,clearTimeout,document:{hidden:false},localStorage:{getItem:()=>null},runtime:{current:r},settings:{current:{parked:true,voiceEnabled:true,speechConsent:true,cloudConsent:true}},
@@ -24,7 +24,7 @@ const code=ts.transpileModule(['send','sendHybrid','finish','updateContext','spe
    },
    fetch:async(url,options)=>{
     const b=JSON.parse(options.body);
-    if(url.endsWith('/converse')){requestStates.push(b.structuredState);assert(b.history.every(m=>!m.content.includes('discarded')));const personal=b.engine==='hybrid-personal-v1',n=b.structuredState.turn+1;
+    if(url.endsWith('/converse')){if(scenario==='server-safety-refusal'&&b.engine==='hybrid-personal-v1')return {ok:false,status:409};requestStates.push(b.structuredState);assert(b.history.every(m=>!m.content.includes('discarded')));const personal=b.engine==='hybrid-personal-v1',n=b.structuredState.turn+1;
      return {ok:true,json:async()=>({reply:(personal?'discarded-personal':'prepared')+' '+n,providerType:personal?'LIVE_OPENAI':'STRUCTURED_LOCAL',structuredState:{...b.structuredState,turn:n,asked:[...b.structuredState.asked,'B'+n]},audioAssetIds:['a','b'],...(scenario==='finish-control'?{sessionAction:'finish'}:{})})};}
     assert(url.endsWith('/analyze-session'));analysis++;assert.equal(b.engine,undefined);assert.equal(b.spokenCatalog,true);assert.equal(b.spokenSummary,true);assert(b.messages.every(m=>!m.content.includes('discarded')));
     return {ok:true,json:async()=>({summaryText:'Actual selected conversation.',themes:[],providerType:'LIVE_OPENAI',spokenCatalogId:'C09',spokenSummary:'Sleep was discussed.'})};
