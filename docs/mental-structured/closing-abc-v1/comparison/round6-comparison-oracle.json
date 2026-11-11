@@ -1,0 +1,769 @@
+{
+ "mode": "oracle",
+ "checks": 105,
+ "acceptableAccepted": 51,
+ "acceptable": 51,
+ "forbiddenRefused": 54,
+ "forbidden": 54,
+ "mismatches": [],
+ "rows": [
+  {
+   "input": "tr-01",
+   "pattern": "C02",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "son haftalarda işte çok stres altındayım"
+  },
+  {
+   "input": "tr-01",
+   "pattern": "C04",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "akşamları da dinlenemiyorum"
+  },
+  {
+   "input": "en-01",
+   "pattern": "C02",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i've been under a lot of stress at work lately"
+  },
+  {
+   "input": "en-01",
+   "pattern": "C04",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i can't rest in the evenings"
+  },
+  {
+   "input": "de-01",
+   "pattern": "C02",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich stehe in letzter zeit bei der arbeit unter viel stress"
+  },
+  {
+   "input": "de-01",
+   "pattern": "C04",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "kann mich abends nicht erholen"
+  },
+  {
+   "input": "tr-02",
+   "pattern": "C08",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "sadece biraz yorgunum"
+  },
+  {
+   "input": "tr-02",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "negated",
+   "quote": "stresli değilim"
+  },
+  {
+   "input": "en-02",
+   "pattern": "C08",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "just a bit tired"
+  },
+  {
+   "input": "en-02",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "negated",
+   "quote": "i'm not stressed"
+  },
+  {
+   "input": "de-02",
+   "pattern": "C08",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "nur etwas müde"
+  },
+  {
+   "input": "de-02",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "negated",
+   "quote": "ich bin nicht gestresst"
+  },
+  {
+   "input": "tr-03",
+   "pattern": "C11",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "onun için endişeleniyorum"
+  },
+  {
+   "input": "tr-03",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "arkadaşım çok stresli"
+  },
+  {
+   "input": "en-03",
+   "pattern": "C11",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i'm worried about her"
+  },
+  {
+   "input": "en-03",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "my friend is very stressed"
+  },
+  {
+   "input": "de-03",
+   "pattern": "C11",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich mache mir sorgen um sie"
+  },
+  {
+   "input": "de-03",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "meine freundin ist sehr gestresst"
+  },
+  {
+   "input": "tr-04",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "yeni işimden çok mutluyum"
+  },
+  {
+   "input": "tr-04",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "past",
+   "quote": "eskiden çok stresliydim"
+  },
+  {
+   "input": "en-04",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i'm very happy with my new job"
+  },
+  {
+   "input": "en-04",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "past",
+   "quote": "i used to be very stressed"
+  },
+  {
+   "input": "de-04",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "mit meiner neuen arbeit bin ich sehr glücklich"
+  },
+  {
+   "input": "de-04",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "past",
+   "quote": "früher war ich sehr gestresst"
+  },
+  {
+   "input": "tr-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "bu bana iyi geliyor"
+  },
+  {
+   "input": "tr-05",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Yalnız yaşıyorum ama arkadaşlarımla sık görüşüyorum, bu bana iyi geliyor"
+  },
+  {
+   "input": "en-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "that does me good"
+  },
+  {
+   "input": "en-05",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I live alone, but I see my friends often and that does me good"
+  },
+  {
+   "input": "de-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "das tut mir gut"
+  },
+  {
+   "input": "de-05",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wohne allein, aber ich treffe oft meine Freunde und das tut mir gut"
+  },
+  {
+   "input": "tr-06",
+   "pattern": "C14",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Çok sorumluluğum var ama hepsiyle baş edebiliyorum"
+  },
+  {
+   "input": "en-06",
+   "pattern": "C14",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I have a lot of responsibilities, but I can handle them all"
+  },
+  {
+   "input": "de-06",
+   "pattern": "C14",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich habe viel Verantwortung, aber ich komme mit allem zurecht"
+  },
+  {
+   "input": "tr-07",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "annem beni hiç dinlemiyor"
+  },
+  {
+   "input": "tr-07",
+   "pattern": "C03",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Annem beni hiç dinlemiyor"
+  },
+  {
+   "input": "en-07",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "my mother never listens to me"
+  },
+  {
+   "input": "en-07",
+   "pattern": "C03",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "My mother never listens to me"
+  },
+  {
+   "input": "de-07",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "meine mutter hört mir nie zu"
+  },
+  {
+   "input": "de-07",
+   "pattern": "C03",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Meine Mutter hört mir nie zu"
+  },
+  {
+   "input": "tr-08",
+   "pattern": "C04",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Hafta sonu biraz dinlenmek istiyorum"
+  },
+  {
+   "input": "tr-08",
+   "pattern": "C07",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Hafta sonu biraz dinlenmek istiyorum"
+  },
+  {
+   "input": "en-08",
+   "pattern": "C04",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I'd like to rest a bit at the weekend"
+  },
+  {
+   "input": "en-08",
+   "pattern": "C07",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I'd like to rest a bit at the weekend"
+  },
+  {
+   "input": "de-08",
+   "pattern": "C04",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Am Wochenende möchte ich mich etwas ausruhen"
+  },
+  {
+   "input": "de-08",
+   "pattern": "C07",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Am Wochenende möchte ich mich etwas ausruhen"
+  },
+  {
+   "input": "tr-09",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "kimse sözümü dinlemiyor"
+  },
+  {
+   "input": "tr-09",
+   "pattern": "C17",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "kendimi yalnız hissediyorum"
+  },
+  {
+   "input": "en-09",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "nobody listens to me"
+  },
+  {
+   "input": "en-09",
+   "pattern": "C17",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i feel lonely"
+  },
+  {
+   "input": "de-09",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "niemand hört mir zu"
+  },
+  {
+   "input": "de-09",
+   "pattern": "C17",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich fühle mich einsam"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "çok mutluyum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C33",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "kendimle gurur duyuyorum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C23",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C24",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum"
+  },
+  {
+   "input": "tr-10",
+   "pattern": "C25",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i'm very happy"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C33",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "proud of myself"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I got a promotion today, I'm very happy and proud of myself"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I got a promotion today, I'm very happy and proud of myself"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I got a promotion today, I'm very happy and proud of myself"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C23",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I got a promotion today, I'm very happy and proud of myself"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C24",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I got a promotion today, I'm very happy and proud of myself"
+  },
+  {
+   "input": "en-10",
+   "pattern": "C25",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I got a promotion today, I'm very happy and proud of myself"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich bin sehr glücklich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C33",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "stolz auf mich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C02",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C23",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C24",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich"
+  },
+  {
+   "input": "de-10",
+   "pattern": "C25",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich"
+  },
+  {
+   "input": "tr-11",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Son zamanlarda biraz durgunum"
+  },
+  {
+   "input": "en-11",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I've been a bit quiet lately"
+  },
+  {
+   "input": "de-11",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich bin in letzter Zeit etwas still"
+  },
+  {
+   "input": "tr-12",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "sadece uykusuzum"
+  },
+  {
+   "input": "tr-12",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "corrected-later",
+   "quote": "çok kaygılıyım"
+  },
+  {
+   "input": "en-12",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i'm just sleepless"
+  },
+  {
+   "input": "en-12",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "corrected-later",
+   "quote": "i'm very anxious"
+  },
+  {
+   "input": "de-12",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich schlafe nur schlecht"
+  },
+  {
+   "input": "de-12",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "corrected-later",
+   "quote": "ich bin sehr beunruhigt"
+  },
+  {
+   "input": "tr-13",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "işte çok baskı var"
+  },
+  {
+   "input": "en-13",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "there is a lot of pressure at work"
+  },
+  {
+   "input": "de-13",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "bei der arbeit gibt es viel druck"
+  },
+  {
+   "input": "tr-14",
+   "pattern": "C23",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "bu beni çok üzüyor"
+  },
+  {
+   "input": "tr-14",
+   "pattern": "C20",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "annemle babam sürekli kavga ediyor"
+  },
+  {
+   "input": "en-14",
+   "pattern": "C23",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "it makes me very sad"
+  },
+  {
+   "input": "en-14",
+   "pattern": "C20",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "my parents argue all the time"
+  },
+  {
+   "input": "de-14",
+   "pattern": "C23",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "das macht mich sehr traurig"
+  },
+  {
+   "input": "de-14",
+   "pattern": "C20",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "meine eltern streiten ständig"
+  },
+  {
+   "input": "tr-15",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "en çok uykusuzluk beni zorluyor"
+  },
+  {
+   "input": "en-15",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i wake up often at night"
+  },
+  {
+   "input": "de-15",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich wache nachts oft auf"
+  },
+  {
+   "input": "tr-16",
+   "pattern": "C22",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "taşındığımdan beri yeni düzene alışamadım"
+  },
+  {
+   "input": "tr-16",
+   "pattern": "C18",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "eski arkadaşlarımı özlüyorum"
+  },
+  {
+   "input": "tr-16",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Taşındığımdan beri yeni düzene alışamadım, eski arkadaşlarımı özlüyorum"
+  },
+  {
+   "input": "en-16",
+   "pattern": "C22",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "since i moved i haven't been able to get used to the new routine"
+  },
+  {
+   "input": "en-16",
+   "pattern": "C18",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i miss my old friends"
+  },
+  {
+   "input": "en-16",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Since I moved I haven't been able to get used to the new routine, and I miss my old friends"
+  },
+  {
+   "input": "de-16",
+   "pattern": "C22",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "seit dem umzug kann ich mich nicht an den neuen alltag gewöhnen"
+  },
+  {
+   "input": "de-16",
+   "pattern": "C18",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich vermisse meine alten freunde"
+  },
+  {
+   "input": "de-16",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Seit dem Umzug kann ich mich nicht an den neuen Alltag gewöhnen und ich vermisse meine alten Freunde"
+  }
+ ],
+ "legacy": [
+  {
+   "id": "legacy-en-role-reversal",
+   "refused": true,
+   "reason": "role-changed"
+  },
+  {
+   "id": "legacy-en-added-thing-modifier",
+   "refused": true,
+   "reason": "adds-unsaid-content"
+  },
+  {
+   "id": "legacy-de-added-thing-in-compound",
+   "refused": true,
+   "reason": "adds-unsaid-content"
+  },
+  {
+   "id": "legacy-tr-added-thing-modifier",
+   "refused": true,
+   "reason": "adds-unsaid-content"
+  }
+ ],
+ "label": "tuning set (not independent)"
+}

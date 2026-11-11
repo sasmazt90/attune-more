@@ -1,0 +1,5162 @@
+{
+ "schema": "attune-mental-closing-abc-review-20261110-v1",
+ "createdAt": "2026-11-10",
+ "scope": "Review of PR #29: WAV commit, corrected timeline harness, short spoken summary for the normal closing, real-path and live measurements on WEB, real AAOS WebView journey. Every source is labelled; replays are never presented as live runs.",
+ "shortSpokenSummary": {
+  "contract": "Same analysis call; spokenSummary <= 12 words, <= 100 characters, one sentence, TR/EN/DE, formal address, grounded in user words, no bridge phrases, no advice/evaluation; invalid -> dropped (never shortened); written summaryText kept for screen/history.",
+  "firstRealPathAttempt": {
+   "note": "Template listed five keys; the provider returned no spokenSummary (status missing) for every TR analysis. Run stopped after two analyses and kept as evidence (realpath-attempt1-missing-spoken)."
+  },
+  "secondPromptLiveFindings": {
+   "note": "Key in template but no recap form: lines were reassurance/advice (\"It's normal to feel ...\", \"... destek almayı düşünebilirsiniz\", \"... effectively\") and 3 of 4 German lines failed grounding.",
+   "realpath": [
+    {
+     "conversation": "tr-c1",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Yoğun iş temposu ve uyku sorunları yaşıyorsunuz."
+    },
+    {
+     "conversation": "tr-c2",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Taşınma süreci sizi kaygılandırıyor, destek almayı düşünebilirsiniz."
+    },
+    {
+     "conversation": "en-c1",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "You are managing work stress and sleep challenges effectively."
+    },
+    {
+     "conversation": "en-c2",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Moving is tough, but talking to friends helps."
+    },
+    {
+     "conversation": "de-c1",
+     "spokenSummaryStatus": "not-grounded-in-user-words",
+     "spokenSummary": null
+    },
+    {
+     "conversation": "de-c2",
+     "spokenSummaryStatus": "not-grounded-in-user-words",
+     "spokenSummary": null
+    }
+   ]
+  },
+  "acceptanceWithRecapPrompt": {
+   "model": "gpt-4o-mini",
+   "repeatsPerConversation": 5,
+   "byLanguage": {
+    "tr": {
+     "valid": 10
+    },
+    "en": {
+     "valid": 10
+    },
+    "de": {
+     "valid": 9,
+     "too-many-words": 1
+    }
+   },
+   "rows": [
+    {
+     "conversation": "tr-c1",
+     "repeat": 0,
+     "seconds": 4.061,
+     "providerLine": "Yoğun iş temposundan ve bölünen uykudan söz ettiniz.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c1",
+     "repeat": 1,
+     "seconds": 2.312,
+     "providerLine": "Yoğun iş temposundan ve bölünen uykudan söz ettiniz.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c1",
+     "repeat": 2,
+     "seconds": 2.412,
+     "providerLine": "Yoğun iş temposundan ve bölünen uykudan söz ettiniz.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c1",
+     "repeat": 3,
+     "seconds": 2.38,
+     "providerLine": "Yoğun iş temposundan ve uykunuzun bölünmesinden söz ettiniz.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c1",
+     "repeat": 4,
+     "seconds": 2.594,
+     "providerLine": "Yoğun iş temposundan ve bölünmüş uykudan söz ettiniz.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c2",
+     "repeat": 0,
+     "seconds": 2.814,
+     "providerLine": "Taşınmanın getirdiği kaygılardan söz ettiniz.",
+     "providerWords": 5,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c2",
+     "repeat": 1,
+     "seconds": 2.445,
+     "providerLine": "Yeni bir düzen kurmak ve arkadaşlardan uzaklaşmak söz ettiniz.",
+     "providerWords": 9,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c2",
+     "repeat": 2,
+     "seconds": 2.327,
+     "providerLine": "Taşınmanın getirdiği kaygılardan söz ettiniz.",
+     "providerWords": 5,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c2",
+     "repeat": 3,
+     "seconds": 2.676,
+     "providerLine": "Taşınmanın getirdiği kaygılardan söz ettiniz.",
+     "providerWords": 5,
+     "status": "valid"
+    },
+    {
+     "conversation": "tr-c2",
+     "repeat": 4,
+     "seconds": 2.387,
+     "providerLine": "Taşınmanın getirdiği kaygılardan söz ettiniz.",
+     "providerWords": 5,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c1",
+     "repeat": 0,
+     "seconds": 2.299,
+     "providerLine": "You talked about intense work pressure and interrupted sleep.",
+     "providerWords": 9,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c1",
+     "repeat": 1,
+     "seconds": 1.99,
+     "providerLine": "You talked about intense work and interrupted sleep.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c1",
+     "repeat": 2,
+     "seconds": 1.972,
+     "providerLine": "You talked about intense work pressure and interrupted sleep.",
+     "providerWords": 9,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c1",
+     "repeat": 3,
+     "seconds": 2.48,
+     "providerLine": "You talked about intense work pressure and interrupted sleep.",
+     "providerWords": 9,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c1",
+     "repeat": 4,
+     "seconds": 1.761,
+     "providerLine": "You talked about intense work pressure and interrupted sleep.",
+     "providerWords": 9,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c2",
+     "repeat": 0,
+     "seconds": 2.113,
+     "providerLine": "You talked about feeling anxious about your move and new routine.",
+     "providerWords": 11,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c2",
+     "repeat": 1,
+     "seconds": 2.122,
+     "providerLine": "You talked about feeling anxious and worn out from moving.",
+     "providerWords": 10,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c2",
+     "repeat": 2,
+     "seconds": 2.135,
+     "providerLine": "You talked about feeling anxious about setting up a new routine.",
+     "providerWords": 11,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c2",
+     "repeat": 3,
+     "seconds": 1.981,
+     "providerLine": "You talked about feeling anxious about setting up a new routine.",
+     "providerWords": 11,
+     "status": "valid"
+    },
+    {
+     "conversation": "en-c2",
+     "repeat": 4,
+     "seconds": 1.988,
+     "providerLine": "You talked about feeling anxious and worn out from moving.",
+     "providerWords": 10,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c1",
+     "repeat": 0,
+     "seconds": 1.982,
+     "providerLine": "Sie sprachen über hohen Druck bei der Arbeit und unterbrochenen Schlaf.",
+     "providerWords": 11,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c1",
+     "repeat": 1,
+     "seconds": 2.136,
+     "providerLine": "Sie sprachen über Schlafprobleme und den hohen Druck bei der Arbeit.",
+     "providerWords": 11,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c1",
+     "repeat": 2,
+     "seconds": 1.883,
+     "providerLine": "Sie sprachen über hohes Arbeitstempo und unterbrochenen Schlaf.",
+     "providerWords": 8,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c1",
+     "repeat": 3,
+     "seconds": 3.325,
+     "providerLine": "Sie sprachen über Schlafprobleme und hohe Arbeitsbelastung.",
+     "providerWords": 7,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c1",
+     "repeat": 4,
+     "seconds": 2.263,
+     "providerLine": "Sie sprachen über hohen Druck bei der Arbeit und Schlafprobleme.",
+     "providerWords": 10,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c2",
+     "repeat": 0,
+     "seconds": 2.499,
+     "providerLine": "Sie sprachen über den Umzug und das Gefühl der Erschöpfung.",
+     "providerWords": 10,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c2",
+     "repeat": 1,
+     "seconds": 1.982,
+     "providerLine": "Sie sprachen über den Umzug und das Gefühl der Erschöpfung.",
+     "providerWords": 10,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c2",
+     "repeat": 2,
+     "seconds": 2.325,
+     "providerLine": "Sie sprachen über den Umzug und das Telefonieren mit einer Freundin.",
+     "providerWords": 11,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c2",
+     "repeat": 3,
+     "seconds": 2.406,
+     "providerLine": "Sie sprachen über den Umzug und das Gefühl der Erschöpfung.",
+     "providerWords": 10,
+     "status": "valid"
+    },
+    {
+     "conversation": "de-c2",
+     "repeat": 4,
+     "seconds": 2.673,
+     "providerLine": "Sie sprachen über den Umzug und die Unruhe durch die Distanz zu Freunden.",
+     "providerWords": 13,
+     "status": "too-many-words"
+    }
+   ]
+  }
+ },
+ "correctedProbeReplay": [
+  {
+   "file": "probe-long-4872c6e-default.json",
+   "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+   "autoplayPolicy": "default",
+   "rows": [
+    {
+     "label": "tr-long-sample1",
+     "mode": "long",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 19,
+     "firstPreparedAudioMs": 26,
+     "summaryTextReadyMs": 3010,
+     "cEndedMs": 10497,
+     "dynamicSpeechPreparationMs": 35397,
+     "firstPersonalizedAudioMs": 38419,
+     "cToPersonalizedGapMs": 27922,
+     "personalPartGapsMs": [
+      13142
+     ],
+     "aToBMs": 131,
+     "bToCMs": 132,
+     "overlap": false,
+     "closingAudioEndMs": 63769,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "tr-part0 (WEB resident worker probe 2026-11-09 (cold))",
+       "tr-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "tr-long-repeat",
+     "mode": "long",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 19,
+     "firstPreparedAudioMs": 40,
+     "summaryTextReadyMs": 3013,
+     "cEndedMs": 10918,
+     "dynamicSpeechPreparationMs": 22394,
+     "firstPersonalizedAudioMs": 25414,
+     "cToPersonalizedGapMs": 14496,
+     "personalPartGapsMs": [
+      14033
+     ],
+     "aToBMs": 167,
+     "bToCMs": 129,
+     "overlap": false,
+     "closingAudioEndMs": 50764,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "tr-part0-repeat (WEB resident worker probe 2026-11-09 (warm))",
+       "tr-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "en-long-sample1",
+     "mode": "long",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 24,
+     "firstPreparedAudioMs": 29,
+     "summaryTextReadyMs": 3013,
+     "cEndedMs": 9096,
+     "dynamicSpeechPreparationMs": 21376,
+     "firstPersonalizedAudioMs": 24396,
+     "cToPersonalizedGapMs": 15300,
+     "personalPartGapsMs": [
+      9127
+     ],
+     "aToBMs": 129,
+     "bToCMs": 130,
+     "overlap": false,
+     "closingAudioEndMs": 42129,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "en-part0 (WEB resident worker probe 2026-11-09 (warm))",
+       "en-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "en-long-repeat",
+     "mode": "long",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 24,
+     "firstPreparedAudioMs": 31,
+     "summaryTextReadyMs": 3011,
+     "cEndedMs": 9060,
+     "dynamicSpeechPreparationMs": 19455,
+     "firstPersonalizedAudioMs": 22473,
+     "cToPersonalizedGapMs": 13413,
+     "personalPartGapsMs": [
+      10241
+     ],
+     "aToBMs": 128,
+     "bToCMs": 130,
+     "overlap": false,
+     "closingAudioEndMs": 40209,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "en-part0-repeat (WEB resident worker probe 2026-11-09 (warm))",
+       "en-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "de-long-sample1",
+     "mode": "long",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 22,
+     "firstPreparedAudioMs": 45,
+     "summaryTextReadyMs": 3016,
+     "cEndedMs": 9673,
+     "dynamicSpeechPreparationMs": 21818,
+     "firstPersonalizedAudioMs": 24842,
+     "cToPersonalizedGapMs": 15169,
+     "personalPartGapsMs": [
+      11682
+     ],
+     "aToBMs": 129,
+     "bToCMs": 128,
+     "overlap": false,
+     "closingAudioEndMs": 46537,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "de-part0 (WEB resident worker probe 2026-11-09 (warm))",
+       "de-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "de-long-repeat",
+     "mode": "long",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 22,
+     "firstPreparedAudioMs": 33,
+     "summaryTextReadyMs": 3011,
+     "cEndedMs": 10021,
+     "dynamicSpeechPreparationMs": 24975,
+     "firstPersonalizedAudioMs": 27993,
+     "cToPersonalizedGapMs": 17972,
+     "personalPartGapsMs": [
+      10563
+     ],
+     "aToBMs": 129,
+     "bToCMs": 130,
+     "overlap": false,
+     "closingAudioEndMs": 49683,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "de-part0-repeat (WEB resident worker probe 2026-11-09 (warm))",
+       "de-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "file": "probe-long-4872c6e-user-gesture-required.json",
+   "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+   "autoplayPolicy": "user-gesture-required",
+   "rows": [
+    {
+     "label": "tr-long-sample1",
+     "mode": "long",
+     "autoplay": "user-gesture-required",
+     "valid": true,
+     "spokenWords": 19,
+     "firstPreparedAudioMs": 28,
+     "summaryTextReadyMs": 3012,
+     "cEndedMs": 11534,
+     "dynamicSpeechPreparationMs": 35402,
+     "firstPersonalizedAudioMs": 38423,
+     "cToPersonalizedGapMs": 26889,
+     "personalPartGapsMs": [
+      13142
+     ],
+     "aToBMs": 130,
+     "bToCMs": 129,
+     "overlap": false,
+     "closingAudioEndMs": 63772,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "tr-part0 (WEB resident worker probe 2026-11-09 (cold))",
+       "tr-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "tr-long-repeat",
+     "mode": "long",
+     "autoplay": "user-gesture-required",
+     "valid": true,
+     "spokenWords": 19,
+     "firstPreparedAudioMs": 32,
+     "summaryTextReadyMs": 3010,
+     "cEndedMs": 10631,
+     "dynamicSpeechPreparationMs": 22392,
+     "firstPersonalizedAudioMs": 25410,
+     "cToPersonalizedGapMs": 14779,
+     "personalPartGapsMs": [
+      14022
+     ],
+     "aToBMs": 130,
+     "bToCMs": 131,
+     "overlap": false,
+     "closingAudioEndMs": 50758,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "tr-part0-repeat (WEB resident worker probe 2026-11-09 (warm))",
+       "tr-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "en-long-sample1",
+     "mode": "long",
+     "autoplay": "user-gesture-required",
+     "valid": true,
+     "spokenWords": 24,
+     "firstPreparedAudioMs": 31,
+     "summaryTextReadyMs": 3012,
+     "cEndedMs": 9018,
+     "dynamicSpeechPreparationMs": 21375,
+     "firstPersonalizedAudioMs": 24394,
+     "cToPersonalizedGapMs": 15376,
+     "personalPartGapsMs": [
+      9120
+     ],
+     "aToBMs": 129,
+     "bToCMs": 130,
+     "overlap": false,
+     "closingAudioEndMs": 42135,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "en-part0 (WEB resident worker probe 2026-11-09 (warm))",
+       "en-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "en-long-repeat",
+     "mode": "long",
+     "autoplay": "user-gesture-required",
+     "valid": true,
+     "spokenWords": 24,
+     "firstPreparedAudioMs": 25,
+     "summaryTextReadyMs": 3011,
+     "cEndedMs": 8700,
+     "dynamicSpeechPreparationMs": 19454,
+     "firstPersonalizedAudioMs": 22472,
+     "cToPersonalizedGapMs": 13772,
+     "personalPartGapsMs": [
+      10249
+     ],
+     "aToBMs": 129,
+     "bToCMs": 130,
+     "overlap": false,
+     "closingAudioEndMs": 40205,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "en-part0-repeat (WEB resident worker probe 2026-11-09 (warm))",
+       "en-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "de-long-sample1",
+     "mode": "long",
+     "autoplay": "user-gesture-required",
+     "valid": true,
+     "spokenWords": 22,
+     "firstPreparedAudioMs": 28,
+     "summaryTextReadyMs": 3010,
+     "cEndedMs": 9334,
+     "dynamicSpeechPreparationMs": 21817,
+     "firstPersonalizedAudioMs": 24834,
+     "cToPersonalizedGapMs": 15500,
+     "personalPartGapsMs": [
+      11682
+     ],
+     "aToBMs": 130,
+     "bToCMs": 128,
+     "overlap": false,
+     "closingAudioEndMs": 46524,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "de-part0 (WEB resident worker probe 2026-11-09 (warm))",
+       "de-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    },
+    {
+     "label": "de-long-repeat",
+     "mode": "long",
+     "autoplay": "user-gesture-required",
+     "valid": true,
+     "spokenWords": 22,
+     "firstPreparedAudioMs": 32,
+     "summaryTextReadyMs": 3012,
+     "cEndedMs": 11022,
+     "dynamicSpeechPreparationMs": 24979,
+     "firstPersonalizedAudioMs": 28000,
+     "cToPersonalizedGapMs": 16978,
+     "personalPartGapsMs": [
+      10563
+     ],
+     "aToBMs": 134,
+     "bToCMs": 130,
+     "overlap": false,
+     "closingAudioEndMs": 49690,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "fixture: 3000 ms assumed; the probe made no provider call",
+      "tts": [
+       "de-part0-repeat (WEB resident worker probe 2026-11-09 (warm))",
+       "de-part1 (WEB resident worker probe 2026-11-09 (warm))"
+      ]
+     }
+    }
+   ]
+  }
+ ],
+ "oldMappingNegativeCheck": {
+  "schema": "attune-mental-closing-bridge-browser-timeline-v2",
+  "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+  "autoplayPolicy": "default",
+  "scenarioFile": "old-mapping-negative-check.json",
+  "description": "Negative check: the first timeline paired the tr-part0-repeat row with tr-part0.wav. The harness must refuse it.",
+  "results": [
+   {
+    "label": "tr-long-repeat-OLD-MAPPING",
+    "valid": false,
+    "problems": [
+     "../web-outputs/x/out/latency/tr-part0.wav: 7.2s audio but measurement tr-part0-repeat says 6.32s",
+     "../web-outputs/x/out/latency/tr-part0.wav: bytes differ from measurement tr-part0-repeat"
+    ]
+   }
+  ]
+ },
+ "realPathComponents": {
+  "withRecapPrompt": {
+   "runId": "closing-realpath:20261110T014815Z:e7bb2d",
+   "cpus": 8,
+   "processes": [
+    {
+     "index": 1,
+     "language": "tr",
+     "firstRequest": "short",
+     "loadAtStart": [
+      1.1748046875,
+      0.6884765625,
+      0.27197265625
+     ],
+     "readySeconds": 0.948,
+     "warm": {
+      "seconds": 29.284,
+      "workerCpuSeconds": 59.48
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.69384765625,
+      2.2685546875,
+      1.013671875
+     ]
+    },
+    {
+     "index": 2,
+     "language": "tr",
+     "firstRequest": "long",
+     "loadAtStart": [
+      3.69384765625,
+      2.2685546875,
+      1.013671875
+     ],
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 30.739,
+      "workerCpuSeconds": 63.71
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.43408203125,
+      2.53369140625,
+      1.24462890625
+     ]
+    },
+    {
+     "index": 3,
+     "language": "en",
+     "firstRequest": "short",
+     "loadAtStart": [
+      3.43408203125,
+      2.53369140625,
+      1.24462890625
+     ],
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 24.148,
+      "workerCpuSeconds": 38.58
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.58837890625,
+      2.939453125,
+      1.63525390625
+     ]
+    },
+    {
+     "index": 4,
+     "language": "en",
+     "firstRequest": "long",
+     "loadAtStart": [
+      3.58837890625,
+      2.939453125,
+      1.63525390625
+     ],
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 24.651,
+      "workerCpuSeconds": 40.65
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.19873046875,
+      2.88818359375,
+      1.72119140625
+     ]
+    },
+    {
+     "index": 5,
+     "language": "de",
+     "firstRequest": "short",
+     "loadAtStart": [
+      3.19873046875,
+      2.88818359375,
+      1.72119140625
+     ],
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 24.152,
+      "workerCpuSeconds": 39.16
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.54052734375,
+      3.1005859375,
+      2.03173828125
+     ]
+    },
+    {
+     "index": 6,
+     "language": "de",
+     "firstRequest": "long",
+     "loadAtStart": [
+      3.54052734375,
+      3.1005859375,
+      2.03173828125
+     ],
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 26.687,
+      "workerCpuSeconds": 48.35
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.30419921875,
+      3.0771484375,
+      2.11376953125
+     ]
+    }
+   ],
+   "analyses": [
+    {
+     "conversation": "tr-c1",
+     "status": 200,
+     "seconds": 2.753,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Yoğun iş temposundan ve uyku bölünmelerinden söz ettiniz.",
+     "summaryWords": 35,
+     "spokenWords": 8,
+     "summaryText": "Kullanıcı, son haftalarda işteki yoğun tempodan dolayı akşamları kafasını boşaltamadığını ve geç yatıp sık sık uyku bölünmeleri yaşadığını belirtiyor. Kısa yürüyüşlerin biraz iyi geldiğini ifade ederek, bu hafta en az iki akşam yürümeyi deneyeceğini söylüyor.",
+     "longParts": [
+      "Kullanıcı, son haftalarda işteki yoğun tempodan dolayı akşamları kafasını boşaltamadığını ve geç yatıp sık sık uyku bölünmeleri yaşadığını belirtiyor.",
+      "Kısa yürüyüşlerin biraz iyi geldiğini ifade ederek, bu hafta en az iki akşam yürümeyi deneyeceğini söylüyor."
+     ]
+    },
+    {
+     "conversation": "tr-c2",
+     "status": 200,
+     "seconds": 2.675,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Yeni bir düzen kurmak ve arkadaşlardan uzaklaşmak söz ettiniz.",
+     "summaryWords": 30,
+     "spokenWords": 9,
+     "summaryText": "Kullanıcı, başka bir şehre taşınmanın getirdiği değişikliklerin kendisini yorduğunu ve yeni bir düzen kurmanın yanı sıra arkadaşlarından uzaklaşmanın kaygı yarattığını ifade etti. Ancak, bir arkadaşıyla telefonda konuşmanın kendisini rahatlattığını belirtti.",
+     "longParts": [
+      "Kullanıcı, başka bir şehre taşınmanın getirdiği değişikliklerin kendisini yorduğunu ve yeni bir düzen kurmanın yanı sıra arkadaşlarından uzaklaşmanın kaygı yarattığını ifade etti.",
+      "Ancak, bir arkadaşıyla telefonda konuşmanın kendisini rahatlattığını belirtti."
+     ]
+    },
+    {
+     "conversation": "en-c1",
+     "status": 200,
+     "seconds": 2.14,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "You talked about intense work pressure and interrupted sleep.",
+     "summaryWords": 30,
+     "spokenWords": 9,
+     "summaryText": "The user is experiencing intense work pressure, which affects their evenings and sleep. They mentioned going to bed late with interrupted sleep but found that short walks help a little.",
+     "longParts": [
+      "The user is experiencing intense work pressure, which affects their evenings and sleep.",
+      "They mentioned going to bed late with interrupted sleep but found that short walks help a little."
+     ]
+    },
+    {
+     "conversation": "en-c2",
+     "status": 200,
+     "seconds": 2.088,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "You talked about feeling anxious about setting up a new routine.",
+     "summaryWords": 42,
+     "spokenWords": 11,
+     "summaryText": "The user is feeling worn out due to moving to a new city, particularly from setting up a new routine and being far from friends, which causes anxiety. They find talking with a friend on the phone helps to calm them down.",
+     "longParts": [
+      "The user is feeling worn out due to moving to a new city, particularly from setting up a new routine and being far from friends, which causes anxiety.",
+      "They find talking with a friend on the phone helps to calm them down."
+     ]
+    },
+    {
+     "conversation": "de-c1",
+     "status": 200,
+     "seconds": 2.385,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Sie sprachen über Schlafprobleme und das hohe Tempo bei der Arbeit.",
+     "summaryWords": 25,
+     "spokenWords": 11,
+     "summaryText": "Der Benutzer berichtet von hohem Arbeitstempo und Schwierigkeiten beim Abschalten am Abend. Schlafprobleme und unterbrochene Nächte sind ebenfalls ein Thema, wobei kurze Spaziergänge etwas helfen.",
+     "longParts": [
+      "Der Benutzer berichtet von hohem Arbeitstempo und Schwierigkeiten beim Abschalten am Abend.",
+      "Schlafprobleme und unterbrochene Nächte sind ebenfalls ein Thema, wobei kurze Spaziergänge etwas helfen."
+     ]
+    },
+    {
+     "conversation": "de-c2",
+     "status": 200,
+     "seconds": 2.384,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Sie sprachen über die Erschöpfung durch den Umzug und Ihre Freunde.",
+     "summaryWords": 38,
+     "spokenWords": 11,
+     "summaryText": "Der Benutzer fühlt sich durch den Umzug in eine andere Stadt erschöpft und unruhig, da er eine neue Routine aufbauen und von seinen Freunden weit weg sein muss. Das Telefonieren mit einer Freundin hilft ihm, sich zu beruhigen.",
+     "longParts": [
+      "Der Benutzer fühlt sich durch den Umzug in eine andere Stadt erschöpft und unruhig, da er eine neue Routine aufbauen und von seinen Freunden weit weg sein muss.",
+      "Das Telefonieren mit einer Freundin hilft ihm, sich zu beruhigen."
+     ]
+    }
+   ],
+   "speech": [
+    {
+     "label": "tr-c1-short-cold",
+     "status": 200,
+     "seconds": 32.041,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 5.08,
+     "words": 8,
+     "chars": 57,
+     "sha256": "d72b99f8ccc0d0e0ceff093f8242ef3b85373b165bf99ad27ad14dc446ffb02e",
+     "textSha256": "771ae4319fe89a36bad1892aa5b898a9a3c9179c24684876a2423a431647efee",
+     "verifySeconds": 2.398,
+     "inferenceSeconds": 19.373,
+     "serverTotalSeconds": 32.038
+    },
+    {
+     "label": "tr-c1-long0-warm",
+     "status": 200,
+     "seconds": 39.793,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 12.04,
+     "words": 19,
+     "chars": 150,
+     "sha256": "3872b83672549f02c9caee616bf7fce96060aa53f5d538944870475b2cdf88c3",
+     "textSha256": "d559ab24c4d8a398c92a50157b64528c6cc4a532d458a9b468e8f2f366593f8f",
+     "verifySeconds": 2.348,
+     "inferenceSeconds": 37.426,
+     "serverTotalSeconds": 39.79
+    },
+    {
+     "label": "tr-c1-long1-warm",
+     "status": 200,
+     "seconds": 30.278,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 8.8,
+     "words": 16,
+     "chars": 108,
+     "sha256": "cc2bbcb63723d49143145865e49b15d76776d448a707b4e19900db4c83db95ec",
+     "textSha256": "fb1c7ed0ff3f24dbd89a6bfd7dd4896cee64b776e407d9d694d6a7dc1f8d5664",
+     "verifySeconds": 2.391,
+     "inferenceSeconds": 27.868,
+     "serverTotalSeconds": 30.275
+    },
+    {
+     "label": "tr-c1-short-warm",
+     "status": 200,
+     "seconds": 20.992,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.0,
+     "words": 8,
+     "chars": 57,
+     "sha256": "569ad96212729dad864ed48911e19f9e9074225437473e3be8d11f2565cabd1e",
+     "textSha256": "771ae4319fe89a36bad1892aa5b898a9a3c9179c24684876a2423a431647efee",
+     "verifySeconds": 2.348,
+     "inferenceSeconds": 18.628,
+     "serverTotalSeconds": 20.989
+    },
+    {
+     "label": "tr-c2-short-warm",
+     "status": 200,
+     "seconds": 21.799,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.28,
+     "words": 9,
+     "chars": 62,
+     "sha256": "5eecacb891ccd5d5294d457696cba4324501cd648bf4d3610a8ae29fc3b3cec1",
+     "textSha256": "e33f0951ae0ec3fabadaae2ae184ab69ccab2afbda367f65bf2b07f5fbfe8b34",
+     "verifySeconds": 2.347,
+     "inferenceSeconds": 19.436,
+     "serverTotalSeconds": 21.797
+    },
+    {
+     "label": "tr-c2-long0-warm",
+     "status": 200,
+     "seconds": 39.644,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 11.96,
+     "words": 22,
+     "chars": 179,
+     "sha256": "c9b7fb38157c4a86c93d4fd34cfc27b2d1c43966df9749abb4c94be6a2578a58",
+     "textSha256": "d3aa7acd0199a30544b3a9995da0e923944ba3463f29b6428a4046c3c45aa8be",
+     "verifySeconds": 2.349,
+     "inferenceSeconds": 37.275,
+     "serverTotalSeconds": 39.642
+    },
+    {
+     "label": "tr-c2-long1-warm",
+     "status": 200,
+     "seconds": 24.495,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 6.72,
+     "words": 8,
+     "chars": 78,
+     "sha256": "0200a12b17b0ff4338f9e26aa939afbb3b139f3be4d87d23d5f81f7a07e1df9d",
+     "textSha256": "b29c0f37b13d4d78161e4b0f741d093d52a069dd14d3cf51ef5d4eb61bbe28cc",
+     "verifySeconds": 2.349,
+     "inferenceSeconds": 22.128,
+     "serverTotalSeconds": 24.492
+    },
+    {
+     "label": "tr-c1-long0-cold",
+     "status": 200,
+     "seconds": 48.639,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 11.6,
+     "words": 19,
+     "chars": 150,
+     "sha256": "2012db0579c2174a0626b0c5207dca143154212f74816c67ae39e42b6114b58e",
+     "textSha256": "d559ab24c4d8a398c92a50157b64528c6cc4a532d458a9b468e8f2f366593f8f",
+     "verifySeconds": 2.383,
+     "inferenceSeconds": 35.899,
+     "serverTotalSeconds": 48.635
+    },
+    {
+     "label": "tr-c1-long1-cold",
+     "status": 200,
+     "seconds": 31.293,
+     "start": "warm",
+     "scenarioStart": "cold",
+     "audioSeconds": 9.16,
+     "words": 16,
+     "chars": 108,
+     "sha256": "8b1e7ef57dea7e32304a78f2681124a93aef3a62d3dc37be2418615b376accb5",
+     "textSha256": "fb1c7ed0ff3f24dbd89a6bfd7dd4896cee64b776e407d9d694d6a7dc1f8d5664",
+     "verifySeconds": 2.35,
+     "inferenceSeconds": 28.924,
+     "serverTotalSeconds": 31.29
+    },
+    {
+     "label": "en-c1-short-cold",
+     "status": 200,
+     "seconds": 28.849,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 4.12,
+     "words": 9,
+     "chars": 61,
+     "sha256": "82b55e9cf16eacda009e20590fcb31af61e8dfbfb1993cbfdfcdf27501de04ee",
+     "textSha256": "77ffac63424c01b3d209ad227f153cf48b331e8bae8c68212e6f3de6a314398f",
+     "verifySeconds": 2.351,
+     "inferenceSeconds": 16.268,
+     "serverTotalSeconds": 28.846
+    },
+    {
+     "label": "en-c1-long0-warm",
+     "status": 200,
+     "seconds": 21.916,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.4,
+     "words": 13,
+     "chars": 87,
+     "sha256": "e43efa43a5a512e69ccdd9413472624c0a5e87d3479910d3f0b4a070fc622a78",
+     "textSha256": "2116b5ea58746f34a71f296fae672af9a6d7b737f486145b461e80ba4718c008",
+     "verifySeconds": 2.391,
+     "inferenceSeconds": 19.509,
+     "serverTotalSeconds": 21.914
+    },
+    {
+     "label": "en-c1-long1-warm",
+     "status": 200,
+     "seconds": 21.219,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.08,
+     "words": 17,
+     "chars": 97,
+     "sha256": "9a6473bbbdb8b7717f672b057db0385022f0eef6418a6130df8bcdc660fcf452",
+     "textSha256": "0057291871e14a242cf223ac2ce2ec99b9d55ec707fa271efbbd87c5d968fba0",
+     "verifySeconds": 2.431,
+     "inferenceSeconds": 18.771,
+     "serverTotalSeconds": 21.217
+    },
+    {
+     "label": "en-c1-short-warm",
+     "status": 200,
+     "seconds": 17.533,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 3.76,
+     "words": 9,
+     "chars": 61,
+     "sha256": "67c8b70b08ef04d207e413fd00d874543c96c3b33ea83c195a60962ea29bb246",
+     "textSha256": "77ffac63424c01b3d209ad227f153cf48b331e8bae8c68212e6f3de6a314398f",
+     "verifySeconds": 2.393,
+     "inferenceSeconds": 15.126,
+     "serverTotalSeconds": 17.531
+    },
+    {
+     "label": "en-c2-short-warm",
+     "status": 200,
+     "seconds": 18.001,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 3.92,
+     "words": 11,
+     "chars": 64,
+     "sha256": "ddf9f820d95f1324e9f3446457e34040983e026f228ef0f92e80792dc79102f5",
+     "textSha256": "40871198f952a938d2fcb99bc666666c1d73a9ddb21e1875f4d9e2f7e2e38f58",
+     "verifySeconds": 2.4,
+     "inferenceSeconds": 15.587,
+     "serverTotalSeconds": 17.999
+    },
+    {
+     "label": "en-c2-long0-warm",
+     "status": 200,
+     "seconds": 33.23,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 10.0,
+     "words": 28,
+     "chars": 150,
+     "sha256": "dd11a2737cbf9c86cd66c5cda2c20e456ec1a1a7a5d1c101d372436b17de07a9",
+     "textSha256": "6cef01bef28b579d801b32d7bcd7a531cebee1e29d794f5c5bdc0ff1e2f86749",
+     "verifySeconds": 2.387,
+     "inferenceSeconds": 30.824,
+     "serverTotalSeconds": 33.228
+    },
+    {
+     "label": "en-c2-long1-warm",
+     "status": 200,
+     "seconds": 18.882,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 4.28,
+     "words": 14,
+     "chars": 69,
+     "sha256": "c371f695d339c0da03850b81cd71503b83b73e96144c685347a1d5b528fc411f",
+     "textSha256": "0944ffc7fe2836fde489a7645a8bc46147c15ab76666687c7a24d23c024a4b23",
+     "verifySeconds": 2.387,
+     "inferenceSeconds": 16.478,
+     "serverTotalSeconds": 18.879
+    },
+    {
+     "label": "en-c1-long0-cold",
+     "status": 200,
+     "seconds": 33.379,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 5.64,
+     "words": 13,
+     "chars": 87,
+     "sha256": "953dd129e3dddebc84c248b5e770d31ac77e43e6abd7c3dfca34d9ef0ab05fbc",
+     "textSha256": "2116b5ea58746f34a71f296fae672af9a6d7b737f486145b461e80ba4718c008",
+     "verifySeconds": 2.389,
+     "inferenceSeconds": 20.755,
+     "serverTotalSeconds": 33.376
+    },
+    {
+     "label": "en-c1-long1-cold",
+     "status": 200,
+     "seconds": 23.546,
+     "start": "warm",
+     "scenarioStart": "cold",
+     "audioSeconds": 6.28,
+     "words": 17,
+     "chars": 97,
+     "sha256": "e47ffaa05f613daf80075b83dfe6a4ae5f10d4775257cc371881984dd374cd01",
+     "textSha256": "0057291871e14a242cf223ac2ce2ec99b9d55ec707fa271efbbd87c5d968fba0",
+     "verifySeconds": 2.356,
+     "inferenceSeconds": 21.173,
+     "serverTotalSeconds": 23.543
+    },
+    {
+     "label": "de-c1-short-cold",
+     "status": 200,
+     "seconds": 30.344,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 4.56,
+     "words": 11,
+     "chars": 67,
+     "sha256": "a0437b54a33c00a01914440e278a66425437ed698b5e9e0ab8a269a36993ca84",
+     "textSha256": "22294dd4bb220d876e626955963e5cb16e435f06145dd9bc1eba95fb9a965edf",
+     "verifySeconds": 2.402,
+     "inferenceSeconds": 17.675,
+     "serverTotalSeconds": 30.341
+    },
+    {
+     "label": "de-c1-long0-warm",
+     "status": 200,
+     "seconds": 22.483,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 6.0,
+     "words": 12,
+     "chars": 91,
+     "sha256": "30c27476d0bc75a6b700cae398f392fe4ec8d1a7927d2072f38c64f84a3adac9",
+     "textSha256": "11341f9b5d447ba827da215f9bacd01bde75856a50d90a1d4dc652f2e2334358",
+     "verifySeconds": 2.394,
+     "inferenceSeconds": 20.074,
+     "serverTotalSeconds": 22.481
+    },
+    {
+     "label": "de-c1-long1-warm",
+     "status": 200,
+     "seconds": 27.077,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 7.56,
+     "words": 13,
+     "chars": 104,
+     "sha256": "5835e8a84adf1604b12b693127d759bcf7b9c9d465dad14cb6fb85f11916c176",
+     "textSha256": "bd4841fd2bc74f4eec211fc51bc6d6f355ed7f2952f8611d6dc292db0982f219",
+     "verifySeconds": 2.442,
+     "inferenceSeconds": 24.617,
+     "serverTotalSeconds": 27.075
+    },
+    {
+     "label": "de-c1-short-warm",
+     "status": 200,
+     "seconds": 21.535,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.16,
+     "words": 11,
+     "chars": 67,
+     "sha256": "83f23b1337e93cae84020a89300a4c3c2edf7975f930678d092902d5d6328695",
+     "textSha256": "22294dd4bb220d876e626955963e5cb16e435f06145dd9bc1eba95fb9a965edf",
+     "verifySeconds": 2.393,
+     "inferenceSeconds": 19.125,
+     "serverTotalSeconds": 21.532
+    },
+    {
+     "label": "de-c2-short-warm",
+     "status": 200,
+     "seconds": 18.936,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 4.28,
+     "words": 11,
+     "chars": 67,
+     "sha256": "4a29afd61cb08edcb7b63db47637ca6633a6808bdb8e4be7d8bb7ebc4813217b",
+     "textSha256": "2ab1c86fbfe60bc60696c51ac92a6ceee25fe4bc36722515771f0ae4a40284fa",
+     "verifySeconds": 2.395,
+     "inferenceSeconds": 16.526,
+     "serverTotalSeconds": 18.934
+    },
+    {
+     "label": "de-c2-long0-warm",
+     "status": 200,
+     "seconds": 39.314,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 11.92,
+     "words": 28,
+     "chars": 160,
+     "sha256": "69ea40d16aec1ade11ff357471ad3adf5a07ef5f7d6369a58c3c2e15054a8185",
+     "textSha256": "934780d7af2d806fd34365816599b8f7ba1b699f53c3edac199e56a03dd8fe28",
+     "verifySeconds": 2.4,
+     "inferenceSeconds": 36.893,
+     "serverTotalSeconds": 39.311
+    },
+    {
+     "label": "de-c2-long1-warm",
+     "status": 200,
+     "seconds": 19.955,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 4.64,
+     "words": 10,
+     "chars": 65,
+     "sha256": "e2553f5d22f684168d04f426c84581d50a34221c413094f17106957fabb1c5b6",
+     "textSha256": "441f2ff67d93555fc724abaffe7a397c351bc82242a4817be1ee2190f5086834",
+     "verifySeconds": 2.396,
+     "inferenceSeconds": 17.543,
+     "serverTotalSeconds": 19.953
+    },
+    {
+     "label": "de-c1-long0-cold",
+     "status": 200,
+     "seconds": 33.013,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 5.92,
+     "words": 12,
+     "chars": 91,
+     "sha256": "e198f9fd1b1471725f871a7cf0a8fa230793352fc7936a9216a76e64925e34eb",
+     "textSha256": "11341f9b5d447ba827da215f9bacd01bde75856a50d90a1d4dc652f2e2334358",
+     "verifySeconds": 2.389,
+     "inferenceSeconds": 20.389,
+     "serverTotalSeconds": 33.01
+    },
+    {
+     "label": "de-c1-long1-cold",
+     "status": 200,
+     "seconds": 26.207,
+     "start": "warm",
+     "scenarioStart": "cold",
+     "audioSeconds": 7.4,
+     "words": 13,
+     "chars": 104,
+     "sha256": "046f561a39144dbcd58e5aea50dd217df192088004807ac4fc878851bf1d8f98",
+     "textSha256": "bd4841fd2bc74f4eec211fc51bc6d6f355ed7f2952f8611d6dc292db0982f219",
+     "verifySeconds": 2.37,
+     "inferenceSeconds": 23.821,
+     "serverTotalSeconds": 26.205
+    }
+   ]
+  },
+  "withSecondPrompt": {
+   "runId": "closing-realpath:20261110T011838Z:342059",
+   "cpus": 8,
+   "processes": [
+    {
+     "index": 1,
+     "language": "tr",
+     "firstRequest": "short",
+     "loadAtStart": [
+      0.49853515625,
+      0.94775390625,
+      0.51708984375
+     ],
+     "readySeconds": 0.934,
+     "warm": {
+      "seconds": 23.661,
+      "workerCpuSeconds": 39.13
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.7060546875,
+      2.1611328125,
+      1.06689453125
+     ]
+    },
+    {
+     "index": 2,
+     "language": "tr",
+     "firstRequest": "long",
+     "loadAtStart": [
+      3.7060546875,
+      2.1611328125,
+      1.06689453125
+     ],
+     "readySeconds": 0.92,
+     "warm": {
+      "seconds": 23.126,
+      "workerCpuSeconds": 35.41
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.43505859375,
+      2.37890625,
+      1.2353515625
+     ]
+    },
+    {
+     "index": 3,
+     "language": "en",
+     "firstRequest": "short",
+     "loadAtStart": [
+      3.43505859375,
+      2.37890625,
+      1.2353515625
+     ],
+     "readySeconds": 0.918,
+     "warm": {
+      "seconds": 22.613,
+      "workerCpuSeconds": 34.9
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.4794921875,
+      2.7978515625,
+      1.59765625
+     ]
+    },
+    {
+     "index": 4,
+     "language": "en",
+     "firstRequest": "long",
+     "loadAtStart": [
+      3.4794921875,
+      2.7978515625,
+      1.59765625
+     ],
+     "readySeconds": 0.923,
+     "warm": {
+      "seconds": 28.22,
+      "workerCpuSeconds": 46.33
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.4697265625,
+      2.8525390625,
+      1.7216796875
+     ]
+    },
+    {
+     "index": 5,
+     "language": "de",
+     "firstRequest": "short",
+     "loadAtStart": [
+      3.4697265625,
+      2.8525390625,
+      1.7216796875
+     ],
+     "readySeconds": 0.921,
+     "warm": {
+      "seconds": 26.181,
+      "workerCpuSeconds": 42.64
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.67578125,
+      3.01806640625,
+      1.951171875
+     ]
+    },
+    {
+     "index": 6,
+     "language": "de",
+     "firstRequest": "long",
+     "loadAtStart": [
+      3.67578125,
+      3.01806640625,
+      1.951171875
+     ],
+     "readySeconds": 0.922,
+     "warm": {
+      "seconds": 24.652,
+      "workerCpuSeconds": 38.45
+     },
+     "leftoverAfterStop": [],
+     "loadAtStop": [
+      3.4462890625,
+      3.0244140625,
+      2.04638671875
+     ]
+    }
+   ],
+   "analyses": [
+    {
+     "conversation": "tr-c1",
+     "status": 200,
+     "seconds": 3.315,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Yoğun iş temposu ve uyku sorunları yaşıyorsunuz.",
+     "summaryWords": 25,
+     "spokenWords": 7,
+     "summaryText": "Kullanıcı, son haftalarda işteki yoğun tempodan dolayı akşamları kafasını boşaltamadığını ve uykusunun sık sık bölündüğünü belirtiyor. Kısa yürüyüşlerin bu duruma biraz iyi geldiğini ifade ediyor.",
+     "longParts": [
+      "Kullanıcı, son haftalarda işteki yoğun tempodan dolayı akşamları kafasını boşaltamadığını ve uykusunun sık sık bölündüğünü belirtiyor.",
+      "Kısa yürüyüşlerin bu duruma biraz iyi geldiğini ifade ediyor."
+     ]
+    },
+    {
+     "conversation": "tr-c2",
+     "status": 200,
+     "seconds": 2.706,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Taşınma süreci sizi kaygılandırıyor, destek almayı düşünebilirsiniz.",
+     "summaryWords": 27,
+     "spokenWords": 7,
+     "summaryText": "Kullanıcı, başka bir şehre taşınmanın getirdiği kaygı ve yorgunluktan bahsetmektedir. Yeni bir düzen kurmak ve arkadaşlarından uzaklaşmak onu endişelendirirken, bir arkadaşıyla telefonda konuşmak rahatlatıcı bir etki yaratmaktadır.",
+     "longParts": [
+      "Kullanıcı, başka bir şehre taşınmanın getirdiği kaygı ve yorgunluktan bahsetmektedir.",
+      "Yeni bir düzen kurmak ve arkadaşlarından uzaklaşmak onu endişelendirirken, bir arkadaşıyla telefonda konuşmak rahatlatıcı bir etki yaratmaktadır."
+     ]
+    },
+    {
+     "conversation": "en-c1",
+     "status": 200,
+     "seconds": 3.102,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "You are managing work stress and sleep challenges effectively.",
+     "summaryWords": 31,
+     "spokenWords": 9,
+     "summaryText": "The user is experiencing intense work pressure, leading to late bedtimes and interrupted sleep. They find short walks somewhat helpful and plan to walk on at least two evenings this week.",
+     "longParts": [
+      "The user is experiencing intense work pressure, leading to late bedtimes and interrupted sleep.",
+      "They find short walks somewhat helpful and plan to walk on at least two evenings this week."
+     ]
+    },
+    {
+     "conversation": "en-c2",
+     "status": 200,
+     "seconds": 2.138,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "valid",
+     "spokenSummary": "Moving is tough, but talking to friends helps.",
+     "summaryWords": 36,
+     "spokenWords": 8,
+     "summaryText": "The user is feeling worn out due to moving to a new city, particularly anxious about establishing a new routine and being away from friends. They find comfort in talking with a friend on the phone.",
+     "longParts": [
+      "The user is feeling worn out due to moving to a new city, particularly anxious about establishing a new routine and being away from friends.",
+      "They find comfort in talking with a friend on the phone."
+     ]
+    },
+    {
+     "conversation": "de-c1",
+     "status": 200,
+     "seconds": 2.804,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "not-grounded-in-user-words",
+     "spokenSummary": null,
+     "summaryWords": 33,
+     "spokenWords": null,
+     "summaryText": "Der Nutzer berichtet von hohem Arbeitstempo und Schlafstörungen, die durch späte Bettzeiten und häufige Unterbrechungen verursacht werden. Er versucht, an mindestens zwei Abenden in dieser Woche spazieren zu gehen, um sich zu entspannen.",
+     "longParts": [
+      "Der Nutzer berichtet von hohem Arbeitstempo und Schlafstörungen, die durch späte Bettzeiten und häufige Unterbrechungen verursacht werden.",
+      "Er versucht, an mindestens zwei Abenden in dieser Woche spazieren zu gehen, um sich zu entspannen."
+     ]
+    },
+    {
+     "conversation": "de-c2",
+     "status": 200,
+     "seconds": 2.403,
+     "providerType": "LIVE_OPENAI",
+     "spokenSummaryStatus": "not-grounded-in-user-words",
+     "spokenSummary": null,
+     "summaryWords": 33,
+     "spokenWords": null,
+     "summaryText": "Der Benutzer fühlt sich durch den bevorstehenden Umzug erschöpft und unruhig, da er eine neue Routine aufbauen und von Freunden entfernt sein muss. Das Telefonieren mit einer Freundin hilft ihm, sich zu beruhigen.",
+     "longParts": [
+      "Der Benutzer fühlt sich durch den bevorstehenden Umzug erschöpft und unruhig, da er eine neue Routine aufbauen und von Freunden entfernt sein muss.",
+      "Das Telefonieren mit einer Freundin hilft ihm, sich zu beruhigen."
+     ]
+    }
+   ],
+   "speech": [
+    {
+     "label": "tr-c1-short-cold",
+     "status": 200,
+     "seconds": 28.94,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 4.32,
+     "words": 7,
+     "chars": 48,
+     "sha256": "df5f966a505a09db19996f90553a207edaf8fe160f44abe35ba1dc58c8446453",
+     "textSha256": "af4aba70b49e24d5280bce21c27d1ed0eddd438f238d9c3ae29c2bb81d7b2c01",
+     "verifySeconds": 2.324,
+     "inferenceSeconds": 15.748,
+     "serverTotalSeconds": 28.937
+    },
+    {
+     "label": "tr-c1-long0-warm",
+     "status": 200,
+     "seconds": 29.749,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 9.96,
+     "words": 16,
+     "chars": 134,
+     "sha256": "c08e1958d6d190a9148e2ca866f67a57848bc2553629e15a3a4d098372c06283",
+     "textSha256": "fea3b0e72c9272c9f30e83cc1f925ce524ce77f91dce6262409487a81cc69f49",
+     "verifySeconds": 2.206,
+     "inferenceSeconds": 27.525,
+     "serverTotalSeconds": 29.747
+    },
+    {
+     "label": "tr-c1-long1-warm",
+     "status": 200,
+     "seconds": 16.861,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 4.36,
+     "words": 9,
+     "chars": 61,
+     "sha256": "8ede6bba8ef216d61a9e6fa2b67e1d17826c49132c6531ab2beecf2f957b443f",
+     "textSha256": "8bc658f7870f58113166e092f29030180029e434da7d79334a549713b0a9c736",
+     "verifySeconds": 2.244,
+     "inferenceSeconds": 14.6,
+     "serverTotalSeconds": 16.858
+    },
+    {
+     "label": "tr-c1-short-warm",
+     "status": 200,
+     "seconds": 16.548,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 4.4,
+     "words": 7,
+     "chars": 48,
+     "sha256": "3bbc146c64bcdc1379e057e72764114836d4f5748a5dc8f49ac51e967c4bdbd1",
+     "textSha256": "af4aba70b49e24d5280bce21c27d1ed0eddd438f238d9c3ae29c2bb81d7b2c01",
+     "verifySeconds": 2.201,
+     "inferenceSeconds": 14.331,
+     "serverTotalSeconds": 16.546
+    },
+    {
+     "label": "tr-c2-short-warm",
+     "status": 200,
+     "seconds": 19.057,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.68,
+     "words": 7,
+     "chars": 68,
+     "sha256": "6084b1d442a05e0ceebf3153e56ad49e03191631e1929657857e2768bff2a31c",
+     "textSha256": "a401cdca7ada98a6b7ddd187fe0aa0e55253088818b3d7e06d1f2030da96d83f",
+     "verifySeconds": 2.196,
+     "inferenceSeconds": 16.848,
+     "serverTotalSeconds": 19.055
+    },
+    {
+     "label": "tr-c2-long0-warm",
+     "status": 200,
+     "seconds": 21.095,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 6.48,
+     "words": 10,
+     "chars": 85,
+     "sha256": "fbabc44ed1d0789af502e17db51d893e362a533a828df86a9007ee697879f7c8",
+     "textSha256": "c0ea796c27a1bf93b5b998cfdc52f2f407d0c4fe7281565a5a97fec99ac05b8f",
+     "verifySeconds": 2.2,
+     "inferenceSeconds": 18.881,
+     "serverTotalSeconds": 21.093
+    },
+    {
+     "label": "tr-c2-long1-warm",
+     "status": 200,
+     "seconds": 33.491,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 11.36,
+     "words": 17,
+     "chars": 145,
+     "sha256": "fb2bff2986bc4243f501604d02886e5daabb1978ab138e923a090528243f49b4",
+     "textSha256": "c1aea0db0da32e64fdf4628b17337feae7f31f5d869e36aa8e20b2939af794b2",
+     "verifySeconds": 2.203,
+     "inferenceSeconds": 31.27,
+     "serverTotalSeconds": 33.489
+    },
+    {
+     "label": "tr-c1-long0-cold",
+     "status": 200,
+     "seconds": 42.5,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 10.84,
+     "words": 16,
+     "chars": 134,
+     "sha256": "7330e24eff82e11fd1183c9853ee387c01aa35ac65761ffc70144d4a55b0f5b4",
+     "textSha256": "fea3b0e72c9272c9f30e83cc1f925ce524ce77f91dce6262409487a81cc69f49",
+     "verifySeconds": 2.231,
+     "inferenceSeconds": 30.616,
+     "serverTotalSeconds": 42.496
+    },
+    {
+     "label": "tr-c1-long1-cold",
+     "status": 200,
+     "seconds": 19.633,
+     "start": "warm",
+     "scenarioStart": "cold",
+     "audioSeconds": 5.56,
+     "words": 9,
+     "chars": 61,
+     "sha256": "9a0ce682fcbf36dd7a4ff897899499b9c160c84c6847d175970d1bd7e1fedf9f",
+     "textSha256": "8bc658f7870f58113166e092f29030180029e434da7d79334a549713b0a9c736",
+     "verifySeconds": 2.193,
+     "inferenceSeconds": 17.424,
+     "serverTotalSeconds": 19.631
+    },
+    {
+     "label": "en-c1-short-cold",
+     "status": 200,
+     "seconds": 25.822,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 4.08,
+     "words": 9,
+     "chars": 62,
+     "sha256": "b9453a26b914e10ee33d95010011d9b1d87c31c038b4782ac709b7d59939bf56",
+     "textSha256": "beceadbe5adc9f511dd6353ee8539015955239059f7d71905a2c2bf003914cd5",
+     "verifySeconds": 2.203,
+     "inferenceSeconds": 13.858,
+     "serverTotalSeconds": 25.819
+    },
+    {
+     "label": "en-c1-long0-warm",
+     "status": 200,
+     "seconds": 21.297,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.36,
+     "words": 14,
+     "chars": 95,
+     "sha256": "fccd3b354c78103ede428214144c1af4c024db56512ab624927e876bdc871678",
+     "textSha256": "516263c272ddf0aeeee4c1a1718d3408b7fb97b555554b5559ef6be616ba7966",
+     "verifySeconds": 2.209,
+     "inferenceSeconds": 19.069,
+     "serverTotalSeconds": 21.295
+    },
+    {
+     "label": "en-c1-long1-warm",
+     "status": 200,
+     "seconds": 24.753,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 5.92,
+     "words": 17,
+     "chars": 91,
+     "sha256": "81197106b22c95cccdd47881d5669770efb7883902333da0e08fb3a8aa2e5288",
+     "textSha256": "b32b84affcf3a2fe5863c698fa525a1577af7084123a7b8d771771cf73ab0d7d",
+     "verifySeconds": 2.461,
+     "inferenceSeconds": 22.274,
+     "serverTotalSeconds": 24.75
+    },
+    {
+     "label": "en-c1-short-warm",
+     "status": 200,
+     "seconds": 18.402,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 3.84,
+     "words": 9,
+     "chars": 62,
+     "sha256": "b98c35e4cea693ea115bf2b830d712692189507b688ab5cf4de5dbb3c047f5da",
+     "textSha256": "beceadbe5adc9f511dd6353ee8539015955239059f7d71905a2c2bf003914cd5",
+     "verifySeconds": 2.36,
+     "inferenceSeconds": 16.024,
+     "serverTotalSeconds": 18.4
+    },
+    {
+     "label": "en-c2-short-warm",
+     "status": 200,
+     "seconds": 18.701,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 3.4,
+     "words": 8,
+     "chars": 46,
+     "sha256": "f55bfc449c1b04cfc157b1dc50a17be4574af0b26d4041cf1e4d0b7b61f804ca",
+     "textSha256": "4ec898a23c9f1de33f744d1e0168e77c9824831d39bdfb399d7d03507d1adf0e",
+     "verifySeconds": 2.291,
+     "inferenceSeconds": 16.393,
+     "serverTotalSeconds": 18.698
+    },
+    {
+     "label": "en-c2-long0-warm",
+     "status": 200,
+     "seconds": 31.178,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 7.96,
+     "words": 25,
+     "chars": 140,
+     "sha256": "2e5c69336d1dab2d9c398c0fb0702e8c81b66f61add99418b0a5a0c2cc6060c3",
+     "textSha256": "898d5decb2c084ee520f9d1107167a7e60b0508c0c6116f2810548e8079be056",
+     "verifySeconds": 2.52,
+     "inferenceSeconds": 28.638,
+     "serverTotalSeconds": 31.175
+    },
+    {
+     "label": "en-c2-long1-warm",
+     "status": 200,
+     "seconds": 18.988,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 3.36,
+     "words": 11,
+     "chars": 56,
+     "sha256": "4c35c5e7920dfa9de45ff390b8c1c21d1b9164ff76fe0d20d1e0efafb6fa2bfa",
+     "textSha256": "498064484c426db24c71bb6bdce0cbe748910de3bdd0a0881f1ebd87301e003b",
+     "verifySeconds": 2.422,
+     "inferenceSeconds": 16.55,
+     "serverTotalSeconds": 18.985
+    },
+    {
+     "label": "en-c1-long0-cold",
+     "status": 200,
+     "seconds": 35.191,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 5.92,
+     "words": 14,
+     "chars": 95,
+     "sha256": "511e7159497faaf4a5030be5304d616a80e918fcfab256df3e30737e7c1f2a09",
+     "textSha256": "516263c272ddf0aeeee4c1a1718d3408b7fb97b555554b5559ef6be616ba7966",
+     "verifySeconds": 2.464,
+     "inferenceSeconds": 21.834,
+     "serverTotalSeconds": 35.187
+    },
+    {
+     "label": "en-c1-long1-cold",
+     "status": 200,
+     "seconds": 24.259,
+     "start": "warm",
+     "scenarioStart": "cold",
+     "audioSeconds": 5.64,
+     "words": 17,
+     "chars": 91,
+     "sha256": "8476a9dd58a735b842f8ec3bde66299ae7d525949ffcae1099a980502f8a8e4a",
+     "textSha256": "b32b84affcf3a2fe5863c698fa525a1577af7084123a7b8d771771cf73ab0d7d",
+     "verifySeconds": 2.369,
+     "inferenceSeconds": 21.873,
+     "serverTotalSeconds": 24.257
+    },
+    {
+     "label": "de-c1-long0-warm",
+     "status": 200,
+     "seconds": 45.107,
+     "start": "cold",
+     "scenarioStart": "warm",
+     "audioSeconds": 8.96,
+     "words": 17,
+     "chars": 138,
+     "sha256": "96c41ef4cd7c7358d2b0555436a7700127df8bea112762bf22afee05c8a4370c",
+     "textSha256": "ad686e67c0a110fc65bc696c75d3a2b5013ab547c819743614aec290572d423f",
+     "verifySeconds": 2.379,
+     "inferenceSeconds": 31.822,
+     "serverTotalSeconds": 45.104
+    },
+    {
+     "label": "de-c1-long1-warm",
+     "status": 200,
+     "seconds": 27.674,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 6.76,
+     "words": 16,
+     "chars": 98,
+     "sha256": "2c647e9b4b8c1acbda95dd4051e344c40d1dddd70dd6b6bea42b0093f5cee934",
+     "textSha256": "170ceeeb4db59e7ff3e650ab7fb28f6a15b6815cb128ad4f3f9a671e3ca2849e",
+     "verifySeconds": 2.37,
+     "inferenceSeconds": 25.286,
+     "serverTotalSeconds": 27.671
+    },
+    {
+     "label": "de-c2-long0-warm",
+     "status": 200,
+     "seconds": 36.518,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 9.48,
+     "words": 23,
+     "chars": 147,
+     "sha256": "cb090fd06803ca6e7eefcf48a22a84cb711c2bafaf2be86414b45a1639342e9b",
+     "textSha256": "37224eb1754f5d2640aea07f5f79531a281bea7d2e130cbec5cc5e7af36b3d3a",
+     "verifySeconds": 2.444,
+     "inferenceSeconds": 34.054,
+     "serverTotalSeconds": 36.515
+    },
+    {
+     "label": "de-c2-long1-warm",
+     "status": 200,
+     "seconds": 20.271,
+     "start": "warm",
+     "scenarioStart": "warm",
+     "audioSeconds": 4.16,
+     "words": 10,
+     "chars": 65,
+     "sha256": "c00a34606127456c941eeeda97849b0b41bcb40897994b4ee8495eee3bd2eee3",
+     "textSha256": "441f2ff67d93555fc724abaffe7a397c351bc82242a4817be1ee2190f5086834",
+     "verifySeconds": 2.373,
+     "inferenceSeconds": 17.881,
+     "serverTotalSeconds": 20.268
+    },
+    {
+     "label": "de-c1-long0-cold",
+     "status": 200,
+     "seconds": 38.391,
+     "start": "cold",
+     "scenarioStart": "cold",
+     "audioSeconds": 8.4,
+     "words": 17,
+     "chars": 138,
+     "sha256": "5288d3724c65ede0b5f3b59a097fc5fee91864c414c62a40eb46be9ad7ff58fe",
+     "textSha256": "ad686e67c0a110fc65bc696c75d3a2b5013ab547c819743614aec290572d423f",
+     "verifySeconds": 2.257,
+     "inferenceSeconds": 26.033,
+     "serverTotalSeconds": 38.387
+    },
+    {
+     "label": "de-c1-long1-cold",
+     "status": 200,
+     "seconds": 28.07,
+     "start": "warm",
+     "scenarioStart": "cold",
+     "audioSeconds": 7.36,
+     "words": 16,
+     "chars": 98,
+     "sha256": "e1c0edb868cd126fbc14d7edaa5071b982d369a1071bdad3a3d66bda8910c919",
+     "textSha256": "170ceeeb4db59e7ff3e650ab7fb28f6a15b6815cb128ad4f3f9a671e3ca2849e",
+     "verifySeconds": 2.315,
+     "inferenceSeconds": 25.735,
+     "serverTotalSeconds": 28.067
+    }
+   ]
+  }
+ },
+ "liveWeb": {
+  "withRecapPrompt": {
+   "processes": [
+    {
+     "language": "tr",
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 24.158,
+      "workerCpuSeconds": 38.84
+     },
+     "loadAtStart": [
+      3.11962890625,
+      3.04248046875,
+      2.107421875
+     ]
+    },
+    {
+     "language": "en",
+     "readySeconds": 0.918,
+     "warm": {
+      "seconds": 24.659,
+      "workerCpuSeconds": 39.62
+     },
+     "loadAtStart": [
+      3.42431640625,
+      3.07666015625,
+      2.2685546875
+     ]
+    },
+    {
+     "language": "de",
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 24.657,
+      "workerCpuSeconds": 40.1
+     },
+     "loadAtStart": [
+      2.76953125,
+      2.9013671875,
+      2.31982421875
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "label": "tr-live-1",
+     "closing": "cold",
+     "exit": 0,
+     "seconds": 81.7
+    },
+    {
+     "label": "tr-live-2",
+     "closing": "warm",
+     "exit": 0,
+     "seconds": 63.9
+    },
+    {
+     "label": "en-live-1",
+     "closing": "cold",
+     "exit": 0,
+     "seconds": 66.3
+    },
+    {
+     "label": "en-live-2",
+     "closing": "warm",
+     "exit": 0,
+     "seconds": 61.2
+    },
+    {
+     "label": "de-live-1",
+     "closing": "cold",
+     "exit": 0,
+     "seconds": 72.8
+    },
+    {
+     "label": "de-live-2",
+     "closing": "warm",
+     "exit": 0,
+     "seconds": 64.3
+    }
+   ],
+   "rows": [
+    {
+     "label": "de-live-1",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 8,
+     "firstPreparedAudioMs": 18,
+     "summaryTextReadyMs": 2314,
+     "cEndedMs": 11121,
+     "dynamicSpeechPreparationMs": 28599,
+     "firstPersonalizedAudioMs": 30917,
+     "cToPersonalizedGapMs": 19796,
+     "personalPartGapsMs": [],
+     "aToBMs": 128,
+     "bToCMs": 128,
+     "overlap": false,
+     "closingAudioEndMs": 34761,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Sie sprachen über das hohe Arbeitstempo und Schlafprobleme."
+      },
+      "closingSpeech": [
+       {
+        "start": "cold",
+        "serverSeconds": "26.188",
+        "serverTotal": 28.589,
+        "verify": 2.401,
+        "inference": 15.8
+       }
+      ]
+     }
+    },
+    {
+     "label": "de-live-2",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 11,
+     "firstPreparedAudioMs": 17,
+     "summaryTextReadyMs": 2501,
+     "cEndedMs": 8780,
+     "dynamicSpeechPreparationMs": 18245,
+     "firstPersonalizedAudioMs": 20752,
+     "cToPersonalizedGapMs": 11972,
+     "personalPartGapsMs": [],
+     "aToBMs": 126,
+     "bToCMs": 129,
+     "overlap": false,
+     "closingAudioEndMs": 24564,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Sie sprachen über den Umzug und wie das Sie unruhig macht."
+      },
+      "closingSpeech": [
+       {
+        "start": "warm",
+        "serverSeconds": "15.823",
+        "serverTotal": 18.234,
+        "verify": 2.411,
+        "inference": 15.81
+       }
+      ]
+     }
+    },
+    {
+     "label": "en-live-1",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 8,
+     "firstPreparedAudioMs": 19,
+     "summaryTextReadyMs": 2333,
+     "cEndedMs": 9219,
+     "dynamicSpeechPreparationMs": 27698,
+     "firstPersonalizedAudioMs": 30035,
+     "cToPersonalizedGapMs": 20816,
+     "personalPartGapsMs": [],
+     "aToBMs": 127,
+     "bToCMs": 126,
+     "overlap": false,
+     "closingAudioEndMs": 33439,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "You talked about intense work and interrupted sleep."
+      },
+      "closingSpeech": [
+       {
+        "start": "cold",
+        "serverSeconds": "25.258",
+        "serverTotal": 27.684,
+        "verify": 2.426,
+        "inference": 14.842
+       }
+      ]
+     }
+    },
+    {
+     "label": "en-live-2",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 10,
+     "firstPreparedAudioMs": 19,
+     "summaryTextReadyMs": 2492,
+     "cEndedMs": 8604,
+     "dynamicSpeechPreparationMs": 17654,
+     "firstPersonalizedAudioMs": 20150,
+     "cToPersonalizedGapMs": 11546,
+     "personalPartGapsMs": [],
+     "aToBMs": 129,
+     "bToCMs": 128,
+     "overlap": false,
+     "closingAudioEndMs": 23723,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "You talked about feeling anxious about moving and missing friends."
+      },
+      "closingSpeech": [
+       {
+        "start": "warm",
+        "serverSeconds": "15.248",
+        "serverTotal": 17.643,
+        "verify": 2.395,
+        "inference": 15.235
+       }
+      ]
+     }
+    },
+    {
+     "label": "tr-live-1",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 8,
+     "firstPreparedAudioMs": 19,
+     "summaryTextReadyMs": 3183,
+     "cEndedMs": 10979,
+     "dynamicSpeechPreparationMs": 29660,
+     "firstPersonalizedAudioMs": 32847,
+     "cToPersonalizedGapMs": 21868,
+     "personalPartGapsMs": [],
+     "aToBMs": 126,
+     "bToCMs": 127,
+     "overlap": false,
+     "closingAudioEndMs": 37091,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Yoğun iş temposundan ve bölünen uykudan söz ettiniz."
+      },
+      "closingSpeech": [
+       {
+        "start": "cold",
+        "serverSeconds": "27.265",
+        "serverTotal": 29.647,
+        "verify": 2.383,
+        "inference": 16.807
+       }
+      ]
+     }
+    },
+    {
+     "label": "tr-live-2",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 8,
+     "firstPreparedAudioMs": 19,
+     "summaryTextReadyMs": 2669,
+     "cEndedMs": 10336,
+     "dynamicSpeechPreparationMs": 20205,
+     "firstPersonalizedAudioMs": 22879,
+     "cToPersonalizedGapMs": 12543,
+     "personalPartGapsMs": [],
+     "aToBMs": 127,
+     "bToCMs": 128,
+     "overlap": false,
+     "closingAudioEndMs": 27443,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Taşınma ve yeni düzen kurma kaygısından söz ettiniz."
+      },
+      "closingSpeech": [
+       {
+        "start": "warm",
+        "serverSeconds": "17.811",
+        "serverTotal": 20.194,
+        "verify": 2.384,
+        "inference": 17.796
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "withSecondPrompt": {
+   "processes": [
+    {
+     "language": "tr",
+     "readySeconds": 0.925,
+     "warm": {
+      "seconds": 25.663,
+      "workerCpuSeconds": 43.25
+     },
+     "loadAtStart": [
+      0.90380859375,
+      2.310546875,
+      1.87353515625
+     ]
+    },
+    {
+     "language": "en",
+     "readySeconds": 0.917,
+     "warm": {
+      "seconds": 22.14,
+      "workerCpuSeconds": 33.02
+     },
+     "loadAtStart": [
+      2.7705078125,
+      2.54248046875,
+      2.03125
+     ]
+    },
+    {
+     "language": "de",
+     "readySeconds": 0.916,
+     "warm": {
+      "seconds": 22.1,
+      "workerCpuSeconds": 33.71
+     },
+     "loadAtStart": [
+      2.7294921875,
+      2.62939453125,
+      2.13330078125
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "label": "tr-live-1",
+     "closing": "cold",
+     "exit": 0,
+     "seconds": 74.1
+    },
+    {
+     "label": "tr-live-2",
+     "closing": "warm",
+     "exit": 0,
+     "seconds": 63.0
+    },
+    {
+     "label": "en-live-1",
+     "closing": "cold",
+     "exit": 0,
+     "seconds": 59.7
+    },
+    {
+     "label": "en-live-2",
+     "closing": "warm",
+     "exit": 0,
+     "seconds": 50.1
+    },
+    {
+     "label": "de-live-1",
+     "closing": "cold",
+     "exit": 0,
+     "seconds": 42.2
+    },
+    {
+     "label": "de-live-2",
+     "closing": "warm",
+     "exit": 0,
+     "seconds": 64.3
+    }
+   ],
+   "rows": [
+    {
+     "label": "de-live-1",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 0,
+     "firstPreparedAudioMs": 19,
+     "summaryTextReadyMs": 1976,
+     "cEndedMs": 10118,
+     "dynamicSpeechPreparationMs": null,
+     "firstPersonalizedAudioMs": null,
+     "cToPersonalizedGapMs": null,
+     "personalPartGapsMs": [],
+     "aToBMs": 126,
+     "bToCMs": 126,
+     "overlap": false,
+     "closingAudioEndMs": 10118,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Ihre Zusammenfassung ist bereit; eine kurze gesprochene Zusammenfassung konnte nicht erstellt werden. | Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "not-grounded-in-user-words",
+       "spokenSummary": null
+      },
+      "closingSpeech": []
+     }
+    },
+    {
+     "label": "de-live-2",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 10,
+     "firstPreparedAudioMs": 20,
+     "summaryTextReadyMs": 2487,
+     "cEndedMs": 10158,
+     "dynamicSpeechPreparationMs": 25226,
+     "firstPersonalizedAudioMs": 27717,
+     "cToPersonalizedGapMs": 17559,
+     "personalPartGapsMs": [],
+     "aToBMs": 125,
+     "bToCMs": 126,
+     "overlap": false,
+     "closingAudioEndMs": 31711,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Es ist normal, sich bei einem Umzug unruhig zu fühlen."
+      },
+      "closingSpeech": [
+       {
+        "start": "cold",
+        "serverSeconds": "22.967",
+        "serverTotal": 25.216,
+        "verify": 2.248,
+        "inference": 13.497
+       }
+      ]
+     }
+    },
+    {
+     "label": "en-live-1",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 9,
+     "firstPreparedAudioMs": 20,
+     "summaryTextReadyMs": 2040,
+     "cEndedMs": 8631,
+     "dynamicSpeechPreparationMs": 23893,
+     "firstPersonalizedAudioMs": 25937,
+     "cToPersonalizedGapMs": 17306,
+     "personalPartGapsMs": [],
+     "aToBMs": 127,
+     "bToCMs": 127,
+     "overlap": false,
+     "closingAudioEndMs": 28900,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "It's good that you're planning to take evening walks."
+      },
+      "closingSpeech": [
+       {
+        "start": "cold",
+        "serverSeconds": "21.57",
+        "serverTotal": 23.882,
+        "verify": 2.313,
+        "inference": 11.715
+       }
+      ]
+     }
+    },
+    {
+     "label": "en-live-2",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 11,
+     "firstPreparedAudioMs": 22,
+     "summaryTextReadyMs": 2139,
+     "cEndedMs": 9128,
+     "dynamicSpeechPreparationMs": 15401,
+     "firstPersonalizedAudioMs": 17544,
+     "cToPersonalizedGapMs": 8416,
+     "personalPartGapsMs": [],
+     "aToBMs": 127,
+     "bToCMs": 127,
+     "overlap": false,
+     "closingAudioEndMs": 21307,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "One summary of the completed conversation was saved.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "It's normal to feel anxious about moving to a new city."
+      },
+      "closingSpeech": [
+       {
+        "start": "warm",
+        "serverSeconds": "13.179",
+        "serverTotal": 15.391,
+        "verify": 2.212,
+        "inference": 13.166
+       }
+      ]
+     }
+    },
+    {
+     "label": "tr-live-1",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 7,
+     "firstPreparedAudioMs": 19,
+     "summaryTextReadyMs": 2902,
+     "cEndedMs": 10586,
+     "dynamicSpeechPreparationMs": 26604,
+     "firstPersonalizedAudioMs": 29510,
+     "cToPersonalizedGapMs": 18924,
+     "personalPartGapsMs": [],
+     "aToBMs": 125,
+     "bToCMs": 126,
+     "overlap": false,
+     "closingAudioEndMs": 34073,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Yoğun iş temposu ve uyku sorunları yaşıyorsunuz."
+      },
+      "closingSpeech": [
+       {
+        "start": "cold",
+        "serverSeconds": "24.347",
+        "serverTotal": 26.59,
+        "verify": 2.243,
+        "inference": 14.87
+       }
+      ]
+     }
+    },
+    {
+     "label": "tr-live-2",
+     "mode": "live",
+     "autoplay": "default",
+     "valid": true,
+     "spokenWords": 7,
+     "firstPreparedAudioMs": 18,
+     "summaryTextReadyMs": 2662,
+     "cEndedMs": 11029,
+     "dynamicSpeechPreparationMs": 20596,
+     "firstPersonalizedAudioMs": 23262,
+     "cToPersonalizedGapMs": 12233,
+     "personalPartGapsMs": [],
+     "aToBMs": 127,
+     "bToCMs": 128,
+     "overlap": false,
+     "closingAudioEndMs": 29635,
+     "userTaps": {
+      "total": 0,
+      "duringClosing": 0
+     },
+     "gestureRequiredEvents": 0,
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "sources": {
+      "summary": "live: test API -> real provider",
+      "tts": "live: Next route -> test API -> resident worker"
+     },
+     "live": {
+      "analysis": {
+       "status": 200,
+       "providerType": "LIVE_OPENAI",
+       "spokenSummaryStatus": "valid",
+       "spokenSummary": "Taşınma süreci zorlayıcı olabilir, destek almayı düşünebilirsiniz."
+      },
+      "closingSpeech": [
+       {
+        "start": "warm",
+        "serverSeconds": "18.362",
+        "serverTotal": 20.587,
+        "verify": 2.225,
+        "inference": 18.349
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "replayOfRealPath": {
+  "default": {
+   "short": {
+    "file": "realpath2-short-head-default.json",
+    "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+    "autoplayPolicy": "default",
+    "rows": [
+     {
+      "label": "tr-c1-short-cold",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 8,
+      "firstPreparedAudioMs": 39,
+      "summaryTextReadyMs": 2768,
+      "cEndedMs": 11961,
+      "dynamicSpeechPreparationMs": 32054,
+      "firstPersonalizedAudioMs": 34829,
+      "cToPersonalizedGapMs": 22868,
+      "personalPartGapsMs": [],
+      "aToBMs": 132,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 39928,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-short-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c1-short-warm",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 8,
+      "firstPreparedAudioMs": 50,
+      "summaryTextReadyMs": 2773,
+      "cEndedMs": 10857,
+      "dynamicSpeechPreparationMs": 21006,
+      "firstPersonalizedAudioMs": 23792,
+      "cToPersonalizedGapMs": 12935,
+      "personalPartGapsMs": [],
+      "aToBMs": 132,
+      "bToCMs": 129,
+      "overlap": false,
+      "closingAudioEndMs": 28808,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c2-short-warm",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 9,
+      "firstPreparedAudioMs": 35,
+      "summaryTextReadyMs": 2687,
+      "cEndedMs": 10996,
+      "dynamicSpeechPreparationMs": 21816,
+      "firstPersonalizedAudioMs": 24518,
+      "cToPersonalizedGapMs": 13522,
+      "personalPartGapsMs": [],
+      "aToBMs": 129,
+      "bToCMs": 134,
+      "overlap": false,
+      "closingAudioEndMs": 29817,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c2-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-short-cold",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 9,
+      "firstPreparedAudioMs": 56,
+      "summaryTextReadyMs": 2162,
+      "cEndedMs": 8766,
+      "dynamicSpeechPreparationMs": 28867,
+      "firstPersonalizedAudioMs": 31036,
+      "cToPersonalizedGapMs": 22270,
+      "personalPartGapsMs": [],
+      "aToBMs": 131,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 35162,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-short-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-short-warm",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 9,
+      "firstPreparedAudioMs": 46,
+      "summaryTextReadyMs": 2153,
+      "cEndedMs": 9132,
+      "dynamicSpeechPreparationMs": 17545,
+      "firstPersonalizedAudioMs": 19704,
+      "cToPersonalizedGapMs": 10572,
+      "personalPartGapsMs": [],
+      "aToBMs": 128,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 23480,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c2-short-warm",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 38,
+      "summaryTextReadyMs": 2101,
+      "cEndedMs": 9157,
+      "dynamicSpeechPreparationMs": 18018,
+      "firstPersonalizedAudioMs": 20128,
+      "cToPersonalizedGapMs": 10971,
+      "personalPartGapsMs": [],
+      "aToBMs": 131,
+      "bToCMs": 129,
+      "overlap": false,
+      "closingAudioEndMs": 24069,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c2-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-short-cold",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 36,
+      "summaryTextReadyMs": 2397,
+      "cEndedMs": 10899,
+      "dynamicSpeechPreparationMs": 30359,
+      "firstPersonalizedAudioMs": 32766,
+      "cToPersonalizedGapMs": 21867,
+      "personalPartGapsMs": [],
+      "aToBMs": 129,
+      "bToCMs": 131,
+      "overlap": false,
+      "closingAudioEndMs": 37343,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-short-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-short-warm",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 39,
+      "summaryTextReadyMs": 2398,
+      "cEndedMs": 9701,
+      "dynamicSpeechPreparationMs": 21550,
+      "firstPersonalizedAudioMs": 23954,
+      "cToPersonalizedGapMs": 14253,
+      "personalPartGapsMs": [],
+      "aToBMs": 129,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 29124,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c2-short-warm",
+      "mode": "short",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 29,
+      "summaryTextReadyMs": 2397,
+      "cEndedMs": 9402,
+      "dynamicSpeechPreparationMs": 18957,
+      "firstPersonalizedAudioMs": 21362,
+      "cToPersonalizedGapMs": 11960,
+      "personalPartGapsMs": [],
+      "aToBMs": 128,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 25655,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c2-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     }
+    ]
+   },
+   "long": {
+    "file": "realpath2-long-4872c6e-default.json",
+    "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+    "autoplayPolicy": "default",
+    "rows": [
+     {
+      "label": "tr-c1-long-cold",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 35,
+      "firstPreparedAudioMs": 41,
+      "summaryTextReadyMs": 2767,
+      "cEndedMs": 11358,
+      "dynamicSpeechPreparationMs": 48664,
+      "firstPersonalizedAudioMs": 51440,
+      "cToPersonalizedGapMs": 40082,
+      "personalPartGapsMs": [
+       19749
+      ],
+      "aToBMs": 130,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 91879,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-long0-cold (test API TTS endpoint (cold))",
+        "tr-c1-long1-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c1-long-warm",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 35,
+      "firstPreparedAudioMs": 50,
+      "summaryTextReadyMs": 2766,
+      "cEndedMs": 11166,
+      "dynamicSpeechPreparationMs": 39835,
+      "firstPersonalizedAudioMs": 42611,
+      "cToPersonalizedGapMs": 31445,
+      "personalPartGapsMs": [
+       18296
+      ],
+      "aToBMs": 130,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 81680,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-long0-warm (test API TTS endpoint (warm))",
+        "tr-c1-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c2-long-warm",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 30,
+      "firstPreparedAudioMs": 27,
+      "summaryTextReadyMs": 2685,
+      "cEndedMs": 10497,
+      "dynamicSpeechPreparationMs": 39664,
+      "firstPersonalizedAudioMs": 42356,
+      "cToPersonalizedGapMs": 31859,
+      "personalPartGapsMs": [
+       12586
+      ],
+      "aToBMs": 130,
+      "bToCMs": 130,
+      "overlap": false,
+      "closingAudioEndMs": 73551,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c2-long0-warm (test API TTS endpoint (warm))",
+        "tr-c2-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-long-cold",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 30,
+      "firstPreparedAudioMs": 32,
+      "summaryTextReadyMs": 2152,
+      "cEndedMs": 9126,
+      "dynamicSpeechPreparationMs": 33393,
+      "firstPersonalizedAudioMs": 35553,
+      "cToPersonalizedGapMs": 26427,
+      "personalPartGapsMs": [
+       17957
+      ],
+      "aToBMs": 132,
+      "bToCMs": 130,
+      "overlap": false,
+      "closingAudioEndMs": 65362,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-long0-cold (test API TTS endpoint (cold))",
+        "en-c1-long1-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-long-warm",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 30,
+      "firstPreparedAudioMs": 66,
+      "summaryTextReadyMs": 2154,
+      "cEndedMs": 8030,
+      "dynamicSpeechPreparationMs": 21930,
+      "firstPersonalizedAudioMs": 24092,
+      "cToPersonalizedGapMs": 16062,
+      "personalPartGapsMs": [
+       15865
+      ],
+      "aToBMs": 128,
+      "bToCMs": 130,
+      "overlap": false,
+      "closingAudioEndMs": 50374,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-long0-warm (test API TTS endpoint (warm))",
+        "en-c1-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c2-long-warm",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 42,
+      "firstPreparedAudioMs": 41,
+      "summaryTextReadyMs": 2101,
+      "cEndedMs": 9685,
+      "dynamicSpeechPreparationMs": 33251,
+      "firstPersonalizedAudioMs": 35360,
+      "cToPersonalizedGapMs": 25675,
+      "personalPartGapsMs": [
+       8927
+      ],
+      "aToBMs": 130,
+      "bToCMs": 131,
+      "overlap": false,
+      "closingAudioEndMs": 58497,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c2-long0-warm (test API TTS endpoint (warm))",
+        "en-c2-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-long-cold",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 25,
+      "firstPreparedAudioMs": 31,
+      "summaryTextReadyMs": 2397,
+      "cEndedMs": 11106,
+      "dynamicSpeechPreparationMs": 33029,
+      "firstPersonalizedAudioMs": 35434,
+      "cToPersonalizedGapMs": 24328,
+      "personalPartGapsMs": [
+       20344
+      ],
+      "aToBMs": 130,
+      "bToCMs": 130,
+      "overlap": false,
+      "closingAudioEndMs": 69045,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-long0-cold (test API TTS endpoint (cold))",
+        "de-c1-long1-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-long-warm",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 25,
+      "firstPreparedAudioMs": 37,
+      "summaryTextReadyMs": 2398,
+      "cEndedMs": 9704,
+      "dynamicSpeechPreparationMs": 22499,
+      "firstPersonalizedAudioMs": 24905,
+      "cToPersonalizedGapMs": 15201,
+      "personalPartGapsMs": [
+       21133
+      ],
+      "aToBMs": 128,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 59527,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-long0-warm (test API TTS endpoint (warm))",
+        "de-c1-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c2-long-warm",
+      "mode": "long",
+      "autoplay": "default",
+      "valid": true,
+      "spokenWords": 38,
+      "firstPreparedAudioMs": 38,
+      "summaryTextReadyMs": 2397,
+      "cEndedMs": 10150,
+      "dynamicSpeechPreparationMs": 39335,
+      "firstPersonalizedAudioMs": 41738,
+      "cToPersonalizedGapMs": 31588,
+      "personalPartGapsMs": [
+       8091
+      ],
+      "aToBMs": 131,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 66364,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c2-long0-warm (test API TTS endpoint (warm))",
+        "de-c2-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "user-gesture-required": {
+   "short": {
+    "file": "realpath2-short-head-user-gesture-required.json",
+    "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+    "autoplayPolicy": "user-gesture-required",
+    "rows": [
+     {
+      "label": "tr-c1-short-cold",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 8,
+      "firstPreparedAudioMs": 46,
+      "summaryTextReadyMs": 2777,
+      "cEndedMs": 11863,
+      "dynamicSpeechPreparationMs": 32058,
+      "firstPersonalizedAudioMs": 34843,
+      "cToPersonalizedGapMs": 22980,
+      "personalPartGapsMs": [],
+      "aToBMs": 128,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 39941,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-short-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c1-short-warm",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 8,
+      "firstPreparedAudioMs": 51,
+      "summaryTextReadyMs": 2765,
+      "cEndedMs": 10661,
+      "dynamicSpeechPreparationMs": 21008,
+      "firstPersonalizedAudioMs": 23780,
+      "cToPersonalizedGapMs": 13119,
+      "personalPartGapsMs": [],
+      "aToBMs": 129,
+      "bToCMs": 129,
+      "overlap": false,
+      "closingAudioEndMs": 28788,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c2-short-warm",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 9,
+      "firstPreparedAudioMs": 38,
+      "summaryTextReadyMs": 2688,
+      "cEndedMs": 10764,
+      "dynamicSpeechPreparationMs": 21825,
+      "firstPersonalizedAudioMs": 24521,
+      "cToPersonalizedGapMs": 13757,
+      "personalPartGapsMs": [],
+      "aToBMs": 132,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 29831,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c2-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-short-cold",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 9,
+      "firstPreparedAudioMs": 37,
+      "summaryTextReadyMs": 2162,
+      "cEndedMs": 8101,
+      "dynamicSpeechPreparationMs": 28864,
+      "firstPersonalizedAudioMs": 31032,
+      "cToPersonalizedGapMs": 22931,
+      "personalPartGapsMs": [],
+      "aToBMs": 129,
+      "bToCMs": 130,
+      "overlap": false,
+      "closingAudioEndMs": 35165,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-short-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-short-warm",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 9,
+      "firstPreparedAudioMs": 42,
+      "summaryTextReadyMs": 2152,
+      "cEndedMs": 8751,
+      "dynamicSpeechPreparationMs": 17546,
+      "firstPersonalizedAudioMs": 19705,
+      "cToPersonalizedGapMs": 10954,
+      "personalPartGapsMs": [],
+      "aToBMs": 128,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 23483,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c2-short-warm",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 42,
+      "summaryTextReadyMs": 2103,
+      "cEndedMs": 9252,
+      "dynamicSpeechPreparationMs": 18018,
+      "firstPersonalizedAudioMs": 20129,
+      "cToPersonalizedGapMs": 10877,
+      "personalPartGapsMs": [],
+      "aToBMs": 131,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 24055,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c2-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-short-cold",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 41,
+      "summaryTextReadyMs": 2400,
+      "cEndedMs": 9792,
+      "dynamicSpeechPreparationMs": 30358,
+      "firstPersonalizedAudioMs": 32765,
+      "cToPersonalizedGapMs": 22973,
+      "personalPartGapsMs": [],
+      "aToBMs": 129,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 37346,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-short-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-short-warm",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 31,
+      "summaryTextReadyMs": 2399,
+      "cEndedMs": 10396,
+      "dynamicSpeechPreparationMs": 21551,
+      "firstPersonalizedAudioMs": 23957,
+      "cToPersonalizedGapMs": 13561,
+      "personalPartGapsMs": [],
+      "aToBMs": 128,
+      "bToCMs": 135,
+      "overlap": false,
+      "closingAudioEndMs": 29136,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c2-short-warm",
+      "mode": "short",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 11,
+      "firstPreparedAudioMs": 34,
+      "summaryTextReadyMs": 2397,
+      "cEndedMs": 10720,
+      "dynamicSpeechPreparationMs": 18951,
+      "firstPersonalizedAudioMs": 21356,
+      "cToPersonalizedGapMs": 10636,
+      "personalPartGapsMs": [],
+      "aToBMs": 128,
+      "bToCMs": 132,
+      "overlap": false,
+      "closingAudioEndMs": 25650,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c2-short-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     }
+    ]
+   },
+   "long": {
+    "file": "realpath2-long-4872c6e-user-gesture-required.json",
+    "kind": "Real production build + Chromium playback + real hook code + trusted CDP clicks; every backend response replayed (see sources). Not a live end-to-end run.",
+    "autoplayPolicy": "user-gesture-required",
+    "rows": [
+     {
+      "label": "tr-c1-long-cold",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 35,
+      "firstPreparedAudioMs": 50,
+      "summaryTextReadyMs": 2768,
+      "cEndedMs": 9642,
+      "dynamicSpeechPreparationMs": 48666,
+      "firstPersonalizedAudioMs": 51447,
+      "cToPersonalizedGapMs": 41805,
+      "personalPartGapsMs": [
+       19744
+      ],
+      "aToBMs": 130,
+      "bToCMs": 130,
+      "overlap": false,
+      "closingAudioEndMs": 91886,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-long0-cold (test API TTS endpoint (cold))",
+        "tr-c1-long1-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c1-long-warm",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 35,
+      "firstPreparedAudioMs": 96,
+      "summaryTextReadyMs": 2806,
+      "cEndedMs": 12023,
+      "dynamicSpeechPreparationMs": 39834,
+      "firstPersonalizedAudioMs": 42651,
+      "cToPersonalizedGapMs": 30628,
+      "personalPartGapsMs": [
+       18297
+      ],
+      "aToBMs": 135,
+      "bToCMs": 134,
+      "overlap": false,
+      "closingAudioEndMs": 81729,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c1-long0-warm (test API TTS endpoint (warm))",
+        "tr-c1-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "tr-c2-long-warm",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 30,
+      "firstPreparedAudioMs": 36,
+      "summaryTextReadyMs": 2686,
+      "cEndedMs": 12476,
+      "dynamicSpeechPreparationMs": 39667,
+      "firstPersonalizedAudioMs": 42361,
+      "cToPersonalizedGapMs": 29885,
+      "personalPartGapsMs": [
+       12586
+      ],
+      "aToBMs": 139,
+      "bToCMs": 137,
+      "overlap": false,
+      "closingAudioEndMs": 73563,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (tr-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "tr-c2-long0-warm (test API TTS endpoint (warm))",
+        "tr-c2-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-long-cold",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 30,
+      "firstPreparedAudioMs": 30,
+      "summaryTextReadyMs": 2151,
+      "cEndedMs": 8513,
+      "dynamicSpeechPreparationMs": 33392,
+      "firstPersonalizedAudioMs": 35552,
+      "cToPersonalizedGapMs": 27039,
+      "personalPartGapsMs": [
+       17952
+      ],
+      "aToBMs": 129,
+      "bToCMs": 143,
+      "overlap": false,
+      "closingAudioEndMs": 65358,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-long0-cold (test API TTS endpoint (cold))",
+        "en-c1-long1-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "en-c1-long-warm",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 30,
+      "firstPreparedAudioMs": 48,
+      "summaryTextReadyMs": 2158,
+      "cEndedMs": 8098,
+      "dynamicSpeechPreparationMs": 21930,
+      "firstPersonalizedAudioMs": 24098,
+      "cToPersonalizedGapMs": 16000,
+      "personalPartGapsMs": [
+       15865
+      ],
+      "aToBMs": 132,
+      "bToCMs": 128,
+      "overlap": false,
+      "closingAudioEndMs": 50398,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c1-long0-warm (test API TTS endpoint (warm))",
+        "en-c1-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "en-c2-long-warm",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 42,
+      "firstPreparedAudioMs": 32,
+      "summaryTextReadyMs": 2100,
+      "cEndedMs": 7647,
+      "dynamicSpeechPreparationMs": 33253,
+      "firstPersonalizedAudioMs": 35365,
+      "cToPersonalizedGapMs": 27718,
+      "personalPartGapsMs": [
+       8926
+      ],
+      "aToBMs": 132,
+      "bToCMs": 131,
+      "overlap": false,
+      "closingAudioEndMs": 58502,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "One summary of the completed conversation was saved.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (en-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "en-c2-long0-warm (test API TTS endpoint (warm))",
+        "en-c2-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-long-cold",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 25,
+      "firstPreparedAudioMs": 44,
+      "summaryTextReadyMs": 2400,
+      "cEndedMs": 10922,
+      "dynamicSpeechPreparationMs": 33028,
+      "firstPersonalizedAudioMs": 35440,
+      "cToPersonalizedGapMs": 24518,
+      "personalPartGapsMs": [
+       20335
+      ],
+      "aToBMs": 132,
+      "bToCMs": 134,
+      "overlap": false,
+      "closingAudioEndMs": 69027,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-long0-cold (test API TTS endpoint (cold))",
+        "de-c1-long1-cold (test API TTS endpoint (cold))"
+       ]
+      }
+     },
+     {
+      "label": "de-c1-long-warm",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 25,
+      "firstPreparedAudioMs": 32,
+      "summaryTextReadyMs": 2397,
+      "cEndedMs": 10993,
+      "dynamicSpeechPreparationMs": 22501,
+      "firstPersonalizedAudioMs": 24905,
+      "cToPersonalizedGapMs": 13912,
+      "personalPartGapsMs": [
+       21133
+      ],
+      "aToBMs": 128,
+      "bToCMs": 131,
+      "overlap": false,
+      "closingAudioEndMs": 59532,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c1-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c1-long0-warm (test API TTS endpoint (warm))",
+        "de-c1-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     },
+     {
+      "label": "de-c2-long-warm",
+      "mode": "long",
+      "autoplay": "user-gesture-required",
+      "valid": true,
+      "spokenWords": 38,
+      "firstPreparedAudioMs": 30,
+      "summaryTextReadyMs": 2398,
+      "cEndedMs": 9464,
+      "dynamicSpeechPreparationMs": 39336,
+      "firstPersonalizedAudioMs": 41745,
+      "cToPersonalizedGapMs": 32281,
+      "personalPartGapsMs": [
+       8074
+      ],
+      "aToBMs": 132,
+      "bToCMs": 131,
+      "overlap": false,
+      "closingAudioEndMs": 66371,
+      "userTaps": {
+       "total": 0,
+       "duringClosing": 0
+      },
+      "gestureRequiredEvents": 0,
+      "notice": "Eine Zusammenfassung des abgeschlossenen Gesprächs wurde gespeichert.",
+      "sources": {
+       "summary": "real provider via test API on the WEB host (de-c2-analysis, LIVE_OPENAI)",
+       "tts": [
+        "de-c2-long0-warm (test API TTS endpoint (warm))",
+        "de-c2-long1-warm (test API TTS endpoint (warm))"
+       ]
+      }
+     }
+    ]
+   }
+  }
+ },
+ "aaos": [
+  {
+   "run": "aaos-mental-closing-1794275424694",
+   "status": "FAIL",
+   "sourceCommit": "cf4413b5c5111899b26224e60348c032f3139da6",
+   "buildId": "KE45vhVAjr1MdR_g61u0_",
+   "replay": {
+    "runId": "closing-realpath:20261110T011838Z:342059",
+    "file": "realpath.json"
+   },
+   "checks": [
+    {
+     "what": "All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest",
+     "pass": true
+    },
+    {
+     "what": "tr-complete-cold: A, B, C and the personal summary played in order without overlap",
+     "pass": true
+    },
+    {
+     "what": "tr-complete-cold: no extra tap needed during the closing (one shared, gesture-unlocked element)",
+     "pass": true
+    },
+    {
+     "what": "tr-complete-cold: Android mixer active during A and during the summary",
+     "pass": true
+    },
+    {
+     "what": "en-complete-warm: A, B, C and the personal summary played in order without overlap",
+     "pass": true
+    },
+    {
+     "what": "en-complete-warm: no extra tap needed during the closing (one shared, gesture-unlocked element)",
+     "pass": true
+    },
+    {
+     "what": "en-complete-warm: Android mixer active during A and during the summary",
+     "pass": true
+    },
+    {
+     "what": "tr-cancel-during-B-then-new: completed without harness error",
+     "pass": false
+    },
+    {
+     "what": "en-mute-during-C: mute at closing-C-playing stops the closing and no later audio starts",
+     "pass": false
+    },
+    {
+     "what": "tr-language-change-during-B: language at closing-B-playing stops the closing and no later audio starts",
+     "pass": false
+    },
+    {
+     "what": "en-cancel-during-summary: cancel at closing-summary-audio-start stops the closing and no later audio starts",
+     "pass": false
+    },
+    {
+     "what": "tr-drive-during-C: drive stops the closing; the returned app plays nothing of it, also after the late speech response",
+     "pass": false
+    }
+   ],
+   "errors": [
+    {
+     "case": "tr-cancel-during-B-then-new",
+     "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Özet hazırlamayı iptal et', exact: true })\n\n    at closing (/var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:176:192)\n    at async /var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:305:19"
+    }
+   ],
+   "cases": [
+    {
+     "name": "tr-complete-cold",
+     "language": "tr",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "standbyNo": true,
+      "framesWritten": [
+       601344,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:175 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "mixerDuringSummary": {
+      "standbyNo": true,
+      "framesWritten": [
+       1240704,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:199 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "focusDuringSummary": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 197,
+      "aEnded": 3516,
+      "bPlaying": 3643,
+      "bEnded": 6703,
+      "cPlaying": 6831,
+      "cEnded": 10546,
+      "verified": 187,
+      "summaryTextReady": 3472,
+      "firstPartReady": 32438,
+      "summaryPlaying": 32443,
+      "summaryComplete": 36741,
+      "noSpokenLine": null,
+      "partPlaying": [
+       32443
+      ],
+      "partEnded": [
+       36740
+      ],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 127,
+       "bToC": 128,
+       "cToSummary": 21897,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "en-complete-warm",
+     "language": "en",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "standbyNo": true,
+      "framesWritten": [
+       2171520,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:199 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "mixerDuringSummary": {
+      "standbyNo": true,
+      "framesWritten": [
+       2708352,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:231 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "notice": "One summary of the completed conversation was saved.",
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "focusDuringSummary": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 183,
+      "aEnded": 2639,
+      "bPlaying": 2765,
+      "bEnded": 5192,
+      "cPlaying": 5321,
+      "cEnded": 8353,
+      "verified": 175,
+      "summaryTextReady": 3252,
+      "firstPartReady": 21676,
+      "summaryPlaying": 21680,
+      "summaryComplete": 25459,
+      "noSpokenLine": null,
+      "partPlaying": [
+       21680
+      ],
+      "partEnded": [
+       25459
+      ],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 126,
+       "bToC": 129,
+       "cToSummary": 13327,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "en-mute-during-C",
+     "language": "en",
+     "action": "mute",
+     "at": "closing-C-playing",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "standbyNo": true,
+      "framesWritten": [
+       5232384,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:263 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "mixerAfter": {
+      "standbyNo": true,
+      "framesWritten": [
+       5668992,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": []
+     },
+     "phase": "completed",
+     "notice": "One summary of the completed conversation was saved.",
+     "lateSpeechResponses": 1,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 196,
+      "aEnded": 2956,
+      "bPlaying": 3084,
+      "bEnded": 6063,
+      "cPlaying": 6190,
+      "cEnded": null,
+      "verified": 187,
+      "summaryTextReady": 3244,
+      "firstPartReady": null,
+      "summaryPlaying": null,
+      "summaryComplete": null,
+      "noSpokenLine": null,
+      "partPlaying": [],
+      "partEnded": [],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 128,
+       "bToC": 127,
+       "cToSummary": null,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "tr-language-change-during-B",
+     "language": "tr",
+     "action": "language",
+     "at": "closing-B-playing",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "standbyNo": true,
+      "framesWritten": [
+       6272640,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:295 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "mixerAfter": {
+      "standbyNo": true,
+      "framesWritten": [
+       7315200,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": []
+     },
+     "phase": "completed",
+     "notice": "One summary of the completed conversation was saved.",
+     "lateSpeechResponses": 1,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 191,
+      "aEnded": 4355,
+      "bPlaying": 4482,
+      "bEnded": 8285,
+      "cPlaying": 8412,
+      "cEnded": 11480,
+      "verified": 180,
+      "summaryTextReady": 3460,
+      "firstPartReady": 20029,
+      "summaryPlaying": 20035,
+      "summaryComplete": 24396,
+      "noSpokenLine": null,
+      "partPlaying": [
+       20035
+      ],
+      "partEnded": [
+       24396
+      ],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 127,
+       "bToC": 127,
+       "cToSummary": 8555,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "en-cancel-during-summary",
+     "language": "en",
+     "action": "cancel",
+     "at": "closing-summary-audio-start",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "standbyNo": true,
+      "framesWritten": [
+       7788672,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:335 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "mixerAfter": {
+      "standbyNo": true,
+      "framesWritten": [
+       8726400,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": []
+     },
+     "playsAfterAction": [
+      {
+       "atMs": 33448.399999999965,
+       "src": "blob:http://"
+      }
+     ],
+     "phase": "completed",
+     "notice": "One summary of the completed conversation was saved.",
+     "lateSpeechResponses": 0,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 205,
+      "aEnded": 2646,
+      "bPlaying": 2772,
+      "bEnded": 5255,
+      "cPlaying": 5382,
+      "cEnded": 8391,
+      "verified": 195,
+      "summaryTextReady": 3257,
+      "firstPartReady": 21682,
+      "summaryPlaying": 21687,
+      "summaryComplete": null,
+      "noSpokenLine": null,
+      "partPlaying": [
+       21687
+      ],
+      "partEnded": [],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 126,
+       "bToC": 127,
+       "cToSummary": 13296,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "tr-drive-during-C",
+     "language": "tr",
+     "action": "drive",
+     "at": "closing-C-playing",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "standbyNo": true,
+      "framesWritten": [
+       9325440,
+       0,
+       0,
+       0
+      ],
+      "tracks": [
+       "no",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes",
+       "yes"
+      ],
+      "startedPlayers": [
+       "AudioPlaybackConfiguration piid:375 deviceId:2 type:AAudio u/pid:1010259/2488 state:started attr:AudioAttributes: usage=USAGE_MEDIA content="
+      ]
+     },
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "afterReturn": {
+      "plays": 0,
+      "timeline": [],
+      "mixer": {
+       "standbyNo": true,
+       "framesWritten": [
+        9804672,
+        0,
+        0,
+        0
+       ],
+       "tracks": [
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "yes"
+       ],
+       "startedPlayers": []
+      },
+      "url": "http://127.0.0.1:3000/"
+     }
+    }
+   ]
+  },
+  {
+   "run": "aaos-mental-closing-1794275948102",
+   "status": "FAIL",
+   "sourceCommit": "67793687f8ff9273f56a26e7ed85ad120cc9bd9b",
+   "buildId": "KE45vhVAjr1MdR_g61u0_",
+   "replay": {
+    "runId": "closing-realpath:20261110T011838Z:342059",
+    "file": "realpath.json"
+   },
+   "checks": [
+    {
+     "what": "All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest",
+     "pass": true
+    },
+    {
+     "what": "tr-complete-cold: A, B, C and the personal summary played in order without overlap",
+     "pass": true
+    },
+    {
+     "what": "tr-complete-cold: no extra tap needed during the closing (one shared, gesture-unlocked element)",
+     "pass": true
+    },
+    {
+     "what": "tr-complete-cold: Android mixer writes frames during A and during the summary",
+     "pass": true
+    },
+    {
+     "what": "en-complete-warm: A, B, C and the personal summary played in order without overlap",
+     "pass": true
+    },
+    {
+     "what": "en-complete-warm: no extra tap needed during the closing (one shared, gesture-unlocked element)",
+     "pass": true
+    },
+    {
+     "what": "en-complete-warm: Android mixer writes frames during A and during the summary",
+     "pass": true
+    },
+    {
+     "what": "tr-cancel-during-B-then-new: cancel at closing-B-playing stops the closing and no later closing audio starts (new conversation running)",
+     "pass": true
+    },
+    {
+     "what": "en-mute-during-C: mute at closing-C-playing stops the closing and no later closing audio starts",
+     "pass": true
+    },
+    {
+     "what": "tr-language-locked-during-B: language selector is locked while the closing plays",
+     "pass": true
+    },
+    {
+     "what": "tr-language-locked-during-B: the closing continues to its end in the session language",
+     "pass": true
+    },
+    {
+     "what": "en-cancel-during-summary: cancel at closing-summary-audio-start stops the closing and no later closing audio starts",
+     "pass": true
+    },
+    {
+     "what": "tr-drive-during-C: drive stops the closing at once (no output frames); the returned app plays nothing of it",
+     "pass": false
+    }
+   ],
+   "errors": [],
+   "cases": [
+    {
+     "name": "tr-complete-cold",
+     "language": "tr",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "framesDelta": 49536,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerDuringSummary": {
+      "framesDelta": 49536,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "notice": "Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "focusDuringSummary": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 190,
+      "aEnded": 4345,
+      "bPlaying": 4472,
+      "bEnded": 7541,
+      "cPlaying": 7667,
+      "cEnded": 11430,
+      "verified": 179,
+      "summaryTextReady": 3463,
+      "firstPartReady": 32432,
+      "summaryPlaying": 32437,
+      "summaryComplete": 36730,
+      "noSpokenLine": null,
+      "partPlaying": [
+       32436
+      ],
+      "partEnded": [
+       36729
+      ],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 127,
+       "bToC": 126,
+       "cToSummary": 21007,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "en-complete-warm",
+     "language": "en",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerDuringSummary": {
+      "framesDelta": 49536,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "notice": "One summary of the completed conversation was saved.",
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "focusDuringSummary": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 220,
+      "aEnded": 2661,
+      "bPlaying": 2787,
+      "bEnded": 5226,
+      "cPlaying": 5353,
+      "cEnded": 8361,
+      "verified": 208,
+      "summaryTextReady": 3266,
+      "firstPartReady": 21690,
+      "summaryPlaying": 21695,
+      "summaryComplete": 25475,
+      "noSpokenLine": null,
+      "partPlaying": [
+       21695
+      ],
+      "partEnded": [
+       25474
+      ],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 126,
+       "bToC": 127,
+       "cToSummary": 13334,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "tr-cancel-during-B-then-new",
+     "language": "tr",
+     "action": "cancel",
+     "at": "closing-B-playing",
+     "finishInput": "CDP click",
+     "cancelControl": "Özet hazırlamayı iptal et",
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerAfter": {
+      "framesDelta": 0,
+      "windowMs": 2000,
+      "standbyNo": true
+     },
+     "stagesAfterAction": [
+      "cleanup"
+     ],
+     "phase": "listening",
+     "notice": "Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.",
+     "lateSpeechResponses": 0,
+     "newConversationStarted": true,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@71a3673 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 203,
+      "aEnded": 2894,
+      "bPlaying": 3021,
+      "bEnded": null,
+      "cPlaying": null,
+      "cEnded": null,
+      "verified": 194,
+      "summaryTextReady": null,
+      "firstPartReady": null,
+      "summaryPlaying": null,
+      "summaryComplete": null,
+      "noSpokenLine": null,
+      "partPlaying": [],
+      "partEnded": [],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 127,
+       "bToC": null,
+       "cToSummary": null,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "en-mute-during-C",
+     "language": "en",
+     "action": "mute",
+     "at": "closing-C-playing",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerAfter": {
+      "framesDelta": 0,
+      "windowMs": 2000,
+      "standbyNo": true
+     },
+     "phase": "completed",
+     "notice": "One summary of the completed conversation was saved.",
+     "lateSpeechResponses": 1,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@aa4fd51 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 194,
+      "aEnded": 1976,
+      "bPlaying": 2103,
+      "bEnded": 4542,
+      "cPlaying": 4669,
+      "cEnded": null,
+      "verified": 184,
+      "summaryTextReady": 3252,
+      "firstPartReady": null,
+      "summaryPlaying": null,
+      "summaryComplete": null,
+      "noSpokenLine": null,
+      "partPlaying": [],
+      "partEnded": [],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 127,
+       "bToC": 127,
+       "cToSummary": null,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "tr-language-locked-during-B",
+     "language": "tr",
+     "action": "language",
+     "at": "closing-B-playing",
+     "finishInput": "CDP click",
+     "languageSelector": {
+      "disabled": true,
+      "title": "Devam eden işlem sırasında dil seçimi kilitlidir; ilerlemeniz korunur.",
+      "value": "tr"
+     },
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerAfter": {
+      "framesDelta": 0,
+      "windowMs": 2000,
+      "standbyNo": true
+     },
+     "playsAfterAction": [
+      {
+       "atMs": 21758.599999999977,
+       "src": "blob:http://",
+       "guidance": null
+      },
+      {
+       "atMs": 34457.70000000007,
+       "src": "blob:http://",
+       "guidance": null
+      },
+      {
+       "atMs": 38863.40000000002,
+       "src": "blob:http://",
+       "guidance": "mental-complete"
+      }
+     ],
+     "stagesAfterAction": [
+      "closing-B-ended",
+      "closing-C-playing",
+      "closing-C-ended",
+      "closing-bridge-ended",
+      "closing-summary-segment-headers-0",
+      "closing-summary-segment-ready-0",
+      "closing-summary-response-ready",
+      "closing-summary-first-ready",
+      "closing-summary-playing",
+      "closing-summary-audio-start",
+      "closing-summary-ended",
+      "closing-summary-complete",
+      "cleanup"
+     ],
+     "phase": "completed",
+     "notice": "Seçilen ses oynatılamadı. Dil ve ses seçeneklerini kontrol edin; başka bir dilin sesi kullanılmadı. | Tamamlanan görüşmenin tek özeti kaydedildi.",
+     "lateSpeechResponses": 1,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@aa4fd51 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 197,
+      "aEnded": 4331,
+      "bPlaying": 4457,
+      "bEnded": 7213,
+      "cPlaying": 7340,
+      "cEnded": 11171,
+      "verified": 186,
+      "summaryTextReady": 3465,
+      "firstPartReady": 20035,
+      "summaryPlaying": 20040,
+      "summaryComplete": 24412,
+      "noSpokenLine": null,
+      "partPlaying": [
+       20040
+      ],
+      "partEnded": [
+       24411
+      ],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 126,
+       "bToC": 127,
+       "cToSummary": 8869,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "en-cancel-during-summary",
+     "language": "en",
+     "action": "cancel",
+     "at": "closing-summary-audio-start",
+     "finishInput": "CDP click",
+     "cancelControl": "Stop the spoken closing",
+     "mixerDuringA": {
+      "framesDelta": 51840,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerAfter": {
+      "framesDelta": 0,
+      "windowMs": 2000,
+      "standbyNo": true
+     },
+     "phase": "completed",
+     "notice": "One summary of the completed conversation was saved.",
+     "lateSpeechResponses": 0,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@aa4fd51 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 184,
+      "aEnded": 2910,
+      "bPlaying": 3037,
+      "bEnded": 6045,
+      "cPlaying": 6171,
+      "cEnded": 9027,
+      "verified": 172,
+      "summaryTextReady": 3245,
+      "firstPartReady": 21666,
+      "summaryPlaying": 21671,
+      "summaryComplete": null,
+      "noSpokenLine": null,
+      "partPlaying": [
+       21671
+      ],
+      "partEnded": [],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": 127,
+       "bToC": 126,
+       "cToSummary": 12644,
+       "overlap": false
+      }
+     }
+    },
+    {
+     "name": "tr-drive-during-C",
+     "language": "tr",
+     "action": "drive",
+     "at": "closing-C-playing",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "focusDuringA": [
+      "source:android.os.BinderProxy@aa4fd51 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "afterReturn": {
+      "plays": [],
+      "timeline": [],
+      "url": "http://127.0.0.1:3000/"
+     }
+    }
+   ]
+  },
+  {
+   "run": "aaos-mental-closing-1794276451752",
+   "status": "FAIL",
+   "sourceCommit": "0de1b7c6c0f218885bcbd35f4a3e6a6b3738108e",
+   "buildId": "KE45vhVAjr1MdR_g61u0_",
+   "replay": {
+    "runId": "closing-realpath:20261110T014815Z:e7bb2d",
+    "file": "realpath.json"
+   },
+   "checks": [
+    {
+     "what": "All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest",
+     "pass": true
+    },
+    {
+     "what": "de-complete-warm-real-tap: completed without harness error",
+     "pass": false
+    },
+    {
+     "what": "de-consent-revoked-during-A: completed without harness error",
+     "pass": false
+    },
+    {
+     "what": "de-background-during-B: background stops the closing's sound within 4 s and nothing of it plays later, also in the returned app",
+     "pass": true
+    }
+   ],
+   "errors": [
+    {
+     "case": "de-complete-warm-real-tap",
+     "error": "page.waitForFunction: Timeout 120000ms exceeded.\n    at closing (/var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:271:14)\n    at async /var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:337:19"
+    },
+    {
+     "case": "de-consent-revoked-during-A",
+     "error": "locator.getAttribute: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator('[data-conversation-phase]')\n\n    at closing (/var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:245:65)\n    at async /var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:337:19"
+    }
+   ],
+   "cases": [
+    {
+     "name": "de-background-during-B",
+     "language": "de",
+     "action": "background",
+     "at": "closing-B-playing",
+     "finishInput": "CDP click",
+     "outputAfterAction": {
+      "lastFrameIncreaseMs": 3313,
+      "samples": 28,
+      "quietTailMs": 4645
+     },
+     "pageAfterAction": {
+      "gone": "Error: page.evaluate: Target page, context or browser has been closed"
+     },
+     "mixerDuringA": {
+      "framesDelta": 49536,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "focusDuringA": [
+      "source:android.os.BinderProxy@f95722e -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "afterReturn": {
+      "plays": [],
+      "timeline": [],
+      "url": "http://127.0.0.1:3000/"
+     }
+    }
+   ]
+  },
+  {
+   "run": "aaos-mental-closing-1794276907377",
+   "status": "FAIL",
+   "sourceCommit": "635004e236496c01baf9634b447dafa5b12a81fa",
+   "buildId": "KE45vhVAjr1MdR_g61u0_",
+   "replay": {
+    "runId": "closing-realpath:20261110T014815Z:e7bb2d",
+    "file": "realpath.json"
+   },
+   "checks": [
+    {
+     "what": "All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest",
+     "pass": true
+    },
+    {
+     "what": "de-complete-warm-real-tap: a real Android touch (adb input tap) on \"end conversation\" starts the closing",
+     "pass": false
+    },
+    {
+     "what": "de-complete-warm-real-tap: completed without harness error",
+     "pass": false
+    },
+    {
+     "what": "de-consent-revoked-during-A: consent at closing-A-playing stops the closing and no later closing audio starts",
+     "pass": true
+    }
+   ],
+   "errors": [
+    {
+     "case": "de-complete-warm-real-tap",
+     "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Gespräch beenden', exact: true })\n\n    at closing (/var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:180:95)\n    at async /var/tmp/attune-closing-review-20261110/src/scripts/qa/aaos/aaos-mental-closing.cjs:342:19"
+    }
+   ],
+   "cases": [
+    {
+     "name": "de-consent-revoked-during-A",
+     "language": "de",
+     "action": "consent",
+     "at": "closing-A-playing",
+     "finishInput": "CDP click",
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "mixerAfter": {
+      "framesDelta": 0,
+      "windowMs": 2000,
+      "standbyNo": true
+     },
+     "phase": "panel-not-shown",
+     "lateSpeechResponses": 0,
+     "focusDuringA": [
+      "source:android.os.BinderProxy@a83fb32 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "metrics": {
+      "aPlaying": 215,
+      "aEnded": null,
+      "bPlaying": null,
+      "bEnded": null,
+      "cPlaying": null,
+      "cEnded": null,
+      "verified": 192,
+      "summaryTextReady": null,
+      "firstPartReady": null,
+      "summaryPlaying": null,
+      "summaryComplete": null,
+      "noSpokenLine": null,
+      "partPlaying": [],
+      "partEnded": [],
+      "gestureRequired": [],
+      "gaps": {
+       "aToB": null,
+       "bToC": null,
+       "cToSummary": null,
+       "overlap": false
+      }
+     }
+    }
+   ]
+  },
+  {
+   "run": "aaos-mental-closing-1794277030511",
+   "status": "PASS",
+   "sourceCommit": "635004e236496c01baf9634b447dafa5b12a81fa",
+   "buildId": "KE45vhVAjr1MdR_g61u0_",
+   "replay": {
+    "runId": "closing-realpath:20261110T011838Z:342059",
+    "file": "realpath.json"
+   },
+   "checks": [
+    {
+     "what": "All 45 committed closing recordings reach the AAOS WebView byte-identical to the manifest",
+     "pass": true
+    },
+    {
+     "what": "tr-drive-during-C: drive stops the closing's sound within 4 s and nothing of it plays later, also in the returned app",
+     "pass": true
+    }
+   ],
+   "errors": [],
+   "cases": [
+    {
+     "name": "tr-drive-during-C",
+     "language": "tr",
+     "action": "drive",
+     "at": "closing-C-playing",
+     "finishInput": "CDP click",
+     "outputAfterAction": {
+      "lastFrameIncreaseMs": 3539,
+      "samples": 28,
+      "quietTailMs": 4404
+     },
+     "pageAfterAction": {
+      "gone": "Error: page.evaluate: Target page, context or browser has been closed"
+     },
+     "mixerDuringA": {
+      "framesDelta": 50688,
+      "windowMs": 1000,
+      "standbyNo": true
+     },
+     "focusDuringA": [
+      "source:android.os.BinderProxy@deab060 -- pack: more.attune.automotive.prototype.clouddemo -- client: android.media.AudioManager@23d4871org.chromium.content.brow"
+     ],
+     "afterReturn": {
+      "plays": [],
+      "timeline": [],
+      "url": "http://127.0.0.1:3000/"
+     }
+    }
+   ]
+  }
+ ],
+ "awsWindows": [
+  {
+   "at": "2026-11-10T01:10:55.532581+00:00",
+   "event": "w2-pre-start-states",
+   "states": {
+    "web": {
+     "state": "stopped",
+     "type": "r7i.2xlarge",
+     "launchTime": "2026-11-09T23:01:43+00:00"
+    },
+    "aaos": {
+     "state": "stopped",
+     "type": "m8i.2xlarge",
+     "launchTime": "2026-11-05T05:56:54+00:00"
+    }
+   }
+  },
+  {
+   "at": "2026-11-10T01:10:55.879674+00:00",
+   "event": "watchdog2-armed",
+   "role": "web",
+   "deadlineEpoch": 1794276355.5330462,
+   "marker": "window2-done"
+  },
+  {
+   "at": "2026-11-10T01:11:04.789601+00:00",
+   "event": "w2-web-running",
+   "states": {
+    "web": {
+     "state": "running",
+     "type": "r7i.2xlarge",
+     "launchTime": "2026-11-10T01:10:59+00:00"
+    },
+    "aaos": {
+     "state": "stopped",
+     "type": "m8i.2xlarge",
+     "launchTime": "2026-11-05T05:56:54+00:00"
+    }
+   }
+  },
+  {
+   "at": "2026-11-10T01:11:29.289237+00:00",
+   "event": "w2-os-timer-armed",
+   "minutes": 52,
+   "raw": "Shutdown scheduled for Tue 2026-11-10 02:03:27 UTC, use 'shutdown -c' to cancel.\nUSEC=1794276207382733\nWARN_WALL=1\nMODE=poweroff\nUID=0\nWALL_MESSAGE=attune\\x20closing\\x20review\\x20window\\x20limit\n2026-11-10T01:11:28Z"
+  },
+  {
+   "at": "2026-11-10T01:12:16.591397+00:00",
+   "event": "w2-cloned",
+   "head": "3684c73c9bfb3b6833707f43a70504ee7dad0ec1",
+   "expected": "3684c73c9bfb3b6833707f43a70504ee7dad0ec1"
+  },
+  {
+   "at": "2026-11-10T01:43:26.791015+00:00",
+   "event": "w2-final-checks",
+   "protectedUnchanged": true,
+   "leftover": [],
+   "port8190": "0",
+   "services": {
+    "attune-api@web": "active",
+    "attune-web@web": "active"
+   }
+  },
+  {
+   "at": "2026-11-10T01:43:49.193658+00:00",
+   "event": "w2-final-state",
+   "observedAt": "2026-11-10T01:43:49.002613+00:00",
+   "states": {
+    "web": {
+     "state": "stopped",
+     "type": "r7i.2xlarge",
+     "launchTime": "2026-11-10T01:10:59+00:00"
+    },
+    "aaos": {
+     "state": "stopped",
+     "type": "m8i.2xlarge",
+     "launchTime": "2026-11-05T05:56:54+00:00"
+    }
+   }
+  },
+  {
+   "at": "2026-11-10T01:43:56.801949+00:00",
+   "event": "watchdog2-exit-stopped",
+   "role": "web"
+  },
+  {
+   "at": "2026-11-10T01:45:57.033012+00:00",
+   "event": "w3-pre-start-states",
+   "states": {
+    "web": {
+     "state": "stopped",
+     "type": "r7i.2xlarge",
+     "launchTime": "2026-11-10T01:10:59+00:00"
+    },
+    "aaos": {
+     "state": "stopped",
+     "type": "m8i.2xlarge",
+     "launchTime": "2026-11-05T05:56:54+00:00"
+    }
+   }
+  },
+  {
+   "at": "2026-11-10T01:45:57.351878+00:00",
+   "event": "watchdog2-armed",
+   "role": "web",
+   "deadlineEpoch": 1794278637.0332112,
+   "marker": "window3-web-done"
+  },
+  {
+   "at": "2026-11-10T01:45:57.361640+00:00",
+   "event": "watchdog2-armed",
+   "role": "aaos",
+   "deadlineEpoch": 1794278637.0332112,
+   "marker": "window3-aaos-done"
+  },
+  {
+   "at": "2026-11-10T01:46:17.480191+00:00",
+   "event": "w3-running",
+   "states": {
+    "web": {
+     "state": "running",
+     "type": "r7i.2xlarge",
+     "launchTime": "2026-11-10T01:46:00+00:00"
+    },
+    "aaos": {
+     "state": "running",
+     "type": "m8i.2xlarge",
+     "launchTime": "2026-11-10T01:46:00+00:00"
+    }
+   },
+   "ssm": {
+    "web": "Online",
+    "aaos": "Online"
+   },
+   "deadline": 1794278637.0332112
+  },
+  {
+   "at": "2026-11-10T01:46:32.476251+00:00",
+   "event": "w3-os-timers",
+   "minutes": 55,
+   "raw": {
+    "web": "Shutdown scheduled for Tue 2026-11-10 02:41:28 UTC, use 'shutdown -c' to cancel.\nUSEC=1794278488018348\n2026-11-10T01:46:29Z",
+    "aaos": "Shutdown scheduled for Tue 2026-11-10 02:41:31 UTC, use 'shutdown -c' to cancel.\nUSEC=1794278491028791\n2026-11-10T01:46:32Z"
+   }
+  },
+  {
+   "at": "2026-11-10T01:48:31.269126+00:00",
+   "event": "w3-aaos-stale-avd-locks-removed-service-restarted",
+   "raw": "removed '/home/attune/.android/avd/AttuneAws15.avd/multiinstance.lock'\nremoved '/home/attune/.android/avd/AttuneAws15.avd/hardware-qemu.ini.lock'\nactive\n   1646 attune        19  161 /opt/android-sdk/emulator/qemu/linux-x86_64/qemu-system-x86_64 -avd AttuneAws15 -port 5554 -no-snapshot -no-bo\n   1661 attune        19  0.0 /opt/android-sdk/emulator/crashpad_handler --no-rate-limit --database=/tmp/android-attune/emu-crash-37.2.13.db\n   1699 attune        19  0.5 /opt/android-sdk/emulator/netsimd --host-dns=127.0.0.53\n"
+  },
+  {
+   "at": "2026-11-10T02:20:01.872855+00:00",
+   "event": "w3-final-checks",
+   "webProtectedUnchanged": true,
+   "aaosLeftover": [],
+   "reverse": "host-17 tcp:3000 tcp:3000"
+  },
+  {
+   "at": "2026-11-10T02:20:26.052833+00:00",
+   "event": "w3-final-state",
+   "observedAt": "2026-11-10T02:20:25.867246+00:00",
+   "states": {
+    "web": {
+     "state": "stopped",
+     "type": "r7i.2xlarge",
+     "launchTime": "2026-11-10T01:46:00+00:00"
+    },
+    "aaos": {
+     "state": "stopped",
+     "type": "m8i.2xlarge",
+     "launchTime": "2026-11-10T01:46:00+00:00"
+    }
+   }
+  },
+  {
+   "at": "2026-11-10T02:20:28.251735+00:00",
+   "event": "watchdog2-exit-stopped",
+   "role": "web"
+  },
+  {
+   "at": "2026-11-10T02:20:28.343633+00:00",
+   "event": "watchdog2-exit-stopped",
+   "role": "aaos"
+  }
+ ]
+}

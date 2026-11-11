@@ -14,6 +14,7 @@ import {approvedMentalTemplate} from '../i18n/approvedAudio';
 import {playFixedSpeech} from './fixedFileSpeech';
 import {playPreparedMental,structuredConversationEnabled,type StructuredState} from './mentalPreparedSpeech';
 import {cancelQueuedSessionSpeech} from '../i18n/sessionSpeech';
+import {closingBridgeMode,shortSpokenSummary,startClosingFlow,type ClosingFlow} from './mentalClosingBridge';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { checkCrisisTrigger } from '@packages/safety/crisisDetector';
@@ -58,13 +59,17 @@ export function useMentalConversation(parked: boolean) {
   const speechSource = mentalSpeechEngine();
   const [history, setHistory] = useState<MentalHistoryItem[]>([]);
   const [summary, setSummary] = useState<MentalHistoryItem | null>(null);
+  // True only while the closing speaks a summary that is already shown and stored.
+  const [closingAudio, setClosingAudio] = useState(false);
+  // The bridge spoke (or started speaking) this closing: the page then skips its separate 'mental-complete' guidance.
+  const [spokenClosing, setSpokenClosing] = useState(false);
   const [provider, setProvider] = useState({ apiKeyConfigured: false, providerName: 'Yerel Kural Motoru (Demo)' });
   const runtime = useRef({ mounted: false, active: false, paused: false, pendingPause: false, pendingFinish: false, epoch: 0, turn: 0, busy: false, failed: false,
     structured:false,structuredState:null as StructuredState|null,
     memory:[] as string[], memoryThrough:0, id: '', startedAt: '', transcript: [] as ConversationMessage[], pendingTurn:null as PendingTurn|null, pendingSpeech:null as {text:string;crisis:boolean;assetIds?:string[]}|null, recognition: null as any,
     audio: null as HTMLAudioElement | null,
     audioUrl: null as string | null, streamCancel: null as (()=>void) | null, controller: null as AbortController | null,
-    restart: null as ReturnType<typeof setTimeout> | null, audioEpoch: 0, voiceWaiting: false });
+    restart: null as ReturnType<typeof setTimeout> | null, audioEpoch: 0, voiceWaiting: false, closing: null as ClosingFlow|null });
   const settings = useRef({ parked, textMode, voiceEnabled, cloudConsent, speechConsent, speechSource });
   settings.current = { parked, textMode, voiceEnabled, cloudConsent, speechConsent, speechSource };
   const actions = useRef({ listen: () => {}, cancel: (_reason?: string) => {}, send: (_text: string) => {}, audioOff: () => {}, pause: () => {}, consent: (_value:boolean) => {} });
@@ -91,6 +96,7 @@ export function useMentalConversation(parked: boolean) {
     if (r.restart) clearTimeout(r.restart);
     r.restart = null;
     abortRecognition(); stopAudio(); r.controller?.abort(); r.controller = null;
+    r.closing?.abort(); r.closing = null;
   }
   function valid(epoch: number) {
     const r = runtime.current;
@@ -288,7 +294,7 @@ export function useMentalConversation(parked: boolean) {
   function start() {
     if (!settings.current.parked || runtime.current.active || !settings.current.speechConsent || !serviceAllowed('mental')) return;
     if(structuredConversationEnabled()&&mentalSpeechEngine()!=='chatterbox-v3'){setNotice(t('Hazır görüşme için Attune.more sesini seçin.'));return;}
-    cleanup(); const r = runtime.current;
+    cleanup(); const r = runtime.current; setSpokenClosing(false);
     r.epoch++; r.active = true; r.paused = false; r.pendingPause = false; r.pendingFinish = false; r.failed = false; r.busy = false; r.turn = 0; r.id = crypto.randomUUID(); r.startedAt = new Date().toISOString(); r.transcript = [];r.memory=[];r.memoryThrough=0;r.pendingTurn=null;r.pendingSpeech=null;
     r.structured=structuredConversationEnabled();r.structuredState=r.structured?{language:getLanguage(),speakerProfile:'female-calm-v1',listenOnly:false,turn:0,seed:crypto.getRandomValues(new Uint32Array(1))[0]}:null;
     settings.current.textMode = false;
@@ -305,20 +311,38 @@ export function useMentalConversation(parked: boolean) {
     if (failed || !completed.some(m => m.sender === 'USER')) { setPhase(failed ? 'error' : 'completed'); setNotice('Boş, iptal edilmiş veya başarısız görüşme geçmişe kaydedilmedi.'); return; }
     const controller = new AbortController(); r.controller = controller;
     let deadline:ReturnType<typeof setTimeout>|undefined;
+    // Closing bridge (off unless enabled): prepared A/B/C play now, while context, summary and its speech are prepared.
+    // Same guard as the dynamic closing below; it never delays or replaces any check that follows.
+    timing('closing-trigger');
+    const language=getLanguage();
+    const closingCurrent=()=>r.mounted&&r.epoch===epoch&&settings.current.parked&&settings.current.speechConsent&&settings.current.cloudConsent&&settings.current.voiceEnabled&&serviceAllowed('mental')&&getLanguage()===language;
+    const closing=r.closing=startClosingFlow({language,current:closingCurrent,audioReady:audio=>{r.audio=audio;},timing,
+      state:value=>{if(closingCurrent())setVoiceState(value);},
+      requestGesture:play=>{if(!closingCurrent())return()=>{};pendingAudioPlay.current=play;setAudioNeedsGesture(true);return()=>{if(pendingAudioPlay.current===play){pendingAudioPlay.current=null;if(r.mounted)setAudioNeedsGesture(false);}};}});
     try {
+      timing('closing-context-start');
       await updateContext(epoch,completed);
+      timing('closing-context-end');
       if(!r.mounted||r.epoch!==epoch||!serviceAllowed('mental'))return;
       r.controller=controller;deadline=setTimeout(()=>controller.abort(),30000);
+      timing('closing-summary-request');
       const response = await fetch(API + '/analyze-session', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ memory:r.memory, messages: completed.slice(r.memoryThrough).map(m => ({ role: m.sender === 'USER' ? 'user' : 'assistant', content: m.text })), cloudConsent: settings.current.cloudConsent,
+          ...(closing&&!r.structured?{spokenSummary:true,...(closing.catalog?{spokenCatalog:true}:{})}:{}),
           ...(r.structured?{engine:'structured-v1',noAdvice:!!r.structuredState?.listenOnly,historyConsent:mentalHistoryAllowed(),
             priorSessions:mentalHistoryAllowed()&&settings.current.cloudConsent&&isMentalSummarySavingAllowed()?readMentalHistory().filter(h=>h.id!==r.id&&h.completed&&h.consented&&[2,3].includes(h.schemaVersion||0)).slice(-5).map(h=>({id:h.id,summaryText:h.summaryText.slice(0,2000),themes:h.themes.slice(0,12)})):[]}:{}) }), signal: controller.signal });
       if (!response.ok) throw new Error('Summary service');
       const data = await response.json();
+      timing('closing-summary-response');
       if (!r.mounted || r.epoch !== epoch || !settings.current.parked || !settings.current.speechConsent || !serviceAllowed('mental')) return;
       if (!isDemoMode() && data.providerType !== 'LIVE_OPENAI') throw new Error('Unexpected demo summary');
       if (typeof data.summaryText !== 'string' || !data.summaryText.trim() || !Array.isArray(data.themes) || !data.themes.every((t: unknown) => typeof t === 'string')) throw new Error('Invalid summary');
       if(r.structured&&(typeof data.spokenSummary!=='string'||!data.spokenSummary.trim()))throw Error('Invalid spoken summary');
+      // Validated text only. Generation may overlap the bridge; playback waits for it and for storage below.
+      // The normal path speaks only its short spokenSummary; without one, the written summary stays text-only.
+      // Catalog closing: the server checked the line against the user's words; its fixed recording plays (no speech generation).
+      if(closing&&!r.structured&&closing.catalog){if(typeof data.spokenCatalogId==='string')closing.catalogReady(data.spokenCatalogId,data.spokenSummary);else closing.summaryUnavailable();}
+      else if(closing){const spoken=r.structured?data.spokenSummary:shortSpokenSummary(data.spokenSummary);if(spoken)closing.summaryReady(spoken);else closing.summaryUnavailable();}
       const item: MentalHistoryItem = { id: r.id, date: new Date().toISOString(), summaryText: data.summaryText, themes: data.themes.map(canonicalMentalTheme),
         moodTrend: typeof data.moodTrend === 'string' ? data.moodTrend : undefined, moodTrendSource:typeof data.moodTrend==='string'?'assistant-inferred':undefined, providerType: data.providerType, schemaVersion: 3, startedAt: r.startedAt, completedAt: new Date().toISOString(), completed: true, consented: false };
       if(r.structured){item.recommendations=data.recommendations;item.relatedSessionIds=data.relatedSessionIds;item.recurringThemes=data.recurringThemes;
@@ -332,11 +356,23 @@ export function useMentalConversation(parked: boolean) {
         setHistory(records); setNotice(discardedPending?'Tamamlanan görüşme turlarının özeti kaydedildi; yanıtı beklenen son mesaj dahil edilmedi.':'Tamamlanan görüşmenin tek özeti kaydedildi.');
       } else setNotice('Özet hazır. Kalıcı saklama izni kapalı; geçmişe kayıt eklenmedi.');
       setSummary(item);
-      if(r.structured){clearTimeout(deadline);await speakClosing(data.spokenSummary,epoch);}
+      if(closing){
+        clearTimeout(deadline);
+        setClosingAudio(true);
+        const outcome=await closing.complete();
+        if(r.mounted)setClosingAudio(false);
+        if(r.mounted&&r.epoch===epoch)setSpokenClosing(outcome!=='fallback');
+        // Assets unusable before anything played: unchanged closing (structured speaks, normal shows text only).
+        if(outcome==='fallback'&&r.structured)await speakClosing(data.spokenSummary,epoch);
+        else if(outcome==='failed'&&closingCurrent())setVoiceNotice(t('Özet hazır; kapanış sesi oynatılamadı.'));
+        else if(outcome==='no-spoken-summary'&&closingCurrent())setVoiceNotice(t('Özet hazır; kısa sesli özet oluşturulamadı.'));
+        if(outcome!=='fallback'&&r.epoch===epoch){stopAudio();if(r.mounted)setVoiceState('ready');}
+      }
+      else if(r.structured){clearTimeout(deadline);await speakClosing(data.spokenSummary,epoch);}
       if(r.mounted&&r.epoch===epoch)setPhase('completed');
     } catch {
       if (r.mounted && r.epoch === epoch) { setPhase('error'); setNotice('Görüşme özeti oluşturulamadı veya kaydedilemedi; başarılı kayıt eklenmedi.'); }
-    } finally { clearTimeout(deadline); }
+    } finally { clearTimeout(deadline); if(closing){closing.abort();if(r.closing===closing)r.closing=null;} }
   }
   async function speakClosing(text:string,epoch:number){
     const r=runtime.current,language=getLanguage(),controller=new AbortController();
@@ -401,7 +437,7 @@ export function useMentalConversation(parked: boolean) {
     setSpeechConsent(value); setCloudConsent(value && !isDemoMode());
   }
   return { phase, active, messages, notice, voiceNotice, voiceState, audioNeedsGesture, playPendingAudio:()=>pendingAudioPlay.current?.(), textMode, voiceEnabled, setVoiceEnabled,
-    structuredMode:structuredConversationEnabled(),historyConsent,
+    structuredMode:structuredConversationEnabled(),historyConsent,closingPreview:closingBridgeMode()==='technical-preview',closingAudio,spokenClosing,stopClosingAudio:()=>runtime.current.closing?.abort(),
     serviceConsent: speechConsent, setServiceConsent: changeServiceConsent,
     cloudConsent, setCloudConsent: changeCloud, speechConsent, setSpeechConsent: changeSpeech, speechSource,
     history, summary, provider, start, finish, send, pause, continueConversation, cancelConversation: () => cancel('Görüşme başlatma iptal edildi.'), cancelSummary: () => { cancel('Özet hazırlama iptal edildi. Görüşme geçmişe kaydedilmedi.'); setPhase('ready'); } };

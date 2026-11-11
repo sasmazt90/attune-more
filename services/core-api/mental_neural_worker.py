@@ -72,6 +72,10 @@ def synthesize(payload, runtime=None):
     device = config.get('device', 'cpu')
     if device not in ('cpu', 'cuda'):
         raise ValueError('UNSUPPORTED_DEVICE')
+    if device == 'cuda':
+        # GPU runs stay plain FP32: no TF32 for matmul or cuDNN until a faster setting has been compared by listening.
+        torch.backends.cuda.matmul.allow_tf32 = False
+        torch.backends.cudnn.allow_tf32 = False
     progress('load-model')
     if runtime is not None and 'model' in runtime:
         model = runtime['model']

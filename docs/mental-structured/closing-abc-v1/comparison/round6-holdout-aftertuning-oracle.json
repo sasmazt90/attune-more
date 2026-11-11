@@ -1,0 +1,245 @@
+{
+ "mode": "oracle",
+ "checks": 27,
+ "acceptableAccepted": 12,
+ "acceptable": 18,
+ "forbiddenRefused": 9,
+ "forbidden": 9,
+ "mismatches": [
+  {
+   "input": "tr-h01",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Patronum her şeyi bana yüklüyor, sorumluluklar altında eziliyorum"
+  },
+  {
+   "input": "tr-h02",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Kardeşim sınavı kazandı, onunla gurur duyuyorum"
+  },
+  {
+   "input": "en-h01",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "My boss dumps everything on me and the responsibilities are crushing me"
+  },
+  {
+   "input": "en-h02",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "My brother passed his exam and I am so proud of him"
+  },
+  {
+   "input": "de-h01",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Mein Chef lädt alles auf mich ab und die Verantwortung erdrückt mich"
+  },
+  {
+   "input": "de-h02",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Mein Bruder hat die Prüfung bestanden und ich bin so stolz auf ihn"
+  }
+ ],
+ "rows": [
+  {
+   "input": "tr-h01",
+   "pattern": "C14",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "sorumluluklar altında eziliyorum"
+  },
+  {
+   "input": "tr-h01",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Patronum her şeyi bana yüklüyor, sorumluluklar altında eziliyorum"
+  },
+  {
+   "input": "tr-h02",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Kardeşim sınavı kazandı, onunla gurur duyuyorum"
+  },
+  {
+   "input": "tr-h02",
+   "pattern": "C33",
+   "expected": "refuse",
+   "result": "excluded-use",
+   "quote": "onunla gurur duyuyorum"
+  },
+  {
+   "input": "tr-h03",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "geceleri uyuyamıyorum"
+  },
+  {
+   "input": "tr-h04",
+   "pattern": "C28",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ailem hep yanımda"
+  },
+  {
+   "input": "tr-h04",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "negated",
+   "quote": "kendimi yalnız hissetmiyorum"
+  },
+  {
+   "input": "tr-h05",
+   "pattern": "C13",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "bu kararı vermekte çok zorlanıyorum"
+  },
+  {
+   "input": "tr-h06",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "eşim çok yorgun"
+  },
+  {
+   "input": "en-h01",
+   "pattern": "C14",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "the responsibilities are crushing me"
+  },
+  {
+   "input": "en-h01",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "My boss dumps everything on me and the responsibilities are crushing me"
+  },
+  {
+   "input": "en-h02",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "My brother passed his exam and I am so proud of him"
+  },
+  {
+   "input": "en-h02",
+   "pattern": "C33",
+   "expected": "refuse",
+   "result": "excluded-use",
+   "quote": "i am so proud of him"
+  },
+  {
+   "input": "en-h03",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i can't sleep at night"
+  },
+  {
+   "input": "en-h04",
+   "pattern": "C28",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "my family is always there for me"
+  },
+  {
+   "input": "en-h04",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "negated",
+   "quote": "i don't feel lonely"
+  },
+  {
+   "input": "en-h05",
+   "pattern": "C13",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i'm struggling to decide between two job offers"
+  },
+  {
+   "input": "en-h06",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "my wife is exhausted"
+  },
+  {
+   "input": "de-h01",
+   "pattern": "C14",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "die verantwortung erdrückt mich"
+  },
+  {
+   "input": "de-h01",
+   "pattern": "C01",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Mein Chef lädt alles auf mich ab und die Verantwortung erdrückt mich"
+  },
+  {
+   "input": "de-h02",
+   "pattern": "C30",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Mein Bruder hat die Prüfung bestanden und ich bin so stolz auf ihn"
+  },
+  {
+   "input": "de-h02",
+   "pattern": "C33",
+   "expected": "refuse",
+   "result": "excluded-use",
+   "quote": "ich bin so stolz auf ihn"
+  },
+  {
+   "input": "de-h03",
+   "pattern": "C09",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "nachts kann ich nicht schlafen"
+  },
+  {
+   "input": "de-h04",
+   "pattern": "C28",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "meine familie ist immer für mich da"
+  },
+  {
+   "input": "de-h04",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "negated",
+   "quote": "ich fühle mich nicht einsam"
+  },
+  {
+   "input": "de-h05",
+   "pattern": "C13",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich kann mich nicht zwischen zwei jobangeboten entscheiden"
+  },
+  {
+   "input": "de-h06",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "meine frau ist erschöpft"
+  }
+ ],
+ "legacy": [],
+ "label": "holdout v1 after tuning (not independent)"
+}

@@ -1,0 +1,550 @@
+{
+ "schema": "attune-mental-closing-abc-review-20261110-round4-local-v1",
+ "createdAt": "2026-11-10T15:12:34.735916+00:00",
+ "baseHead": "e71f39c599f6291b5d856148a4ed30365941c1ca",
+ "scope": "Round 4, local work only: validator, AAOS stop-case design, opt-in closing-voice warm-up, remote-worker test tools and the plan of a live GPU run. No AWS instance was started; AWS was read by API and permission-checked with DryRun calls only. Formal validator acceptance is not meaning.",
+ "correction": {
+  "was": "handoff: target of about 8-9 s after C",
+  "is": "about 8-9 s is roughly the A+B+C playing time, during which the personal line can be prepared; goal: the personal line follows C fluently with as little waiting as possible",
+  "abcDurationsFromWav": {
+   "tr": {
+    "recordings": {
+     "A": [
+      {
+       "file": "TR_A1.wav",
+       "seconds": 2.88
+      },
+      {
+       "file": "TR_A2.wav",
+       "seconds": 3.56
+      },
+      {
+       "file": "TR_A3.wav",
+       "seconds": 4.28
+      },
+      {
+       "file": "TR_A4.wav",
+       "seconds": 4.96
+      },
+      {
+       "file": "TR_A5.wav",
+       "seconds": 3.48
+      }
+     ],
+     "B": [
+      {
+       "file": "TR_B1.wav",
+       "seconds": 2.76
+      },
+      {
+       "file": "TR_B2.wav",
+       "seconds": 2.72
+      },
+      {
+       "file": "TR_B3.wav",
+       "seconds": 3.04
+      },
+      {
+       "file": "TR_B4.wav",
+       "seconds": 3.76
+      },
+      {
+       "file": "TR_B5.wav",
+       "seconds": 3.4
+      }
+     ],
+     "C": [
+      {
+       "file": "TR_C1.wav",
+       "seconds": 3.72
+      },
+      {
+       "file": "TR_C2.wav",
+       "seconds": 3.84
+      },
+      {
+       "file": "TR_C3.wav",
+       "seconds": 3.04
+      },
+      {
+       "file": "TR_C4.wav",
+       "seconds": 3.84
+      },
+      {
+       "file": "TR_C5.wav",
+       "seconds": 3.68
+      }
+     ]
+    },
+    "abcAudioSeconds": {
+     "combinations": 125,
+     "min": 8.64,
+     "median": 10.56,
+     "max": 12.56
+    }
+   },
+   "en": {
+    "recordings": {
+     "A": [
+      {
+       "file": "EN_A1.wav",
+       "seconds": 1.96
+      },
+      {
+       "file": "EN_A2.wav",
+       "seconds": 2.96
+      },
+      {
+       "file": "EN_A3.wav",
+       "seconds": 2.64
+      },
+      {
+       "file": "EN_A4.wav",
+       "seconds": 3.04
+      },
+      {
+       "file": "EN_A5.wav",
+       "seconds": 2.48
+      }
+     ],
+     "B": [
+      {
+       "file": "EN_B1.wav",
+       "seconds": 2.48
+      },
+      {
+       "file": "EN_B2.wav",
+       "seconds": 2.44
+      },
+      {
+       "file": "EN_B3.wav",
+       "seconds": 3.04
+      },
+      {
+       "file": "EN_B4.wav",
+       "seconds": 3.0
+      },
+      {
+       "file": "EN_B5.wav",
+       "seconds": 2.96
+      }
+     ],
+     "C": [
+      {
+       "file": "EN_C1.wav",
+       "seconds": 2.88
+      },
+      {
+       "file": "EN_C2.wav",
+       "seconds": 3.48
+      },
+      {
+       "file": "EN_C3.wav",
+       "seconds": 2.88
+      },
+      {
+       "file": "EN_C4.wav",
+       "seconds": 3.36
+      },
+      {
+       "file": "EN_C5.wav",
+       "seconds": 3.0
+      }
+     ]
+    },
+    "abcAudioSeconds": {
+     "combinations": 125,
+     "min": 7.28,
+     "median": 8.48,
+     "max": 9.56
+    }
+   },
+   "de": {
+    "recordings": {
+     "A": [
+      {
+       "file": "DE_A1.wav",
+       "seconds": 3.84
+      },
+      {
+       "file": "DE_A2.wav",
+       "seconds": 4.08
+      },
+      {
+       "file": "DE_A3.wav",
+       "seconds": 4.2
+      },
+      {
+       "file": "DE_A4.wav",
+       "seconds": 3.12
+      },
+      {
+       "file": "DE_A5.wav",
+       "seconds": 3.08
+      }
+     ],
+     "B": [
+      {
+       "file": "DE_B1.wav",
+       "seconds": 2.88
+      },
+      {
+       "file": "DE_B2.wav",
+       "seconds": 2.44
+      },
+      {
+       "file": "DE_B3.wav",
+       "seconds": 3.04
+      },
+      {
+       "file": "DE_B4.wav",
+       "seconds": 3.28
+      },
+      {
+       "file": "DE_B5.wav",
+       "seconds": 3.16
+      }
+     ],
+     "C": [
+      {
+       "file": "DE_C1.wav",
+       "seconds": 3.68
+      },
+      {
+       "file": "DE_C2.wav",
+       "seconds": 3.92
+      },
+      {
+       "file": "DE_C3.wav",
+       "seconds": 3.72
+      },
+      {
+       "file": "DE_C4.wav",
+       "seconds": 3.0
+      },
+      {
+       "file": "DE_C5.wav",
+       "seconds": 3.76
+      }
+     ]
+    },
+    "abcAudioSeconds": {
+     "combinations": 125,
+     "min": 8.52,
+     "median": 10.2,
+     "max": 11.4
+    }
+   }
+  }
+ },
+ "validator": {
+  "corpus": {
+   "cases": 80,
+   "users": 30,
+   "knownLimitation": [
+    "en-added-modifier",
+    "de-added-in-compound",
+    "de-variant-false-ground",
+    "en-negation-without-marker",
+    "en-role-reversal"
+   ],
+   "conservativeReject": [
+    "tr-ok-exam",
+    "de-synonym-refused"
+   ],
+   "roundThreeLimitationsNowRefused": {
+    "en-added-word-inside-part": "adds-unsaid-content",
+    "en-negation-wrong-target": "negation-moved",
+    "de-negation-wrong-target": "negation-not-kept",
+    "en-negation-out-of-reach": "negation-not-kept",
+    "tr-role-reversal": "role-changed"
+   },
+   "germanParaphrasesNowAccepted": [
+    "de-paraphrase-refused",
+    "de-live-high-pressure",
+    "de-live-sleep-problems",
+    "de-strong-verb-noun"
+   ],
+   "newKnownLimitationsWrittenInRound4": "synthetic counter-examples written by the assistant to declare the remaining accepted-but-wrong shapes; content labels by the assistant, not a human"
+  },
+  "bugFoundByTheEvaluation": "English negation pattern \\w+n'?t matched any word ending in -nt (recent, different, want); hidden earlier by the four-word reach; contractions now need the apostrophe or come from a closed list",
+  "recordedRealProviderLines": {
+   "baseline": "e71f39c",
+   "lines": 144,
+   "round3RowsAreTheseRows": true,
+   "note": "formal acceptance only; meaning is not verified by the validator",
+   "summary": {
+    "current prompt (6-10 words)/tr": {
+     "n": 24,
+     "formallyValidBaseline": 24,
+     "formallyValidNow": 24
+    },
+    "current prompt (6-10 words)/en": {
+     "n": 24,
+     "formallyValidBaseline": 24,
+     "formallyValidNow": 24
+    },
+    "current prompt (6-10 words)/de": {
+     "n": 24,
+     "formallyValidBaseline": 18,
+     "formallyValidNow": 24
+    },
+    "earlier prompt (sen)/tr": {
+     "n": 24,
+     "formallyValidBaseline": 22,
+     "formallyValidNow": 22
+    },
+    "earlier prompt (sen)/en": {
+     "n": 24,
+     "formallyValidBaseline": 24,
+     "formallyValidNow": 24
+    },
+    "earlier prompt (sen)/de": {
+     "n": 24,
+     "formallyValidBaseline": 16,
+     "formallyValidNow": 20
+    }
+   },
+   "changed": [
+    {
+     "conversation": "de-c1",
+     "line": "Sie sprachen über hohen Druck bei der Arbeit und unterbrochenen Schlaf.",
+     "baseline": "adds-unsaid-content",
+     "now": "valid",
+     "count": 1
+    },
+    {
+     "conversation": "de-c2",
+     "line": "Sie sprachen über den Umzug und das Telefonieren mit einer Freundin.",
+     "baseline": "adds-unsaid-content",
+     "now": "valid",
+     "count": 6
+    },
+    {
+     "conversation": "de-c1",
+     "line": "Sie sprachen über hohen Druck bei der Arbeit.",
+     "baseline": "adds-unsaid-content",
+     "now": "valid",
+     "count": 2
+    },
+    {
+     "conversation": "de-c1",
+     "line": "Sie sprachen über hohen Druck bei der Arbeit und Schlafprobleme.",
+     "baseline": "adds-unsaid-content",
+     "now": "valid",
+     "count": 1
+    }
+   ],
+   "stillRefusedNow": [
+    [
+     "de-c1",
+     "Sie sprachen über das hohe Tempo bei der Arbeit und den unterbrochenen Schlaf.",
+     "too-many-words"
+    ],
+    [
+     "de-d6",
+     "Sie sprachen über die lange Anfahrt und dass Sie erschöpft nach Hause kommen.",
+     "too-many-words"
+    ],
+    [
+     "tr-d4",
+     "Kiramı ödemekte zorlandığından ve geceleri hesap yapıp durduğundan söz ettin.",
+     "first-person"
+    ]
+   ]
+  }
+ },
+ "aaosConsentRoundThreeEvidence": {
+  "source": "Drive 07-aaos-round3.zip (sha256 dcd1f48e...ea13), assertions.json of three runs",
+  "rows": [
+   {
+    "run": "aaos-mental-closing-1794309651918",
+    "appPlayerWasStartedAtAction": false,
+    "appPlayerStoppedMs": -3,
+    "mediaPauseCallMs": 1,
+    "mediaPausedEventMs": 19,
+    "aPlayingMsAfterEndTap": 219,
+    "startedSamplesAfterAction": 0,
+    "samples": 207
+   },
+   {
+    "run": "aaos-mental-closing-1794310551636",
+    "appPlayerWasStartedAtAction": false,
+    "appPlayerStoppedMs": -4,
+    "mediaPauseCallMs": 21,
+    "mediaPausedEventMs": 42,
+    "aPlayingMsAfterEndTap": 241,
+    "startedSamplesAfterAction": 0,
+    "samples": 215
+   },
+   {
+    "run": "aaos-mental-closing-1794310630866",
+    "appPlayerWasStartedAtAction": false,
+    "appPlayerStoppedMs": -3,
+    "mediaPauseCallMs": -2,
+    "mediaPausedEventMs": 17,
+    "aPlayingMsAfterEndTap": 222,
+    "startedSamplesAfterAction": 0,
+    "samples": 212
+   }
+  ],
+  "fix": "act only after Android reports the app player started (poll dumpsys audio, 5 s limit, else the case is blocked); separate case: consent withdrawn at closing-trigger, player must not be started then and never start",
+  "unitTest": "tests/unit/aaos_closing_stop_verdict_runtime.cjs"
+ },
+ "warmUp": {
+  "variable": "ATTUNE_MENTAL_TTS_WARM_PROFILES=female-calm-v1",
+  "default": "unset: service starts as before",
+  "record": "warm_log and one log row per step (numbers only); requests record warm-wait separately",
+  "measured": false
+ },
+ "liveGpuPlan": {
+  "document": "GPU-E2E-PLAN-20261110-round4.md",
+  "approved": false,
+  "resourcesCreated": 0,
+  "dryRunAt": "2026-11-10T15:07:54.585986+00:00",
+  "dryRun": {
+   "CreateSecurityGroup": "DryRunOperation",
+   "AuthorizeSecurityGroupIngress": "DryRunOperation",
+   "ModifyNetworkInterfaceAttribute": "DryRunOperation",
+   "RunInstances": "DryRunOperation",
+   "TerminateInstances": "DryRunOperation",
+   "DeleteSecurityGroup": "DryRunOperation"
+  },
+  "ami": {
+   "id": "ami-061e11c485e439112",
+   "name": "Deep Learning Base OSS Nvidia Driver GPU AMI (Ubuntu 22.04) 20261106",
+   "created": "2026-11-07T15:13:00.000Z",
+   "rootDevice": "/dev/sda1",
+   "snapshotGiB": 75,
+   "owner": "898082745236"
+  },
+  "quota": {
+   "name": "Running On-Demand G and VT instances",
+   "vcpus": 8.0
+  },
+  "offerings": [
+   "eu-central-1a",
+   "eu-central-1b",
+   "eu-central-1c"
+  ],
+  "type": {
+   "vcpu": 4,
+   "memoryMiB": 16384,
+   "gpu": [
+    [
+     "A10G",
+     "NVIDIA",
+     1,
+     22888
+    ]
+   ]
+  },
+  "prices": {
+   "queriedAt": "2026-11-10T15:02:34.858709+00:00",
+   "region": "eu-central-1",
+   "g5.xlarge": [
+    {
+     "usd": 1.258,
+     "unit": "Hrs",
+     "desc": "$1.258 per On Demand Linux g5.xlarge Instance Hour",
+     "effective": "2026-11-01T00:00:00Z",
+     "sku": "CT54TJTYFPJVNFQ6"
+    }
+   ],
+   "g6.xlarge": [
+    {
+     "usd": 1.0064,
+     "unit": "Hrs",
+     "desc": "$1.0064 per On Demand Linux g6.xlarge Instance Hour",
+     "effective": "2026-11-01T00:00:00Z",
+     "sku": "YM9WN4QE9HEHCXKP"
+    }
+   ],
+   "r7i.2xlarge": [
+    {
+     "usd": 0.6384,
+     "unit": "Hrs",
+     "desc": "$0.6384 per On Demand Linux r7i.2xlarge Instance Hour",
+     "effective": "2026-11-01T00:00:00Z",
+     "sku": "48PP8ENKSYB8BCCM"
+    }
+   ],
+   "m8i.2xlarge": [
+    {
+     "usd": 0.50716,
+     "unit": "Hrs",
+     "desc": "$0.50716 per On Demand Linux m8i.2xlarge Instance Hour",
+     "effective": "2026-11-01T00:00:00Z",
+     "sku": "VA5V2YA7577A4YJB"
+    }
+   ],
+   "gp3": [
+    {
+     "usd": 0.0952,
+     "unit": "GB-Mo",
+     "desc": "$0.0952 per GB-month of General Purpose (gp3) provisioned storage - EU (Frankfurt)",
+     "effective": "2026-11-01T00:00:00Z",
+     "sku": "43AUDFP7M3XV6YHQ"
+    }
+   ],
+   "publicIPv4": [
+    {
+     "usd": 0.005,
+     "unit": "Hrs",
+     "desc": "$0.005 per In-use public IPv4 address per hour",
+     "effective": "2026-11-01T00:00:00Z",
+     "sku": "P6D6UQPC87KFKK3N"
+    }
+   ],
+   "quotaRunningOnDemandGandVT": {
+    "name": "Running On-Demand G and VT instances",
+    "value": 8.0
+   }
+  }
+ },
+ "awsReadOnly": {
+  "at": "2026-11-10T14:41:23.402756+00:00",
+  "instances": [
+   {
+    "id": "i-0b25450afc6633494",
+    "type": "r7i.2xlarge",
+    "state": "stopped",
+    "az": "eu-central-1c",
+    "stateReason": "User initiated (2026-11-10 11:47:31 GMT)"
+   },
+   {
+    "id": "i-0f4cca4e92e94c351",
+    "type": "m8i.2xlarge",
+    "state": "stopped",
+    "az": "eu-central-1c",
+    "stateReason": "User initiated (2026-11-10 11:47:31 GMT)"
+   }
+  ],
+  "volumes": [
+   {
+    "id": "vol-0b484223201916460",
+    "size": 150,
+    "type": "gp3",
+    "state": "in-use",
+    "attached": [
+     "i-0b25450afc6633494"
+    ]
+   },
+   {
+    "id": "vol-03e8094dfdad0112c",
+    "size": 120,
+    "type": "gp3",
+    "state": "in-use",
+    "attached": [
+     "i-0f4cca4e92e94c351"
+    ]
+   }
+  ],
+  "elasticIps": 0,
+  "natGateways": [],
+  "vpcEndpoints": [],
+  "verifyAt": "2026-11-10T15:07:54.585986+00:00",
+  "activeInstancesAtVerify": [],
+  "gInstancesAtVerify": []
+ }
+}

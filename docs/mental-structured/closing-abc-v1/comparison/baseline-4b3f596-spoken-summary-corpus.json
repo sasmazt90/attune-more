@@ -1,0 +1,917 @@
+{
+ "description": "Synthetic counter-examples and positives for validate_spoken_summary. 'formal' is the validator result the code must produce; 'content' is a reviewer label of meaning (written by the assistant, not by a human listener). A case that the validator accepts although its content is wrong must be listed with knownLimitation=true: the validator checks form, language, address, first person, lexical grounding per coordinated part (an unsaid word may only describe a word the user said), Turkish possessed-noun roles and negation parity per part, not meaning. A correct line that the validator refuses is listed with conservativeReject=true: nothing is spoken for it and the written summary stays. Round 5 (2026-11-10): person nouns the user did not mention, negation without a negation word (hardly/kaum), three-letter German nouns and short coordinated parts are refused; irregular English verb forms and the Turkish yorgun/yorul and üzgün/üzül pairs are grounded. Still accepted with wrong content (knownLimitation): swapped roles in English/German word order, and an unsaid non-person noun used as a modifier or inside a German compound.",
+ "users": {
+  "tr-work": [
+   "İşte çok baskı var ve uykum bölünüyor."
+  ],
+  "tr-family": [
+   "Annemle sık sık tartışıyoruz, bu beni üzüyor."
+  ],
+  "tr-exam": [
+   "Sınavlarım yaklaşıyor ve odaklanamıyorum."
+  ],
+  "tr-negation": [
+   "Uyku sorunum yok ama işte çok yoruluyorum."
+  ],
+  "tr-rent": [
+   "Bu ay kiramı ödemekte zorlanıyorum."
+  ],
+  "tr-tired": [
+   "Baskılardan yoruldum."
+  ],
+  "tr-move": [
+   "Yeni bir düzen kurmak ve arkadaşlarımdan uzaklaşmak beni kaygılandırıyor."
+  ],
+  "en-work": [
+   "There is a lot of pressure at work."
+  ],
+  "en-brother": [
+   "My brother and I argue a lot and it upsets me."
+  ],
+  "en-lonely": [
+   "I feel lonely since I moved to a new city."
+  ],
+  "en-negation": [
+   "I am not worried about my health, only about my job."
+  ],
+  "en-commute": [
+   "My commute is long and I feel tired every evening."
+  ],
+  "de-work": [
+   "Stress bei der Arbeit belastet mich."
+  ],
+  "de-sister": [
+   "Ich streite oft mit meiner Schwester und das macht mich traurig."
+  ],
+  "de-lonely": [
+   "Seit dem Umzug fühle ich mich einsam."
+  ],
+  "de-negation": [
+   "Ich habe keine Angst vor der Prüfung, nur vor dem Ergebnis."
+  ],
+  "de-care": [
+   "Die Pflege meines Vaters kostet mich viel Kraft."
+  ],
+  "de-phone": [
+   "Meine Prüfungen stehen bevor und ich kann mich nicht konzentrieren.",
+   "Mein Handy lenkt mich ständig ab."
+  ],
+  "tr-rent-live": [
+   "Bu ay kiramı ödemekte zorlanıyorum.",
+   "Geceleri hesap yapıp duruyorum."
+  ],
+  "en-manager": [
+   "I do not believe my manager will really support me."
+  ],
+  "tr-mother": [
+   "Annem beni hiç dinlemiyor."
+  ],
+  "tr-school": [
+   "Bu dönem eğitim hayatım çok yoğun."
+  ],
+  "de-move": [
+   "Ich ziehe bald in eine andere Stadt.",
+   "Mit einer Freundin zu telefonieren beruhigt mich."
+  ],
+  "en-listen": [
+   "My mother never listens to me."
+  ],
+  "tr-listen": [
+   "Annemi hiç dinlemiyorum."
+  ],
+  "en-sleep-hardly": [
+   "I hardly sleep at night."
+  ],
+  "de-tempo": [
+   "Bei der Arbeit ist das Tempo seit Wochen sehr hoch und abends kann ich nicht abschalten.",
+   "Ich gehe spät ins Bett und mein Schlaf wird oft unterbrochen."
+  ],
+  "de-brother": [
+   "Ich spreche selten mit meinem Bruder."
+  ],
+  "de-withdraw": [
+   "Abends ziehe ich mich oft zurück."
+  ],
+  "en-recent": [
+   "Work has been very intense in recent weeks and I feel tired."
+  ],
+  "tr-pressure": [
+   "İşte çok baskı var."
+  ],
+  "de-sleep-hardly": [
+   "Ich schlafe kaum."
+  ],
+  "de-tiring": [
+   "Die Arbeit ist anstrengend."
+  ],
+  "de-way": [
+   "Der Weg zur Arbeit ist lang."
+  ],
+  "en-moving-worn": [
+   "I am moving to another city soon and the change is wearing me out.",
+   "Setting up a new routine and being far from my friends makes me anxious.",
+   "Talking with a friend on the phone calms me down."
+  ],
+  "tr-tired-meetings": [
+   "Uyku sorunum yok ama işte çok yoruluyorum.",
+   "Öğleden sonra toplantılardan sonra."
+  ],
+  "de-lonely-friends": [
+   "Seit dem Umzug fühle ich mich einsam.",
+   "Die Abende mit meinen Freunden."
+  ]
+ },
+ "cases": [
+  {
+   "id": "tr-ok-work",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "İş baskısından ve bölünen uykundan söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-ok-family",
+   "language": "tr",
+   "user": "tr-family",
+   "candidate": "Annenle yaşadığın tartışmalardan söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-ok-exam",
+   "language": "tr",
+   "user": "tr-exam",
+   "candidate": "Yaklaşan sınavlarından ve odaklanma zorluğundan söz ettin.",
+   "formal": "negation-not-kept",
+   "content": "correct",
+   "conservativeReject": true,
+   "note": "correct paraphrase of an inability without a negation word; refused, nothing is spoken"
+  },
+  {
+   "id": "tr-ok-rent",
+   "language": "tr",
+   "user": "tr-rent",
+   "candidate": "Kiranı ödemekte zorlanmandan söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "review-D-sen",
+   "language": "tr",
+   "user": "tr-tired",
+   "candidate": "Baskılardan bahsettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-negation-flip",
+   "language": "tr",
+   "user": "tr-negation",
+   "candidate": "Uyku sorunundan ve yorgunluğundan söz ettin.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "round-2 false accept; refused since round 3. Round 5: 'yorgunluğundan' is grounded in 'yoruluyorum' (closed yorgun/yorul pair), so the refusal reason is now the dropped negation of 'uyku sorunum yok'"
+  },
+  {
+   "id": "tr-added-facts",
+   "language": "tr",
+   "user": "tr-rent",
+   "candidate": "Kira ve araba borcundan söz ettin.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "review-D-siz",
+   "language": "tr",
+   "user": "tr-tired",
+   "candidate": "Baskılardan bahsettiniz.",
+   "formal": "address-mismatch",
+   "content": "wrong-address"
+  },
+  {
+   "id": "tr-siz-possessive",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "İş baskınızdan söz ettin.",
+   "formal": "address-mismatch",
+   "content": "wrong-address"
+  },
+  {
+   "id": "tr-grammar-live",
+   "language": "tr",
+   "user": "tr-move",
+   "candidate": "Yeni bir düzen kurmak ve arkadaşlardan uzaklaşmak söz ettin.",
+   "formal": "tr-ablative-required",
+   "content": "grammar"
+  },
+  {
+   "id": "tr-advice-imperative",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "İşte biraz mola vermelisin.",
+   "formal": "advice-or-evaluation",
+   "content": "advice"
+  },
+  {
+   "id": "tr-advice-in-form",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "Destek almayı düşünebileceğinden söz ettin.",
+   "formal": "advice-or-evaluation",
+   "content": "advice"
+  },
+  {
+   "id": "tr-evaluation",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "Baskıyı harika yönetmenden söz ettin.",
+   "formal": "advice-or-evaluation",
+   "content": "evaluation"
+  },
+  {
+   "id": "tr-wrong-language",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "You talked about work pressure.",
+   "formal": "wrong-language",
+   "content": "wrong-language"
+  },
+  {
+   "id": "tr-bridge",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "Paylaştıkların için teşekkür ederim.",
+   "formal": "repeats-bridge-phrase",
+   "content": "not-a-recap"
+  },
+  {
+   "id": "tr-not-recap",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "İşte baskı var.",
+   "formal": "not-recap-form",
+   "content": "not-a-recap"
+  },
+  {
+   "id": "en-ok-work",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-ok-brother",
+   "language": "en",
+   "user": "en-brother",
+   "candidate": "You talked about arguing with your brother.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-ok-lonely",
+   "language": "en",
+   "user": "en-lonely",
+   "candidate": "You talked about feeling lonely after moving to a new city.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-ok-commute",
+   "language": "en",
+   "user": "en-commute",
+   "candidate": "You talked about a long commute and tired evenings.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "review-B",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work and winning a million dollars.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "en-one-added-word",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work and your boss.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round-2 false accept; now refused: a coordinated part without a user word"
+  },
+  {
+   "id": "en-added-pain",
+   "language": "en",
+   "user": "en-commute",
+   "candidate": "You talked about your long commute and your back pain.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "en-negation-flip",
+   "language": "en",
+   "user": "en-negation",
+   "candidate": "You talked about worries about your health.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "round-2 false accept; now refused"
+  },
+  {
+   "id": "review-C",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "Take a break from pressure at work.",
+   "formal": "not-recap-form",
+   "content": "advice"
+  },
+  {
+   "id": "en-reassurance",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "It's normal to feel pressure at work.",
+   "formal": "advice-or-evaluation",
+   "content": "reassurance"
+  },
+  {
+   "id": "en-evaluation",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about handling work pressure really well.",
+   "formal": "adds-unsaid-content",
+   "content": "evaluation"
+  },
+  {
+   "id": "en-two-sentences",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about work. You talked about pressure.",
+   "formal": "more-than-one-sentence",
+   "content": "correct"
+  },
+  {
+   "id": "en-wrong-language",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "Sie sprachen über Druck bei der Arbeit.",
+   "formal": "wrong-language",
+   "content": "wrong-language"
+  },
+  {
+   "id": "en-ungrounded",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about your holiday plans.",
+   "formal": "not-grounded-in-user-words",
+   "content": "added-fact"
+  },
+  {
+   "id": "review-A",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "You talked about stress.",
+   "formal": "wrong-language",
+   "content": "wrong-language"
+  },
+  {
+   "id": "de-ok-work",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Stress bei der Arbeit.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-ok-sister",
+   "language": "de",
+   "user": "de-sister",
+   "candidate": "Sie sprachen über den Streit mit Ihrer Schwester.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-ok-lonely",
+   "language": "de",
+   "user": "de-lonely",
+   "candidate": "Sie sprachen über Ihre Einsamkeit seit dem Umzug.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-ok-perfect",
+   "language": "de",
+   "user": "de-care",
+   "candidate": "Sie haben über die Pflege Ihres Vaters gesprochen.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-negation-flip",
+   "language": "de",
+   "user": "de-negation",
+   "candidate": "Sie sprachen über Ihre Angst vor der Prüfung.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "round-2 false accept; now refused"
+  },
+  {
+   "id": "de-one-added-word",
+   "language": "de",
+   "user": "de-care",
+   "candidate": "Sie sprachen über die Pflege Ihres Vaters und Geldsorgen.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round-2 false accept; now refused: a coordinated part without a user word"
+  },
+  {
+   "id": "de-added-facts",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Druck bei der Arbeit und gestörten Schlaf.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "de-informal",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Du hast über Stress bei der Arbeit gesprochen.",
+   "formal": "address-mismatch",
+   "content": "wrong-address"
+  },
+  {
+   "id": "de-advice",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sollten eine Pause von der Arbeit machen.",
+   "formal": "advice-or-evaluation",
+   "content": "advice"
+  },
+  {
+   "id": "de-bridge",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Ich fasse Ihre Sorgen kurz zusammen.",
+   "formal": "repeats-bridge-phrase",
+   "content": "not-a-recap"
+  },
+  {
+   "id": "de-not-recap",
+   "language": "de",
+   "user": "de-sister",
+   "candidate": "Ihre Schwester macht Sie traurig.",
+   "formal": "not-recap-form",
+   "content": "correct"
+  },
+  {
+   "id": "de-separable-verb",
+   "language": "de",
+   "user": "de-phone",
+   "candidate": "Sie sprachen über Ablenkungen durch Ihr Handy.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-live-first-person",
+   "language": "tr",
+   "user": "tr-rent-live",
+   "candidate": "Kiramı ödemekte zorlandığından ve geceleri hesap yapıp durduğundan söz ettin.",
+   "formal": "first-person",
+   "content": "wrong-person",
+   "note": "round-2 false accept (seen live); now refused"
+  },
+  {
+   "id": "tr-negation-flip-plain",
+   "language": "tr",
+   "user": "tr-negation",
+   "candidate": "Uyku sorunundan söz ettin.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip"
+  },
+  {
+   "id": "tr-negation-kept",
+   "language": "tr",
+   "user": "tr-negation",
+   "candidate": "Uyku sorununun olmadığından ve işte yorulduğundan söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-negation-other-part",
+   "language": "tr",
+   "user": "tr-negation",
+   "candidate": "İşte çok yorulduğundan söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-ok-exam-negation-kept",
+   "language": "tr",
+   "user": "tr-exam",
+   "candidate": "Yaklaşan sınavlarından ve odaklanamadığından söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-negation-other-part",
+   "language": "en",
+   "user": "en-negation",
+   "candidate": "You talked about worries about your job.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-negation-other-part",
+   "language": "de",
+   "user": "de-negation",
+   "candidate": "Sie sprachen über Ihre Angst vor dem Ergebnis.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-negation-added",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about not coping with pressure at work.",
+   "formal": "negation-added",
+   "content": "added-fact"
+  },
+  {
+   "id": "en-first-person",
+   "language": "en",
+   "user": "en-negation",
+   "candidate": "You talked about worries about my job.",
+   "formal": "first-person",
+   "content": "wrong-person"
+  },
+  {
+   "id": "de-first-person",
+   "language": "de",
+   "user": "de-care",
+   "candidate": "Sie sprachen über die Pflege meines Vaters.",
+   "formal": "first-person",
+   "content": "wrong-person"
+  },
+  {
+   "id": "tr-first-person-possessive",
+   "language": "tr",
+   "user": "tr-school",
+   "candidate": "Bu dönem eğitim hayatımın yoğunluğundan söz ettin.",
+   "formal": "first-person",
+   "content": "wrong-person"
+  },
+  {
+   "id": "tr-m-stem-is-not-first-person",
+   "language": "tr",
+   "user": "tr-school",
+   "candidate": "Bu dönem eğitimin yoğunluğundan söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-paraphrase-refused",
+   "language": "de",
+   "user": "de-move",
+   "candidate": "Sie sprachen über den Umzug und das Telefonieren mit einer Freundin.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "refused until round 3; accepted since round 4: \"Umzug\" is grounded in \"ziehe\" by the closed German stem list"
+  },
+  {
+   "id": "en-added-word-inside-part",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work from your manager.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "accepted until round 3 (knownLimitation); refused since round 4: the unsaid \"manager\" opens a noun phrase of its own after \"your\""
+  },
+  {
+   "id": "en-negation-wrong-target",
+   "language": "en",
+   "user": "en-negation",
+   "candidate": "You talked about not being worried about your job.",
+   "formal": "negation-moved",
+   "content": "negation-flip",
+   "note": "accepted until round 3 (knownLimitation); refused since round 4: the negated part uses \"job\", which the user said only without a negation"
+  },
+  {
+   "id": "de-negation-wrong-target",
+   "language": "de",
+   "user": "de-negation",
+   "candidate": "Sie sprachen über Ihre Angst vor der Prüfung, nicht vor dem Ergebnis.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "accepted until round 3 (knownLimitation); refused since round 4: negation parity is checked per part, and \"Angst vor der Prüfung\" was said only negated"
+  },
+  {
+   "id": "en-negation-out-of-reach",
+   "language": "en",
+   "user": "en-manager",
+   "candidate": "You talked about your manager's support.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "accepted until round 3 (knownLimitation); refused since round 4: a user negation covers its whole clause, so \"support\" was said only negated"
+  },
+  {
+   "id": "tr-role-reversal",
+   "language": "tr",
+   "user": "tr-mother",
+   "candidate": "Anneni hiç dinlemediğinden söz ettin.",
+   "formal": "role-changed",
+   "content": "wrong-person",
+   "note": "accepted until round 3 (knownLimitation); refused since round 4: \"annem\" (who acts) became \"anneni\" (who is acted on)"
+  },
+  {
+   "id": "en-added-possessor",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about your manager's pressure at work.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "de-added-noun-phrase",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Stress bei der Arbeit mit Ihrem Chef.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "tr-added-possessor",
+   "language": "tr",
+   "user": "tr-work",
+   "candidate": "Patronunun baskısından ve bölünen uykundan söz ettin.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact"
+  },
+  {
+   "id": "en-added-modifier",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about manager pressure at work.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round-4 knownLimitation, refused from round 5: a person the user did not mention ('manager') is a new fact also as a modifier (closed person-noun list)"
+  },
+  {
+   "id": "de-added-in-compound",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Chefstress bei der Arbeit.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round-4 knownLimitation, refused from round 5: the compound's added part is a person ('Chef') the user did not mention"
+  },
+  {
+   "id": "de-variant-false-ground",
+   "language": "de",
+   "user": "de-withdraw",
+   "candidate": "Sie sprachen über den Zug am Abend.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round-4 knownLimitation, refused from round 5: 'Zug' had three letters and was not counted as a content word; capitalized three-letter German nouns are content words now, and bare 'Zug'/'Gang' need a prefix to be grounded in 'ziehen'/'gehen'"
+  },
+  {
+   "id": "en-negation-contrast-kept",
+   "language": "en",
+   "user": "en-negation",
+   "candidate": "You talked about your job, not your health.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-negation-contrast-swapped",
+   "language": "en",
+   "user": "en-negation",
+   "candidate": "You talked about your health, not your job.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip"
+  },
+  {
+   "id": "de-negation-contrast-kept",
+   "language": "de",
+   "user": "de-negation",
+   "candidate": "Sie sprachen über das Ergebnis, nicht über die Prüfung.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-negation-long-clause-kept",
+   "language": "en",
+   "user": "en-manager",
+   "candidate": "You talked about not believing your manager will support you.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "en-negation-without-marker",
+   "language": "en",
+   "user": "en-sleep-hardly",
+   "candidate": "You talked about sleeping at night.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "round-4 knownLimitation, refused from round 5: 'hardly', 'barely', 'scarcely', 'rarely', 'seldom' (German 'kaum', 'selten') count as negation markers"
+  },
+  {
+   "id": "tr-role-kept",
+   "language": "tr",
+   "user": "tr-mother",
+   "candidate": "Annenin seni hiç dinlemediğinden söz ettin.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-role-reversal-object",
+   "language": "tr",
+   "user": "tr-listen",
+   "candidate": "Annenin seni hiç dinlemediğinden söz ettin.",
+   "formal": "role-changed",
+   "content": "wrong-person"
+  },
+  {
+   "id": "en-role-reversal",
+   "language": "en",
+   "user": "en-listen",
+   "candidate": "You talked about never listening to your mother.",
+   "formal": "valid",
+   "content": "wrong-person",
+   "knownLimitation": true,
+   "note": "English and German roles are carried by word order, which is not checked"
+  },
+  {
+   "id": "de-live-high-pressure",
+   "language": "de",
+   "user": "de-tempo",
+   "candidate": "Sie sprachen über hohen Druck bei der Arbeit.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "real-provider line (round 3); 'hohen' is the user's 'hoch', 'Druck' the one unsaid word describing it"
+  },
+  {
+   "id": "de-live-sleep-problems",
+   "language": "de",
+   "user": "de-tempo",
+   "candidate": "Sie sprachen über hohen Druck bei der Arbeit und Schlafprobleme.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-strong-verb-noun",
+   "language": "de",
+   "user": "de-brother",
+   "candidate": "Sie sprachen über seltene Gespräche mit Ihrem Bruder.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-synonym-refused",
+   "language": "de",
+   "user": "de-negation",
+   "candidate": "Sie sprachen über Ihre Sorge um das Ergebnis.",
+   "formal": "adds-unsaid-content",
+   "content": "correct",
+   "conservativeReject": true,
+   "note": "a synonym ('Sorge' for 'Angst') is not lexically the user's word"
+  },
+  {
+   "id": "en-recent-is-not-negation",
+   "language": "en",
+   "user": "en-recent",
+   "candidate": "You talked about intense work and feeling tired.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "'recent' ends in -nt but is not a negation"
+  },
+  {
+   "id": "en-person-modifier-family",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about family pressure at work.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 5: an unsaid person noun as a modifier"
+  },
+  {
+   "id": "en-person-short-part",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work and your son.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 5: a three-letter person noun the user did not mention"
+  },
+  {
+   "id": "en-short-noun-part",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about pressure at work and the car.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 4 accepted this: a part with only a three-letter noun had no content word; from round 5 such a part must rest on a word the user said"
+  },
+  {
+   "id": "en-hardly-kept",
+   "language": "en",
+   "user": "en-sleep-hardly",
+   "candidate": "You talked about hardly sleeping at night.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "de-kaum-dropped",
+   "language": "de",
+   "user": "de-sleep-hardly",
+   "candidate": "Sie sprachen über Ihren Schlaf.",
+   "formal": "negation-not-kept",
+   "content": "negation-flip",
+   "note": "round 4 accepted this; \"kaum\" is a negation marker from round 5"
+  },
+  {
+   "id": "de-short-noun-added",
+   "language": "de",
+   "user": "de-tiring",
+   "candidate": "Sie sprachen über die Arbeit und den Tod.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 4 accepted this (three-letter noun not counted); found while fixing de-variant-false-ground"
+  },
+  {
+   "id": "de-short-noun-said",
+   "language": "de",
+   "user": "de-way",
+   "candidate": "Sie sprachen über den langen Weg zur Arbeit.",
+   "formal": "valid",
+   "content": "correct"
+  },
+  {
+   "id": "tr-person-modifier",
+   "language": "tr",
+   "user": "tr-pressure",
+   "candidate": "İşteki patron baskısından söz ettin.",
+   "formal": "adds-unsaid-content",
+   "content": "added-fact",
+   "note": "round 5: an unsaid person noun (patron) as a modifier"
+  },
+  {
+   "id": "en-irregular-form",
+   "language": "en",
+   "user": "en-moving-worn",
+   "candidate": "You talked about being anxious and feeling worn out.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "live P9 line refused in round 4 (conservative): \"worn\" for \"wearing\" (closed irregular-verb list from round 5)"
+  },
+  {
+   "id": "tr-tired-derivation",
+   "language": "tr",
+   "user": "tr-tired-meetings",
+   "candidate": "Yorgunluktan ve toplantılardan söz ettin.",
+   "formal": "valid",
+   "content": "correct",
+   "note": "live P9 line refused in round 4 (conservative): \"yorgunluk\" for \"yoruluyorum\" (closed yorgun/yorul pair from round 5)"
+  },
+  {
+   "id": "de-inference-refused",
+   "language": "de",
+   "user": "de-lonely-friends",
+   "candidate": "Sie sprachen über Einsamkeit und das Vermissen von Freunden.",
+   "formal": "adds-unsaid-content",
+   "content": "inference",
+   "note": "live P9 line accepted by the round-3 validator, refused since round 4: the user never said \"vermissen\"; the line adds an interpretation of the fragment \"Die Abende mit meinen Freunden.\" Correct refusal of an unstated meaning, even if plausible"
+  },
+  {
+   "id": "en-added-thing-modifier",
+   "language": "en",
+   "user": "en-work",
+   "candidate": "You talked about deadline pressure at work.",
+   "formal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "note": "still accepted: an unsaid noun that is not a person, used as a modifier, reads like an adjective (\"intense pressure\")"
+  },
+  {
+   "id": "de-added-thing-in-compound",
+   "language": "de",
+   "user": "de-work",
+   "candidate": "Sie sprachen über Terminstress bei der Arbeit.",
+   "formal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "note": "still accepted: a compound that contains the user's word; the added part is checked only against the person list"
+  },
+  {
+   "id": "tr-added-thing-modifier",
+   "language": "tr",
+   "user": "tr-pressure",
+   "candidate": "İşteki zaman baskısından söz ettin.",
+   "formal": "valid",
+   "content": "added-fact",
+   "knownLimitation": true,
+   "note": "still accepted: an unsaid noun that is not a person, used as a modifier"
+  }
+ ]
+}

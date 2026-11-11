@@ -1,0 +1,571 @@
+{
+ "schema": "attune-closing-comparison-holdout-v2",
+ "note": "Second held-out set, written after the round-6 tuning on holdout v1 (whose first run is kept as oracle-holdout-run1). Run once; reported as is, with no tuning afterwards. Written by the same author as the rules, so it is not fully blind.",
+ "inputs": [
+  {
+   "id": "tr-h2-01",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Bu hafta işte çok gerildim, sürekli stres altındayım."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C02"
+    ],
+    "forbiddenPatterns": [
+     "C01",
+     "C08"
+    ],
+    "salient": "C02",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-01",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I've been under a lot of stress at work this week."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C02"
+    ],
+    "forbiddenPatterns": [
+     "C01",
+     "C08"
+    ],
+    "salient": "C02",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-01",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich stehe diese Woche bei der Arbeit unter viel Stress."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C02"
+    ],
+    "forbiddenPatterns": [
+     "C01",
+     "C08"
+    ],
+    "salient": "C02",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-02",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Son zamanlarda çok yorgunum."
+    },
+    {
+     "role": "user",
+     "content": "Aslında yorgun değilim, sadece canım sıkılıyor."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C08"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-02",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I've been really tired lately."
+    },
+    {
+     "role": "user",
+     "content": "Actually I'm not tired, I'm just bored."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C08"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-02",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich bin in letzter Zeit sehr müde."
+    },
+    {
+     "role": "user",
+     "content": "Eigentlich bin ich nicht müde, mir ist nur langweilig."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C08"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-03",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "assistant",
+     "content": "Belki kendini yalnız hissediyorsundur?"
+    },
+    {
+     "role": "user",
+     "content": "Bilmiyorum, sadece akşamları evde oturuyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-03",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "assistant",
+     "content": "Maybe you feel lonely?"
+    },
+    {
+     "role": "user",
+     "content": "I don't know, I just sit at home in the evenings."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-03",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "assistant",
+     "content": "Vielleicht fühlen Sie sich einsam?"
+    },
+    {
+     "role": "user",
+     "content": "Ich weiß nicht, ich sitze abends einfach zu Hause."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-04",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Annem babamın sağlığı için çok endişeli."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C11"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-04",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My mother is very worried about my father's health."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C11"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-04",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Meine Mutter macht sich große Sorgen um die Gesundheit meines Vaters."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C11"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-05",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Resim yapmaya başladım, bana çok iyi geliyor."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C27"
+    ],
+    "forbiddenPatterns": [
+     "C05"
+    ],
+    "salient": "C27",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-05",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I started painting and it really does me good."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C27"
+    ],
+    "forbiddenPatterns": [
+     "C05"
+    ],
+    "salient": "C27",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-05",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich habe mit dem Malen angefangen und das tut mir richtig gut."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C27"
+    ],
+    "forbiddenPatterns": [
+     "C05"
+    ],
+    "salient": "C27",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-06",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Toplantılarda kimse beni dinlemiyor."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07"
+    ],
+    "forbiddenPatterns": [
+     "C04"
+    ],
+    "salient": "C07",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-06",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Nobody listens to me in meetings."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07"
+    ],
+    "forbiddenPatterns": [
+     "C04"
+    ],
+    "salient": "C07",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-06",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "In Besprechungen hört mir niemand zu."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07"
+    ],
+    "forbiddenPatterns": [
+     "C04"
+    ],
+    "salient": "C07",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-07",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Eskiden kendime hiç güvenmezdim ama artık güveniyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C26"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-07",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I used to doubt myself, but not anymore."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C26"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-07",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Früher habe ich an mir gezweifelt, aber jetzt nicht mehr."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C26"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-08",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Önümüzdeki ay yeni bir dil öğrenmeye başlamak istiyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C32"
+    ],
+    "forbiddenPatterns": [
+     "C22"
+    ],
+    "salient": "C32",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-08",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Next month I want to start learning a new language."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C32"
+    ],
+    "forbiddenPatterns": [
+     "C22"
+    ],
+    "salient": "C32",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-08",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Nächsten Monat möchte ich anfangen, eine neue Sprache zu lernen."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C32"
+    ],
+    "forbiddenPatterns": [
+     "C22"
+    ],
+    "salient": "C32",
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h2-09",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Çok sorumluluğum var ama hepsiyle başa çıkabiliyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C14"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h2-09",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I have a lot of responsibilities, but I can handle them all."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C14"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h2-09",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich habe viele Verpflichtungen, aber ich komme mit allen gut zurecht."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C14"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  }
+ ],
+ "legacyLines": []
+}

@@ -1,0 +1,1360 @@
+{
+ "schema": "attune-closing-comparison-v1",
+ "fixedAt": "2026-11-10",
+ "baselineCommit": "4b3f596121f98333d766c24f64cbd2c799442e72",
+ "metrics": {
+  "contentAccuracy": "spoken lines whose meaning is in acceptablePatterns / all spoken lines (a spoken forbidden or unlisted meaning is a content error)",
+  "personalClosingRate": "inputs with a non-empty acceptablePatterns where an acceptable line was spoken / those inputs",
+  "safeAbstentionRate": "inputs with an empty acceptablePatterns where nothing was spoken / those inputs",
+  "salience": "inputs with a salient pattern where that pattern was spoken / those inputs",
+  "writtenSummary": "topic coverage: every writtenSummaryTopics group has at least one stem in the written summary (heuristic, reported separately; a human check is still needed)",
+  "legacyErrors": "each legacy bad line must be refused by the legacy free-text validator"
+ },
+ "rules": [
+  "Report the three main rates together; a solution that refuses everything has personalClosingRate 0 and is not a successful personalisation.",
+  "Arm A speaks a catalog line (its meaning is the pattern id); Arm B is evaluated on the same inputs by mapping its spoken line to a pattern by a human reviewer or marking it unlisted.",
+  "Written-summary accuracy, the basis of the chosen line, the audio transition and cold/warm start are reported separately.",
+  "Inputs, expectations and rules are fixed before any run and are not changed after results."
+ ],
+ "inputs": [
+  {
+   "id": "tr-01",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Son haftalarda işte çok stres altındayım, akşamları da dinlenemiyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C02",
+     "C04"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "stres"
+     ],
+     [
+      "dinlen"
+     ]
+    ]
+   },
+   "note": "two explicit topics"
+  },
+  {
+   "id": "en-01",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I've been under a lot of stress at work lately and I can't rest in the evenings."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C02",
+     "C04"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "stress"
+     ],
+     [
+      "rest"
+     ]
+    ]
+   },
+   "note": "two explicit topics"
+  },
+  {
+   "id": "de-01",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich stehe in letzter Zeit bei der Arbeit unter viel Stress und kann mich abends nicht erholen."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C02",
+     "C04"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "stress"
+     ],
+     [
+      "erhol"
+     ]
+    ]
+   },
+   "note": "two explicit topics"
+  },
+  {
+   "id": "tr-02",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Stresli değilim, sadece biraz yorgunum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C08"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "yorgun"
+     ]
+    ]
+   },
+   "note": "negated stress"
+  },
+  {
+   "id": "en-02",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I'm not stressed, just a bit tired."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C08"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "tired"
+     ]
+    ]
+   },
+   "note": "negated stress"
+  },
+  {
+   "id": "de-02",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich bin nicht gestresst, nur etwas müde."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C08"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "müde"
+     ]
+    ]
+   },
+   "note": "negated stress"
+  },
+  {
+   "id": "tr-03",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Arkadaşım çok stresli, onun için endişeleniyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C11"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "arkadaş"
+     ],
+     [
+      "endişe"
+     ]
+    ]
+   },
+   "note": "third person stressed; the user worries"
+  },
+  {
+   "id": "en-03",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My friend is very stressed and I'm worried about her."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C11"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "friend"
+     ],
+     [
+      "worr"
+     ]
+    ]
+   },
+   "note": "third person stressed; the user worries"
+  },
+  {
+   "id": "de-03",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Meine Freundin ist sehr gestresst und ich mache mir Sorgen um sie."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C11"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "freundin"
+     ],
+     [
+      "sorge"
+     ]
+    ]
+   },
+   "note": "third person stressed; the user worries"
+  },
+  {
+   "id": "tr-04",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Eskiden çok stresliydim, artık değilim. Yeni işimden çok mutluyum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "iş"
+     ],
+     [
+      "mutlu"
+     ]
+    ]
+   },
+   "note": "past stress, present happiness"
+  },
+  {
+   "id": "en-04",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I used to be very stressed, but not anymore. I'm very happy with my new job."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "job"
+     ],
+     [
+      "happy"
+     ]
+    ]
+   },
+   "note": "past stress, present happiness"
+  },
+  {
+   "id": "de-04",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Früher war ich sehr gestresst, jetzt nicht mehr. Mit meiner neuen Arbeit bin ich sehr glücklich."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30"
+    ],
+    "forbiddenPatterns": [
+     "C02"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "arbeit"
+     ],
+     [
+      "glücklich"
+     ]
+    ]
+   },
+   "note": "past stress, present happiness"
+  },
+  {
+   "id": "tr-05",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Yalnız yaşıyorum ama arkadaşlarımla sık görüşüyorum, bu bana iyi geliyor."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C27"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "arkadaş"
+     ]
+    ]
+   },
+   "note": "living alone is not loneliness"
+  },
+  {
+   "id": "en-05",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I live alone, but I see my friends often and that does me good."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C27"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "friend"
+     ]
+    ]
+   },
+   "note": "living alone is not loneliness"
+  },
+  {
+   "id": "de-05",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich wohne allein, aber ich treffe oft meine Freunde und das tut mir gut."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C27"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "freund"
+     ]
+    ]
+   },
+   "note": "living alone is not loneliness"
+  },
+  {
+   "id": "tr-06",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Çok sorumluluğum var ama hepsiyle baş edebiliyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C14"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "sorumluluk"
+     ]
+    ]
+   },
+   "note": "responsibilities without strain: abstain"
+  },
+  {
+   "id": "en-06",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I have a lot of responsibilities, but I can handle them all."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C14"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "responsibilit"
+     ]
+    ]
+   },
+   "note": "responsibilities without strain: abstain"
+  },
+  {
+   "id": "de-06",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich habe viel Verantwortung, aber ich komme mit allem zurecht."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C14"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "verantwortung"
+     ]
+    ]
+   },
+   "note": "responsibilities without strain: abstain"
+  },
+  {
+   "id": "tr-07",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Annem beni hiç dinlemiyor."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07"
+    ],
+    "forbiddenPatterns": [
+     "C03"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "anne"
+     ],
+     [
+      "dinle"
+     ]
+    ]
+   },
+   "note": "role kept; not self-expression"
+  },
+  {
+   "id": "en-07",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My mother never listens to me."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07"
+    ],
+    "forbiddenPatterns": [
+     "C03"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "mother"
+     ],
+     [
+      "listen"
+     ]
+    ]
+   },
+   "note": "role kept; not self-expression"
+  },
+  {
+   "id": "de-07",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Meine Mutter hört mir nie zu."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07"
+    ],
+    "forbiddenPatterns": [
+     "C03"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "mutter"
+     ],
+     [
+      "zuh"
+     ]
+    ]
+   },
+   "note": "role kept; not self-expression"
+  },
+  {
+   "id": "tr-08",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Hafta sonu biraz dinlenmek istiyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C04",
+     "C07"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "hafta sonu",
+      "dinlen"
+     ]
+    ]
+   },
+   "note": "a wish to rest, no difficulty: abstain"
+  },
+  {
+   "id": "en-08",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I'd like to rest a bit at the weekend."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C04",
+     "C07"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "weekend",
+      "rest"
+     ]
+    ]
+   },
+   "note": "a wish to rest, no difficulty: abstain"
+  },
+  {
+   "id": "de-08",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Am Wochenende möchte ich mich etwas ausruhen."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C04",
+     "C07"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "wochenende",
+      "ausruh"
+     ]
+    ]
+   },
+   "note": "a wish to rest, no difficulty: abstain"
+  },
+  {
+   "id": "tr-09",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Kimse sözümü dinlemiyor, kendimi yalnız hissediyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07",
+     "C17"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "dinle"
+     ],
+     [
+      "yalnız"
+     ]
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "en-09",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Nobody listens to me and I feel lonely."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07",
+     "C17"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "listen"
+     ],
+     [
+      "lonely"
+     ]
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "de-09",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Niemand hört mir zu und ich fühle mich einsam."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C07",
+     "C17"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "zuh",
+      "hört"
+     ],
+     [
+      "einsam"
+     ]
+    ]
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-10",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Bugün terfi aldım, çok mutluyum ve kendimle gurur duyuyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30",
+     "C33"
+    ],
+    "forbiddenPatterns": [
+     "C02",
+     "C08",
+     "C11",
+     "C23",
+     "C24",
+     "C25"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "terfi"
+     ]
+    ]
+   },
+   "note": "positive conversation"
+  },
+  {
+   "id": "en-10",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I got a promotion today, I'm very happy and proud of myself."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30",
+     "C33"
+    ],
+    "forbiddenPatterns": [
+     "C02",
+     "C08",
+     "C11",
+     "C23",
+     "C24",
+     "C25"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "promot"
+     ]
+    ]
+   },
+   "note": "positive conversation"
+  },
+  {
+   "id": "de-10",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich wurde heute befördert, ich bin sehr glücklich und stolz auf mich."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30",
+     "C33"
+    ],
+    "forbiddenPatterns": [
+     "C02",
+     "C08",
+     "C11",
+     "C23",
+     "C24",
+     "C25"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "beförder"
+     ]
+    ]
+   },
+   "note": "positive conversation"
+  },
+  {
+   "id": "tr-11",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Son zamanlarda biraz durgunum."
+    },
+    {
+     "role": "assistant",
+     "content": "Belki de kendini yalnız hissediyorsun?"
+    },
+    {
+     "role": "user",
+     "content": "Bilmiyorum, belki."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "durgun"
+     ]
+    ]
+   },
+   "note": "assistant suggestion is not the user statement: abstain"
+  },
+  {
+   "id": "en-11",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I've been a bit quiet lately."
+    },
+    {
+     "role": "assistant",
+     "content": "Maybe you feel lonely?"
+    },
+    {
+     "role": "user",
+     "content": "I don't know, maybe."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "quiet"
+     ]
+    ]
+   },
+   "note": "assistant suggestion is not the user statement: abstain"
+  },
+  {
+   "id": "de-11",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich bin in letzter Zeit etwas still."
+    },
+    {
+     "role": "assistant",
+     "content": "Vielleicht fühlen Sie sich einsam?"
+    },
+    {
+     "role": "user",
+     "content": "Ich weiß nicht, vielleicht."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "still"
+     ]
+    ]
+   },
+   "note": "assistant suggestion is not the user statement: abstain"
+  },
+  {
+   "id": "tr-12",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Çok kaygılıyım."
+    },
+    {
+     "role": "assistant",
+     "content": "Seni ne kaygılandırıyor?"
+    },
+    {
+     "role": "user",
+     "content": "Aslında kaygılı değilim, sadece uykusuzum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [
+     "C11"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "uyku"
+     ]
+    ]
+   },
+   "note": "later correction"
+  },
+  {
+   "id": "en-12",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I'm very anxious."
+    },
+    {
+     "role": "assistant",
+     "content": "What makes you anxious?"
+    },
+    {
+     "role": "user",
+     "content": "Actually I'm not anxious, I'm just sleepless."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [
+     "C11"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "sleep"
+     ]
+    ]
+   },
+   "note": "later correction"
+  },
+  {
+   "id": "de-12",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich bin sehr beunruhigt."
+    },
+    {
+     "role": "assistant",
+     "content": "Was beunruhigt Sie?"
+    },
+    {
+     "role": "user",
+     "content": "Eigentlich bin ich nicht beunruhigt, ich schlafe nur schlecht."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [
+     "C11"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "schlaf"
+     ]
+    ]
+   },
+   "note": "later correction"
+  },
+  {
+   "id": "tr-13",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "İşte çok baskı var."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C01"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "baskı"
+     ]
+    ]
+   },
+   "note": "round-5 error input (deadline pressure / Terminstress / zaman baskısı were added)"
+  },
+  {
+   "id": "en-13",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "There is a lot of pressure at work."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C01"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "pressure"
+     ]
+    ]
+   },
+   "note": "round-5 error input (deadline pressure / Terminstress / zaman baskısı were added)"
+  },
+  {
+   "id": "de-13",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Bei der Arbeit gibt es viel Druck."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C01"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "druck"
+     ]
+    ]
+   },
+   "note": "round-5 error input (deadline pressure / Terminstress / zaman baskısı were added)"
+  },
+  {
+   "id": "tr-14",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Annemle babam sürekli kavga ediyor, bu beni çok üzüyor."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C23"
+    ],
+    "forbiddenPatterns": [
+     "C20"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "anne",
+      "baba",
+      "kavga"
+     ]
+    ]
+   },
+   "note": "the user is not a party to the argument"
+  },
+  {
+   "id": "en-14",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My parents argue all the time and it makes me very sad."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C23"
+    ],
+    "forbiddenPatterns": [
+     "C20"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "parent",
+      "argue"
+     ]
+    ]
+   },
+   "note": "the user is not a party to the argument"
+  },
+  {
+   "id": "de-14",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Meine Eltern streiten ständig und das macht mich sehr traurig."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C23"
+    ],
+    "forbiddenPatterns": [
+     "C20"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "eltern",
+      "streit"
+     ]
+    ]
+   },
+   "note": "the user is not a party to the argument"
+  },
+  {
+   "id": "tr-15",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "İş yoğun ama en çok uykusuzluk beni zorluyor. Gece sık sık uyanıyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [],
+    "salient": "C09",
+    "writtenSummaryTopics": [
+     [
+      "uyku",
+      "uyan"
+     ]
+    ]
+   },
+   "note": "emphasis decides"
+  },
+  {
+   "id": "en-15",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Work is busy, but what weighs on me most is sleep. I wake up often at night."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [],
+    "salient": "C09",
+    "writtenSummaryTopics": [
+     [
+      "sleep",
+      "wake"
+     ]
+    ]
+   },
+   "note": "emphasis decides"
+  },
+  {
+   "id": "de-15",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Die Arbeit ist viel, aber am meisten belastet mich der Schlaf. Ich wache nachts oft auf."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [],
+    "salient": "C09",
+    "writtenSummaryTopics": [
+     [
+      "schlaf",
+      "wache"
+     ]
+    ]
+   },
+   "note": "emphasis decides"
+  },
+  {
+   "id": "tr-16",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Taşındığımdan beri yeni düzene alışamadım, eski arkadaşlarımı özlüyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C22",
+     "C18"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "taşın"
+     ],
+     [
+      "özl"
+     ]
+    ]
+   },
+   "note": "missing friends is not loneliness"
+  },
+  {
+   "id": "en-16",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Since I moved I haven't been able to get used to the new routine, and I miss my old friends."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C22",
+     "C18"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "moved"
+     ],
+     [
+      "miss"
+     ]
+    ]
+   },
+   "note": "missing friends is not loneliness"
+  },
+  {
+   "id": "de-16",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Seit dem Umzug kann ich mich nicht an den neuen Alltag gewöhnen und ich vermisse meine alten Freunde."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C22",
+     "C18"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": [
+     [
+      "umzug"
+     ],
+     [
+      "vermiss"
+     ]
+    ]
+   },
+   "note": "missing friends is not loneliness"
+  }
+ ],
+ "legacyLines": [
+  {
+   "id": "legacy-en-role-reversal",
+   "language": "en",
+   "user": [
+    "My mother never listens to me."
+   ],
+   "badLine": "You talked about never listening to your mother.",
+   "why": "roles swapped"
+  },
+  {
+   "id": "legacy-en-added-thing-modifier",
+   "language": "en",
+   "user": [
+    "There is a lot of pressure at work."
+   ],
+   "badLine": "You talked about deadline pressure at work.",
+   "why": "adds a cause"
+  },
+  {
+   "id": "legacy-de-added-thing-in-compound",
+   "language": "de",
+   "user": [
+    "Stress bei der Arbeit belastet mich."
+   ],
+   "badLine": "Sie sprachen über Terminstress bei der Arbeit.",
+   "why": "adds Termin"
+  },
+  {
+   "id": "legacy-tr-added-thing-modifier",
+   "language": "tr",
+   "user": [
+    "İşte çok baskı var."
+   ],
+   "badLine": "İşteki zaman baskısından söz ettin.",
+   "why": "adds zaman"
+  }
+ ]
+}

@@ -23,6 +23,8 @@ import { AccessibleDialog } from '../../components/AccessibleDialog';
 import { InformationButton } from '../../components/InformationButton';
 
 const PHASES = { ready: 'Hazır', paused: 'Duraklatıldı', permission: 'Mikrofon başlatılıyor', listening: 'Dinliyor', preparing: 'Yanıt hazırlanıyor', speaking: 'Seslendiriliyor', ending: 'Bitiriliyor', completed: 'Tamamlandı', error: 'Hata' };
+// Closing bridge states shown while the phase is 'ending'. Each names what is actually happening.
+const CLOSING_STATES: Record<string, string> = { closingBridge: 'Kapanış seslendiriliyor', closingSummaryPending: 'Özet hazırlanıyor', closingSpeechPending: 'Özetin sesi hazırlanıyor', speaking: 'Özet seslendiriliyor' };
 const COLORS = ['#00c2e7', '#a78bfa', '#fb923c', '#4ade80', '#f472b6', '#facc15'];
 
 export default function MentalPage() {
@@ -32,7 +34,7 @@ export default function MentalPage() {
   const c = useMentalConversation(isParked);
   useLocaleSwitchLock('mental',(c.active&&c.phase!=='paused')||c.phase==='ending');
   const guidance=useGuidance('mental',isParked&&c.voiceEnabled);
-  useEffect(()=>{if(!c.active&&isParked&&c.voiceEnabled&&['ready','completed'].includes(c.phase))guidance.phase(c.phase,c.phase==='completed'?'mental-complete':'mental-entry');else guidance.cancel();},[guidance,c.phase,c.active,c.voiceEnabled,isParked]);
+  useEffect(()=>{if(!c.active&&isParked&&c.voiceEnabled&&['ready','completed'].includes(c.phase))guidance.phase(c.phase,c.phase==='completed'?(c.spokenClosing?undefined:'mental-complete'):'mental-entry');else guidance.cancel();},[guidance,c.phase,c.active,c.voiceEnabled,isParked,c.spokenClosing]);
   const [completionOpen, setCompletionOpen] = useState(false);
   useEffect(() => { if (c.phase === 'completed') setCompletionOpen(true); else setCompletionOpen(false); }, [c.phase]);
   const [theme, setTheme] = useState<string | null>(null);
@@ -74,10 +76,13 @@ export default function MentalPage() {
       </>}
       {c.active && <button onClick={c.phase==='paused'?c.continueConversation:c.pause} className="min-h-11 px-4 rounded-xl border border-white/20">{i18nNode(c.phase==='paused'?'Devam et':'Duraklat')}</button>}
       <div data-conversation-phase={c.phase} data-voice-state={c.voiceState} aria-label={c.phase==='speaking'?i18nText('Sesli yanıt oynatılıyor'):undefined} aria-live="polite">
-        {!['ready','completed','speaking'].includes(c.phase) && <p className="text-sm text-togg-turquoise">{i18nNode(c.phase === 'preparing' && ['loadingSpeech','starting'].includes(c.voiceState) ? 'Ses hazırlanıyor' : PHASES[c.phase])}</p>}
+        {!['ready','completed','speaking'].includes(c.phase) && <p className="text-sm text-togg-turquoise">{i18nNode(c.phase === 'preparing' && ['loadingSpeech','starting'].includes(c.voiceState) ? 'Ses hazırlanıyor' : c.phase === 'ending' && CLOSING_STATES[c.voiceState] ? CLOSING_STATES[c.voiceState] : PHASES[c.phase])}</p>}
+        {c.phase === 'ending' && c.closingPreview && <p data-closing-preview className="text-xs text-amber-200">{i18nText('Teknik önizleme: kapanış kayıtları henüz dinleme onayı almadı.')}</p>}
         {c.voiceState === 'failed' && <p className="text-xs text-amber-200">{i18nText("Sesli yanıt başarısız")}</p>}
       </div>
-      {c.phase === 'ending' && <button onClick={c.cancelSummary} className="block w-fit text-sm px-3 py-2 rounded-xl border border-togg-turquoise text-togg-turquoise">{i18nText("Özet hazırlamayı iptal et")}</button>}
+      {c.phase === 'ending' && (c.closingAudio
+        ? <button onClick={c.stopClosingAudio} className="block w-fit text-sm px-3 py-2 rounded-xl border border-togg-turquoise text-togg-turquoise">{i18nText("Sesli kapanışı durdur")}</button>
+        : <button onClick={c.cancelSummary} className="block w-fit text-sm px-3 py-2 rounded-xl border border-togg-turquoise text-togg-turquoise">{i18nText("Özet hazırlamayı iptal et")}</button>)}
       {c.voiceNotice && <p role="status" className="text-xs text-amber-200">{i18nNode(c.voiceNotice)}</p>}
       {c.audioNeedsGesture && <button data-neural-play-response onClick={c.playPendingAudio} disabled={!isParked||(!c.active&&c.phase!=='ending')||!c.speechConsent} className="min-h-11 px-4 py-3 rounded-xl bg-togg-turquoise text-togg-darkBlue font-bold disabled:opacity-50">{i18nText('Sesli yanıtı oynat')}</button>}
       {c.notice && c.phase !== 'completed' && <p role="status" className="text-sm text-amber-200">{i18nNode(c.notice)}</p>}

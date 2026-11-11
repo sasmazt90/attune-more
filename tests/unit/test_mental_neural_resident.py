@@ -149,6 +149,44 @@ def test_worker_failure_is_a_clean_error_then_recovers(stub, text):
     assert asyncio.run(run())[:4] == b'RIFF'
 
 
+def test_closing_profile_is_prepared_at_start_only_when_listed(stub, tmp_path, monkeypatch):
+    """ATTUNE_MENTAL_TTS_WARM_PROFILES=female-calm-v1: after the default model, the closing voice's own configuration is
+    prepared in the same worker before any request; its time is in warm_log, not in the request's own timing."""
+    female = tmp_path / 'female.json'
+    female.write_text('{}')
+    default = tts.configuration_path()
+    monkeypatch.setattr(tts, 'configuration_path', lambda profile=None: str(female) if profile == 'female-calm-v1' else default)
+    monkeypatch.setattr(tts, 'warm_log', [])
+    monkeypatch.setenv('ATTUNE_MENTAL_TTS_WARM_PROFILES', 'female-calm-v1, unknown-profile')
+    assert tts.warm_profiles() == ['female-calm-v1']
+
+    async def run():
+        tts.schedule_warm(profiles=tts.warm_profiles())
+        await tts._warm_task
+        audio = await tts.generate('one', 'en', lambda: True, allowed, speaker_profile='female-calm-v1')
+        start = tts.last_generation['start']
+        await tts.close_resident()
+        return audio, start
+    audio, start = asyncio.run(run())
+    assert audio[:4] == b'RIFF' and start == 'warm'
+    assert [(row['profile'], row['ok']) for row in tts.warm_log] == [('default', True), ('female-calm-v1', True)]
+    assert all(isinstance(row['seconds'], float) for row in tts.warm_log)
+    assert len(stub()) == 1, 'one resident worker holds both models'
+
+
+def test_no_profile_is_prepared_at_start_by_default(stub, monkeypatch):
+    monkeypatch.delenv('ATTUNE_MENTAL_TTS_WARM_PROFILES', raising=False)
+    monkeypatch.setattr(tts, 'warm_log', [])
+    assert tts.warm_profiles() == []
+
+    async def run():
+        tts.schedule_warm(profiles=tts.warm_profiles())
+        await tts._warm_task
+        await tts.close_resident()
+    asyncio.run(run())
+    assert [row['profile'] for row in tts.warm_log] == ['default']
+
+
 def test_resident_is_off_by_default(monkeypatch):
     monkeypatch.delenv('ATTUNE_MENTAL_TTS_RESIDENT', raising=False)
     monkeypatch.delenv('ATTUNE_MENTAL_TTS_THREADS', raising=False)

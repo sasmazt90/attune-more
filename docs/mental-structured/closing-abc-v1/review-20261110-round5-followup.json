@@ -1,0 +1,411 @@
+{
+ "schema": "attune-closing-review-v5-followup",
+ "date": "2026-11-10",
+ "basedOn": "review-20261110-round4-live.json (results kept unchanged; corrections recorded there)",
+ "scope": "Local fixes and analyses with the existing round-4 evidence. No GPU, no AAOS start; WEB started once for 19 s to copy the AAOS-phase test API files. No merge, deploy or live enable; no listening approval.",
+ "validator": {
+  "contractUnchanged": "<= 12 words and <= 100 characters, no trimming, the long written summary is never spoken, every safety check kept",
+  "changes": [
+   "A person the user did not mention (closed lists EN/DE/TR) is refused, also as a modifier (\"manager pressure\", \"patron baskısı\") or inside a German compound (\"Chefstress\").",
+   "Negation without a negation word counts: EN hardly/barely/scarcely/rarely/rare/seldom, DE kaum/selten*.",
+   "Capitalized three-letter German nouns (Zug, Weg, Tag, Tod) are content words, grounded only by the same word or as the head of a user compound; bare Zug/Gang need a listed prefix to be grounded in ziehen/gehen.",
+   "A coordinated part with only a three-letter word (\"... and the car\", \"... and your son\") must rest on a word the user said.",
+   "Closed lists that ground the same word: irregular English verb forms (\"worn\" / \"wearing\"), Turkish yorgun/yorul and üzgün/üzül."
+  ],
+  "classification": {
+   "definitions": {
+    "falseAccept": "accepted, but the content contradicts or adds to what the user said",
+    "conservativeReject": "refused, content faithful to the user, but not lexically verifiable by the rules (synonym, derivation, irregular form); nothing is spoken, the written summary stays",
+    "erroneousReject": "refused although the rules as specified should accept it (an implementation defect)",
+    "correctReject": "refused and the content does add, move or change something"
+   },
+   "round4KnownLimitations": [
+    {
+     "id": "en-added-modifier",
+     "user": "There is a lot of pressure at work.",
+     "line": "You talked about manager pressure at work.",
+     "class": "falseAccept (adds a person)",
+     "round5": "refused: adds-unsaid-content"
+    },
+    {
+     "id": "de-added-in-compound",
+     "user": "Stress bei der Arbeit belastet mich.",
+     "line": "Sie sprachen über Chefstress bei der Arbeit.",
+     "class": "falseAccept (adds a person)",
+     "round5": "refused: adds-unsaid-content"
+    },
+    {
+     "id": "de-variant-false-ground",
+     "user": "Abends ziehe ich mich oft zurück.",
+     "line": "Sie sprachen über den Zug am Abend.",
+     "class": "falseAccept (train instead of withdrawing); cause: \"Zug\" (3 letters) was not counted as a content word, and the stem list would have grounded it",
+     "round5": "refused: adds-unsaid-content"
+    },
+    {
+     "id": "en-negation-without-marker",
+     "user": "I hardly sleep at night.",
+     "line": "You talked about sleeping at night.",
+     "class": "falseAccept (negation flip)",
+     "round5": "refused: negation-not-kept"
+    },
+    {
+     "id": "en-role-reversal",
+     "user": "My mother never listens to me.",
+     "line": "You talked about never listening to your mother.",
+     "class": "falseAccept (roles swapped)",
+     "round5": "still accepted, declared knownLimitation (word order is not analysed)"
+    }
+   ],
+   "newlyFoundFalseAcceptsClosed": [
+    "de-short-noun-added: \"Sie sprachen über die Arbeit und den Tod.\" (user: \"Die Arbeit ist anstrengend.\") was accepted by round 4",
+    "en-short-noun-part: \"... and the car.\" was accepted by round 4",
+    "de-kaum-dropped: \"Sie sprachen über Ihren Schlaf.\" for \"Ich schlafe kaum.\" was accepted by round 4"
+   ],
+   "stillOpenFalseAccepts": [
+    "en-role-reversal",
+    "en-added-thing-modifier (\"deadline pressure\")",
+    "de-added-thing-in-compound (\"Terminstress\")",
+    "tr-added-thing-modifier (\"zaman baskısı\")"
+   ],
+   "liveRejects": [
+    {
+     "conversation": "en-c2",
+     "line": "You talked about being anxious and feeling worn out.",
+     "user": "\"... the change is wearing me out.\" / \"... makes me anxious.\"",
+     "round4": "adds-unsaid-content",
+     "class": "conservativeReject (irregular form \"worn\")",
+     "round5": "valid"
+    },
+    {
+     "conversation": "tr-d3",
+     "line": "Yorgunluktan ve toplantılardan söz ettin.",
+     "user": "\"Uyku sorunum yok ama işte çok yoruluyorum.\" / \"Öğleden sonra toplantılardan sonra.\"",
+     "round4": "adds-unsaid-content",
+     "class": "conservativeReject (derivation yorgun/yorul)",
+     "round5": "valid"
+    },
+    {
+     "conversation": "tr-d3",
+     "line": "Yorgunluktan ve toplantılardan sonra söz ettin.",
+     "round4": "tr-ablative-required",
+     "class": "correctReject: \"toplantılardan sonra söz ettin\" says \"you spoke after meetings\"; the recap form breaks",
+     "round5": "tr-ablative-required"
+    },
+    {
+     "conversation": "tr-d4",
+     "line": "Kiramı ödemekte zorlandığından (ve hesap yapmaktan) söz ettin. (x2)",
+     "round4": "first-person",
+     "class": "correctReject: \"kiramı\" = my rent, a copied first person",
+     "round5": "first-person"
+    },
+    {
+     "conversation": "de-d4",
+     "line": "Sie sprachen über Einsamkeit und das Vermissen von Freunden.",
+     "user": "\"Seit dem Umzug fühle ich mich einsam.\" / \"Die Abende mit meinen Freunden.\"",
+     "round4": "adds-unsaid-content",
+     "class": "correctReject of an inference: the user never said \"vermissen\"; plausible, but not stated. Round 3 had accepted it",
+     "round5": "adds-unsaid-content"
+    },
+    {
+     "conversation": "de-warm-5 (live closing)",
+     "line": null,
+     "round4": "adds-unsaid-content",
+     "class": "no label: the provider line was not returned (only its status), so its meaning cannot be judged",
+     "round5": "n/a"
+    }
+   ],
+   "conservativeRejectsKept": [
+    "tr-ok-exam (\"odaklanma zorluğu\" for \"odaklanamıyorum\")",
+    "de-synonym-refused (\"Sorge\" for \"Angst\")"
+   ],
+   "erroneousRejectsFound": "none: every refusal examined follows the rules as specified; the two conservative ones that a closed list can cover safely are fixed"
+  },
+  "evaluation": {
+   "corpus": {
+    "cases": 94,
+    "previousCases": 80,
+    "changedVsRound4Validator": [
+     {
+      "id": "tr-negation-flip",
+      "content": "negation-flip",
+      "round4": "adds-unsaid-content",
+      "now": "negation-not-kept"
+     },
+     {
+      "id": "en-added-modifier",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "de-added-in-compound",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "de-variant-false-ground",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "en-negation-without-marker",
+      "content": "negation-flip",
+      "round4": "valid",
+      "now": "negation-not-kept"
+     },
+     {
+      "id": "en-person-modifier-family",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "en-person-short-part",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "en-short-noun-part",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "de-kaum-dropped",
+      "content": "negation-flip",
+      "round4": "valid",
+      "now": "negation-not-kept"
+     },
+     {
+      "id": "de-short-noun-added",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "tr-person-modifier",
+      "content": "added-fact",
+      "round4": "valid",
+      "now": "adds-unsaid-content"
+     },
+     {
+      "id": "en-irregular-form",
+      "content": "correct",
+      "round4": "adds-unsaid-content",
+      "now": "valid"
+     },
+     {
+      "id": "tr-tired-derivation",
+      "content": "correct",
+      "round4": "adds-unsaid-content",
+      "now": "valid"
+     }
+    ],
+    "allMatchExpected": true
+   },
+   "recorded144": {
+    "changed": 0,
+    "summary": {
+     "current prompt (6-10 words)/tr": {
+      "n": 24,
+      "formallyValidBaseline": 24,
+      "formallyValidNow": 24
+     },
+     "current prompt (6-10 words)/en": {
+      "n": 24,
+      "formallyValidBaseline": 24,
+      "formallyValidNow": 24
+     },
+     "current prompt (6-10 words)/de": {
+      "n": 24,
+      "formallyValidBaseline": 24,
+      "formallyValidNow": 24
+     },
+     "earlier prompt (sen)/tr": {
+      "n": 24,
+      "formallyValidBaseline": 22,
+      "formallyValidNow": 22
+     },
+     "earlier prompt (sen)/en": {
+      "n": 24,
+      "formallyValidBaseline": 24,
+      "formallyValidNow": 24
+     },
+     "earlier prompt (sen)/de": {
+      "n": 24,
+      "formallyValidBaseline": 20,
+      "formallyValidNow": 20
+     }
+    }
+   },
+   "p9Live72": {
+    "changed": [
+     {
+      "conversation": "en-c2",
+      "line": "You talked about being anxious and feeling worn out.",
+      "round4": "adds-unsaid-content",
+      "now": "valid"
+     },
+     {
+      "conversation": "tr-d3",
+      "line": "Yorgunluktan ve toplantılardan söz ettin.",
+      "round4": "adds-unsaid-content",
+      "now": "valid"
+     }
+    ]
+   },
+   "webLive35": {
+    "changed": 0
+   },
+   "aaosLive14": {
+    "changed": 0,
+    "offlineRound4AgreesWithApi": 14
+   },
+   "note": "Acceptance rate is not the measure: the changes refuse 4 declared and 3 newly found false-accept shapes and accept 2 correct lines that were refused; no line of the 144 recorded, 35 WEB live or 14 AAOS live lines changed."
+  }
+ },
+ "aaos": {
+  "oldResultsUnchanged": "Round-4 FAILs stay FAIL; nothing in the product was changed to make a test pass.",
+  "consentDuringA": {
+   "finding": "Sampling race in the harness, not a product stop failure.",
+   "evidence": {
+    "playerStartedObserved": "piid 7743, 30 ms after closing-A-playing, before the action",
+    "firstSampleIssuedMs": -2,
+    "firstSampleDumpMs": 30,
+    "mediaPauseCallMs": 22,
+    "mediaPausedEventMs": 43,
+    "nextSamples": [
+     [
+      59,
+      21,
+      "not started"
+     ],
+     [
+      80,
+      19,
+      "not started"
+     ]
+    ]
+   },
+   "explanation": "The consent action is a direct page call: the app paused the media 22 ms after it. The sampler request issued 2 ms before the action took 30 ms, so its snapshot was most likely taken after the pause and read as \"not started at the action\". Click actions pause after 108-250 ms, which is why their first sample still saw the player started.",
+   "reanalysisUnderNewRule": "with the at-action state from the pre-action snapshot and only samples requested after the action, the player had left started no later than 80 ms after the consent (upper bound). Reported as a re-analysis, not as a pass.",
+   "harnessFix": "closing_stop_verdict.cjs / aaos-mental-closing.cjs: the at-action state comes from the last snapshot that completed before the action (<= 150 ms earlier); samples requested before the action are ignored; the stop time is the completion of the first later snapshot without a started player (upper bound, stricter than before). Before-start cases take their own pre-action snapshot. Unit-tested with the round-4 series."
+  },
+  "driveDuringC": {
+   "finding": "The 409 is the server half of the stop chain and answered before the page saw the motion.",
+   "timelineMs": {
+    "speechRequestIssued": -4587,
+    "backendAcknowledgedSpeed": 18,
+    "apiAnswered409": 90,
+    "webSawMoving": 232,
+    "closingAbortStage": 250,
+    "pageClosed": 294,
+    "playerLeftStarted": 199
+   },
+   "mechanism": "mental_neural_tts._resident_audio checks permitted() every 100 ms while synthesis runs; on driving it raises 409 PARK_AND_AUTHENTICATION_REQUIRED, kills the worker and re-warms; the Next route passes 409 through. No audio played; no late audio. The page polls the vehicle state every 250 ms, so the server is faster.",
+   "checkProposal": "From round 5 on (needs owner acceptance before the next run): for driving only, a request in flight may end aborted by the page or refused 409 by the park gate; any 2xx or other answer fails. Client-side stops (cancel, mute, consent, background) keep \"aborted, never answered\". Implemented in inFlightVerdict and unit-tested; the round-4 FAIL stays."
+  },
+  "firstCaseSpeed": {
+   "finding": "The emulator played every element about twice as fast; page, guest and host clocks agreed.",
+   "evidence": {
+    "personalLine": "1.949 s played for 3.84 s of audio (ratio 1.97)",
+    "A_B_C_ms": [
+     2437,
+     1379,
+     1936
+    ],
+    "mixerFramesPer1sDuringA": {
+     "firstCase": 82944,
+     "otherCases": "49,536-50,688"
+    },
+    "clocks": "guest Date.now, page performance.now and host receipt spans agree within 40 ms over 9.7 s",
+    "round3FirstCase": "normal durations (same harness, replay)",
+    "appCode": "no playbackRate anywhere in the app or harness; media \"ended\" fired only at the element end (currentTime >= duration - 0.1)"
+   },
+   "cause": "not determined; the Android output path consumed samples faster than real time in that case only",
+   "harnessFix": "media events now carry duration/position/rate, and every complete closing checks that playing->ended matches the element duration within 10 %; otherwise its timing is blocked, not a sample."
+  },
+  "recoveredTestApiLog": {
+   "webStart": "2026-11-10T18:54:54.371832+00:00",
+   "webLaunchTime": "2026-11-10T18:54:54+00:00",
+   "stopCall": "2026-11-10T18:55:13Z",
+   "finalState": "stopped",
+   "timer": {
+    "verified": true,
+    "scheduledUtc": "2026-11-10T19:04:10Z",
+    "deadlineUtc": "2026-11-10T19:04:51Z"
+   },
+   "files": [
+    {
+     "path": "aaos-api.log",
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "path": "aaos-api.state",
+     "bytes": 37,
+     "sha256": "ace3f9f1de4e1f83f0a1f2f4cfe3a5c0770714983b1df655304f9f3e2c808b48"
+    },
+    {
+     "path": "aaos-api/servers.log",
+     "bytes": 989,
+     "sha256": "adfcb856b7d561ffcbafff2e04fafbfe790ea6549e948687a7c833de23fd882c"
+    },
+    {
+     "path": "aaos-api/status.json",
+     "bytes": 600,
+     "sha256": "df8c579647b2e4eadfc7681eb82bad0a78567449f528d8db4beeceaed974e49c"
+    },
+    {
+     "path": "aaos-api/stop",
+     "bytes": 0,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+   ],
+   "bundleSha256": "f0151cc4949ce548e2fc272d6d8a36cb7a82220825619e3e377508e70b2ec771",
+   "content": "start-up warm-up rows (default 22.829 s, female 15.884 s) and three re-warms of female-calm-v1 after killed workers (EN 23.982 s, TR 23.855 s, DE 23.61 s); no request access log (not enabled in the product environment)",
+   "costUsd": "about 0.011 (r7i.2xlarge, 60 s minimum billing)"
+  }
+ },
+ "rewarmAfterCancel": {
+  "measured": {
+   "apiRewarmSeconds": [
+    23.982,
+    23.855,
+    23.61
+   ],
+   "gpuSideSeconds": [
+    23.38,
+    23.527,
+    23.284
+   ],
+   "events": 3
+  },
+  "mechanism": "Any exception while a speech request runs (client cancel 499, park gate 409, deadline) kills the resident worker (stop_resident) and re-warms only the profile of that request (schedule_warm(language, speaker_profile)). Conversation replies use the default profile in the same worker; the closing uses female-calm-v1.",
+  "userImpact": [
+   "A new closing whose speech request arrives during the ~24 s re-warm waits for it (warm-wait), then synthesis (~3.4 s). Estimate, not measured: extra wait after C of about 17-19 s minus the time between the cancel and the new closing tap (EN A+B+C median 8.5 s, TR 10.6 s, DE 10.2 s).",
+   "After a cancelled closing the new worker holds only female-calm-v1. The next conversation reply (default profile) waits for that re-warm and then loads the default model cold (start-up default warm-up 22.7-23.3 s; a second model after the first loaded in 15.8-16.0 s at start). Estimate, not measured: the first spoken reply of the next conversation may be delayed by roughly 40 s.",
+   "The reverse holds after a cancelled conversation reply: the next closing finds female-calm-v1 cold (as P3: 11.6-13.9 s after C).",
+   "Safety is not affected: the guard (park, consent, disconnect, deadline) keeps running every 100 ms during warm-wait."
+  ],
+  "proposals": [
+   {
+    "name": "Drain instead of kill (preferred, needs owner decision)",
+    "what": "On cancel or refusal the request still ends at once and its audio is discarded; the worker is not killed if its pending reply arrives within a short bound (e.g. 8 s), so both models stay loaded; requests arriving meanwhile wait for the drain like warm-wait; past the bound the worker is killed as today.",
+    "keeps": "client/route abort, park/consent guards, no audio after a stop, one request at a time",
+    "changes": "the remaining inference (<= the bound) is no longer interrupted",
+    "expected": "unmeasured: next request waits at most the remaining synthesis instead of ~24 s plus a cold second model"
+   },
+   {
+    "name": "Re-warm the start-up set after a kill (smaller)",
+    "what": "after a kill, re-warm the killed request's profile first, then the default model and the configured warm profiles, so the next conversation reply does not hit a cold default model",
+    "tradeoff": "the worker is busy longer (about 24 s + 16 s); a request for the second profile still waits for the whole re-warm unless readiness is tracked per profile",
+    "expected": "unmeasured"
+   }
+  ],
+  "notDone": "No product change made for this; speaker hash verification is not cached."
+ }
+}

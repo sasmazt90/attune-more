@@ -1,0 +1,1856 @@
+{
+ "schema": "attune-closing-review-v4-live",
+ "date": "2026-11-10",
+ "branchHead": "eaa735dd96e9dad12979dff2b50b061b2c5b2b31",
+ "scope": "WEB live closings (system Chrome -> branch Next test server -> test API with the product API environment -> real provider analysis -> GPU synthesis over a private connection -> real playback in Chrome) and AAOS emulator live closings through the branch Next route; replay (round 3) and unit results are reported separately and not mixed in.",
+ "notProduct": "test servers built from the branch; product services untouched (hashes of protected files unchanged, services active); feature stays off; no merge, deploy or live enable.",
+ "criteriaFixedBefore": "GPU-E2E-PLAN-20261110-round4.md section 6 (P1 per language needs 8 of 8)",
+ "deviations": [
+  "P3 cold: 1 fresh process per language instead of 3 (time lost before the window; reduced before attempt 3 started, reported here). The cold sample of attempt 1 (TR, 23.5 s C->personal, female request 32.6 s: verify 2.2, load-model 12.8, inference 15.3) is reported separately; attempt 1 was stopped on purpose to apply the reduction.",
+  "Attempt 2 failed at start (a stale test Next server still held port 3190; pkill pattern missed \"next-server\"); no closing measured. Attempt 3 ran completely: 36 of 36 closings measured.",
+  "The AAOS-phase test API log (status.json/servers.log on WEB) was not transferred before WEB stopped; its numbers are in the AAOS assertions (Server-Timing per request) and the GPU server log. The files stay on the stopped WEB disk under /var/tmp/attune-closing-review4-20261110/out/aaos-api."
+ ],
+ "web": {
+  "window": "2026-11-10T16:58Z..17:23:41Z (attempt 3)",
+  "criteria": {
+   "criteria-P1": {
+    "warm/tr": {
+     "passes": 8,
+     "of": 8,
+     "needed": 8,
+     "pass": true
+    },
+    "warm/en": {
+     "passes": 8,
+     "of": 8,
+     "needed": 8,
+     "pass": true
+    },
+    "warm/de": {
+     "passes": 7,
+     "of": 8,
+     "needed": 8,
+     "pass": false
+    },
+    "warm/all": {
+     "passes": 23,
+     "of": 24,
+     "needed": 22,
+     "pass": true
+    }
+   },
+   "criteria-P2": {
+    "prepared/tr": {
+     "passes": 3,
+     "of": 3,
+     "pass": true
+    },
+    "prepared/en": {
+     "passes": 3,
+     "of": 3,
+     "pass": true
+    },
+    "prepared/de": {
+     "passes": 3,
+     "of": 3,
+     "pass": true
+    },
+    "prepared/all": {
+     "passes": 9,
+     "of": 9,
+     "pass": true
+    }
+   },
+   "criteria-P4": {
+    "cold/all": {
+     "passes": 3,
+     "of": 3
+    },
+    "prepared/all": {
+     "passes": 9,
+     "of": 9
+    },
+    "warm/all": {
+     "passes": 23,
+     "of": 24
+    }
+   }
+  },
+  "P1verdict": "NOT MET: TR 8/8, EN 8/8, DE 7/8 (de-warm-5: the provider line was refused, adds-unsaid-content; written summary kept, nothing spoken). Overall 23/24 >= 22.",
+  "P2verdict": "MET: 9/9 (C->personal 125-127 ms)",
+  "P3": "reported only (n=1 per language)",
+  "P4verdict": "warm 23/24, prepared 9/9, cold 3/3 (no audio in de-warm-5)",
+  "P5verdict": "no failed analysis or speech request (36 analyses 200, 107 speech responses 200); 1 refused spoken line counted on its own",
+  "P7verdict": "MET: 3 of 3 pairs gave one 200 (4.45-4.53 s) and one 429 (0.002 s); no worker failure, no overlapping worker",
+  "summary": {
+   "cold/tr": {
+    "samples": 1,
+    "measured": 1,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 1,
+     "median": 13690,
+     "min": 13690,
+     "max": 13690
+    },
+    "finishToAMs": {
+     "n": 1,
+     "median": 19,
+     "min": 19,
+     "max": 19
+    },
+    "aToBMs": {
+     "n": 1,
+     "median": 126,
+     "min": 126,
+     "max": 126
+    },
+    "bToCMs": {
+     "n": 1,
+     "median": 126,
+     "min": 126,
+     "max": 126
+    },
+    "analysisMs": {
+     "n": 1,
+     "median": 4147,
+     "min": 4147,
+     "max": 4147
+    },
+    "ttsRequestSeconds": {
+     "n": 1,
+     "median": 18.3,
+     "min": 18.313,
+     "max": 18.313
+    },
+    "ttsVerifyMs": {
+     "n": 1,
+     "median": 2247.4,
+     "min": 2247.442,
+     "max": 2247.442
+    },
+    "ttsWarmWaitMs": {
+     "n": 1,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 1,
+     "median": 18312.3,
+     "min": 18312.317,
+     "max": 18312.317
+    },
+    "ttsTotalMs": {
+     "n": 1,
+     "median": 20560.3,
+     "min": 20560.257,
+     "max": 20560.257
+    },
+    "readyToPlayMs": {
+     "n": 1,
+     "median": 5,
+     "min": 5,
+     "max": 5
+    },
+    "p1Passes": 0,
+    "p4Passes": 1,
+    "spokenLineRefused": []
+   },
+   "cold/en": {
+    "samples": 1,
+    "measured": 1,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 1,
+     "median": 13925,
+     "min": 13925,
+     "max": 13925
+    },
+    "finishToAMs": {
+     "n": 1,
+     "median": 19,
+     "min": 19,
+     "max": 19
+    },
+    "aToBMs": {
+     "n": 1,
+     "median": 126,
+     "min": 126,
+     "max": 126
+    },
+    "bToCMs": {
+     "n": 1,
+     "median": 125,
+     "min": 125,
+     "max": 125
+    },
+    "analysisMs": {
+     "n": 1,
+     "median": 2437,
+     "min": 2437,
+     "max": 2437
+    },
+    "ttsRequestSeconds": {
+     "n": 1,
+     "median": 17.4,
+     "min": 17.357,
+     "max": 17.357
+    },
+    "ttsVerifyMs": {
+     "n": 1,
+     "median": 2223.8,
+     "min": 2223.825,
+     "max": 2223.825
+    },
+    "ttsWarmWaitMs": {
+     "n": 1,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 1,
+     "median": 17356.6,
+     "min": 17356.604,
+     "max": 17356.604
+    },
+    "ttsTotalMs": {
+     "n": 1,
+     "median": 19580.9,
+     "min": 19580.887,
+     "max": 19580.887
+    },
+    "readyToPlayMs": {
+     "n": 1,
+     "median": 4,
+     "min": 4,
+     "max": 4
+    },
+    "p1Passes": 0,
+    "p4Passes": 1,
+    "spokenLineRefused": []
+   },
+   "cold/de": {
+    "samples": 1,
+    "measured": 1,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 1,
+     "median": 11610,
+     "min": 11610,
+     "max": 11610
+    },
+    "finishToAMs": {
+     "n": 1,
+     "median": 19,
+     "min": 19,
+     "max": 19
+    },
+    "aToBMs": {
+     "n": 1,
+     "median": 124,
+     "min": 124,
+     "max": 124
+    },
+    "bToCMs": {
+     "n": 1,
+     "median": 127,
+     "min": 127,
+     "max": 127
+    },
+    "analysisMs": {
+     "n": 1,
+     "median": 2230,
+     "min": 2230,
+     "max": 2230
+    },
+    "ttsRequestSeconds": {
+     "n": 1,
+     "median": 18.0,
+     "min": 18.006,
+     "max": 18.006
+    },
+    "ttsVerifyMs": {
+     "n": 1,
+     "median": 2162.8,
+     "min": 2162.76,
+     "max": 2162.76
+    },
+    "ttsWarmWaitMs": {
+     "n": 1,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 1,
+     "median": 18005.5,
+     "min": 18005.469,
+     "max": 18005.469
+    },
+    "ttsTotalMs": {
+     "n": 1,
+     "median": 20168.8,
+     "min": 20168.813,
+     "max": 20168.813
+    },
+    "readyToPlayMs": {
+     "n": 1,
+     "median": 5,
+     "min": 5,
+     "max": 5
+    },
+    "p1Passes": 0,
+    "p4Passes": 1,
+    "spokenLineRefused": []
+   },
+   "cold/all": {
+    "samples": 3,
+    "measured": 3,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 3,
+     "median": 13690,
+     "min": 11610,
+     "max": 13925
+    },
+    "finishToAMs": {
+     "n": 3,
+     "median": 19,
+     "min": 19,
+     "max": 19
+    },
+    "aToBMs": {
+     "n": 3,
+     "median": 126,
+     "min": 124,
+     "max": 126
+    },
+    "bToCMs": {
+     "n": 3,
+     "median": 126,
+     "min": 125,
+     "max": 127
+    },
+    "analysisMs": {
+     "n": 3,
+     "median": 2437,
+     "min": 2230,
+     "max": 4147
+    },
+    "ttsRequestSeconds": {
+     "n": 3,
+     "median": 18.0,
+     "min": 17.357,
+     "max": 18.313
+    },
+    "ttsVerifyMs": {
+     "n": 3,
+     "median": 2223.8,
+     "min": 2162.76,
+     "max": 2247.442
+    },
+    "ttsWarmWaitMs": {
+     "n": 3,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 3,
+     "median": 18005.5,
+     "min": 17356.604,
+     "max": 18312.317
+    },
+    "ttsTotalMs": {
+     "n": 3,
+     "median": 20168.8,
+     "min": 19580.887,
+     "max": 20560.257
+    },
+    "readyToPlayMs": {
+     "n": 3,
+     "median": 5,
+     "min": 4,
+     "max": 5
+    },
+    "p1Passes": 0,
+    "p4Passes": 3,
+    "spokenLineRefused": []
+   },
+   "prepared/tr": {
+    "samples": 3,
+    "measured": 3,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 3,
+     "median": 127,
+     "min": 126,
+     "max": 127
+    },
+    "finishToAMs": {
+     "n": 3,
+     "median": 19,
+     "min": 19,
+     "max": 20
+    },
+    "aToBMs": {
+     "n": 3,
+     "median": 127,
+     "min": 126,
+     "max": 127
+    },
+    "bToCMs": {
+     "n": 3,
+     "median": 127,
+     "min": 126,
+     "max": 128
+    },
+    "analysisMs": {
+     "n": 3,
+     "median": 2832,
+     "min": 2828,
+     "max": 3034
+    },
+    "ttsRequestSeconds": {
+     "n": 3,
+     "median": 3.9,
+     "min": 3.58,
+     "max": 4.268
+    },
+    "ttsVerifyMs": {
+     "n": 3,
+     "median": 2192.4,
+     "min": 2189.895,
+     "max": 2235.256
+    },
+    "ttsWarmWaitMs": {
+     "n": 3,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 3,
+     "median": 3889.2,
+     "min": 3579.007,
+     "max": 4267.269
+    },
+    "ttsTotalMs": {
+     "n": 3,
+     "median": 6082.2,
+     "min": 5814.843,
+     "max": 6457.843
+    },
+    "readyToPlayMs": {
+     "n": 3,
+     "median": 127,
+     "min": 126,
+     "max": 127
+    },
+    "p1Passes": 3,
+    "p4Passes": 3,
+    "spokenLineRefused": []
+   },
+   "prepared/en": {
+    "samples": 3,
+    "measured": 3,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 3,
+     "median": 125,
+     "min": 125,
+     "max": 126
+    },
+    "finishToAMs": {
+     "n": 3,
+     "median": 18,
+     "min": 17,
+     "max": 19
+    },
+    "aToBMs": {
+     "n": 3,
+     "median": 125,
+     "min": 125,
+     "max": 126
+    },
+    "bToCMs": {
+     "n": 3,
+     "median": 126,
+     "min": 125,
+     "max": 126
+    },
+    "analysisMs": {
+     "n": 3,
+     "median": 2628,
+     "min": 2496,
+     "max": 2719
+    },
+    "ttsRequestSeconds": {
+     "n": 3,
+     "median": 2.6,
+     "min": 2.499,
+     "max": 2.899
+    },
+    "ttsVerifyMs": {
+     "n": 3,
+     "median": 2205.9,
+     "min": 2203.782,
+     "max": 2228.03
+    },
+    "ttsWarmWaitMs": {
+     "n": 3,
+     "median": 0.0,
+     "min": 0.001,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 3,
+     "median": 2580.3,
+     "min": 2498.788,
+     "max": 2898.583
+    },
+    "ttsTotalMs": {
+     "n": 3,
+     "median": 4786.6,
+     "min": 4702.975,
+     "max": 5127.078
+    },
+    "readyToPlayMs": {
+     "n": 3,
+     "median": 125,
+     "min": 125,
+     "max": 126
+    },
+    "p1Passes": 3,
+    "p4Passes": 3,
+    "spokenLineRefused": []
+   },
+   "prepared/de": {
+    "samples": 3,
+    "measured": 3,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 3,
+     "median": 126,
+     "min": 126,
+     "max": 126
+    },
+    "finishToAMs": {
+     "n": 3,
+     "median": 19,
+     "min": 19,
+     "max": 19
+    },
+    "aToBMs": {
+     "n": 3,
+     "median": 125,
+     "min": 125,
+     "max": 126
+    },
+    "bToCMs": {
+     "n": 3,
+     "median": 125,
+     "min": 125,
+     "max": 126
+    },
+    "analysisMs": {
+     "n": 3,
+     "median": 2557,
+     "min": 2513,
+     "max": 2643
+    },
+    "ttsRequestSeconds": {
+     "n": 3,
+     "median": 3.4,
+     "min": 3.388,
+     "max": 3.663
+    },
+    "ttsVerifyMs": {
+     "n": 3,
+     "median": 2210.8,
+     "min": 2210.618,
+     "max": 2211.326
+    },
+    "ttsWarmWaitMs": {
+     "n": 3,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.003
+    },
+    "ttsWorkerMs": {
+     "n": 3,
+     "median": 3412.5,
+     "min": 3387.055,
+     "max": 3662.206
+    },
+    "ttsTotalMs": {
+     "n": 3,
+     "median": 5624.3,
+     "min": 5598.379,
+     "max": 5873.504
+    },
+    "readyToPlayMs": {
+     "n": 3,
+     "median": 126,
+     "min": 126,
+     "max": 126
+    },
+    "p1Passes": 3,
+    "p4Passes": 3,
+    "spokenLineRefused": []
+   },
+   "prepared/all": {
+    "samples": 9,
+    "measured": 9,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 9,
+     "median": 126,
+     "min": 125,
+     "max": 127
+    },
+    "finishToAMs": {
+     "n": 9,
+     "median": 19,
+     "min": 17,
+     "max": 20
+    },
+    "aToBMs": {
+     "n": 9,
+     "median": 126,
+     "min": 125,
+     "max": 127
+    },
+    "bToCMs": {
+     "n": 9,
+     "median": 126,
+     "min": 125,
+     "max": 128
+    },
+    "analysisMs": {
+     "n": 9,
+     "median": 2643,
+     "min": 2496,
+     "max": 3034
+    },
+    "ttsRequestSeconds": {
+     "n": 9,
+     "median": 3.4,
+     "min": 2.499,
+     "max": 4.268
+    },
+    "ttsVerifyMs": {
+     "n": 9,
+     "median": 2210.6,
+     "min": 2189.895,
+     "max": 2235.256
+    },
+    "ttsWarmWaitMs": {
+     "n": 9,
+     "median": 0.0,
+     "min": 0.001,
+     "max": 0.003
+    },
+    "ttsWorkerMs": {
+     "n": 9,
+     "median": 3412.5,
+     "min": 2498.788,
+     "max": 4267.269
+    },
+    "ttsTotalMs": {
+     "n": 9,
+     "median": 5624.3,
+     "min": 4702.975,
+     "max": 6457.843
+    },
+    "readyToPlayMs": {
+     "n": 9,
+     "median": 126,
+     "min": 125,
+     "max": 127
+    },
+    "p1Passes": 9,
+    "p4Passes": 9,
+    "spokenLineRefused": []
+   },
+   "warm/tr": {
+    "samples": 8,
+    "measured": 8,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 8,
+     "median": 127.0,
+     "min": 126,
+     "max": 128
+    },
+    "finishToAMs": {
+     "n": 8,
+     "median": 19.5,
+     "min": 18,
+     "max": 23
+    },
+    "aToBMs": {
+     "n": 8,
+     "median": 126.0,
+     "min": 125,
+     "max": 127
+    },
+    "bToCMs": {
+     "n": 8,
+     "median": 126.0,
+     "min": 125,
+     "max": 127
+    },
+    "analysisMs": {
+     "n": 8,
+     "median": 2909.5,
+     "min": 2806,
+     "max": 3158
+    },
+    "ttsRequestSeconds": {
+     "n": 8,
+     "median": 3.7,
+     "min": 2.689,
+     "max": 4.116
+    },
+    "ttsVerifyMs": {
+     "n": 8,
+     "median": 2169.6,
+     "min": 2143.969,
+     "max": 2197.075
+    },
+    "ttsWarmWaitMs": {
+     "n": 8,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.003
+    },
+    "ttsWorkerMs": {
+     "n": 8,
+     "median": 3701.5,
+     "min": 2688.917,
+     "max": 4115.76
+    },
+    "ttsTotalMs": {
+     "n": 8,
+     "median": 5869.7,
+     "min": 4886.413,
+     "max": 6285.75
+    },
+    "readyToPlayMs": {
+     "n": 8,
+     "median": 127.0,
+     "min": 126,
+     "max": 128
+    },
+    "p1Passes": 8,
+    "p4Passes": 8,
+    "spokenLineRefused": []
+   },
+   "warm/en": {
+    "samples": 8,
+    "measured": 8,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 8,
+     "median": 126.0,
+     "min": 125,
+     "max": 127
+    },
+    "finishToAMs": {
+     "n": 8,
+     "median": 18.5,
+     "min": 17,
+     "max": 20
+    },
+    "aToBMs": {
+     "n": 8,
+     "median": 125.0,
+     "min": 125,
+     "max": 126
+    },
+    "bToCMs": {
+     "n": 8,
+     "median": 126.0,
+     "min": 125,
+     "max": 127
+    },
+    "analysisMs": {
+     "n": 8,
+     "median": 2337.5,
+     "min": 2083,
+     "max": 2736
+    },
+    "ttsRequestSeconds": {
+     "n": 8,
+     "median": 2.9,
+     "min": 2.442,
+     "max": 3.136
+    },
+    "ttsVerifyMs": {
+     "n": 8,
+     "median": 2172.4,
+     "min": 2161.643,
+     "max": 2199.144
+    },
+    "ttsWarmWaitMs": {
+     "n": 8,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 8,
+     "median": 2935.2,
+     "min": 2441.576,
+     "max": 3135.934
+    },
+    "ttsTotalMs": {
+     "n": 8,
+     "median": 5118.9,
+     "min": 4609.501,
+     "max": 5298.044
+    },
+    "readyToPlayMs": {
+     "n": 8,
+     "median": 126.0,
+     "min": 125,
+     "max": 127
+    },
+    "p1Passes": 8,
+    "p4Passes": 8,
+    "spokenLineRefused": []
+   },
+   "warm/de": {
+    "samples": 8,
+    "measured": 8,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 7,
+     "median": 127,
+     "min": 125,
+     "max": 128
+    },
+    "finishToAMs": {
+     "n": 8,
+     "median": 18.5,
+     "min": 18,
+     "max": 21
+    },
+    "aToBMs": {
+     "n": 8,
+     "median": 126.0,
+     "min": 125,
+     "max": 128
+    },
+    "bToCMs": {
+     "n": 8,
+     "median": 125.0,
+     "min": 124,
+     "max": 127
+    },
+    "analysisMs": {
+     "n": 8,
+     "median": 2628.0,
+     "min": 1818,
+     "max": 2873
+    },
+    "ttsRequestSeconds": {
+     "n": 7,
+     "median": 3.6,
+     "min": 2.747,
+     "max": 4.157
+    },
+    "ttsVerifyMs": {
+     "n": 7,
+     "median": 2165.4,
+     "min": 2152.727,
+     "max": 2187.972
+    },
+    "ttsWarmWaitMs": {
+     "n": 7,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.002
+    },
+    "ttsWorkerMs": {
+     "n": 7,
+     "median": 3560.4,
+     "min": 2746.123,
+     "max": 4156.44
+    },
+    "ttsTotalMs": {
+     "n": 7,
+     "median": 5745.4,
+     "min": 4911.98,
+     "max": 6330.136
+    },
+    "readyToPlayMs": {
+     "n": 7,
+     "median": 127,
+     "min": 125,
+     "max": 128
+    },
+    "p1Passes": 7,
+    "p4Passes": 7,
+    "spokenLineRefused": [
+     "de-warm-5"
+    ]
+   },
+   "warm/all": {
+    "samples": 24,
+    "measured": 24,
+    "blockedOrFailed": [],
+    "cToPersonalMs": {
+     "n": 23,
+     "median": 126,
+     "min": 125,
+     "max": 128,
+     "p95": 128
+    },
+    "finishToAMs": {
+     "n": 24,
+     "median": 19.0,
+     "min": 17,
+     "max": 23,
+     "p95": 21
+    },
+    "aToBMs": {
+     "n": 24,
+     "median": 126.0,
+     "min": 125,
+     "max": 128,
+     "p95": 127
+    },
+    "bToCMs": {
+     "n": 24,
+     "median": 126.0,
+     "min": 124,
+     "max": 127,
+     "p95": 127
+    },
+    "analysisMs": {
+     "n": 24,
+     "median": 2697.0,
+     "min": 1818,
+     "max": 3158,
+     "p95": 3006
+    },
+    "ttsRequestSeconds": {
+     "n": 23,
+     "median": 3.4,
+     "min": 2.442,
+     "max": 4.157,
+     "p95": 4.116
+    },
+    "ttsVerifyMs": {
+     "n": 23,
+     "median": 2169.8,
+     "min": 2143.969,
+     "max": 2199.144,
+     "p95": 2197.075
+    },
+    "ttsWarmWaitMs": {
+     "n": 23,
+     "median": 0.0,
+     "min": 0.002,
+     "max": 0.003,
+     "p95": 0.003
+    },
+    "ttsWorkerMs": {
+     "n": 23,
+     "median": 3363.2,
+     "min": 2441.576,
+     "max": 4156.44,
+     "p95": 4115.76
+    },
+    "ttsTotalMs": {
+     "n": 23,
+     "median": 5516.4,
+     "min": 4609.501,
+     "max": 6330.136,
+     "p95": 6285.75
+    },
+    "readyToPlayMs": {
+     "n": 23,
+     "median": 126,
+     "min": 125,
+     "max": 128,
+     "p95": 128
+    },
+    "p1Passes": 23,
+    "p4Passes": 23,
+    "spokenLineRefused": [
+     "de-warm-5"
+    ]
+   }
+  },
+  "warmUp": [
+   {
+    "process": "tr-cold-1",
+    "kind": "cold",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 23.308
+     }
+    ],
+    "secondsFromStartToWarm": 24.426
+   },
+   {
+    "process": "tr-prepared-1",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.905
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.78
+     }
+    ],
+    "secondsFromStartToWarm": 39.43
+   },
+   {
+    "process": "tr-prepared-2",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.707
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.867
+     }
+    ],
+    "secondsFromStartToWarm": 39.434
+   },
+   {
+    "process": "tr-prepared-3",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.895
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.854
+     }
+    ],
+    "secondsFromStartToWarm": 39.433
+   },
+   {
+    "process": "en-cold-1",
+    "kind": "cold",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.914
+     }
+    ],
+    "secondsFromStartToWarm": 23.922
+   },
+   {
+    "process": "en-prepared-1",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.721
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.835
+     }
+    ],
+    "secondsFromStartToWarm": 39.426
+   },
+   {
+    "process": "en-prepared-2",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.815
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.853
+     }
+    ],
+    "secondsFromStartToWarm": 39.425
+   },
+   {
+    "process": "en-prepared-3",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.722
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.88
+     }
+    ],
+    "secondsFromStartToWarm": 39.425
+   },
+   {
+    "process": "de-cold-1",
+    "kind": "cold",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.661
+     }
+    ],
+    "secondsFromStartToWarm": 23.42
+   },
+   {
+    "process": "de-prepared-1",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.818
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.946
+     }
+    ],
+    "secondsFromStartToWarm": 39.425
+   },
+   {
+    "process": "de-prepared-2",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 23.107
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.961
+     }
+    ],
+    "secondsFromStartToWarm": 39.925
+   },
+   {
+    "process": "de-prepared-3",
+    "kind": "prepared",
+    "gate": {
+     "ok": true,
+     "reason": null,
+     "required": [
+      "default",
+      "female-calm-v1"
+     ]
+    },
+    "rows": [
+     {
+      "profile": "default",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 22.816
+     },
+     {
+      "profile": "female-calm-v1",
+      "language": "en",
+      "ok": true,
+      "start": "cold",
+      "seconds": 15.895
+     }
+    ],
+    "secondsFromStartToWarm": 39.428
+   }
+  ],
+  "concurrency": [
+   {
+    "pair": 1,
+    "language": "de",
+    "statuses": [
+     200,
+     429
+    ],
+    "seconds": [
+     4.526,
+     0.002
+    ],
+    "serverTiming": [
+     null,
+     null
+    ]
+   },
+   {
+    "pair": 2,
+    "language": "de",
+    "statuses": [
+     200,
+     429
+    ],
+    "seconds": [
+     4.462,
+     0.002
+    ],
+    "serverTiming": [
+     null,
+     null
+    ]
+   },
+   {
+    "pair": 3,
+    "language": "de",
+    "statuses": [
+     200,
+     429
+    ],
+    "seconds": [
+     4.447,
+     0.002
+    ],
+    "serverTiming": [
+     null,
+     null
+    ]
+   }
+  ],
+  "attempt1Cold": {
+   "label": "tr-cold-1 (attempt 1)",
+   "cToPersonalMs": 23519
+  }
+ },
+ "p9": {
+  "what": "live provider on WEB, current prompt, 24 analyses per language, round-4 validator (formal acceptance); content labels by the assistant are separate",
+  "counts": {
+   "tr": {
+    "round4Valid": 20,
+    "round3ValidSameLines": 20,
+    "of": 24
+   },
+   "en": {
+    "round4Valid": 23,
+    "round3ValidSameLines": 23,
+    "of": 24
+   },
+   "de": {
+    "round4Valid": 23,
+    "round3ValidSameLines": 18,
+    "of": 24
+   }
+  },
+  "refused": [
+   {
+    "language": "en",
+    "conversation": "en-c2",
+    "line": "You talked about being anxious and feeling worn out.",
+    "status": "adds-unsaid-content",
+    "round3": "adds-unsaid-content"
+   },
+   {
+    "language": "tr",
+    "conversation": "tr-d3",
+    "line": "Yorgunluktan ve toplantılardan sonra söz ettin.",
+    "status": "tr-ablative-required",
+    "round3": "tr-ablative-required"
+   },
+   {
+    "language": "tr",
+    "conversation": "tr-d3",
+    "line": "Yorgunluktan ve toplantılardan söz ettin.",
+    "status": "adds-unsaid-content",
+    "round3": "adds-unsaid-content"
+   },
+   {
+    "language": "tr",
+    "conversation": "tr-d4",
+    "line": "Kiramı ödemekte zorlandığından ve hesap yapmaktan söz ettin.",
+    "status": "first-person",
+    "round3": "first-person"
+   },
+   {
+    "language": "tr",
+    "conversation": "tr-d4",
+    "line": "Kiramı ödemekte zorlandığından söz ettin.",
+    "status": "first-person",
+    "round3": "first-person"
+   },
+   {
+    "language": "de",
+    "conversation": "de-d4",
+    "line": "Sie sprachen über Einsamkeit und das Vermissen von Freunden.",
+    "status": "adds-unsaid-content",
+    "round3": "valid"
+   }
+  ],
+  "notes": [
+   "The German line \"Sie sprachen über Einsamkeit und das Vermissen von Freunden.\" was accepted by the round-3 validator and is refused now; the user said \"Seit dem Umzug fühle ich mich einsam. Die Abende mit meinen Freunden.\" and never said \"vermissen\", so the line adds an inference: conservative reject, written summary stays.",
+   "Accepted but imprecise (assistant label): \"You talked about moving and feeling anxious about friends.\""
+  ]
+ },
+ "aaos": {
+  "run": "aaos-mental-closing-1794331528693",
+  "window": "2026-11-10T17:25:33Z..17:41:40Z",
+  "status": "FAIL",
+  "checks": 71,
+  "passed": 69,
+  "failed": [
+   "de-consent-revoked-during-A: the app's player left 'started' within 1000 ms of the stop condition (proposed criterion, measured -2 ms)",
+   "tr-drive-during-C: live closing requests in flight at the drive were aborted and never answered (1)"
+  ],
+  "completeClosings": [
+   {
+    "case": "tr-complete-cold-cdp",
+    "cToPersonalMs": 1604,
+    "aToBMs": 139,
+    "bToCMs": 128,
+    "summaryTextReadyMs": 2406,
+    "personalReadyMs": 7834,
+    "cEndedMs": 6234,
+    "speechServerTiming": "tts-total;dur=5373.891, tts-verify;dur=2163.544, tts-warm-wait;dur=0.003, tts-worker;dur=3209.784, tts-worker-verify-assets;dur=2.0, tts-worker-verify-source;dur=13.0, tts-worker-import-runtime;dur=0.0, tts-worker-load-model;dur=1.0, tts-worker-inference;dur=3189.0, tts-worker-encode-wav;dur=0.0, app;dur=5375.0",
+    "personalPlayedSeconds": 1.949,
+    "personalWavSeconds": 3.84,
+    "playbackSpeedRatio": 1.97,
+    "mixerFramesPerWindowDuringA": 82944
+   },
+   {
+    "case": "en-complete-warm-cdp",
+    "cToPersonalMs": 129,
+    "aToBMs": 126,
+    "bToCMs": 127,
+    "summaryTextReadyMs": 2275,
+    "personalReadyMs": 7233,
+    "cEndedMs": 8255,
+    "speechServerTiming": "tts-total;dur=4888.532, tts-verify;dur=2218.551, tts-warm-wait;dur=0.002, tts-worker;dur=2669.536, tts-worker-verify-assets;dur=1.0, tts-worker-verify-source;dur=12.0, tts-worker-import-runtime;dur=0.0, tts-worker-load-model;dur=1.0, tts-worker-inference;dur=2651.0, tts-worker-encode-wav;dur=1.0, app;dur=4889.5",
+    "personalPlayedSeconds": 3.12,
+    "personalWavSeconds": 3.12,
+    "playbackSpeedRatio": 1.0,
+    "mixerFramesPerWindowDuringA": 50688
+   },
+   {
+    "case": "de-complete-warm-cdp",
+    "cToPersonalMs": 128,
+    "aToBMs": 128,
+    "bToCMs": 127,
+    "summaryTextReadyMs": 2250,
+    "personalReadyMs": 8120,
+    "cEndedMs": 9516,
+    "speechServerTiming": "tts-total;dur=5793.367, tts-verify;dur=2156.13, tts-warm-wait;dur=0.003, tts-worker;dur=3636.586, tts-worker-verify-assets;dur=1.0, tts-worker-verify-source;dur=12.0, tts-worker-import-runtime;dur=1.0, tts-worker-load-model;dur=1.0, tts-worker-inference;dur=3616.0, tts-worker-encode-wav;dur=1.0, app;dur=5794.7",
+    "personalPlayedSeconds": 4.473,
+    "personalWavSeconds": 4.48,
+    "playbackSpeedRatio": 1.0,
+    "mixerFramesPerWindowDuringA": 50688
+   },
+   {
+    "case": "tr-complete-warm-real-tap",
+    "cToPersonalMs": 128,
+    "aToBMs": 129,
+    "bToCMs": 128,
+    "summaryTextReadyMs": 2214,
+    "personalReadyMs": 7580,
+    "cEndedMs": 10030,
+    "speechServerTiming": "tts-total;dur=5334.829, tts-verify;dur=2179.751, tts-warm-wait;dur=0.003, tts-worker;dur=3154.563, tts-worker-verify-assets;dur=1.0, tts-worker-verify-source;dur=11.0, tts-worker-import-runtime;dur=1.0, tts-worker-load-model;dur=0.0, tts-worker-inference;dur=3136.0, tts-worker-encode-wav;dur=0.0, app;dur=5335.8",
+    "personalPlayedSeconds": 3.839,
+    "personalWavSeconds": 3.84,
+    "playbackSpeedRatio": 1.0,
+    "mixerFramesPerWindowDuringA": 50688
+   },
+   {
+    "case": "en-complete-warm-real-tap",
+    "cToPersonalMs": 127,
+    "aToBMs": 127,
+    "bToCMs": 128,
+    "summaryTextReadyMs": 1825,
+    "personalReadyMs": 6895,
+    "cEndedMs": 8782,
+    "speechServerTiming": "tts-total;dur=5029.464, tts-verify;dur=2148.676, tts-warm-wait;dur=0.002, tts-worker;dur=2880.334, tts-worker-verify-assets;dur=1.0, tts-worker-verify-source;dur=12.0, tts-worker-import-runtime;dur=0.0, tts-worker-load-model;dur=1.0, tts-worker-inference;dur=2862.0, tts-worker-encode-wav;dur=0.0, app;dur=5030.5",
+    "personalPlayedSeconds": 3.317,
+    "personalWavSeconds": 3.32,
+    "playbackSpeedRatio": 1.0,
+    "mixerFramesPerWindowDuringA": 49536
+   },
+   {
+    "case": "de-complete-warm-real-tap",
+    "cToPersonalMs": 127,
+    "aToBMs": 127,
+    "bToCMs": 131,
+    "summaryTextReadyMs": 2202,
+    "personalReadyMs": 7730,
+    "cEndedMs": 10451,
+    "speechServerTiming": "tts-total;dur=5492.253, tts-verify;dur=2146.312, tts-warm-wait;dur=0.002, tts-worker;dur=3345.422, tts-worker-verify-assets;dur=1.0, tts-worker-verify-source;dur=12.0, tts-worker-import-runtime;dur=0.0, tts-worker-load-model;dur=1.0, tts-worker-inference;dur=3326.0, tts-worker-encode-wav;dur=1.0, app;dur=5493.2",
+    "personalPlayedSeconds": 4.068,
+    "personalWavSeconds": 4.08,
+    "playbackSpeedRatio": 1.0,
+    "mixerFramesPerWindowDuringA": 50688
+   }
+  ],
+  "p8Timing": {
+   "passes": 5,
+   "of": 6,
+   "needed": 5
+  },
+  "stopChecks": [
+   {
+    "check": "tr-cancel-during-B-then-new",
+    "pass": true,
+    "stoppedMs": 212,
+    "atAction": true
+   },
+   {
+    "check": "en-cancel-during-summary",
+    "pass": true,
+    "stoppedMs": 221,
+    "atAction": true
+   },
+   {
+    "check": "de-cancel-during-A-requests-in-flight",
+    "pass": true,
+    "stoppedMs": 147,
+    "atAction": true
+   },
+   {
+    "check": "en-mute-during-C",
+    "pass": true,
+    "stoppedMs": 91,
+    "atAction": true
+   },
+   {
+    "check": "de-consent-revoked-during-A",
+    "pass": false,
+    "stoppedMs": -2,
+    "atAction": false
+   },
+   {
+    "check": "de-consent-revoked-before-start",
+    "pass": true,
+    "stoppedMs": null,
+    "atAction": null
+   },
+   {
+    "check": "tr-drive-during-C",
+    "pass": true,
+    "stoppedMs": 199,
+    "atAction": true
+   },
+   {
+    "check": "en-drive-during-summary",
+    "pass": true,
+    "stoppedMs": 167,
+    "atAction": true
+   },
+   {
+    "check": "de-drive-during-A",
+    "pass": true,
+    "stoppedMs": 181,
+    "atAction": true
+   },
+   {
+    "check": "de-background-during-B",
+    "pass": true,
+    "stoppedMs": 80,
+    "atAction": true
+   },
+   {
+    "check": "tr-background-during-summary",
+    "pass": true,
+    "stoppedMs": 74,
+    "atAction": true
+   }
+  ],
+  "notes": [
+   "tr-complete-cold-cdp: the emulator played every element about twice as fast (personal line 1.95 s played of 3.84 s audio; Android mixer 82944 frames per 1 s window vs 49536-50688 in all other cases), so A+B+C lasted 5.8 s instead of the recordings' length and the line was ready 1.6 s after C. Counted as measured (not removed); cause not determined.",
+   "de-consent-revoked-during-A: Android reported the player started 30 ms after the stage; the 2nd sampler at the consent (-2 ms) did not see it started, so the stop time is not measurable: not passed (blocked). The analysis request in flight was aborted 48 ms after the consent; no closing audio afterwards.",
+   "tr-drive-during-C: the speech request in flight was answered 90 ms after the drive with 409 by the test API's park gate (no audio played, page closed at 294 ms). The check as defined (\"aborted and never answered\") failed and was not relaxed; the player left started 199 ms after the drive.",
+   "Route chain: the WebView's own request went to the branch's Next route on the AAOS host, then over a TCP forward to the test API on WEB:8190, then to the GPU. Not the product deployment (no web-aaos on WEB, no mTLS Caddy hop, test API with a one-off bearer, park gate fed by a harness mirror). These results do not establish product security. Emulator results are not OEM safety approval."
+  ]
+ },
+ "gpu": {
+  "instance": "g5.xlarge eu-central-1c (A10G 22.9 GB usable)",
+  "launch": "2026-11-10T16:23:59Z",
+  "terminateCall": "2026-11-10T17:47:31Z",
+  "minutes": 83.5,
+  "setup": "same model, weights, reference voice (4d2bd83f...), settings (FP32, TF32 off, exaggeration 0.35, cfg 0.0, temperature 0.8, watermark on); hashes verified before the server started (env/verify.json)",
+  "p6Memory": {
+   "workersWithBothProfiles": 15,
+   "maxGpuMiB": 7123,
+   "gpuTotalMiB": 23028,
+   "rssGiBPerWorkerAfterTheFirst": {
+    "n": 14,
+    "median": 7.36,
+    "min": 7.27,
+    "max": 7.48
+   },
+   "firstWorkerPeakRssGiB": 11.15,
+   "criterion": "two resident models use <= 16 GB of GPU memory",
+   "pass": true
+  },
+  "workerConnections": 21,
+  "overlappingWorkers": 0,
+  "rewarmAfterKillSeconds": [
+   23.38,
+   23.527,
+   23.284
+  ],
+  "rewarmNote": "When a closing is cancelled or refused while its speech request runs, the API ends the bridge and the GPU server kills the worker. The next connection starts a new worker that the API warms with female-calm-v1 only (23.3-23.5 s); a closing that starts inside that window waits (warm-wait). In this run the next closings came later than that.",
+  "diagnostic": {
+   "what": "tts_device_benchmark.py bench on the GPU, female-calm-v1, the 6 live lines (2 per language) x 3 warm repeats + 1 cold; timers synchronize the GPU, so these numbers are never mixed into P1-P8",
+   "perLanguageWarm": {
+    "tr": {
+     "n": 6,
+     "totalSeconds": {
+      "n": 6,
+      "median": 3.473,
+      "min": 2.9774,
+      "max": 4.2029
+     },
+     "speechTokenSeconds": {
+      "n": 6,
+      "median": 2.739,
+      "min": 2.2643,
+      "max": 3.4337
+     },
+     "waveformSeconds": {
+      "n": 6,
+      "median": 0.622,
+      "min": 0.549,
+      "max": 0.6487
+     },
+     "conditioningSeconds": {
+      "n": 6,
+      "median": 0.064,
+      "min": 0.0639,
+      "max": 0.0651
+     },
+     "secondsPerSpeechToken": {
+      "n": 6,
+      "median": 0.026,
+      "min": 0.02531,
+      "max": 0.02583
+     },
+     "audioSeconds": {
+      "n": 6,
+      "median": 4.2,
+      "min": 3.44,
+      "max": 5.32
+     },
+     "rtf": {
+      "n": 6,
+      "median": 0.827,
+      "min": 0.79,
+      "max": 0.8655
+     },
+     "cudaPeakAllocatedMiB": 3263.0
+    },
+    "en": {
+     "n": 6,
+     "totalSeconds": {
+      "n": 6,
+      "median": 2.922,
+      "min": 2.802,
+      "max": 3.3613
+     },
+     "speechTokenSeconds": {
+      "n": 6,
+      "median": 2.194,
+      "min": 2.0872,
+      "max": 2.6304
+     },
+     "waveformSeconds": {
+      "n": 6,
+      "median": 0.614,
+      "min": 0.6102,
+      "max": 0.6229
+     },
+     "conditioningSeconds": {
+      "n": 6,
+      "median": 0.065,
+      "min": 0.0639,
+      "max": 0.0737
+     },
+     "secondsPerSpeechToken": {
+      "n": 6,
+      "median": 0.026,
+      "min": 0.02537,
+      "max": 0.02596
+     },
+     "audioSeconds": {
+      "n": 6,
+      "median": 3.34,
+      "min": 3.16,
+      "max": 4.0
+     },
+     "rtf": {
+      "n": 6,
+      "median": 0.875,
+      "min": 0.8403,
+      "max": 0.8867
+     },
+     "cudaPeakAllocatedMiB": 3241.4
+    },
+    "de": {
+     "n": 6,
+     "totalSeconds": {
+      "n": 6,
+      "median": 3.619,
+      "min": 3.2636,
+      "max": 3.9303
+     },
+     "speechTokenSeconds": {
+      "n": 6,
+      "median": 2.873,
+      "min": 2.53,
+      "max": 3.1693
+     },
+     "waveformSeconds": {
+      "n": 6,
+      "median": 0.629,
+      "min": 0.6191,
+      "max": 0.6447
+     },
+     "conditioningSeconds": {
+      "n": 6,
+      "median": 0.065,
+      "min": 0.064,
+      "max": 0.0654
+     },
+     "secondsPerSpeechToken": {
+      "n": 6,
+      "median": 0.026,
+      "min": 0.02515,
+      "max": 0.02576
+     },
+     "audioSeconds": {
+      "n": 6,
+      "median": 4.44,
+      "min": 3.88,
+      "max": 4.96
+     },
+     "rtf": {
+      "n": 6,
+      "median": 0.816,
+      "min": 0.7924,
+      "max": 0.8411
+     },
+     "cudaPeakAllocatedMiB": 3257.5
+    }
+   },
+   "cold": [
+    {
+     "id": "tr-live1",
+     "totalSeconds": 24.9742
+    }
+   ],
+   "verifySpeakerSecondsAtProcessStart": [
+    2.342,
+    2.33,
+    2.334,
+    0.001,
+    0.008,
+    2.336,
+    2.344,
+    2.335,
+    0.001,
+    0.008
+   ],
+   "torch": {
+    "torch": "2.6.0+cu124",
+    "tf32": {
+     "matmul": false,
+     "cudnn": false
+    },
+    "float32MatmulPrecision": "highest",
+    "defaultDtype": "torch.float32",
+    "gpu": "NVIDIA A10G",
+    "gpuMemoryTotalMiB": 22590
+   }
+  }
+ },
+ "openIssues": [
+  "P1 German 7/8: criterion not met; the refused line is the validator acting as designed (adds-unsaid-content), not a timing failure.",
+  "The five declared knownLimitation cases (accepted although wrong) stay open: en-added-modifier, de-added-in-compound, de-variant-false-ground, en-negation-without-marker, en-role-reversal.",
+  "Speaker verification (bundle re-hash + manifest + approval) costs about 2.17 s per speech request on WEB, about 40 % of a warm request; kept unchanged as instructed. Caching it would need an owner decision.",
+  "AAOS: consent-during-A stop time not measurable in this run; drive-during-C in-flight check failed as defined; first case played at about 2x speed on the emulator.",
+  "Cold closing (no preparation) waits 11.6-13.9 s after C (attempt 1: 23.5 s); prepared start removes this but the service takes about 39.4 s from start to both profiles warm.",
+  "Listening approval of the personal lines and the A/B/C + personal transitions is pending with the owner; the run implies no quality approval."
+ ],
+ "cost": {
+  "awsUsd": 3.114,
+  "providerUsdEstimate": 0.1,
+  "totalUsd": 3.214,
+  "budgetUsd": 5.5,
+  "existingDisksUsdPerMonth": 25.7
+ },
+ "finalState": {
+  "checkedAt": "2026-11-10T18:01:37Z",
+  "web": "stopped (stop call 17:54:09Z)",
+  "aaos": "stopped (stop call 17:53:14Z, before WEB)",
+  "gpu": "terminated (17:47:31Z), its volume and security group deleted",
+  "webTemporaryGroup": "detached and deleted 17:53:53Z; WEB ENI back to its single original group; ingress rules of the WEB and AAOS groups equal to the pre-run snapshot",
+  "volumesLeft": "only the two pre-existing root volumes (WEB 150 GiB, AAOS 120 GiB)",
+  "elasticIps": 0,
+  "runningInstances": 0
+ },
+ "evidence": {
+  "driveFolder": "https://drive.google.com/drive/folders/15I8rq25M4LuXs6gRXI0ZGf3JK3HJu_Ks",
+  "note": "each uploaded file is read back and compared (size, SHA-256); see 13-drive-sha256-verification.json in that folder"
+ },
+ "corrections": {
+  "madeIn": "round 5 (2026-11-10, no new run); the measured values above are unchanged",
+  "items": [
+   "C -> personal 126 ms (125-128, p95 128) is over the 23 warm closings that produced a personal line; the warm criterion had 24 attempts and P1 failed (DE 7/8). de-warm-5 has no personal line and no C -> personal value.",
+   "The personal line was ready before C ended in those 23 warm closings (margin 145-3,588 ms) and in all 9 prepared ones (530-2,657 ms), not in every warm closing. English has the smallest margin (warm median 880 ms; en-warm-8: 145 ms).",
+   "All latencies are page media events in the browser (HTMLMediaElement playing/ended and the app timing stages), not an acoustic measurement of silence at a speaker.",
+   "Personal-line WAV archive: 35 files from the measured run (attempt 3: warm TR 8, EN 8, DE 7; prepared 3 per language; cold 1 per language) and 1 from the stopped attempt 1 (tr-cold-1). They are in different folders of the archive (web/live4/audio and web/live4-attempt1-stopped/audio).",
+   "de-warm-5: the provider line was not returned (only its status adds-unsaid-content), so no meaning label is given for it.",
+   "The AAOS-phase test API files were recovered on 2026-11-10 18:54-18:55Z (WEB only, verified shutdown limit 10 min, stopped again): they hold the warm-up rows, including three re-warms of female-calm-v1 after killed workers (23.98 / 23.86 / 23.61 s); no access log (not enabled in the product environment)."
+  ]
+ }
+}

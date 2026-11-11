@@ -1,0 +1,469 @@
+{
+  "schema": "attune-mental-closing-abc-catalog-v1",
+  "contentVersion": "v1",
+  "speakerProfile": "female-calm-v1",
+  "textSource": "Repository owner task instruction, 2026-11-09 (verbatim TR/EN/DE scripts; German keeps formal Sie).",
+  "groups": {
+    "A": "Thanks",
+    "B": "Conversation close",
+    "C": "Summary preparation"
+  },
+  "playbackOrder": [
+    "A",
+    "B",
+    "C"
+  ],
+  "variantsPerGroup": 5,
+  "rows": [
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/A/A1",
+      "language": "tr",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A1",
+      "exactText": "Paylaştıkların için teşekkür ederim.",
+      "textSha256": "5a3605fa6008df5f1c14de1ba0b8cab1a4917a7107ee8e5deb3f63c49de5f531",
+      "fileName": "TR_A1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/A/A2",
+      "language": "tr",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A2",
+      "exactText": "Bu görüşmeye zaman ayırdığın için teşekkür ederim.",
+      "textSha256": "096af9d2abd895213f3135261f78b7001ec788006c7e2264ee91a88b3f443f37",
+      "fileName": "TR_A2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/A/A3",
+      "language": "tr",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A3",
+      "exactText": "Bugün düşüncelerini benimle paylaştığın için teşekkür ederim.",
+      "textSha256": "aa674668a5e01123acdb78f001d5cc8f6fceeb998f595414f4006006eb23314d",
+      "fileName": "TR_A3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/A/A4",
+      "language": "tr",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A4",
+      "exactText": "Seni dinlememe fırsat verdiğin için teşekkür ederim.",
+      "textSha256": "40a07ce03e32d1b9601f363b0ecc38af74c53b5b1d384efcb531b9da1efa5433",
+      "fileName": "TR_A4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/A/A5",
+      "language": "tr",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A5",
+      "exactText": "Bu seansa katıldığın için teşekkür ederim.",
+      "textSha256": "63c54082cca7c940b5b7de8dc8646061df88ce836d72e18224da1417ce350051",
+      "fileName": "TR_A5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/B/B1",
+      "language": "tr",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B1",
+      "exactText": "Görüşmemizin sonuna geldik.",
+      "textSha256": "35b7dbe7f14d616907631d7c7d6f5d17136cd6923b0a34ed9175c3733200c188",
+      "fileName": "TR_B1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/B/B2",
+      "language": "tr",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B2",
+      "exactText": "Seansımızı şimdi tamamlıyoruz.",
+      "textSha256": "be4ee4b99e38116786a24e99fe80e36e5689508db83a706ce5cb925caa5a49d7",
+      "fileName": "TR_B2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/B/B3",
+      "language": "tr",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B3",
+      "exactText": "Görüşmemizi burada sonlandırıyorum.",
+      "textSha256": "34946b59b20d026c802104c7bb17b46f822a2c84359e639b863a6b666c77f9e7",
+      "fileName": "TR_B3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/B/B4",
+      "language": "tr",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B4",
+      "exactText": "Bugünkü sohbetimizi burada noktalıyoruz.",
+      "textSha256": "22b8ad56ce6cea5f9fe67855a655c241b2e948c1c515779f470b7acbd7f5965f",
+      "fileName": "TR_B4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/B/B5",
+      "language": "tr",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B5",
+      "exactText": "Şimdi seansımızın kapanışına geçiyoruz.",
+      "textSha256": "ade695d54eacb55e4ef7bddd8d9479ddd9650df5429d89845228c97a98b9681c",
+      "fileName": "TR_B5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/C/C1",
+      "language": "tr",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C1",
+      "exactText": "Konuştuğumuz önemli noktaları bir araya getiriyorum.",
+      "textSha256": "a579e212f2f617dac602f9ede2242badbd981b8c99e5657b05ab171d2f36c33e",
+      "fileName": "TR_C1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/C/C2",
+      "language": "tr",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C2",
+      "exactText": "Görüşmemizin kısa bir özetini hazırlıyorum.",
+      "textSha256": "af460dd6b5cad52f2f80ec91172e24b73711ff96ce540218fe2e29748a6cca69",
+      "fileName": "TR_C2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/C/C3",
+      "language": "tr",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C3",
+      "exactText": "Paylaştıklarını ana hatlarıyla özetliyorum.",
+      "textSha256": "04158196325572e61d6010f913038ec8f1bc4d3165659f2f940ec2f8ad5359f8",
+      "fileName": "TR_C3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/C/C4",
+      "language": "tr",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C4",
+      "exactText": "Ele aldığımız konuları kısa bir özette topluyorum.",
+      "textSha256": "9b9db1b5ca8797c20df17f96acea98494a48bb112b59dcc888b285af596d9e5c",
+      "fileName": "TR_C4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/tr/female-calm-v1/C/C5",
+      "language": "tr",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C5",
+      "exactText": "Görüşmemizde öne çıkan başlıkları toparlıyorum.",
+      "textSha256": "26915681e8a3e2e6bb1389cfb5f9d0ff374797cdbf4213486b4a3deb6bd14fa1",
+      "fileName": "TR_C5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/A/A1",
+      "language": "en",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A1",
+      "exactText": "Thank you for sharing with me.",
+      "textSha256": "4d1dcdf9c4aa896d0bd0b2ad9de2878b499ff8b5cdcac558b39222cf906c44ff",
+      "fileName": "EN_A1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/A/A2",
+      "language": "en",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A2",
+      "exactText": "Thank you for making time for this conversation.",
+      "textSha256": "07699a42bd3d30a99a0fe0aee6eb7eb820b2a9956be023b3fbb7188447c03a8e",
+      "fileName": "EN_A2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/A/A3",
+      "language": "en",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A3",
+      "exactText": "Thank you for sharing your thoughts with me today.",
+      "textSha256": "e3fcd143fc08a87ff171292866c4e72bd4f0374f30c50694a6d8175fdd96c0b6",
+      "fileName": "EN_A3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/A/A4",
+      "language": "en",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A4",
+      "exactText": "Thank you for giving me the opportunity to listen.",
+      "textSha256": "8cc6e9cb3237335998b9b451ee731393937b34fe774542ea6ca623eb6e5b7d8f",
+      "fileName": "EN_A4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/A/A5",
+      "language": "en",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A5",
+      "exactText": "Thank you for taking part in this session.",
+      "textSha256": "2c11c3790c43f6de003a0a43afc267d1451791a9f42427e79988f26bbbd07754",
+      "fileName": "EN_A5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/B/B1",
+      "language": "en",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B1",
+      "exactText": "We've reached the end of our conversation.",
+      "textSha256": "115252b07f247995f71f05a1872d58c115edf16aaa1c0ba164b0a735ad57441d",
+      "fileName": "EN_B1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/B/B2",
+      "language": "en",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B2",
+      "exactText": "We're now bringing our session to a close.",
+      "textSha256": "a758e9529cb354464de0ecb5f12849bae739b1c8b138cc2f073f14f9c774f1b2",
+      "fileName": "EN_B2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/B/B3",
+      "language": "en",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B3",
+      "exactText": "I'll bring our conversation to a close here.",
+      "textSha256": "7a6f5687fb0d4d50904fbe11aa2f9972f61bff236b08a5a7b96f89ea4d19f20b",
+      "fileName": "EN_B3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/B/B4",
+      "language": "en",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B4",
+      "exactText": "This brings today's conversation to a close.",
+      "textSha256": "d84e1799dae65beacbb40e9464b039a2567bd7b35ced693f3865f178d443d594",
+      "fileName": "EN_B4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/B/B5",
+      "language": "en",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B5",
+      "exactText": "We're now moving to the closing part of our session.",
+      "textSha256": "48b1b48f55365949446fd6b7ac9704a9dffe92cca8a7731e5e4adc0ec081760c",
+      "fileName": "EN_B5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/C/C1",
+      "language": "en",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C1",
+      "exactText": "I'm bringing together the key points we discussed.",
+      "textSha256": "72ad10d34515e6dba3f009595a4eeb2797efdeecfc504ac3fb6ddb25d028b60b",
+      "fileName": "EN_C1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/C/C2",
+      "language": "en",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C2",
+      "exactText": "I'm preparing a brief summary of our conversation.",
+      "textSha256": "9d570c66b2e635b48345fa66649eb30f2f30d01bbf2c41223db48fe35e74ec0a",
+      "fileName": "EN_C2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/C/C3",
+      "language": "en",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C3",
+      "exactText": "I'm summarizing the main points of what you've shared.",
+      "textSha256": "842517e88df8686479acc1374d81f360013d438a1d1b12bebc086c06a421032d",
+      "fileName": "EN_C3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/C/C4",
+      "language": "en",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C4",
+      "exactText": "I'm putting the topics we covered into a short summary.",
+      "textSha256": "c3d04db4ef79fd22eaacff0d5fb4cf977d24cd1f9d41a7219df0134628b72894",
+      "fileName": "EN_C4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/en/female-calm-v1/C/C5",
+      "language": "en",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C5",
+      "exactText": "I'm gathering the main themes from our conversation.",
+      "textSha256": "61b21f30c519b1b88b583ab15b9c888fe8da5d9c0ade06efe43e74ea65f1a894",
+      "fileName": "EN_C5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/A/A1",
+      "language": "de",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A1",
+      "exactText": "Vielen Dank für das, was Sie mit mir geteilt haben.",
+      "textSha256": "a8a58e42d75e59f070b56250517eb5f5304422a07ea4a76763b18eeb2f18674e",
+      "fileName": "DE_A1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/A/A2",
+      "language": "de",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A2",
+      "exactText": "Vielen Dank, dass Sie sich Zeit für dieses Gespräch genommen haben.",
+      "textSha256": "8fdec91aa065c4138070b068dc1148e50110adc82cccfdf8428ed403435ec089",
+      "fileName": "DE_A2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/A/A3",
+      "language": "de",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A3",
+      "exactText": "Vielen Dank, dass Sie heute Ihre Gedanken mit mir geteilt haben.",
+      "textSha256": "5f830b1fe14281ade9da15d6500abf8d7178b280759e071339c43ff83b3aa506",
+      "fileName": "DE_A3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/A/A4",
+      "language": "de",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A4",
+      "exactText": "Vielen Dank, dass ich Ihnen zuhören durfte.",
+      "textSha256": "1c98c486a00c4e57cf30bb4c4b3198c24c1491f7260b30cd55ba9189615475e5",
+      "fileName": "DE_A4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/A/A5",
+      "language": "de",
+      "group": "A",
+      "groupPurpose": "thanks",
+      "variantId": "A5",
+      "exactText": "Vielen Dank für Ihre Teilnahme an dieser Sitzung.",
+      "textSha256": "b0fb1e87e15456469376dc1b80d4cead4278bed6c09d5756658cb691d37b36ae",
+      "fileName": "DE_A5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/B/B1",
+      "language": "de",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B1",
+      "exactText": "Wir sind am Ende unseres Gesprächs angekommen.",
+      "textSha256": "528030d868c170a9d7f1d1773eb973817fe9bdd5f2c379e5e7aded8d9bf0a84f",
+      "fileName": "DE_B1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/B/B2",
+      "language": "de",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B2",
+      "exactText": "Wir schließen unsere Sitzung jetzt ab.",
+      "textSha256": "79f20f9f1a8f0b311aaf3877c0771faec032068a81c6eb4407afcc275b21e07f",
+      "fileName": "DE_B2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/B/B3",
+      "language": "de",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B3",
+      "exactText": "Ich beende unser Gespräch an dieser Stelle.",
+      "textSha256": "5d1956ebeebd1a0665ce974f682100c2f33c329b2931d059e79d9bf30c9e6ca8",
+      "fileName": "DE_B3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/B/B4",
+      "language": "de",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B4",
+      "exactText": "Damit schließen wir unser heutiges Gespräch ab.",
+      "textSha256": "2b4db7f79c9d64b3b016c04197bdac23499a5988a03199a0fb5af8f6bd3e9719",
+      "fileName": "DE_B4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/B/B5",
+      "language": "de",
+      "group": "B",
+      "groupPurpose": "conversation-close",
+      "variantId": "B5",
+      "exactText": "Wir kommen jetzt zum Abschluss unserer Sitzung.",
+      "textSha256": "36f4274755282f61175fccbe4cc8ebd2280a892e2d89841a8b469263bc4b10b3",
+      "fileName": "DE_B5.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/C/C1",
+      "language": "de",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C1",
+      "exactText": "Ich trage die wichtigsten Punkte unseres Gesprächs zusammen.",
+      "textSha256": "0ad887a1717ef5e0038eb9dc37d65f1dce45b37c4a79f056759f7fadc50895d0",
+      "fileName": "DE_C1.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/C/C2",
+      "language": "de",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C2",
+      "exactText": "Ich bereite eine kurze Zusammenfassung unseres Gesprächs vor.",
+      "textSha256": "fb1d73569d55612cbf2c826713ad3a879ffe0461948b3070c4a8a3e43f8d910e",
+      "fileName": "DE_C2.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/C/C3",
+      "language": "de",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C3",
+      "exactText": "Ich fasse das Wesentliche aus Ihren Schilderungen zusammen.",
+      "textSha256": "5b958e0016bcd9d92105d507885240827c2dd0cbb5da50474dde877aeb72ecf4",
+      "fileName": "DE_C3.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/C/C4",
+      "language": "de",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C4",
+      "exactText": "Ich fasse die besprochenen Themen kurz zusammen.",
+      "textSha256": "893fded1280200a0a7f5940d3f36087922b93ded0404cb469157373ca4b31048",
+      "fileName": "DE_C4.wav"
+    },
+    {
+      "assetId": "closing-abc/v1/de/female-calm-v1/C/C5",
+      "language": "de",
+      "group": "C",
+      "groupPurpose": "summary-preparation",
+      "variantId": "C5",
+      "exactText": "Ich stelle die zentralen Themen unseres Gesprächs zusammen.",
+      "textSha256": "469746f275872e02878c5382e0d94d374a827c9fad7e1a0859c13b29cb4cde92",
+      "fileName": "DE_C5.wav"
+    }
+  ]
+}

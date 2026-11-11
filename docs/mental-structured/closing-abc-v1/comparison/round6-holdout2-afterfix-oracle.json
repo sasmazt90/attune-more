@@ -1,0 +1,336 @@
+{
+ "mode": "oracle",
+ "checks": 42,
+ "acceptableAccepted": 8,
+ "acceptable": 12,
+ "forbiddenRefused": 30,
+ "forbidden": 30,
+ "mismatches": [
+  {
+   "input": "de-h2-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Ich habe mit dem Malen angefangen und das tut mir richtig gut"
+  },
+  {
+   "input": "tr-h2-08",
+   "pattern": "C32",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Önümüzdeki ay yeni bir dil öğrenmeye başlamak istiyorum"
+  },
+  {
+   "input": "en-h2-08",
+   "pattern": "C32",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Next month I want to start learning a new language"
+  },
+  {
+   "input": "de-h2-08",
+   "pattern": "C32",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Nächsten Monat möchte ich anfangen, eine neue Sprache zu lernen"
+  }
+ ],
+ "rows": [
+  {
+   "input": "tr-h2-01",
+   "pattern": "C02",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "sürekli stres altındayım"
+  },
+  {
+   "input": "tr-h2-01",
+   "pattern": "C01",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bu hafta işte çok gerildim, sürekli stres altındayım"
+  },
+  {
+   "input": "tr-h2-01",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bu hafta işte çok gerildim, sürekli stres altındayım"
+  },
+  {
+   "input": "en-h2-01",
+   "pattern": "C02",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "i've been under a lot of stress at work this week"
+  },
+  {
+   "input": "en-h2-01",
+   "pattern": "C01",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I've been under a lot of stress at work this week"
+  },
+  {
+   "input": "en-h2-01",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I've been under a lot of stress at work this week"
+  },
+  {
+   "input": "de-h2-01",
+   "pattern": "C02",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "ich stehe diese woche bei der arbeit unter viel stress"
+  },
+  {
+   "input": "de-h2-01",
+   "pattern": "C01",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich stehe diese Woche bei der Arbeit unter viel Stress"
+  },
+  {
+   "input": "de-h2-01",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich stehe diese Woche bei der Arbeit unter viel Stress"
+  },
+  {
+   "input": "tr-h2-02",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "corrected-later",
+   "quote": "son zamanlarda çok yorgunum"
+  },
+  {
+   "input": "en-h2-02",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "corrected-later",
+   "quote": "i've been really tired lately"
+  },
+  {
+   "input": "de-h2-02",
+   "pattern": "C08",
+   "expected": "refuse",
+   "result": "corrected-later",
+   "quote": "ich bin in letzter zeit sehr müde"
+  },
+  {
+   "input": "tr-h2-03",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Bilmiyorum, sadece akşamları evde oturuyorum"
+  },
+  {
+   "input": "en-h2-03",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I don't know, I just sit at home in the evenings"
+  },
+  {
+   "input": "de-h2-03",
+   "pattern": "C17",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich weiß nicht, ich sitze abends einfach zu Hause"
+  },
+  {
+   "input": "tr-h2-04",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "annem babamın sağlığı için çok endişeli"
+  },
+  {
+   "input": "en-h2-04",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "my mother is very worried about my father's health"
+  },
+  {
+   "input": "de-h2-04",
+   "pattern": "C11",
+   "expected": "refuse",
+   "result": "not-about-the-user",
+   "quote": "meine mutter macht sich große sorgen um die gesundheit meines vaters"
+  },
+  {
+   "input": "tr-h2-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "bana çok iyi geliyor"
+  },
+  {
+   "input": "tr-h2-05",
+   "pattern": "C05",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Resim yapmaya başladım, bana çok iyi geliyor"
+  },
+  {
+   "input": "en-h2-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "it really does me good"
+  },
+  {
+   "input": "en-h2-05",
+   "pattern": "C05",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I started painting and it really does me good"
+  },
+  {
+   "input": "de-h2-05",
+   "pattern": "C27",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Ich habe mit dem Malen angefangen und das tut mir richtig gut"
+  },
+  {
+   "input": "de-h2-05",
+   "pattern": "C05",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich habe mit dem Malen angefangen und das tut mir richtig gut"
+  },
+  {
+   "input": "tr-h2-06",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "toplantılarda kimse beni dinlemiyor"
+  },
+  {
+   "input": "tr-h2-06",
+   "pattern": "C04",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Toplantılarda kimse beni dinlemiyor"
+  },
+  {
+   "input": "en-h2-06",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "nobody listens to me in meetings"
+  },
+  {
+   "input": "en-h2-06",
+   "pattern": "C04",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Nobody listens to me in meetings"
+  },
+  {
+   "input": "de-h2-06",
+   "pattern": "C07",
+   "expected": "accept",
+   "result": "accepted",
+   "quote": "in besprechungen hört mir niemand zu"
+  },
+  {
+   "input": "de-h2-06",
+   "pattern": "C04",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "In Besprechungen hört mir niemand zu"
+  },
+  {
+   "input": "tr-h2-07",
+   "pattern": "C26",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Eskiden kendime hiç güvenmezdim ama artık güveniyorum"
+  },
+  {
+   "input": "en-h2-07",
+   "pattern": "C26",
+   "expected": "refuse",
+   "result": "past",
+   "quote": "i used to doubt myself"
+  },
+  {
+   "input": "de-h2-07",
+   "pattern": "C26",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Früher habe ich an mir gezweifelt, aber jetzt nicht mehr"
+  },
+  {
+   "input": "tr-h2-08",
+   "pattern": "C32",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Önümüzdeki ay yeni bir dil öğrenmeye başlamak istiyorum"
+  },
+  {
+   "input": "tr-h2-08",
+   "pattern": "C22",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Önümüzdeki ay yeni bir dil öğrenmeye başlamak istiyorum"
+  },
+  {
+   "input": "en-h2-08",
+   "pattern": "C32",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Next month I want to start learning a new language"
+  },
+  {
+   "input": "en-h2-08",
+   "pattern": "C22",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Next month I want to start learning a new language"
+  },
+  {
+   "input": "de-h2-08",
+   "pattern": "C32",
+   "expected": "accept",
+   "result": "no-cue-in-quote",
+   "quote": "Nächsten Monat möchte ich anfangen, eine neue Sprache zu lernen"
+  },
+  {
+   "input": "de-h2-08",
+   "pattern": "C22",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Nächsten Monat möchte ich anfangen, eine neue Sprache zu lernen"
+  },
+  {
+   "input": "tr-h2-09",
+   "pattern": "C14",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Çok sorumluluğum var ama hepsiyle başa çıkabiliyorum"
+  },
+  {
+   "input": "en-h2-09",
+   "pattern": "C14",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "I have a lot of responsibilities, but I can handle them all"
+  },
+  {
+   "input": "de-h2-09",
+   "pattern": "C14",
+   "expected": "refuse",
+   "result": "no-cue-in-quote",
+   "quote": "Ich habe viele Verpflichtungen, aber ich komme mit allen gut zurecht"
+  }
+ ],
+ "legacy": [],
+ "label": "holdout v2 after the third-person fix and the inside-cue negation rule (not independent for those fixes)"
+}

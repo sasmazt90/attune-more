@@ -1,0 +1,3211 @@
+{
+ "schema": "attune-mental-closing-abc-evidence-v1",
+ "createdAt": "2026-11-09",
+ "scope": "Technical synthesis, verification and timing of the closing A/B/C bridge. Not an owner listening approval. No conversation content, provider calls or credentials.",
+ "synthesis": {
+  "host": "existing WEB instance (r7i.2xlarge, CPU, 4 threads)",
+  "workerMode": "resident-model-v1",
+  "seedRule": "int(sha256(assetId).hexdigest()[:8], 16)",
+  "warmupSeconds": 24.395,
+  "totalClipSynthesisSeconds": 619.0,
+  "integrityBefore": {
+   "Cangjie5_TC.json": true,
+   "conds.pt": true,
+   "grapheme_mtl_merged_expanded_v1.json": true,
+   "s3gen.pt": true,
+   "t3_mtl23ls_v3.safetensors": true,
+   "ve.pt": true,
+   "reference": true
+  },
+  "integrityAfter": {
+   "Cangjie5_TC.json": true,
+   "conds.pt": true,
+   "grapheme_mtl_merged_expanded_v1.json": true,
+   "s3gen.pt": true,
+   "t3_mtl23ls_v3.safetensors": true,
+   "ve.pt": true,
+   "reference": true
+  },
+  "sourceRevision": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+  "packageVersion": "0.1.7",
+  "sourceFilesVerified": 50,
+  "runtime": {
+   "python": "3.11.17",
+   "torch": "2.6.0+cpu",
+   "torchaudio": "2.6.0+cpu",
+   "transformers": "5.2.0",
+   "chatterbox-tts": "0.1.7",
+   "threads": "4",
+   "cpuCount": 8,
+   "machine": "x86_64"
+  },
+  "byLanguage": {
+   "tr": {
+    "clips": 15,
+    "synthesisSeconds": {
+     "min": 13.044,
+     "median": 15.02,
+     "max": 19.058
+    },
+    "audioSeconds": {
+     "min": 2.72,
+     "median": 3.56,
+     "max": 4.96
+    },
+    "realTimeFactorMedian": 4.251,
+    "clippedSamples": 0,
+    "maxLeadingSilenceMs": 120,
+    "maxTrailingSilenceMs": 520
+   },
+   "en": {
+    "clips": 15,
+    "synthesisSeconds": {
+     "min": 10.641,
+     "median": 12.243,
+     "max": 13.744
+    },
+    "audioSeconds": {
+     "min": 1.96,
+     "median": 2.96,
+     "max": 3.48
+    },
+    "realTimeFactorMedian": 4.286,
+    "clippedSamples": 0,
+    "maxLeadingSilenceMs": 100,
+    "maxTrailingSilenceMs": 540
+   },
+   "de": {
+    "clips": 15,
+    "synthesisSeconds": {
+     "min": 11.59,
+     "median": 13.603,
+     "max": 15.721
+    },
+    "audioSeconds": {
+     "min": 2.44,
+     "median": 3.28,
+     "max": 4.2
+    },
+    "realTimeFactorMedian": 4.126,
+    "clippedSamples": 0,
+    "maxLeadingSilenceMs": 160,
+    "maxTrailingSilenceMs": 540
+   }
+  },
+  "note": "The first 14 TR clip timings overlapped an SSM file transfer on the same host (extra load); timings are informational only."
+ },
+ "hostLatencyProbe": {
+  "scope": "Product resident worker loop, synthetic non-personal summaries, this host; no browser/provider/ASR.",
+  "perRequestVerifySeconds": [
+   {
+    "language": "tr",
+    "seconds": 2.274
+   },
+   {
+    "language": "en",
+    "seconds": 2.263
+   },
+   {
+    "language": "de",
+    "seconds": 2.264
+   }
+  ],
+  "rows": [
+   {
+    "label": "official-warm",
+    "profile": "official-default",
+    "seconds": 19.802,
+    "start": "cold",
+    "audioSeconds": null,
+    "error": false
+   },
+   {
+    "label": "tr-part0",
+    "profile": "female-calm-v1",
+    "seconds": 33.105,
+    "start": "cold",
+    "audioSeconds": 7.2,
+    "error": false
+   },
+   {
+    "label": "tr-part1",
+    "profile": "female-calm-v1",
+    "seconds": 18.018,
+    "start": "warm",
+    "audioSeconds": 5.08,
+    "error": false
+   },
+   {
+    "label": "en-part0",
+    "profile": "female-calm-v1",
+    "seconds": 19.097,
+    "start": "warm",
+    "audioSeconds": 5.8,
+    "error": false
+   },
+   {
+    "label": "en-part1",
+    "profile": "female-calm-v1",
+    "seconds": 12.617,
+    "start": "warm",
+    "audioSeconds": 2.88,
+    "error": false
+   },
+   {
+    "label": "de-part0",
+    "profile": "female-calm-v1",
+    "seconds": 19.538,
+    "start": "warm",
+    "audioSeconds": 6.0,
+    "error": false
+   },
+   {
+    "label": "de-part1",
+    "profile": "female-calm-v1",
+    "seconds": 15.369,
+    "start": "warm",
+    "audioSeconds": 4.08,
+    "error": false
+   },
+   {
+    "label": "tr-part0-repeat",
+    "profile": "female-calm-v1",
+    "seconds": 20.103,
+    "start": "warm",
+    "audioSeconds": 6.32,
+    "error": false
+   },
+   {
+    "label": "en-part0-repeat",
+    "profile": "female-calm-v1",
+    "seconds": 17.177,
+    "start": "warm",
+    "audioSeconds": 4.68,
+    "error": false
+   },
+   {
+    "label": "de-part0-repeat",
+    "profile": "female-calm-v1",
+    "seconds": 22.694,
+    "start": "warm",
+    "audioSeconds": 7.12,
+    "error": false
+   }
+  ],
+  "note": "Synthetic non-personal summary texts; no seed (as in the live endpoint). Only tr-part0 was the first female request (cold female model load)."
+ },
+ "browserTimeline": {
+  "kind": "Real production build, real Chromium media playback of committed WAVs, real hook/closing code; synthetic backend fixtures (no provider call). Speech responses replay host-measured delays and host-generated WAV parts for a synthetic summary.",
+  "realProviderCalls": 0,
+  "structuredMode": false,
+  "bridgeMode": "technical-preview",
+  "summaryLatencyAssumptionMs": "3000 (and 12000 in one TR case); not measured against a live provider",
+  "results": [
+   {
+    "label": "tr-warm-repeat-summary3s",
+    "firstTts": "tr-part0-repeat (warm)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 18,
+     "aPlaying": 26,
+     "aEnded": 4948,
+     "bPlaying": 5076,
+     "bEnded": 8799,
+     "cPlaying": 8928,
+     "cEnded": 12731,
+     "contextStart": 2,
+     "contextEnd": 3,
+     "summaryRequest": 3,
+     "summaryResponse": 3012,
+     "summaryTextReady": 3013,
+     "ttsRequest0": 3013,
+     "firstPartReady": 25410,
+     "summaryPlaying": 25417,
+     "summaryComplete": 50765,
+     "summaryPartPlaying": [
+      25417,
+      45721
+     ],
+     "summaryPartEnded": [
+      32579,
+      50764
+     ],
+     "ttsRequest1": 25408,
+     "secondPartReady": 45712
+    },
+    "gapsMs": {
+     "aToB": 128,
+     "bToC": 129,
+     "cToSummary": 12686,
+     "summaryPart0ToPart1": 13142,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   },
+   {
+    "label": "tr-firstFemaleAfterBoot-summary3s",
+    "firstTts": "tr-part0 (cold)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 20,
+     "aPlaying": 30,
+     "aEnded": 4953,
+     "bPlaying": 5080,
+     "bEnded": 7764,
+     "cPlaying": 7893,
+     "cEnded": 11697,
+     "contextStart": 2,
+     "contextEnd": 4,
+     "summaryRequest": 4,
+     "summaryResponse": 3011,
+     "summaryTextReady": 3011,
+     "ttsRequest0": 3011,
+     "firstPartReady": 38408,
+     "summaryPlaying": 38414,
+     "summaryComplete": 63764,
+     "summaryPartPlaying": [
+      38414,
+      58721
+     ],
+     "summaryPartEnded": [
+      45576,
+      63763
+     ],
+     "ttsRequest1": 38406,
+     "secondPartReady": 58712
+    },
+    "gapsMs": {
+     "aToB": 127,
+     "bToC": 129,
+     "cToSummary": 26717,
+     "summaryPart0ToPart1": 13145,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   },
+   {
+    "label": "en-warm-repeat-summary3s",
+    "firstTts": "en-part0-repeat (warm)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 20,
+     "aPlaying": 28,
+     "aEnded": 2471,
+     "bPlaying": 2601,
+     "bEnded": 5563,
+     "cPlaying": 5692,
+     "cEnded": 8535,
+     "contextStart": 3,
+     "contextEnd": 5,
+     "summaryRequest": 5,
+     "summaryResponse": 3013,
+     "summaryTextReady": 3013,
+     "ttsRequest0": 3014,
+     "firstPartReady": 22467,
+     "summaryPlaying": 22474,
+     "summaryComplete": 40206,
+     "summaryPartPlaying": [
+      22474,
+      37363
+     ],
+     "summaryPartEnded": [
+      28237,
+      40206
+     ],
+     "ttsRequest1": 22465,
+     "secondPartReady": 37356
+    },
+    "gapsMs": {
+     "aToB": 130,
+     "bToC": 129,
+     "cToSummary": 13939,
+     "summaryPart0ToPart1": 9126,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   },
+   {
+    "label": "en-warm-sample1-summary3s",
+    "firstTts": "en-part0 (warm)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 16,
+     "aPlaying": 24,
+     "aEnded": 3032,
+     "bPlaying": 3161,
+     "bEnded": 6163,
+     "cPlaying": 6293,
+     "cEnded": 9136,
+     "contextStart": 2,
+     "contextEnd": 3,
+     "summaryRequest": 3,
+     "summaryResponse": 3008,
+     "summaryTextReady": 3009,
+     "ttsRequest0": 3009,
+     "firstPartReady": 24397,
+     "summaryPlaying": 24404,
+     "summaryComplete": 42140,
+     "summaryPartPlaying": [
+      24404,
+      39296
+     ],
+     "summaryPartEnded": [
+      30177,
+      42140
+     ],
+     "ttsRequest1": 24395,
+     "secondPartReady": 39288
+    },
+    "gapsMs": {
+     "aToB": 129,
+     "bToC": 130,
+     "cToSummary": 15268,
+     "summaryPart0ToPart1": 9119,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   },
+   {
+    "label": "de-warm-repeat-summary3s",
+    "firstTts": "de-part0-repeat (warm)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 18,
+     "aPlaying": 26,
+     "aEnded": 4188,
+     "bPlaying": 4318,
+     "bEnded": 7441,
+     "cPlaying": 7570,
+     "cEnded": 11252,
+     "contextStart": 2,
+     "contextEnd": 4,
+     "summaryRequest": 4,
+     "summaryResponse": 3019,
+     "summaryTextReady": 3020,
+     "ttsRequest0": 3020,
+     "firstPartReady": 27994,
+     "summaryPlaying": 28000,
+     "summaryComplete": 49688,
+     "summaryPartPlaying": [
+      28000,
+      45645
+     ],
+     "summaryPartEnded": [
+      33962,
+      49687
+     ],
+     "ttsRequest1": 27992,
+     "secondPartReady": 45637
+    },
+    "gapsMs": {
+     "aToB": 130,
+     "bToC": 129,
+     "cToSummary": 16748,
+     "summaryPart0ToPart1": 11683,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   },
+   {
+    "label": "de-warm-sample1-summary3s",
+    "firstTts": "de-part0 (warm)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 21,
+     "aPlaying": 30,
+     "aEnded": 3833,
+     "bPlaying": 3963,
+     "bEnded": 7085,
+     "cPlaying": 7214,
+     "cEnded": 11096,
+     "contextStart": 2,
+     "contextEnd": 4,
+     "summaryRequest": 4,
+     "summaryResponse": 3012,
+     "summaryTextReady": 3012,
+     "ttsRequest0": 3012,
+     "firstPartReady": 24828,
+     "summaryPlaying": 24834,
+     "summaryComplete": 46526,
+     "summaryPartPlaying": [
+      24834,
+      42478
+     ],
+     "summaryPartEnded": [
+      30800,
+      46525
+     ],
+     "ttsRequest1": 24826,
+     "secondPartReady": 42469
+    },
+    "gapsMs": {
+     "aToB": 130,
+     "bToC": 129,
+     "cToSummary": 13738,
+     "summaryPart0ToPart1": 11678,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   },
+   {
+    "label": "tr-warm-repeat-summary12s",
+    "firstTts": "tr-part0-repeat (warm)",
+    "marksMs": {
+     "trigger": 0,
+     "bridgeVerified": 17,
+     "aPlaying": 25,
+     "aEnded": 3467,
+     "bPlaying": 3596,
+     "bEnded": 7318,
+     "cPlaying": 7446,
+     "cEnded": 11088,
+     "contextStart": 2,
+     "contextEnd": 3,
+     "summaryRequest": 3,
+     "summaryResponse": 12011,
+     "summaryTextReady": 12011,
+     "ttsRequest0": 12012,
+     "firstPartReady": 34404,
+     "summaryPlaying": 34411,
+     "summaryComplete": 59759,
+     "summaryPartPlaying": [
+      34411,
+      54715
+     ],
+     "summaryPartEnded": [
+      41576,
+      59758
+     ],
+     "ttsRequest1": 34402,
+     "secondPartReady": 54707
+    },
+    "gapsMs": {
+     "aToB": 129,
+     "bToC": 128,
+     "cToSummary": 23323,
+     "summaryPart0ToPart1": 13139,
+     "overlapDetected": false
+    },
+    "finalPhase": "completed",
+    "previewLabelShown": true
+   }
+  ],
+  "superseded": "2026-11-10 review: the three \"repeat\" scenarios played <lang>-part0.wav while replaying the <lang>-part0-repeat synthesis time (audio 7.20/5.80/6.00 s instead of 6.32/4.68/7.12 s) and the \"firstFemaleAfterBoot\" labels were wrong for EN/DE. Kept unchanged as the original record; corrected results: review-20261110.json (correctedProbeReplay)."
+ },
+ "combinations": {
+  "schema": "attune-mental-closing-abc-combinations-v1",
+  "joinPauseMs": 120,
+  "measuredBrowserTransitionOverheadMs": 9.0,
+  "method": "Sum of the three clip durations plus two transitions (configured join pause plus measured browser ended->playing overhead). Calculation only; not a listening approval.",
+  "languages": {
+   "tr": {
+    "count": 125,
+    "audioOnly": {
+     "min": 8.64,
+     "median": 10.56,
+     "max": 12.56
+    },
+    "withConfiguredJoins": {
+     "min": 8.88,
+     "median": 10.8,
+     "max": 12.8
+    },
+    "withMeasuredTransitions": {
+     "min": 8.898,
+     "median": 10.818,
+     "max": 12.818
+    },
+    "shortest": "A1-B2-C3",
+    "longest": "A4-B4-C2",
+    "within8to9s": 2,
+    "over9s": 123,
+    "under8s": 0,
+    "rows": [
+     {
+      "combination": "A1-B1-C1",
+      "audioSeconds": 9.36,
+      "withConfiguredJoins": 9.6,
+      "withMeasuredTransitions": 9.618
+     },
+     {
+      "combination": "A1-B1-C2",
+      "audioSeconds": 9.48,
+      "withConfiguredJoins": 9.72,
+      "withMeasuredTransitions": 9.738
+     },
+     {
+      "combination": "A1-B1-C3",
+      "audioSeconds": 8.68,
+      "withConfiguredJoins": 8.92,
+      "withMeasuredTransitions": 8.938
+     },
+     {
+      "combination": "A1-B1-C4",
+      "audioSeconds": 9.48,
+      "withConfiguredJoins": 9.72,
+      "withMeasuredTransitions": 9.738
+     },
+     {
+      "combination": "A1-B1-C5",
+      "audioSeconds": 9.32,
+      "withConfiguredJoins": 9.56,
+      "withMeasuredTransitions": 9.578
+     },
+     {
+      "combination": "A1-B2-C1",
+      "audioSeconds": 9.32,
+      "withConfiguredJoins": 9.56,
+      "withMeasuredTransitions": 9.578
+     },
+     {
+      "combination": "A1-B2-C2",
+      "audioSeconds": 9.44,
+      "withConfiguredJoins": 9.68,
+      "withMeasuredTransitions": 9.698
+     },
+     {
+      "combination": "A1-B2-C3",
+      "audioSeconds": 8.64,
+      "withConfiguredJoins": 8.88,
+      "withMeasuredTransitions": 8.898
+     },
+     {
+      "combination": "A1-B2-C4",
+      "audioSeconds": 9.44,
+      "withConfiguredJoins": 9.68,
+      "withMeasuredTransitions": 9.698
+     },
+     {
+      "combination": "A1-B2-C5",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A1-B3-C1",
+      "audioSeconds": 9.64,
+      "withConfiguredJoins": 9.88,
+      "withMeasuredTransitions": 9.898
+     },
+     {
+      "combination": "A1-B3-C2",
+      "audioSeconds": 9.76,
+      "withConfiguredJoins": 10.0,
+      "withMeasuredTransitions": 10.018
+     },
+     {
+      "combination": "A1-B3-C3",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A1-B3-C4",
+      "audioSeconds": 9.76,
+      "withConfiguredJoins": 10.0,
+      "withMeasuredTransitions": 10.018
+     },
+     {
+      "combination": "A1-B3-C5",
+      "audioSeconds": 9.6,
+      "withConfiguredJoins": 9.84,
+      "withMeasuredTransitions": 9.858
+     },
+     {
+      "combination": "A1-B4-C1",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A1-B4-C2",
+      "audioSeconds": 10.48,
+      "withConfiguredJoins": 10.72,
+      "withMeasuredTransitions": 10.738
+     },
+     {
+      "combination": "A1-B4-C3",
+      "audioSeconds": 9.68,
+      "withConfiguredJoins": 9.92,
+      "withMeasuredTransitions": 9.938
+     },
+     {
+      "combination": "A1-B4-C4",
+      "audioSeconds": 10.48,
+      "withConfiguredJoins": 10.72,
+      "withMeasuredTransitions": 10.738
+     },
+     {
+      "combination": "A1-B4-C5",
+      "audioSeconds": 10.32,
+      "withConfiguredJoins": 10.56,
+      "withMeasuredTransitions": 10.578
+     },
+     {
+      "combination": "A1-B5-C1",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A1-B5-C2",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A1-B5-C3",
+      "audioSeconds": 9.32,
+      "withConfiguredJoins": 9.56,
+      "withMeasuredTransitions": 9.578
+     },
+     {
+      "combination": "A1-B5-C4",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A1-B5-C5",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A2-B1-C1",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A2-B1-C2",
+      "audioSeconds": 10.16,
+      "withConfiguredJoins": 10.4,
+      "withMeasuredTransitions": 10.418
+     },
+     {
+      "combination": "A2-B1-C3",
+      "audioSeconds": 9.36,
+      "withConfiguredJoins": 9.6,
+      "withMeasuredTransitions": 9.618
+     },
+     {
+      "combination": "A2-B1-C4",
+      "audioSeconds": 10.16,
+      "withConfiguredJoins": 10.4,
+      "withMeasuredTransitions": 10.418
+     },
+     {
+      "combination": "A2-B1-C5",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A2-B2-C1",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A2-B2-C2",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A2-B2-C3",
+      "audioSeconds": 9.32,
+      "withConfiguredJoins": 9.56,
+      "withMeasuredTransitions": 9.578
+     },
+     {
+      "combination": "A2-B2-C4",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A2-B2-C5",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A2-B3-C1",
+      "audioSeconds": 10.32,
+      "withConfiguredJoins": 10.56,
+      "withMeasuredTransitions": 10.578
+     },
+     {
+      "combination": "A2-B3-C2",
+      "audioSeconds": 10.44,
+      "withConfiguredJoins": 10.68,
+      "withMeasuredTransitions": 10.698
+     },
+     {
+      "combination": "A2-B3-C3",
+      "audioSeconds": 9.64,
+      "withConfiguredJoins": 9.88,
+      "withMeasuredTransitions": 9.898
+     },
+     {
+      "combination": "A2-B3-C4",
+      "audioSeconds": 10.44,
+      "withConfiguredJoins": 10.68,
+      "withMeasuredTransitions": 10.698
+     },
+     {
+      "combination": "A2-B3-C5",
+      "audioSeconds": 10.28,
+      "withConfiguredJoins": 10.52,
+      "withMeasuredTransitions": 10.538
+     },
+     {
+      "combination": "A2-B4-C1",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A2-B4-C2",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A2-B4-C3",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A2-B4-C4",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A2-B4-C5",
+      "audioSeconds": 11.0,
+      "withConfiguredJoins": 11.24,
+      "withMeasuredTransitions": 11.258
+     },
+     {
+      "combination": "A2-B5-C1",
+      "audioSeconds": 10.68,
+      "withConfiguredJoins": 10.92,
+      "withMeasuredTransitions": 10.938
+     },
+     {
+      "combination": "A2-B5-C2",
+      "audioSeconds": 10.8,
+      "withConfiguredJoins": 11.04,
+      "withMeasuredTransitions": 11.058
+     },
+     {
+      "combination": "A2-B5-C3",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A2-B5-C4",
+      "audioSeconds": 10.8,
+      "withConfiguredJoins": 11.04,
+      "withMeasuredTransitions": 11.058
+     },
+     {
+      "combination": "A2-B5-C5",
+      "audioSeconds": 10.64,
+      "withConfiguredJoins": 10.88,
+      "withMeasuredTransitions": 10.898
+     },
+     {
+      "combination": "A3-B1-C1",
+      "audioSeconds": 10.76,
+      "withConfiguredJoins": 11.0,
+      "withMeasuredTransitions": 11.018
+     },
+     {
+      "combination": "A3-B1-C2",
+      "audioSeconds": 10.88,
+      "withConfiguredJoins": 11.12,
+      "withMeasuredTransitions": 11.138
+     },
+     {
+      "combination": "A3-B1-C3",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A3-B1-C4",
+      "audioSeconds": 10.88,
+      "withConfiguredJoins": 11.12,
+      "withMeasuredTransitions": 11.138
+     },
+     {
+      "combination": "A3-B1-C5",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A3-B2-C1",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A3-B2-C2",
+      "audioSeconds": 10.84,
+      "withConfiguredJoins": 11.08,
+      "withMeasuredTransitions": 11.098
+     },
+     {
+      "combination": "A3-B2-C3",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A3-B2-C4",
+      "audioSeconds": 10.84,
+      "withConfiguredJoins": 11.08,
+      "withMeasuredTransitions": 11.098
+     },
+     {
+      "combination": "A3-B2-C5",
+      "audioSeconds": 10.68,
+      "withConfiguredJoins": 10.92,
+      "withMeasuredTransitions": 10.938
+     },
+     {
+      "combination": "A3-B3-C1",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A3-B3-C2",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A3-B3-C3",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A3-B3-C4",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A3-B3-C5",
+      "audioSeconds": 11.0,
+      "withConfiguredJoins": 11.24,
+      "withMeasuredTransitions": 11.258
+     },
+     {
+      "combination": "A3-B4-C1",
+      "audioSeconds": 11.76,
+      "withConfiguredJoins": 12.0,
+      "withMeasuredTransitions": 12.018
+     },
+     {
+      "combination": "A3-B4-C2",
+      "audioSeconds": 11.88,
+      "withConfiguredJoins": 12.12,
+      "withMeasuredTransitions": 12.138
+     },
+     {
+      "combination": "A3-B4-C3",
+      "audioSeconds": 11.08,
+      "withConfiguredJoins": 11.32,
+      "withMeasuredTransitions": 11.338
+     },
+     {
+      "combination": "A3-B4-C4",
+      "audioSeconds": 11.88,
+      "withConfiguredJoins": 12.12,
+      "withMeasuredTransitions": 12.138
+     },
+     {
+      "combination": "A3-B4-C5",
+      "audioSeconds": 11.72,
+      "withConfiguredJoins": 11.96,
+      "withMeasuredTransitions": 11.978
+     },
+     {
+      "combination": "A3-B5-C1",
+      "audioSeconds": 11.4,
+      "withConfiguredJoins": 11.64,
+      "withMeasuredTransitions": 11.658
+     },
+     {
+      "combination": "A3-B5-C2",
+      "audioSeconds": 11.52,
+      "withConfiguredJoins": 11.76,
+      "withMeasuredTransitions": 11.778
+     },
+     {
+      "combination": "A3-B5-C3",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A3-B5-C4",
+      "audioSeconds": 11.52,
+      "withConfiguredJoins": 11.76,
+      "withMeasuredTransitions": 11.778
+     },
+     {
+      "combination": "A3-B5-C5",
+      "audioSeconds": 11.36,
+      "withConfiguredJoins": 11.6,
+      "withMeasuredTransitions": 11.618
+     },
+     {
+      "combination": "A4-B1-C1",
+      "audioSeconds": 11.44,
+      "withConfiguredJoins": 11.68,
+      "withMeasuredTransitions": 11.698
+     },
+     {
+      "combination": "A4-B1-C2",
+      "audioSeconds": 11.56,
+      "withConfiguredJoins": 11.8,
+      "withMeasuredTransitions": 11.818
+     },
+     {
+      "combination": "A4-B1-C3",
+      "audioSeconds": 10.76,
+      "withConfiguredJoins": 11.0,
+      "withMeasuredTransitions": 11.018
+     },
+     {
+      "combination": "A4-B1-C4",
+      "audioSeconds": 11.56,
+      "withConfiguredJoins": 11.8,
+      "withMeasuredTransitions": 11.818
+     },
+     {
+      "combination": "A4-B1-C5",
+      "audioSeconds": 11.4,
+      "withConfiguredJoins": 11.64,
+      "withMeasuredTransitions": 11.658
+     },
+     {
+      "combination": "A4-B2-C1",
+      "audioSeconds": 11.4,
+      "withConfiguredJoins": 11.64,
+      "withMeasuredTransitions": 11.658
+     },
+     {
+      "combination": "A4-B2-C2",
+      "audioSeconds": 11.52,
+      "withConfiguredJoins": 11.76,
+      "withMeasuredTransitions": 11.778
+     },
+     {
+      "combination": "A4-B2-C3",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A4-B2-C4",
+      "audioSeconds": 11.52,
+      "withConfiguredJoins": 11.76,
+      "withMeasuredTransitions": 11.778
+     },
+     {
+      "combination": "A4-B2-C5",
+      "audioSeconds": 11.36,
+      "withConfiguredJoins": 11.6,
+      "withMeasuredTransitions": 11.618
+     },
+     {
+      "combination": "A4-B3-C1",
+      "audioSeconds": 11.72,
+      "withConfiguredJoins": 11.96,
+      "withMeasuredTransitions": 11.978
+     },
+     {
+      "combination": "A4-B3-C2",
+      "audioSeconds": 11.84,
+      "withConfiguredJoins": 12.08,
+      "withMeasuredTransitions": 12.098
+     },
+     {
+      "combination": "A4-B3-C3",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A4-B3-C4",
+      "audioSeconds": 11.84,
+      "withConfiguredJoins": 12.08,
+      "withMeasuredTransitions": 12.098
+     },
+     {
+      "combination": "A4-B3-C5",
+      "audioSeconds": 11.68,
+      "withConfiguredJoins": 11.92,
+      "withMeasuredTransitions": 11.938
+     },
+     {
+      "combination": "A4-B4-C1",
+      "audioSeconds": 12.44,
+      "withConfiguredJoins": 12.68,
+      "withMeasuredTransitions": 12.698
+     },
+     {
+      "combination": "A4-B4-C2",
+      "audioSeconds": 12.56,
+      "withConfiguredJoins": 12.8,
+      "withMeasuredTransitions": 12.818
+     },
+     {
+      "combination": "A4-B4-C3",
+      "audioSeconds": 11.76,
+      "withConfiguredJoins": 12.0,
+      "withMeasuredTransitions": 12.018
+     },
+     {
+      "combination": "A4-B4-C4",
+      "audioSeconds": 12.56,
+      "withConfiguredJoins": 12.8,
+      "withMeasuredTransitions": 12.818
+     },
+     {
+      "combination": "A4-B4-C5",
+      "audioSeconds": 12.4,
+      "withConfiguredJoins": 12.64,
+      "withMeasuredTransitions": 12.658
+     },
+     {
+      "combination": "A4-B5-C1",
+      "audioSeconds": 12.08,
+      "withConfiguredJoins": 12.32,
+      "withMeasuredTransitions": 12.338
+     },
+     {
+      "combination": "A4-B5-C2",
+      "audioSeconds": 12.2,
+      "withConfiguredJoins": 12.44,
+      "withMeasuredTransitions": 12.458
+     },
+     {
+      "combination": "A4-B5-C3",
+      "audioSeconds": 11.4,
+      "withConfiguredJoins": 11.64,
+      "withMeasuredTransitions": 11.658
+     },
+     {
+      "combination": "A4-B5-C4",
+      "audioSeconds": 12.2,
+      "withConfiguredJoins": 12.44,
+      "withMeasuredTransitions": 12.458
+     },
+     {
+      "combination": "A4-B5-C5",
+      "audioSeconds": 12.04,
+      "withConfiguredJoins": 12.28,
+      "withMeasuredTransitions": 12.298
+     },
+     {
+      "combination": "A5-B1-C1",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A5-B1-C2",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A5-B1-C3",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A5-B1-C4",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A5-B1-C5",
+      "audioSeconds": 9.92,
+      "withConfiguredJoins": 10.16,
+      "withMeasuredTransitions": 10.178
+     },
+     {
+      "combination": "A5-B2-C1",
+      "audioSeconds": 9.92,
+      "withConfiguredJoins": 10.16,
+      "withMeasuredTransitions": 10.178
+     },
+     {
+      "combination": "A5-B2-C2",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A5-B2-C3",
+      "audioSeconds": 9.24,
+      "withConfiguredJoins": 9.48,
+      "withMeasuredTransitions": 9.498
+     },
+     {
+      "combination": "A5-B2-C4",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A5-B2-C5",
+      "audioSeconds": 9.88,
+      "withConfiguredJoins": 10.12,
+      "withMeasuredTransitions": 10.138
+     },
+     {
+      "combination": "A5-B3-C1",
+      "audioSeconds": 10.24,
+      "withConfiguredJoins": 10.48,
+      "withMeasuredTransitions": 10.498
+     },
+     {
+      "combination": "A5-B3-C2",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A5-B3-C3",
+      "audioSeconds": 9.56,
+      "withConfiguredJoins": 9.8,
+      "withMeasuredTransitions": 9.818
+     },
+     {
+      "combination": "A5-B3-C4",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A5-B3-C5",
+      "audioSeconds": 10.2,
+      "withConfiguredJoins": 10.44,
+      "withMeasuredTransitions": 10.458
+     },
+     {
+      "combination": "A5-B4-C1",
+      "audioSeconds": 10.96,
+      "withConfiguredJoins": 11.2,
+      "withMeasuredTransitions": 11.218
+     },
+     {
+      "combination": "A5-B4-C2",
+      "audioSeconds": 11.08,
+      "withConfiguredJoins": 11.32,
+      "withMeasuredTransitions": 11.338
+     },
+     {
+      "combination": "A5-B4-C3",
+      "audioSeconds": 10.28,
+      "withConfiguredJoins": 10.52,
+      "withMeasuredTransitions": 10.538
+     },
+     {
+      "combination": "A5-B4-C4",
+      "audioSeconds": 11.08,
+      "withConfiguredJoins": 11.32,
+      "withMeasuredTransitions": 11.338
+     },
+     {
+      "combination": "A5-B4-C5",
+      "audioSeconds": 10.92,
+      "withConfiguredJoins": 11.16,
+      "withMeasuredTransitions": 11.178
+     },
+     {
+      "combination": "A5-B5-C1",
+      "audioSeconds": 10.6,
+      "withConfiguredJoins": 10.84,
+      "withMeasuredTransitions": 10.858
+     },
+     {
+      "combination": "A5-B5-C2",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A5-B5-C3",
+      "audioSeconds": 9.92,
+      "withConfiguredJoins": 10.16,
+      "withMeasuredTransitions": 10.178
+     },
+     {
+      "combination": "A5-B5-C4",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A5-B5-C5",
+      "audioSeconds": 10.56,
+      "withConfiguredJoins": 10.8,
+      "withMeasuredTransitions": 10.818
+     }
+    ]
+   },
+   "en": {
+    "count": 125,
+    "audioOnly": {
+     "min": 7.28,
+     "median": 8.48,
+     "max": 9.56
+    },
+    "withConfiguredJoins": {
+     "min": 7.52,
+     "median": 8.72,
+     "max": 9.8
+    },
+    "withMeasuredTransitions": {
+     "min": 7.538,
+     "median": 8.738,
+     "max": 9.818
+    },
+    "shortest": "A1-B2-C1",
+    "longest": "A4-B3-C2",
+    "within8to9s": 69,
+    "over9s": 50,
+    "under8s": 6,
+    "rows": [
+     {
+      "combination": "A1-B1-C1",
+      "audioSeconds": 7.32,
+      "withConfiguredJoins": 7.56,
+      "withMeasuredTransitions": 7.578
+     },
+     {
+      "combination": "A1-B1-C2",
+      "audioSeconds": 7.92,
+      "withConfiguredJoins": 8.16,
+      "withMeasuredTransitions": 8.178
+     },
+     {
+      "combination": "A1-B1-C3",
+      "audioSeconds": 7.32,
+      "withConfiguredJoins": 7.56,
+      "withMeasuredTransitions": 7.578
+     },
+     {
+      "combination": "A1-B1-C4",
+      "audioSeconds": 7.8,
+      "withConfiguredJoins": 8.04,
+      "withMeasuredTransitions": 8.058
+     },
+     {
+      "combination": "A1-B1-C5",
+      "audioSeconds": 7.44,
+      "withConfiguredJoins": 7.68,
+      "withMeasuredTransitions": 7.698
+     },
+     {
+      "combination": "A1-B2-C1",
+      "audioSeconds": 7.28,
+      "withConfiguredJoins": 7.52,
+      "withMeasuredTransitions": 7.538
+     },
+     {
+      "combination": "A1-B2-C2",
+      "audioSeconds": 7.88,
+      "withConfiguredJoins": 8.12,
+      "withMeasuredTransitions": 8.138
+     },
+     {
+      "combination": "A1-B2-C3",
+      "audioSeconds": 7.28,
+      "withConfiguredJoins": 7.52,
+      "withMeasuredTransitions": 7.538
+     },
+     {
+      "combination": "A1-B2-C4",
+      "audioSeconds": 7.76,
+      "withConfiguredJoins": 8.0,
+      "withMeasuredTransitions": 8.018
+     },
+     {
+      "combination": "A1-B2-C5",
+      "audioSeconds": 7.4,
+      "withConfiguredJoins": 7.64,
+      "withMeasuredTransitions": 7.658
+     },
+     {
+      "combination": "A1-B3-C1",
+      "audioSeconds": 7.88,
+      "withConfiguredJoins": 8.12,
+      "withMeasuredTransitions": 8.138
+     },
+     {
+      "combination": "A1-B3-C2",
+      "audioSeconds": 8.48,
+      "withConfiguredJoins": 8.72,
+      "withMeasuredTransitions": 8.738
+     },
+     {
+      "combination": "A1-B3-C3",
+      "audioSeconds": 7.88,
+      "withConfiguredJoins": 8.12,
+      "withMeasuredTransitions": 8.138
+     },
+     {
+      "combination": "A1-B3-C4",
+      "audioSeconds": 8.36,
+      "withConfiguredJoins": 8.6,
+      "withMeasuredTransitions": 8.618
+     },
+     {
+      "combination": "A1-B3-C5",
+      "audioSeconds": 8.0,
+      "withConfiguredJoins": 8.24,
+      "withMeasuredTransitions": 8.258
+     },
+     {
+      "combination": "A1-B4-C1",
+      "audioSeconds": 7.84,
+      "withConfiguredJoins": 8.08,
+      "withMeasuredTransitions": 8.098
+     },
+     {
+      "combination": "A1-B4-C2",
+      "audioSeconds": 8.44,
+      "withConfiguredJoins": 8.68,
+      "withMeasuredTransitions": 8.698
+     },
+     {
+      "combination": "A1-B4-C3",
+      "audioSeconds": 7.84,
+      "withConfiguredJoins": 8.08,
+      "withMeasuredTransitions": 8.098
+     },
+     {
+      "combination": "A1-B4-C4",
+      "audioSeconds": 8.32,
+      "withConfiguredJoins": 8.56,
+      "withMeasuredTransitions": 8.578
+     },
+     {
+      "combination": "A1-B4-C5",
+      "audioSeconds": 7.96,
+      "withConfiguredJoins": 8.2,
+      "withMeasuredTransitions": 8.218
+     },
+     {
+      "combination": "A1-B5-C1",
+      "audioSeconds": 7.8,
+      "withConfiguredJoins": 8.04,
+      "withMeasuredTransitions": 8.058
+     },
+     {
+      "combination": "A1-B5-C2",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A1-B5-C3",
+      "audioSeconds": 7.8,
+      "withConfiguredJoins": 8.04,
+      "withMeasuredTransitions": 8.058
+     },
+     {
+      "combination": "A1-B5-C4",
+      "audioSeconds": 8.28,
+      "withConfiguredJoins": 8.52,
+      "withMeasuredTransitions": 8.538
+     },
+     {
+      "combination": "A1-B5-C5",
+      "audioSeconds": 7.92,
+      "withConfiguredJoins": 8.16,
+      "withMeasuredTransitions": 8.178
+     },
+     {
+      "combination": "A2-B1-C1",
+      "audioSeconds": 8.32,
+      "withConfiguredJoins": 8.56,
+      "withMeasuredTransitions": 8.578
+     },
+     {
+      "combination": "A2-B1-C2",
+      "audioSeconds": 8.92,
+      "withConfiguredJoins": 9.16,
+      "withMeasuredTransitions": 9.178
+     },
+     {
+      "combination": "A2-B1-C3",
+      "audioSeconds": 8.32,
+      "withConfiguredJoins": 8.56,
+      "withMeasuredTransitions": 8.578
+     },
+     {
+      "combination": "A2-B1-C4",
+      "audioSeconds": 8.8,
+      "withConfiguredJoins": 9.04,
+      "withMeasuredTransitions": 9.058
+     },
+     {
+      "combination": "A2-B1-C5",
+      "audioSeconds": 8.44,
+      "withConfiguredJoins": 8.68,
+      "withMeasuredTransitions": 8.698
+     },
+     {
+      "combination": "A2-B2-C1",
+      "audioSeconds": 8.28,
+      "withConfiguredJoins": 8.52,
+      "withMeasuredTransitions": 8.538
+     },
+     {
+      "combination": "A2-B2-C2",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A2-B2-C3",
+      "audioSeconds": 8.28,
+      "withConfiguredJoins": 8.52,
+      "withMeasuredTransitions": 8.538
+     },
+     {
+      "combination": "A2-B2-C4",
+      "audioSeconds": 8.76,
+      "withConfiguredJoins": 9.0,
+      "withMeasuredTransitions": 9.018
+     },
+     {
+      "combination": "A2-B2-C5",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A2-B3-C1",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A2-B3-C2",
+      "audioSeconds": 9.48,
+      "withConfiguredJoins": 9.72,
+      "withMeasuredTransitions": 9.738
+     },
+     {
+      "combination": "A2-B3-C3",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A2-B3-C4",
+      "audioSeconds": 9.36,
+      "withConfiguredJoins": 9.6,
+      "withMeasuredTransitions": 9.618
+     },
+     {
+      "combination": "A2-B3-C5",
+      "audioSeconds": 9.0,
+      "withConfiguredJoins": 9.24,
+      "withMeasuredTransitions": 9.258
+     },
+     {
+      "combination": "A2-B4-C1",
+      "audioSeconds": 8.84,
+      "withConfiguredJoins": 9.08,
+      "withMeasuredTransitions": 9.098
+     },
+     {
+      "combination": "A2-B4-C2",
+      "audioSeconds": 9.44,
+      "withConfiguredJoins": 9.68,
+      "withMeasuredTransitions": 9.698
+     },
+     {
+      "combination": "A2-B4-C3",
+      "audioSeconds": 8.84,
+      "withConfiguredJoins": 9.08,
+      "withMeasuredTransitions": 9.098
+     },
+     {
+      "combination": "A2-B4-C4",
+      "audioSeconds": 9.32,
+      "withConfiguredJoins": 9.56,
+      "withMeasuredTransitions": 9.578
+     },
+     {
+      "combination": "A2-B4-C5",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A2-B5-C1",
+      "audioSeconds": 8.8,
+      "withConfiguredJoins": 9.04,
+      "withMeasuredTransitions": 9.058
+     },
+     {
+      "combination": "A2-B5-C2",
+      "audioSeconds": 9.4,
+      "withConfiguredJoins": 9.64,
+      "withMeasuredTransitions": 9.658
+     },
+     {
+      "combination": "A2-B5-C3",
+      "audioSeconds": 8.8,
+      "withConfiguredJoins": 9.04,
+      "withMeasuredTransitions": 9.058
+     },
+     {
+      "combination": "A2-B5-C4",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A2-B5-C5",
+      "audioSeconds": 8.92,
+      "withConfiguredJoins": 9.16,
+      "withMeasuredTransitions": 9.178
+     },
+     {
+      "combination": "A3-B1-C1",
+      "audioSeconds": 8.0,
+      "withConfiguredJoins": 8.24,
+      "withMeasuredTransitions": 8.258
+     },
+     {
+      "combination": "A3-B1-C2",
+      "audioSeconds": 8.6,
+      "withConfiguredJoins": 8.84,
+      "withMeasuredTransitions": 8.858
+     },
+     {
+      "combination": "A3-B1-C3",
+      "audioSeconds": 8.0,
+      "withConfiguredJoins": 8.24,
+      "withMeasuredTransitions": 8.258
+     },
+     {
+      "combination": "A3-B1-C4",
+      "audioSeconds": 8.48,
+      "withConfiguredJoins": 8.72,
+      "withMeasuredTransitions": 8.738
+     },
+     {
+      "combination": "A3-B1-C5",
+      "audioSeconds": 8.12,
+      "withConfiguredJoins": 8.36,
+      "withMeasuredTransitions": 8.378
+     },
+     {
+      "combination": "A3-B2-C1",
+      "audioSeconds": 7.96,
+      "withConfiguredJoins": 8.2,
+      "withMeasuredTransitions": 8.218
+     },
+     {
+      "combination": "A3-B2-C2",
+      "audioSeconds": 8.56,
+      "withConfiguredJoins": 8.8,
+      "withMeasuredTransitions": 8.818
+     },
+     {
+      "combination": "A3-B2-C3",
+      "audioSeconds": 7.96,
+      "withConfiguredJoins": 8.2,
+      "withMeasuredTransitions": 8.218
+     },
+     {
+      "combination": "A3-B2-C4",
+      "audioSeconds": 8.44,
+      "withConfiguredJoins": 8.68,
+      "withMeasuredTransitions": 8.698
+     },
+     {
+      "combination": "A3-B2-C5",
+      "audioSeconds": 8.08,
+      "withConfiguredJoins": 8.32,
+      "withMeasuredTransitions": 8.338
+     },
+     {
+      "combination": "A3-B3-C1",
+      "audioSeconds": 8.56,
+      "withConfiguredJoins": 8.8,
+      "withMeasuredTransitions": 8.818
+     },
+     {
+      "combination": "A3-B3-C2",
+      "audioSeconds": 9.16,
+      "withConfiguredJoins": 9.4,
+      "withMeasuredTransitions": 9.418
+     },
+     {
+      "combination": "A3-B3-C3",
+      "audioSeconds": 8.56,
+      "withConfiguredJoins": 8.8,
+      "withMeasuredTransitions": 8.818
+     },
+     {
+      "combination": "A3-B3-C4",
+      "audioSeconds": 9.04,
+      "withConfiguredJoins": 9.28,
+      "withMeasuredTransitions": 9.298
+     },
+     {
+      "combination": "A3-B3-C5",
+      "audioSeconds": 8.68,
+      "withConfiguredJoins": 8.92,
+      "withMeasuredTransitions": 8.938
+     },
+     {
+      "combination": "A3-B4-C1",
+      "audioSeconds": 8.52,
+      "withConfiguredJoins": 8.76,
+      "withMeasuredTransitions": 8.778
+     },
+     {
+      "combination": "A3-B4-C2",
+      "audioSeconds": 9.12,
+      "withConfiguredJoins": 9.36,
+      "withMeasuredTransitions": 9.378
+     },
+     {
+      "combination": "A3-B4-C3",
+      "audioSeconds": 8.52,
+      "withConfiguredJoins": 8.76,
+      "withMeasuredTransitions": 8.778
+     },
+     {
+      "combination": "A3-B4-C4",
+      "audioSeconds": 9.0,
+      "withConfiguredJoins": 9.24,
+      "withMeasuredTransitions": 9.258
+     },
+     {
+      "combination": "A3-B4-C5",
+      "audioSeconds": 8.64,
+      "withConfiguredJoins": 8.88,
+      "withMeasuredTransitions": 8.898
+     },
+     {
+      "combination": "A3-B5-C1",
+      "audioSeconds": 8.48,
+      "withConfiguredJoins": 8.72,
+      "withMeasuredTransitions": 8.738
+     },
+     {
+      "combination": "A3-B5-C2",
+      "audioSeconds": 9.08,
+      "withConfiguredJoins": 9.32,
+      "withMeasuredTransitions": 9.338
+     },
+     {
+      "combination": "A3-B5-C3",
+      "audioSeconds": 8.48,
+      "withConfiguredJoins": 8.72,
+      "withMeasuredTransitions": 8.738
+     },
+     {
+      "combination": "A3-B5-C4",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A3-B5-C5",
+      "audioSeconds": 8.6,
+      "withConfiguredJoins": 8.84,
+      "withMeasuredTransitions": 8.858
+     },
+     {
+      "combination": "A4-B1-C1",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A4-B1-C2",
+      "audioSeconds": 9.0,
+      "withConfiguredJoins": 9.24,
+      "withMeasuredTransitions": 9.258
+     },
+     {
+      "combination": "A4-B1-C3",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A4-B1-C4",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A4-B1-C5",
+      "audioSeconds": 8.52,
+      "withConfiguredJoins": 8.76,
+      "withMeasuredTransitions": 8.778
+     },
+     {
+      "combination": "A4-B2-C1",
+      "audioSeconds": 8.36,
+      "withConfiguredJoins": 8.6,
+      "withMeasuredTransitions": 8.618
+     },
+     {
+      "combination": "A4-B2-C2",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A4-B2-C3",
+      "audioSeconds": 8.36,
+      "withConfiguredJoins": 8.6,
+      "withMeasuredTransitions": 8.618
+     },
+     {
+      "combination": "A4-B2-C4",
+      "audioSeconds": 8.84,
+      "withConfiguredJoins": 9.08,
+      "withMeasuredTransitions": 9.098
+     },
+     {
+      "combination": "A4-B2-C5",
+      "audioSeconds": 8.48,
+      "withConfiguredJoins": 8.72,
+      "withMeasuredTransitions": 8.738
+     },
+     {
+      "combination": "A4-B3-C1",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A4-B3-C2",
+      "audioSeconds": 9.56,
+      "withConfiguredJoins": 9.8,
+      "withMeasuredTransitions": 9.818
+     },
+     {
+      "combination": "A4-B3-C3",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A4-B3-C4",
+      "audioSeconds": 9.44,
+      "withConfiguredJoins": 9.68,
+      "withMeasuredTransitions": 9.698
+     },
+     {
+      "combination": "A4-B3-C5",
+      "audioSeconds": 9.08,
+      "withConfiguredJoins": 9.32,
+      "withMeasuredTransitions": 9.338
+     },
+     {
+      "combination": "A4-B4-C1",
+      "audioSeconds": 8.92,
+      "withConfiguredJoins": 9.16,
+      "withMeasuredTransitions": 9.178
+     },
+     {
+      "combination": "A4-B4-C2",
+      "audioSeconds": 9.52,
+      "withConfiguredJoins": 9.76,
+      "withMeasuredTransitions": 9.778
+     },
+     {
+      "combination": "A4-B4-C3",
+      "audioSeconds": 8.92,
+      "withConfiguredJoins": 9.16,
+      "withMeasuredTransitions": 9.178
+     },
+     {
+      "combination": "A4-B4-C4",
+      "audioSeconds": 9.4,
+      "withConfiguredJoins": 9.64,
+      "withMeasuredTransitions": 9.658
+     },
+     {
+      "combination": "A4-B4-C5",
+      "audioSeconds": 9.04,
+      "withConfiguredJoins": 9.28,
+      "withMeasuredTransitions": 9.298
+     },
+     {
+      "combination": "A4-B5-C1",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A4-B5-C2",
+      "audioSeconds": 9.48,
+      "withConfiguredJoins": 9.72,
+      "withMeasuredTransitions": 9.738
+     },
+     {
+      "combination": "A4-B5-C3",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A4-B5-C4",
+      "audioSeconds": 9.36,
+      "withConfiguredJoins": 9.6,
+      "withMeasuredTransitions": 9.618
+     },
+     {
+      "combination": "A4-B5-C5",
+      "audioSeconds": 9.0,
+      "withConfiguredJoins": 9.24,
+      "withMeasuredTransitions": 9.258
+     },
+     {
+      "combination": "A5-B1-C1",
+      "audioSeconds": 7.84,
+      "withConfiguredJoins": 8.08,
+      "withMeasuredTransitions": 8.098
+     },
+     {
+      "combination": "A5-B1-C2",
+      "audioSeconds": 8.44,
+      "withConfiguredJoins": 8.68,
+      "withMeasuredTransitions": 8.698
+     },
+     {
+      "combination": "A5-B1-C3",
+      "audioSeconds": 7.84,
+      "withConfiguredJoins": 8.08,
+      "withMeasuredTransitions": 8.098
+     },
+     {
+      "combination": "A5-B1-C4",
+      "audioSeconds": 8.32,
+      "withConfiguredJoins": 8.56,
+      "withMeasuredTransitions": 8.578
+     },
+     {
+      "combination": "A5-B1-C5",
+      "audioSeconds": 7.96,
+      "withConfiguredJoins": 8.2,
+      "withMeasuredTransitions": 8.218
+     },
+     {
+      "combination": "A5-B2-C1",
+      "audioSeconds": 7.8,
+      "withConfiguredJoins": 8.04,
+      "withMeasuredTransitions": 8.058
+     },
+     {
+      "combination": "A5-B2-C2",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A5-B2-C3",
+      "audioSeconds": 7.8,
+      "withConfiguredJoins": 8.04,
+      "withMeasuredTransitions": 8.058
+     },
+     {
+      "combination": "A5-B2-C4",
+      "audioSeconds": 8.28,
+      "withConfiguredJoins": 8.52,
+      "withMeasuredTransitions": 8.538
+     },
+     {
+      "combination": "A5-B2-C5",
+      "audioSeconds": 7.92,
+      "withConfiguredJoins": 8.16,
+      "withMeasuredTransitions": 8.178
+     },
+     {
+      "combination": "A5-B3-C1",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A5-B3-C2",
+      "audioSeconds": 9.0,
+      "withConfiguredJoins": 9.24,
+      "withMeasuredTransitions": 9.258
+     },
+     {
+      "combination": "A5-B3-C3",
+      "audioSeconds": 8.4,
+      "withConfiguredJoins": 8.64,
+      "withMeasuredTransitions": 8.658
+     },
+     {
+      "combination": "A5-B3-C4",
+      "audioSeconds": 8.88,
+      "withConfiguredJoins": 9.12,
+      "withMeasuredTransitions": 9.138
+     },
+     {
+      "combination": "A5-B3-C5",
+      "audioSeconds": 8.52,
+      "withConfiguredJoins": 8.76,
+      "withMeasuredTransitions": 8.778
+     },
+     {
+      "combination": "A5-B4-C1",
+      "audioSeconds": 8.36,
+      "withConfiguredJoins": 8.6,
+      "withMeasuredTransitions": 8.618
+     },
+     {
+      "combination": "A5-B4-C2",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A5-B4-C3",
+      "audioSeconds": 8.36,
+      "withConfiguredJoins": 8.6,
+      "withMeasuredTransitions": 8.618
+     },
+     {
+      "combination": "A5-B4-C4",
+      "audioSeconds": 8.84,
+      "withConfiguredJoins": 9.08,
+      "withMeasuredTransitions": 9.098
+     },
+     {
+      "combination": "A5-B4-C5",
+      "audioSeconds": 8.48,
+      "withConfiguredJoins": 8.72,
+      "withMeasuredTransitions": 8.738
+     },
+     {
+      "combination": "A5-B5-C1",
+      "audioSeconds": 8.32,
+      "withConfiguredJoins": 8.56,
+      "withMeasuredTransitions": 8.578
+     },
+     {
+      "combination": "A5-B5-C2",
+      "audioSeconds": 8.92,
+      "withConfiguredJoins": 9.16,
+      "withMeasuredTransitions": 9.178
+     },
+     {
+      "combination": "A5-B5-C3",
+      "audioSeconds": 8.32,
+      "withConfiguredJoins": 8.56,
+      "withMeasuredTransitions": 8.578
+     },
+     {
+      "combination": "A5-B5-C4",
+      "audioSeconds": 8.8,
+      "withConfiguredJoins": 9.04,
+      "withMeasuredTransitions": 9.058
+     },
+     {
+      "combination": "A5-B5-C5",
+      "audioSeconds": 8.44,
+      "withConfiguredJoins": 8.68,
+      "withMeasuredTransitions": 8.698
+     }
+    ]
+   },
+   "de": {
+    "count": 125,
+    "audioOnly": {
+     "min": 8.52,
+     "median": 10.2,
+     "max": 11.4
+    },
+    "withConfiguredJoins": {
+     "min": 8.76,
+     "median": 10.44,
+     "max": 11.64
+    },
+    "withMeasuredTransitions": {
+     "min": 8.778,
+     "median": 10.458,
+     "max": 11.658
+    },
+    "shortest": "A5-B2-C4",
+    "longest": "A3-B4-C2",
+    "within8to9s": 2,
+    "over9s": 123,
+    "under8s": 0,
+    "rows": [
+     {
+      "combination": "A1-B1-C1",
+      "audioSeconds": 10.4,
+      "withConfiguredJoins": 10.64,
+      "withMeasuredTransitions": 10.658
+     },
+     {
+      "combination": "A1-B1-C2",
+      "audioSeconds": 10.64,
+      "withConfiguredJoins": 10.88,
+      "withMeasuredTransitions": 10.898
+     },
+     {
+      "combination": "A1-B1-C3",
+      "audioSeconds": 10.44,
+      "withConfiguredJoins": 10.68,
+      "withMeasuredTransitions": 10.698
+     },
+     {
+      "combination": "A1-B1-C4",
+      "audioSeconds": 9.72,
+      "withConfiguredJoins": 9.96,
+      "withMeasuredTransitions": 9.978
+     },
+     {
+      "combination": "A1-B1-C5",
+      "audioSeconds": 10.48,
+      "withConfiguredJoins": 10.72,
+      "withMeasuredTransitions": 10.738
+     },
+     {
+      "combination": "A1-B2-C1",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A1-B2-C2",
+      "audioSeconds": 10.2,
+      "withConfiguredJoins": 10.44,
+      "withMeasuredTransitions": 10.458
+     },
+     {
+      "combination": "A1-B2-C3",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A1-B2-C4",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A1-B2-C5",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A1-B3-C1",
+      "audioSeconds": 10.56,
+      "withConfiguredJoins": 10.8,
+      "withMeasuredTransitions": 10.818
+     },
+     {
+      "combination": "A1-B3-C2",
+      "audioSeconds": 10.8,
+      "withConfiguredJoins": 11.04,
+      "withMeasuredTransitions": 11.058
+     },
+     {
+      "combination": "A1-B3-C3",
+      "audioSeconds": 10.6,
+      "withConfiguredJoins": 10.84,
+      "withMeasuredTransitions": 10.858
+     },
+     {
+      "combination": "A1-B3-C4",
+      "audioSeconds": 9.88,
+      "withConfiguredJoins": 10.12,
+      "withMeasuredTransitions": 10.138
+     },
+     {
+      "combination": "A1-B3-C5",
+      "audioSeconds": 10.64,
+      "withConfiguredJoins": 10.88,
+      "withMeasuredTransitions": 10.898
+     },
+     {
+      "combination": "A1-B4-C1",
+      "audioSeconds": 10.8,
+      "withConfiguredJoins": 11.04,
+      "withMeasuredTransitions": 11.058
+     },
+     {
+      "combination": "A1-B4-C2",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A1-B4-C3",
+      "audioSeconds": 10.84,
+      "withConfiguredJoins": 11.08,
+      "withMeasuredTransitions": 11.098
+     },
+     {
+      "combination": "A1-B4-C4",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A1-B4-C5",
+      "audioSeconds": 10.88,
+      "withConfiguredJoins": 11.12,
+      "withMeasuredTransitions": 11.138
+     },
+     {
+      "combination": "A1-B5-C1",
+      "audioSeconds": 10.68,
+      "withConfiguredJoins": 10.92,
+      "withMeasuredTransitions": 10.938
+     },
+     {
+      "combination": "A1-B5-C2",
+      "audioSeconds": 10.92,
+      "withConfiguredJoins": 11.16,
+      "withMeasuredTransitions": 11.178
+     },
+     {
+      "combination": "A1-B5-C3",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A1-B5-C4",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A1-B5-C5",
+      "audioSeconds": 10.76,
+      "withConfiguredJoins": 11.0,
+      "withMeasuredTransitions": 11.018
+     },
+     {
+      "combination": "A2-B1-C1",
+      "audioSeconds": 10.64,
+      "withConfiguredJoins": 10.88,
+      "withMeasuredTransitions": 10.898
+     },
+     {
+      "combination": "A2-B1-C2",
+      "audioSeconds": 10.88,
+      "withConfiguredJoins": 11.12,
+      "withMeasuredTransitions": 11.138
+     },
+     {
+      "combination": "A2-B1-C3",
+      "audioSeconds": 10.68,
+      "withConfiguredJoins": 10.92,
+      "withMeasuredTransitions": 10.938
+     },
+     {
+      "combination": "A2-B1-C4",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A2-B1-C5",
+      "audioSeconds": 10.72,
+      "withConfiguredJoins": 10.96,
+      "withMeasuredTransitions": 10.978
+     },
+     {
+      "combination": "A2-B2-C1",
+      "audioSeconds": 10.2,
+      "withConfiguredJoins": 10.44,
+      "withMeasuredTransitions": 10.458
+     },
+     {
+      "combination": "A2-B2-C2",
+      "audioSeconds": 10.44,
+      "withConfiguredJoins": 10.68,
+      "withMeasuredTransitions": 10.698
+     },
+     {
+      "combination": "A2-B2-C3",
+      "audioSeconds": 10.24,
+      "withConfiguredJoins": 10.48,
+      "withMeasuredTransitions": 10.498
+     },
+     {
+      "combination": "A2-B2-C4",
+      "audioSeconds": 9.52,
+      "withConfiguredJoins": 9.76,
+      "withMeasuredTransitions": 9.778
+     },
+     {
+      "combination": "A2-B2-C5",
+      "audioSeconds": 10.28,
+      "withConfiguredJoins": 10.52,
+      "withMeasuredTransitions": 10.538
+     },
+     {
+      "combination": "A2-B3-C1",
+      "audioSeconds": 10.8,
+      "withConfiguredJoins": 11.04,
+      "withMeasuredTransitions": 11.058
+     },
+     {
+      "combination": "A2-B3-C2",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A2-B3-C3",
+      "audioSeconds": 10.84,
+      "withConfiguredJoins": 11.08,
+      "withMeasuredTransitions": 11.098
+     },
+     {
+      "combination": "A2-B3-C4",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A2-B3-C5",
+      "audioSeconds": 10.88,
+      "withConfiguredJoins": 11.12,
+      "withMeasuredTransitions": 11.138
+     },
+     {
+      "combination": "A2-B4-C1",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A2-B4-C2",
+      "audioSeconds": 11.28,
+      "withConfiguredJoins": 11.52,
+      "withMeasuredTransitions": 11.538
+     },
+     {
+      "combination": "A2-B4-C3",
+      "audioSeconds": 11.08,
+      "withConfiguredJoins": 11.32,
+      "withMeasuredTransitions": 11.338
+     },
+     {
+      "combination": "A2-B4-C4",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A2-B4-C5",
+      "audioSeconds": 11.12,
+      "withConfiguredJoins": 11.36,
+      "withMeasuredTransitions": 11.378
+     },
+     {
+      "combination": "A2-B5-C1",
+      "audioSeconds": 10.92,
+      "withConfiguredJoins": 11.16,
+      "withMeasuredTransitions": 11.178
+     },
+     {
+      "combination": "A2-B5-C2",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A2-B5-C3",
+      "audioSeconds": 10.96,
+      "withConfiguredJoins": 11.2,
+      "withMeasuredTransitions": 11.218
+     },
+     {
+      "combination": "A2-B5-C4",
+      "audioSeconds": 10.24,
+      "withConfiguredJoins": 10.48,
+      "withMeasuredTransitions": 10.498
+     },
+     {
+      "combination": "A2-B5-C5",
+      "audioSeconds": 11.0,
+      "withConfiguredJoins": 11.24,
+      "withMeasuredTransitions": 11.258
+     },
+     {
+      "combination": "A3-B1-C1",
+      "audioSeconds": 10.76,
+      "withConfiguredJoins": 11.0,
+      "withMeasuredTransitions": 11.018
+     },
+     {
+      "combination": "A3-B1-C2",
+      "audioSeconds": 11.0,
+      "withConfiguredJoins": 11.24,
+      "withMeasuredTransitions": 11.258
+     },
+     {
+      "combination": "A3-B1-C3",
+      "audioSeconds": 10.8,
+      "withConfiguredJoins": 11.04,
+      "withMeasuredTransitions": 11.058
+     },
+     {
+      "combination": "A3-B1-C4",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A3-B1-C5",
+      "audioSeconds": 10.84,
+      "withConfiguredJoins": 11.08,
+      "withMeasuredTransitions": 11.098
+     },
+     {
+      "combination": "A3-B2-C1",
+      "audioSeconds": 10.32,
+      "withConfiguredJoins": 10.56,
+      "withMeasuredTransitions": 10.578
+     },
+     {
+      "combination": "A3-B2-C2",
+      "audioSeconds": 10.56,
+      "withConfiguredJoins": 10.8,
+      "withMeasuredTransitions": 10.818
+     },
+     {
+      "combination": "A3-B2-C3",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A3-B2-C4",
+      "audioSeconds": 9.64,
+      "withConfiguredJoins": 9.88,
+      "withMeasuredTransitions": 9.898
+     },
+     {
+      "combination": "A3-B2-C5",
+      "audioSeconds": 10.4,
+      "withConfiguredJoins": 10.64,
+      "withMeasuredTransitions": 10.658
+     },
+     {
+      "combination": "A3-B3-C1",
+      "audioSeconds": 10.92,
+      "withConfiguredJoins": 11.16,
+      "withMeasuredTransitions": 11.178
+     },
+     {
+      "combination": "A3-B3-C2",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A3-B3-C3",
+      "audioSeconds": 10.96,
+      "withConfiguredJoins": 11.2,
+      "withMeasuredTransitions": 11.218
+     },
+     {
+      "combination": "A3-B3-C4",
+      "audioSeconds": 10.24,
+      "withConfiguredJoins": 10.48,
+      "withMeasuredTransitions": 10.498
+     },
+     {
+      "combination": "A3-B3-C5",
+      "audioSeconds": 11.0,
+      "withConfiguredJoins": 11.24,
+      "withMeasuredTransitions": 11.258
+     },
+     {
+      "combination": "A3-B4-C1",
+      "audioSeconds": 11.16,
+      "withConfiguredJoins": 11.4,
+      "withMeasuredTransitions": 11.418
+     },
+     {
+      "combination": "A3-B4-C2",
+      "audioSeconds": 11.4,
+      "withConfiguredJoins": 11.64,
+      "withMeasuredTransitions": 11.658
+     },
+     {
+      "combination": "A3-B4-C3",
+      "audioSeconds": 11.2,
+      "withConfiguredJoins": 11.44,
+      "withMeasuredTransitions": 11.458
+     },
+     {
+      "combination": "A3-B4-C4",
+      "audioSeconds": 10.48,
+      "withConfiguredJoins": 10.72,
+      "withMeasuredTransitions": 10.738
+     },
+     {
+      "combination": "A3-B4-C5",
+      "audioSeconds": 11.24,
+      "withConfiguredJoins": 11.48,
+      "withMeasuredTransitions": 11.498
+     },
+     {
+      "combination": "A3-B5-C1",
+      "audioSeconds": 11.04,
+      "withConfiguredJoins": 11.28,
+      "withMeasuredTransitions": 11.298
+     },
+     {
+      "combination": "A3-B5-C2",
+      "audioSeconds": 11.28,
+      "withConfiguredJoins": 11.52,
+      "withMeasuredTransitions": 11.538
+     },
+     {
+      "combination": "A3-B5-C3",
+      "audioSeconds": 11.08,
+      "withConfiguredJoins": 11.32,
+      "withMeasuredTransitions": 11.338
+     },
+     {
+      "combination": "A3-B5-C4",
+      "audioSeconds": 10.36,
+      "withConfiguredJoins": 10.6,
+      "withMeasuredTransitions": 10.618
+     },
+     {
+      "combination": "A3-B5-C5",
+      "audioSeconds": 11.12,
+      "withConfiguredJoins": 11.36,
+      "withMeasuredTransitions": 11.378
+     },
+     {
+      "combination": "A4-B1-C1",
+      "audioSeconds": 9.68,
+      "withConfiguredJoins": 9.92,
+      "withMeasuredTransitions": 9.938
+     },
+     {
+      "combination": "A4-B1-C2",
+      "audioSeconds": 9.92,
+      "withConfiguredJoins": 10.16,
+      "withMeasuredTransitions": 10.178
+     },
+     {
+      "combination": "A4-B1-C3",
+      "audioSeconds": 9.72,
+      "withConfiguredJoins": 9.96,
+      "withMeasuredTransitions": 9.978
+     },
+     {
+      "combination": "A4-B1-C4",
+      "audioSeconds": 9.0,
+      "withConfiguredJoins": 9.24,
+      "withMeasuredTransitions": 9.258
+     },
+     {
+      "combination": "A4-B1-C5",
+      "audioSeconds": 9.76,
+      "withConfiguredJoins": 10.0,
+      "withMeasuredTransitions": 10.018
+     },
+     {
+      "combination": "A4-B2-C1",
+      "audioSeconds": 9.24,
+      "withConfiguredJoins": 9.48,
+      "withMeasuredTransitions": 9.498
+     },
+     {
+      "combination": "A4-B2-C2",
+      "audioSeconds": 9.48,
+      "withConfiguredJoins": 9.72,
+      "withMeasuredTransitions": 9.738
+     },
+     {
+      "combination": "A4-B2-C3",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A4-B2-C4",
+      "audioSeconds": 8.56,
+      "withConfiguredJoins": 8.8,
+      "withMeasuredTransitions": 8.818
+     },
+     {
+      "combination": "A4-B2-C5",
+      "audioSeconds": 9.32,
+      "withConfiguredJoins": 9.56,
+      "withMeasuredTransitions": 9.578
+     },
+     {
+      "combination": "A4-B3-C1",
+      "audioSeconds": 9.84,
+      "withConfiguredJoins": 10.08,
+      "withMeasuredTransitions": 10.098
+     },
+     {
+      "combination": "A4-B3-C2",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A4-B3-C3",
+      "audioSeconds": 9.88,
+      "withConfiguredJoins": 10.12,
+      "withMeasuredTransitions": 10.138
+     },
+     {
+      "combination": "A4-B3-C4",
+      "audioSeconds": 9.16,
+      "withConfiguredJoins": 9.4,
+      "withMeasuredTransitions": 9.418
+     },
+     {
+      "combination": "A4-B3-C5",
+      "audioSeconds": 9.92,
+      "withConfiguredJoins": 10.16,
+      "withMeasuredTransitions": 10.178
+     },
+     {
+      "combination": "A4-B4-C1",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A4-B4-C2",
+      "audioSeconds": 10.32,
+      "withConfiguredJoins": 10.56,
+      "withMeasuredTransitions": 10.578
+     },
+     {
+      "combination": "A4-B4-C3",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A4-B4-C4",
+      "audioSeconds": 9.4,
+      "withConfiguredJoins": 9.64,
+      "withMeasuredTransitions": 9.658
+     },
+     {
+      "combination": "A4-B4-C5",
+      "audioSeconds": 10.16,
+      "withConfiguredJoins": 10.4,
+      "withMeasuredTransitions": 10.418
+     },
+     {
+      "combination": "A4-B5-C1",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A4-B5-C2",
+      "audioSeconds": 10.2,
+      "withConfiguredJoins": 10.44,
+      "withMeasuredTransitions": 10.458
+     },
+     {
+      "combination": "A4-B5-C3",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     },
+     {
+      "combination": "A4-B5-C4",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A4-B5-C5",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A5-B1-C1",
+      "audioSeconds": 9.64,
+      "withConfiguredJoins": 9.88,
+      "withMeasuredTransitions": 9.898
+     },
+     {
+      "combination": "A5-B1-C2",
+      "audioSeconds": 9.88,
+      "withConfiguredJoins": 10.12,
+      "withMeasuredTransitions": 10.138
+     },
+     {
+      "combination": "A5-B1-C3",
+      "audioSeconds": 9.68,
+      "withConfiguredJoins": 9.92,
+      "withMeasuredTransitions": 9.938
+     },
+     {
+      "combination": "A5-B1-C4",
+      "audioSeconds": 8.96,
+      "withConfiguredJoins": 9.2,
+      "withMeasuredTransitions": 9.218
+     },
+     {
+      "combination": "A5-B1-C5",
+      "audioSeconds": 9.72,
+      "withConfiguredJoins": 9.96,
+      "withMeasuredTransitions": 9.978
+     },
+     {
+      "combination": "A5-B2-C1",
+      "audioSeconds": 9.2,
+      "withConfiguredJoins": 9.44,
+      "withMeasuredTransitions": 9.458
+     },
+     {
+      "combination": "A5-B2-C2",
+      "audioSeconds": 9.44,
+      "withConfiguredJoins": 9.68,
+      "withMeasuredTransitions": 9.698
+     },
+     {
+      "combination": "A5-B2-C3",
+      "audioSeconds": 9.24,
+      "withConfiguredJoins": 9.48,
+      "withMeasuredTransitions": 9.498
+     },
+     {
+      "combination": "A5-B2-C4",
+      "audioSeconds": 8.52,
+      "withConfiguredJoins": 8.76,
+      "withMeasuredTransitions": 8.778
+     },
+     {
+      "combination": "A5-B2-C5",
+      "audioSeconds": 9.28,
+      "withConfiguredJoins": 9.52,
+      "withMeasuredTransitions": 9.538
+     },
+     {
+      "combination": "A5-B3-C1",
+      "audioSeconds": 9.8,
+      "withConfiguredJoins": 10.04,
+      "withMeasuredTransitions": 10.058
+     },
+     {
+      "combination": "A5-B3-C2",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A5-B3-C3",
+      "audioSeconds": 9.84,
+      "withConfiguredJoins": 10.08,
+      "withMeasuredTransitions": 10.098
+     },
+     {
+      "combination": "A5-B3-C4",
+      "audioSeconds": 9.12,
+      "withConfiguredJoins": 9.36,
+      "withMeasuredTransitions": 9.378
+     },
+     {
+      "combination": "A5-B3-C5",
+      "audioSeconds": 9.88,
+      "withConfiguredJoins": 10.12,
+      "withMeasuredTransitions": 10.138
+     },
+     {
+      "combination": "A5-B4-C1",
+      "audioSeconds": 10.04,
+      "withConfiguredJoins": 10.28,
+      "withMeasuredTransitions": 10.298
+     },
+     {
+      "combination": "A5-B4-C2",
+      "audioSeconds": 10.28,
+      "withConfiguredJoins": 10.52,
+      "withMeasuredTransitions": 10.538
+     },
+     {
+      "combination": "A5-B4-C3",
+      "audioSeconds": 10.08,
+      "withConfiguredJoins": 10.32,
+      "withMeasuredTransitions": 10.338
+     },
+     {
+      "combination": "A5-B4-C4",
+      "audioSeconds": 9.36,
+      "withConfiguredJoins": 9.6,
+      "withMeasuredTransitions": 9.618
+     },
+     {
+      "combination": "A5-B4-C5",
+      "audioSeconds": 10.12,
+      "withConfiguredJoins": 10.36,
+      "withMeasuredTransitions": 10.378
+     },
+     {
+      "combination": "A5-B5-C1",
+      "audioSeconds": 9.92,
+      "withConfiguredJoins": 10.16,
+      "withMeasuredTransitions": 10.178
+     },
+     {
+      "combination": "A5-B5-C2",
+      "audioSeconds": 10.16,
+      "withConfiguredJoins": 10.4,
+      "withMeasuredTransitions": 10.418
+     },
+     {
+      "combination": "A5-B5-C3",
+      "audioSeconds": 9.96,
+      "withConfiguredJoins": 10.2,
+      "withMeasuredTransitions": 10.218
+     },
+     {
+      "combination": "A5-B5-C4",
+      "audioSeconds": 9.24,
+      "withConfiguredJoins": 9.48,
+      "withMeasuredTransitions": 9.498
+     },
+     {
+      "combination": "A5-B5-C5",
+      "audioSeconds": 10.0,
+      "withConfiguredJoins": 10.24,
+      "withMeasuredTransitions": 10.258
+     }
+    ]
+   }
+  }
+ },
+ "listeningSamples": [
+  {
+   "file": "TR_A1-B1-C1_then-summary.wav",
+   "language": "tr",
+   "clips": [
+    "TR_A1.wav",
+    "TR_B1.wav",
+    "TR_C1.wav"
+   ],
+   "bridgeSeconds": 9.6,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "tr-part0.wav",
+    "tr-part1.wav"
+   ],
+   "summaryText": "İş yerindeki yoğun tempodan ve son haftalarda bozulan uyku düzeninden söz ettiniz. Akşamları kısa yürüyüşlerin size iyi geldiğini belirttiniz.",
+   "summarySeconds": 12.28,
+   "seconds": 22.0,
+   "bytes": 1056044,
+   "sha256": "c88a180094e737505220814dd7a64aba40f8c58b3bf1898840f1a69e958f68d5",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "TR_A2-B2-C2_then-summary.wav",
+   "language": "tr",
+   "clips": [
+    "TR_A2.wav",
+    "TR_B2.wav",
+    "TR_C2.wav"
+   ],
+   "bridgeSeconds": 10.36,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "tr-part0.wav",
+    "tr-part1.wav"
+   ],
+   "summaryText": "İş yerindeki yoğun tempodan ve son haftalarda bozulan uyku düzeninden söz ettiniz. Akşamları kısa yürüyüşlerin size iyi geldiğini belirttiniz.",
+   "summarySeconds": 12.28,
+   "seconds": 22.76,
+   "bytes": 1092524,
+   "sha256": "dc57cade167f6daa5dbd8f4a8191be575442e284a7affb9071bea349c7ee3590",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "TR_A3-B3-C3_then-summary.wav",
+   "language": "tr",
+   "clips": [
+    "TR_A3.wav",
+    "TR_B3.wav",
+    "TR_C3.wav"
+   ],
+   "bridgeSeconds": 10.6,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "tr-part0.wav",
+    "tr-part1.wav"
+   ],
+   "summaryText": "İş yerindeki yoğun tempodan ve son haftalarda bozulan uyku düzeninden söz ettiniz. Akşamları kısa yürüyüşlerin size iyi geldiğini belirttiniz.",
+   "summarySeconds": 12.28,
+   "seconds": 23.0,
+   "bytes": 1104044,
+   "sha256": "1fd9de0057e9156f5d52ea5530d4a28f12d121582f2f7a2e8081bcb8a6d12e89",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "TR_A4-B4-C4_then-summary.wav",
+   "language": "tr",
+   "clips": [
+    "TR_A4.wav",
+    "TR_B4.wav",
+    "TR_C4.wav"
+   ],
+   "bridgeSeconds": 12.8,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "tr-part0.wav",
+    "tr-part1.wav"
+   ],
+   "summaryText": "İş yerindeki yoğun tempodan ve son haftalarda bozulan uyku düzeninden söz ettiniz. Akşamları kısa yürüyüşlerin size iyi geldiğini belirttiniz.",
+   "summarySeconds": 12.28,
+   "seconds": 25.2,
+   "bytes": 1209644,
+   "sha256": "6c61848c3cc3938b15c920539f75f92f0b735fa50fe2969ba360c0e285993440",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "TR_A5-B5-C5_then-summary.wav",
+   "language": "tr",
+   "clips": [
+    "TR_A5.wav",
+    "TR_B5.wav",
+    "TR_C5.wav"
+   ],
+   "bridgeSeconds": 10.8,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "tr-part0.wav",
+    "tr-part1.wav"
+   ],
+   "summaryText": "İş yerindeki yoğun tempodan ve son haftalarda bozulan uyku düzeninden söz ettiniz. Akşamları kısa yürüyüşlerin size iyi geldiğini belirttiniz.",
+   "summarySeconds": 12.28,
+   "seconds": 23.2,
+   "bytes": 1113644,
+   "sha256": "383ab8845f9c98ac64d8da75ca30489b244746aa372355553dac99632b42fd12",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "EN_A1-B1-C1_then-summary.wav",
+   "language": "en",
+   "clips": [
+    "EN_A1.wav",
+    "EN_B1.wav",
+    "EN_C1.wav"
+   ],
+   "bridgeSeconds": 7.56,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "en-part0.wav",
+    "en-part1.wav"
+   ],
+   "summaryText": "You talked about the heavy pace at work and your sleep being disrupted in recent weeks. You mentioned that short evening walks help you.",
+   "summarySeconds": 8.68,
+   "seconds": 16.36,
+   "bytes": 785324,
+   "sha256": "88bbc34cafd479b90136c34495bc24ad27072e4baa354ad1ae7e53851c769d8a",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "EN_A2-B2-C2_then-summary.wav",
+   "language": "en",
+   "clips": [
+    "EN_A2.wav",
+    "EN_B2.wav",
+    "EN_C2.wav"
+   ],
+   "bridgeSeconds": 9.12,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "en-part0.wav",
+    "en-part1.wav"
+   ],
+   "summaryText": "You talked about the heavy pace at work and your sleep being disrupted in recent weeks. You mentioned that short evening walks help you.",
+   "summarySeconds": 8.68,
+   "seconds": 17.92,
+   "bytes": 860204,
+   "sha256": "7433b648c1fc902b839369a0fe967250f0e8cde70c72f3723cdf2102d90df8fa",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "EN_A3-B3-C3_then-summary.wav",
+   "language": "en",
+   "clips": [
+    "EN_A3.wav",
+    "EN_B3.wav",
+    "EN_C3.wav"
+   ],
+   "bridgeSeconds": 8.8,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "en-part0.wav",
+    "en-part1.wav"
+   ],
+   "summaryText": "You talked about the heavy pace at work and your sleep being disrupted in recent weeks. You mentioned that short evening walks help you.",
+   "summarySeconds": 8.68,
+   "seconds": 17.6,
+   "bytes": 844844,
+   "sha256": "dda41ad713484f5d2a740e3059e17afbbefde8b7907cf1295d85a827b49db3b9",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "EN_A4-B4-C4_then-summary.wav",
+   "language": "en",
+   "clips": [
+    "EN_A4.wav",
+    "EN_B4.wav",
+    "EN_C4.wav"
+   ],
+   "bridgeSeconds": 9.64,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "en-part0.wav",
+    "en-part1.wav"
+   ],
+   "summaryText": "You talked about the heavy pace at work and your sleep being disrupted in recent weeks. You mentioned that short evening walks help you.",
+   "summarySeconds": 8.68,
+   "seconds": 18.44,
+   "bytes": 885164,
+   "sha256": "c1dbfe077551f511fdcbf9052efd146534d119054aa5d6015b77bc1a121bf7ef",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "EN_A5-B5-C5_then-summary.wav",
+   "language": "en",
+   "clips": [
+    "EN_A5.wav",
+    "EN_B5.wav",
+    "EN_C5.wav"
+   ],
+   "bridgeSeconds": 8.68,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "en-part0.wav",
+    "en-part1.wav"
+   ],
+   "summaryText": "You talked about the heavy pace at work and your sleep being disrupted in recent weeks. You mentioned that short evening walks help you.",
+   "summarySeconds": 8.68,
+   "seconds": 17.48,
+   "bytes": 839084,
+   "sha256": "586dff2ed5a33ced2244ac33d2b85d3bcf252a00122fc2d1387ba8244b5a607e",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "DE_A1-B1-C1_then-summary.wav",
+   "language": "de",
+   "clips": [
+    "DE_A1.wav",
+    "DE_B1.wav",
+    "DE_C1.wav"
+   ],
+   "bridgeSeconds": 10.64,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "de-part0.wav",
+    "de-part1.wav"
+   ],
+   "summaryText": "Sie haben über das hohe Arbeitstempo und Ihren in den letzten Wochen gestörten Schlaf gesprochen. Sie erwähnten, dass Ihnen kurze Abendspaziergänge guttun.",
+   "summarySeconds": 10.08,
+   "seconds": 20.84,
+   "bytes": 1000364,
+   "sha256": "2ad694c9fceb92a4f1cfbf26b8b83e52ccb2a938cf1f098cd0bce43a1bca27e6",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "DE_A2-B2-C2_then-summary.wav",
+   "language": "de",
+   "clips": [
+    "DE_A2.wav",
+    "DE_B2.wav",
+    "DE_C2.wav"
+   ],
+   "bridgeSeconds": 10.68,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "de-part0.wav",
+    "de-part1.wav"
+   ],
+   "summaryText": "Sie haben über das hohe Arbeitstempo und Ihren in den letzten Wochen gestörten Schlaf gesprochen. Sie erwähnten, dass Ihnen kurze Abendspaziergänge guttun.",
+   "summarySeconds": 10.08,
+   "seconds": 20.88,
+   "bytes": 1002284,
+   "sha256": "2a07444e69672faec4064a82c1120ec20fab89800af14f410a5cd1d12c3704c4",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "DE_A3-B3-C3_then-summary.wav",
+   "language": "de",
+   "clips": [
+    "DE_A3.wav",
+    "DE_B3.wav",
+    "DE_C3.wav"
+   ],
+   "bridgeSeconds": 11.2,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "de-part0.wav",
+    "de-part1.wav"
+   ],
+   "summaryText": "Sie haben über das hohe Arbeitstempo und Ihren in den letzten Wochen gestörten Schlaf gesprochen. Sie erwähnten, dass Ihnen kurze Abendspaziergänge guttun.",
+   "summarySeconds": 10.08,
+   "seconds": 21.4,
+   "bytes": 1027244,
+   "sha256": "f447affee01cbf27b9e564b637416c585ab53f907f800e2ad7ac8d38a6bbf413",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "DE_A4-B4-C4_then-summary.wav",
+   "language": "de",
+   "clips": [
+    "DE_A4.wav",
+    "DE_B4.wav",
+    "DE_C4.wav"
+   ],
+   "bridgeSeconds": 9.64,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "de-part0.wav",
+    "de-part1.wav"
+   ],
+   "summaryText": "Sie haben über das hohe Arbeitstempo und Ihren in den letzten Wochen gestörten Schlaf gesprochen. Sie erwähnten, dass Ihnen kurze Abendspaziergänge guttun.",
+   "summarySeconds": 10.08,
+   "seconds": 19.84,
+   "bytes": 952364,
+   "sha256": "98c2d111e062b2dad2c561061e0e3842c295674c689265683433889b7f9d82a3",
+   "approvalStatus": "awaiting-owner-listening"
+  },
+  {
+   "file": "DE_A5-B5-C5_then-summary.wav",
+   "language": "de",
+   "clips": [
+    "DE_A5.wav",
+    "DE_B5.wav",
+    "DE_C5.wav"
+   ],
+   "bridgeSeconds": 10.24,
+   "joinPauseMs": 120,
+   "transitionToSummaryMs": 120,
+   "summaryParts": [
+    "de-part0.wav",
+    "de-part1.wav"
+   ],
+   "summaryText": "Sie haben über das hohe Arbeitstempo und Ihren in den letzten Wochen gestörten Schlaf gesprochen. Sie erwähnten, dass Ihnen kurze Abendspaziergänge guttun.",
+   "summarySeconds": 10.08,
+   "seconds": 20.44,
+   "bytes": 981164,
+   "sha256": "915f559683f74bc5df6a05565a02f3b2633a901be9568547a96f5432d131b4bf",
+   "approvalStatus": "awaiting-owner-listening"
+  }
+ ],
+ "awsWindow": {
+  "startSentUtc": "2026-11-09T23:01:43.942276+00:00",
+  "stopSentUtc": "2026-11-09T23:20:35.523255+00:00",
+  "stoppedConfirmedUtc": "2026-11-09T23:20:56.167581+00:00",
+  "finalStates": {
+   "web": {
+    "state": "stopped",
+    "type": "r7i.2xlarge",
+    "launchTime": "2026-11-09T23:01:43+00:00"
+   },
+   "aaos": {
+    "state": "stopped",
+    "type": "m8i.2xlarge",
+    "launchTime": "2026-11-05T05:56:54+00:00"
+   }
+  },
+  "aaosStarted": false,
+  "newAwsResources": 0,
+  "guards": [
+   "local StopInstances watchdog armed before start (deadline +57 min); exited after API-confirmed stop",
+   "OS shutdown timer on WEB (+55 min from start; instanceInitiatedShutdownBehavior verified = stop)"
+  ],
+  "preflight": {
+   "otherExperimentProcesses": [],
+   "cdcProgress": "{\"state\": \"complete\", \"elapsedSeconds\": 2754.14076513}",
+   "productFilesMatchedRecordedHashes": true
+  },
+  "finalChecks": {
+   "protectedFilesUnchanged": true,
+   "leftoverJobProcesses": [],
+   "cdcWavFilesStillPresent": 209,
+   "workDirectoryRetainedOnWebEbs": "/var/tmp/attune-closing-abc-20261109",
+   "workFiles": 75,
+   "workBytes": 28566363
+  }
+ },
+ "recovery209": {
+  "manifestRows": 209,
+  "matchedOnDisk": 209,
+  "missing": [],
+  "mismatch": [],
+  "extraOnDisk": [],
+  "uniqueContents": 122,
+  "payloadBytes": 31693036
+ }
+}

@@ -13,6 +13,7 @@ import re
 import sys
 import tempfile
 from time import monotonic
+from collections import deque
 import wave
 from fastapi import HTTPException
 from starlette.concurrency import run_in_threadpool
@@ -87,31 +88,65 @@ async def stop_resident():
         await process.wait()
 
 
-async def _warm(path, language, speaker_profile):
+# Numerical record of each warm-up (profile, language, seconds, cold/warm); no text. Read by the latency tools and
+# logged once per warm-up, so the preparation time is reported on its own and never folded into request times.
+warm_log = deque(maxlen=64)
+WARM_PROFILES = ('female-calm-v1',)
+
+
+def warm_profiles():
+    """Speaker profiles also prepared at service start, after the default model (ATTUNE_MENTAL_TTS_WARM_PROFILES, e.g.
+    'female-calm-v1' for the closing voice). Empty unless set: without the variable the service starts as before."""
+    names = [name.strip() for name in os.getenv('ATTUNE_MENTAL_TTS_WARM_PROFILES', '').split(',')]
+    return [name for name in dict.fromkeys(names) if name in WARM_PROFILES]
+
+
+async def _warm_one(path, language, speaker_profile):
+    started = monotonic()
+    row = {'profile': speaker_profile or 'default', 'language': language, 'ok': False, 'start': None, 'seconds': None}
     try:
         process = await _start_resident()
         job = {'config': path, 'language': language, 'warm': True, **({'speakerProfile': speaker_profile} if speaker_profile else {})}
         process.stdin.write(json.dumps(job).encode() + b'\n')
         await process.stdin.drain()
         reply = await process.stdout.readline()
-        if not reply or 'error' in json.loads(reply):
+        data = json.loads(reply) if reply else {'error': True}
+        row.update(ok='error' not in data, start=data.get('start'), seconds=round(monotonic() - started, 3))
+        if not row['ok']:
             logger.warning('Resident speech worker did not warm up')
             await stop_resident()
     except asyncio.CancelledError:
+        row.update(seconds=round(monotonic() - started, 3), cancelled=True)
         await stop_resident()
         raise
     except (OSError, ValueError):
         logger.warning('Resident speech worker did not start')
         await stop_resident()
+    finally:
+        warm_log.append(row)
+        logger.info('Resident speech warm-up %s', json.dumps(row))
+    return row['ok']
 
 
-def schedule_warm(language='en', speaker_profile=None):
-    """Loads the model ahead of the first request. No user text is involved."""
+async def _warm(jobs):
+    for path, language, speaker_profile in jobs:
+        if not await _warm_one(path, language, speaker_profile):
+            return
+
+
+def schedule_warm(language='en', speaker_profile=None, profiles=()):
+    """Loads the model ahead of the first request, then each listed speaker profile's model in the same resident worker
+    (a model belongs to its configuration). No user text is involved. Requests wait for it ('warm-wait' timing)."""
     global _warm_task
-    path = configuration_path(speaker_profile)
-    if not resident_enabled() or not path or not Path(path).is_file() or (_warm_task and not _warm_task.done()):
+    if not resident_enabled() or (_warm_task and not _warm_task.done()):
         return
-    _warm_task = asyncio.create_task(_warm(path, language, speaker_profile))
+    jobs = []
+    for profile in (speaker_profile, *[p for p in profiles if p != speaker_profile]):
+        path = configuration_path(profile)
+        if path and Path(path).is_file() and all(path != job[0] for job in jobs):
+            jobs.append((path, language, profile))
+    if jobs:
+        _warm_task = asyncio.create_task(_warm(jobs))
 
 
 async def close_resident():

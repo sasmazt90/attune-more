@@ -1,0 +1,364 @@
+{
+ "schema": "attune-closing-comparison-holdout-v1",
+ "note": "Written after the catalog cues were tuned on round6-comparison-inputs.json. First run (before any change): 6/18 acceptable accepted, 4/9 forbidden refused (round6-holdout-run1-oracle.json). The rules were then corrected in general form (person nouns, pride in someone else, decision and sleep phrasing); later results on this set are after tuning and not independent. The fresh set is round6-holdout2-inputs.json.",
+ "inputs": [
+  {
+   "id": "tr-h01",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Patronum her şeyi bana yüklüyor, sorumluluklar altında eziliyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C14",
+     "C01"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h02",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Kardeşim sınavı kazandı, onunla gurur duyuyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30"
+    ],
+    "forbiddenPatterns": [
+     "C33"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h03",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Geceleri uyuyamıyorum ama gündüz iyi hissediyorum."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h04",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Kendimi yalnız hissetmiyorum, ailem hep yanımda."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C28"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h05",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Bu kararı vermekte çok zorlanıyorum, iki iş teklifi arasında kaldım."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C13"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "tr-h06",
+   "language": "tr",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Eşim çok yorgun, ben iyiyim."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C08"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h01",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My boss dumps everything on me and the responsibilities are crushing me."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C14",
+     "C01"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h02",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My brother passed his exam and I am so proud of him."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30"
+    ],
+    "forbiddenPatterns": [
+     "C33"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h03",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I can't sleep at night, but during the day I feel fine."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h04",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I don't feel lonely, my family is always there for me."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C28"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h05",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "I'm struggling to decide between two job offers."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C13"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "en-h06",
+   "language": "en",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "My wife is exhausted, I'm fine."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C08"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h01",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Mein Chef lädt alles auf mich ab und die Verantwortung erdrückt mich."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C14",
+     "C01"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h02",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Mein Bruder hat die Prüfung bestanden und ich bin so stolz auf ihn."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C30"
+    ],
+    "forbiddenPatterns": [
+     "C33"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h03",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Nachts kann ich nicht schlafen, aber tagsüber geht es mir gut."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C09"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h04",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich fühle mich nicht einsam, meine Familie ist immer für mich da."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C28"
+    ],
+    "forbiddenPatterns": [
+     "C17"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h05",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Ich kann mich nicht zwischen zwei Jobangeboten entscheiden."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [
+     "C13"
+    ],
+    "forbiddenPatterns": [],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  },
+  {
+   "id": "de-h06",
+   "language": "de",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "Meine Frau ist erschöpft, mir geht es gut."
+    }
+   ],
+   "expected": {
+    "acceptablePatterns": [],
+    "forbiddenPatterns": [
+     "C08"
+    ],
+    "salient": null,
+    "writtenSummaryTopics": []
+   },
+   "note": ""
+  }
+ ],
+ "legacyLines": []
+}

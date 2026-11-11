@@ -1,0 +1,255 @@
+{
+ "schema": "attune-mental-tts-benchmark-texts-v1",
+ "createdAt": "2026-11-10",
+ "description": "Fixed text list for the CPU/GPU comparison of the pinned TTS model (tts_device_benchmark.py). Synthetic, non-personal. origin \"archive\": the text was synthesized on the WEB CPU host through the HTTP speech endpoint in an earlier run (earlierCpuHttp: that run's request seconds, bundle verification included, no seed). origin \"new-for-this-benchmark\": a line the real provider returned in the 2026-11-10 acceptance run; it had never been synthesized, so there is no earlier audio or timing for it. The earlier plan asked for three short lines per language; the archive holds two Turkish, two English and one German distinct short line of the current form, so one Turkish, one English and two German lines are new here. Long parts are first parts of written summaries (the behaviour before the short line) and are for comparison only. Some lines would be refused by the current validator (de-s1: \"Umzug\" is a paraphrase); that does not matter for a speed comparison.",
+ "settings": {
+  "voiceProfile": "female-calm-v1",
+  "generation": {
+   "exaggeration": 0.35,
+   "cfg_weight": 0.0,
+   "temperature": 0.8
+  },
+  "seedRule": "first 32 bits of SHA-256(\"<text id>#<repeat>\")",
+  "threadsCpu": 4,
+  "precision": "FP32, TF32 off on CUDA",
+  "watermark": "retained"
+ },
+ "texts": [
+  {
+   "id": "tr-s1",
+   "language": "tr",
+   "kind": "short",
+   "text": "İşten ve akşamları uyku düzeninden söz ettin.",
+   "origin": "archive",
+   "source": "web-review4/x/realpath4/realpath.json (Drive: Review-2026-11-10-round2/04-web-round2.zip) tr-c1",
+   "earlierCpuHttp": {
+    "cold": {
+     "seconds": 27.459,
+     "audioSeconds": 4.2
+    },
+    "warm": {
+     "seconds": 15.683,
+     "audioSeconds": 3.76
+    }
+   },
+   "words": 7,
+   "characters": 45
+  },
+  {
+   "id": "en-s1",
+   "language": "en",
+   "kind": "short",
+   "text": "You talked about work pressure and interrupted sleep.",
+   "origin": "archive",
+   "source": "web-review4/x/realpath4/realpath.json (Drive: Review-2026-11-10-round2/04-web-round2.zip) en-c1",
+   "earlierCpuHttp": {
+    "cold": {
+     "seconds": 24.806,
+     "audioSeconds": 3.12
+    },
+    "warm": {
+     "seconds": 14.148,
+     "audioSeconds": 3.12
+    }
+   },
+   "words": 8,
+   "characters": 53
+  },
+  {
+   "id": "de-s1",
+   "language": "de",
+   "kind": "short",
+   "text": "Sie sprachen über den Umzug und das Telefonieren mit einer Freundin.",
+   "origin": "archive",
+   "source": "web-review4/x/realpath4/realpath.json (Drive: Review-2026-11-10-round2/04-web-round2.zip) de-c2",
+   "earlierCpuHttp": {
+    "cold": {
+     "seconds": 28.188,
+     "audioSeconds": 4.52
+    }
+   },
+   "words": 11,
+   "characters": 68
+  },
+  {
+   "id": "tr-s2",
+   "language": "tr",
+   "kind": "short",
+   "text": "Taşınmaktan ve arkadaşlarından uzaklaşmaktan söz ettin.",
+   "origin": "archive",
+   "source": "web-review4/x/realpath4/realpath.json (Drive: Review-2026-11-10-round2/04-web-round2.zip) tr-c2",
+   "earlierCpuHttp": {
+    "warm": {
+     "seconds": 20.273,
+     "audioSeconds": 5.6
+    }
+   },
+   "words": 6,
+   "characters": 55
+  },
+  {
+   "id": "en-s2",
+   "language": "en",
+   "kind": "short",
+   "text": "You talked about feeling anxious about setting up a new routine.",
+   "origin": "archive",
+   "source": "web-review4/x/realpath4/realpath.json (Drive: Review-2026-11-10-round2/04-web-round2.zip) en-c2",
+   "earlierCpuHttp": {
+    "warm": {
+     "seconds": 16.53,
+     "audioSeconds": 3.92
+    }
+   },
+   "words": 11,
+   "characters": 64
+  },
+  {
+   "id": "de-s2",
+   "language": "de",
+   "kind": "short",
+   "text": "Sie sprachen über Ablenkungen durch Ihr Handy.",
+   "origin": "new-for-this-benchmark",
+   "source": "acceptance5-diverse.json (Drive: Review-2026-11-10-round2/04-web-round2.zip): real-provider line, text only de-d2",
+   "words": 7,
+   "characters": 46
+  },
+  {
+   "id": "tr-s3",
+   "language": "tr",
+   "kind": "short",
+   "text": "Annenle akşam yemeğinde tartışmalardan söz ettin.",
+   "origin": "new-for-this-benchmark",
+   "source": "acceptance5-diverse.json (Drive: Review-2026-11-10-round2/04-web-round2.zip): real-provider line, text only tr-d1",
+   "words": 6,
+   "characters": 49
+  },
+  {
+   "id": "en-s3",
+   "language": "en",
+   "kind": "short",
+   "text": "You talked about feeling lonely and missing breakfasts with friends.",
+   "origin": "new-for-this-benchmark",
+   "source": "acceptance5-diverse.json (Drive: Review-2026-11-10-round2/04-web-round2.zip): real-provider line, text only en-d4",
+   "words": 10,
+   "characters": 68
+  },
+  {
+   "id": "de-s3",
+   "language": "de",
+   "kind": "short",
+   "text": "Sie sprachen über die neue Arbeit und den langen Weg.",
+   "origin": "new-for-this-benchmark",
+   "source": "acceptance5-diverse.json (Drive: Review-2026-11-10-round2/04-web-round2.zip): real-provider line, text only de-d6",
+   "words": 10,
+   "characters": 53
+  },
+  {
+   "id": "tr-l1",
+   "language": "tr",
+   "kind": "long",
+   "text": "Kullanıcı, son haftalarda işteki yoğun tempodan dolayı akşamları kafasını boşaltamadığını ve geç yatıp sık sık uyku bölünmeleri yaşadığını belirtiyor.",
+   "origin": "archive",
+   "source": "web-review3/x/realpath2/realpath.json (Drive: Review-2026-11-10/…; run closing-realpath:20261110T014815Z:e7bb2d) tr-c1-long0",
+   "earlierCpuHttp": {
+    "cold": {
+     "seconds": 48.639,
+     "audioSeconds": 11.6
+    },
+    "warm": {
+     "seconds": 39.793,
+     "audioSeconds": 12.04
+    }
+   },
+   "words": 19,
+   "characters": 150
+  },
+  {
+   "id": "en-l1",
+   "language": "en",
+   "kind": "long",
+   "text": "The user is feeling worn out due to moving to a new city, particularly from setting up a new routine and being far from friends, which causes anxiety.",
+   "origin": "archive",
+   "source": "web-review3/x/realpath2/realpath.json (Drive: Review-2026-11-10/…; run closing-realpath:20261110T014815Z:e7bb2d) en-c2-long0",
+   "earlierCpuHttp": {
+    "warm": {
+     "seconds": 33.23,
+     "audioSeconds": 10.0
+    }
+   },
+   "words": 28,
+   "characters": 150
+  },
+  {
+   "id": "de-l1",
+   "language": "de",
+   "kind": "long",
+   "text": "Der Benutzer fühlt sich durch den Umzug in eine andere Stadt erschöpft und unruhig, da er eine neue Routine aufbauen und von seinen Freunden weit weg sein muss.",
+   "origin": "archive",
+   "source": "web-review3/x/realpath2/realpath.json (Drive: Review-2026-11-10/…; run closing-realpath:20261110T014815Z:e7bb2d) de-c2-long0",
+   "earlierCpuHttp": {
+    "warm": {
+     "seconds": 39.314,
+     "audioSeconds": 11.92
+    }
+   },
+   "words": 28,
+   "characters": 160
+  },
+  {
+   "id": "tr-l2",
+   "language": "tr",
+   "kind": "long",
+   "text": "Kısa yürüyüşlerin biraz iyi geldiğini ifade ederek, bu hafta en az iki akşam yürümeyi deneyeceğini söylüyor.",
+   "origin": "archive",
+   "source": "web-review3/x/realpath2/realpath.json (Drive: Review-2026-11-10/…; run closing-realpath:20261110T014815Z:e7bb2d) tr-c1-long1",
+   "earlierCpuHttp": {
+    "warm": {
+     "seconds": 30.278,
+     "audioSeconds": 8.8
+    }
+   },
+   "words": 16,
+   "characters": 108
+  },
+  {
+   "id": "en-l2",
+   "language": "en",
+   "kind": "long",
+   "text": "The user is experiencing intense work pressure, which affects their evenings and sleep.",
+   "origin": "archive",
+   "source": "web-review3/x/realpath2/realpath.json (Drive: Review-2026-11-10/…; run closing-realpath:20261110T014815Z:e7bb2d) en-c1-long0",
+   "earlierCpuHttp": {
+    "cold": {
+     "seconds": 33.379,
+     "audioSeconds": 5.64
+    },
+    "warm": {
+     "seconds": 21.916,
+     "audioSeconds": 5.4
+    }
+   },
+   "words": 13,
+   "characters": 87
+  },
+  {
+   "id": "de-l2",
+   "language": "de",
+   "kind": "long",
+   "text": "Der Benutzer berichtet von hohem Arbeitstempo und Schwierigkeiten beim Abschalten am Abend.",
+   "origin": "archive",
+   "source": "web-review3/x/realpath2/realpath.json (Drive: Review-2026-11-10/…; run closing-realpath:20261110T014815Z:e7bb2d) de-c1-long0",
+   "earlierCpuHttp": {
+    "cold": {
+     "seconds": 33.013,
+     "audioSeconds": 5.92
+    },
+    "warm": {
+     "seconds": 22.483,
+     "audioSeconds": 6.0
+    }
+   },
+   "words": 12,
+   "characters": 91
+  }
+ ]
+}

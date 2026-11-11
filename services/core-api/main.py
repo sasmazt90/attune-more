@@ -41,7 +41,7 @@ async def lifespan(_app: FastAPI):
     speech = None
     if os.getenv('ATTUNE_MENTAL_TTS_RESIDENT') == '1':
         import mental_neural_tts as speech
-        speech.schedule_warm()
+        speech.schedule_warm(profiles=speech.warm_profiles())
     try:
         yield
     finally:
@@ -260,6 +260,10 @@ class AnalyzeSessionPayload(MemoryPayload):
     messages: List[Dict[str, str]] = Field(max_length=200)
     cloudConsent: StrictBool = False
     engine: Literal['legacy','structured-v1'] = 'legacy'
+    # Normal-conversation closing bridge only: ask the same analysis call for a short spoken line.
+    spokenSummary: StrictBool = False
+    # With spokenSummary: speak a fixed, reviewed catalog line chosen and checked against the user's own words.
+    spokenCatalog: StrictBool = False
     historyConsent: StrictBool = False
     priorSessions: List[HistoricalMentalSummary] = Field(default_factory=list,max_length=5)
     noAdvice: StrictBool = False
@@ -459,6 +463,9 @@ def analyze_mental_session(payload: AnalyzeSessionPayload):
         analyzer.prior_sessions = relevant_history(payload.messages,payload.priorSessions) if payload.historyConsent and payload.cloudConsent else []
     if payload.memory:
         analyzer.session_memory = payload.memory
+    if payload.spokenSummary and payload.engine == 'legacy':
+        analyzer.spoken_summary = True
+        analyzer.closing_catalog = payload.spokenCatalog
     return analyzer.analyze_session(payload.messages)
 
 class CompactContextPayload(AnalyzeSessionPayload):
