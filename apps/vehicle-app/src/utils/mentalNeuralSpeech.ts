@@ -1,6 +1,6 @@
 import {getLanguage,getLocale,VOICE_EVENT} from '../i18n/core';
 import {captureWhileLocked,languageSwitchLocked} from '../i18n/locks';
-import {playAudioBytes,type PlaybackGestureRequest} from './fixedFileSpeech';
+import {playAudioBytes,prepareAudioBytes,type PlayableAudio,type PlaybackGestureRequest} from './fixedFileSpeech';
 import {speechMuted} from './playbackMeter';
 import limits from '../../../../shared/localization/neural-tts-limits.json';
 export const MENTAL_ENGINE_KEY='attune.mental-speech-engine.v1';
@@ -30,10 +30,10 @@ export function speechParts(text:string):string[]{
  const rest=sentences.slice(at).join(' ');
  return rest?[first,rest]:[text];
 }
-export type NeuralSpeechOptions={requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1'};
+export type NeuralSpeechOptions={requestGesture?:PlaybackGestureRequest;observe?:(stage:string)=>void;speakerProfile?:'official-default'|'female-calm-v1';wholeReply?:boolean;preparedElement?:HTMLAudioElement};
 /** Speech whose generation has started but whose playback is a separate, single step. */
 export type PreparedNeuralSpeech={
- /** True once the first part is generated and still permitted. Never rejects. */
+ /** First part ready; wholeReply requires the entire reply decoded/prebuffered. Never rejects. */
  firstReady:Promise<boolean>;
  /** Plays every part in order; a later part keeps generating while an earlier one plays. Only the first call plays.
   * An element passed in is reused for every part (keeps an Android WebView gesture unlock); otherwise each part gets a new one. */
@@ -61,8 +61,8 @@ export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current
  // Claim focus during generation too, preventing fixed guidance overlap.
  const owner={},focus=(active:boolean)=>{const event=new Event('attune-stream-focus') as Event&{owner:object;active:boolean};event.owner=owner;event.active=active;window.dispatchEvent(event);};
  focus(true);
- let released=false,played=false;
- const release=()=>{if(released)return;released=true;controller.abort();clearInterval(timer);clearTimeout(deadline);signal.removeEventListener('abort',cancel);for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.removeEventListener(event,cancel);document.removeEventListener('visibilitychange',check);focus(false);};
+ let released=false,played=false,whole:PlayableAudio|null=null;
+ const release=()=>{if(released)return;released=true;controller.abort();whole?.cancel();clearInterval(timer);clearTimeout(deadline);signal.removeEventListener('abort',cancel);for(const event of ['attune-locale-media-cancel','attune-guidance-muted','attune-guidance-cancel'])window.removeEventListener(event,cancel);document.removeEventListener('visibilitychange',check);focus(false);};
  // Null means this part cannot be played, for whatever reason. It never rejects, because the next part is generated
  // while this one plays and nothing is waiting on it yet.
  const generate=async(part:string,index:number):Promise<ArrayBuffer|null>=>{
@@ -80,7 +80,7 @@ export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current
    return bytes.buffer;
   }catch{return null;}
  };
- const parts=speechParts(text),results:Promise<ArrayBuffer|null>[]=[];
+ const parts=options.wholeReply?[text]:speechParts(text),results:Promise<ArrayBuffer|null>[]=[];
  // One part generates at a time. A part starts as soon as the previous one is ready, so the next part is
  // generated while the current one plays (or while it waits to be played).
  const start=(index:number)=>{
@@ -94,11 +94,12 @@ export function prepareMentalNeuralSpeech(text:string,signal:AbortSignal,current
   });
  };
  start(0);
- const firstReady=results[0].then(bytes=>!!bytes&&permitted());
+ const firstReady=results[0].then(async bytes=>{if(!bytes||!permitted())return false;if(!options.wholeReply)return true;whole=await prepareAudioBytes(bytes,'audio/wav',limits.audioSeconds,controller.signal,permitted,options.preparedElement);return !!whole&&permitted();});
  const play=async(onPlaying:()=>void,audioReady:(audio:HTMLAudioElement)=>void,requestGesture?:PlaybackGestureRequest,element?:HTMLAudioElement)=>{
   if(played||released)return false;
   played=true;
   try{
+   if(options.wholeReply){if(!await firstReady||!whole||!permitted())return false;audioReady(whole.audio);return await whole.play(stage=>{options.observe?.(stage);if(stage==='playing')onPlaying();},requestGesture);}
    for(let index=0;index<parts.length;index++){
     const bytes=await results[index];
     if(!bytes||!permitted())return false;

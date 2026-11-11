@@ -206,6 +206,12 @@ class OpenAICompatibleMentalProvider(MentalConversationProvider):
             if current_language() != 'tr':
                 system_prompt = system_prompt.replace('Kullanıcı ile Türkçe, sıcak ve empatik konuşursun.',
                     'Respond only in '+LANGUAGE_NAMES[current_language()]+', warmly and empathetically; preserve every safety rule below.')
+            if getattr(self,'hybrid_acknowledgement',False):
+                system_prompt += ('\nFor this hybrid turn return ONLY one brief, warm acknowledgement of the user’s actual words, '
+                    'at most 12 words. No question, advice, goodbye, invented emotion, cause, person or event. '
+                    'Later corrections and requests just to listen take precedence. '
+                    'The application appends the already selected compatible follow-up; do not write it. '
+                    'Use formal address in Turkish and German. Plain text only.')
             from mental_context import memory_message
             messages = [{"role": "system", "content": system_prompt}] + memory_message(getattr(self,"session_memory",[]))
             for h in history[-40:]:

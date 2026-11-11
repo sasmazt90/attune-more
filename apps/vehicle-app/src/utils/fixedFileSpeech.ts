@@ -13,11 +13,11 @@ export async function playFixedSpeech(audio:HTMLAudioElement,clip:FixedClip,sign
 }
 
 /** Shared output lifecycle for original clips and newly generated PCM WAV. */
-export async function playAudioBytes(audio:HTMLAudioElement,bytes:ArrayBuffer,mime:string,durationSeconds:number,signal:AbortSignal,current:()=>boolean,observe:(stage:string)=>void=()=>{},ownsFocus=false,requestGesture?:PlaybackGestureRequest):Promise<boolean>{
+export async function playAudioBytes(audio:HTMLAudioElement,bytes:ArrayBuffer,mime:string,durationSeconds:number,signal:AbortSignal,current:()=>boolean,observe:(stage:string)=>void=()=>{},ownsFocus=false,requestGesture?:PlaybackGestureRequest,preparedUrl?:string):Promise<boolean>{
  const allowed=()=>{try{return !signal.aborted&&current()&&!document.hidden&&!speechMuted()&&Number(localStorage.getItem('attune_hearing_audio_focus')||0)<=Date.now();}catch{return false;}};
  if(!allowed())return false;
  if(!audio.canPlayType(mime))throw Error('AUDIO_FORMAT_UNAVAILABLE');
- const url=URL.createObjectURL(new Blob([bytes],{type:mime}));
+ const url=preparedUrl??URL.createObjectURL(new Blob([bytes],{type:mime}));
  return new Promise(resolve=>{
   let done=false,started=false,clearGesture:(()=>void)|undefined;
   const dismissGesture=()=>{clearGesture?.();clearGesture=undefined;};
@@ -31,7 +31,7 @@ export async function playAudioBytes(audio:HTMLAudioElement,bytes:ArrayBuffer,mi
   const timer=setInterval(visibility,100),deadline=setTimeout(cancel,Math.max(30000,(durationSeconds+8)*1000));
   signal.addEventListener('abort',cancel,{once:true});document.addEventListener('visibilitychange',visibility);window.addEventListener('attune-guidance-muted',visibility);
   audio.addEventListener('playing',playing);audio.addEventListener('ended',ended);audio.addEventListener('error',cancel);
-  focus(true);audio.preload='auto';audio.src=url;
+  focus(true);if(!preparedUrl){audio.preload='auto';audio.src=url;}
   if(!allowed()){cancel();return;}
   const rejected=(error:unknown)=>{
    if(done)return;
@@ -46,5 +46,31 @@ export async function playAudioBytes(audio:HTMLAudioElement,bytes:ArrayBuffer,mi
   // the same bytes, finite deadline and all live guards; never bypass policy.
   function attempt(){if(done)return;if(!allowed()){cancel();return;}try{void audio.play().catch(rejected);}catch(error){rejected(error);}}
   attempt();
+ });
+}
+
+export type PlayableAudio={audio:HTMLAudioElement;play:(observe:(stage:string)=>void,requestGesture?:PlaybackGestureRequest)=>Promise<boolean>;cancel:()=>void};
+/** Decode/prebuffer the complete bounded blob before it can win a hybrid turn. No output during preparation. */
+export function prepareAudioBytes(bytes:ArrayBuffer,mime:string,durationSeconds:number,signal:AbortSignal,current:()=>boolean,element?:HTMLAudioElement):Promise<PlayableAudio|null>{
+ return new Promise(resolve=>{
+  const audio=element??new Audio(),url=URL.createObjectURL(new Blob([bytes],{type:mime}));
+  let settled=false,released=false,used=false;
+  const allowed=()=>!signal.aborted&&current()&&!document.hidden&&!speechMuted();
+  const dispose=()=>{if(released)return;released=true;audio.pause();audio.removeAttribute('src');audio.load();URL.revokeObjectURL(url);signal.removeEventListener('abort',cancel);};
+  const cleanup=()=>{clearTimeout(timer);clearInterval(guard);audio.removeEventListener('canplaythrough',ready);audio.removeEventListener('error',cancel);};
+  const cancel=()=>{cleanup();dispose();if(!settled){settled=true;resolve(null);}};
+  const ready=()=>{
+   if(settled)return;
+   if(!allowed()||!Number.isFinite(audio.duration)||audio.duration<=0||audio.duration>durationSeconds+.5||audio.readyState<4){cancel();return;}
+   settled=true;cleanup();resolve({audio,cancel,play:async(observe,requestGesture)=>{
+    if(used||released||!allowed())return false;used=true;
+    try{return await playAudioBytes(audio,bytes,mime,durationSeconds,signal,current,observe,false,requestGesture,url);}
+    finally{dispose();}
+   }});
+  };
+  const timer=setTimeout(cancel,5000),guard=setInterval(()=>{if(!allowed())cancel();},50);
+  signal.addEventListener('abort',cancel,{once:true});audio.addEventListener('canplaythrough',ready);audio.addEventListener('error',cancel);
+  if(!allowed()||!audio.canPlayType(mime)){cancel();return;}
+  audio.preload='auto';audio.src=url;audio.load();
  });
 }
